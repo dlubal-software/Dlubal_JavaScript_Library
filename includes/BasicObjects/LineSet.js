@@ -1,3 +1,12 @@
+/**
+ * @class LineSet
+ * @constructor
+ * @param {int} no 
+ * @param {array} lines 
+ * @param {string} comment 
+ * @param {dictionary} params 
+ * @returns lineSet
+ */
 function LineSet(no,
                  lines,
                  comment,

@@ -1,0 +1,42 @@
+### YamlMime:UniversalReference
+items:
+  - uid: LineSet
+    id: LineSet
+    name: LineSet
+    summary: LineSet
+    fullName: LineSet
+    type: Class
+    children:
+      - LineSet.#ctor
+    langs:
+      - js
+  - id: LineSet.#ctor
+    uid: LineSet.#ctor
+    parent: LineSet
+    name: 'LineSet(no, lines, comment, params)'
+    fullName: 'LineSet.LineSet(no, lines, comment, params)'
+    summary: ''
+    type: Constructor
+    syntax:
+      parameters:
+        - id: 'no'
+          type:
+            - undefinedint
+          description: ''
+        - id: lines
+          type:
+            - array
+          description: ''
+        - id: comment
+          type:
+            - string
+          description: ''
+        - id: params
+          type:
+            - undefineddictionary
+          description: ''
+      return:
+        description: lineSet
+      content: 'new LineSet(no, lines, comment, params)'
+    langs:
+      - js

@@ -1,0 +1,6 @@
+{
+  "source": {
+    "include": ["includes"]
+  },
+  "destination": "yml"
+}

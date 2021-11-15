@@ -1,0 +1,13 @@
+### YamlMime:UniversalReference
+items:
+  - uid: ''
+    name: ''
+    langs:
+      - js
+    type: package
+    summary: ''
+    children:
+      - LineSet
+references:
+  - uid: LineSet
+    name: LineSet
