@@ -1,19 +1,12 @@
-
 function Member(no,
                 node_ids,
-                member_type,
-                rotation_angle,
-                start_section_no,
-                end_section_no,
-                start_member_hinge_no,
-                end_member_hinge_no,
                 comment,
                 params)
+
 {
     if (typeof (node_ids) !== "undefined") 
     {
         node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
-        rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
         ASSERT(node_ids.length > 1, "Minimum two nodes must be set to Member");
         this.member;
         if (RFEM)
@@ -25,30 +18,6 @@ function Member(no,
         {
             this.member = engine.create_member(no, node_ids[0], node_ids[1]);
         }
-        if (member_type > 0)
-        {
-            this.member.type = member_type;
-        }
-        else
-        {
-            this.member.type = members.TYPE_BEAM;
-        }
-        this.member.rotation_angle = rotation_angle*PI/180;
-        this.member.section_start = sections[start_section_no];
-        if (end_section_no > 0)
-        {
-            this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_LINEAR;
-            this.member.section_end = sections[end_section_no];
-        }
-        if (start_member_hinge_no > 0)
-        {
-            this.member.member_hinge_start = member_hinges[start_member_hinge_no];
-        }
-        if (end_member_hinge_no > 0)
-        {
-            this.member.member_hinge_end = member_hinges[end_member_hinge_no];
-        }
-
         set_comment_and_parameters(this.member, comment, params);
         return this.member;
     }
