@@ -1,56 +1,7 @@
+include("BaseLoad.js");
+
 function NodalLoad()
-{
-	// Private function
-	var createBaseLoad = function(load_type,
-								  no,
-								  load_case,
-								  nodes,
-								  comment,
-								  params)
-	{	
-		ASSERT(typeof load_case != "undefined", "Load case is not specified");
-		ASSERT(typeof nodes != "undefined", "No nodes are not specified");
-		var load = engine.create_load(no, load_type, load_case);
-		load.nodes = typeof nodes != "undefined" ? nodes : [];
-		set_comment_and_parameters(load, comment, params);
-		
-		return load;
-	}
-	
-	// Private function
-	var createForceOrMomentLoad = function(no,
-										   load_case,
-										   nodes,
-										   force,
-										   moment,
-										   load_direction,
-										   comment,
-										   params)
-	{	
-		var load = createBaseLoad("Nodal_Load", no, load_case, nodes, comment, params);
-		load.load_type = typeof force != "undefined" ? nodal_loads.LOAD_TYPE_FORCE : nodal_loads.LOAD_TYPE_MOMENT;
-		
-		if (typeof force != "undefined")
-		{
-			load.force_magnitude = force;
-		}
-		else
-		{
-			load.moment_magnitude = moment;
-		}
-
-		if (typeof load_direction == "undefined")
-		{
-			load.load_direction = nodal_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W;
-		}
-		else
-		{
-			load.load_direction = load_direction;
-		}
-
-		return load;
-	}
-
+{	
 	/**
 	 * Creates nodal force load
 	 * @param 	{Object}	load_case			Load case
@@ -59,7 +10,7 @@ function NodalLoad()
 	 * @param 	{Number}	no					Index of nodal load, empty by default
 	 * @param 	{String}	load_direction		Load direction.
 	 * @param	{String}	comment				Comment, empty by default
-	 * @param	{Object}	params				LOad parameters, , empty by default
+	 * @param	{Object}	params				Load parameters, , empty by default
 	 * @return	{Object}	Created nodal force load
 	*/
 	this.Force = function(load_case,
@@ -70,7 +21,7 @@ function NodalLoad()
 						  comment,
 						  params)
 	{	
-		this.load = createForceOrMomentLoad(no, load_case, nodes, force, undefined, load_direction, comment, params);
+		this.load = createSimplyValueLoad("Nodal_Load", no, load_case, nodes, force, undefined, undefined, load_direction, comment, params);
 		return this.load;
 	}
 	
@@ -93,7 +44,7 @@ function NodalLoad()
 						   comment,
 						   params)
 	{	
-		this.load = createForceOrMomentLoad(no, load_case, nodes, undefined, moment, load_direction, comment, params);
+		this.load = createSimplyValueLoad("Nodal_Load", no, load_case, nodes, undefined, moment, undefined, load_direction, comment, params);
 		return this.load;
 	}
 	
@@ -149,11 +100,7 @@ function NodalLoad()
 						 comment,
 						 params)
 	{
-		this.load = createBaseLoad("Nodal_Load", no, load_case, nodes, comment, params);
-		
-		this.load.load_type = nodal_loads.LOAD_TYPE_MASS;
-		this.load.mass_global = mass;
-		
+		this.load = createSimplyValueLoad(no, load_case, nodes, undefined, undefined, mass, load_direction, comment, params);
 		return this.load;
 	}
 	
