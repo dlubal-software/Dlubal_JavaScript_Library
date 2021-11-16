@@ -143,17 +143,24 @@ Node.prototype.BetweenTwoPoints = function (no,
                                             comment,
                                             params)
 {
-        start_point = typeof start_point !== 'undefined' ? start_point : $V();  
-        end_point = typeof end_point !== 'undefined' ? end_point : $V();  
+        start_point = typeof start_point !== 'undefined' ? start_point : [];  
+        end_point = typeof end_point !== 'undefined' ? end_point : [];  
         node_reference = typeof node_reference !== 'undefined' ? node_reference : "";
         parameters = typeof parameters !== 'undefined' ? parameters : [];
         offset_y = typeof offset_y !== 'undefined' ? offset_y : 0.0;
         offset_z = typeof offset_z !== 'undefined' ? offset_z : 0.0;
+        ASSERT(start_point.length == 3, "Define start point by this format [0.0, 0.0, 0.0]")
+        ASSERT(end_point.length == 3, "Define end point by this format [0.0, 0.0, 0.0]")
+
 
         this.node = engine.create_node(no);    
         this.node.type = nodes.TYPE_BETWEEN_TWO_POINTS;
-        this.node.between_two_points_start_point_coordinates = start_point;
-        this.node.between_two_points_end_point_coordinates = end_point;
+        this.node.between_two_points_start_point_coordinate_1 = start_point[0];
+        this.node.between_two_points_start_point_coordinate_2 = start_point[1];
+        this.node.between_two_points_start_point_coordinate_3 = start_point[2];
+        this.node.between_two_points_end_point_coordinate_1 = end_point[0];
+        this.node.between_two_points_end_point_coordinate_2 = end_point[1];
+        this.node.between_two_points_end_point_coordinate_3 = end_point[2];
 
 
         if (node_reference == nodes.REFERENCE_TYPE_L || node_reference == "")
