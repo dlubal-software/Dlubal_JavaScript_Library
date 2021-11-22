@@ -1,5 +1,5 @@
 var L = 12;     // Total Length
-var n = 8;      // Number of Bays (it should be even) (min. 4) 
+var n = 6;      // Number of Bays (it should be even) (min. 4) 
 var H = 3;      // Heigth
 
 var r =  r = H/2 + sqr(L)/(8*H);    // Radius of the top chord
@@ -50,14 +50,19 @@ for (var i = 0; i < n - 2; ++i)
 mem.Truss(member_count, [2*n - 1 + ns, 2 + ns], -90, "", "", {"section_start": bottom_chord});
 member_count++;
 
-mem.Truss(member_count, [1 + ns, 4 + ns], 0, "", "", {"section_start": top_chord});                  // Top Chord
+var lin = new Line();                                                                                // Top Chord
+lin.Arc(member_count, [1 + ns, 4 + ns], [L/(2*n), 0, -(sqrt(sqr(r) - sqr(L/(2*n) - L/2)) + H - r)]);
+mem.TrussByLine(member_count, member_count, 90, "", "", {"section_start": top_chord});
 member_count++;
+
 for (var i = 0; i < n - 2; ++i)  
 {
-    mem.Truss(member_count, [4 + 2*i + ns, 6 + 2*i + ns], 0, "", "", {"section_start": top_chord});
+    lin.Arc(member_count, [4 + 2*i + ns, 6 + 2*i + ns], [L/(2*n) + (i + 1)*(L/n), 0, -(sqrt(sqr(r) - sqr(L/(2*n) + (i + 1)*(L/n) - L/2)) + H - r)]);
+    mem.TrussByLine(member_count, member_count, 90, "", "", {"section_start": top_chord});
     member_count++;
 }
-mem.Truss(member_count, [2*n + ns, 2 + ns], 0, "", "", {"section_start": top_chord});
+lin.Arc(member_count, [2*n + ns, 2 + ns], [L - L/(2*n), 0, -(sqrt(sqr(r) - sqr(L/2 - L/(2*n))) + H - r)]);
+mem.TrussByLine(member_count, member_count, 90, "", "", {"section_start": top_chord});
 member_count++;
 
 for (var i = 0; i < n/2 - 1; ++i)                                                                    // Diagonals                    
