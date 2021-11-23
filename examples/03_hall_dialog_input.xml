@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<script>
+    <arguments>
+        <argument argument-name="number_of_frames" default-value="5" label-name="Number of frames" />
+        <argument argument-name="width" default-value="12" label-name="Construction width" />
+        <argument argument-name="frame_length" default-value="5" label-name="Length of one frame" />
+    </arguments>
+</script>
