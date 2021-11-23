@@ -580,3 +580,36 @@ Member.prototype.TrussByLine = function (no,
         }
         
     }
+
+    Member.prototype.RibByLine = function (no,
+                                           line_no,
+                                           start_section_no,
+                                           end_section_no,
+                                           start_member_hinge_no,
+                                           end_member_hinge_no,
+                                           comment,
+                                           params)
+    {   
+    if (typeof (line_no) !== "undefined") 
+    {
+        line_no = typeof line_no !== 'undefined' ? line_no : 0;
+        this.member = engine.create_member(no, line_no);
+        this.member.line = line_no;
+        this.member.type = members.TYPE_RIB;
+        this.member.section_start = sections[start_section_no];
+        if (end_section_no > 0)
+        {
+            this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_LINEAR;
+            this.member.section_end = sections[end_section_no];
+        }
+        if (start_member_hinge_no > 0)
+        {
+            this.member.member_hinge_start = member_hinges[start_member_hinge_no];
+        }
+        if (end_member_hinge_no > 0)
+        {
+            this.member.member_hinge_end = member_hinges[end_member_hinge_no];
+        }
+        set_comment_and_parameters(this.member, comment, params);
+    }
+}
