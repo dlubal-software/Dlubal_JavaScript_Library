@@ -1,7 +1,17 @@
 include("BaseLoad.js");
 
-function MemberLoad()
+function MemberLoad(no,
+				    load_case,
+				    members,
+				    comment,
+				    params)
 {	
+	if (arguments.length != 0)
+	{
+		this.load = createBaseLoad("Member_Load", no, load_case, members, comment, params);
+		return this.load;
+	}
+
 	/**
 	* Assignes values to load depend of load type and load distribution (private)
 	* @param  {String}	load_type			Load type
