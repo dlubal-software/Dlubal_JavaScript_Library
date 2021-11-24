@@ -3,23 +3,37 @@
  * @param	{Number}	load_type	Load type
  * @param	{Number}	no			Index of nodal load
  * @param	{Object}	load_case	Load case
- * @param	{Array}		nodes		List of nodes, can be empty
+ * @param	{Array}		index_list	List of assigned objects (indexes), can be empty
  * @param	{String}	comment		Comment, can be empty
- * @param	{Object}	params		Load parameters, , can be empty
+ * @param	{Object}	params		Load parameters, can be empty
  * @return 	{Object}	Created load
 */
 function createBaseLoad (load_type,
 						 no,
 						 load_case,
-						 nodes,
+						 index_list,
 						 comment,
 						 params)
 {	
 	ASSERT(typeof load_case != "undefined", "Load case is not specified");
-	ASSERT(typeof nodes != "undefined", "No nodes are not specified");
+	
 	var load = engine.create_load(no, load_type, load_case);
-	load.nodes = typeof nodes != "undefined" ? nodes : [];
-	set_comment_and_parameters(load, comment, params);
+	var handled_params = typeof params != "undefined" ? params : {};
+	
+	if (load_type == "Nodal_Load")
+	{
+		handled_params["nodes"] = typeof index_list != "undefined" ? index_list : [];
+	}
+	else if (load_type == "Member_Load")
+	{
+		handled_params["members"] = typeof index_list != "undefined" ? index_list : [];
+	}
+	else
+	{
+		ASSERT(false, "Unknown load type");
+	}
+	
+	set_comment_and_parameters(load, comment, handled_params);
 	
 	return load;
 }

@@ -1,22 +1,32 @@
 include("BaseLoad.js");
 
-function NodalLoad()
+function NodalLoad(no,
+				   load_case,
+				   nodes,
+				   comment,
+				   params)
 {	
+	if (arguments.length != 0)
+	{
+		this.load = createBaseLoad("Nodal_Load", no, load_case, nodes, comment, params);
+		return this.load;
+	}
+
 	/**
 	 * Creates nodal force load
+	 * @param 	{Number}	no					Index of nodal load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		nodes				List of nodes
 	 * @param	{Number}	force				Load force value
-	 * @param 	{Number}	no					Index of nodal load, empty by default
-	 * @param 	{String}	load_direction		Load direction.
-	 * @param	{String}	comment				Comment, empty by default
-	 * @param	{Object}	params				Load parameters, , empty by default
+	 * @param 	{String}	load_direction		Load direction, can be undefined
+	 * @param	{String}	comment				Comment, can be undefined
+	 * @param	{Object}	params				Load parameters, can be undefined
 	 * @return	{Object}	Created nodal force load
 	*/
-	this.Force = function(load_case,
+	this.Force = function(no,
+						  load_case,
 						  nodes,
 						  force,
-						  no,
 						  load_direction,
 						  comment,
 						  params)
@@ -27,19 +37,19 @@ function NodalLoad()
 	
 	/**
 	 * Creates nodal moment load
+	 * @param 	{Number}	no					Index of nodal load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		nodes				List of nodes
 	 * @param	{Number}	moment				Load moment value
-	 * @param 	{Number}	no					Index of nodal load, empty by default
-	 * @param 	{String}	load_direction		Load direction.
-	 * @param	{String}	comment				Comment, empty by default
-	 * @param	{Object}	params				Load parameters, empty by default
+	 * @param 	{String}	load_direction		Load direction, can be undefined
+	 * @param	{String}	comment				Comment, can be undefined
+	 * @param	{Object}	params				Load parameters, can be undefined
 	 * @return	{Object}	Created nodal moment load
 	*/
-	this.Moment = function(load_case,
+	this.Moment = function(no,
+						   load_case,
 						   nodes,
 						   moment,
-						   no,
 						   load_direction,
 						   comment,
 						   params)
@@ -50,20 +60,20 @@ function NodalLoad()
 	
 	/**
 	 * Creates nodal moment load
+	 * @param 	{Number}	no					Index of nodal load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		nodes				List of nodes
 	 * @param	{Array}		forces				List of forces [FX, FX, FY]
 	 * @param 	{Array}		moments				List of moments [MX, MY, MZ]
-	 * @param 	{Number}	no					Index of nodal load, empty by default
-	 * @param	{String}	comment				Comment, empty by default
-	 * @param	{Object}	params				Load parameters, empty by default
+	 * @param	{String}	comment				Comment, van be undefined
+	 * @param	{Object}	params				Load parameters, can be undefined
 	 * @return	{Object}	Create nodal components load
 	*/
-	this.Components = function(load_case,
+	this.Components = function(no,
+							   load_case,
 							   nodes,
 							   forces,
 							   moments,
-							   no,
 							   comment,
 							   params)
 	{
@@ -85,18 +95,18 @@ function NodalLoad()
 	
 	/**
 	 * Creates nodal moment load
+	 * @param 	{Number}	no					Index of nodal load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		nodes				List of nodes
 	 * @param	{Number}	mass				Load mass value
-	 * @param 	{Number}	no					Index of nodal load, empty by default
-	 * @param	{String}	comment				Comment, empty by default
-	 * @param	{Object}	params				Load parameters, empty by default
+	 * @param	{String}	comment				Comment, can be undefined
+	 * @param	{Object}	params				Load parameters, can be undefined
 	 * @return	{Object}	Create nodal mass load
 	*/
-	this.Mass = function(load_case,
+	this.Mass = function(no,
+						 load_case,
 						 nodes,
 						 mass,
-						 no,
 						 comment,
 						 params)
 	{
@@ -119,7 +129,6 @@ function NodalLoad()
 	 *								- [node1_index, node2_index] (for 3)
 	 *								- [line_no] (for 4)
 	 *								- [member_no] (for 5)
-	 * @return				-
 	*/
 	this.specific_direction = function(type,
 									   values)
@@ -171,7 +180,6 @@ function NodalLoad()
 	 * @param	{Number}		eccentricity_x	Eccentricity eX
 	 * @param	{Number}		eccentricity_y	Eccentricity eY
 	 * @param	{Number}		eccentricity_z	Eccentricity eZ
-	 * @return				-
 	*/	
 	this.force_eccentricity = function(eccentricity_x, eccentricity_y, eccentricity_z)
 	{
@@ -183,8 +191,7 @@ function NodalLoad()
 	/**
 	 * Adds shifted display to load
 	 * @param	{Array}		offset		Offset [ΔX,ΔY,ΔZ], example [0.1,0.2,0]
-	 * @param	{Number}	distance	Distance Δ
-	 * @return				-
+	 * @param	{Number}	distance	Distance Δ			-
 	*/
 	this.shifted_display = function(offset,
 									distance)
@@ -201,8 +208,7 @@ function NodalLoad()
 	/**
 	 * Adds individual mass components to load
 	 * @param	{Array}		mass		mass [MX,MY,MZ], example [0.1,0.2,0]
-	 * @param	{Number}	distance	mass_moment_of_inertia [IX,IY,IZ], example [0.1,0.2,0]
-	 * @return				-
+	 * @param	{Number}	distance	mass_moment_of_inertia [IX,IY,IZ], example [0.1,0.2,0]			-
 	*/
 	this.individual_mass_components = function(mass,
 											   mass_moment_of_inertia)
