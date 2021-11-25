@@ -131,7 +131,7 @@ MemberHinge(1, undefined, undefined, "", hinges_params_1);
 for (var i = 3; i < 7; ++i)
 {
     members[i].member_hinge_start = member_hinges[1];
-    members[i].member_hinge_end = msember_hinges[1];
+    members[i].member_hinge_end = member_hinges[1];
 }
 
 // Supports
