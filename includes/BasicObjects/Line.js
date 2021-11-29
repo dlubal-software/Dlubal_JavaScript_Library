@@ -38,7 +38,7 @@ Line.prototype.Arc = function (no,
     nodes = typeof nodes !== 'undefined' ? nodes : [];    
     control_point = typeof control_point !== 'undefined' ? control_point : [];
     ASSERT(nodes.length == 2, "Two nodes must be set for arc");
-    ASSERT(control_point.length == 3, "Define control point by this format [0.0, 0.0, 0.0]");
+    ASSERT(control_point.length == 3, "Define control point by this format [X, Y, Z]");
         
     this.line = engine.create_line(no, nodes);
     this.line.type = lines.TYPE_ARC;
@@ -74,8 +74,8 @@ Line.prototype.Circle = function (no,
     circle_radius = typeof circle_radius !== 'undefined' ? circle_radius : 0.0;
     point_of_normal_to_circle_plane = typeof point_of_normal_to_circle_plane !== 'undefined' ? point_of_normal_to_circle_plane : [];
 
-    ASSERT(center_of_circle.length == 3, "Define center of circle by this format [0.0, 0.0, 0.0]");
-    ASSERT(point_of_normal_to_circle_plane.length == 3, "Define normal vector of circle by this format [0.0, 0.0, 0.0]");
+    ASSERT(center_of_circle.length == 3, "Define center of circle by this format [X, Y, Z]");
+    ASSERT(point_of_normal_to_circle_plane.length == 3, "Define normal vector of circle by this format [X, Y, Z]");
     
     this.line = engine.create_line(no, nodes);
     this.line.type = lines.TYPE_CIRCLE;
@@ -108,9 +108,9 @@ Line.prototype.EllipticalArc = function (no,
     arc_angle_beta = typeof arc_angle_beta !== 'undefined' ? arc_angle_beta : 0.0;
     
     ASSERT(nodes.length == 2, "Two nodes must be set for Elliptical Arc");
-    ASSERT(p1_control_point.length == 3, "Define first control point by this format [0.0, 0.0, 0.0]");
-    ASSERT(p2_control_point.length == 3, "Define second control point by this format [0.0, 0.0, 0.0]");
-    ASSERT(p3_control_point.length == 3, "Define perimeter control point by this format [0.0, 0.0, 0.0]");
+    ASSERT(p1_control_point.length == 3, "Define first control point by this format [X, Y, Z]");
+    ASSERT(p2_control_point.length == 3, "Define second control point by this format [X, Y, Z]");
+    ASSERT(p3_control_point.length == 3, "Define perimeter control point by this format [X, Y, Z]");
 
     this.line = engine.create_line(no, nodes);
     this.line.type = lines.TYPE_ELLIPTICAL_ARC;
@@ -140,7 +140,7 @@ Line.prototype.Ellipse = function (no,
     nodes = typeof nodes !== 'undefined' ? nodes : [];    
     p3_control_point = typeof p3_control_point !== 'undefined' ? p3_control_point : [];
     ASSERT(nodes.length == 2, "Two nodes must be set for Ellipse");
-    ASSERT(p3_control_point.length == 3, "Define Ellipse control point by this format [0.0, 0.0, 0.0]");
+    ASSERT(p3_control_point.length == 3, "Define Ellipse control point by this format [X, Y, Z]");
 
     this.line = engine.create_line(no, nodes);
     this.line.type = lines.TYPE_ELLIPSE;
@@ -164,7 +164,7 @@ Line.prototype.Parabola = function (no,
     parabola_alpha = typeof parabola_alpha !== 'undefined' ? parabola_alpha : 0.0;
  
     ASSERT(nodes.length == 2, "Two nodes must be set for Parabola");
-    ASSERT(p3_control_point.length == 3, "Define control point by this format [0.0, 0.0, 0.0]");
+    ASSERT(p3_control_point.length == 3, "Define control point by this format [X, Y, Z]");
     this.line = engine.create_line(no, nodes);
     this.line.type = lines.TYPE_PARABOLA;
     this.line.parabola_control_point_x = p3_control_point[0];
@@ -188,52 +188,102 @@ Line.prototype.Spline = function (no,
     set_comment_and_parameters(this.line, comment, params);
 };
 
-/*
-Line.prototype.NURBS = function (no,
-                                 nodes_no,
-                                 control_points,
-                                 weights,
-                                 comment,
-                                 params)
+Line.prototype.RectangularPolygon = function (no,
+                                              center_point,
+                                              length,
+                                              width,
+                                              plane, //"XY" or "XZ" or "YZ"
+                                              comment,
+                                              params) 
 {
-    nodes_no = typeof nodes_no !== 'undefined' ? nodes_no : [];    
-    control_points = typeof control_points !== 'undefined' ? control_points : [];
-    weights = typeof weights !== 'undefined' ? weights : [];
-
-    //ASSERT(nodes_no.length == 2, "Two nodes must be set for NURBS");
-    ASSERT(control_points.length == weights.length, "Number of control points must comply with number of weights!");
-    
-    this.line = engine.create_line(no, nodes_no);
-    this.line.type = lines.TYPE_NURBS;
-  
-    this.line.nurbs_control_points_by_components[1].global_coordinate_x = nodes[nodes_no[0]].coordinate_1
-    this.line.nurbs_control_points_by_components[1].global_coordinate_y = nodes[nodes_no[0]].coordinate_2
-    this.line.nurbs_control_points_by_components[1].global_coordinate_z = nodes[nodes_no[0]].coordinate_3
-    this.line.nurbs_control_points_by_components[1].weight = 1;
-
-    for (var i = 0; i < control_points.length; ++i)
+    center_point = typeof center_point !== 'undefined' ? center_point: [];
+    length = typeof length !== 'undefined' ? length: 0.0;
+    width = typeof width !== 'undefined' ? width: 0.0;
+    plane = typeof plane !== 'undefined' ? plane: "";
+    ASSERT(center_point.length == 3, "Define the center point of rectangle by this format [X, Y, Z]");
+    var X = center_point[0];
+    var Y = center_point[1];
+    var Z = center_point[2];
+    var no_n = nodes.lastId();
+    if(plane == "XY" || plane == "")
     {
-        this.line.nurbs_control_points_by_components[i + 2].global_coordinate_x = control_points[i][0];
-        this.line.nurbs_control_points_by_components[i + 2].global_coordinate_y = control_points[i][1];
-        this.line.nurbs_control_points_by_components[i + 2].global_coordinate_z = control_points[i][2];
-        this.line.nurbs_control_points_by_components[i + 2].weight = weights[i];
+        Node(no_n + 1, X - length/2, Y - width/2, Z);
+        Node(no_n + 2, X + length/2, Y - width/2, Z);
+        Node(no_n + 3, X + length/2, Y + width/2, Z);
+        Node(no_n + 4, X - length/2, Y + width/2, Z);
     }
- 
-    this.line.nurbs_control_points_by_components[control_points.length + 2].global_coordinate_x = nodes[nodes_no[1]].coordinate_1
-    this.line.nurbs_control_points_by_components[control_points.length + 2].global_coordinate_y = nodes[nodes_no[1]].coordinate_2
-    this.line.nurbs_control_points_by_components[control_points.length + 2].global_coordinate_z = nodes[nodes_no[1]].coordinate_3
-    this.line.nurbs_control_points_by_components[control_points.length + 2].weight = 1;
-
-  
-    /*
-    for (var i = 0; i < control_points.length; ++i)
+    if(plane == "XZ")
     {
-        this.line.nurbs_control_points_by_components[i + 1].global_coordinate_x = control_points[i][0];
-        this.line.nurbs_control_points_by_components[i + 1].global_coordinate_y = control_points[i][1];
-        this.line.nurbs_control_points_by_components[i + 1].global_coordinate_z = control_points[i][2];
-        this.line.nurbs_control_points_by_components[i + 1].weight = weights[i];
+        Node(no_n + 1, X - length/2, Y, Z - width/2);
+        Node(no_n + 2, X + length/2, Y, Z - width/2);
+        Node(no_n + 3, X + length/2, Y, Z + width/2);
+        Node(no_n + 4, X - length/2, Y, Z + width/2);
     }
+    if(plane == "YZ")
+    {
+        Node(no_n + 1, X, Y - length/2, Z - width/2);
+        Node(no_n + 2, X, Y + length/2, Z - width/2);
+        Node(no_n + 3, X, Y + length/2, Z + width/2);
+        Node(no_n + 4, X, Y - length/2, Z + width/2);
+    }
+
+    var nodes_list = [no_n + 1, no_n + 2, no_n + 3, no_n + 4, no_n + 1];
+    this.line = Line(no, nodes_list)
     set_comment_and_parameters(this.line, comment, params);
 };
 
-*/
+Line.prototype.nPolygon = function (no,
+                                    center_point,
+                                    no_edges, // number of edges
+                                    radius,   // Circumscribed circle radius
+                                    plane,    //"XY" or "XZ" or "YZ"
+                                    rotation_angle,
+                                    comment,
+                                    params) 
+{
+    center_point = typeof center_point !== 'undefined' ? center_point: [];
+    no_edges = typeof no_edges !== 'undefined' ? no_edges: 0.0;
+    radius = typeof radius !== 'undefined' ? radius: 0.0;
+    plane = typeof plane !== 'undefined' ? plane: "";
+    rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle: 0.0;
+    ASSERT(center_point.length == 3, "Define the center point of rectangle by this format [X, Y, Z]");
+    ASSERT(no_edges > 2, "Number of edges should be more than 2");
+    var X = center_point[0];
+    var Y = center_point[1];
+    var Z = center_point[2];
+    var no_n = nodes.lastId() + 1;
+    var nodes_list = [];
+    if(plane == "XY" || plane == "")
+    {
+        for (var i = 0; i < no_edges; ++i)
+        {
+            var alpha = i*PI*2/no_edges + PI/no_edges + rotation_angle;
+            Node(no_n, X + radius*cos(alpha),  Y + radius*sin(alpha),  Z);
+            nodes_list.push(no_n);
+            no_n++;
+        }
+    }
+    if(plane == "XZ")
+    {
+        for (var i = 0; i < no_edges; ++i)
+        {
+            var alpha = i*PI*2/no_edges + PI/no_edges + rotation_angle;
+            Node(no_n, X + radius*cos(alpha),  Y,  Z + radius*sin(alpha));
+            nodes_list.push(no_n);
+            no_n++;
+        }
+    }
+    if(plane == "YZ")
+    {
+        for (var i = 0; i < no_edges; ++i)
+        {
+            var alpha = i*PI*2/no_edges + PI/no_edges + rotation_angle;
+            Node(no_n, X,  Y + radius*cos(alpha),  Z + radius*sin(alpha));
+            nodes_list.push(no_n);
+            no_n++;
+        }
+    }
+    nodes_list.push(no_n - no_edges);
+    this.line = Line(no, nodes_list)
+    set_comment_and_parameters(this.line, comment, params);
+};
