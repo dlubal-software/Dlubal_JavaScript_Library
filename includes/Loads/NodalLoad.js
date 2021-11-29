@@ -1,5 +1,14 @@
 include("BaseLoad.js");
 
+/**
+* Creates non valid empty member load
+* @param 	{Number}	no					Index of member load, can be undefined
+* @param 	{Object}	load_case			Load case
+* @param 	{Array}		nodes				List of node indexes
+* @param	{String}	comment				Comment, can be undefined
+* @param	{Object}	params				Load parameters, can be undefined
+* @return	{Object}	Created member load
+*/
 function NodalLoad(no,
 				   load_case,
 				   nodes,
@@ -16,7 +25,7 @@ function NodalLoad(no,
 	 * Creates nodal force load
 	 * @param 	{Number}	no					Index of nodal load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		nodes				List of nodes
+	 * @param 	{Array}		nodes				List of node indexes
 	 * @param	{Number}	force				Load force value
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
@@ -39,7 +48,7 @@ function NodalLoad(no,
 	 * Creates nodal moment load
 	 * @param 	{Number}	no					Index of nodal load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		nodes				List of nodes
+	 * @param 	{Array}		nodes				List of node indexes
 	 * @param	{Number}	moment				Load moment value
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
@@ -62,7 +71,7 @@ function NodalLoad(no,
 	 * Creates nodal moment load
 	 * @param 	{Number}	no					Index of nodal load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		nodes				List of nodes
+	 * @param 	{Array}		nodes				List of node indexes
 	 * @param	{Array}		forces				List of forces [FX, FX, FY]
 	 * @param 	{Array}		moments				List of moments [MX, MY, MZ]
 	 * @param	{String}	comment				Comment, van be undefined
@@ -97,7 +106,7 @@ function NodalLoad(no,
 	 * Creates nodal moment load
 	 * @param 	{Number}	no					Index of nodal load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		nodes				List of nodes
+	 * @param 	{Array}		nodes				List of node indexes
 	 * @param	{Number}	mass				Load mass value
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -184,6 +193,13 @@ function NodalLoad(no,
 	this.force_eccentricity = function(eccentricity_x, eccentricity_y, eccentricity_z)
 	{
 		ASSERT(this.load.load_type == nodal_loads.LOAD_TYPE_FORCE || this.load.load_type == nodal_loads.LOAD_TYPE_COMPONENTS, "Eccentricity can be used only for load force or load components");
+		
+		if (components.length == 0)
+		{
+			this.load.has_force_eccentricity = false;
+			return;
+		}
+		
 		this.load.has_force_eccentricity = true;
 		this.load.force_eccentricity = $V(eccentricity_x, eccentricity_y, eccentricity_z);
 	}
@@ -191,12 +207,19 @@ function NodalLoad(no,
 	/**
 	 * Adds shifted display to load
 	 * @param	{Array}		offset		Offset [ΔX,ΔY,ΔZ], example [0.1,0.2,0]
-	 * @param	{Number}	distance	Distance Δ			-
+	 * @param	{Number}	distance	Distance Δ
 	*/
 	this.shifted_display = function(offset,
 									distance)
 	{
 		ASSERT(this.load.load_type != nodal_loads.LOAD_TYPE_MASS, "Shifted display cannot be set to mass load");
+		
+		if (arguments.length == 0)
+		{
+			this.load.has_shifted_display = false;
+			return;
+		}
+		
 		ASSERT(offset.length == 3, "Wrong number of offset parameters, three are required");
 		this.load.has_shifted_display = true;
 		this.load.offset_x = offset[0];
@@ -214,6 +237,13 @@ function NodalLoad(no,
 											   mass_moment_of_inertia)
 	{
 		ASSERT(this.load.load_type == nodal_loads.LOAD_TYPE_MASS, "Individual mass components be set only to mass load");
+		
+		if (arguments.length == 0)
+		{
+			this.load.individual_mass_components = false;
+			return;
+		}
+		
 		ASSERT(mass.length == 3, "Wrong number of mass parameters, three are required");
 		ASSERT(mass_moment_of_inertia.length == 3, "Wrong number of mass of inertia parameters, three are required");
 		this.load.individual_mass_components = true;

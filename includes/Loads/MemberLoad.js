@@ -1,5 +1,14 @@
 include("BaseLoad.js");
 
+/**
+* Creates non valid empty member load
+* @param 	{Number}	no					Index of member load, can be undefined
+* @param 	{Object}	load_case			Load case
+* @param 	{Array}		members				List of member indexes
+* @param	{String}	comment				Comment, can be undefined
+* @param	{Object}	params				Load parameters, can be undefined
+* @return	{Object}	Created member load
+*/
 function MemberLoad(no,
 				    load_case,
 				    members,
@@ -15,7 +24,7 @@ function MemberLoad(no,
 	/**
 	* Assignes values to load depend of load type and load distribution (private)
 	* @param  {String}	load_type			Load type
-	* @param  {String}	load_distribution	Load distribution
+	* @param  {String}	load_distribution	Load distribution, can be undefined
 	* @param  {Array}	load_values			Load values depend on load type and load distribution
 	*										- (load type / load distribution: [valid values])
 	*										- "Force" / "Uniform": [p]
@@ -86,7 +95,7 @@ function MemberLoad(no,
 	*										- "Pipe Content - Full" / "Uniform": γ
 	*										- "Pipe Content - Partial" / "Uniform": [γ, d]
 	*										- "Pipe Internal Pressure" / "Uniform": p
-	*										- "Rotary Motion": [axis_definition, ω, α, [Node1, Node1] | XA, YA, ZA, XB, YB, ZB] (axis definition 1 == "Two points")
+	*										- "Rotary Motion": [axis_definition, ω, α, [Node1, Node2] | XA, YA, ZA, XB, YB, ZB] (axis definition 1 == "Two points")
 	*														   [axis_definition, ω, α, ([Node1] | XA, YA, ZA), parallel_axis] (axis definition 2 == "Point and axis")
 	* @return {Object}	Modified load
 	*/
@@ -156,7 +165,7 @@ function MemberLoad(no,
 						setLoadValues(load, load_values, "magnitude_1", "magnitude_2", "magnitude_3");
 						break;
 					default:
-						showAssert(load_type, load_distribution);
+						showLoadAssert(load_type, load_distribution);
 				}
 				break;
 			case member_loads.E_TYPE_MASS:
@@ -191,7 +200,7 @@ function MemberLoad(no,
 						}
 						break;
 					default:
-						showAssert(load_type, load_distribution);
+						showLoadAssert(load_type, load_distribution);
 				}
 				break;
 			case member_loads.LOAD_TYPE_TEMPERATURE_CHANGE:
@@ -222,7 +231,7 @@ function MemberLoad(no,
 						}
 						break;
 					default:
-						showAssert(load_type, load_distribution);
+						showLoadAssert(load_type, load_distribution);
 				}
 				break;
 			case member_loads.LOAD_TYPE_AXIAL_DISPLACEMENT:
@@ -262,178 +271,66 @@ function MemberLoad(no,
 				}
 				break;
 			case member_loads.LOAD_TYPE_ROTARY_MOTION:
-				ASSERT(load_values.length >= 4, "Wrong number of load values, at least four values are required (type of axes definition, ω, α, Node1 | XA)");
+				ASSERT(load_values.length >= 4, "Wrong number of load values, at least four values are required (type of axes definition, ω, α, [Node1] | XA)");
 				load.axis_definition_type = load_values[0] == 1 ? member_loads.AXIS_DEFINITION_TWO_POINTS : member_loads.AXIS_DEFINITION_POINT_AND_AXIS;
 				load.angular_velocity = load_values[1];
 				load.angular_acceleration = load_values[2];
-				if (load_values[0] == 1)	// Axis definition: Two points
+				var TWO_POINTS = 1;
+				var POINT_AND_PARALLEL = 2;
+				if (Array.isArray(load_values[3])) // Axis coordinations are defined by list of nodes
 				{
-					if (Array.isArray(load_values[3]))
+					// Fourth parameter is list of nodes
+					ASSERT(load_values[3].length >= 1, "Wrong number of defined nodes, at least one is required");
+					var node = nodes.getNthObject(load_values[3][0]);
+					load.axis_definition_p1 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
+					
+					// If axis definition is "Two points" and there are two axis coordinations
+					if (load_values[0] == TWO_POINTS && load_values[3].length == 2)
 					{
-						// Fourth parameter is list of nodes - "Two Points" is defined by one or two node(s)
-						ASSERT(load_values[3].length >= 1, "Wrong number of defined nodes, at least one is required");
-						var node = nodes.getNthObject(load_values[3][0]);
-						load.axis_definition_p1 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
-						
-						if (load_values[3].length > 1)
-						{
-							node = nodes.getNthObject(load_values[3][1]);
-							load.axis_definition_p2 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
-						}
-					}
-					else
-					{
-						// Fourth parameter is x-coordinate of point A - "Two Points" is defined by coordinates of A or A, B points
-						ASSERT(load_values.length >= 6, "Wrong number of load values, at least six values are required (axes definition, ω, α, XA, YA, ZA)");
-						load.axis_definition_p1 = $V(load_values[3], load_values[4], load_values[5]);
-						
-						if (load_values.length > 6)
-						{
-							// Coordinates of second axis point is defined
-							ASSERT(load_values.length == 9, "Wrong number of parameters, nine values are required (axis definition, ω, α, XA, YA, ZA, XB, YB, ZB)");
-							load.axis_definition_p2 = $V(load_values[6], load_values[7], load_values[8]);
-						}
-					}
-				}
-				else if (load_values[0] == 2)// Axis definition: Point and parallel axis
-				{
-					if (Array.isArray(load_values[3]))
-					{
-						// Fourth parameter is list of nodes - "Point And Axis" is defined by one node
-						ASSERT(load_values[3].length == 1, "Wrong number of defined nodes, one is required");
-						var node = nodes.getNthObject(load_values[3][0]);
-						load.axis_definition_p1 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
-						
-						// load_values = [axis_definition, ω, α, [Node1], parallel_axis]
-						if (load_values.length >= 5)
-						{
-							// Parallel axis is defined
-							setAxisAndOrientation(load, load_values[4]);
-						}
-					}
-					else
-					{
-						// Fourth parameter is x-coordinate of point A - "Point And Axis" is defined by coordinates of A point
-						ASSERT(load_values.length >= 6, "Wrong number of load values, six values are required (axes definition, ω, α, XA, YA, ZA)");
-						load.axis_definition_p1 = $V(load_values[3], load_values[4], load_values[5]);
-						
-						// load_values = [axis_definition, ω, α, XA, YA, ZA, parallel_axis]
-						if (load_values.length >= 7)
-						{
-							// Parallel axis is defined
-							setAxisAndOrientation(load, load_values[6]);
-						}
+						node = nodes.getNthObject(load_values[3][1]);
+						load.axis_definition_p2 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
 					}
 					
+					// load_values = [axis_definition, ω, α, [Node1], parallel_axis]
+					if (load_values[0] == POINT_AND_PARALLEL && load_values.length >= 5)
+					{
+						// Parallel axis is defined
+						setAxisAndOrientation(load, load_values[4]);
+					}
 				}
-				else
+				else // Axis coordinations are defined by points and its coordinations
 				{
-					ASSERT(false, "Wrong axis definition specified");
+					// Fourth parameter is x-coordinate of point A - "Two Points" are defined by coordinates of A or A and B points
+					ASSERT(load_values.length >= 6, "Wrong number of load values, at least six values are required (axes definition, ω, α, XA, YA, ZA)");
+					load.axis_definition_p1 = $V(load_values[3], load_values[4], load_values[5]);
+					
+					if (load_values[0] == TWO_POINTS && load_values.length > 6)
+					{
+						// Coordinates of second axis point is defined
+						ASSERT(load_values.length == 9, "Wrong number of parameters, nine values are required (axis definition, ω, α, XA, YA, ZA, XB, YB, ZB)");
+						load.axis_definition_p2 = $V(load_values[6], load_values[7], load_values[8]);
+					}
+					
+					// load_values = [axis_definition, ω, α, XA, YA, ZA, parallel_axis]
+					if (load_values[0] == POINT_AND_PARALLEL && load_values.length >= 7)
+					{
+						// Parallel axis is defined
+						setAxisAndOrientation(load, load_values[6]);
+					}
 				}
 				break;
 			default:
-				showAssert(load_type);
+				showLoadAssert(load_type);
 		}
 		
 		return load;
 	}
 	
 	/**
-	* Set load values (private)
-	* @param 	{Array}	arguments		Arguments: arg[0] - load, arg[1] - load values, arg[2] - load parameters to be set
-	*/
-	var setLoadValues = function()
-	{
-		ASSERT(arguments.length >= 3);
-		var load = arguments[0];
-		var load_values = arguments[1];
-		ASSERT(load_values.length + 2 <= arguments.length);
-		
-		var distance_a_value = 0;
-		var distance_b_value = 0;
-		var distance_c_value = 0;
-		
-		for (var i = 0; i < load_values.length; ++i)
-		{
-			var arg = arguments[i + 2];
-			
-			// Remember value of distances, if any
-			if (arg == "distance_a")
-			{
-				distance_a_value = load_values[i];
-				continue;
-			}
-			if (arg == "distance_b")
-			{
-				distance_b_value = load_values[i];
-				continue;
-			}
-			if (arg == "distance_c")
-			{
-				distance_c_value = load_values[i];
-				continue
-			}
-			
-			load[arg] = load_values[i];
-		}
-		
-		// If some distances were specified, set them to load values depending of absolute or relative
-		if (distance_a_value != 0)
-		{
-			load.distance_a_is_defined_as_relative ? load.distance_a_relative = distance_a_value : load.distance_a_absolute = distance_a_value;
-		}
-		if (distance_b_value != 0)
-		{
-			load.distance_b_is_defined_as_relative ? load.distance_b_relative = distance_b_value : load.distance_b_absolute = distance_b_value;
-		}
-		if (distance_c_value != 0)
-		{
-			load.distance_c_is_defined_as_relative ? load.distance_c_relative = distance_c_value : load.distance_c_absolute = distance_c_value;
-		}
-	}
-	
-	/**
-	* Sets axis and orientation for rotary motion load type
-	* @param 	{Object}	load	Load
-	* @param	{String}	value	Parallel axis (+X, -X, ...)
-	* @return	{Boolean}	True if axis and orientation was succesfully set
-	*/
-	var setAxisAndOrientation = function(load,
-										 value)
-	{
-		if (value.length == 2 && value.match("[+|-][X|Y|Z]") != null)
-		{
-			load.axis_definition_axis = value.substring(1, 2);
-			load.axis_definition_axis_orientation = value.substring(0, 1);
-			
-			return true;
-		}
-		
-		return false;
-	}
-	
-	/**
-	* Shows assert (private)
-	* @param {String}	load_type			Load type
-	* @param {String}	load_distribution	Load distribution
-	*/
-	var showAssert = function(load_type, load_distribution)
-	{
-		if (typeof load_distribution != "undefined")
-		{
-			assert(false, "Unknown load distribution (" + (load_type) + " - " + (load_distribution) + ")");
-		}
-		else
-		{
-			assert(false, "Unknown load type (" + (load_type) + ")");
-		}
-	}
-	
-	/**
 	 * Creates member force load
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		members				List of members
+	 * @param 	{Array}		members				List of member indexes
 	 * @param 	{String}	load_distribution	Load distribution
 	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction, can be undefined
@@ -465,7 +362,7 @@ function MemberLoad(no,
 	 * Creates member moment load
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		members				List of members
+	 * @param 	{Array}		members				List of member indexes
 	 * @param 	{String}	load_distribution	Load distribution
 	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction, can be undefined
@@ -497,7 +394,7 @@ function MemberLoad(no,
 	 * Creates member mass load
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		members				List of members
+	 * @param 	{Array}		members				List of member indexes
 	 * @param	{Number}	load_value			Uniform load value
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -520,7 +417,7 @@ function MemberLoad(no,
 	 * Creates member temperature load
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		members				List of members
+	 * @param 	{Array}		members				List of member indexes
 	 * @param 	{String}	load_distribution	Load distribution
 	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction, can be undefined
@@ -552,7 +449,7 @@ function MemberLoad(no,
 	 * Creates member temperature change load
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		members				List of members
+	 * @param 	{Array}		members				List of member indexes
 	 * @param 	{String}	load_distribution	Load distribution
 	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction
@@ -584,7 +481,7 @@ function MemberLoad(no,
 	 * Creates member axial strain load
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		members				List of members
+	 * @param 	{Array}		members				List of member indexes
 	 * @param 	{String}	load_distribution	Load distribution
 	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction, can be undefined
@@ -610,7 +507,7 @@ function MemberLoad(no,
 	 * Creates member axial displacement load
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		members				List of members
+	 * @param 	{Array}		members				List of member indexes
 	 * @param	{Number}	load_value			Uniform load value
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -633,7 +530,7 @@ function MemberLoad(no,
 	 * Creates member precamber load
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		members				List of members
+	 * @param 	{Array}		members				List of member indexes
 	 * @param 	{String}	load_distribution	Load distribution
 	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction
@@ -665,7 +562,7 @@ function MemberLoad(no,
 	 * Creates member initial prestress load
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		members				List of members
+	 * @param 	{Array}		members				List of member indexes
 	 * @param	{Number}	load_value			Uniform load value
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -688,7 +585,7 @@ function MemberLoad(no,
 	 * Creates member displacement load
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		members				List of members
+	 * @param 	{Array}		members				List of member indexes
 	 * @param 	{String}	load_distribution	Load distribution
 	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction, can be undefined
@@ -720,7 +617,7 @@ function MemberLoad(no,
 	 * Creates member rotation load
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		members				List of members
+	 * @param 	{Array}		members				List of member indexes
 	 * @param 	{String}	load_distribution	Load distribution
 	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction, can be undefined
@@ -752,7 +649,7 @@ function MemberLoad(no,
 	 * Creates member content full load
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		members				List of members
+	 * @param 	{Array}		members				List of member indexes
 	 * @param	{Number}	load_value			Uniform load value
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
@@ -782,7 +679,7 @@ function MemberLoad(no,
 	 * Creates member pipe content partial load
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		members				List of members
+	 * @param 	{Array}		members				List of member indexes
 	 * @param	{Array}		load_values			Load values for Uniform distribution
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
@@ -812,7 +709,7 @@ function MemberLoad(no,
 	 * Creates member pipe internal pressure load
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		members				List of members
+	 * @param 	{Array}		members				List of member indexes
 	 * @param	{Number}	load_value			Uniform load value
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -835,7 +732,7 @@ function MemberLoad(no,
 	 * Creates member rotary motion load
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
-	 * @param 	{Array}		members				List of members
+	 * @param 	{Array}		members				List of member indexes
 	 * @param	{Number}	load_values			Load values (for more information look at setLoadDistribution function)
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -889,7 +786,7 @@ function MemberLoad(no,
 	}
 	
 	/**
-	* Sets option for load over total length of member
+	* Sets option for load over total length of member (only for trapezoidal load distribution)
 	* @param	{Boolean}	value	When undefined, true as default
 	*/
 	this.load_over_member = function(value)
@@ -907,9 +804,9 @@ function MemberLoad(no,
 		this.load.distance_b_relative = 1;
 		this.load.load_is_over_total_length = value;
 	}
-	
+
 	/**
-	* Sets eccentricity
+	* Sets eccentricity (only force load)
 	* @param 	{String}	reference_to			Eccentricity is reffered to what ("left_top", "center_top", "right_top", "left_center", "center_center", "right_center",
 	*												"left_bottom", "center_bottom", "right_bottom", "center_of_gravity", "shear_center")
 	* @param	{Number}	offset_member_start_ey	Offset at member start
@@ -920,6 +817,12 @@ function MemberLoad(no,
 	this.eccentricity = function(reference_to, offset_member_start_ey, offset_member_start_ez, offset_member_end_ey, offset_member_end_ez)
 	{
 		ASSERT(this.load.load_type == member_loads.LOAD_TYPE_FORCE, "Eccentericity can be set only for force load type");
+		
+		if (arguments.length == 0)
+		{
+			this.load.has_force_eccentricity = false;
+			return;
+		}
 		
 		this.load.has_force_eccentricity = true;
 		
@@ -968,6 +871,42 @@ function MemberLoad(no,
 		{
 			this.load.is_eccentricity_at_end_different_from_start = true;
 			this.load.eccentricity_z_at_end = offset_member_end_ez;
+		}
+	}
+	
+	/**
+	* Sets individual mass components (only for mass load)
+	* @param	{Number}	MX		Mass in X coordination, can be undefined
+	* @param	{Number}	MY		Mass in Y coordination, can be undefined
+	* @param	{Number}	MZ		Mass in Z coordination, can be undefined
+	*/
+	this.individual_mass_components = function(MX,
+											   MY,
+											   MZ)
+	{	
+		ASSERT(this.load.load_type == member_loads.E_TYPE_MASS, "Can be set only for mass load type");
+	
+		if (arguments.length == 0)
+		{
+			this.load.individual_mass_components = false;
+			return;
+		}
+		
+		this.load.individual_mass_components = true;
+		
+		if (typeof MX != "undefined")
+		{
+			this.load.mass_x = MX;
+		}
+		
+		if (typeof MY != "undefined")
+		{
+			this.load.mass_y = MY;
+		}
+		
+		if (typeof MZ != "undefined")
+		{
+			this.load.mass_z = MZ;
 		}
 	}
 }
