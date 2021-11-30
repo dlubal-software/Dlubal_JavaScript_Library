@@ -41,7 +41,7 @@ function LineLoad(no,
 	*										- "Moment" / "Parabolic": [m1, m2, m3]
 	*										- "Moment" / "Varying": [m1, x1, m2, x2 ... mn, xn]
 	*										- "Mass" / "Uniform": M
-	* @return {Object}	Modified load
+	* @return	{Object}	Returns modified load
 	*/
 	var setLoadDistribution = function(load,
 									   load_type,
