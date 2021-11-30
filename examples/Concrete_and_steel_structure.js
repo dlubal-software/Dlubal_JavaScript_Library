@@ -133,11 +133,23 @@ for (var i = 3; i < 7; ++i)
     members[i].member_hinge_start = member_hinges[1];
     members[i].member_hinge_end = member_hinges[1];
 }
+// Define Supports
+var nod_sup = NodalSupport(undefined);
+nod_sup.spring_x = nodal_supports.SPRING_CONSTANT_YES;
+nod_sup.spring_y = nodal_supports.SPRING_CONSTANT_YES;
+nod_sup.spring_z = nodal_supports.SPRING_CONSTANT_YES;
+nod_sup.rotational_restraint_z = nodal_supports.SPRING_CONSTANT_YES;
 
-// Supports
-nodes[5].support = 1;
-nodes[7].support = 1;
-nodes[8].support = 1;
-lines[1].support = 1;
-lines[2].support = 1;
-lines[26].support = 1;
+var lin_sup = LineSupport(undefined)
+lin_sup.spring_x = line_supports.SPRING_CONSTANT_YES;
+lin_sup.spring_y = line_supports.SPRING_CONSTANT_YES;
+lin_sup.spring_z = line_supports.SPRING_CONSTANT_YES;
+lin_sup.rotational_restraint_z = line_supports.SPRING_CONSTANT_YES;
+
+// Assign Supports
+nodes[5].support = nod_sup.no;
+nodes[7].support = nod_sup.no;
+nodes[8].support = nod_sup.no;
+lines[1].support = lin_sup.no;
+lines[2].support = lin_sup.no;
+lines[26].support = lin_sup.no;

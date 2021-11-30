@@ -84,7 +84,20 @@ mem.RibByLine(1, 7, "", "", "", "", "", {"section_start": ribs});
 mem.RibByLine(2, 8, "", "", "", "", "", {"section_start": ribs});
 mem.BeamByLine(3, 14, 0, "", "", "", "", "", {"section_start": column});
 
-// Supports
-nodes[4].support = 1;
-lines[1].support = 1;
-lines[2].support = 1;
+// Define Supports
+var nod_sup = NodalSupport(undefined);
+nod_sup.spring_x = nodal_supports.SPRING_CONSTANT_YES;
+nod_sup.spring_y = nodal_supports.SPRING_CONSTANT_YES;
+nod_sup.spring_z = nodal_supports.SPRING_CONSTANT_YES;
+nod_sup.rotational_restraint_z = nodal_supports.SPRING_CONSTANT_YES;
+
+var lin_sup = LineSupport(undefined)
+lin_sup.spring_x = line_supports.SPRING_CONSTANT_YES;
+lin_sup.spring_y = line_supports.SPRING_CONSTANT_YES;
+lin_sup.spring_z = line_supports.SPRING_CONSTANT_YES;
+lin_sup.rotational_restraint_z = line_supports.SPRING_CONSTANT_YES;
+
+// Assign Supports
+nodes[4].support = nod_sup.no;
+lines[1].support = lin_sup.no;
+lines[2].support = lin_sup.no;
