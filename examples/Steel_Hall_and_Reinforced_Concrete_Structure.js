@@ -154,9 +154,16 @@ for (var j = 0; j < braces_bays.length; ++j)
     mem_count++;
 }
 
+// Define Nodal Support
+var nod_sup = NodalSupport(undefined);
+nod_sup.spring_x = nodal_supports.SPRING_CONSTANT_YES;
+nod_sup.spring_y = nodal_supports.SPRING_CONSTANT_YES;
+nod_sup.spring_z = nodal_supports.SPRING_CONSTANT_YES;
+nod_sup.rotational_restraint_z = nodal_supports.SPRING_CONSTANT_YES;
+var nod_sup_num = nod_sup.no;
 for (var i = 1; i < n_b + 2*n_a + 2; ++i)
 {
-    nodes[i].support = 1;
+    nodes[i].support = nod_sup_num;
 }
 
 // Create concrete structure (walls and floors)
@@ -360,5 +367,5 @@ for (var i = 0; i < n_b + 1; ++i)
 }
 for (var i = 0; i < n_b + 1; ++i)
 {
-    nodes[no_no3_r + 2*i].support = 1;
+    nodes[no_no3_r + 2*i].support = nod_sup_num;
 }
