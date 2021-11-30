@@ -109,12 +109,25 @@ mem.BeamByLine(4, 35, 0, "", "", "", "", "", {"section_start": column});
 mem.BeamByLine(5, 36, 0, "", "", "", "", "", {"section_start": column});
 mem.BeamByLine(6, 37, 0, "", "", "", "", "", {"section_start": column});
 
+// Define Supports
+var nod_sup = NodalSupport(undefined);
+nod_sup.spring_x = nodal_supports.SPRING_CONSTANT_YES;
+nod_sup.spring_y = nodal_supports.SPRING_CONSTANT_YES;
+nod_sup.spring_z = nodal_supports.SPRING_CONSTANT_YES;
+nod_sup.rotational_restraint_z = nodal_supports.SPRING_CONSTANT_YES;
+
+var lin_sup = LineSupport(undefined)
+lin_sup.spring_x = line_supports.SPRING_CONSTANT_YES;
+lin_sup.spring_y = line_supports.SPRING_CONSTANT_YES;
+lin_sup.spring_z = line_supports.SPRING_CONSTANT_YES;
+lin_sup.rotational_restraint_z = line_supports.SPRING_CONSTANT_YES;
+
 //Supports
-nodes[21].support = 1;
-nodes[22].support = 1;
-nodes[23].support = 1;
-nodes[24].support = 1;
-nodes[25].support = 1;
-nodes[26].support = 1;
-lines[17].support = 1;
-lines[21].support = 1;
+nodes[21].support = nod_sup.no;
+nodes[22].support = nod_sup.no;
+nodes[23].support = nod_sup.no;
+nodes[24].support = nod_sup.no;
+nodes[25].support = nod_sup.no;
+nodes[26].support = nod_sup.no;
+lines[17].support = lin_sup.no;
+lines[21].support = lin_sup.no;
