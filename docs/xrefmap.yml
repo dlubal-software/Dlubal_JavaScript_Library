@@ -1,0 +1,11 @@
+### YamlMime:XRefMap
+sorted: true
+references:
+- uid: LineSet
+  name: LineSet
+  href: api/LineSet.html
+  fullName: LineSet
+- uid: LineSet.#ctor
+  name: LineSet(no, lines, comment, params)
+  href: api/LineSet.html#LineSet__ctor
+  fullName: LineSet.LineSet(no, lines, comment, params)
