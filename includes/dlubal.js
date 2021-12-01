@@ -25,18 +25,6 @@ include("BasicObjects/node.js");
 include("BasicObjects/section.js");
 // Supports
 include("Supports/Linear/functions.js");
-include("Supports/Linear/member/member_support_conditions.js");
-include("Supports/Linear/member/member_support_basic_types.js");
-include("Supports/Linear/member/member_support_new_object_basic_types.js");
-include("Supports/Linear/nodal/nodal_support_conditions.js");
-include("Supports/Linear/nodal/nodal_support_basic_types.js");
-include("Supports/Linear/nodal/nodal_support_new_object_basic_types.js");
-include("Supports/Linear/lines/line_support_conditions.js");
-include("Supports/Linear/lines/line_support_basic_types.js");
-include("Supports/Linear/lines/line_support_new_object_basic_types.js");
-include("Supports/Linear/surface/surface_support_conditions.js");
-include("Supports/Linear/surface/surface_support_basic_types.js");
-include("Supports/Linear/surface/surface_support_new_object_basic_types.js");
 include("Supports/Nonlinearities/nonlinearities.js");
 include("Supports/Nonlinearities/x_nonlinearities.js");
 include("Supports/Nonlinearities/y_nonlinearities.js");
@@ -46,13 +34,18 @@ include("Supports/Nonlinearities/ry_nonlinearities.js");
 include("Supports/Nonlinearities/rz_nonlinearities.js");
 // Types for Nodes 
 include("TypesForNodes/nodal_mesh_refinement.js");
-include("TypesForNodes/nodal_support.js");
+include("TypesForNodes/nodal_support/nodal_support.js");
+include("TypesForNodes/nodal_support/nodal_support_conditions.js");
+include("TypesForNodes/nodal_support/nodal_support_basic_types.js");
+include("TypesForNodes/nodal_support/nodal_support_new_object_basic_types.js");
 // Types for Lines
 if (RFEM)
 {
     include("TypesForLines/line_hinge.js");
     include("TypesForLines/line_mesh_refinement.js");
-    include("TypesForLines/line_support.js");
+    include("TypesForLines/line_support/line_support.js");
+    include("TypesForLines/line_support/line_support_basic_types.js");
+    include("TypesForLines/line_support/line_support_new_object_basic_types.js");
 }
 // Types for Members
 include("TypesForMembers/member_definable_stiffness.js");
@@ -60,7 +53,10 @@ include("TypesForMembers/member_eccentricity.js");
 include("TypesForMembers/member_hinge.js");
 include("TypesForMembers/member_nonlinearity.js");
 include("TypesForMembers/member_result_intermediate_point.js");
-include("TypesForMembers/member_support.js");
+include("TypesForMembers/member_support/member_support.js");
+include("TypesForMembers/member_support/member_support_conditions.js");
+include("TypesForMembers/member_support/member_support_basic_types.js");
+include("TypesForMembers/member_support/member_support_new_object_basic_types.js");
 include("TypesForMembers/member_stiffness_modification.js");
 include("TypesForMembers/member_transverse_stiffener.js");
 // Types for Surfaces
@@ -68,7 +64,10 @@ if (RFEM)
 {
     include("TypesForSurfaces/surface_eccentricity.js");
     include("TypesForSurfaces/surface_mesh_refinement.js");
-    include("TypesForSurfaces/surface_support.js");
+    include("TypesForSurfaces/surface_support/surface_support.js");
+    include("TypesForSurfaces/surface_support/surface_support_conditions.js");
+    include("TypesForSurfaces/surface_support/surface_support_basic_types.js");
+    include("TypesForSurfaces/surface_support/surface_support_new_object_basic_types.js");
 }
 // Loading
 include("Loading/load_combination.js");

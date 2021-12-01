@@ -1,5 +1,5 @@
 
-include("../functions.js");
+include("../../Supports/Linear/functions.js");
 
 
 NodalSupport.prototype.fixed = function() {

@@ -1,6 +1,6 @@
-include("../Supports/Linear/nodal/nodal_support_conditions.js");
-include("../Supports/Linear/nodal/nodal_support_basic_types.js");
-include("../Supports/Nonlinearities/nonlinearities.js");
+include("nodal_support_conditions.js");
+include("nodal_support_basic_types.js");
+include("../../Supports/Nonlinearities/nonlinearities.js");
 
 // Nodal support object
 function NodalSupport(nodes, no, comment, params) {

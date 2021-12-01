@@ -1,9 +1,9 @@
 
 
-include("../Supports/Linear/lines/line_support_conditions.js");
-include("../Supports/Linear/lines/line_support_basic_types.js");
-include("../Supports/Linear/lines/line_support_new_object_basic_types.js");
-include("../Supports/Nonlinearities/nonlinearities.js");
+include("line_support_conditions.js");
+include("line_support_basic_types.js");
+include("line_support_new_object_basic_types.js");
+include("../../Supports/Nonlinearities/nonlinearities.js");
 //run("clearAll.js");
 
 

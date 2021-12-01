@@ -1,4 +1,4 @@
-include("../functions.js");
+include("../../Supports/Linear/functions.js");
 
 LineSupport.prototype.fixed = function() {
 	this.support.spring = create_spring_vector(true, true, true);

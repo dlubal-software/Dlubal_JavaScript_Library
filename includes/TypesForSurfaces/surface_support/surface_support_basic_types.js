@@ -1,4 +1,4 @@
-include("../functions.js");
+include("../../Supports/Linear/functions.js");
 
 
 SurfaceSupport.prototype.fixed = function() {

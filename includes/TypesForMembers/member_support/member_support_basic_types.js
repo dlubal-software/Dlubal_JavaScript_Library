@@ -1,4 +1,4 @@
-include("../functions.js");
+include("../../Supports/Linear/functions.js");
 
 MemberSupport.prototype.fixed = function() {
 	this.support.spring_translation = create_spring_vector(true, true, true);

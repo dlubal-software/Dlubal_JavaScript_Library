@@ -1,9 +1,9 @@
 
 
-include("../Supports/Linear/surface/surface_support_conditions.js");
-include("../Supports/Linear/surface/surface_support_conditions.js");
-include("../Supports/Linear/surface/surface_support_conditions.js");
-include("../Supports/Nonlinearities/nonlinearities.js");
+include("surface_support_conditions.js");
+include("surface_support_conditions.js");
+include("surface_support_conditions.js");
+include("../../Supports/Nonlinearities/nonlinearities.js");
 //run("clearAll.js");
 
 

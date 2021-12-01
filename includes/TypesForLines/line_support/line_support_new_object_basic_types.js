@@ -1,171 +1,179 @@
-include("../functions.js");
+include("../../Supports/Linear/functions.js");
 
-function createNewNodalSupport(no) {
+function createNewLineSupport(no) {
 	if (no === undefined) {
-		var support = nodal_supports.create();
+		var support = line_supports.create();
 	}
   	else {
-    	var support = nodal_supports.create(no);
+    	var support = line_supports.create(no);
   	};
 	return support;
 };
 
-function NewNodalSupport(message, obj) {
+function NewLineSupport(message, obj) {
 	if (message != false){
-	console.log("for new node support use option for some base type. ex: .fixed(), .hinged()")
+	console.log("for new line support use option for some base type. ex: .fixed(), .hinged()")
 	};
-	// access to instance of NodalSupport object
+	// Access to instance of LineSupport object
 	this.obj = obj;
 };
 
+NewLineSupport.prototype.fixed = function(lines, no, comment, params) {
+/**
+   * Creates line support from instance of hight level function 
 
-NewNodalSupport.prototype.fixed = function(nodes, no, comment, params) {
-	    /**
-   * Creates nodal support hight level function 
-
-   * @param   {Array}   nodes         List of nodes
+   * @param   {Array}   lines         List of lines
    * @param   {Number}  no            Index of nodal support, empty by default
    * @param   {String}  comment       Comment, empty by default
    * @param   {Object}  params        Nodal support parameters, empty by default
   */
 	ASSERT(typeof no != undefined || typeof no != "number", "No is assigned as a number.");
   	ASSERT(typeof nodes != undefined || typeof nodes != "number", "Nodes is assigned as a list of numbers.");
-	support = createNewNodalSupport(no);
-	support.nodes = nodes;
+
+	support = createNewLineSupport(no);
+	support.lines = lines;
 	support.spring = create_spring_vector(true, true, true);
-	support.rotational_restraint = create_spring_vector(true, true, true); 
+	support.rotational_restraint = create_spring_vector(true, true, true);
 	set_comment_and_parameters(support, comment, params);
-	console.log("NodalSupport " + support.no + " was created. Base type 'Fixed'");
-	change_active_obj(this.obj, support);
-	return support;
-	 };
-
-
-NewNodalSupport.prototype.hinged = function(nodes, no, comment, params) {
-	/**
-   * Creates nodal support hight level function 
-
-   * @param   {Array}   nodes         List of nodes
-   * @param   {Number}  no            Index of nodal support, empty by default
-   * @param   {String}  comment       Comment, empty by default
-   * @param   {Object}  params        Nodal support parameters, empty by default
-  */
-	ASSERT(typeof no != undefined || typeof no != "number", "No is assigned as a number.");
-  	ASSERT(typeof nodes != undefined || typeof nodes != "number", "Nodes is assigned as a list of numbers.");
-	support = createNewNodalSupport(no);
-	support.nodes = nodes;
-	support.spring = create_spring_vector(true, true, true);
-	support.rotational_restraint = create_spring_vector(false, false, false);
-	set_comment_and_parameters(support, comment, params);
-	console.log("NodalSupport " + support.no + " was created. Base type 'Hinged'");
+	console.log("LineSupport " + support.no + " was created. Base type 'Fixed'");
 	change_active_obj(this.obj, support);
 	return support
 	 };
 
-NewNodalSupport.prototype.roller = function(nodes, no, comment, params) {
- /**
-   * Creates nodal support hight level function 
 
-   * @param   {Array}   nodes         List of nodes
+NewLineSupport.prototype.hinged = function(lines, no, comment, params) {
+	/**
+   * Creates line support from instance of hight level function 
+
+   * @param   {Array}   lines         List of lines
    * @param   {Number}  no            Index of nodal support, empty by default
    * @param   {String}  comment       Comment, empty by default
    * @param   {Object}  params        Nodal support parameters, empty by default
   */
+
 	ASSERT(typeof no != undefined || typeof no != "number", "No is assigned as a number.");
   	ASSERT(typeof nodes != undefined || typeof nodes != "number", "Nodes is assigned as a list of numbers.");
-	support = createNewNodalSupport(no);
-	support.nodes = nodes;
+	
+	support = createNewLineSupport(no);
+	support.lines = lines;
+	support.spring = create_spring_vector(true, true, true);
+	support.rotational_restraint = create_spring_vector(false, false, false);
+	set_comment_and_parameters(support, comment, params);
+	console.log("LineSupport " + support.no + " was created. Base type 'Hinged'");
+	change_active_obj(this.obj, support);
+	return support
+	 };
+
+
+NewLineSupport.prototype.slidingXY = function(lines, no, comment, params) {
+/**
+   * Creates line support from instance of hight level function 
+
+   * @param   {Array}   lines         List of lines
+   * @param   {Number}  no            Index of nodal support, empty by default
+   * @param   {String}  comment       Comment, empty by default
+   * @param   {Object}  params        Nodal support parameters, empty by default
+  */
+
+	ASSERT(typeof no != undefined || typeof no != "number", "No is assigned as a number.");
+  	ASSERT(typeof nodes != undefined || typeof nodes != "number", "Nodes is assigned as a list of numbers.");
+	
+	support = createNewLineSupport(no);
+	support.lines = lines;
 	support.spring = create_spring_vector(false, false, true);
 	support.rotational_restraint = create_spring_vector(false, false, true);
 	set_comment_and_parameters(support, comment, params);
-	console.log("NodalSupport " + support.no + " was created. Base type 'rollerXY'");
+	console.log("LineSupport " + support.no + " was created. Base type 'SlidingXY'");
 	change_active_obj(this.obj, support);
 	return support
 	 };
 
-NewNodalSupport.prototype.rollerX = function(nodes, no, comment, params) {
-	    /**
-   * Creates nodal support hight level function 
 
-   * @param   {Array}   nodes         List of nodes
+NewLineSupport.prototype.slidingX = function(lines, no, comment, params) {
+/**
+   * Creates line support from instance of hight level function 
+
+   * @param   {Array}   lines         List of lines
    * @param   {Number}  no            Index of nodal support, empty by default
    * @param   {String}  comment       Comment, empty by default
    * @param   {Object}  params        Nodal support parameters, empty by default
   */
+
 	ASSERT(typeof no != undefined || typeof no != "number", "No is assigned as a number.");
   	ASSERT(typeof nodes != undefined || typeof nodes != "number", "Nodes is assigned as a list of numbers.");
-	support = createNewNodalSupport(no);
-	support.nodes = nodes;
+	
+	support = createNewLineSupport(no);
+	support.lines = lines;
 	support.spring = create_spring_vector(false, true, true);
 	support.rotational_restraint = create_spring_vector(false, false, true);
 	set_comment_and_parameters(support, comment, params);
-	console.log("NodalSupport " + support.no + " was created. Base type 'rollerX'");
+	console.log("LineSupport " + support.no + " was created. Base type 'SlidingX'");
 	change_active_obj(this.obj, support);
 	return support
 	 };
 
+NewLineSupport.prototype.slidingY = function(lines, no, comment, params) {
+/**
+   * Creates line support from instance of hight level function 
 
-NewNodalSupport.prototype.rollerY = function(nodes, no, comment, params) {
-	    /**
-   * Creates nodal support hight level function 
-
-   * @param   {Array}   nodes         List of nodes
-   * @param   {Number}  no            Index of nodal support, empty by default
-   * @param   {String}  comment       Comment, empty by default
-   * @param   {Object}  params        Nodal support parameters, empty by default
-  */
-	ASSERT(typeof no != undefined || typeof no != "number", "No is assigned as a number.");
-  	ASSERT(typeof nodes != undefined || typeof nodes != "number", "Nodes is assigned as a list of numbers.");	
-	support = createNewNodalSupport(no);
-	support.nodes = nodes;
-	support.spring = create_spring_vector(true, false, true);
-	support.rotational_restraint = create_spring_vector(false, false, true);
-	set_comment_and_parameters(support, comment, params);
-	console.log("NodalSupport " + support.no + " was created. Base type 'rollerY'");
-	change_active_obj(this.obj, support);
-	return support
-	 };
-
-
-NewNodalSupport.prototype.rollerZ = function(nodes, no, comment, params) {
-	    /**
-   * Creates nodal support hight level function 
-
-   * @param   {Array}   nodes         List of nodes
+   * @param   {Array}   lines         List of lines
    * @param   {Number}  no            Index of nodal support, empty by default
    * @param   {String}  comment       Comment, empty by default
    * @param   {Object}  params        Nodal support parameters, empty by default
   */
 	ASSERT(typeof no != undefined || typeof no != "number", "No is assigned as a number.");
   	ASSERT(typeof nodes != undefined || typeof nodes != "number", "Nodes is assigned as a list of numbers.");
-	support = createNewNodalSupport(no);
-	support.nodes = nodes;
-	support.spring = create_spring_vector(true, true, false);
+
+	support = createNewLineSupport(no);
+	support.lines = lines;
+	support.spring = create_spring_vector(true, false, true);
 	support.rotational_restraint = create_spring_vector(false, false, true);
 	set_comment_and_parameters(support, comment, params);
-	console.log("NodalSupport " + support.no + " was created. Base type 'rollerZ'");
+	console.log("LineSupport " + support.no + " was created. Base type 'SlidingY'");
 	change_active_obj(this.obj, support);
 	return support
 	 };
 
-
-NewNodalSupport.prototype.free = function(nodes, no, comment, params) {
+NewLineSupport.prototype.slidingZ = function(lines, no, comment, params) {
 /**
-   * Creates nodal support hight level function 
+   * Creates line support from instance of hight level function 
 
-   * @param   {Array}   nodes         List of nodes
+   * @param   {Array}   lines         List of lines
    * @param   {Number}  no            Index of nodal support, empty by default
    * @param   {String}  comment       Comment, empty by default
    * @param   {Object}  params        Nodal support parameters, empty by default
   */
 	ASSERT(typeof no != undefined || typeof no != "number", "No is assigned as a number.");
-  	ASSERT(typeof nodes != undefined || typeof nodes != "number", "Nodes is assigned as a list of numbers.");	
-	support = createNewNodalSupport(no);
-	support.nodes = nodes;
+  	ASSERT(typeof nodes != undefined || typeof nodes != "number", "Nodes is assigned as a list of numbers.");
+
+	support = createNewLineSupport(no);
+	support.lines = lines;
+	support.spring = create_spring_vector(true, true, false);
+	support.rotational_restraint = create_spring_vector(false, false, true);
+	set_comment_and_parameters(support, comment, params);
+	console.log("LineSupport " + support.no + " was created. Base type 'SlidingZ'");
+	change_active_obj(this.obj, support);
+	return support
+	 };
+
+NewLineSupport.prototype.free = function(lines, no, comment, params) {
+/**
+   * Creates line support from instance of hight level function 
+
+   * @param   {Array}   lines         List of lines
+   * @param   {Number}  no            Index of nodal support, empty by default
+   * @param   {String}  comment       Comment, empty by default
+   * @param   {Object}  params        Nodal support parameters, empty by default
+  */
+	ASSERT(typeof no != undefined || typeof no != "number", "No is assigned as a number.");
+  	ASSERT(typeof nodes != undefined || typeof nodes != "number", "Nodes is assigned as a list of numbers.");
+
+	support = createNewLineSupport(no);
+	support.lines = lines;
 	support.spring = create_spring_vector(false, false, false);
 	support.rotational_restraint = create_spring_vector(false, false, false);
 	set_comment_and_parameters(support, comment, params);
-	console.log("NodalSupport " + support.no + " was created. Base type 'free'");
+	console.log("LineSupport " + support.no + " was created. Base type 'Free'");
 	change_active_obj(this.obj, support);
 	return support
 	 };

@@ -1,8 +1,8 @@
 
 
-include("../Supports/Linear/member/member_support_conditions.js");
-include("../Supports/Linear/member/member_support_basic_types.js");
-include("../Supports/Nonlinearities/nonlinearities.js");
+include("member_support_conditions.js");
+include("member_support_basic_types.js");
+include("../../Supports/Nonlinearities/nonlinearities.js");
 //run("clearAll.js");
 
 
