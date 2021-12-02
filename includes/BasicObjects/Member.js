@@ -72,12 +72,12 @@ Member.prototype.Beam = function (no,
 
 
 Member.prototype.Rigid = function (no,
-                                  node_ids,
-                                  rotation_angle,
-                                  start_member_hinge_no,
-                                  end_member_hinge_no,
-                                  comment,
-                                  params)
+                                   node_ids,
+                                   rotation_angle,
+                                   start_member_hinge_no,
+                                   end_member_hinge_no,
+                                   comment,
+                                   params)
     {
         if (typeof (node_ids) !== "undefined") 
         {
@@ -581,6 +581,26 @@ Member.prototype.TrussByLine = function (no,
         
     }
 
+    Member.prototype.CableByLine = function (no,
+                                             line_no,
+                                             rotation_angle,
+                                             start_section_no,
+                                             comment,
+                                             params)
+    {
+        if (typeof (line_no) !== "undefined") 
+        {
+            line_no = typeof line_no !== 'undefined' ? line_no : 0;
+            rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
+            this.member = engine.create_member(no, line_no);
+            this.member.line = line_no;
+            this.member.type = members.TYPE_CABLE;
+            this.member.rotation_angle = rotation_angle*PI/180;
+            this.member.section_start = sections[start_section_no];
+            set_comment_and_parameters(this.member, comment, params);
+        }
+        
+    }
     Member.prototype.RibByLine = function (no,
                                            line_no,
                                            start_section_no,
