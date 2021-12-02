@@ -27,7 +27,7 @@ var l = new Line();
 l.nPolygon(1, [0, 0, 0], n, r_p, "XY", 0, "false");
 for (var i = 0; i < n; ++i)
 {
-    var alpha = i*PI*2/n + PI/n;
+    var alpha = i*PI*2/n;
     Node(n + 1 + i, r_c*cos(alpha),  r_c*sin(alpha),  -H);
 }
 for (var i = 0; i < n; ++i)
@@ -36,10 +36,10 @@ for (var i = 0; i < n; ++i)
 }
 for (var i = 0; i < n - 1; ++i)
 {
-    var alpha = i*PI*2/n + 3*PI/(2*n);
+    var alpha = i*PI*2/n + PI/(2*n);
     l.Arc(2*n + 1 + i, [n + 1 + i, n + 2 + i], [r_c*cos(alpha),  r_c*sin(alpha),  -H])
 }
-l.Arc(3*n, [2*n, n + 1], [r_c*cos(PI/(2*n)),  r_c*sin(PI/(2*n)),  -H])
+l.Arc(3*n, [2*n, n + 1], [r_c*cos(-PI/(2*n)),  r_c*sin(-PI/(2*n)),  -H])
 
 // Assign Cable to polygon's lines
 var cables_01 = [];
