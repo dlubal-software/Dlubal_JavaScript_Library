@@ -1,6 +1,6 @@
 {
   "source": {
-    "include": ["includes"]
+    "include": ["../includes"]
   },
   "destination": "api"
 }
