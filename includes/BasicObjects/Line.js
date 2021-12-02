@@ -238,6 +238,7 @@ Line.prototype.nPolygon = function (no,
                                     radius,   // Circumscribed circle radius
                                     plane,    //"XY" or "XZ" or "YZ"
                                     rotation_angle,
+                                    join,     // "true" or "" will make a polygon with just one line, "false" will make n lines separately.
                                     comment,
                                     params) 
 {
@@ -245,6 +246,7 @@ Line.prototype.nPolygon = function (no,
     no_edges = typeof no_edges !== 'undefined' ? no_edges: 0.0;
     radius = typeof radius !== 'undefined' ? radius: 0.0;
     plane = typeof plane !== 'undefined' ? plane: "";
+    join = typeof join !== 'undefined' ? join: "";
     rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle: 0.0;
     ASSERT(center_point.length == 3, "Define the center point of rectangle by this format [X, Y, Z]");
     ASSERT(no_edges > 2, "Number of edges should be more than 2");
@@ -252,6 +254,7 @@ Line.prototype.nPolygon = function (no,
     var Y = center_point[1];
     var Z = center_point[2];
     var no_n = nodes.lastId() + 1;
+    var no_n_ref = nodes.lastId() + 1;
     var nodes_list = [];
     if(plane == "XY" || plane == "")
     {
@@ -283,7 +286,19 @@ Line.prototype.nPolygon = function (no,
             no_n++;
         }
     }
-    nodes_list.push(no_n - no_edges);
-    this.line = Line(no, nodes_list)
+    if (join == "true" || join == "")
+    {
+        nodes_list.push(no_n - no_edges);
+        this.line = Line(no, nodes_list);
+    }
+    if (join == "false")
+    {
+        var no_l = lines.lastId() + 1;
+        for (var i = 0; i < no_edges - 1; ++i)
+        {
+            Line(no_l + i, [no_n_ref + i, no_n_ref + 1 + i])
+        }
+        this.line = Line(no_l + no_edges - 1, [no_n_ref + no_edges - 1, no_n_ref]);
+    }
     set_comment_and_parameters(this.line, comment, params);
 };
