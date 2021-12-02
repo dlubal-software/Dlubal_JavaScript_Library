@@ -16,8 +16,25 @@ Function Get-Folder($initialDirectory="")
 
 $PathToRFEM = Get-Folder
 Write-Output "You have selected: $PathToRFEM"
-$PathToRFEMScriptsInclude = $PathToRFEM + "\\scripts\\include\"
+$PathToRFEMScriptsInclude = $PathToRFEM + "\\scripts\\includes\"
 $PathToRFEMExamples = $PathToRFEM + "\\scripts\\examples\"
+# try
+# {
+#     Remove-Item PathToRFEMScriptsInclude+"*.*" -Force -Recurse -ErrorAction SilentlyContinue
+# }
+# catch
+# {
+#     Write-Host "Deleting"  $PathToRFEMScriptsInclude "Failure"
+# }
+# try
+# {
+#     Remove-Item PathToRFEMExamples+"*.*" -Force -Recurse -ErrorAction SilentlyContinue
+# }
+# catch
+# {
+#     Write-Host "Deleting"  $PathToRFEMExamples "Failure"
+# }
+
 try
 {
     Copy-Item -Path .\examples\* -Recurse  -Destination $PathToRFEMExamples -PassThru -Force -errorAction stop
