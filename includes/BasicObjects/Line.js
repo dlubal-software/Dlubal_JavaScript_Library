@@ -260,7 +260,7 @@ Line.prototype.nPolygon = function (no,
     {
         for (var i = 0; i < no_edges; ++i)
         {
-            var alpha = i*PI*2/no_edges + PI/no_edges + rotation_angle;
+            var alpha = i*PI*2/no_edges + rotation_angle;
             Node(no_n, X + radius*cos(alpha),  Y + radius*sin(alpha),  Z);
             nodes_list.push(no_n);
             no_n++;
@@ -270,7 +270,7 @@ Line.prototype.nPolygon = function (no,
     {
         for (var i = 0; i < no_edges; ++i)
         {
-            var alpha = i*PI*2/no_edges + PI/no_edges + rotation_angle;
+            var alpha = i*PI*2/no_edges + rotation_angle;
             Node(no_n, X + radius*cos(alpha),  Y,  Z + radius*sin(alpha));
             nodes_list.push(no_n);
             no_n++;
@@ -280,7 +280,7 @@ Line.prototype.nPolygon = function (no,
     {
         for (var i = 0; i < no_edges; ++i)
         {
-            var alpha = i*PI*2/no_edges + PI/no_edges + rotation_angle;
+            var alpha = i*PI*2/no_edges + rotation_angle;
             Node(no_n, X,  Y + radius*cos(alpha),  Z + radius*sin(alpha));
             nodes_list.push(no_n);
             no_n++;
