@@ -23,13 +23,30 @@ include("BasicObjects/MemberSet.js");
 include("BasicObjects/Member.js");
 include("BasicObjects/Node.js");
 include("BasicObjects/Section.js");
+// Supports
+include("Supports/Linear/functions.js");
+include("Supports/Nonlinearities/nonlinearities.js");
+include("Supports/Nonlinearities/x_nonlinearities.js");
+include("Supports/Nonlinearities/y_nonlinearities.js");
+include("Supports/Nonlinearities/z_nonlinearities.js");
+include("Supports/Nonlinearities/rx_nonlinearities.js");
+include("Supports/Nonlinearities/ry_nonlinearities.js");
+include("Supports/Nonlinearities/rz_nonlinearities.js");
 // Types for Nodes
 include("TypesForNodes/NodalMeshRefinement.js");
+include("TypesForNodes/nodal_support/nodal_support.js");
+include("TypesForNodes/nodal_support/nodal_support_conditions.js");
+include("TypesForNodes/nodal_support/nodal_support_basic_types.js");
+include("TypesForNodes/nodal_support/nodal_support_new_object_basic_types.js");
+
 // Types for Lines
 if (RFEM)
 {
     include("TypesForLines/LineHinge.js");
     include("TypesForLines/LineMeshRefinement.js");
+    include("TypesForLines/line_support/line_support.js");
+    include("TypesForLines/line_support/line_support_basic_types.js");
+    include("TypesForLines/line_support/line_support_new_object_basic_types.js");
 }
 // Types for Members
 include("TypesForMembers/MemberDefinableStiffness.js");
@@ -37,12 +54,19 @@ include("TypesForMembers/MemberEccentricity.js");
 include("TypesForMembers/MemberHinge.js");
 include("TypesForMembers/MemberNonlinearity.js");
 include("TypesForMembers/MemberResultIntermediatePoint.js");
+include("TypesForMembers/member_support/member_support.js");
+include("TypesForMembers/member_support/member_support_conditions.js");
+include("TypesForMembers/member_support/member_support_basic_types.js");
+include("TypesForMembers/member_support/member_support_new_object_basic_types.js");
 include("TypesForMembers/MemberStiffnessModification.js");
 include("TypesForMembers/MemberTransverseStiffener.js");
 // Types for Surfaces
 if (RFEM)
 {
     include("TypesForSurfaces/SurfaceEccentricity.js");
+    include("TypesForSurfaces/surface_support/surface_support.js");
+    include("TypesForSurfaces/surface_support/surface_support_conditions.js");
+    include("TypesForSurfaces/surface_support/surface_support_basic_types.js");
     include("TypesForSurfaces/SurfaceMeshRefinement.js");
 }
 // Loading
@@ -79,37 +103,3 @@ include("Dimensions/SlopeDimension.js");
 include("GuideObjects/CoordinateSystem.js");
 include("table_shortcuts.js");
 include("block.js");
-// Supports
-include("Supports/Linear/functions.js");
-include("Supports/Nonlinearities/nonlinearities.js");
-include("Supports/Nonlinearities/x_nonlinearities.js");
-include("Supports/Nonlinearities/y_nonlinearities.js");
-include("Supports/Nonlinearities/z_nonlinearities.js");
-include("Supports/Nonlinearities/rx_nonlinearities.js");
-include("Supports/Nonlinearities/ry_nonlinearities.js");
-include("Supports/Nonlinearities/rz_nonlinearities.js");
-// Types for Nodes 
-include("TypesForNodes/nodal_support/nodal_support.js");
-include("TypesForNodes/nodal_support/nodal_support_conditions.js");
-include("TypesForNodes/nodal_support/nodal_support_basic_types.js");
-include("TypesForNodes/nodal_support/nodal_support_new_object_basic_types.js");
-// Types for Lines
-if (RFEM)
-{
-    include("TypesForLines/line_support/line_support.js");
-    include("TypesForLines/line_support/line_support_basic_types.js");
-    include("TypesForLines/line_support/line_support_new_object_basic_types.js");
-}
-// Types for Members
-include("TypesForMembers/member_support/member_support.js");
-include("TypesForMembers/member_support/member_support_conditions.js");
-include("TypesForMembers/member_support/member_support_basic_types.js");
-include("TypesForMembers/member_support/member_support_new_object_basic_types.js");
-// Types for Surfaces
-if (RFEM)
-{
-    include("TypesForSurfaces/surface_support/surface_support.js");
-    include("TypesForSurfaces/surface_support/surface_support_conditions.js");
-    include("TypesForSurfaces/surface_support/surface_support_basic_types.js");
-    include("TypesForSurfaces/surface_support/surface_support_new_object_basic_types.js");
-}
