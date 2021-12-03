@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<script>
+    <arguments>
+        <argument argument-name="a" default-value="7" label-name="Length"/>
+        <argument argument-name="b" default-value="6" label-name="Width"/>
+        <argument argument-name="H" default-value="4" label-name="Height"/>
+        <argument argument-name="H_1" default-value="3" label-name="Height 1"/>
+        <argument argument-name="H_2" default-value="3.9" label-name="Height 2"/>
+        <argument argument-name="len" default-value="2.5" label-name="Opening Length"/>
+        <argument argument-name="w" default-value="1" label-name="Opening Width" />
+        <argument argument-name="thickness_1" default-value="0.2" label-name="Thickness of wall and roof"/>
+    </arguments>
+</script>
