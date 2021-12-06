@@ -18,7 +18,6 @@ function SolidLoad(no,
 	if (arguments.length != 0)
 	{
 		this.load = createBaseLoad("Solid_Load", no, load_case, solids, comment, params);
-		return this.load;
 	}
 	
 	/**
@@ -29,9 +28,9 @@ function SolidLoad(no,
 	*										- (load type / load distribution: [valid values])
 	*										- "Force" / "Uniform": [p]
 	*										- "Temperature" / "Uniform": [T]
-	*										- "Temperature" / "Linear in X": [T1, T2, Node1, Node2]
-	*										- "Temperature" / "Linear in Y": [T1, T2, Node1, Node2]
-	*										- "Temperature" / "Linear in Z": [T1, T2, Node1, Node2]
+	*										- "Temperature" / "Linear in X": [Node1, Node2, T1, T2]
+	*										- "Temperature" / "Linear in Y": [Node1, Node2, T1, T2]
+	*										- "Temperature" / "Linear in Z": [Node1, Node2, T1, T2]
 	*										- "Strain" / "Uniform": [εx, εy, εz]
 	*										- "Strain" / "Linear in X": [Node1, Node2, ε1x, ε1y, ε1z, ε2x, ε2y, ε2z]
 	*										- "Strain" / "Linear in Y": [Node1, Node2, ε1x, ε1y, ε1z, ε2x, ε2y, ε2z]

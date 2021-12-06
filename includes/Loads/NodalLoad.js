@@ -18,7 +18,6 @@ function NodalLoad(no,
 	if (arguments.length != 0)
 	{
 		this.load = createBaseLoad("Nodal_Load", no, load_case, nodes, comment, params);
-		return this.load;
 	}
 
 	/**
@@ -99,7 +98,7 @@ function NodalLoad(no,
 		this.load.components_moment_y = moments[1];
 		this.load.components_moment_z = moments[2];
 		
-		return this.load;
+			return this.load;
 	}
 	
 	/**
@@ -119,7 +118,7 @@ function NodalLoad(no,
 						 comment,
 						 params)
 	{
-		this.load = createSimplyValueLoad(no, load_case, nodes, undefined, undefined, mass, load_direction, comment, params);
+		this.load = createSimplyValueLoad("Nodal_Load", no, load_case, nodes, undefined, undefined, mass, undefined, comment, params);
 		return this.load;
 	}
 	
@@ -194,14 +193,15 @@ function NodalLoad(no,
 	{
 		ASSERT(this.load.load_type == nodal_loads.LOAD_TYPE_FORCE || this.load.load_type == nodal_loads.LOAD_TYPE_COMPONENTS, "Eccentricity can be used only for load force or load components");
 		
-		if (components.length == 0)
+		if (typeof eccentricity_x == "undefined" && typeof eccentricity_y == "undefined" && typeof eccentricity_z == "undefined")
 		{
 			this.load.has_force_eccentricity = false;
-			return;
 		}
-		
-		this.load.has_force_eccentricity = true;
-		this.load.force_eccentricity = $V(eccentricity_x, eccentricity_y, eccentricity_z);
+		else
+		{
+			this.load.has_force_eccentricity = true;
+			this.load.force_eccentricity = $V(eccentricity_x, eccentricity_y, eccentricity_z);
+		}
 	}
 	
 	/**

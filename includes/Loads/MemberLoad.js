@@ -18,7 +18,6 @@ function MemberLoad(no,
 	if (arguments.length != 0)
 	{
 		this.load = createBaseLoad("Member_Load", no, load_case, members, comment, params);
-		return this.load;
 	}
 
 	/**
@@ -37,7 +36,7 @@ function MemberLoad(no,
 	*										- "Force" / "Trapezoidal": [p1, B, p2, A, is_b_relative, is_a_relative]
 	*										- "Force" / "Tapered": [p1, p2, A, B, is_a_relative, is_b_relative]
 	*										- "Force" / "Parabolic": [p1, p2, p3]
-	*										- "Force" / "Varying": [p1, x1, p2, x2 ... pn, xn]
+	*										- "Force" / "Varying": [p1, x1, p2, x2, ... pn, xn]
 	*										- "Force" / "Varying in Z": [p1, z1, p2, z2 ... pn, zn]
 	*										- "Moment" / "Uniform" (load type / load distribution): [m]
 	*										- "Moment" / "Concentrated - 1": [M, A, is_a_reative]
@@ -48,7 +47,7 @@ function MemberLoad(no,
 	*										- "Moment" / "Trapezoidal": [m1, B, m2, A, is_b_relative, is_a_relative]
 	*										- "Moment" / "Tapered": [m1, m2, A, B, is_a_relative, is_b_relative]
 	*										- "Moment" / "Parabolic": [m1, m2, m3]
-	*										- "Moment" / "Varying": [m1, x1, m2, x2 ... mn, xn]
+	*										- "Moment" / "Varying": [m1, x1, m2, x2, ... mn, xn]
 	*										- "Mass" / "Uniform": M
 	*										- "Temperature" / "Uniform": [Tt, Tb]
 	*										- "Temperature" / "Trapezoidal": [Tt1, B, Tb1, Tt2, Tb2, A, is_b_relative, is_a_relative]
@@ -64,13 +63,13 @@ function MemberLoad(no,
 	*										- "Axial Strain" / "Trapezoidal": [ε1, B, ε2, A, is_b_relative, is_a_relative]
 	*										- "Axial Strain" / "Tapered": [ε1, ε2, A, B, is_a_relative, is_b_relative]
 	*										- "Axial Strain" / "Parabolic": [ε1, ε2, ε3]
-	*										- "Axial Strain" / Varying": [ε1, x1, ε2, x2 ... εn, xn]
+	*										- "Axial Strain" / Varying": [ε1, x1, ε2, x2, ... εn, xn]
 	*										- "Axial Displacement" / "Uniform": Δl
 	*										- "Precamber" / "Uniform": [κ]
 	*										- "Precamber" / "Trapezoidal": [κ1, B, κ2, A, is_b_relative, is_a_relative]
 	*										- "Precamber" / "Tapered": [κ1, A, κ2, B, is_a_relative, is_a_relative]
 	*										- "Precamber" / "Parabolic": [κ1, κ2, κ3]
-	*										- "Precamber" / "Varying": [κ1, x1, κ2, x2 ... κn, xn]
+	*										- "Precamber" / "Varying": [κ1, x1, κ2, x2, ... κn, xn]
 	*										- "Initial Prestress" / "Uniform": V
 	*										- "Displacement" / "Uniform": [δ]
 	*										- "Displacement" / "Concentrated - 1": [Δ, A, is_a_relative]
@@ -81,7 +80,7 @@ function MemberLoad(no,
 	*										- "Displacement" / "Trapezoidal": [δ1, B, δ2, A, is_b_relative, is_a_relative]
 	*										- "Displacement" / "Tapered": [δ1, δ2, A, B, is_a_relative, is_b_relative]
 	*										- "Displacement" / "Parabolic": [δ1, δ2, δ3]
-	*										- "Displacement" / "Varying": [δ1, x1, δ2, x2 ... δn, xn]
+	*										- "Displacement" / "Varying": [δ1, x1, δ2, x2, ... δn, xn]
 	*										- "Rotation" / "Uniform": [φ]
 	*										- "Rotation" / "Concentrated - 1": [φ, A, is_a_relative]
 	*										- "Rotation" / "Concentrated - n x": [φ, n, A, B, is_a_relative, is_b_relative]
@@ -91,13 +90,13 @@ function MemberLoad(no,
 	*										- "Rotation" / "Trapezoidal": [φ1, B, φ2, A, is_b_relative, is_a_relative]
 	*										- "Rotation" / "Tapered": [φ1, φ2, A, B, is_a_relative, is_b_relative]
 	*										- "Rotation" / "Parabolic": [φ1, φ2, φ3]
-	*										- "Rotation" / "Varying": [φ1, x1, φ2, x2 ... φn, xn]
+	*										- "Rotation" / "Varying": [φ1, x1, φ2, x2, ... φn, xn]
 	*										- "Pipe Content - Full" / "Uniform": γ
 	*										- "Pipe Content - Partial" / "Uniform": [γ, d]
 	*										- "Pipe Internal Pressure" / "Uniform": p
 	*										- "Rotary Motion": [axis_definition, ω, α, [Node1, Node2] | XA, YA, ZA, XB, YB, ZB] (axis definition 1 == "Two points")
 	*														   [axis_definition, ω, α, ([Node1] | XA, YA, ZA), parallel_axis] (axis definition 2 == "Point and axis")
-	* @return {Object}	Modified load
+	* @return	{Object}	Returns modified load
 	*/
 	var setLoadDistribution = function(load,
 									   load_type,
@@ -271,53 +270,7 @@ function MemberLoad(no,
 				}
 				break;
 			case member_loads.LOAD_TYPE_ROTARY_MOTION:
-				ASSERT(load_values.length >= 4, "Wrong number of load values, at least four values are required (type of axes definition, ω, α, [Node1] | XA)");
-				load.axis_definition_type = load_values[0] == 1 ? member_loads.AXIS_DEFINITION_TWO_POINTS : member_loads.AXIS_DEFINITION_POINT_AND_AXIS;
-				load.angular_velocity = load_values[1];
-				load.angular_acceleration = load_values[2];
-				var TWO_POINTS = 1;
-				var POINT_AND_PARALLEL = 2;
-				if (Array.isArray(load_values[3])) // Axis coordinations are defined by list of nodes
-				{
-					// Fourth parameter is list of nodes
-					ASSERT(load_values[3].length >= 1, "Wrong number of defined nodes, at least one is required");
-					var node = nodes.getNthObject(load_values[3][0]);
-					load.axis_definition_p1 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
-					
-					// If axis definition is "Two points" and there are two axis coordinations
-					if (load_values[0] == TWO_POINTS && load_values[3].length == 2)
-					{
-						node = nodes.getNthObject(load_values[3][1]);
-						load.axis_definition_p2 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
-					}
-					
-					// load_values = [axis_definition, ω, α, [Node1], parallel_axis]
-					if (load_values[0] == POINT_AND_PARALLEL && load_values.length >= 5)
-					{
-						// Parallel axis is defined
-						setAxisAndOrientation(load, load_values[4]);
-					}
-				}
-				else // Axis coordinations are defined by points and its coordinations
-				{
-					// Fourth parameter is x-coordinate of point A - "Two Points" are defined by coordinates of A or A and B points
-					ASSERT(load_values.length >= 6, "Wrong number of load values, at least six values are required (axes definition, ω, α, XA, YA, ZA)");
-					load.axis_definition_p1 = $V(load_values[3], load_values[4], load_values[5]);
-					
-					if (load_values[0] == TWO_POINTS && load_values.length > 6)
-					{
-						// Coordinates of second axis point is defined
-						ASSERT(load_values.length == 9, "Wrong number of parameters, nine values are required (axis definition, ω, α, XA, YA, ZA, XB, YB, ZB)");
-						load.axis_definition_p2 = $V(load_values[6], load_values[7], load_values[8]);
-					}
-					
-					// load_values = [axis_definition, ω, α, XA, YA, ZA, parallel_axis]
-					if (load_values[0] == POINT_AND_PARALLEL && load_values.length >= 7)
-					{
-						// Parallel axis is defined
-						setAxisAndOrientation(load, load_values[6]);
-					}
-				}
+				setRotaryMotionLoad(load, load_values);
 				break;
 			default:
 				showLoadAssert(load_type);
@@ -782,6 +735,7 @@ function MemberLoad(no,
 		{
 			value = true;
 		}
+		
 		this.load.distance_from_member_end = value;
 	}
 	
@@ -809,10 +763,10 @@ function MemberLoad(no,
 	* Sets eccentricity (only force load)
 	* @param 	{String}	reference_to			Eccentricity is reffered to what ("left_top", "center_top", "right_top", "left_center", "center_center", "right_center",
 	*												"left_bottom", "center_bottom", "right_bottom", "center_of_gravity", "shear_center")
-	* @param	{Number}	offset_member_start_ey	Offset at member start
-	* @param	{Number}	offset_member_start_ez	Offset at member start
-	* @param	{Number}	offset_member_end_ey	Offset at member end
-	* @param	{Number}	offset_member_end_ez	Offset at member end
+	* @param	{Number}	offset_member_start_ey	Offset at member start, can be undefined
+	* @param	{Number}	offset_member_start_ez	Offset at member start, can be undefined
+	* @param	{Number}	offset_member_end_ey	Offset at member end, can be undefined
+	* @param	{Number}	offset_member_end_ez	Offset at member end, can be undefined
 	*/
 	this.eccentricity = function(reference_to, offset_member_start_ey, offset_member_start_ez, offset_member_end_ey, offset_member_end_ez)
 	{

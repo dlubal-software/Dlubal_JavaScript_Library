@@ -34,6 +34,9 @@ function createBaseLoad (load_type,
 		case "Surface_Load":
 			handled_params["surfaces"] = typeof index_list != "undefined" ? index_list : [];
 			break;
+		case "Solid_Load":
+			handled_params["solids"] = typeof index_list != "undefined" ? index_list : [];
+			break;
 		default:
 			ASSERT(false, "Unknown load type");
 	}
@@ -86,11 +89,7 @@ function createSimplyValueLoad(load_type,
 		load.mass_global = mass;
 	}
 
-	if (typeof load_direction == "undefined")
-	{
-		load.load_direction = nodal_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W;
-	}
-	else
+	if (typeof load_direction != "undefined")
 	{
 		load.load_direction = load_direction;
 	}
@@ -176,7 +175,7 @@ var setLoadValues = function()
 * @return	{Boolean}	True if axis and orientation was succesfully set
 */
 var setAxisAndOrientation = function(load,
-										 value)
+									 value)
 {
 	if (value.length == 2 && value.match("[+|-][X|Y|Z]") != null)
 	{
@@ -187,4 +186,56 @@ var setAxisAndOrientation = function(load,
 	}
 	
 	return false;
+}
+
+var setRotaryMotionLoad = function(load,
+								   load_values)
+{
+	ASSERT(load_values.length >= 4, "Wrong number of load values, at least four values are required (type of axes definition, ω, α, [Node1] | XA)");
+	load.axis_definition_type = load_values[0] == 1 ? member_loads.AXIS_DEFINITION_TWO_POINTS : member_loads.AXIS_DEFINITION_POINT_AND_AXIS;
+	load.angular_velocity = load_values[1];
+	load.angular_acceleration = load_values[2];
+	var TWO_POINTS = 1;
+	var POINT_AND_PARALLEL = 2;
+	if (Array.isArray(load_values[3])) // Axis coordinations are defined by list of nodes
+	{
+		// Fourth parameter is list of nodes
+		ASSERT(load_values[3].length >= 1, "Wrong number of defined nodes, at least one is required");
+		var node = nodes.getNthObject(load_values[3][0]);
+		load.axis_definition_p1 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
+		
+		// If axis definition is "Two points" and there are two axis coordinations
+		if (load_values[0] == TWO_POINTS && load_values[3].length == 2)
+		{
+			node = nodes.getNthObject(load_values[3][1]);
+			load.axis_definition_p2 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
+		}
+		
+		// load_values = [axis_definition, ω, α, [Node1], parallel_axis]
+		if (load_values[0] == POINT_AND_PARALLEL && load_values.length >= 5)
+		{
+			// Parallel axis is defined
+			setAxisAndOrientation(load, load_values[4]);
+		}
+	}
+	else // Axis coordinations are defined by points and its coordinations
+	{
+		// Fourth parameter is x-coordinate of point A - "Two Points" are defined by coordinates of A or A and B points
+		ASSERT(load_values.length >= 6, "Wrong number of load values, at least six values are required (axes definition, ω, α, XA, YA, ZA)");
+		load.axis_definition_p1 = $V(load_values[3], load_values[4], load_values[5]);
+		
+		if (load_values[0] == TWO_POINTS && load_values.length > 6)
+		{
+			// Coordinates of second axis point is defined
+			ASSERT(load_values.length == 9, "Wrong number of parameters, nine values are required (axis definition, ω, α, XA, YA, ZA, XB, YB, ZB)");
+			load.axis_definition_p2 = $V(load_values[6], load_values[7], load_values[8]);
+		}
+		
+		// load_values = [axis_definition, ω, α, XA, YA, ZA, parallel_axis]
+		if (load_values[0] == POINT_AND_PARALLEL && load_values.length >= 7)
+		{
+			// Parallel axis is defined
+			setAxisAndOrientation(load, load_values[6]);
+		}
+	}
 }
