@@ -1,5 +1,14 @@
 include("BaseLoad.js");
 
+/**
+* Creates line load
+* @param 	{Number}	no					Index of line load, can be undefined
+* @param 	{Object}	load_case			Load case
+* @param 	{Array}		lines				List of line indexes
+* @param	{String}	comment				Comment, can be undefined
+* @param	{Object}	params				Load parameters, can be undefined
+* @return	{Object}	Created line load
+*/
 function LineLoad(no,
 				  load_case,
 				  lines,

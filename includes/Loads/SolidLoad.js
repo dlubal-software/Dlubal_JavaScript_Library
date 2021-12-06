@@ -1,7 +1,7 @@
 include("BaseLoad.js");
 
 /**
-* Creates non valid empty solid load
+* Creates solid load
 * @param 	{Number}	no					Index of solid load, can be undefined
 * @param 	{Object}	load_case			Load case
 * @param 	{Array}		surfaces			List of solid indexes

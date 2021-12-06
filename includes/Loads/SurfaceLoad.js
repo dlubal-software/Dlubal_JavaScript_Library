@@ -1,7 +1,7 @@
 include("BaseLoad.js");
 
 /**
-* Creates non valid empty surface load
+* Creates surface load
 * @param 	{Number}	no					Index of surface load, can be undefined
 * @param 	{Object}	load_case			Load case
 * @param 	{Array}		surfaces			List of surface indexes

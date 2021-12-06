@@ -1,7 +1,7 @@
 include("BaseLoad.js");
 
 /**
-* Creates non valid empty solid load
+* Creates solid load
 * @param 	{Number}	no					Index of opening load, can be undefined
 * @param 	{Object}	load_case			Load case
 * @param 	{Array}		openings			List of opening indexes
@@ -35,7 +35,11 @@ function OpeningLoad(no,
 									   load_distribution,
 									   load_values)
 	{
-		load.load_type = load_type;
+		// In case of more load types remove this condition
+		if (load_type != opening_loads.LOAD_TYPE_FORCE)
+		{
+			load.load_type = load_type;
+		}
 		
 		if (typeof load_distribution != "undefined")
 		{
@@ -49,9 +53,11 @@ function OpeningLoad(no,
 				{
 					case opening_loads.LOAD_DISTRIBUTION_UNIFORM_TRAPEZOIDAL:
 						ASSERT(load_values.length == 1, "Wrong number of load values, one value is required (p)");
-						setLoadValues(load, load_values, "uniform_magnitude");
+						setLoadValues(load, load_values, "magnitude");
 						break;
 					case opening_loads.LOAD_DISTRIBUTION_LINEAR_TRAPEZOIDAL:
+						ASSERT(load_values.length >= 4, "Wrong number of load values, at least four values are required (p)");
+						setLoadValues(load, load_values, "node_1", "node_2", "node_3", "magnitude_1", "magnitude_2", "magnitude_3");
 						break;
 					default:
 						showLoadAssert(load_type, load_distribution);
@@ -60,6 +66,8 @@ function OpeningLoad(no,
 			default:
 				showLoadAssert(load_type);
 		}
+		
+		return load;
 	}
 	
 	/**
@@ -67,6 +75,7 @@ function OpeningLoad(no,
 	 * @param 	{Number}	no					Index of opening load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		openings			List of openings indexes
+	 * @param 	{String}	load_distribution	Load distribution
 	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
@@ -76,13 +85,14 @@ function OpeningLoad(no,
 	this.Force = function(no,
 						  load_case,
 						  openings,
-						  load_value,
+						  load_distribution,
+						  load_values,
 						  load_direction,
 						  comment,
 						  params)
 	{
 		this.load = createBaseLoad("Opening_Load", no, load_case, openings, comment, params);
-		this.load = setLoadDistribution(this.load, solid_loads.LOAD_TYPE_FORCE, load_distribution, load_values);
+		this.load = setLoadDistribution(this.load, opening_loads.LOAD_TYPE_FORCE, load_distribution, load_values);
 		
 		if (typeof load_direction != "undefined")
 		{
@@ -90,5 +100,19 @@ function OpeningLoad(no,
 		}
 		
 		return this.load;
+	}
+	
+	/**
+	* Set smooth concentrated load
+	* @param	{Boolean}	value, can be undefined (false)
+	*/
+	this.smooth_concentrated_load = function(value)
+	{
+		if (typeof value == "undefined")
+		{
+			value = false;
+		}
+		
+		this.load.smooth_punctual_load_enabled = value;
 	}
 }

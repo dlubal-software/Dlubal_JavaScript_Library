@@ -1,13 +1,13 @@
 include("BaseLoad.js");
 
 /**
-* Creates non valid empty member load
-* @param 	{Number}	no					Index of member load, can be undefined
+* Creates nodal load
+* @param 	{Number}	no					Index of nodal load, can be undefined
 * @param 	{Object}	load_case			Load case
 * @param 	{Array}		nodes				List of node indexes
 * @param	{String}	comment				Comment, can be undefined
 * @param	{Object}	params				Load parameters, can be undefined
-* @return	{Object}	Created member load
+* @return	{Object}	Created nodal load
 */
 function NodalLoad(no,
 				   load_case,
