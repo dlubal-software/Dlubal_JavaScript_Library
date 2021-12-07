@@ -52,240 +52,251 @@ Member(undefined, "12,16", "", {"section_start": section_IPE180})
 //   ################# Nodal supports
 //   ##### Constructors:
 // Empty
-var n1 = new NodalSupport();
+var nodal_support_1 = new NodalSupport();
 // Nodes
-var n1 = new NodalSupport([1,6]);
+var nodal_support_2 = new NodalSupport(undefined,[1,6]);
 // Nodes, Id
-var n1 = new NodalSupport([2,3], 5);
+var nodal_support_3 = new NodalSupport(5,[2,3], 5);
 // Nodes, Id, comment
-var n1 = new NodalSupport([11,12,19], undefined, "komentář");
+var nodal_support_4 = new NodalSupport(undefined,[11,12,19], "Some comment...");
 
 //  ##### editors:
-n1.fixed();
-n1.create.fixed([20,21], undefined, "fixed");
-n1.translation_y(700);
-n1.nonlinear.x.frictionY(0.6);
-n1.create.hinged();
-n1.hinged([22,27]);
+var nodal_support_5 = new NodalSupport();
+nodal_support_5.Fixed();
+nodal_support_5.TranslationY(700);
+nodal_support_5.Nonlinear.X.FrictionY(0.6);
+nodal_support_5.Nonlinear.Y.FrictionX(0.2);
+nodal_support_5.Nonlinear.Z.FrictionX(0.5);
 
-//  ##### create new support
-n1.create.fixed([31,33,35]);
-n1.translation_z(500);
-n1.rotation_z(440);
-n1.create.hinged([38]);
-n1.nonlinear.x.frictionY(0.6);
-n1.create.rollerX([39]);
-n1.nonlinear.x.frictionY(0.6);
-n1.create.rollerY();
-n1.nonlinear.x.frictionY(0.6);
-n1.create.rollerZ();
-n1.nonlinear.x.frictionY(0.6);
-n1.create.roller([40]);
-n1.nonlinear.x.frictionY(0.6);
-n1.create.free([41]);
-n1.nonlinear.x.frictionY(0.6);
-n1.create.rollerY(6,undefined,"rollerY", {spring_x_nonlinearity : line_supports.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE});
-n1.nonlinear.x.frictionY(0.6);
+var nodal_support_6 = new NodalSupport();
+nodal_support_6.Hinged();
+nodal_support_6.TranslationZ(500);
+nodal_support_6.RotationZ(440);
+
+nodal_support_6.Nonlinear.X.FrictionZ(0.1);
+nodal_support_6.Nonlinear.Y.FrictionZ(0.2);
+nodal_support_6.Nonlinear.Z.FrictionY(0.6);
+
+var nodal_support_7 = new NodalSupport(undefined, 6, "rollerY", {spring_x_nonlinearity : nodal_supports.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE});
+nodal_support_7.Nonlinear.X.FrictionYZ(0.6);
+nodal_support_7.Nonlinear.Y.FrictionXZ(0.5);
+nodal_support_7.Nonlinear.Z.FrictionXY(0.7);
 
 
-var n1 = new NodalSupport();
+var nodal_support_8 = new NodalSupport();
 //function to assign nodes
-n1.nodes([3,8]);
+nodal_support_8.SetNodes([3,8]);
+nodal_support_8.Nonlinear.X.FrictionYplusZ(0.6,0.15);
+nodal_support_8.Nonlinear.Y.FrictionXplusZ(0.5,0.25);
+nodal_support_8.Nonlinear.Z.FrictionXplusY(0.7,0.35);
+
+var nodal_support_9 = new NodalSupport();
 // nodes assigned dirrectly to support included in nodal support object
-n1.support.nodes = [3,52,69];
-n1.translation(true, false, 1200);
-n1.rotation(false, 2300, true);
-n1.nonlinear.x.failIfNegative();
-n1.nonlinear.y.failIfPositive();
-n1.nonlinear.z.frictionY(0.2);
-n1.nonlinear.rx.failIfNegative();
-n1.nonlinear.ry.failIfPositive();
-n1.nonlinear.rz.failAllIfPositive();
-n1.comment("ddhskssk");
-n1.nodes([3,4,5]);
-n1.create.fixed([55,66], 20, "fixed support no.: 20");
-n1.setNo(2);
-n1.nodes([7]);
-n1.comment("fixed");
-n1.create.hinged();
+nodal_support_9.support.nodes = [3,52,69];
+nodal_support_9.Translation(true, false, 1200);
+nodal_support_9.Rotation(false, 2300, true);
+nodal_support_9.Nonlinear.X.FailIfNegative();
+nodal_support_9.Nonlinear.Y.FailIfPositive();
+nodal_support_9.Nonlinear.Z.FrictionY(0.2);
+nodal_support_9.Nonlinear.Rx.FailIfNegative();
+nodal_support_9.Nonlinear.Ry.FailIfPositive();
+nodal_support_9.Nonlinear.Rz.FailAllIfPositive();
+nodal_support_9.SetComment("ddhskssk");
 
-var n2 = new NodalSupport([23,18]);
-n2.fixed()
+// Change support stored in NodalSupport object
+nodal_support_9.SetNo(2);
+nodal_support_9.SetComment("Nodal support no.2 is changed")
+nodal_support_9.SetNodes([3,4,5]);
 
-var n3 = new NodalSupport(fdde);
-var n_fixed1 = new NodalSupport();
-n_fixed1.support.nodes = [3,4];
-n_fixed1.translation(true, true, true);
-n_fixed1.translation(350, true, true);
-n_fixed1.translation_x(300);
-n_fixed1.rotation(true, true, true);
-n_fixed1.nonlinear.x.failAllIfNegative();
-n_fixed1.nonlinear.y.frictionX(0.2);
-n_fixed1.nonlinear.z.frictionXY(0.3);
-n_fixed1.nonlinear.rz.failAllIfNegative();
+var nodal_support_10 = new NodalSupport(undefined, [23,18]);
+nodal_support_10.Fixed()
 
-var n_fixed2 = new NodalSupport([15]);
-n_fixed2.support.nodes = [6];
-n_fixed2.translation_x(300);
-n_fixed2.nonlinear.x.frictionYplusZ(0.35,0.55);
+var nodal_support_11 = new NodalSupport(fdde);
+nodal_support_11.support.nodes = [3,4];
+nodal_support_11.Translation(true, true, true);
+nodal_support_11.Translation(350, true, true);
+nodal_support_11.TranslationX(300);
+nodal_support_11.Rotation(true, true, true);
+nodal_support_11.Nonlinear.X.FailAllIfNegative();
+nodal_support_11.Nonlinear.Y.FrictionX(0.2);
+nodal_support_11.Nonlinear.Z.FrictionXY(0.3);
+nodal_support_11.Nonlinear.Rz.FailAllIfNegative();
+
+var nodal_support_12 = new NodalSupport(undefined, [15]);
+nodal_support_12.SetNodes = [6];
+nodal_support_12.TranslationX(300);
+nodal_support_12.Nonlinear.X.FrictionYplusZ(0.35,0.55);
 
 
 //   ################# Line supports
 //   ##### Constructors:
 // Empty
-var n1 = new LineSupport();
+var line_support_1 = new LineSupport();
 // Nodes
-var n1 = new LineSupport([1,6]);
+var line_support_2 = new LineSupport(undefined, [1,6]);
 // Nodes, Id
-var n1 = new LineSupport([2,3], 5);
+var line_support_3 = new LineSupport(5, [2,3]);
 // Nodes, Id, comment
-var n1 = new LineSupport([11,12,19], undefined, "komentář");
+var line_support_4 = new LineSupport(6, [11,12,19], "Line Support 6");
 
 //  ##### editors:
-n1.fixed();
-n1.create.fixed([20,21], undefined, "fixed");
-n1.translation_y(700);
-n1.nonlinear.x.frictionY(0.6);
-n1.create.hinged();
-n1.hinged([22,27]);
+line_support_4.Fixed();
+
+var line_support_5 =  new LineSupport(undefined, [20,21], "fixed");
+line_support_5.Fixed()
+line_support_5.TranslationY(700);
+line_support_5.Nonlinear.X.FrictionY(0.6);
 
 //  ##### create new support
-n1.create.fixed([31,33,35]);
-n1.translation_z(500);
-n1.rotation_z(440);
-n1.create.hinged([38]);
-n1.nonlinear.x.frictionY(0.6);
-n1.create.slidingX([39]);
-n1.nonlinear.x.frictionY(0.6);
-n1.create.slidingY();
-n1.nonlinear.x.frictionY(0.6);
-n1.create.slidingZ();
-n1.nonlinear.x.frictionY(0.6);
-n1.create.slidingXY([40]);
-n1.nonlinear.x.frictionY(0.6);
-n1.create.free([41]);
-n1.nonlinear.x.frictionY(0.6);
-n1.create.slidingY(6,undefined,"slidingY", {spring_x_nonlinearity : line_supports.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE});
-n1.nonlinear.x.frictionY(0.6);
+var line_support_6 = new LineSupport();
+line_support_6.Fixed();
+line_support_6.SetLines([31,33,35])
+line_support_6.TranslationZ(500);
+line_support_6.RotationZ(440);
+
+var line_support_7 = new LineSupport();
+line_support_7.Hinged();
+line_support_7.Nonlinear.X.FrictionY(0.6);
+
+var line_support_8 = new LineSupport();
+line_support_8.SlidingX();
+line_support_8.Nonlinear.Y.FrictionX(0.6);
+
+var line_support_9 = new LineSupport();
+line_support_9.SlidingY();
+line_support_9.Nonlinear.Z.FrictionY(0.6);
+
+var line_support_10 = new LineSupport();
+line_support_10.SlidingZ();
+line_support_10.Nonlinear.X.FrictionY(0.6);
+
+var line_support_11 = new LineSupport();
+line_support_11.SlidingXY();
+line_support_11.Nonlinear.Z.FailAllIfNegative();
+
+
+var line_support_12 = new LineSupport(undefined,6,"SlidingY", {spring_x_nonlinearity : line_supports.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE});
+line_support_12.SlidingY();
+line_support_12.Nonlinear.X.FrictionY(0.6);
 // line supports
-var l_ns1 = new LineSupport();
-l_ns1.support.lines = [1,2];
-l_ns1.translation(true, false, 1200);
-l_ns1.rotation(false, 2300, true);
-l_ns1.nonlinear.x.failIfNegative();
-l_ns1.nonlinear.y.failIfPositive();
-l_ns1.nonlinear.z.frictionY(0.2);
-l_ns1.nonlinear.rx.failIfNegative();
-l_ns1.nonlinear.ry.failIfPositive();
-l_ns1.nonlinear.rz.failAllIfPositive();
-l_ns1.comment("liniová podpora 1");
-l_ns1.create.fixed();
-l_ns1.create.hinged();
+var line_support_13 = new LineSupport();
+line_support_13.support.lines = [1,2];
+line_support_13.Translation(true, false, 1200);
+line_support_13.Rotation(false, 2300, true);
+line_support_13.Nonlinear.X.FailIfNegative();
+line_support_13.Nonlinear.Y.FailIfPositive();
+line_support_13.Nonlinear.Z.FrictionY(0.2);
+line_support_13.Nonlinear.Rx.FailIfNegative();
+line_support_13.Nonlinear.Ry.FailIfPositive();
+line_support_13.Nonlinear.Rz.FailAllIfPositive();
+line_support_13.SetComment("Line support edited..");
 
-var l_fixed1 = new LineSupport();
-l_fixed1.support.lines = [3,4];
-l_fixed1.translation(true, true, true);
-l_fixed1.rotation(true, true, true);
-l_fixed1.nonlinear.x.failAllIfNegative();
-l_fixed1.nonlinear.y.frictionX(0.2);
-l_fixed1.nonlinear.z.frictionY(0.3);
-l_fixed1.nonlinear.rz.failAllIfNegative();
-l_fixed1.LCS();
-
-var l_fixed2 = new LineSupport();
-l_fixed2.support.lines = [5];
-//l_fixed2.fixed();
-l_fixed2.nonlinear.x.frictionY(0.35);
-//l_ns1.comment("liniová podpora 3");
-
-var l_hinged = new LineSupport();
-l_hinged.hinged();
-l_hinged.nonlinear.y.frictionZ(0.2);
-l_hinged.create.fixed();
-l_hinged.create.hinged();
-
-l_hinged.create.slidingXY(4,26,"slidingXY");
-l_hinged.create.slidingX(5);
-l_hinged.create.slidingY(6,undefined,"slidingY", {spring_x_nonlinearity : line_supports.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE});
 
 // member supports
-var m_ns1 = new MemberSupport();
-m_ns1.support.members = [1];
-m_ns1.shear(true, false, 1200);
-m_ns1.rotation(false);
+var member_support_1 = new MemberSupport();
+member_support_1.support.members = [1];
+member_support_1.Shear(true, false, 1200);
+member_support_1.Rotation(false);
 
 
-var m_fixed1 = new MemberSupport();
-m_fixed1.support.members = [3];
-m_fixed1.translation(true, true, true);
-m_fixed1.shear(true, true, true);
+var member_support_2 = new MemberSupport();
+member_support_2.support.members = [3];
+member_support_2.Translation(true, true, true);
+member_support_2.Shear(true, true, true);
 
 
 
-var m_fixed2 = new MemberSupport();
-m_fixed2.support.members = [2];
-m_fixed2.fixed();
+var member_support_3 = new MemberSupport();
+member_support_3.SetMembers([4,7]);
+member_support_3.Fixed();
 
 
-var m_hinged = new MemberSupport();
-m_hinged.slidingXY();
+var member_support_4 = new MemberSupport();
+member_support_4.SlidingXY();
 
-var mm = new MemberSupport();
-mm.create.slidingX(1);
-mm.translation_x(300);
-mm.translation_y(400);
-mm.translation_z(500);
-mm.shear_x(300);
-mm.shear_y(400);
-mm.shear_z(500);
-mm.rotation(790);
-mm.nonlinear.z.failIfPositive();
-mm.create.slidingXY(5,undefined, "sliding");
-mm.rotation(790);
-mm.nonlinear.z.failIfPositive();
-mm.create.slidingY(9);
-mm.rotation(790);
-mm.nonlinear.z.failIfPositive();
-mm.create.slidingZ([2,3]);
-mm.rotation(790);
-mm.nonlinear.z.failIfPositive();
-mm.create.fixed(8);
-mm.rotation(790);
-mm.nonlinear.z.failIfPositive();
-mm.create.free(10);
-mm.translation_y(400);
-mm.nonlinear.z.failIfNegative();
+var member_support_5 = new MemberSupport();
+member_support_5.SlidingX();
+member_support_5.TranslationX(300);
+member_support_5.TranslationY(400);
+member_support_5.TranslationZ(500);
+member_support_5.ShearX(300);
+member_support_5.ShearY(400);
+member_support_5.ShearZ(500);
+member_support_5.Rotation(790);
+
+// member nonlinearities are only in Z dirrection
+member_support_5.Nonlinear.FailIfPositive();
+
+var member_support_6 = new MemberSupport(undefined, 5, "sliding");
+member_support_6.SlidingXY();
+member_support_6.Rotation(790);
+member_support_6.Nonlinear.FailIfNegative();
+
+var member_support_7 = new MemberSupport();
+member_support_7.SlidingY();
+member_support_7.Rotation(790);
+member_support_7.Nonlinear.FailIfPositive();
+
+var member_support_8 = new MemberSupport();
+member_support_8.SlidingZ();
+member_support_8.Rotation(790);
+member_support_8.Nonlinear.FailIfNegative();
+
+var member_support_9 = new MemberSupport();
+member_support_9.Fixed();
+member_support_9.Rotation(650);
+member_support_9.Nonlinear.FailIfPositive();
 
 
-var ss = new SurfaceSupport();
-ss.create.slidingX(1);
-ss.translation_x(300);
-ss.translation_y(400);
-ss.translation_z(500);
-ss.shear_x(300);
-ss.shear_y(400);
-ss.nonlinear.failIfPositive.basic();
-ss.create.slidingXY(5,undefined, "sliding");
-ss.shear_x(300);
-ss.shear_y(400);
-ss.nonlinear.failIfPositive.basic();
-ss.create.slidingY(9);
-ss.shear_x(300);
-ss.shear_y(400);
-ss.nonlinear.failIfPositive.friction(0.8);
-ss.create.slidingZ([2,3]);
-ss.shear_x(300);
-ss.shear_y(400);
-ss.nonlinear.failIfPositive.stress(300);
-ss.create.fixed(8);
-ss.shear_x(300);
-ss.shear_y(400);
-ss.nonlinear.failIfNegative.basic();
-ss.create.fixed(10);
-ss.shear_x(300);
-ss.shear_y(400);
-ss.nonlinear.failIfNegative.friction(0);
-ss.create.fixed(11);
-ss.support.nonlinearity = surface_supports.NONLINEARITY_FAILURE_IF_NEGATIVE_CONTACT_STRESS_Z;
 
+var surface_support_1 = new SurfaceSupport();
+surface_support_1.SlidingX();
+surface_support_1.TranslationX(300);
+surface_support_1.TranslationY(400);
+surface_support_1.TranslationZ(500);
+surface_support_1.ShearX(300);
+surface_support_1.ShearY(400);
+surface_support_1.Nonlinear.FailIfPositive.Basic();
+
+var surface_support_2 = new SurfaceSupport(undefined, 5, "sliding");
+surface_support_2.SlidingXY();
+surface_support_2.ShearX(300);
+surface_support_2.ShearY(400);
+surface_support_2.Nonlinear.FailIfPositive.Basic();
+
+
+var surface_support_3 = new SurfaceSupport();
+surface_support_3.SlidingY();
+surface_support_3.ShearX(false);
+surface_support_3.ShearX(true);
+surface_support_3.ShearX(300);
+surface_support_3.ShearY(true);
+surface_support_3.ShearY(false);
+surface_support_3.ShearY(400);
+surface_support_3.Nonlinear.FailIfPositive.Friction(0.8);
+
+var surface_support_4 = new SurfaceSupport();
+surface_support_4.SlidingZ();
+surface_support_4.ShearX(300);
+surface_support_4.ShearY(400);
+surface_support_4.Nonlinear.FailIfPositive.Stress(300);
+
+var surface_support_5 = new SurfaceSupport();
+surface_support_5.Fixed();
+surface_support_5.ShearX(300);
+surface_support_5.ShearY(400);
+surface_support_5.Nonlinear.FailIfNegative.Basic();
+
+
+var surface_support_6 = new SurfaceSupport();
+surface_support_6.Fixed();
+surface_support_6.ShearX(300);
+surface_support_6.ShearY(400);
+surface_support_6.Nonlinear.FailIfNegative.Friction(0.5);
+
+var surface_support_7 = new SurfaceSupport();
+surface_support_7.Fixed();
+surface_support_7.ShearX(300);
+surface_support_7.ShearY(400);
+// surface_support_7.Nonlinear.FailIfNegative.Stress(0.7);
 
