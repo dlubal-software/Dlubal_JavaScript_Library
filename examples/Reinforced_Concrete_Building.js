@@ -26,12 +26,6 @@ var D = sqrt(2*sqr(chamfer));
 var r = R - D/2;
 var r_1 = sqrt(sqr(r) + sqr(D/2));
 var r_2 = sqrt(sqr(r - sqrt(2)) + sqr(D)/4);
-console.log("D ",D);
-console.log("R ", R);
-console.log("r_1 ", r_1);
-console.log("r ", r);
-console.log("r_2 ", r_2);
-
 var node_count = 1;
 
 Node(node_count,   -d,     -d/2,     0);    // Nodes for interior walls
