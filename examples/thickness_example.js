@@ -1,10 +1,10 @@
-var a = 4;
-var b = 5;
-var H = 3;
-var slab_thickness = 0.35;
-var rib_height = 0.2;
-var rib_spacing = 0.5
-var rib_width = 0.18
+// var a = 4;                   // Total Length
+// var b = 5;                   // Total Width
+// var H = 3;                   // Height
+// var slab_thickness = 0.35;   // Slab thickness
+// var rib_height = 0.2;        // Rib height
+// var rib_spacing = 0.5;       // Rib spacing
+// var rib_width = 0.18;        // Rib Width
 
 // create material 
 var material_1 = Material(1, 'LC50/55');    // Concrete
