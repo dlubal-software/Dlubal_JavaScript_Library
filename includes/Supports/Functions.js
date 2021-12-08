@@ -3,7 +3,7 @@
 // ex. f
 
 
-function create_spring_constant(spring) {
+function CreateSpringConstant(spring) {
   var spring_constant = nodal_supports["SPRING_CONSTANT_NO"];
 
   if (spring === true) {
@@ -13,9 +13,9 @@ return spring_constant;
 };
 
 
-function create_spring(spring) {
+function CreateSpring(spring) {
 	if (spring === true || spring === false){
-      return create_spring_constant(spring);
+      return CreateSpringConstant(spring);
     }
     else {
       return spring;
@@ -23,31 +23,15 @@ function create_spring(spring) {
 };
 
 
-function create_spring_vector(x, y, z) {
+function CreateSpringVector(x, y, z) {
   var spring_vector = [x, y, z];
   var spring_vector_new = [0,0,0];
   spring_vector.forEach(function (spring, index) {
-      spring_vector_new[index] = create_spring(spring);
+      spring_vector_new[index] = CreateSpring(spring);
   });
   return $V(spring_vector_new[0], spring_vector_new[1], spring_vector_new[2]);
 };
 
-
-function change_active_obj(obj, support) {
-  obj.setNo(support.no);
-  obj.nonlinear = new SupportNonlinearities(support);
-};
-
-function change_active_obj_member(obj, support) {
-  obj.setNo(support.no);
-  obj.nonlinear = new MemberSupportNonlinearities(support);
-};
-
-
-function change_active_obj_surface(obj, support) {
-  obj.setNo(support.no);
-  obj.nonlinear = new SurfaceSupportNonlinearities(support);
-};
 
 function CheckIfNonlinearityCanBeSet(support_constant, support_name, nonlinearity_type) {
   console.log(support_constant);

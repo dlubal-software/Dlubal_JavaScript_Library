@@ -1,46 +1,49 @@
-// object support conditions contains set of fuctions which will be used in all types of suppports
-// Access to theese functions is though supportObject.conditions.function()
-// ex. f
+// object support conditions contains set of functions which will be used for nodal and lines of suppports
+// Access to theese functions is through supportObject.nonlinear.dirrection.function()
+// ex. for nodal support: 
+// var nodal_support = new NodalSupport();
+// nodal_support.Fixed();
+// nodal_support.Nonlinear.Z.FailAllIfPositive();
+//
 
-function support_z_nonlinearities(support)
+function SupportNonlinearitiesZ(support)
 {
 	this.support = support;
 	return self;
 }
 
-support_z_nonlinearities.prototype.failIfNegative = function() {
+SupportNonlinearitiesZ.prototype.FailIfNegative = function() {
 	this.support.spring_z_nonlinearity = nodal_supports.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE;
-	console.log("Support " + this.support.no + " was edited. Nonlinearity: Failure if negative reaction Z");
 };
 
-support_z_nonlinearities.prototype.failIfPositive = function() {
+SupportNonlinearitiesZ.prototype.FailIfPositive = function() {
 	this.support.spring_z_nonlinearity = nodal_supports.NONLINEARITY_TYPE_FAILURE_IF_POSITIVE;
 };
 
-support_z_nonlinearities.prototype.failAllIfNegative = function() {
+SupportNonlinearitiesZ.prototype.FailAllIfNegative = function() {
 	this.support.spring_z_nonlinearity = nodal_supports.NONLINEARITY_TYPE_FAILURE_ALL_IF_NEGATIVE;
 };
 
-support_z_nonlinearities.prototype.failAllIfPositive = function() {
+SupportNonlinearitiesZ.prototype.FailAllIfPositive = function() {
 	this.support.spring_z_nonlinearity = nodal_supports.NONLINEARITY_TYPE_FAILURE_ALL_IF_POSITIVE;
 };
 
-support_z_nonlinearities.prototype.frictionX = function(value) {
+SupportNonlinearitiesZ.prototype.FrictionX = function(value) {
 	this.support.spring_z_nonlinearity = nodal_supports.NONLINEARITY_TYPE_FRICTION_DIRECTION_1;
 	this.support.friction_coefficient_z = value;
 };
 
-support_z_nonlinearities.prototype.frictionY = function(value) {
+SupportNonlinearitiesZ.prototype.FrictionY = function(value) {
 	this.support.spring_z_nonlinearity = nodal_supports.NONLINEARITY_TYPE_FRICTION_DIRECTION_2;
 	this.support.friction_coefficient_z = value;
 };
 
-support_z_nonlinearities.prototype.frictionXY = function(value) {
+SupportNonlinearitiesZ.prototype.FrictionXY = function(value) {
 	this.support.spring_z_nonlinearity = nodal_supports.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2;
 	this.support.friction_coefficient_z = value;
 };
 
-support_z_nonlinearities.prototype.frictionXplusZ = function(value1,value2) {
+SupportNonlinearitiesZ.prototype.FrictionXplusY = function(value1,value2) {
 	this.support.spring_z_nonlinearity = nodal_supports.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2;
 	this.support.friction_coefficient_zx = value1;
 	this.support.friction_coefficient_zy = value2;
