@@ -46,6 +46,9 @@ function createBaseLoad (load_type,
 		case "Member_Set_Load":
 			handled_params["member_sets"] = typeof index_list != "undefined" ? index_list : [];
 			break;
+		case "Surface_Set_Load":
+			handled_params["surface_sets"] = typeof index_list != "undefined" ? index_list : [];
+			break;
 		default:
 			ASSERT(false, "Unknown load type");
 	}
@@ -175,6 +178,27 @@ var setLoadValues = function()
 	{
 		load.distance_c_is_defined_as_relative ? load.distance_c_relative = distance_c_value : load.distance_c_absolute = distance_c_value;
 	}
+}
+
+/**
+* Sets axis for rotary motion load type
+* @param 	{Object}	load	Load
+* @param	{String}	value	Parallel axis (X, Y, Z)
+* @return	{Boolean}	True if axis and orientation was succesfully set
+*/
+var setAxis = function(load,
+					   value)
+{
+	ASSERT(load.load_type == surface_loads.LOAD_DISTRIBUTION_RADIAL);
+	
+	if (value.length == 1 && value.match("[X|Y|Z]") != null)
+	{
+		load.axis_definition_axis = value.substring(0, 1);
+		
+		return true;
+	}
+	
+	return false;
 }
 
 /**
