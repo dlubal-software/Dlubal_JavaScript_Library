@@ -49,6 +49,9 @@ function createBaseLoad (load_type,
 		case "Surface_Set_Load":
 			handled_params["surface_sets"] = typeof index_list != "undefined" ? index_list : [];
 			break;
+		case "Solid_Set_Load":
+			handled_params["solid_sets"] = typeof index_list != "undefined" ? index_list : [];
+			break;
 		default:
 			ASSERT(false, "Unknown load type");
 	}
@@ -274,7 +277,7 @@ var setRotaryMotionLoad = function(load,
 }
 
 /**
-* Assignes values to load depend of load type and load distribution (private)
+* Assignes values to line / line set load depend of load type and load distribution (private)
 * @param  {String}	load_type			Load type
 * @param  {String}	load_distribution	Load distribution
 * @param  {Array}	load_values			Load values depend on load type and load distribution
@@ -382,7 +385,7 @@ var setLineLoadDistribution = function(load,
 }
 
 /**
-* Assignes values to load depend of load type and load distribution (private)
+* Assignes values to member / member set load depend of load type and load distribution (private)
 * @param  {String}	load_type			Load type
 * @param  {String}	load_distribution	Load distribution, can be undefined
 * @param  {Array}	load_values			Load values depend on load type and load distribution
@@ -460,9 +463,9 @@ var setLineLoadDistribution = function(load,
 * @return	{Object}	Returns modified load
 */
 var setMemberLoadDistribution = function(load,
-								   load_type,
-								   load_distribution,
-								   load_values)
+										 load_type,
+										 load_distribution,
+										 load_values)
 {
 	load.load_type = load_type;
 	
@@ -641,7 +644,7 @@ var setMemberLoadDistribution = function(load,
 }
 
 /**
-* Assignes values to load depend of load type and load distribution (private)
+* Assignes values to surface / surface set load depend of load type and load distribution (private)
 * @param  {String}	load_type			Load type
 * @param  {String}	load_distribution	Load distribution, can be undefined
 * @param  {Array}	load_values			Load values depend on load type and load distribution
@@ -673,9 +676,9 @@ var setMemberLoadDistribution = function(load,
 * @return	{Object}	Returns modified load
 */
 var setSurfaceLoadDistribution = function(load,
-								   load_type,
-								   load_distribution,
-								   load_values)
+										  load_type,
+										  load_distribution,
+										  load_values)
 {		
 	load.load_type = load_type;
 	
@@ -871,6 +874,92 @@ var setSurfaceLoadDistribution = function(load,
 		case surface_loads.LOAD_TYPE_MASS:
 			ASSERT(load_values.length == 1, "Wrong number of load values, one value is required (M)");
 			setLoadValues(load, load_values, "magnitude_mass_global");
+			break;
+		default:
+			showLoadAssert(load_type);
+	}
+	
+	return load;
+}
+
+/**
+* Assignes values to solid / solid set load depend of load type and load distribution (private)
+* @param  {String}	load_type			Load type
+* @param  {String}	load_distribution	Load distribution, can be undefined
+* @param  {Array}	load_values			Load values depend on load type and load distribution
+*										- (load type / load distribution: [valid values])
+*										- "Force" / "Uniform": [p]
+*										- "Temperature" / "Uniform": [T]
+*										- "Temperature" / "Linear in X": [Node1, Node2, T1, T2]
+*										- "Temperature" / "Linear in Y": [Node1, Node2, T1, T2]
+*										- "Temperature" / "Linear in Z": [Node1, Node2, T1, T2]
+*										- "Strain" / "Uniform": [εx, εy, εz]
+*										- "Strain" / "Linear in X": [Node1, Node2, ε1x, ε1y, ε1z, ε2x, ε2y, ε2z]
+*										- "Strain" / "Linear in Y": [Node1, Node2, ε1x, ε1y, ε1z, ε2x, ε2y, ε2z]
+*										- "Strain" / "Linear in Z": [Node1, Node2, ε1x, ε1y, ε1z, ε2x, ε2y, ε2z]
+*										- "Buoyancy" / "Uniform": [p]
+*										- "Rotary Motion": [axis_definition, p1, p2, Node1, Node2, [Node1, Node2] | XA, YA, ZA, XB, YB, ZB] (axis definition 1 == "Two points")
+*														   [axis_definition, p1, p2, Node1, Node2, ([Node1] | XA, YA, ZA), parallel_axis] (axis definition 2 == "Point and axis")
+* @return	{Object}	Returns modified load
+*/
+var setSolidLoadDistribution = function(load,
+										load_type,
+										load_distribution,
+										load_values)
+{
+	load.load_type = load_type;
+	
+	if (typeof load_distribution != "undefined")
+	{
+		load.load_distribution = load_distribution;
+	}
+	
+	switch (load_type)
+	{
+		case solid_loads.LOAD_TYPE_FORCE:
+			ASSERT(load_values.length == 1, "Wrong number of load values, one value is required (p)");
+			setLoadValues(load, load_values, "uniform_magnitude");
+			break;
+		case solid_loads.LOAD_TYPE_TEMPERATURE:
+			switch (load_distribution)
+			{
+				case solid_loads.LOAD_DISTRIBUTION_UNIFORM:
+					ASSERT(load_values.length == 1, "Wrong number of load values, one is required (p)");
+					setLoadValues(load, load_values, "uniform_magnitude");
+					break;
+				case solid_loads.LOAD_DISTRIBUTION_LINEAR_IN_X:
+				case solid_loads.LOAD_DISTRIBUTION_LINEAR_IN_Y:
+				case solid_loads.LOAD_DISTRIBUTION_LINEAR_IN_Z:
+					ASSERT(load_values.length >= 3, "Wrong number of load values, at least three values are required (Node1, Node2, T1)");
+					setLoadValues(load, load_values, "node_1", "node_2", "magnitude_1", "magnitude_2");
+					break;
+				default:
+					showLoadAssert(load_type, load_distribution);
+			}
+			break;
+		case solid_loads.LOAD_TYPE_STRAIN:
+			switch (load_distribution)
+			{
+				case solid_loads.LOAD_DISTRIBUTION_UNIFORM:
+					ASSERT(load_values.length >= 1, "Wrong number of load values, at least one value is required (εx)");
+					setLoadValues(load, load_values, "strain_uniform_magnitude_x", "strain_uniform_magnitude_y", "strain_uniform_magnitude_z");
+					break;
+				case solid_loads.LOAD_DISTRIBUTION_LINEAR_IN_X:
+				case solid_loads.LOAD_DISTRIBUTION_LINEAR_IN_Y:
+				case solid_loads.LOAD_DISTRIBUTION_LINEAR_IN_Z:
+					ASSERT(load_values.length >= 1, "Wrong number of load values, at least three values are required (Node1, Node2, ε1x)");
+					setLoadValues(load, load_values, "node_1", "node_2", "strain_magnitude_x1", "strain_magnitude_y1", "strain_magnitude_z1", "strain_magnitude_x2", "strain_magnitude_y2", "strain_magnitude_z2");
+					break;
+				default:
+					showLoadAssert(load_type, load_distribution);
+			}
+			break;
+		case solid_loads.LOAD_TYPE_BUOYANCY:
+			ASSERT(load_values.length >= 1, "Wrong number of load values, at least one value is required (p)");
+			setLoadValues(load, load_values, "uniform_magnitude");
+			break;
+		case solid_loads.LOAD_TYPE_ROTARY_MOTION:
+			setRotaryMotionLoad(load, load_values);
 			break;
 		default:
 			showLoadAssert(load_type);
