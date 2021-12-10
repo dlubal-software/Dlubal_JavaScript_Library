@@ -43,6 +43,9 @@ function createBaseLoad (load_type,
 		case "Line_Set_Load":
 			handled_params["line_sets"] = typeof index_list != "undefined" ? index_list : [];
 			break;
+		case "Member_Set_Load":
+			handled_params["member_sets"] = typeof index_list != "undefined" ? index_list : [];
+			break;
 		default:
 			ASSERT(false, "Unknown load type");
 	}

@@ -62,7 +62,7 @@ function MemberLoad(no,
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
-	 * @return	{Object}	Created member force load
+	 * @return	{Object}	Created member moment load
 	*/
 	this.Moment = function(no,
 						   load_case,
@@ -92,7 +92,7 @@ function MemberLoad(no,
 	 * @param	{Number}	load_value			Uniform load value
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
-	 * @return	{Object}	Created member force load
+	 * @return	{Object}	Created member mass load
 	*/
 	this.Mass = function(no,
 						 load_case,
@@ -117,7 +117,7 @@ function MemberLoad(no,
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
-	 * @return	{Object}	Created member force load
+	 * @return	{Object}	Created member temperature load
 	*/
 	this.Temperature = function(no,
 								load_case,
@@ -149,7 +149,7 @@ function MemberLoad(no,
 	 * @param 	{String}	load_direction		Load direction
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
-	 * @return	{Object}	Created member force load
+	 * @return	{Object}	Created member temperature change load
 	*/
 	this.TemperatureChange = function(no,
 									  load_case,
@@ -181,7 +181,7 @@ function MemberLoad(no,
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
-	 * @return	{Object}	Created member force load
+	 * @return	{Object}	Created member axial strain load
 	*/
 	this.AxialStrain = function(no,
 								load_case,
@@ -205,7 +205,7 @@ function MemberLoad(no,
 	 * @param	{Number}	load_value			Uniform load value
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
-	 * @return	{Object}	Created member force load
+	 * @return	{Object}	Created member axial displacement load
 	*/
 	this.AxialDisplacement = function(no,
 									  load_case,
@@ -230,7 +230,7 @@ function MemberLoad(no,
 	 * @param 	{String}	load_direction		Load direction
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
-	 * @return	{Object}	Created member force load
+	 * @return	{Object}	Created member precamber load
 	*/
 	this.Precamber = function(no,
 							  load_case,
@@ -260,7 +260,7 @@ function MemberLoad(no,
 	 * @param	{Number}	load_value			Uniform load value
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
-	 * @return	{Object}	Created member force load
+	 * @return	{Object}	Created member initial prestress load
 	*/
 	this.InitialPrestress = function(no,
 									 load_case,
@@ -285,7 +285,7 @@ function MemberLoad(no,
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
-	 * @return	{Object}	Created member force load
+	 * @return	{Object}	Created member displacement load
 	*/
 	this.Displacement = function(no,
 								 load_case,
@@ -317,7 +317,7 @@ function MemberLoad(no,
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
-	 * @return	{Object}	Created member force load
+	 * @return	{Object}	Created member rotation load
 	*/
 	this.Rotation = function(no,
 							 load_case,
@@ -348,7 +348,7 @@ function MemberLoad(no,
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
-	 * @return	{Object}	Created member force load
+	 * @return	{Object}	Created member pipe content full load
 	*/
 	this.PipeContentFull = function(no,
 									load_case,
@@ -378,7 +378,7 @@ function MemberLoad(no,
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
-	 * @return	{Object}	Created member force load
+	 * @return	{Object}	Created member pipe content partial load
 	*/
 	this.PipeContentPartial = function(no,
 									   load_case,
@@ -407,7 +407,7 @@ function MemberLoad(no,
 	 * @param	{Number}	load_value			Uniform load value
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
-	 * @return	{Object}	Created member force load
+	 * @return	{Object}	Created member pipe internal pressure load
 	*/
 	this.PipeInternalPressure = function(no,
 										 load_case,
@@ -430,7 +430,7 @@ function MemberLoad(no,
 	 * @param	{Number}	load_values			Load values depend on load distribution (for more information look at setMemberLoadDistribution function)
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
-	 * @return	{Object}	Created member force load
+	 * @return	{Object}	Created member rotary motion load
 	*/
 	this.RotaryMotion = function(no,
 								 load_case,

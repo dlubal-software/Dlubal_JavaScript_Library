@@ -62,7 +62,7 @@ function LineSetLoad(no,
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
-	 * @return	{Object}	Created line set force load
+	 * @return	{Object}	Created line set moment load
 	*/
 	this.Moment = function(no,
 						   load_case,
@@ -92,7 +92,7 @@ function LineSetLoad(no,
 	 * @param	{Number}	load_value			Uniform load value
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
-	 * @return	{Object}	Created line set force load
+	 * @return	{Object}	Created line set mass load
 	*/
 	this.Mass = function(no,
 						 load_case,
