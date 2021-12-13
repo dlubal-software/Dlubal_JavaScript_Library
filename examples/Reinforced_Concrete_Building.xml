@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<script>
+    <arguments>
+        <argument argument-name="a" default-value="20" label-name="Total Length and Width" />
+        <argument argument-name="H" default-value="3.5" label-name="Height" />
+        <argument argument-name="n_f" default-value="10" label-name="Number of floors" />
+        <argument argument-name="rotation_degree" default-value="45" label-name="Total rotation degree of floors" />
+        <argument argument-name="chamfer" default-value="3" label-name="Chamfer of edges"/>
+        <argument argument-name="d" default-value="6" label-name="Distance between openings"/>
+        <argument argument-name="len" default-value="4" label-name="Opening Length"/>
+       <argument argument-name="w" default-value="3" label-name="Opening Width"/>
+       <argument argument-name="thickness_1" default-value="0.35" label-name="Thickness of floors"/>
+       <argument argument-name="thickness_2" default-value="0.3" label-name="Thickness of walls"/>
+    </arguments>
+</script>

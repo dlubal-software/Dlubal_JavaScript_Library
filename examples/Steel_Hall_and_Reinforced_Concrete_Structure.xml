@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<script>
+    <arguments>
+        <argument argument-name="H_1" default-value="7" label-name="Height 1" />
+        <argument argument-name="H_2" default-value="7.5" label-name="Radius 2" />
+        <argument argument-name="a" default-value="25" label-name="Length of steel hall" />
+        <argument argument-name="b" default-value="20" label-name="Width of total structure" />
+        <argument argument-name="n_b" default-value="4" label-name="Number of bays in width (even)"/>
+        <argument argument-name="n_a" default-value="6" label-name="Number of steel hall bays in length"/>
+        <argument argument-name="braces_bays" default-value="[1, 3, 5, 6]" label-name="Number of bays with braces"/>
+       <argument argument-name="d" default-value="0.2" label-name="Distance between steel and concrete structure"/>
+       <argument argument-name="a_1" default-value="5" label-name="Length of concrete structure"/>
+       <argument argument-name="a_2" default-value="5" label-name="Length of concrete beams"/>
+       <argument argument-name="l" default-value="2.5" label-name="Length of openings (windows)"/>
+       <argument argument-name="w" default-value="1.5" label-name="Height of openings (windows)"/>
+       <argument argument-name="thickness_1" default-value="0.2" label-name="Thickness of floors and roof"/>
+       <argument argument-name="thickness_2" default-value="0.2" label-name="Thickness of walls"/>
+    </arguments>
+</script>

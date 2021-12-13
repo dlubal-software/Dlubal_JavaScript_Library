@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<script>
+    <arguments>
+        <argument argument-name="a" default-value="5" label-name="Length" />
+        <argument argument-name="b" default-value="4" label-name="Width" />
+        <argument argument-name="H" default-value="3" label-name="Height" />
+        <argument argument-name="len" default-value="2" label-name="Windows length" />
+        <argument argument-name="w" default-value="1.5" label-name="Windows Height"/>
+        <argument argument-name="o_n" default-value="6" label-name="Number of edges for polygonal opening"/>
+        <argument argument-name="o_r" default-value="1" label-name="Radius of polygonal opening"/>
+        <argument argument-name="d_l" default-value="1" label-name="Length of door"/>
+        <argument argument-name="d_h" default-value="2.2" label-name="Height of door"/>
+        <argument argument-name="thickness_1" default-value="0.2" label-name="Thickness of walls"/>
+    </arguments>
+</script>
