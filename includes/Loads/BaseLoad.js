@@ -192,7 +192,7 @@ var setLoadValues = function()
 var setAxis = function(load,
 					   value)
 {
-	ASSERT(load.load_type == surface_loads.LOAD_DISTRIBUTION_RADIAL);
+	ASSERT(load.load_distribution == surface_loads.LOAD_DISTRIBUTION_RADIAL);
 	
 	if (value.length == 1 && value.match("[X|Y|Z]") != null)
 	{
@@ -662,8 +662,8 @@ var setMemberLoadDistribution = function(load,
 *										- "Temperature" / "Linear in X": [Node1, Node2, Tc1, Tc2, ΔT1, ΔT2]
 *										- "Temperature" / "Linear in Y": [Node1, Node2, Tc1, Tc2, ΔT1, ΔT2]
 *										- "Temperature" / "Linear in Z": [Node1, Node2, Tc1, Tc2, ΔT1, ΔT2]
-*										- "Temperature" / "Radial": [axis_definition, p1, p2, Node1, Node2, [Node1, Node2] | XA, YA, ZA, XB, YB, ZB] (axis definition 1 == "Two points")
-*														   	  		[axis_definition, p1, p2, Node1, Node2, ([Node1] | XA, YA, ZA), parallel_axis] (axis definition 2 == "Point and axis")
+*										- "Temperature" / "Radial": [axis_definition, Tc1, Tc2, ΔT1, ΔT2, Node1, Node2, [Node1, Node2] | XA, YA, ZA, XB, YB, ZB] (axis definition 1 == "Two points")
+*														   	  		[axis_definition, Tc1, Tc2, ΔT1, ΔT2, Node1, Node2, ([Node1] | XA, YA, ZA), parallel_axis] (axis definition 2 == "Point and axis")
 *										- "Axial Strain" / "Uniform": [εx, εy]
 *										- "Axial Strain" / "Linear": [Node1, Node2, Node3, ε1x, ε1y, ε2x, ε2y, ε3x, ε3y]
 *										- "Axial Strain" / "Linear in X": [Node1, Node2, ε1x, ε1y, ε2x, ε2y]
@@ -802,14 +802,14 @@ var setSurfaceLoadDistribution = function(load,
 						ASSERT(load_values[7].length >= 1, "Wrong number of defined nodes, at least one is required");
 						var node = nodes.getNthObject(load_values[7][0]);
 						load.axis_definition_p1 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
-				
+
 						// If axis definition is "Two points" and there are two axis coordinations
 						if (load_values[0] == TWO_POINTS && load_values[7].length == 2)
 						{
 							node = nodes.getNthObject(load_values[7][1]);
 							load.axis_definition_p2 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
 						}
-						
+
 						// load_values = [axis_definition, ω, α, [Node1], parallel_axis]
 						if (load_values[0] == POINT_AND_PARALLEL && load_values.length >= 9)
 						{

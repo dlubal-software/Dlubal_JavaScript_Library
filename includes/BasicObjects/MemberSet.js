@@ -27,7 +27,7 @@ MemberSet.prototype.ContinuousMembers = function (no,
     }
 }
 
-MemberSet.prototype.GroupOfmembers = function (no,
+MemberSet.prototype.GroupOfMembers = function (no,
                                                   members,
                                                   comment,
                                                   params)
