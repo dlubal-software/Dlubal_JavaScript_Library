@@ -1,3 +1,13 @@
+/**
+ * Create Thickness
+ * @param {int} no - Number of Thickness
+ * @param {string} name - Name of the Thickness
+ * @param {int} material - Number of material
+ * @param {number} uniform_thickness_d - Uniform thickness in meters.
+ * @param {string} comment - Comment for the Thickness
+ * @param {dictionary} params - Parameters of the Thickness
+ * @returns 
+ */
 function Thickness(no,
                    name,
                    material,
@@ -19,17 +29,25 @@ function Thickness(no,
         if (material !== 'undefined')
         {
             this.thickness.material = material;
-        }
+        };
 
         // Uniform Thickness d
         this.thickness.uniform_thickness = uniform_thickness_d;
 
         set_comment_and_parameters(this.thickness, comment, params);
         return this.thickness;
-    }
-}
+    };
+};
 
-
+/**
+ * Create Uniform thickness
+ * @param {int} no - Number of Thickness
+ * @param {string} name - Name of the Thickness
+ * @param {int} material - Number of material
+ * @param {array} properties - Properties of thickness in format [thickness]
+ * @param {string} comment - Comment for the Thickness
+ * @param {dictionary} params - Parameters of the Thickness
+ */
 Thickness.prototype.Uniform = function (no,
                                         name,
                                         material,
@@ -49,16 +67,23 @@ Thickness.prototype.Uniform = function (no,
     if (material !== 'undefined')
     {
         this.thickness.material = material;
-    }
+    };
 
     // Uniform Thickness d
     this.thickness.uniform_thickness = properties[0];
     this.thickness.type = thicknesses.TYPE_UNIFORM;
     set_comment_and_parameters(this.thickness, comment, params);
+};
 
-}
-
-
+/**
+ * Create Variable - 3 Nodes thickness
+ * @param {int} no - Number of Thickness
+ * @param {string} name - Name of the Thickness
+ * @param {int} material - Number of material
+ * @param {array} properties - Properties of thickness
+ * @param {string} comment - Comment for the Thickness
+ * @param {dictionary} params - Parameters of the Thickness
+ */
 Thickness.prototype.Variable_3Nodes = function (no,
                                                 name,
                                                 material,
@@ -79,7 +104,7 @@ Thickness.prototype.Variable_3Nodes = function (no,
     if (material !== 'undefined')
     {
         this.thickness.material = material;
-    }
+    };
 
     this.thickness.type = thicknesses.TYPE_VARIABLE_THREE_NODES;
     this.thickness.thickness_1 = properties[0];
@@ -90,10 +115,17 @@ Thickness.prototype.Variable_3Nodes = function (no,
     this.thickness.node_3 = properties[5];
 
     set_comment_and_parameters(this.thickness, comment, params);
-}
+};
 
-
-
+/**
+ * Create Variable - 2 Nodes and Direction thickness
+ * @param {int} no - Number of Thickness
+ * @param {string} name - Name of the Thickness
+ * @param {int} material - Number of material
+ * @param {array} properties - Properties of thickness
+ * @param {string} comment - Comment for the Thickness
+ * @param {dictionary} params - Parameters of the Thickness
+ */
 Thickness.prototype.Variable_2NodesAndDirection = function (no,
                                                             name,
                                                             material,
@@ -114,7 +146,7 @@ Thickness.prototype.Variable_2NodesAndDirection = function (no,
     if (material !== 'undefined')
     {
         this.thickness.material = material;
-    }
+    };
 
     this.thickness.type = thicknesses.TYPE_VARIABLE_TWO_NODES_AND_DIRECTION;
     this.thickness.thickness_1 = properties[0];
@@ -124,9 +156,17 @@ Thickness.prototype.Variable_2NodesAndDirection = function (no,
     this.thickness.direction = properties[4];
 
     set_comment_and_parameters(this.thickness, comment, params);
-}
+};
 
-
+/**
+ * Create Variable - 4 Surface Corners thickness
+ * @param {int} no - Number of Thickness
+ * @param {string} name - Name of the Thickness
+ * @param {int} material - Number of material
+ * @param {array} properties - Properties of thickness
+ * @param {string} comment - Comment for the Thickness
+ * @param {dictionary} params - Parameters of the Thickness
+ */
 Thickness.prototype.Variable_4SurfaceCorners = function (no,
                                                          name,
                                                          material,
@@ -147,7 +187,7 @@ Thickness.prototype.Variable_4SurfaceCorners = function (no,
     if (material !== 'undefined')
     {
         this.thickness.material = material;
-    }
+    };
 
     this.thickness.type = thicknesses.TYPE_VARIABLE_FOUR_SURFACE_CORNERS;
     this.thickness.thickness_1 = properties[0];
@@ -159,13 +199,18 @@ Thickness.prototype.Variable_4SurfaceCorners = function (no,
     this.thickness.thickness_4 = properties[6];
     this.thickness.node_4 = properties[7];
     
-
     set_comment_and_parameters(this.thickness, comment, params);
-}
+};
 
-
-
-
+/**
+ * Create Variable - Circle thickness
+ * @param {int} no - Number of Thickness
+ * @param {string} name - Name of the Thickness
+ * @param {int} material - Number of material
+ * @param {array} properties - Properties of thickness
+ * @param {string} comment - Comment for the Thickness
+ * @param {dictionary} params - Parameters of the Thickness
+ */
 Thickness.prototype.Variable_Circle = function (no,
                                                 name,
                                                 material,
@@ -186,15 +231,22 @@ Thickness.prototype.Variable_Circle = function (no,
     if (material !== 'undefined')
     {
         this.thickness.material = material;
-    }
+    };
 
     this.thickness.type = thicknesses.TYPE_VARIABLE_CIRCLE;
     this.thickness.thickness_circle_center = properties[0];
     this.thickness.thickness_circle_line = properties[1];
     set_comment_and_parameters(this.thickness, comment, params);
-}
+};
 
-
+/**
+ * Create Layers thickness
+ * @param {int} no - Number of Thickness
+ * @param {string} name - Name of the Thickness
+ * @param {array} layers - List of layers
+ * @param {string} comment - Comment for the Thickness
+ * @param {dictionary} params - Parameters of the Thickness
+ */
 Thickness.prototype.Layers = function (no,
                                        name,
                                        layers,
@@ -215,12 +267,23 @@ Thickness.prototype.Layers = function (no,
         this.thickness.layers_reference_table[i + 1].thickness = layers[i][1];
         this.thickness.layers_reference_table[i + 1].angle     =(layers[i][2])*PI/180;
         this.thickness.layers_reference_table[i + 1].comment   = layers[i][3];
-    }
+    };
     set_comment_and_parameters(this.thickness, comment, params);
-}
+};
 
 
-
+/**
+ * Create Shape Orthotropy thickness
+ * @param {int} no - Number of Thickness
+ * @param {string} name - Name of the Thickness
+ * @param {array} layers - List of layers
+ * @param {string} orthotropy_type - Orthotropy Type
+ * @param {number} rotation_beta - Rotation about Z-axis of surface (Degree)
+ * @param {string} consideration_of_self_weight - Self-Weight definition
+ * @param {array} parameters - Parameters of Shame Orthotropy
+ * @param {string} comment - Comment for the Thickness
+ * @param {dictionary} params - Parameters of the Thickness
+ */
 Thickness.prototype.ShapeOrthotropy = function (no,
                                                 name,
                                                 material,
@@ -244,7 +307,7 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         this.thickness.orthotropy_type = thicknesses.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS;
         this.thickness.shape_orthotropy_effective_thickness_x = parameters[0];
         this.thickness.shape_orthotropy_effective_thickness_y = parameters[1];
-    }
+    };
 
     if (orthotropy_type == thicknesses.ORTHOTROPIC_THICKNESS_TYPE_COUPLING)
     {
@@ -255,7 +318,7 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         this.thickness.coupling_thickness = parameters[0];
         this.thickness.coupling_spacing = parameters[1];
         this.thickness.coupling_width = parameters[2];
-    }
+    };
 
     if (orthotropy_type == thicknesses.ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE)
     {
@@ -267,8 +330,7 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         this.thickness.rib_height = parameters[1];
         this.thickness.rib_spacing = parameters[2];
         this.thickness.rib_width = parameters[3];
-    }
-
+    };
 
     if (orthotropy_type == thicknesses.ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE)
     {
@@ -283,7 +345,7 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         this.thickness.rib_spacing_y = parameters[4];
         this.thickness.rib_width_x = parameters[5];
         this.thickness.rib_width_y = parameters[6];
-    }
+    };
 
 
     if (orthotropy_type == thicknesses.ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET)
@@ -297,7 +359,7 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         this.thickness.rib_spacing = parameters[2];
         this.thickness.top_flange_width = parameters[3];
         this.thickness.bottom_flange_width = parameters[4];
-    }
+    };
 
     if (orthotropy_type == thicknesses.ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB)
     {
@@ -308,7 +370,7 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         this.thickness.slab_thickness = parameters[0];
         this.thickness.void_spacing = parameters[1];
         this.thickness.void_diameter = parameters[2];
-    }
+    };
 
     if (orthotropy_type == thicknesses.ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE)
     {
@@ -321,22 +383,22 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         this.thickness.rib_spacing_y = parameters[2];
         this.thickness.rib_width_x = parameters[3];
         this.thickness.rib_width_y = parameters[4];
-    }
+    };
 
     if (consideration_of_self_weight[0] == thicknesses.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS)
     {
         this.thickness.shape_orthotropy_self_weight_definition_type = thicknesses.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS;
-    }
+    };
     if (consideration_of_self_weight[0] == thicknesses.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS)
     {
         this.thickness.shape_orthotropy_self_weight_definition_type = thicknesses.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS;
         this.thickness.orthotropy_fictitious_thickness = consideration_of_self_weight[1];
-    }
+    };
     if (consideration_of_self_weight[0] == thicknesses.SELF_WEIGHT_DEFINED_VIA_WEIGHT)
     {
         this.thickness.shape_orthotropy_self_weight_definition_type = thicknesses.SELF_WEIGHT_DEFINED_VIA_WEIGHT;
         this.thickness.shape_orthotropy_self_weight = consideration_of_self_weight[1];
-    }
+    };
 
     this.thickness.orthotropy_rotation_beta = rotation_beta*PI/180;
     // Thickness Name
@@ -346,13 +408,22 @@ Thickness.prototype.ShapeOrthotropy = function (no,
     if (material !== 'undefined')
     {
         this.thickness.material = material;
-    }
+    };
 
     set_comment_and_parameters(this.thickness, comment, params);
-}
+};
 
-
-
+/**
+ * Create Stiffness Matrix thickness
+ * @param {int} no - Number of Thickness
+ * @param {string} name - Name of the Thickness
+ * @param {number} rotation_beta - Rotation about Z-axis of surface (Degree)
+ * @param {string} consideration_of_self_weight - Self-Weight definition
+ * @param {array} coefficient_of_thermal_expansion - Coefficient of thermal expansion
+ * @param {array} stiffness_matrix - Stiffness Matrix
+ * @param {string} comment - Comment for the Thickness
+ * @param {dictionary} params - Parameters of the Thickness
+ */
 Thickness.prototype.StiffnessMatrix = function (no,
                                                 name,
                                                 rotation_beta,
@@ -426,6 +497,5 @@ Thickness.prototype.StiffnessMatrix = function (no,
 
     // Thickness Name
     this.thickness.name = name;
-
     set_comment_and_parameters(this.thickness, comment, params);
-}
+};
