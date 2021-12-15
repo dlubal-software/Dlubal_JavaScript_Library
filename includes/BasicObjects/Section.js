@@ -1,3 +1,12 @@
+/**
+ * Create Section
+ * @param {int} no - Number of the Section
+ * @param {string} name - Name of the Section
+ * @param {int} material - Number of the material
+ * @param {string} comment - Comment for the Opening
+ * @param {dictionary} params - Parameters of the Opening
+ * @returns section
+ */
 function Section(no,
                  name,
                  material,
