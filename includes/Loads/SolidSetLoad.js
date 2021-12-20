@@ -25,7 +25,7 @@ function SolidSetLoad(no,
 	 * @param 	{Number}	no					Index of solid set load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		solid_sets			List of solid set indexes
-	 * @param	{Array}		load_value			Uniform load value
+	 * @param	{Array}		load_value			Uniform load parameter
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -56,7 +56,7 @@ function SolidSetLoad(no,
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		solid_sets			List of solid set indexes
 	 * @param 	{String}	load_distribution	Load distribution
-	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setSolidLoadDistribution function)
+	 * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setSolidLoadDistribution function)
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
 	 * @return	{Object}	Created solid set temperature load
@@ -81,7 +81,7 @@ function SolidSetLoad(no,
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		solid_sets			List of solid set indexes
 	 * @param 	{String}	load_distribution	Load distribution
-	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setSolidLoadDistribution function)
+	 * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setSolidLoadDistribution function)
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
 	 * @return	{Object}	Created solid set strain load
@@ -105,7 +105,7 @@ function SolidSetLoad(no,
 	 * @param 	{Number}	no					Index of solid set load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		solid_sets			List of solid set indexes
-	 * @param	{Array}		load_value			Uniform load value
+	 * @param	{Array}		load_value			Uniform load parameter
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -135,7 +135,7 @@ function SolidSetLoad(no,
 	 * @param 	{Number}	no					Index of solid set load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		solid_sets			List of solid set indexes
-	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setSolidLoadDistribution function)
+	 * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setSolidLoadDistribution function)
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
 	 * @return	{Object}	Created solid set rotary motion load

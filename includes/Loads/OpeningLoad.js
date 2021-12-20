@@ -24,7 +24,7 @@ function OpeningLoad(no,
 	* Assignes values to load depend of load type and load distribution (private)
 	* @param  {String}	load_type			Load type
 	* @param  {String}	load_distribution	Load distribution, can be undefined
-	* @param  {Array}	load_values			Load values depend on load type and load distribution
+	* @param  {Array}	load_values			Load parameters depend on load type and load distribution
 	*										- (load type / load distribution: [valid values])
 	*										- "Force" / "Uniform/Trapezoidal": [p]
 	*										- "Force" / "Linear/Trapezoidal": [Node1, Node2, Node3, p1, p2, p3]
@@ -76,7 +76,7 @@ function OpeningLoad(no,
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		openings			List of openings indexes
 	 * @param 	{String}	load_distribution	Load distribution
-	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setLoadDistribution function)
+	 * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined

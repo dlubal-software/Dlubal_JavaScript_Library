@@ -26,7 +26,7 @@ function MemberLoad(no,
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		members				List of member indexes
 	 * @param 	{String}	load_distribution	Load distribution
-	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setMemberLoadDistribution function)
+	 * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -58,7 +58,7 @@ function MemberLoad(no,
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		members				List of member indexes
 	 * @param 	{String}	load_distribution	Load distribution
-	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setMemberLoadDistribution function)
+	 * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -89,7 +89,7 @@ function MemberLoad(no,
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		members				List of member indexes
-	 * @param	{Number}	load_value			Uniform load value
+	 * @param	{Number}	load_value			Uniform load parameter
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
 	 * @return	{Object}	Created member mass load
@@ -113,7 +113,7 @@ function MemberLoad(no,
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		members				List of member indexes
 	 * @param 	{String}	load_distribution	Load distribution
-	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setMemberLoadDistribution function)
+	 * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -145,7 +145,7 @@ function MemberLoad(no,
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		members				List of member indexes
 	 * @param 	{String}	load_distribution	Load distribution
-	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setMemberLoadDistribution function)
+	 * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -177,7 +177,7 @@ function MemberLoad(no,
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		members				List of member indexes
 	 * @param 	{String}	load_distribution	Load distribution
-	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setMemberLoadDistribution function)
+	 * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -202,7 +202,7 @@ function MemberLoad(no,
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		members				List of member indexes
-	 * @param	{Number}	load_value			Uniform load value
+	 * @param	{Number}	load_value			Uniform load parameter
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
 	 * @return	{Object}	Created member axial displacement load
@@ -226,7 +226,7 @@ function MemberLoad(no,
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		members				List of member indexes
 	 * @param 	{String}	load_distribution	Load distribution
-	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setMemberLoadDistribution function)
+	 * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -257,7 +257,7 @@ function MemberLoad(no,
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		members				List of member indexes
-	 * @param	{Number}	load_value			Uniform load value
+	 * @param	{Number}	load_value			Uniform load parameter
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
 	 * @return	{Object}	Created member initial prestress load
@@ -281,7 +281,7 @@ function MemberLoad(no,
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		members				List of member indexes
 	 * @param 	{String}	load_distribution	Load distribution
-	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setMemberLoadDistribution function)
+	 * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -313,7 +313,7 @@ function MemberLoad(no,
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		members				List of member indexes
 	 * @param 	{String}	load_distribution	Load distribution
-	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setMemberLoadDistribution function)
+	 * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -344,7 +344,7 @@ function MemberLoad(no,
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		members				List of member indexes
-	 * @param	{Number}	load_value			Uniform load value
+	 * @param	{Number}	load_value			Uniform load parameter
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -374,7 +374,7 @@ function MemberLoad(no,
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		members				List of member indexes
-	 * @param	{Array}		load_values			Load values for Uniform distribution
+	 * @param	{Array}		load_values			Load parameters for Uniform distribution
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -404,7 +404,7 @@ function MemberLoad(no,
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		members				List of member indexes
-	 * @param	{Number}	load_value			Uniform load value
+	 * @param	{Number}	load_value			Uniform load parameter
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
 	 * @return	{Object}	Created member pipe internal pressure load
@@ -427,7 +427,7 @@ function MemberLoad(no,
 	 * @param 	{Number}	no					Index of member load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		members				List of member indexes
-	 * @param	{Number}	load_values			Load values depend on load distribution (for more information look at setMemberLoadDistribution function)
+	 * @param	{Number}	load_values			Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
 	 * @return	{Object}	Created member rotary motion load
