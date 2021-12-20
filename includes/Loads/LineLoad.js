@@ -113,7 +113,7 @@ function LineLoad(no,
 	* Sets option for reference to list of lines
 	* @param 	{Boolean}	value	When undefined, true as default
 	*/
-	this.reference_to_list_of_lines = function(value)
+	this.ReferenceToListOfLines = function(value)
 	{
 		ASSERT(this.load.load_type != line_loads.E_TYPE_MASS, "Reference to list of lines cannot be set for mass load");
 

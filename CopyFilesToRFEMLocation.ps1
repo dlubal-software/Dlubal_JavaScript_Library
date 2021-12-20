@@ -58,3 +58,5 @@ catch
 }
 
 Write-Output "Copying done"
+
+$PathToRFEMExe = $PathToRFEM + "\\bin\\RFEM.exe"
