@@ -92,21 +92,21 @@ lineLoad.Force(undefined, lc, [1], "Uniform", [1500]);
 // Force trapezoidal line load with default values (absolute distances, only p1 with b distance can be specified)
 lineLoad.Force(undefined, lc, [4], "Trapezoidal", [1000, 3]);
 // Add reference to list of lines, true is default
-lineLoad.reference_to_list_of_lines();
+lineLoad.ReferenceToListOfLines();
 // Force trapezoidal line load with relative distances
 // [p1, distance_b, p2, distance_a, distance_a_relative, distance_b_relative]
 lineLoad.Force(undefined, lc, [3], "Trapezoidal", [1000, 0.9, 1500, 0.1, true, true]);
 // Force trapezoidal line load with relative distances
 lineLoad.Force(undefined, lc, [2], "Trapezoidal", [1000, 0.9, 1500, 0.1, true, true]);
 // Set load over total length of line
-lineLoad.load_over_line();
+lineLoad.LoadOverLine();
 // Force varying line load
 //Parameter values: [p1, x1, p2, x2, p3, x3, p4, x4, p5, x5]
 lineLoad.Force(undefined, lc, [5, 7], "Varying", [500, 0, 1000, 1, 1500, 2, 2000, 3, 5, 1000]);
 // Force concentrated - 2 x 2 load with two relative and one absolute distances
 lineLoad.Force(undefined, lc, [6, 8], line_loads.LOAD_DISTRIBUTION_CONCENTRATED_2x2, [1000, 1, 0.4, 0.5, false, false, true]);
 // Refer distance to the line end
-lineLoad.refer_distance_line_end();
+lineLoad.ReferDistanceLineEnd();
 
 var lineLoad2 = new LineLoad();
 //Moment parabolic line load with global in X on true length
@@ -116,19 +116,19 @@ var lineLoad3 = new LineLoad();
 // Mass uniform line load
 lineLoad3.Mass(undefined, lc, [13], 2500);
 // Add individual mass components
-lineLoad3.individual_mass_componnets(1000, 1500, 2000);
+lineLoad3.IndividualMassComponents(1000, 1500, 2000);
 
 var lineLoad4 = new LineLoad();
 lineLoad.Mass(undefined, lc, [15], 1500);
 lineLoad.Mass(undefined, lc, [16], 2000);
 // Add individual mass components
-lineLoad.individual_mass_componnets(5, 10, 15);
+lineLoad.IndividualMassComponents(5, 10, 15);
 
 /***************************************** Member loads ******************************************/
 // Default member load with magnitude sets via load parameters
-var memberLoad = new MemberLoad(undefined, lc, [1], "Deafult member load sets via parameters", { "magnitude" : 500 });
+var memberLoad = new MemberLoad(undefined, lc, [1], "Default member load sets via parameters", { "magnitude" : 500 });
 var memberLoad2 = new MemberLoad();
-// Force concentrated - 1 member load with reůative distance
+// Force concentrated - 1 member load with relative distance
 memberLoad2.Force(undefined, lc, [2], member_loads.LOAD_DISTRIBUTION_CONCENTRATED_1, [500, 0.5, true]);
 // Force concentrated - varying member load
 // Parameter values: [P1, x1, P2, x2 ... Pn, xn]
@@ -156,7 +156,7 @@ var memberLoad5 = new MemberLoad();
 // Temperature trapezoidal member load with default values
 // Parameter values: [Tt1, B, Tb1, Tt2, Tb2, A, is_b_relative, is_a_relative]
 memberLoad5.Temperature(undefined, lc, [8], "Trapezoidal", [50, 2]);
-// Temperature trapezoidal member load with absolute and realtive distances and local in z
+// Temperature trapezoidal member load with absolute and relative distances and local in z
 memberLoad5.Temperature(undefined, lc, [9], "Trapezoidal", [300, 2.9, 280, 320, 290, 0.2, false, true], "z");
 // Temperature varying member load
 memberLoad5.Temperature(undefined, lc, [10, 11], "Varying", [300, 330, 0.1, 310, 330, 2, 300, 340, 2.9], "z");
@@ -180,7 +180,7 @@ memberLoad7.RotaryMotion(undefined, lc, [15], [2, 10, 12, [53], "+Y"]);
 memberLoad7.RotaryMotion(undefined, lc, [16], [2, 10, 12, 0.5, 0.6, 0.3, "+Y"]);
 
 /***************************************** Surface loads ******************************************/
-var surfaceLoad = new SurfaceLoad()
+var surfaceLoad = new SurfaceLoad();
 // Force linear surface load
 // Parameter values: [Node1, Node2, Node3, p1, p2, p3]
 surfaceLoad.Force(undefined, lc, [5], "Linear", [71, 72, 66, 500, 1500, 1000]);
@@ -226,10 +226,10 @@ var solidLoad2 = new SolidLoad(undefined, lc, [1], "Load set via parameters", { 
 solidLoad2.air_density(10);
 
 /***************************************** Opening loads ****************************************/
-var openingLoad = new OpeningLoad()
-// Force uniforme/trapezoidal opening load
+var openingLoad = new OpeningLoad();
+// Force uniform/trapezoidal opening load
 openingLoad.Force(undefined, lc, [1], "Uniform/Trapezoidal", [1500]);
-// Force uniforme/trapezoidal opening load with smooth concentrated load
+// Force uniform/trapezoidal opening load with smooth concentrated load
 openingLoad.Force(undefined, lc, [1], "Uniform/Trapezoidal", [1500]);
 openingLoad.smooth_concentrated_load(true);
 // Force linear / trapezoidal opening load
