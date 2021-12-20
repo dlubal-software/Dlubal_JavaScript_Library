@@ -1,5 +1,6 @@
 /**
  * Creates load based on its type
+ * @function createBaseLoad
  * @param	{Number}	load_type	Load type
  * @param	{Number}	no			Index of load, can be undefined
  * @param	{Object}	load_case	Load case
@@ -63,6 +64,7 @@ function createBaseLoad (load_type,
 
 /**
  * Creates load with one only value (force, mass and so on)
+ * @function createSimplyValueLoad
  * @param	{Number}	load_type		Load type
  * @param	{Number}	no				Index of nodal load, can be undefined
  * @param	{Object}	load_case		Load case
@@ -114,6 +116,7 @@ function createSimplyValueLoad(load_type,
 
 /**
 * Shows assert (private)
+* @function showLoadAssert
 * @param {String}	load_type			Load type
 * @param {String}	load_distribution	Load distribution, can be undefined
 */
@@ -127,10 +130,11 @@ var showLoadAssert = function(load_type, load_distribution)
 	{
 		assert(false, "Unknown load type (" + (load_type) + ")");
 	}
-}
+};
 
 /**
 * Set load values (private)
+* @function setLoadValues
 * @param 	{Array}	arguments		Arguments: arg[0] - load, arg[1] - load values, arg[2] - load parameters to be set
 */
 var setLoadValues = function()
@@ -162,7 +166,7 @@ var setLoadValues = function()
 		if (arg == "distance_c")
 		{
 			distance_c_value = load_values[i];
-			continue
+			continue;
 		}
 		
 		load[arg] = load_values[i];
@@ -181,13 +185,14 @@ var setLoadValues = function()
 	{
 		load.distance_c_is_defined_as_relative ? load.distance_c_relative = distance_c_value : load.distance_c_absolute = distance_c_value;
 	}
-}
+};
 
 /**
 * Sets axis for rotary motion load type
+* @function setAxis
 * @param 	{Object}	load	Load
 * @param	{String}	value	Parallel axis (X, Y, Z)
-* @return	{Boolean}	True if axis and orientation was succesfully set
+* @return	{Boolean}	True if axis and orientation was successfully set
 */
 var setAxis = function(load,
 					   value)
@@ -202,13 +207,14 @@ var setAxis = function(load,
 	}
 	
 	return false;
-}
+};
 
 /**
 * Sets axis and orientation for rotary motion load type
+* @function setAxisAndOrientation
 * @param 	{Object}	load	Load
 * @param	{String}	value	Parallel axis (+X, -X, ...)
-* @return	{Boolean}	True if axis and orientation was succesfully set
+* @return	{Boolean}	True if axis and orientation was successfully set
 */
 var setAxisAndOrientation = function(load,
 									 value)
@@ -222,7 +228,7 @@ var setAxisAndOrientation = function(load,
 	}
 	
 	return false;
-}
+};
 
 var setRotaryMotionLoad = function(load,
 								   load_values)
@@ -274,10 +280,11 @@ var setRotaryMotionLoad = function(load,
 			setAxisAndOrientation(load, load_values[6]);
 		}
 	}
-}
+};
 
 /**
-* Assignes values to line / line set load depend of load type and load distribution (private)
+* Function assigns values to line / line set load depend of load type and load distribution (private)
+* @function setAxisAndOrientation
 * @param  {String}	load_type			Load type
 * @param  {String}	load_distribution	Load distribution
 * @param  {Array}	load_values			Load values depend on load type and load distribution
@@ -295,7 +302,7 @@ var setRotaryMotionLoad = function(load,
 *										- "Force" / "Varying": [p1, x1, p2, x2 ... pn, xn]
 *										- "Force" / "Varying in Z": [p1, z1, p2, z2 ... pn, zn]
 *										- "Moment" / "Uniform" (load type / load distribution): [m]
-*										- "Moment" / "Concentrated - 1": [M, A, is_a_reative]
+*										- "Moment" / "Concentrated - 1": [M, A, is_a_relative]
 *										- "Moment" / "Concentrated - n x": [M, n, A, B, is_a_relative, is_b_relative]
 *										- "Moment" / "Concentrated - 2 x 2": [M, A, B, C, is_a_relative, is_b_relative, is_c_relative]
 *										- "Moment" / "Concentrated - 2 x": [M1, A, M2, B, is_a_relative, is_b_relative]
@@ -382,10 +389,10 @@ var setLineLoadDistribution = function(load,
 	}
 	
 	return load;
-}
+};
 
 /**
-* Assignes values to member / member set load depend of load type and load distribution (private)
+* Function assigns values to member / member set load depend of load type and load distribution (private)
 * @param  {String}	load_type			Load type
 * @param  {String}	load_distribution	Load distribution, can be undefined
 * @param  {Array}	load_values			Load values depend on load type and load distribution
@@ -403,7 +410,7 @@ var setLineLoadDistribution = function(load,
 *										- "Force" / "Varying": [p1, x1, p2, x2, ... pn, xn]
 *										- "Force" / "Varying in Z": [p1, z1, p2, z2 ... pn, zn]
 *										- "Moment" / "Uniform" (load type / load distribution): [m]
-*										- "Moment" / "Concentrated - 1": [M, A, is_a_reative]
+*										- "Moment" / "Concentrated - 1": [M, A, is_a_relative]
 *										- "Moment" / "Concentrated - n x": [M, n, A, B, is_a_relative, is_b_relative]
 *										- "Moment" / "Concentrated - 2 x 2": [M, A, B, C, is_a_relative, is_b_relative, is_c_relative]
 *										- "Moment" / "Concentrated - 2 x": [M1, A, M2, B, is_a_relative, is_b_relative]
@@ -641,10 +648,11 @@ var setMemberLoadDistribution = function(load,
 	}
 	
 	return load;
-}
+};
 
 /**
-* Assignes values to surface / surface set load depend of load type and load distribution (private)
+* Function assigns values to surface / surface set load depend of load type and load distribution (private)
+* @function setSurfaceLoadDistribution
 * @param  {String}	load_type			Load type
 * @param  {String}	load_distribution	Load distribution, can be undefined
 * @param  {Array}	load_values			Load values depend on load type and load distribution
@@ -880,10 +888,11 @@ var setSurfaceLoadDistribution = function(load,
 	}
 	
 	return load;
-}
+};
 
 /**
-* Assignes values to solid / solid set load depend of load type and load distribution (private)
+* Function assigns values to solid / solid set load depend of load type and load distribution (private)
+* @function setSolidLoadDistribution
 * @param  {String}	load_type			Load type
 * @param  {String}	load_distribution	Load distribution, can be undefined
 * @param  {Array}	load_values			Load values depend on load type and load distribution
@@ -966,4 +975,4 @@ var setSolidLoadDistribution = function(load,
 	}
 	
 	return load;
-}
+};

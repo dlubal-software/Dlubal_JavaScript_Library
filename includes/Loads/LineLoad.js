@@ -2,6 +2,8 @@ include("BaseLoad.js");
 
 /**
 * Creates line load
+* @class LineLoad
+* @constructor 
 * @param 	{Number}	no					Index of line load, can be undefined
 * @param 	{Object}	load_case			Load case
 * @param 	{Array}		lines				List of line indexes
@@ -50,7 +52,7 @@ function LineLoad(no,
 		}
 		
 		return this.load;
-	}
+	};
 	
 	/**
 	 * Creates line moment load
@@ -82,7 +84,7 @@ function LineLoad(no,
 		}
 		
 		return this.load;
-	}
+	};
 	
 	/**
 	 * Creates line mass load
@@ -105,7 +107,7 @@ function LineLoad(no,
 		this.load = setLineLoadDistribution(this.load, line_loads.E_TYPE_MASS, undefined, [load_value]);
 		
 		return this.load;
-	}
+	};
 	
 	/**
 	* Sets option for reference to list of lines
@@ -120,13 +122,13 @@ function LineLoad(no,
 			value = true;
 		}
 		this.load.reference_to_list_of_lines = value;
-	}
+	};
 	
 	/**
 	* Sets option for refer distance to the line end
 	* @param 	{Boolean}	value	When undefined, true as default
 	*/
-	this.refer_distance_line_end = function(value)
+	this.ReferDistanceLineEnd = function(value)
 	{
 		ASSERT(this.load.load_distribution != line_loads.LOAD_DISTRIBUTION_UNIFORM && this.load.load_distribution != line_loads.LOAD_DISTRIBUTION_UNIFORM_TOTAL, 
 				"Refer distance to the line end cannot be set for this type of load distribution");
@@ -136,13 +138,13 @@ function LineLoad(no,
 			value = true;
 		}
 		this.load.distance_from_line_end = value;
-	}
+	};
 	
 	/**
 	* Sets option for load over total length of line (only for trapezoidal load distribution)
 	* @param	{Boolean}	value	When undefined, true as default
 	*/
-	this.load_over_line = function(value)
+	this.LoadOverLine = function(value)
 	{
 		ASSERT(this.load.load_distribution == line_loads.LOAD_DISTRIBUTION_TRAPEZOIDAL, "Load over total length of line can be set only for trapezoidal load distribution");
 		
@@ -156,7 +158,7 @@ function LineLoad(no,
 		this.load.distance_a_relative = 0;
 		this.load.distance_b_relative = 1;
 		this.load.load_is_over_total_length = value;
-	}
+	};
 	
 	/**
 	* Sets individual mass components (only for mass load)
@@ -164,7 +166,7 @@ function LineLoad(no,
 	* @param	{Number}	MY		Mass in Y coordination, can be undefined
 	* @param	{Number}	MZ		Mass in Z coordination, can be undefined
 	*/
-	this.individual_mass_componnets = function(MX, MY, MZ)
+	this.IndividualMassComponents = function(MX, MY, MZ)
 	{
 		ASSERT(this.load.load_type == nodal_loads.LOAD_TYPE_MASS, "Can be set only for mass load type");
 		
@@ -190,5 +192,5 @@ function LineLoad(no,
 		{
 			this.load.mass_z = MZ;
 		}
-	}
+	};
 }
