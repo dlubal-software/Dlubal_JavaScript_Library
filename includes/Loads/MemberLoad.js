@@ -502,7 +502,7 @@ function MemberLoad(no,
 
 	/**
 	* Sets eccentricity (only force load)
-	* @param 	{String}	reference_to			Eccentricity is reffered to what ("left_top", "center_top", "right_top", "left_center", "center_center", "right_center",
+	* @param 	{String}	reference_to			Eccentricity is refereed to what ("left_top", "center_top", "right_top", "left_center", "center_center", "right_center",
 	*												"left_bottom", "center_bottom", "right_bottom", "center_of_gravity", "shear_center")
 	* @param	{Number}	offset_member_start_ey	Offset at member start, can be undefined
 	* @param	{Number}	offset_member_start_ez	Offset at member start, can be undefined
@@ -511,7 +511,7 @@ function MemberLoad(no,
 	*/
 	this.eccentricity = function(reference_to, offset_member_start_ey, offset_member_start_ez, offset_member_end_ey, offset_member_end_ez)
 	{
-		ASSERT(this.load.load_type == member_loads.LOAD_TYPE_FORCE, "Eccentericity can be set only for force load type");
+		ASSERT(this.load.load_type == member_loads.LOAD_TYPE_FORCE, "Eccentricity can be set only for force load type");
 		
 		if (arguments.length == 0)
 		{
