@@ -26,7 +26,7 @@ function LineLoad(no,
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		lines				List of lines
 	 * @param 	{String}	load_distribution	Load distribution
-	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setLineLoadDistribution function)
+	 * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setLineLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -58,7 +58,7 @@ function LineLoad(no,
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		lines				List of lines
 	 * @param 	{String}	load_distribution	Load distribution
-	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setLineLoadDistribution function)
+	 * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setLineLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -89,7 +89,7 @@ function LineLoad(no,
 	 * @param 	{Number}	no					Index of line load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		lines				List of lines
-	 * @param	{Number}	load_value			Uniform load value
+	 * @param	{Number}	load_value			Uniform load parameter
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
 	 * @return	{Object}	Created line mass load

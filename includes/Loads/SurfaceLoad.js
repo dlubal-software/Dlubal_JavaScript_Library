@@ -26,7 +26,7 @@ function SurfaceLoad(no,
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		surfaces			List of surface indexes
 	 * @param 	{String}	load_distribution	Load distribution
-	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setSurfaceLoadDistribution function)
+	 * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setSurfaceLoadDistribution function)
 	 * @param 	{String}	load_direction		Load direction, can be undefined
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
@@ -58,7 +58,7 @@ function SurfaceLoad(no,
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		surfaces			List of surface indexes
 	 * @param 	{String}	load_distribution	Load distribution
-	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setSurfaceLoadDistribution function)
+	 * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setSurfaceLoadDistribution function)
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
 	 * @return	{Object}	Created surface temperature load
@@ -83,7 +83,7 @@ function SurfaceLoad(no,
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		surfaces			List of surface indexes
 	 * @param 	{String}	load_distribution	Load distribution
-	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setSurfaceLoadDistribution function)
+	 * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setSurfaceLoadDistribution function)
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
 	 * @return	{Object}	Created surface axial strain load
@@ -107,7 +107,7 @@ function SurfaceLoad(no,
 	 * @param 	{Number}	no					Index of surface load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		surfaces			List of surface indexes
-	 * @param	{Array}		load_value			Uniform load value
+	 * @param	{Array}		load_value			Uniform load parameter
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
 	 * @return	{Object}	Created surface precamber load
@@ -130,7 +130,7 @@ function SurfaceLoad(no,
 	 * @param 	{Number}	no					Index of surface load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		surfaces			List of surface indexes
-	 * @param	{Array}		load_values			Load values depend on load distribution (for more information look at setSurfaceLoadDistribution function)
+	 * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setSurfaceLoadDistribution function)
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
 	 * @return	{Object}	Created surface rotary motion load
@@ -153,7 +153,7 @@ function SurfaceLoad(no,
 	 * @param 	{Number}	no					Index of surface load, can be undefined
 	 * @param 	{Object}	load_case			Load case
 	 * @param 	{Array}		surfaces			List of surface indexes
-	 * @param	{Array}		load_value			Uniform load value
+	 * @param	{Array}		load_value			Uniform load parameter
 	 * @param	{String}	comment				Comment, can be undefined
 	 * @param	{Object}	params				Load parameters, can be undefined
 	 * @return	{Object}	Created surface mass load
