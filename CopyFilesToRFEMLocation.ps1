@@ -59,4 +59,7 @@ catch
 
 Write-Output "Copying done"
 
-$PathToRFEMExe = $PathToRFEM + "\\bin\\RFEM.exe"
+$PathToRFEMExe = $PathToRFEM + "\\bin\\"
+$AppExe = ".\RFEM6.exe"
+Write-Output $PathToRFEMExe
+Start-Process -WorkingDirectory $PathToRFEMExe $AppExe
