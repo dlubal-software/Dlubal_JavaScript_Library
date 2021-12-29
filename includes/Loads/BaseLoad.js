@@ -9,11 +9,11 @@
  * @return 	{Object}	Created load
 */
 function createBaseLoad(load_type,
-						 no,
-						 load_case,
-						 index_list,
-						 comment,
-						 params)
+						no,
+						load_case,
+						index_list,
+						comment,
+						params)
 {	
 	ASSERT(typeof load_case !== "undefined", "Load case is not specified");
 	
@@ -23,6 +23,7 @@ function createBaseLoad(load_type,
 	switch (load_type)
 	{
 		case "Nodal_Load":
+		case "Imposed_Nodal_Deformation":
 			handled_params["nodes"] = typeof index_list !== "undefined" ? index_list : [];
 			break;
 		case "Member_Load":
