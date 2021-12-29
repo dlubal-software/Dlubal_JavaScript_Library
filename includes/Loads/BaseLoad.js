@@ -8,7 +8,7 @@
  * @param	{Object}	params		Load parameters, can be undefined
  * @return 	{Object}	Created load
 */
-function createBaseLoad (load_type,
+function createBaseLoad(load_type,
 						 no,
 						 load_case,
 						 index_list,
@@ -34,6 +34,8 @@ function createBaseLoad (load_type,
 		case "Surface_Load":
 		case "Free_Circular_Load":
 		case "Free_Concentrated_Load":
+		case "Free_Line_Load":
+		case "Free_Rectangular_Load":
 			handled_params["surfaces"] = typeof index_list !== "undefined" ? index_list : [];
 			break;
 		case "Solid_Load":
@@ -144,8 +146,7 @@ var setLoadValues = function()
 	ASSERT(arguments.length >= 3);
 	var load = arguments[0];
 	var load_values = arguments[1];
-	ASSERT(load_values.length + 2 <= arguments.length);
-	
+	ASSERT(load_values.length + 2 <= arguments.length, "setLoadValues assert");
 	var distance_a_value = 0;
 	var distance_b_value = 0;
 	var distance_c_value = 0;
@@ -237,8 +238,8 @@ var setRotaryMotionLoad = function(load,
 	load.axis_definition_type = load_values[0] === 1 ? member_loads.AXIS_DEFINITION_TWO_POINTS : member_loads.AXIS_DEFINITION_POINT_AND_AXIS;
 	load.angular_velocity = load_values[1];
 	load.angular_acceleration = load_values[2];
-	var TWO_POINTS = 1;
-	var POINT_AND_PARALLEL = 2;
+	var TWO_POINTS = "1";
+	var POINT_AND_PARALLEL = "2";
 	if (Array.isArray(load_values[3])) // Axis coordinations are defined by list of nodes
 	{
 		// Fourth parameter is list of nodes
