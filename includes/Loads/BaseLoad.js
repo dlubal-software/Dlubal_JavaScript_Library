@@ -36,6 +36,7 @@ function createBaseLoad(load_type,
 		case "Free_Concentrated_Load":
 		case "Free_Line_Load":
 		case "Free_Rectangular_Load":
+		case "Free_Polygon_Load":
 			handled_params["surfaces"] = typeof index_list !== "undefined" ? index_list : [];
 			break;
 		case "Solid_Load":

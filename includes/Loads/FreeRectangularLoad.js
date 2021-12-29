@@ -28,7 +28,7 @@ function FreeRectangularLoad(no,
 };
 
 /**
-* Set parameters to free rectangular load depend on load type
+* Set parameters to free rectangular load depend on load distribution
 * @param	{Object}	load				Load
 * @param	{String}	load_distribution	Load distribution
 * @param	{Array}		load_values			Load parameters depend of load distribution
@@ -73,12 +73,12 @@ function setFreeRectangularLoadParameters(load,
 			if (rectangle == 1)	// Corner points of rectangle
 			{
 				// load_values has one less number, first (info about location rectangle) has been removed
-				ASSERT(load_values.length >= 3, "Wrong number of loads parameters, at least four are required (location, p, X1, Y1)");
+				ASSERT(load_values.length >= 3, "Wrong number of load parameters, at least four are required (location, p, X1, Y1)");
 				setLoadValues(load, load_values, "magnitude_uniform", "load_location_first_x", "load_location_first_y", "load_location_second_x", "load_location_second_y", "load_location_rotation");
 			}
 			else	// Center and side of rectangle
 			{
-				ASSERT(load_values.length >= 5, "Wrong number of loads parameters, at least six are required (location, p, Xc, Yc, a, b)");
+				ASSERT(load_values.length >= 5, "Wrong number of load parameters, at least six are required (location, p, Xc, Yc, a, b)");
 				setLoadValues(load, load_values, "magnitude_uniform", "load_location_center_x", "load_location_center_y", "load_location_center_side_a", "load_location_center_side_b", "load_location_rotation");
 			}
 			break;
@@ -86,12 +86,12 @@ function setFreeRectangularLoadParameters(load,
 		case free_rectangular_loads.LOAD_DISTRIBUTION_LINEAR_SECOND:			
 			if (rectangle == 1)	// Corner points of rectangle
 			{
-				ASSERT(load_values.length >= 4, "Wrong number of loads parameters, at least five are required (location, p1, p2, X1, Y1)");
+				ASSERT(load_values.length >= 4, "Wrong number of load parameters, at least five are required (location, p1, p2, X1, Y1)");
 				setLoadValues(load, load_values, "magnitude_linear_first", "magnitude_linear_second", "load_location_first_x", "load_location_first_y", "load_location_second_x", "load_location_second_y", "load_location_rotation");
 			}
 			else	// Center and side of rectangle
 			{
-				ASSERT(load_values.length >= 6, "Wrong number of loads parameters, at least seven are required (location, p1, p2, Xc, Yc, a, b)");
+				ASSERT(load_values.length >= 6, "Wrong number of load parameters, at least seven are required (location, p1, p2, Xc, Yc, a, b)");
 				setLoadValues(load, load_values, "magnitude_linear_first", "magnitude_linear_second", "load_location_center_x", "load_location_center_y", "load_location_center_side_a", "load_location_center_side_b", "load_location_rotation");
 			}
 			break;
@@ -102,15 +102,15 @@ function setFreeRectangularLoadParameters(load,
 			{
 				if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z)
 				{
-					ASSERT(load_values.length === 6, "Wrong number of loads parameters, seven values are required (location, p, X1, Y1, X2, Y2, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn])");
+					ASSERT(load_values.length === 6, "Wrong number of load parameters, seven values are required (location, p, X1, Y1, X2, Y2, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn])");
 				}
 				else if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER)
 				{
-					ASSERT(load_values.length === 6, "Wrong number of loads,seven values are required (location, p, X1, Y1, X2, Y2, [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)])");
+					ASSERT(load_values.length === 6, "Wrong number of load,seven values are required (location, p, X1, Y1, X2, Y2, [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)])");
 				}
 				else if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER)
 				{
-					ASSERT(load_values.length === 7, "Wrong number of loads parameters, eight values are required (location, p, X1, Y1, X2, Y2, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn], [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)]");
+					ASSERT(load_values.length === 7, "Wrong number of load parameters, eight values are required (location, p, X1, Y1, X2, Y2, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn], [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)]");
 				}
 				load.magnitude_uniform = load_values[0];
 				load.load_location_first_x = load_values[1];
@@ -122,15 +122,15 @@ function setFreeRectangularLoadParameters(load,
 			{
 				if (load_distribution == free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z)
 				{
-					ASSERT(load_values.length === 6, "Wrong number of loads parameters, seven are required (location, p, Xc, Yc, a, b, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn])");
+					ASSERT(load_values.length === 6, "Wrong number of load parameters, seven are required (location, p, Xc, Yc, a, b, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn])");
 				}
 				else if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER)
 				{
-					ASSERT(load_values.length === 6, "Wrong number of loads parameters, seven are required (location, p, Xc, Yc, a, b, [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)");
+					ASSERT(load_values.length === 6, "Wrong number of load parameters, seven are required (location, p, Xc, Yc, a, b, [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)");
 				}
 				else if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER)
 				{
-					ASSERT(load_values.length === 7, "Wrong number of loads parameters, eight values are required (location, p, Xc, Yc, a, b, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn], [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)]");
+					ASSERT(load_values.length === 7, "Wrong number of load parameters, eight values are required (location, p, Xc, Yc, a, b, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn], [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)]");
 				}
 				load.magnitude_uniform = load_values[1];
 				load.load_location_center_x = load_values[2];
@@ -197,7 +197,7 @@ function setFreeRectangularLoadParameters(load,
 * @param	{Number}	load_acting_region_to	End of load acting region, can be undefined
 * @param	{String}	comment					Comment, can be undefined
 * @param	{Object}	params					Load parameters, can be undefined
-* @return	{Object}	Created free rectangulat uniform load
+* @return	{Object}	Created free rectangular uniform load
 */
 FreeRectangularLoad.prototype.Uniform = function(no,
 												 load_case,
