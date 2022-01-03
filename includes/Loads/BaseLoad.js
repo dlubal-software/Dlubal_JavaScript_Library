@@ -30,6 +30,7 @@ function createBaseLoad(load_type,
 			handled_params["members"] = typeof index_list !== "undefined" ? index_list : [];
 			break;
 		case "Line_Load":
+		case "Imposed_Line_Deformation":
 			handled_params["lines"] = typeof index_list !== "undefined" ? index_list : [];
 			break;
 		case "Surface_Load":
