@@ -44,7 +44,7 @@ var setFreeCircularLoadParameters = function(load,
 			break;
 		case free_circular_loads.LOAD_DISTRIBUTION_LINEAR:
 			ASSERT(load_values.length >= 2, "Wrong number of load parameters, at least two values are required (pC, R)");
-			setLoadValues(load, load_values, "magnitude_center", "load_location_radius", "magnitude_radius", "load_location_x", "load_location_x");
+			setLoadValues(load, load_values, "magnitude_center", "load_location_radius", "magnitude_radius", "load_location_x", "load_location_y");
 			break;
 		default:
 			showLoadAssert(undefined, load_distribution);

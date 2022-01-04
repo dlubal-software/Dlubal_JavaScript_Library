@@ -33,17 +33,17 @@ function FreeRectangularLoad(no,
 * @param	{String}	load_distribution	Load distribution
 * @param	{Array}		load_values			Load parameters depend of load distribution
 *												- "Uniform": [location, p, X1, Y1, X2, Y2, α] for location (1) "Corner points of rectangle"
-*												- 			 [location, p, Xc, Yc, a, b, α] for location (2) "Center and side of rectangle"
+*												- 			 [location, p, Xc, Yc, a, b, α] for location (2) "Center and sides of rectangle"
 *												- "Linear in X": [location, p1, p2, X1, Y1, X2, Y2, α] for location (1) "Corner points of rectangle"
-*																 [location, p1, p2, Xc, Yc, a, b, α] for location (2) "Center and side of rectangle"
+*																 [location, p1, p2, Xc, Yc, a, b, α] for location (2) "Center and sides of rectangle"
 *												- "Linear in Y": [location, p1, p2, X1, Y1, X2, Y2, α] for location (1) "Corner points of rectangle"
-*																 [location, p1, p2, Xc, Yc, a, b, α] for location (2) "Center and side of rectangle"
+*																 [location, p1, p2, Xc, Yc, a, b, α] for location (2) "Center and sides of rectangle"
 *												- "Varying in Z": [location, p, X1, Y1, X2, Y2, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn]] for location (1) "Corner points of rectangle"
-*																  [location, p, Xc, Yc, a, b, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn]] for location (2) "Center and side of rectangle"
+*																  [location, p, Xc, Yc, a, b, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn]] for location (2) "Center and sides of rectangle"
 *												- "Varying along Perimetr": [location, p, X1, Y1, X2, Y2, [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)]] for location (1) "Corner points of rectangle"
-*																  			[location, p, Xc, Yc, a, b, [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)]] for location (2) "Center and side of rectangle"
+*																  			[location, p, Xc, Yc, a, b, [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)]] for location (2) "Center and sides of rectangle"
 *												- "Varying in Z and Perimetr": [location, p, X1, Y1, X2, Y2, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn], [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)] for location (1) "Corner points of rectangle"
-*																  			   [location, p, Xc, Yc, a, b, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn], [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)] for location (2) "Center and side of rectangle"
+*																  			   [location, p, Xc, Yc, a, b, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn], [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)] for location (2) "Center and sides of rectangle"
 * @return	{Object}	Returns modified load
 */
 function setFreeRectangularLoadParameters(load,
@@ -59,7 +59,7 @@ function setFreeRectangularLoadParameters(load,
 	{
 		load.load_location_rectangle = free_rectangular_loads.LOAD_LOCATION_RECTANGLE_CORNER_POINTS;
 	}
-	else	// Center and side of rectangle
+	else	// Center and sides of rectangle
 	{
 		load.load_location_rectangle = free_rectangular_loads.LOAD_LOCATION_RECTANGLE_CENTER_AND_SIDES;
 	}
@@ -76,10 +76,10 @@ function setFreeRectangularLoadParameters(load,
 				ASSERT(load_values.length >= 3, "Wrong number of load parameters, at least four are required (location, p, X1, Y1)");
 				setLoadValues(load, load_values, "magnitude_uniform", "load_location_first_x", "load_location_first_y", "load_location_second_x", "load_location_second_y", "load_location_rotation");
 			}
-			else	// Center and side of rectangle
+			else	// Center and sides of rectangle
 			{
 				ASSERT(load_values.length >= 5, "Wrong number of load parameters, at least six are required (location, p, Xc, Yc, a, b)");
-				setLoadValues(load, load_values, "magnitude_uniform", "load_location_center_x", "load_location_center_y", "load_location_center_side_a", "load_location_center_side_b", "load_location_rotation");
+				setLoadValues(load, load_values, "magnitude_uniform", "load_location_center_x", "load_location_center_y", "load_location_center_sides_a", "load_location_center_side_b", "load_location_rotation");
 			}
 			break;
 		case free_rectangular_loads.LOAD_DISTRIBUTION_LINEAR_FIRST:
@@ -89,7 +89,7 @@ function setFreeRectangularLoadParameters(load,
 				ASSERT(load_values.length >= 4, "Wrong number of load parameters, at least five are required (location, p1, p2, X1, Y1)");
 				setLoadValues(load, load_values, "magnitude_linear_first", "magnitude_linear_second", "load_location_first_x", "load_location_first_y", "load_location_second_x", "load_location_second_y", "load_location_rotation");
 			}
-			else	// Center and side of rectangle
+			else	// Center and sides of rectangle
 			{
 				ASSERT(load_values.length >= 6, "Wrong number of load parameters, at least seven are required (location, p1, p2, Xc, Yc, a, b)");
 				setLoadValues(load, load_values, "magnitude_linear_first", "magnitude_linear_second", "load_location_center_x", "load_location_center_y", "load_location_center_side_a", "load_location_center_side_b", "load_location_rotation");
@@ -118,7 +118,7 @@ function setFreeRectangularLoadParameters(load,
 				load.load_location_second_x = load_values[3];
 				load.load_location_second_y = load_values[4];
 			}
-			else	// Center and side of rectangle
+			else	// Center and sides of rectangle
 			{
 				if (load_distribution == free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z)
 				{
@@ -132,11 +132,11 @@ function setFreeRectangularLoadParameters(load,
 				{
 					ASSERT(load_values.length === 7, "Wrong number of load parameters, eight values are required (location, p, Xc, Yc, a, b, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn], [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)]");
 				}
-				load.magnitude_uniform = load_values[1];
-				load.load_location_center_x = load_values[2];
-				load.load_location_center_y = load_values[3];
-				load.load_location_center_side_a = load_values[4];
-				load.load_location_center_side_b = load_values[5];
+				load.magnitude_uniform = load_values[0];
+				load.load_location_center_x = load_values[1];
+				load.load_location_center_y = load_values[2];
+				load.load_location_center_side_a = load_values[3];
+				load.load_location_center_side_b = load_values[4];
 			}
 			if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z || load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER)
 			{

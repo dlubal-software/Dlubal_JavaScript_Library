@@ -61,6 +61,10 @@ ImposedLineDeformation.prototype.Set = function(no,
 		{
 			load_values.push(arguments[i]);
 		}
+		else
+		{
+			load_values.push(0);
+		}
 		if (i == 10)
 		{
 			// comment and other params

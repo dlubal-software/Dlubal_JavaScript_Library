@@ -55,11 +55,14 @@ function setFreePolygonLoadParameters(load,
 		case free_polygon_loads.LOAD_DISTRIBUTION_LINEAR_SECOND:
 			if (load_distribution === free_polygon_loads.LOAD_DISTRIBUTION_LINEAR)
 			{
-				ASSERT(load_values.length >= 5, "Wrong number of load parameters, at least five are required (p1, node1, node2, node3, [X1, Y1, X2, Y2, X3, Y3 ... Xn, Yn]");
-				
+				ASSERT(load_values.length >= 5, "Wrong number of load parameters, at least five are required (p1, node1, node2, node3, [X1, Y1, X2, Y2, X3, Y3 ... Xn, Yn]");				
 				ASSERT(Array.isArray(load_values[4]), "setFreePolygonLoadParameters, parameter is not array");
+				ASSERT(load_values[1] === 1 || load_values[1] === 2 || load_values[1] === 3, "Point has to be 1, 2 or 3");
+				ASSERT(load_values[2] === 1 || load_values[2] === 2 || load_values[2] === 3, "Point has to be 1, 2 or 3");
+				ASSERT(load_values[3] === 1 || load_values[3] === 2 || load_values[3] === 3, "Point has to be 1, 2 or 3");
+				
 				var load_location  = load_values[4];
-				ASSERT(load_location.length % 2 === 0, "Defined polygon points must be in pairs format (X, Y)");console.log(load_location);
+				ASSERT(load_location.length % 2 === 0, "Defined polygon points must be in pairs format (X, Y)");
 				for (var i = 0; i < load_location.length; i += 2)
 				{
 					load.load_location[i / 2 + 1].first_coordinate = load_location[i];

@@ -64,12 +64,12 @@ nodalLoad.Force(undefined, lc, [1, 2], 1500);
 nodalLoad.Force(undefined, lc, [3], 1000, "W");
 // Add specific direction with Rotated via 3 angles direction type (1), sequence = Z'Y'X'
 // Parameter values: 1, [αZ', αY', αX', "Z'Y'X'"]
-nodalLoad.specific_direction(1, [10, 5, 0, "Z'Y'X'"]);
+nodalLoad.SpecificDirection(1, [10, 5, 0, "Z'Y'X'"]);
 // Force nodal load
 nodalLoad.Force(undefined, lc, [4], 1800);
 // Add shifted display
 // Parameter values: [ΔX, ΔY, ΔZ], Δ
-nodalLoad.shifted_display([1, 0.5, 0], 0.1);
+nodalLoad.ShiftedDisplay([1, 0.5, 0], 0.1);
 
 var nodalLoad2 = new NodalLoad();
 // Moment nodal load with default "Z" load direction
@@ -79,7 +79,7 @@ var nodalLoad3 = new NodalLoad();
 // Two components nodal loads
 nodalLoad3.Components(undefined, lc, [6, 7], [10,20,30], [30,40,50]);
 // Add eccentricity (ex, ey, ez)
-nodalLoad3.force_eccentricity(0.5, 0.2, 0);
+nodalLoad3.ForceEccentricity(0.5, 0.2, 0);
 
 var nodalLoad4 = new NodalLoad();
 // Mass nodal load with comment
@@ -126,15 +126,15 @@ lineLoad.IndividualMassComponents(5, 10, 15);
 
 /***************************************** Member loads ******************************************/
 // Default member load with magnitude sets via load parameters
-var memberLoad = new MemberLoad(undefined, lc, [1], "Default member load sets via parameters", { "magnitude" : 500 });
+var memberLoad = new MemberLoad(undefined, lc, [1], "Deafult member load sets via parameters", { "magnitude" : 500 });
 var memberLoad2 = new MemberLoad();
-// Force concentrated - 1 member load with relative distance
+// Force concentrated - 1 member load with reůative distance
 memberLoad2.Force(undefined, lc, [2], member_loads.LOAD_DISTRIBUTION_CONCENTRATED_1, [500, 0.5, true]);
 // Force concentrated - varying member load
 // Parameter values: [P1, x1, P2, x2 ... Pn, xn]
 memberLoad2.Force(undefined, lc, [3], "Concentrated - Varying", [100, 0.5, 200, 1.5, 1000, 3]);
 // Add reference to list of members
-memberLoad2.reference_to_list_of_members();
+memberLoad2.ReferenceToListOfMembers();
 // Force trapezoidal member force with absolute distances
 // Parameter values: [p1, B, p2, A, is_b_relative, is_a_relative]
 memberLoad2.Force(undefined, lc, [4], "Trapezoidal", [1000, 3, 1500, 1]);
@@ -143,7 +143,7 @@ memberLoad2.Force(undefined, lc, [5], member_loads.LOAD_DISTRIBUTION_PARABOLIC, 
 // Force uniform load
 memberLoad2.Force(undefined, lc, [17], "Uniform", [2500]);
 // Add eccentricity
-memberLoad2.eccentricity("right_bottom", 0.01, 0.02, 0.03, 0.04);
+memberLoad2.Eccentricity("right_bottom", 0.01, 0.02, 0.03, 0.04);
 
 // Moment parabolic load sets via parameters
 var memberLoad3 = new MemberLoad(undefined, lc, [6], "Moment parabolic load sets via parameters", 
@@ -156,7 +156,7 @@ var memberLoad5 = new MemberLoad();
 // Temperature trapezoidal member load with default values
 // Parameter values: [Tt1, B, Tb1, Tt2, Tb2, A, is_b_relative, is_a_relative]
 memberLoad5.Temperature(undefined, lc, [8], "Trapezoidal", [50, 2]);
-// Temperature trapezoidal member load with absolute and relative distances and local in z
+// Temperature trapezoidal member load with absolute and realtive distances and local in z
 memberLoad5.Temperature(undefined, lc, [9], "Trapezoidal", [300, 2.9, 280, 320, 290, 0.2, false, true], "z");
 // Temperature varying member load
 memberLoad5.Temperature(undefined, lc, [10, 11], "Varying", [300, 330, 0.1, 310, 330, 2, 300, 340, 2.9], "z");
@@ -180,7 +180,7 @@ memberLoad7.RotaryMotion(undefined, lc, [15], [2, 10, 12, [53], "+Y"]);
 memberLoad7.RotaryMotion(undefined, lc, [16], [2, 10, 12, 0.5, 0.6, 0.3, "+Y"]);
 
 /***************************************** Surface loads ******************************************/
-var surfaceLoad = new SurfaceLoad();
+var surfaceLoad = new SurfaceLoad()
 // Force linear surface load
 // Parameter values: [Node1, Node2, Node3, p1, p2, p3]
 surfaceLoad.Force(undefined, lc, [5], "Linear", [71, 72, 66, 500, 1500, 1000]);
@@ -208,7 +208,7 @@ surfaceLoad2.AxialStrain(undefined, lc, [9], surface_loads.LOAD_DISTRIBUTION_LIN
 var surfaceLoad4 = new SurfaceLoad();
 // Mass surface load with individual mass components
 surfaceLoad4.Mass(undefined, lc, [10], 500);
-surfaceLoad4.individual_mass_components(500, 600, 800);
+surfaceLoad4.IndividualMassComponents(500, 600, 800);
 
 /***************************************** Solid loads ******************************************/
 var solidLoad = new SolidLoad();
@@ -223,15 +223,15 @@ solidLoad.Strain(undefined, lc, [1], "Linear in Z", [90, 94, 0.2]);
 
 // Buoyancy solid load set via parameters with air density defined by attitude
 var solidLoad2 = new SolidLoad(undefined, lc, [1], "Load set via parameters", { "load_type" : "Buoyancy", "uniform_magnitude" : 1500} );
-solidLoad2.air_density(10);
+solidLoad2.AirDensity(10);
 
 /***************************************** Opening loads ****************************************/
-var openingLoad = new OpeningLoad();
-// Force uniform/trapezoidal opening load
+var openingLoad = new OpeningLoad()
+// Force uniforme/trapezoidal opening load
 openingLoad.Force(undefined, lc, [1], "Uniform/Trapezoidal", [1500]);
-// Force uniform/trapezoidal opening load with smooth concentrated load
+// Force uniforme/trapezoidal opening load with smooth concentrated load
 openingLoad.Force(undefined, lc, [1], "Uniform/Trapezoidal", [1500]);
-openingLoad.smooth_concentrated_load(true);
+openingLoad.SmoothConcentratedLoad(true);
 // Force linear / trapezoidal opening load
 openingLoad.Force(undefined, lc, [3], "Linear/Trapezoidal", [97, 66, 92, 500, 1000, 1500]);
 // Force linear /trapezoidal opening load with other direction

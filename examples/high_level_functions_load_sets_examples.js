@@ -94,20 +94,20 @@ lineSetLoad.Force(undefined, lc, [2], line_set_loads.LOAD_DISTRIBUTION_CONCENTRA
 // Line set force trapezoidal load with load over line sets
 var lineSetLoad3 = new LineSetLoad();
 lineSetLoad3.Force(undefined, lc, [3], "Trapezoidal", [1500, 2, 1000, 1]);
-lineSetLoad3.load_over_line_set(true);
+lineSetLoad3.LoadOverLineSet(true);
 // Line set moment varying load with XL direction
 var lineSetLoad4 = new LineSetLoad();
 lineSetLoad4.Moment(undefined, lc, [4], "Varying", [500, 0.2, 600, 0.5, 1000, 0.7, 1000, 1.2, 600, 1.8, 500, 2], "X_L (U_L )");
 // Line set mass load with individual mass components
 var lineSetLoad5 = new LineSetLoad();
 lineSetLoad5.Mass(undefined, lc, [5], 1500);
-lineSetLoad5.IndividualMassComponents(500, 1000, 1500);
+lineSetLoad5.IndividualMassComponnets(500, 1000, 1500);
 
 /**************************************** Member set loads ***********************************/
 // Member set force parabolic load with eccentricity
 var memberSetLoad = new MemberSetLoad();
 memberSetLoad.Force(undefined, lc, [1], "Parabolic", [500, 900, 400]);
-memberSetLoad.eccentricity("shear_center", 0.1, 0.1, 0.02, 0.02);
+memberSetLoad.Eccentricity("shear_center", 0.1, 0.1, 0.02, 0.02);
 // Member set force varying in Z load
 var memberSetLoad2 = new MemberSetLoad();
 memberSetLoad2.Force(undefined, lc, [2], "Varying", [500, 0, 1000, 0.5, 1000, 1, 1500, 1.5, 200, 2]);
@@ -128,8 +128,8 @@ surfaceSetLoad.Force(undefined, lc, [1], "Linear", [121, 122, 131, 500, 1500, 50
 // Surface set temperature linear load with only values required
 var surfaceSetLoad2 = new SurfaceSetLoad();
 surfaceSetLoad2.Temperature(undefined, lc, [2], "Linear", [123, 124, 133, 20]);
-// Surface set temperature radial load, axis defined by point and parallel axis
-var surfaceSetLoad3 = new SurfaceSetLoad();
+// Surface set temperature radial load, axis defined by point and paralel axis
+var surfaceSetLoad3 = new SurfaceSetLoad()
 surfaceSetLoad3.Temperature(undefined, lc, [3], "Radial", [2, 60, 70, 10, 10, 125, 136, [125], "Y"]);
 // Surface set axial strain linear in Y load
 var surfaceSetLoad4 = new SurfaceSetLoad();
