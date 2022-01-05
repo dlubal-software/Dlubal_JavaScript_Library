@@ -132,6 +132,7 @@ nodal_support_12.Nonlinear.X.FrictionYplusZ(0.35,0.55);
 //   ##### Constructors:
 // Empty
 var line_support_1 = new LineSupport();
+lines[4].support = line_support_1.GetNo(); 
 // Nodes
 var line_support_2 = new LineSupport(undefined, [1,6]);
 // Nodes, Id
