@@ -1,11 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 
 <script>
-	<arguments>
-		<argument argument-name="width" default-value="5" label-name="Construction width" />
-		<argument argument-name="frame_length" default-value="8" label-name="Construction length" />
-		<argument argument-name="number_of_frames" default-value="6" label-name="Number of segments" />
-		<argument argument-name="wallHeight" default-value="4" label-name="Wall height" />
-		<argument argument-name="roofHeight" default-value="3" label-name="Roof height" />
-	</arguments>
+    <arguments>
+        <argument argument-name="number_of_frames" default-value="5" label-name="Number of frames" />
+        <argument argument-name="width" default-value="12" label-name="Construction width" />
+        <argument argument-name="frame_length" default-value="5" label-name="Length of one frame" />
+    </arguments>
 </script>
