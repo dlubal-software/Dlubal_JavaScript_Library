@@ -43,6 +43,10 @@ LineSupport.prototype.SetNo = function(no) {
   this.support = line_supports[no];
 };
 
+LineSupport.prototype.GetNo = function() {
+  return this.support.no;
+};
+
 LineSupport.prototype.SetLines = function(lines) {
   // * @param   {Array}   lines         List of lines
   ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
