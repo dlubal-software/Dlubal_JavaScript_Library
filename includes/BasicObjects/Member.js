@@ -28,8 +28,8 @@ function Member(no,
         }
         set_comment_and_parameters(this.member, comment, params);
         return this.member;
-    };
-};
+    }
+}
 
 /**
  * Create Beam
@@ -86,7 +86,7 @@ Member.prototype.Beam = function (no,
             }
     
             set_comment_and_parameters(this.member, comment, params);
-        };
+        }
     };
 
 /**
@@ -134,7 +134,7 @@ Member.prototype.Rigid = function (no,
             }
     
             set_comment_and_parameters(this.member, comment, params);
-        };
+        }
     };
 
 /**
@@ -181,13 +181,13 @@ Member.prototype.Rib = function (no,
         if (start_member_hinge_no > 0)
         {
             this.member.member_hinge_start = member_hinges[start_member_hinge_no];
-        };
+        }
         if (end_member_hinge_no > 0)
         {
             this.member.member_hinge_end = member_hinges[end_member_hinge_no];
-        };
+        }
         set_comment_and_parameters(this.member, comment, params);
-    };
+    }
 };
 
 /**
@@ -220,12 +220,12 @@ Member.prototype.Truss = function (no,
         else
         {
             this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        };
+        }
         this.member.type = members.TYPE_TRUSS;
         this.member.rotation_angle = rotation_angle*PI/180;
         this.member.section_start = sections[start_section_no];
         set_comment_and_parameters(this.member, comment, params);
-    };
+    }
 };
 
 /**
@@ -258,12 +258,12 @@ Member.prototype.TrussOnlyN = function (no,
         else
         {
             this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        };
+        }
         this.member.type = members.TYPE_TRUSS_ONLY_N;
         this.member.rotation_angle = rotation_angle*PI/180;
         this.member.section_start = sections[start_section_no];
         set_comment_and_parameters(this.member, comment, params);
-    };
+    }
 };
 
 /**
@@ -296,12 +296,12 @@ Member.prototype.Tension = function (no,
         else
         {
             this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        };
+        }
         this.member.type = members.TYPE_TENSION;
         this.member.rotation_angle = rotation_angle*PI/180;
         this.member.section_start = sections[start_section_no];
         set_comment_and_parameters(this.member, comment, params);
-    };
+    }
 };
 
 /**
@@ -334,12 +334,12 @@ Member.prototype.Compression = function (no,
         else
         {
             this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        };
+        }
         this.member.type = members.TYPE_COMPRESSION;
         this.member.rotation_angle = rotation_angle*PI/180;
         this.member.section_start = sections[start_section_no];
         set_comment_and_parameters(this.member, comment, params);
-    };
+    }
 };
 
 /**
@@ -372,12 +372,12 @@ Member.prototype.Buckling = function (no,
         else
         {
             this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        };
+        }
         this.member.type = members.TYPE_BUCKLING;
         this.member.rotation_angle = rotation_angle*PI/180;
         this.member.section_start = sections[start_section_no];
         set_comment_and_parameters(this.member, comment, params);
-    };
+    }
 };
 
 /**
@@ -410,12 +410,12 @@ Member.prototype.Cable = function (no,
         else
         {
             this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        };
+        }
         this.member.type = members.TYPE_CABLE;
         this.member.rotation_angle = rotation_angle*PI/180;
         this.member.section_start = sections[start_section_no];
         set_comment_and_parameters(this.member, comment, params);
-    };
+    }
 };
 
 /**
@@ -450,7 +450,7 @@ Member.prototype.ResultBeam = function (no,
         else
         {
             this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        };
+        }
         this.member.type = members.TYPE_RESULT_BEAM;
         this.member.rotation_angle = rotation_angle*PI/180;
         this.member.section_start = sections[start_section_no];
@@ -458,9 +458,9 @@ Member.prototype.ResultBeam = function (no,
         {
             this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_LINEAR;
             this.member.section_end = sections[end_section_no];
-        };
+        }
         set_comment_and_parameters(this.member, comment, params);
-    };
+    }
 };
 
 
@@ -475,7 +475,7 @@ Member.prototype.ResultBeam = function (no,
  * @param {string} comment - Comment for the member
  * @param {dictionary} params - Parameters of the member
  */
-Member.prototype.DefinableStifness = function (no,
+Member.prototype.DefinableStiffness = function (no,
                                                node_ids,
                                                rotation_angle,
                                                member_definable_stiffness,
@@ -488,7 +488,7 @@ Member.prototype.DefinableStifness = function (no,
     {
         node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
         rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
-        ASSERT(node_ids.length > 1, "Minimum two nodes must be set to DefinableStifness member");
+        ASSERT(node_ids.length > 1, "Minimum two nodes must be set to DefinableStiffness member");
         this.member;
         if (RFEM)
         {
@@ -498,20 +498,20 @@ Member.prototype.DefinableStifness = function (no,
         else
         {
             this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        };
+        }
         this.member.type = members.TYPE_DEFINABLE_STIFFNESS;
         this.member.rotation_angle = rotation_angle*PI/180;
         if (start_member_hinge_no > 0)
         {
             this.member.member_hinge_start = member_hinges[start_member_hinge_no];
-        };
+        }
         if (end_member_hinge_no > 0)
         {
             this.member.member_hinge_end = member_hinges[end_member_hinge_no];
-        };
+        }
         this.member.member_type_definable_stiffness = member_definable_stiffnesses[member_definable_stiffness];
         set_comment_and_parameters(this.member, comment, params);
-    };
+    }
 };
 
 /**
@@ -542,11 +542,11 @@ Member.prototype.CouplingRigid_Rigid = function (no,
         else
         {
             this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        };
+        }
         this.member.type = members.TYPE_COUPLING_RIGID_RIGID;
         this.member.rotation_angle = rotation_angle*PI/180;
         set_comment_and_parameters(this.member, comment, params);
-    };
+    }
 };
 
 /**
@@ -577,11 +577,11 @@ Member.prototype.CouplingRigid_Hinge = function (no,
         else
         {
             this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        };
+        }
         this.member.type = members.TYPE_COUPLING_RIGID_HINGE;
         this.member.rotation_angle = rotation_angle*PI/180;
         set_comment_and_parameters(this.member, comment, params);
-    };
+    }
 };
 
 /**
@@ -612,11 +612,11 @@ Member.prototype.CouplingHinge_Rigid = function (no,
         else
         {
             this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        };
+        }
         this.member.type = members.TYPE_COUPLING_HINGE_RIGID;
         this.member.rotation_angle = rotation_angle*PI/180;
         set_comment_and_parameters(this.member, comment, params);
-    };
+    }
 };
 
 /**
@@ -647,11 +647,11 @@ Member.prototype.CouplingHinge_Hinge = function (no,
         else
         {
             this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        };
+        }
         this.member.type = members.TYPE_COUPLING_HINGE_HINGE;
         this.member.rotation_angle = rotation_angle*PI/180;
         set_comment_and_parameters(this.member, comment, params);
-    };
+    }
 };
 
 /**
@@ -689,17 +689,17 @@ Member.prototype.BeamByLine = function (no,
             {
                 this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_LINEAR;
                 this.member.section_end = sections[end_section_no];
-            };
+            }
             if (start_member_hinge_no > 0)
             {
                 this.member.member_hinge_start = member_hinges[start_member_hinge_no];
-            };
+            }
             if (end_member_hinge_no > 0)
             {
                 this.member.member_hinge_end = member_hinges[end_member_hinge_no];
-            };
+            }
             set_comment_and_parameters(this.member, comment, params);
-        };
+        }
         
     };
 
@@ -728,7 +728,7 @@ Member.prototype.TrussByLine = function (no,
             this.member.rotation_angle = rotation_angle*PI/180;
             this.member.section_start = sections[start_section_no];
             set_comment_and_parameters(this.member, comment, params);
-        };
+        }
         
     };
 /**
@@ -756,7 +756,7 @@ Member.prototype.CableByLine = function (no,
             this.member.rotation_angle = rotation_angle*PI/180;
             this.member.section_start = sections[start_section_no];
             set_comment_and_parameters(this.member, comment, params);
-        };
+        }
     };
 
 /**
@@ -789,15 +789,15 @@ Member.prototype.RibByLine = function (no,
         {
             this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_LINEAR;
             this.member.section_end = sections[end_section_no];
-        };
+        }
         if (start_member_hinge_no > 0)
         {
             this.member.member_hinge_start = member_hinges[start_member_hinge_no];
-        };
+        }
         if (end_member_hinge_no > 0)
         {
             this.member.member_hinge_end = member_hinges[end_member_hinge_no];
-        };
+        }
         set_comment_and_parameters(this.member, comment, params);
-    };
+    }
 };

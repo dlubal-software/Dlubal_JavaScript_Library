@@ -26,11 +26,11 @@ function SurfaceSet(no,
         else
         {
             this.surface_set.set_type = surface_set_type;
-        };
+        }
         set_comment_and_parameters(this.surface_set, comment, params);
         return this.surface_set;
-    };
-};
+    }
+}
 
 /**
  * Create Continuous Surfaces surfaceSet type

@@ -15,16 +15,16 @@ function Surface(no,
 {
     if (typeof (boundary_lines) !== "undefined") 
     {
-        boundarys_lines = typeof boundary_lines !== 'undefined' ? boundary_lines : [];
+        boundary_lines = typeof boundary_lines !== 'undefined' ? boundary_lines : [];
         this.surface = engine.create_surface(no, boundary_lines);
         if (thickness !== 'undefined')
         {
             this.surface.thickness = thickness;
-        };
+        }
         set_comment_and_parameters(this.surface, comment, params);
         return this.surface;
-    };
-};
+    }
+}
 
 /**
  * Create Standard Surface
@@ -52,7 +52,7 @@ Surface.prototype.Standard = function (no,
     if (thickness !== 'undefined')
     {
         this.surface.thickness = thickness;
-    };
+    }
     set_comment_and_parameters(this.surface, comment, params);
 };
 
@@ -130,7 +130,7 @@ Surface.prototype.Membrane = function (no,
     if (thickness !== 'undefined')
     {
         this.surface.thickness = thickness;
-    };
+    }
     set_comment_and_parameters(this.surface, comment, params);
 };
 
@@ -144,7 +144,7 @@ Surface.prototype.Membrane = function (no,
  * @param {string} comment - Comment for the surface
  * @param {dictionary} params - Parameters of the surface
  */
-Surface.prototype.WithoutMemberaneTension = function (no,
+Surface.prototype.WithoutMembraneTension = function (no,
                                                       geometry_type,
                                                       geometry_type_parameters,
                                                       boundary_lines,
@@ -160,7 +160,7 @@ Surface.prototype.WithoutMemberaneTension = function (no,
     if (thickness !== 'undefined')
     {
         this.surface.thickness = thickness;
-    };
+    }
     set_comment_and_parameters(this.surface, comment, params);
 };
 

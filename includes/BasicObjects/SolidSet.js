@@ -21,15 +21,15 @@ function SolidSet(no,
         if (solid_set_type == "SET_TYPE_CONTINUOUS" || solid_set_type =="")
         {
             this.solid_set.set_type = solid_sets.SET_TYPE_CONTINUOUS;
-        };
+        }
         if (solid_set_type == "SET_TYPE_GROUP")
         {
             this.solid_set.set_type = solid_sets.SET_TYPE_GROUP;
-        };
+        }
         set_comment_and_parameters(this.solid_set, comment, params);
         return this.solid_set;
-    };
-};
+    }
+}
 /**
  * Create Continuous Solids solidSet type
  * @param {int} no - Number of Solid Set

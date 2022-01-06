@@ -18,8 +18,8 @@ function Line(no,
         this.line = engine.create_line(no, nodes);
         set_comment_and_parameters(this.line, comment, params);
         return this.line;
-    };
-};
+    }
+}
 
 /**
  * Create Polyline
@@ -45,7 +45,7 @@ Line.prototype.Polyline = function (no,
  * @param {int} no - Number of the line
  * @param {array} nodes - List of two nodes
  * @param {array} control_point - Control point by format [x, y, z]
- * @param {string} alpha_adjustment_target - Subsequent adjastment of alpha by displacing node at
+ * @param {string} alpha_adjustment_target - Subsequent adjustment of alpha by displacing node at
  * @param {string} comment - Comment for the line
  * @param {dictionary} params - Parameters of the line
  */
@@ -75,7 +75,7 @@ Line.prototype.Arc = function (no,
     } else if (alpha_adjustment_target == lines.ALPHA_ADJUSTMENT_TARGET_END_OF_ARC)
     {
         this.line.arc_alpha_adjustment_target = lines.ALPHA_ADJUSTMENT_TARGET_END_OF_ARC; 
-    };
+    }
     set_comment_and_parameters(this.line, comment, params);
 };
 
@@ -293,7 +293,7 @@ Line.prototype.RectangularPolygon = function (no,
         Node(no_n + 2, X, Y + length/2, Z - width/2);
         Node(no_n + 3, X, Y + length/2, Z + width/2);
         Node(no_n + 4, X, Y - length/2, Z + width/2);
-    };
+    }
 
     var nodes_list = [no_n + 1, no_n + 2, no_n + 3, no_n + 4, no_n + 1];
     this.line = Line(no, nodes_list);
@@ -344,7 +344,7 @@ Line.prototype.nPolygon = function (no,
             Node(no_n, X + radius*cos(alpha),  Y + radius*sin(alpha),  Z);
             nodes_list.push(no_n);
             no_n++;
-        };
+        }
     } else if(plane == "XZ")
     {
         for (var i = 0; i < no_edges; ++i)
@@ -353,7 +353,7 @@ Line.prototype.nPolygon = function (no,
             Node(no_n, X + radius*cos(alpha),  Y,  Z + radius*sin(alpha));
             nodes_list.push(no_n);
             no_n++;
-        };
+        }
     } else if(plane == "YZ")
     {
         for (var i = 0; i < no_edges; ++i)
@@ -362,8 +362,8 @@ Line.prototype.nPolygon = function (no,
             Node(no_n, X,  Y + radius*cos(alpha),  Z + radius*sin(alpha));
             nodes_list.push(no_n);
             no_n++;
-        };
-    };
+        }
+    }
 
     if (join == "true" || join == "")
     {
@@ -375,8 +375,8 @@ Line.prototype.nPolygon = function (no,
         for (var i = 0; i < no_edges - 1; ++i)
         {
             Line(no_l + i, [no_n_ref + i, no_n_ref + 1 + i]);
-        };
+        }
         this.line = Line(no_l + no_edges - 1, [no_n_ref + no_edges - 1, no_n_ref]);
-    };
+    }
     set_comment_and_parameters(this.line, comment, params);
 };

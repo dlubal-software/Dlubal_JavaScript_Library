@@ -29,8 +29,8 @@ function Node(no,
 
         set_comment_and_parameters(this.node, comment, params);
         return this.node;
-    };
-};
+    }
+}
 
 /**
  * Create Standard node
@@ -84,8 +84,8 @@ Node.prototype.Standard = function (no,
         }
         this.node.coordinate_1 = coordinate_system[0];
         set_comment_and_parameters(this.node, comment, params);
-    };
-}
+    }
+};
 
 /**
  * Create Node between two nodes
@@ -148,15 +148,15 @@ Node.prototype.BetweenTwoNodes = function (no,
         {
             this.node.distance_from_start_is_defined_as_relative = false;
             this.node.distance_from_start_absolute = parameters[1];
-        };
+        }
                 
         if (node_reference == nodes.REFERENCE_TYPE_L || node_reference == "")
         {
             this.node.offset_in_local_direction_y = offset_y;
             this.node.offset_in_local_direction_z = offset_z;
-        };
+        }
         set_comment_and_parameters(this.node, comment, params);
-}
+};
 
 
 /**
@@ -233,9 +233,9 @@ Node.prototype.BetweenTwoPoints = function (no,
         {
             this.node.offset_in_local_direction_y = offset_y;
             this.node.offset_in_local_direction_z = offset_z;
-        };
+        }
         set_comment_and_parameters(this.node, comment, params);
-}
+};
 
 /**
  * Create Node On Line
@@ -289,9 +289,9 @@ Node.prototype.OnLine = function (no,
         {
             this.node.distance_from_start_is_defined_as_relative = false;
             this.node.distance_from_start_absolute = parameters[1];
-        };
+        }
         set_comment_and_parameters(this.node, comment, params);
-}
+};
 
 /**
  * Create Node on Member
@@ -347,4 +347,4 @@ Node.prototype.OnMember = function (no,
             this.node.distance_from_start_absolute = parameters[1];
         }
         set_comment_and_parameters(this.node, comment, params);
-}
+};
