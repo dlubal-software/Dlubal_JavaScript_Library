@@ -1,9 +1,8 @@
 function LoadImpl(load_type,
-                  no,
-                  load_case,
-                  comment,
-                  params)
-{
+    no,
+    load_case,
+    comment,
+    params) {
     load_case = typeof load_case !== 'undefined' ? load_case : null;
     ASSERT(load_case != null, "Load Case is required parameter");
 

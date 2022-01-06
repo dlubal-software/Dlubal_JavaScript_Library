@@ -10,14 +10,13 @@ include("BaseLoad.js");
 * @return	{Object}	Created solid load
 */
 function SolidLoad(no,
-				   load_case,
-				   solids,
-				   comment,
-				   params)
-{
-	if (arguments.length !== 0)
-	{
+	load_case,
+	solids,
+	comment,
+	params) {
+	if (arguments.length !== 0) {
 		this.load = createBaseLoad("Solid_Load", no, load_case, solids, comment, params);
+		return this.load;
 	}
 }
 
@@ -32,22 +31,20 @@ function SolidLoad(no,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Created solid force load
 */
-SolidLoad.prototype.Force = function(no,
-									 load_case,
-									 solids,
-									 load_value,
-									 load_direction,
-									 comment,
-									 params)
-{
+SolidLoad.prototype.Force = function (no,
+	load_case,
+	solids,
+	load_value,
+	load_direction,
+	comment,
+	params) {
 	this.load = createBaseLoad("Solid_Load", no, load_case, solids, comment, params);
 	this.load = setSolidLoadDistribution(this.load, solid_loads.LOAD_TYPE_FORCE, undefined, [load_value]);
-	
-	if (typeof load_direction !== "undefined")
-	{
+
+	if (typeof load_direction !== "undefined") {
 		this.load.load_direction = load_direction;
 	}
-	
+
 	return this.load;
 };
 
@@ -62,17 +59,16 @@ SolidLoad.prototype.Force = function(no,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Created solid temperature load
 */
-SolidLoad.prototype.Temperature = function(no,
-										   load_case,
-										   solids,
-										   load_distribution,
-										   load_values,
-										   comment,
-										   params)
-{
+SolidLoad.prototype.Temperature = function (no,
+	load_case,
+	solids,
+	load_distribution,
+	load_values,
+	comment,
+	params) {
 	this.load = createBaseLoad("Solid_Load", no, load_case, solids, comment, params);
 	this.load = setSolidLoadDistribution(this.load, solid_loads.LOAD_TYPE_TEMPERATURE, load_distribution, load_values);
-	
+
 	return this.load;
 };
 
@@ -87,17 +83,16 @@ SolidLoad.prototype.Temperature = function(no,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Created solid strain load
 */
-SolidLoad.prototype.Strain = function(no,
-									  load_case,
-									  solids,
-									  load_distribution,
-									  load_values,
-									  comment,
-									  params)
-{
+SolidLoad.prototype.Strain = function (no,
+	load_case,
+	solids,
+	load_distribution,
+	load_values,
+	comment,
+	params) {
 	this.load = createBaseLoad("Solid_Load", no, load_case, solids, comment, params);
 	this.load = setSolidLoadDistribution(this.load, solid_loads.LOAD_TYPE_STRAIN, load_distribution, load_values);
-	
+
 	return this.load;
 };
 
@@ -112,22 +107,20 @@ SolidLoad.prototype.Strain = function(no,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Created solid buoyancy load
 */
-SolidLoad.prototype.Buoyancy = function(no,
-										load_case,
-										solids,
-										load_value,
-										load_direction,
-										comment,
-										params)
-{
+SolidLoad.prototype.Buoyancy = function (no,
+	load_case,
+	solids,
+	load_value,
+	load_direction,
+	comment,
+	params) {
 	this.load = createBaseLoad("Solid_Load", no, load_case, solids, comment, params);
 	this.load = setSolidLoadDistribution(this.load, solid_loads.LOAD_TYPE_BUOYANCY, undefined, [load_value]);
-	
-	if (typeof load_direction !== "undefined")
-	{
+
+	if (typeof load_direction !== "undefined") {
 		this.load.load_direction = load_direction;
 	}
-	
+
 	return this.load;
 };
 
@@ -141,16 +134,15 @@ SolidLoad.prototype.Buoyancy = function(no,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Created solid rotary motion load
 */
-SolidLoad.prototype.RotaryMotion = function(no,
-											load_case,
-											solids,
-											load_values,
-											comment,
-											params)
-{
+SolidLoad.prototype.RotaryMotion = function (no,
+	load_case,
+	solids,
+	load_values,
+	comment,
+	params) {
 	this.load = createBaseLoad("Solid_Load", no, load_case, solids, comment, params);
 	this.load = setSolidLoadDistribution(this.load, solid_loads.LOAD_TYPE_ROTARY_MOTION, undefined, load_values);
-	
+
 	return this.load;
 };
 
@@ -158,16 +150,13 @@ SolidLoad.prototype.RotaryMotion = function(no,
 * Determine air density at specified altitude
 * @param	{Number}	altitude	Altitude value, if undefined, determine air density at specified altitude will be set false
 */
-SolidLoad.prototype.AirDensity = function(altitude)
-{
+SolidLoad.prototype.AirDensity = function (altitude) {
 	ASSERT(this.load.load_type === solid_loads.LOAD_TYPE_BUOYANCY, "Can be set only for buoyancy load type");
-	
-	if (typeof altitude === "undefined")
-	{
+
+	if (typeof altitude === "undefined") {
 		this.load.is_density_defined_by_altitude = false;
 	}
-	else
-	{
+	else {
 		this.load.is_density_defined_by_altitude = true;
 		this.load.altitude = altitude;
 	}

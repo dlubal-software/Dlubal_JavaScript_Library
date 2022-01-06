@@ -16,14 +16,13 @@ include("BaseLoad.js");
 * @return	{Object}	Created free rectangular load
 */
 function FreeRectangularLoad(no,
-                             load_case,
-                             surfaces,
-                             comment,
-                             params)
-{
-	if (arguments.length !== 0)
-	{
+	load_case,
+	surfaces,
+	comment,
+	params) {
+	if (arguments.length !== 0) {
 		this.load = createBaseLoad("Free_Rectangular_Load", no, load_case, surfaces, comment, params);
+		return this.load;
 	}
 }
 
@@ -47,11 +46,10 @@ function FreeRectangularLoad(no,
 * @return	{Object}	Returns modified load
 */
 function setFreeRectangularLoadParameters(load,
-										  load_distribution,
-										  load_values)
-{
+	load_distribution,
+	load_values) {
 	load.load_distribution = load_distribution;
-	
+
 	ASSERT(load_values.length > 1);
 	ASSERT(load_values[0] == "1" || load_values[0] == "2");
 
@@ -63,12 +61,11 @@ function setFreeRectangularLoadParameters(load,
 	{
 		load.load_location_rectangle = free_rectangular_loads.LOAD_LOCATION_RECTANGLE_CENTER_AND_SIDES;
 	}
-	
+
 	var rectangle = load_values[0];
 	load_values.shift();	// Remove first element (load location)
-	
-	switch (load_distribution)
-	{
+
+	switch (load_distribution) {
 		case free_rectangular_loads.LOAD_DISTRIBUTION_UNIFORM:
 			if (rectangle == 1)	// Corner points of rectangle
 			{
@@ -83,7 +80,7 @@ function setFreeRectangularLoadParameters(load,
 			}
 			break;
 		case free_rectangular_loads.LOAD_DISTRIBUTION_LINEAR_FIRST:
-		case free_rectangular_loads.LOAD_DISTRIBUTION_LINEAR_SECOND:			
+		case free_rectangular_loads.LOAD_DISTRIBUTION_LINEAR_SECOND:
 			if (rectangle == 1)	// Corner points of rectangle
 			{
 				ASSERT(load_values.length >= 4, "Wrong number of load parameters, at least five are required (location, p1, p2, X1, Y1)");
@@ -100,16 +97,13 @@ function setFreeRectangularLoadParameters(load,
 		case free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER:
 			if (rectangle == 1)	// Corner points of rectangle
 			{
-				if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z)
-				{
+				if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z) {
 					ASSERT(load_values.length === 6, "Wrong number of load parameters, seven values are required (location, p, X1, Y1, X2, Y2, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn])");
 				}
-				else if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER)
-				{
+				else if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER) {
 					ASSERT(load_values.length === 6, "Wrong number of load,seven values are required (location, p, X1, Y1, X2, Y2, [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)])");
 				}
-				else if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER)
-				{
+				else if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER) {
 					ASSERT(load_values.length === 7, "Wrong number of load parameters, eight values are required (location, p, X1, Y1, X2, Y2, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn], [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)]");
 				}
 				load.magnitude_uniform = load_values[0];
@@ -120,16 +114,13 @@ function setFreeRectangularLoadParameters(load,
 			}
 			else	// Center and sides of rectangle
 			{
-				if (load_distribution == free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z)
-				{
+				if (load_distribution == free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z) {
 					ASSERT(load_values.length === 6, "Wrong number of load parameters, seven are required (location, p, Xc, Yc, a, b, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn])");
 				}
-				else if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER)
-				{
+				else if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER) {
 					ASSERT(load_values.length === 6, "Wrong number of load parameters, seven are required (location, p, Xc, Yc, a, b, [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)");
 				}
-				else if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER)
-				{
+				else if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER) {
 					ASSERT(load_values.length === 7, "Wrong number of load parameters, eight values are required (location, p, Xc, Yc, a, b, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn], [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)]");
 				}
 				load.magnitude_uniform = load_values[0];
@@ -138,25 +129,21 @@ function setFreeRectangularLoadParameters(load,
 				load.load_location_center_side_a = load_values[3];
 				load.load_location_center_side_b = load_values[4];
 			}
-			if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z || load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER)
-			{
+			if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z || load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER) {
 				// Varying in Z-direction
 				var varying_values = load_values[5];
 				ASSERT(varying_values.length % 3 === 0, "Wrong number of varyings, there must be trio of parameters");
-				
-				for (var i = 0; i < varying_values.length; i += 3)
-				{
+
+				for (var i = 0; i < varying_values.length; i += 3) {
 					load.load_varying_in_z_parameters[i / 3 + 1].distance = varying_values[i];
 					load.load_varying_in_z_parameters[i / 3 + 1].factor = varying_values[i + 1];
 					load.load_varying_in_z_parameters[i / 3 + 1].recalculated_magnitude = varying_values[i + 2];
 				}
 			}
-			if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER || load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER)
-			{
+			if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER || load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER) {
 				// Varying along perimeter
 				var perimeter_values = load_values[5];
-				if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER)
-				{
+				if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER) {
 					perimeter_values = load_values[6];
 				}
 				ASSERT(perimeter_values.length >= 13, "Wrong number of varying along perimeter values, at least thirteen values are required (XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2)");
@@ -170,8 +157,7 @@ function setFreeRectangularLoadParameters(load,
 				load.axis_definition_p2_z = perimeter_values[5];
 				load.axis_start_angle = perimeter_values[6];
 
-				for (var i = 7; i < perimeter_values.length; i += 3)
-				{
+				for (var i = 7; i < perimeter_values.length; i += 3) {
 					load.load_varying_along_perimeter_parameters[(i - 7) / 3 + 1].alpha = perimeter_values[i];
 					load.load_varying_along_perimeter_parameters[(i - 7) / 3 + 1].factor = perimeter_values[i + 1];
 					load.load_varying_along_perimeter_parameters[(i - 7) / 3 + 1].recalculated_magnitude = perimeter_values[i + 2];
@@ -181,7 +167,7 @@ function setFreeRectangularLoadParameters(load,
 		default:
 			showLoadAssert(undefined, load_distribution);
 	}
-	
+
 	return load;
 }
 
@@ -199,21 +185,20 @@ function setFreeRectangularLoadParameters(load,
 * @param	{Object}	params					Load parameters, can be undefined
 * @return	{Object}	Created free rectangular uniform load
 */
-FreeRectangularLoad.prototype.Uniform = function(no,
-												 load_case,
-												 surfaces,
-												 load_values,
-												 load_projection,
-												 load_direction,
-												 load_acting_region_from,
-												 load_acting_region_to,
-												 comment,
-												 params)
-{
+FreeRectangularLoad.prototype.Uniform = function (no,
+	load_case,
+	surfaces,
+	load_values,
+	load_projection,
+	load_direction,
+	load_acting_region_from,
+	load_acting_region_to,
+	comment,
+	params) {
 	this.load = createBaseLoad("Free_Rectangular_Load", no, load_case, surfaces, comment, params);
 	this.load = setFreeRectangularLoadParameters(this.load, free_rectangular_loads.LOAD_DISTRIBUTION_UNIFORM, load_values);
 	this.load = setCommonFreeLoadsValues(this.load, load_projection, load_direction, load_acting_region_from, load_acting_region_to);
-	
+
 	return this.load;
 };
 
@@ -231,21 +216,20 @@ FreeRectangularLoad.prototype.Uniform = function(no,
 * @param	{Object}	params					Load parameters, can be undefined
 * @return	{Object}	Created free rectangular linear in X load
 */
-FreeRectangularLoad.prototype.LinearX = function(no,
-												 load_case,
-												 surfaces,
-												 load_values,
-												 load_projection,
-												 load_direction,
-												 load_acting_region_from,
-												 load_acting_region_to,
-												 comment,
-												 params)
-{
+FreeRectangularLoad.prototype.LinearX = function (no,
+	load_case,
+	surfaces,
+	load_values,
+	load_projection,
+	load_direction,
+	load_acting_region_from,
+	load_acting_region_to,
+	comment,
+	params) {
 	this.load = createBaseLoad("Free_Rectangular_Load", no, load_case, surfaces, comment, params);
 	this.load = setFreeRectangularLoadParameters(this.load, free_rectangular_loads.LOAD_DISTRIBUTION_LINEAR_FIRST, load_values);
 	this.load = setCommonFreeLoadsValues(this.load, load_projection, load_direction, load_acting_region_from, load_acting_region_to);
-	
+
 	return this.load;
 };
 
@@ -263,21 +247,20 @@ FreeRectangularLoad.prototype.LinearX = function(no,
 * @param	{Object}	params					Load parameters, can be undefined
 * @return	{Object}	Created free rectangular linear in Y load
 */
-FreeRectangularLoad.prototype.LinearY = function(no,
-												 load_case,
-												 surfaces,
-												 load_values,
-												 load_projection,
-												 load_direction,
-												 load_acting_region_from,
-												 load_acting_region_to,
-												 comment,
-												 params)
-{
+FreeRectangularLoad.prototype.LinearY = function (no,
+	load_case,
+	surfaces,
+	load_values,
+	load_projection,
+	load_direction,
+	load_acting_region_from,
+	load_acting_region_to,
+	comment,
+	params) {
 	this.load = createBaseLoad("Free_Rectangular_Load", no, load_case, surfaces, comment, params);
 	this.load = setFreeRectangularLoadParameters(this.load, free_rectangular_loads.LOAD_DISTRIBUTION_LINEAR_SECOND, load_values);
 	this.load = setCommonFreeLoadsValues(this.load, load_projection, load_direction, load_acting_region_from, load_acting_region_to);
-	
+
 	return this.load;
 };
 
@@ -295,21 +278,20 @@ FreeRectangularLoad.prototype.LinearY = function(no,
 * @param	{Object}	params					Load parameters, can be undefined
 * @return	{Object}	Created free rectangular varying in Z load
 */
-FreeRectangularLoad.prototype.VaryingZ = function(no,
-												  load_case,
-												  surfaces,
-												  load_values,
-												  load_projection,
-												  load_direction,
-												  load_acting_region_from,
-												  load_acting_region_to,
-												  comment,
-												  params)
-{
+FreeRectangularLoad.prototype.VaryingZ = function (no,
+	load_case,
+	surfaces,
+	load_values,
+	load_projection,
+	load_direction,
+	load_acting_region_from,
+	load_acting_region_to,
+	comment,
+	params) {
 	this.load = createBaseLoad("Free_Rectangular_Load", no, load_case, surfaces, comment, params);
 	this.load = setFreeRectangularLoadParameters(this.load, free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z, load_values);
 	this.load = setCommonFreeLoadsValues(this.load, load_projection, load_direction, load_acting_region_from, load_acting_region_to);
-	
+
 	return this.load;
 };
 
@@ -327,21 +309,20 @@ FreeRectangularLoad.prototype.VaryingZ = function(no,
 * @param	{Object}	params					Load parameters, can be undefined
 * @return	{Object}	Created free rectangular varying along perimeter load
 */
-FreeRectangularLoad.prototype.VaryingPerimeter = function(no,
-														 load_case,
-														 surfaces,
-														 load_values,
-														 load_projection,
-														 load_direction,
-														 load_acting_region_from,
-														 load_acting_region_to,
-														 comment,
-														 params)
-{
+FreeRectangularLoad.prototype.VaryingPerimeter = function (no,
+	load_case,
+	surfaces,
+	load_values,
+	load_projection,
+	load_direction,
+	load_acting_region_from,
+	load_acting_region_to,
+	comment,
+	params) {
 	this.load = createBaseLoad("Free_Rectangular_Load", no, load_case, surfaces, comment, params);
 	this.load = setFreeRectangularLoadParameters(this.load, free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER, load_values);
 	this.load = setCommonFreeLoadsValues(this.load, load_projection, load_direction, load_acting_region_from, load_acting_region_to);
-	
+
 	return this.load;
 };
 
@@ -359,20 +340,19 @@ FreeRectangularLoad.prototype.VaryingPerimeter = function(no,
 * @param	{Object}	params					Load parameters, can be undefined
 * @return	{Object}	Created free rectangular varying in Z and along perimeter load
 */
-FreeRectangularLoad.prototype.VaryingZAndPerimeter = function(no,
-															 load_case,
-															 surfaces,
-															 load_values,
-															 load_projection,
-															 load_direction,
-															 load_acting_region_from,
-															 load_acting_region_to,
-															 comment,
-															 params)
-{
+FreeRectangularLoad.prototype.VaryingZAndPerimeter = function (no,
+	load_case,
+	surfaces,
+	load_values,
+	load_projection,
+	load_direction,
+	load_acting_region_from,
+	load_acting_region_to,
+	comment,
+	params) {
 	this.load = createBaseLoad("Free_Rectangular_Load", no, load_case, surfaces, comment, params);
 	this.load = setFreeRectangularLoadParameters(this.load, free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER, load_values);
 	this.load = setCommonFreeLoadsValues(this.load, load_projection, load_direction, load_acting_region_from, load_acting_region_to);
-	
+
 	return this.load;
 };

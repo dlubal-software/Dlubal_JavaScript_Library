@@ -12,14 +12,13 @@ include("BaseLoad.js");
 * @return	{Object}	Created line set load
 */
 function LineSetLoad(no,
-                     load_case,
-                     line_sets,
-                     comment,
-                     params)
-{
-    if (arguments.length !== 0)
-	{
+	load_case,
+	line_sets,
+	comment,
+	params) {
+	if (arguments.length !== 0) {
 		this.load = createBaseLoad("Line_Set_Load", no, load_case, line_sets, comment, params);
+		return this.load;
 	}
 }
 
@@ -35,23 +34,21 @@ function LineSetLoad(no,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Created line set force load
 */
-LineSetLoad.prototype.Force = function(no,
-							 load_case,
-							 line_sets,
-							 load_distribution,
-							 load_values,
-							 load_direction,
-							 comment,
-							 params)
-{
+LineSetLoad.prototype.Force = function (no,
+	load_case,
+	line_sets,
+	load_distribution,
+	load_values,
+	load_direction,
+	comment,
+	params) {
 	this.load = createBaseLoad("Line_Set_Load", no, load_case, line_sets, comment, params);
 	this.load = setLineLoadDistribution(this.load, line_set_loads.LOAD_TYPE_FORCE, load_distribution, load_values);
-	
-	if (typeof load_direction !== "undefined")
-	{
+
+	if (typeof load_direction !== "undefined") {
 		this.load.load_direction = load_direction;
 	}
-	
+
 	return this.load;
 };
 
@@ -67,23 +64,21 @@ LineSetLoad.prototype.Force = function(no,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Created line set moment load
 */
-LineSetLoad.prototype.Moment = function(no,
-										load_case,
-										line_sets,
-										load_distribution,
-										load_values,
-										load_direction,
-										comment,
-										params)
-{
+LineSetLoad.prototype.Moment = function (no,
+	load_case,
+	line_sets,
+	load_distribution,
+	load_values,
+	load_direction,
+	comment,
+	params) {
 	this.load = createBaseLoad("Line_Set_Load", no, load_case, line_sets, comment, params);
 	this.load = setLineLoadDistribution(this.load, line_set_loads.LOAD_TYPE_MOMENT, load_distribution, load_values);
-	
-	if (typeof load_direction !== "undefined")
-	{
+
+	if (typeof load_direction !== "undefined") {
 		this.load.load_direction = load_direction;
 	}
-	
+
 	return this.load;
 };
 
@@ -97,16 +92,15 @@ LineSetLoad.prototype.Moment = function(no,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Created line set mass load
 */
-LineSetLoad.prototype.Mass = function(no,
-									  load_case,
-									  line_sets,
-									  load_value,
-									  comment,
-									  params)
-{
+LineSetLoad.prototype.Mass = function (no,
+	load_case,
+	line_sets,
+	load_value,
+	comment,
+	params) {
 	this.load = createBaseLoad("Line_Set_Load", no, load_case, line_sets, comment, params);
 	this.load = setLineLoadDistribution(this.load, line_set_loads.E_TYPE_MASS, undefined, [load_value]);
-	
+
 	return this.load;
 };
 
@@ -114,13 +108,11 @@ LineSetLoad.prototype.Mass = function(no,
 * Sets option for refer distance to the end of line set
 * @param 	{Boolean}	value	When undefined, true as default
 */
-LineSetLoad.prototype.ReferDistanceLineSetEnd = function(value)
-{
-	ASSERT(this.load.load_distribution !== line_set_loads.LOAD_DISTRIBUTION_UNIFORM && this.load.load_distribution !== line_set_loads.LOAD_DISTRIBUTION_UNIFORM_TOTAL, 
-			"Refer distance to the line end cannot be set for this type of load distribution");
+LineSetLoad.prototype.ReferDistanceLineSetEnd = function (value) {
+	ASSERT(this.load.load_distribution !== line_set_loads.LOAD_DISTRIBUTION_UNIFORM && this.load.load_distribution !== line_set_loads.LOAD_DISTRIBUTION_UNIFORM_TOTAL,
+		"Refer distance to the line end cannot be set for this type of load distribution");
 
-	if (typeof value === "undefined")
-	{
+	if (typeof value === "undefined") {
 		value = true;
 	}
 	this.load.reference_to_list_of_line_sets = value;
@@ -130,15 +122,13 @@ LineSetLoad.prototype.ReferDistanceLineSetEnd = function(value)
 * Sets option for load over total length of line set (only for trapezoidal load distribution)
 * @param	{Boolean}	value	When undefined, true as default
 */
-LineSetLoad.prototype.LoadOverLineSet = function(value)
-{
+LineSetLoad.prototype.LoadOverLineSet = function (value) {
 	ASSERT(this.load.load_distribution === line_set_loads.LOAD_DISTRIBUTION_TRAPEZOIDAL, "Load over total length of line can be set only for trapezoidal load distribution");
-	
-	if (typeof value === "undefined")
-	{
+
+	if (typeof value === "undefined") {
 		value = true;
 	}
-	
+
 	this.load.distance_a_is_defined_as_relative = value;
 	this.load.distance_b_is_defined_as_relative = value;
 	this.load.distance_a_relative = 0;
@@ -152,32 +142,27 @@ LineSetLoad.prototype.LoadOverLineSet = function(value)
 * @param	{Number}	MY		Mass in Y coordination, can be undefined
 * @param	{Number}	MZ		Mass in Z coordination, can be undefined
 */
-LineSetLoad.prototype.IndividualMassComponents = function(MX,
-														  MY,
-														  MZ)
-{
+LineSetLoad.prototype.IndividualMassComponents = function (MX,
+	MY,
+	MZ) {
 	ASSERT(this.load.load_type === nodal_loads.LOAD_TYPE_MASS, "Can be set only for mass load type");
-	
-	if (arguments.length === 0)
-	{
+
+	if (arguments.length === 0) {
 		this.load.individual_mass_components = false;
 		return;
 	}
-	
+
 	this.load.individual_mass_components = true;
-	
-	if (typeof MX !== "undefined")
-	{
+
+	if (typeof MX !== "undefined") {
 		this.load.mass_x = MX;
 	}
-	
-	if (typeof MY !== "undefined")
-	{
+
+	if (typeof MY !== "undefined") {
 		this.load.mass_y = MY;
 	}
-	
-	if (typeof MZ !== "undefined")
-	{
+
+	if (typeof MZ !== "undefined") {
 		this.load.mass_z = MZ;
 	}
 };

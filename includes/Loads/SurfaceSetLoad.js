@@ -10,14 +10,13 @@ include("BaseLoad.js");
 * @return	{Object}	Created line set load
 */
 function SurfaceSetLoad(no,
-                        load_case,
-                        surface_sets,
-                        comment,
-                        params)
-{
-	if (arguments.length !== 0)
-	{
+	load_case,
+	surface_sets,
+	comment,
+	params) {
+	if (arguments.length !== 0) {
 		this.load = createBaseLoad("Surface_Set_Load", no, load_case, line_sets, comment, params);
+		return this.load;
 	}
 }
 
@@ -33,23 +32,21 @@ function SurfaceSetLoad(no,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Created surface set force load
 */
-SurfaceSetLoad.prototype.Force = function(no,
-										  load_case,
-										  surface_sets,
-										  load_distribution,
-										  load_values,
-										  load_direction,
-										  comment,
-										  params)
-{
+SurfaceSetLoad.prototype.Force = function (no,
+	load_case,
+	surface_sets,
+	load_distribution,
+	load_values,
+	load_direction,
+	comment,
+	params) {
 	this.load = createBaseLoad("Surface_Set_Load", no, load_case, surface_sets, comment, params);
 	this.load = setSurfaceLoadDistribution(this.load, surface_set_loads.LOAD_TYPE_FORCE, load_distribution, load_values);
-	
-	if (typeof load_direction !== "undefined")
-	{
+
+	if (typeof load_direction !== "undefined") {
 		this.load.load_direction = load_direction;
 	}
-	
+
 	return this.load;
 };
 
@@ -64,17 +61,16 @@ SurfaceSetLoad.prototype.Force = function(no,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Created surface set temperature load
 */
-SurfaceSetLoad.prototype.Temperature = function(no,
-												load_case,
-												surface_sets,
-												load_distribution,
-												load_values,
-												comment,
-												params)
-{
+SurfaceSetLoad.prototype.Temperature = function (no,
+	load_case,
+	surface_sets,
+	load_distribution,
+	load_values,
+	comment,
+	params) {
 	this.load = createBaseLoad("Surface_Set_Load", no, load_case, surface_sets, comment, params);
 	this.load = setSurfaceLoadDistribution(this.load, surface_set_loads.LOAD_TYPE_TEMPERATURE, load_distribution, load_values);
-	
+
 	return this.load;
 };
 
@@ -89,17 +85,16 @@ SurfaceSetLoad.prototype.Temperature = function(no,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Created surface set axial strain load
 */
-SurfaceSetLoad.prototype.AxialStrain = function(no,
-												load_case,
-												surface_sets,
-												load_distribution,
-												load_values,
-												comment,
-												params)
-{
+SurfaceSetLoad.prototype.AxialStrain = function (no,
+	load_case,
+	surface_sets,
+	load_distribution,
+	load_values,
+	comment,
+	params) {
 	this.load = createBaseLoad("Surface_Set_Load", no, load_case, surface_sets, comment, params);
 	this.load = setSurfaceLoadDistribution(this.load, surface_set_loads.LOAD_TYPE_AXIAL_STRAIN, load_distribution, load_values);
-	
+
 	return this.load;
 };
 
@@ -113,16 +108,15 @@ SurfaceSetLoad.prototype.AxialStrain = function(no,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Created surface set precamber load
 */
-SurfaceSetLoad.prototype.Precamber = function(no,
-											  load_case,
-											  surface_sets,
-											  load_value,
-											  comment,
-											  params)
-{
+SurfaceSetLoad.prototype.Precamber = function (no,
+	load_case,
+	surface_sets,
+	load_value,
+	comment,
+	params) {
 	this.load = createBaseLoad("Surface_Set_Load", no, load_case, surface_sets, comment, params);
 	this.load = setSurfaceLoadDistribution(this.load, surface_set_loads.LOAD_TYPE_PRECAMBER, undefined, [load_value]);
-	
+
 	return this.load;
 };
 
@@ -136,16 +130,15 @@ SurfaceSetLoad.prototype.Precamber = function(no,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Created surface set rotary motion load
 */
-SurfaceSetLoad.prototype.RotaryMotion = function(no,
-												 load_case,
-												 surface_sets,
-												 load_values,
-												 comment,
-												 params)
-{
+SurfaceSetLoad.prototype.RotaryMotion = function (no,
+	load_case,
+	surface_sets,
+	load_values,
+	comment,
+	params) {
 	this.load = createBaseLoad("Surface_Set_Load", no, load_case, surface_sets, comment, params);
 	this.load = setSurfaceLoadDistribution(this.load, surface_set_loads.LOAD_TYPE_ROTARY_MOTION, undefined, load_values);
-	
+
 	return this.load;
 };
 
@@ -159,16 +152,15 @@ SurfaceSetLoad.prototype.RotaryMotion = function(no,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Created surface set mass load
 */
-SurfaceSetLoad.prototype.Mass = function(no,
-										 load_case,
-										 surface_sets,
-										 load_value,
-										 comment,
-										 params)
-{
+SurfaceSetLoad.prototype.Mass = function (no,
+	load_case,
+	surface_sets,
+	load_value,
+	comment,
+	params) {
 	this.load = createBaseLoad("Surface_Set_Load", no, load_case, surface_sets, comment, params);
 	this.load = setSurfaceLoadDistribution(this.load, surface_set_loads.LOAD_TYPE_MASS, undefined, [load_value]);
-	
+
 	return this.load;
 };
 
@@ -178,32 +170,27 @@ SurfaceSetLoad.prototype.Mass = function(no,
 * @param	{Number}	MY		Mass in Y coordination, can be undefined
 * @param	{Number}	MZ		Mass in Z coordination, can be undefined
 */
-SurfaceSetLoad.prototype.IndividualMassComponents = function(MX,
-															 MY,
-															 MZ)
-{	
+SurfaceSetLoad.prototype.IndividualMassComponents = function (MX,
+	MY,
+	MZ) {
 	ASSERT(this.load.load_type === surface_set_loads.LOAD_TYPE_MASS, "Can be set only for mass load type");
 
-	if (arguments.length === 0)
-	{
+	if (arguments.length === 0) {
 		this.load.individual_mass_components = false;
 		return;
 	}
-	
+
 	this.load.individual_mass_components = true;
-	
-	if (typeof MX !== "undefined")
-	{
+
+	if (typeof MX !== "undefined") {
 		this.load.magnitude_mass_x = MX;
 	}
-	
-	if (typeof MY !== "undefined")
-	{
+
+	if (typeof MY !== "undefined") {
 		this.load.magnitude_mass_y = MY;
 	}
-	
-	if (typeof MZ !== "undefined")
-	{
+
+	if (typeof MZ !== "undefined") {
 		this.load.magnitude_mass_z = MZ;
-	}	
+	}
 };

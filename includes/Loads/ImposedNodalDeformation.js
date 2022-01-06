@@ -10,14 +10,13 @@ include("BaseLoad.js");
 * @return	{Object}	Created imposed nodal deformation
 */
 function ImposedNodalDeformation(no,
-                                 load_case,
-                                 nodes,
-                                 comment,
-                                 params)
-{
-	if (arguments.length !== 0)
-	{
+	load_case,
+	nodes,
+	comment,
+	params) {
+	if (arguments.length !== 0) {
 		this.load = createBaseLoad("Imposed_Nodal_Deformation", no, load_case, nodes, comment, params);
+		return this.load;
 	}
 }
 
@@ -36,40 +35,35 @@ function ImposedNodalDeformation(no,
 * @param	{Object}	params					Load parameters, can be undefined
 * @return	{Object}	Created imposed nodal deformation
 */
-ImposedNodalDeformation.prototype.Set = function(no,
-												 load_case,
-												 nodes,
-												 imposed_displacement_x,
-												 imposed_displacement_y,
-												 imposed_displacement_z,
-												 imposed_rotation_x,
-												 imposed_rotation_y,
-												 imposed_rotation_z,
-												 comment,
-												 params)
-{
+ImposedNodalDeformation.prototype.Set = function (no,
+	load_case,
+	nodes,
+	imposed_displacement_x,
+	imposed_displacement_y,
+	imposed_displacement_z,
+	imposed_rotation_x,
+	imposed_rotation_y,
+	imposed_rotation_z,
+	comment,
+	params) {
 	ASSERT(arguments.length >= 4, "Wrong number of parameters, at lease four are required (no, load case, nodes, imposed displacement x)");
-	
+
 	load_values = [imposed_displacement_x];
-	for (var i = 4; i < arguments.length; ++i)
-	{
-		if (typeof arguments[i] != "undefined")
-		{
+	for (var i = 4; i < arguments.length; ++i) {
+		if (typeof arguments[i] != "undefined") {
 			load_values.push(arguments[i]);
 		}
-		else
-		{
+		else {
 			load_values.push(0);
 		}
-		if (i == 8)
-		{
+		if (i == 8) {
 			// comment and other params
 			break;
 		}
 	}
-	
+
 	this.load = createBaseLoad("Imposed_Nodal_Deformation", no, load_case, nodes, comment, params);
 	setLoadValues(this.load, load_values, "imposed_displacement_x", "imposed_displacement_y", "imposed_displacement_z", "imposed_rotation_x", "imposed_rotation_y", "imposed_rotation_z");
-	
+
 	return this.load;
 };

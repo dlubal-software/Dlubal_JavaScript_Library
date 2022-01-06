@@ -18,6 +18,7 @@ function SurfaceLoad(no,
 	if (arguments.length !== 0)
 	{
 		this.load = createBaseLoad("Surface_Load", no, load_case, surfaces, comment, params);
+		return this.load;
 	}
 }
 
