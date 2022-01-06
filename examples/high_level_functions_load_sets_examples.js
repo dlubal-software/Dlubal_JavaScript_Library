@@ -101,7 +101,7 @@ lineSetLoad4.Moment(undefined, lc, [4], "Varying", [500, 0.2, 600, 0.5, 1000, 0.
 // Line set mass load with individual mass components
 var lineSetLoad5 = new LineSetLoad();
 lineSetLoad5.Mass(undefined, lc, [5], 1500);
-lineSetLoad5.IndividualMassComponnets(500, 1000, 1500);
+lineSetLoad5.IndividualMassComponents(500, 1000, 1500);
 
 /**************************************** Member set loads ***********************************/
 // Member set force parabolic load with eccentricity
@@ -128,8 +128,8 @@ surfaceSetLoad.Force(undefined, lc, [1], "Linear", [121, 122, 131, 500, 1500, 50
 // Surface set temperature linear load with only values required
 var surfaceSetLoad2 = new SurfaceSetLoad();
 surfaceSetLoad2.Temperature(undefined, lc, [2], "Linear", [123, 124, 133, 20]);
-// Surface set temperature radial load, axis defined by point and paralel axis
-var surfaceSetLoad3 = new SurfaceSetLoad()
+// Surface set temperature radial load, axis defined by point and parallel axis
+var surfaceSetLoad3 = new SurfaceSetLoad();
 surfaceSetLoad3.Temperature(undefined, lc, [3], "Radial", [2, 60, 70, 10, 10, 125, 136, [125], "Y"]);
 // Surface set axial strain linear in Y load
 var surfaceSetLoad4 = new SurfaceSetLoad();

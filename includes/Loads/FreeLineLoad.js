@@ -19,7 +19,7 @@ function FreeLineLoad(no,
 	{
 		this.load = createBaseLoad("Free_Line_Load", no, load_case, surfaces, comment, params);
 	}
-};
+}
 
 /**
 * Set parameters to free line load depend on load distribution
@@ -51,7 +51,7 @@ function setFreeLineLoadParameters(load,
 	}
 	
 	return load;
-};
+}
 
 /**
 * Creates free line uniform load

@@ -8,7 +8,7 @@ include("BaseLoad.js");
 
 /**
 * Creates free rectangular load
-* @param 	{Number}	no					Index of free rectangural load, can be undefined
+* @param 	{Number}	no					Index of free rectangular load, can be undefined
 * @param 	{Object}	load_case			Load case
 * @param 	{Array}		surfaces			List of surface indexes
 * @param	{String}	comment				Comment, can be undefined
@@ -25,7 +25,7 @@ function FreeRectangularLoad(no,
 	{
 		this.load = createBaseLoad("Free_Rectangular_Load", no, load_case, surfaces, comment, params);
 	}
-};
+}
 
 /**
 * Set parameters to free rectangular load depend on load distribution
@@ -40,9 +40,9 @@ function FreeRectangularLoad(no,
 *																 [location, p1, p2, Xc, Yc, a, b, α] for location (2) "Center and sides of rectangle"
 *												- "Varying in Z": [location, p, X1, Y1, X2, Y2, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn]] for location (1) "Corner points of rectangle"
 *																  [location, p, Xc, Yc, a, b, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn]] for location (2) "Center and sides of rectangle"
-*												- "Varying along Perimetr": [location, p, X1, Y1, X2, Y2, [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)]] for location (1) "Corner points of rectangle"
+*												- "Varying along Perimeter": [location, p, X1, Y1, X2, Y2, [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)]] for location (1) "Corner points of rectangle"
 *																  			[location, p, Xc, Yc, a, b, [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)]] for location (2) "Center and sides of rectangle"
-*												- "Varying in Z and Perimetr": [location, p, X1, Y1, X2, Y2, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn], [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)] for location (1) "Corner points of rectangle"
+*												- "Varying in Z and Perimeter": [location, p, X1, Y1, X2, Y2, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn], [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)] for location (1) "Corner points of rectangle"
 *																  			   [location, p, Xc, Yc, a, b, [Z1, kz1, pz1, Z2, kz2, pz2, ... Zn, kzn, pzn], [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2 ... αn, kαn, pαn)] for location (2) "Center and sides of rectangle"
 * @return	{Object}	Returns modified load
 */
@@ -153,7 +153,7 @@ function setFreeRectangularLoadParameters(load,
 			}
 			if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER || load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER)
 			{
-				// Varying along perimetr
+				// Varying along perimeter
 				var perimeter_values = load_values[5];
 				if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER)
 				{
@@ -183,7 +183,7 @@ function setFreeRectangularLoadParameters(load,
 	}
 	
 	return load;
-};
+}
 
 /**
 * Creates free rectangular uniform load
@@ -346,8 +346,8 @@ FreeRectangularLoad.prototype.VaryingPerimeter = function(no,
 };
 
 /**
-* Creates free rectangular varying in Z and along perimetr load
-* @param 	{Number}	no						Index of free rectangular varying in Z and along perimetr load, can be undefined
+* Creates free rectangular varying in Z and along perimeter load
+* @param 	{Number}	no						Index of free rectangular varying in Z and along perimeter load, can be undefined
 * @param 	{Object}	load_case				Load case
 * @param 	{Array}		surfaces				List of surface indexes
 * @param	{Array}		load_values				Load parameters
@@ -357,7 +357,7 @@ FreeRectangularLoad.prototype.VaryingPerimeter = function(no,
 * @param	{Number}	load_acting_region_to	End of load acting region, can be undefined
 * @param	{String}	comment					Comment, can be undefined
 * @param	{Object}	params					Load parameters, can be undefined
-* @return	{Object}	Created free rectangular varying in Z and along perimetr load
+* @return	{Object}	Created free rectangular varying in Z and along perimeter load
 */
 FreeRectangularLoad.prototype.VaryingZAndPerimeter = function(no,
 															 load_case,

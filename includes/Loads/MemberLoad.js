@@ -19,7 +19,7 @@ function MemberLoad(no,
 	{
 		this.load = createBaseLoad("Member_Load", no, load_case, members, comment, params);
 	}
-};
+}
 
 /**
  * Creates member force load
@@ -512,7 +512,7 @@ MemberLoad.prototype.LoadOverMember = function(value)
 */
 MemberLoad.prototype.Eccentricity = function(reference_to,
 											 offset_member_start_ey,
-											 ffset_member_start_ez,
+											 offset_member_start_ez,
 											 offset_member_end_ey,
 											 offset_member_end_ez)
 {

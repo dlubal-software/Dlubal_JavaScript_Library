@@ -19,7 +19,7 @@ function SolidSetLoad(no,
 	{
 		this.load = createBaseLoad("Solid_Set_Load", no, load_case, solid_sets, comment, params);
 	}
-};
+}
 
 /**
  * Creates solid set force load

@@ -19,7 +19,7 @@ function SurfaceLoad(no,
 	{
 		this.load = createBaseLoad("Surface_Load", no, load_case, surfaces, comment, params);
 	}
-};
+}
 
 /**
  * Creates surface force load

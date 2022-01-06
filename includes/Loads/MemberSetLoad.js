@@ -19,7 +19,7 @@ function MemberSetLoad(no,
 	{
 		this.load = createBaseLoad("Member_Set_Load", no, load_case, member_sets, comment, params);
 	}
-};
+}
 
 /**
  * Creates member set force load

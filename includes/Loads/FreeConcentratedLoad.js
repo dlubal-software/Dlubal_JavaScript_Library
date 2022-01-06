@@ -19,7 +19,7 @@ function FreeConcentratedLoad(no,
 	{
 		this.load = createBaseLoad("Free_Concentrated_Load", no, load_case, surfaces, comment, params);
 	}
-};
+}
 
 /**
 * Set parameters to free concentrated load depend on load type
@@ -51,7 +51,7 @@ function setFreeConcentratedLoadParameters(load,
 	}
 	
 	return load;
-};
+}
 
 /**
 * Creates free concentrated force load

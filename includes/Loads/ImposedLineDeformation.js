@@ -19,7 +19,7 @@ function ImposedLineDeformation(no,
 	{
 		this.load = createBaseLoad("Imposed_Line_Deformation", no, load_case, nodes, comment, params);
 	}
-};
+}
 
 /**
 * Creates imposed line deformation
@@ -76,4 +76,4 @@ ImposedLineDeformation.prototype.Set = function(no,
 	setLoadValues(this.load, load_values, "imposed_displacement_line_start_x", "imposed_displacement_line_start_y", "imposed_displacement_line_start_z", "imposed_displacement_line_end_x", "imposed_displacement_line_end_y", "imposed_displacement_line_end_z", "imposed_rotation_line_start", "imposed_rotation_line_end");
 	
 	return this.load;
-}
+};

@@ -21,7 +21,7 @@ function LineLoad(no,
 	{
 		this.load = createBaseLoad("Line_Load", no, load_case, lines, comment, params);
 	}
-};
+}
 
 /**
  * Creates line force load

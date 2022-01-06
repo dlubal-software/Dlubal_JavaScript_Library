@@ -19,7 +19,7 @@ function SolidLoad(no,
 	{
 		this.load = createBaseLoad("Solid_Load", no, load_case, solids, comment, params);
 	}
-};
+}
 
 /**
  * Creates solid force load

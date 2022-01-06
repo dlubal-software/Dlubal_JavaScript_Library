@@ -19,7 +19,7 @@ function NodalLoad(no,
 	{
 		this.load = createBaseLoad("Nodal_Load", no, load_case, nodes, comment, params);
 	}
-};
+}
 
 /**
  * Creates nodal force load
@@ -147,7 +147,7 @@ NodalLoad.prototype.SpecificDirection = function(type,
 	switch (type)
 	{
 		case 1:	// Rotated view 3 angles
-			ASSERT(values.length >= 3, "Wrong number of value parameters, three at least are required")
+			ASSERT(values.length >= 3, "Wrong number of value parameters, three at least are required");
 			this.load.specific_direction_type = nodal_loads.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES;
 			this.load.rotated_about_angle_x = values[0];
 			this.load.rotated_about_angle_y = values[1];

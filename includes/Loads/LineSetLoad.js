@@ -21,7 +21,7 @@ function LineSetLoad(no,
 	{
 		this.load = createBaseLoad("Line_Set_Load", no, load_case, line_sets, comment, params);
 	}
-};
+}
 
 /**
  * Creates line set force load
@@ -152,7 +152,7 @@ LineSetLoad.prototype.LoadOverLineSet = function(value)
 * @param	{Number}	MY		Mass in Y coordination, can be undefined
 * @param	{Number}	MZ		Mass in Z coordination, can be undefined
 */
-LineSetLoad.prototype.IndividualMassComponnets = function(MX,
+LineSetLoad.prototype.IndividualMassComponents = function(MX,
 														  MY,
 														  MZ)
 {

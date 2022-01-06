@@ -19,10 +19,10 @@ function FreeCircularLoad(no,
 	{
 		this.load = createBaseLoad("Free_Circular_Load", no, load_case, surfaces, comment, params);
 	}
-};
+}
 
 /**
-* Set parameters to free curcular load depend on load distribution
+* Set parameters to free circular load depend on load distribution
 * @param	{Object}	load				Load
 * @param	{String}	load_distribution	Load distribution
 * @param	{Array}		load_values			Load parameters depend of load distribution

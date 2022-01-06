@@ -220,7 +220,7 @@ function makeSolid(boundaryNodes)
 	var node8 = createNode2(boundaryNodes[7]);
 	
 	var solidLines = [
-		// Bottopm cap
+		// Bottom cap
 		createLine(node1.no, node2.no).no,	// line1
 		createLine(node2.no, node3.no).no,	// line2
 		createLine(node3.no, node4.no).no,	// line3
@@ -230,7 +230,7 @@ function makeSolid(boundaryNodes)
 		createLine(node6.no, node7.no).no,	// line6
 		createLine(node7.no, node8.no).no,	// line7
 		createLine(node8.no, node5.no).no,	// line8
-		// Corber lines
+		// Corner lines
 		createLine(node1.no, node5.no).no,	// line9
 		createLine(node2.no, node6.no).no,	// line10
 		createLine(node3.no, node7.no).no,	// line11

@@ -19,7 +19,7 @@ function ImposedNodalDeformation(no,
 	{
 		this.load = createBaseLoad("Imposed_Nodal_Deformation", no, load_case, nodes, comment, params);
 	}
-};
+}
 
 /**
 * Creates imposed nodal deformation

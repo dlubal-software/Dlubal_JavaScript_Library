@@ -19,7 +19,7 @@ function FreePolygonLoad(no,
 	{
 		this.load = createBaseLoad("Free_Polygon_Load", no, load_case, surfaces, comment, params);
 	}
-};
+}
 
 /**
 * Set parameters to free polygon load depend on load distribution
@@ -111,7 +111,7 @@ function setFreePolygonLoadParameters(load,
 	}
 	
 	return load;
-};
+}
 
 /**
 * Creates free polygon uniform load

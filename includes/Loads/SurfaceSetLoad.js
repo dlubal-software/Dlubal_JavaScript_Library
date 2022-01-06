@@ -19,7 +19,7 @@ function SurfaceSetLoad(no,
 	{
 		this.load = createBaseLoad("Surface_Set_Load", no, load_case, line_sets, comment, params);
 	}
-};
+}
 
 /**
  * Creates surface set force load

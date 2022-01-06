@@ -42,7 +42,7 @@ freeRectangularLoad.LinearX(undefined, lc, [3], [2, 1500, 2000, -6, -26, 3, 4]);
 // Free rectangular varying in Z load with corner and sides of rectangle
 // [location, p, Xc, Yc, a, b, [Z1, kz1, pz1, Z2, kz2, pz2, Z3, kz3, pz3]]
 freeRectangularLoad.VaryingZ(undefined, lc, [4], [2, 1500, -26, -16, 3, 4, [1, 0, 1500, 2, 0, 2000, 3, 0, 1500]]);
-// Free rectangular varying along perimeter load with corner and sides of recrangle
+// Free rectangular varying along perimeter load with corner and sides of rectangle
 // [location, p, Xc, Yc, a, b, [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2, α3, kα3, pα3)]]
 freeRectangularLoad.VaryingPerimeter(undefined, lc, [5], [2, 1500, -16, -16, 3, 4, [-26, -16, -1, -25, -15, 0, 0, 1, 0, 1000, 2, 0, 1500, 3, 0, 1000]]);
 

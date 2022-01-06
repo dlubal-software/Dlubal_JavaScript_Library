@@ -66,7 +66,7 @@ function createBaseLoad(load_type,
 	set_comment_and_parameters(load, comment, handled_params);
 	
 	return load;
-};
+}
 
 /**
  * Creates load with one only value (force, mass and so on)
@@ -117,7 +117,7 @@ function createSimplyValueLoad(load_type,
 	}
 
 	return load;
-};
+}
 
 /**
 * Shows assert (private)
@@ -172,7 +172,7 @@ var setLoadValues = function()
 		if (arg === "distance_c")
 		{
 			distance_c_value = load_values[i];
-			continue
+			continue;
 		}
 		
 		load[arg] = load_values[i];
@@ -197,7 +197,7 @@ var setLoadValues = function()
 * Sets axis for rotary motion load type
 * @param 	{Object}	load	Load
 * @param	{String}	value	Parallel axis (X, Y, Z)
-* @return	{Boolean}	True if axis and orientation was succesfully set
+* @return	{Boolean}	True if axis and orientation was successfully set
 */
 var setAxis = function(load,
 					   value)
@@ -218,7 +218,7 @@ var setAxis = function(load,
 * Sets axis and orientation for rotary motion load type
 * @param 	{Object}	load	Load
 * @param	{String}	value	Parallel axis (+X, -X, ...)
-* @return	{Boolean}	True if axis and orientation was succesfully set
+* @return	{Boolean}	True if axis and orientation was successfully set
 */
 var setAxisAndOrientation = function(load,
 									 value)
@@ -287,7 +287,7 @@ var setRotaryMotionLoad = function(load,
 };
 
 /**
-* Assignes parameters to line / line set load depend of load type and load distribution (private)
+* Function assigns parameters to line / line set load depend of load type and load distribution (private)
 * @param  {Object}	load				Load
 * @param  {String}	load_type			Load type
 * @param  {String}	load_distribution	Load distribution
@@ -306,7 +306,7 @@ var setRotaryMotionLoad = function(load,
 *										- "Force" / "Varying": [p1, x1, p2, x2 ... pn, xn]
 *										- "Force" / "Varying in Z": [p1, z1, p2, z2 ... pn, zn]
 *										- "Moment" / "Uniform" (load type / load distribution): [m]
-*										- "Moment" / "Concentrated - 1": [M, A, is_a_reative]
+*										- "Moment" / "Concentrated - 1": [M, A, is_a_relative]
 *										- "Moment" / "Concentrated - n x": [M, n, A, B, is_a_relative, is_b_relative]
 *										- "Moment" / "Concentrated - 2 x 2": [M, A, B, C, is_a_relative, is_b_relative, is_c_relative]
 *										- "Moment" / "Concentrated - 2 x": [M1, A, M2, B, is_a_relative, is_b_relative]
@@ -396,7 +396,7 @@ var setLineLoadDistribution = function(load,
 };
 
 /**
-* Assignes parameters to member / member set load depend of load type and load distribution (private)
+* Function assigns parameters to member / member set load depend of load type and load distribution (private)
 * @param  {Object}	load				Load
 * @param  {String}	load_type			Load type
 * @param  {String}	load_distribution	Load distribution, can be undefined
@@ -415,7 +415,7 @@ var setLineLoadDistribution = function(load,
 *										- "Force" / "Varying": [p1, x1, p2, x2, ... pn, xn]
 *										- "Force" / "Varying in Z": [p1, z1, p2, z2 ... pn, zn]
 *										- "Moment" / "Uniform" (load type / load distribution): [m]
-*										- "Moment" / "Concentrated - 1": [M, A, is_a_reative]
+*										- "Moment" / "Concentrated - 1": [M, A, is_a_relative]
 *										- "Moment" / "Concentrated - n x": [M, n, A, B, is_a_relative, is_b_relative]
 *										- "Moment" / "Concentrated - 2 x 2": [M, A, B, C, is_a_relative, is_b_relative, is_c_relative]
 *										- "Moment" / "Concentrated - 2 x": [M1, A, M2, B, is_a_relative, is_b_relative]
@@ -656,7 +656,7 @@ var setMemberLoadDistribution = function(load,
 };
 
 /**
-* Assignes parameters to surface / surface set load depend of load type and load distribution (private)
+* Function assigns parameters to surface / surface set load depend of load type and load distribution (private)
 * @param  {Object}	load				Load
 * @param  {String}	load_type			Load type
 * @param  {String}	load_distribution	Load distribution, can be undefined
@@ -896,7 +896,7 @@ var setSurfaceLoadDistribution = function(load,
 };
 
 /**
-* Assignes parameters to solid / solid set load depend of load type and load distribution (private)
+* Function assigns parameters to solid / solid set load depend of load type and load distribution (private)
 * @param  {Object}	load				Load
 * @param  {String}	load_type			Load type
 * @param  {String}	load_distribution	Load distribution, can be undefined
