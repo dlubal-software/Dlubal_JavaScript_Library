@@ -8,20 +8,17 @@
  * @returns 
  */
 function Solid(no,
-               boundary_surfaces,
-               material,
-               comment,
-               params)
-{
-    if (typeof (boundary_surfaces) !== "undefined") 
-    {
+    boundary_surfaces,
+    material,
+    comment,
+    params) {
+    if (typeof (boundary_surfaces) !== "undefined") {
         boundary_surfaces = typeof boundary_surfaces !== 'undefined' ? boundary_surfaces : [];
 
         this.solid = engine.create_solid(no, boundary_surfaces);
 
         // Set material
-        if (material_no !== 'undefined')
-        {
+        if (material_no !== 'undefined') {
             this.solid.material = material;
         }
 
@@ -38,21 +35,19 @@ function Solid(no,
  * @param {dictionary} params - Parameters of the Solid
  */
 Solid.prototype.Standard = function (no,
-                                     boundary_surfaces,
-                                     material,
-                                     comment,
-                                     params)
-{
-        boundary_surfaces = typeof boundary_surfaces !== 'undefined' ? boundary_surfaces : [];
+    boundary_surfaces,
+    material,
+    comment,
+    params) {
+    boundary_surfaces = typeof boundary_surfaces !== 'undefined' ? boundary_surfaces : [];
 
-        this.solid = engine.create_solid(no, boundary_surfaces);
-        this.solid.type = solids.TYPE_STANDARD;
-        // Set material
-        if (material_no !== 'undefined')
-        {
-            this.solid.material = material;
-        }
-        set_comment_and_parameters(this.solid, comment, params);
+    this.solid = engine.create_solid(no, boundary_surfaces);
+    this.solid.type = solids.TYPE_STANDARD;
+    // Set material
+    if (material_no !== 'undefined') {
+        this.solid.material = material;
+    }
+    set_comment_and_parameters(this.solid, comment, params);
 };
 
 /**
@@ -64,21 +59,19 @@ Solid.prototype.Standard = function (no,
  * @param {dictionary} params - Parameters of the Solid
  */
 Solid.prototype.Gas = function (no,
-                                boundary_surfaces,
-                                material,
-                                comment,
-                                params)
-{
-        boundary_surfaces = typeof boundary_surfaces !== 'undefined' ? boundary_surfaces : [];
+    boundary_surfaces,
+    material,
+    comment,
+    params) {
+    boundary_surfaces = typeof boundary_surfaces !== 'undefined' ? boundary_surfaces : [];
 
-        this.solid = engine.create_solid(no, boundary_surfaces);
-        this.solid.type = solids.TYPE_GAS;
-        // Set material
-        if (material_no !== 'undefined')
-        {
-            this.solid.material = material;
-        }
-        set_comment_and_parameters(this.solid, comment, params);
+    this.solid = engine.create_solid(no, boundary_surfaces);
+    this.solid.type = solids.TYPE_GAS;
+    // Set material
+    if (material_no !== 'undefined') {
+        this.solid.material = material;
+    }
+    set_comment_and_parameters(this.solid, comment, params);
 };
 /**
  * Create Contact solid
@@ -90,22 +83,20 @@ Solid.prototype.Gas = function (no,
  * @param {dictionary} params - Parameters of the Solid
  */
 Solid.prototype.Contact = function (no,
-                                    boundary_surfaces,
-                                    material,
-                                    first_contact_surface,
-                                    comment,
-                                    params)
-{
-        boundary_surfaces = typeof boundary_surfaces !== 'undefined' ? boundary_surfaces : [];
-        first_contact_surface = typeof first_contact_surface !== 'undefined' ? first_contact_surface : 0;
-   
-        this.solid = engine.create_solid(no, boundary_surfaces);
-        this.solid.type = solids.TYPE_CONTACT;
-        this.solid.solid_contact_first_surface = first_contact_surface;
-        // Set material
-        if (material_no !== 'undefined')
-        {
-            this.solid.material = material;
-        }
-        set_comment_and_parameters(this.solid, comment, params);
+    boundary_surfaces,
+    material,
+    first_contact_surface,
+    comment,
+    params) {
+    boundary_surfaces = typeof boundary_surfaces !== 'undefined' ? boundary_surfaces : [];
+    first_contact_surface = typeof first_contact_surface !== 'undefined' ? first_contact_surface : 0;
+
+    this.solid = engine.create_solid(no, boundary_surfaces);
+    this.solid.type = solids.TYPE_CONTACT;
+    this.solid.solid_contact_first_surface = first_contact_surface;
+    // Set material
+    if (material_no !== 'undefined') {
+        this.solid.material = material;
+    }
+    set_comment_and_parameters(this.solid, comment, params);
 };

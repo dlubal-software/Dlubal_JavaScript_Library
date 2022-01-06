@@ -8,11 +8,10 @@
  * @returns section
  */
 function Section(no,
-                 name,
-                 material,
-                 comment,
-                 params)
-{
+    name,
+    material,
+    comment,
+    params) {
     name = typeof name !== 'undefined' ? name : "IPE 300";
     ASSERT(typeof material !== 'undefined', "Material should be set");
 
