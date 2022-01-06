@@ -7,7 +7,13 @@ items:
     type: package
     summary: ''
     children:
+      - LineSetLoad
+      - LineLoad
       - LineSet
 references:
+  - uid: LineSetLoad
+    name: LineSetLoad
+  - uid: LineLoad
+    name: LineLoad
   - uid: LineSet
     name: LineSet
