@@ -1,3 +1,13 @@
+/**
+ * Create Node
+ * @param {int} no - Number of Node
+ * @param {number} coordinate_X - Coordinate X
+ * @param {number} coordinate_Y - Coordinate Y
+ * @param {number} coordinate_Z - Coordinate Z
+ * @param {string} comment - Comment for the Node
+ * @param {dictionary} params - Parameters of the Node
+ * @returns node
+ */
 function Node(no,
               coordinate_X,
               coordinate_Y,
@@ -10,7 +20,6 @@ function Node(no,
         coordinate_X = typeof coordinate_X !== 'undefined' ? coordinate_X : 0.0;
         coordinate_Y = typeof coordinate_Y !== 'undefined' ? coordinate_Y : 0.0;
         coordinate_Z = typeof coordinate_Z !== 'undefined' ? coordinate_Z : 0.0;
-
         this.node = engine.create_node(no);
 
         // Coordinates
@@ -20,9 +29,17 @@ function Node(no,
 
         set_comment_and_parameters(this.node, comment, params);
         return this.node;
-    }
-}
+    };
+};
 
+/**
+ * Create Standard node
+ * @param {int} no - Number of Node
+ * @param {array} coordinate_system - Coordinate of node in format [x, y, z]
+ * @param {string} coordinate_system_type - Type of Coordinate System
+ * @param {string} comment - Comment for the Node
+ * @param {dictionary} params - Parameters of the Node
+ */
 Node.prototype.Standard = function (no,
                                     coordinate_system,
                                     coordinate_system_type,
@@ -66,12 +83,22 @@ Node.prototype.Standard = function (no,
             this.node.coordinate_3 = coordinate_system[2]*PI/180;
         }
         this.node.coordinate_1 = coordinate_system[0];
-        
         set_comment_and_parameters(this.node, comment, params);
-    }
+    };
 }
 
-
+/**
+ * Create Node between two nodes
+ * @param {int} no - Number of Node
+ * @param {int} start_node_no - Number of start node
+ * @param {int} end_node_no - Number of end node
+ * @param {string} node_reference - Node Reference
+ * @param {array} parameters - List of parameters of node
+ * @param {number} offset_y - Offset in Y direction
+ * @param {number} offset_z - Offset in Z direction
+ * @param {string} comment - Comment for the Node
+ * @param {dictionary} params - Parameters of the Node
+ */
 Node.prototype.BetweenTwoNodes = function (no,
                                            start_node_no,
                                            end_node_no,
@@ -121,18 +148,29 @@ Node.prototype.BetweenTwoNodes = function (no,
         {
             this.node.distance_from_start_is_defined_as_relative = false;
             this.node.distance_from_start_absolute = parameters[1];
-        }
+        };
                 
         if (node_reference == nodes.REFERENCE_TYPE_L || node_reference == "")
         {
             this.node.offset_in_local_direction_y = offset_y;
             this.node.offset_in_local_direction_z = offset_z;
-        }
+        };
         set_comment_and_parameters(this.node, comment, params);
 }
 
 
-
+/**
+ * Create Node between two points
+ * @param {int} no - Number of Node
+ * @param {array} start_point - Coordinate of start point in format [x, y, z]
+ * @param {array} end_point - Coordinate of end point in format [x, y, z]
+ * @param {string} node_reference - Node Reference
+ * @param {array} parameters - List of parameters of node
+ * @param {number} offset_y - Offset in Y direction
+ * @param {number} offset_z - Offset in Z direction
+ * @param {string} comment - Comment for the Node
+ * @param {dictionary} params - Parameters of the Node
+ */
 Node.prototype.BetweenTwoPoints = function (no,
                                             start_point,
                                             end_point,
@@ -149,9 +187,8 @@ Node.prototype.BetweenTwoPoints = function (no,
         parameters = typeof parameters !== 'undefined' ? parameters : [];
         offset_y = typeof offset_y !== 'undefined' ? offset_y : 0.0;
         offset_z = typeof offset_z !== 'undefined' ? offset_z : 0.0;
-        ASSERT(start_point.length == 3, "Define start point by this format [0.0, 0.0, 0.0]")
-        ASSERT(end_point.length == 3, "Define end point by this format [0.0, 0.0, 0.0]")
-
+        ASSERT(start_point.length == 3, "Define start point by this format [0.0, 0.0, 0.0]");
+        ASSERT(end_point.length == 3, "Define end point by this format [0.0, 0.0, 0.0]");
 
         this.node = engine.create_node(no);    
         this.node.type = nodes.TYPE_BETWEEN_TWO_POINTS;
@@ -161,7 +198,6 @@ Node.prototype.BetweenTwoPoints = function (no,
         this.node.between_two_points_end_point_coordinate_1 = end_point[0];
         this.node.between_two_points_end_point_coordinate_2 = end_point[1];
         this.node.between_two_points_end_point_coordinate_3 = end_point[2];
-
 
         if (node_reference == nodes.REFERENCE_TYPE_L || node_reference == "")
         {
@@ -197,14 +233,19 @@ Node.prototype.BetweenTwoPoints = function (no,
         {
             this.node.offset_in_local_direction_y = offset_y;
             this.node.offset_in_local_direction_z = offset_z;
-        }
-
+        };
         set_comment_and_parameters(this.node, comment, params);
-
 }
 
-
-
+/**
+ * Create Node On Line
+ * @param {int} no - Number of the Node
+ * @param {int} line_number - Number of the Line
+ * @param {string} node_reference - Node Reference
+ * @param {array} parameters - List of parameters of node
+ * @param {string} comment - Comment for the Node
+ * @param {dictionary} params - Parameters of the Node
+ */
 Node.prototype.OnLine = function (no,
                                   line_number,
                                   node_reference,
@@ -248,14 +289,19 @@ Node.prototype.OnLine = function (no,
         {
             this.node.distance_from_start_is_defined_as_relative = false;
             this.node.distance_from_start_absolute = parameters[1];
-        }
-                
+        };
         set_comment_and_parameters(this.node, comment, params);
-
 }
 
-
-
+/**
+ * Create Node on Member
+ * @param {int} no - Number of the Node
+ * @param {int} member_number - Number of member
+ * @param {string} node_reference - Node Reference
+ * @param {array} parameters - List of parameters of node
+ * @param {string} comment - Comment for the Node
+ * @param {dictionary} params - Parameters of the Node
+ */
 Node.prototype.OnMember = function (no,
                                     member_number,
                                     node_reference,
@@ -300,8 +346,5 @@ Node.prototype.OnMember = function (no,
             this.node.distance_from_start_is_defined_as_relative = false;
             this.node.distance_from_start_absolute = parameters[1];
         }
-                
         set_comment_and_parameters(this.node, comment, params);
-
 }
-

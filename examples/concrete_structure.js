@@ -8,21 +8,21 @@ var h = 1.1;
 var h_1 = 1;
 var a_1 = 1;
 var a_2 = 1;
-var thickness_1 = 0.18   // roof
-var thickness_2 = 0.2    // walls
+var thickness_1 = 0.18;   // roof
+var thickness_2 = 0.2;    // walls
 
 
 // create material 
-var material = Material(undefined, 'LC50/55');
+var material = Material(1, 'LC50/55');
 
 // Create thickness
 var th = new Thickness();
-th.Uniform(1, "Roof", "", [thickness_1],"", {"material": material});
-th.Uniform(2, "Walls", "", [thickness_2],"", {"material": material});
+th.Uniform(1,  "Roof", 1, [thickness_1]);
+th.Uniform(2, "Walls", 1, [thickness_2]);
 
 // Create section 
-var column = Section(undefined, 'CIRCLE_M1 200', material);
-var ribs = Section(undefined, 'R_M1 200/400', material);
+var columnSection = Section(1, 'CIRCLE_M1 200', material);
+var ribSection = Section(2, 'R_M1 200/400', material);
 
 // Create Nodes
 Node(1,                      0,            0,          0);
@@ -80,24 +80,24 @@ Opening(4,[13]);
 
 // Create members
 var mem = new Member();
-mem.RibByLine(1, 7, "", "", "", "", "", {"section_start": ribs});
-mem.RibByLine(2, 8, "", "", "", "", "", {"section_start": ribs});
-mem.BeamByLine(3, 14, 0, "", "", "", "", "", {"section_start": column});
+mem.RibByLine(1, 7, 2);
+mem.RibByLine(2, 8, 2);
+mem.BeamByLine(3, 14, 0, 1);
 
 // Define Supports
-var nod_sup = NodalSupport(undefined);
-nod_sup.spring_x = nodal_supports.SPRING_CONSTANT_YES;
-nod_sup.spring_y = nodal_supports.SPRING_CONSTANT_YES;
-nod_sup.spring_z = nodal_supports.SPRING_CONSTANT_YES;
-nod_sup.rotational_restraint_z = nodal_supports.SPRING_CONSTANT_YES;
+var nodalSupport = NodalSupport(undefined);
+nodalSupport.spring_x = nodal_supports.SPRING_CONSTANT_YES;
+nodalSupport.spring_y = nodal_supports.SPRING_CONSTANT_YES;
+nodalSupport.spring_z = nodal_supports.SPRING_CONSTANT_YES;
+nodalSupport.rotational_restraint_z = nodal_supports.SPRING_CONSTANT_YES;
 
-var lin_sup = LineSupport(undefined)
-lin_sup.spring_x = line_supports.SPRING_CONSTANT_YES;
-lin_sup.spring_y = line_supports.SPRING_CONSTANT_YES;
-lin_sup.spring_z = line_supports.SPRING_CONSTANT_YES;
-lin_sup.rotational_restraint_z = line_supports.SPRING_CONSTANT_YES;
+var lineSupport = LineSupport(undefined);
+lineSupport.spring_x = line_supports.SPRING_CONSTANT_YES;
+lineSupport.spring_y = line_supports.SPRING_CONSTANT_YES;
+lineSupport.spring_z = line_supports.SPRING_CONSTANT_YES;
+lineSupport.rotational_restraint_z = line_supports.SPRING_CONSTANT_YES;
 
 // Assign Supports
-nodes[4].support = nod_sup.no;
-lines[1].support = lin_sup.no;
-lines[2].support = lin_sup.no;
+nodes[4].support = nodalSupport.no;
+lines[1].support = lineSupport.no;
+lines[2].support = lineSupport.no;

@@ -7,15 +7,14 @@
 // var o_r = 1;
 // var d_l = 1;
 // var d_h = 2.2;
-
-var thickness_1 = 0.2   // wall
+// var thickness_1 = 0.2   // wall
 
 // Create material 
-var material = Material(undefined, 'LC50/55');
+var material = Material(1, 'LC50/55');
 
 // Create thickness
 var th = new Thickness();
-th.Uniform(1, "Wall", "", [thickness_1],"", {"material": material});
+th.Uniform(1, "Wall", 1, [thickness_1]);
 
 // Create nodes
 Node(1, 0, 0,  0);
@@ -33,7 +32,7 @@ Line(2, [2, 3]);
 Line(3, [3, 4]);
 Line(4, [4, 1]);
 for (var i = 1; i < 5; ++i)
-{Line(4 + i, [i, 4 + i])}
+{Line(4 + i, [i, 4 + i])};
 Line(9,  [5, 6]);
 Line(10, [6, 7]);
 Line(11, [7, 8]);

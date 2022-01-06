@@ -4,23 +4,23 @@ var b_1 = 5;
 var b_2 = 5;
 var H_1 = 3;
 var H_2 = 3.5;
-var thickness_1 = 0.2   // roof
-var thickness_2 = 0.2   // wall
+var thickness_1 = 0.2;   // roof
+var thickness_2 = 0.2;   // wall
 
 // create material 
-var material_1 = Material(undefined, 'LC50/55');    // Concrete
-var material_2 = Material(undefined, 'S235');       // Steel
+var materialLightConcrete = new Material(1, 'LC50/55');    // Concrete
+var materialSteel = new Material(2, 'S235');               // Steel
 
 // Create thickness
 var th = new Thickness();
-th.Uniform(1, "Roof", "", [thickness_1],"", {"material": material_1});
-th.Uniform(2, "Wall", "", [thickness_2],"", {"material": material_1});
+th.Uniform(1, "Roof", 1, [thickness_1]);
+th.Uniform(2, "Wall", 1, [thickness_2]);
 
 // Create section
-var section_1 = Section(undefined, 'CIRCLE_M1 300', material_1);
-var section_2 = Section(undefined, 'R_M1 300/400', material_1);
-var section_3 = Section(undefined, 'HE 200 A', material_2);
-var section_4 = Section(undefined, 'IPE 200', material_2);
+var concreteColumn = new Section(1, 'CIRCLE_M1 300', materialLightConcrete);
+var concreteRib = new Section(2, 'R_M1 300/400', materialLightConcrete);
+var steelFrame = new Section(3, 'HE 200 A', materialSteel);
+var steelBeams = new Section(4, 'IPE 200', materialSteel);
 
 
 
@@ -89,15 +89,15 @@ sur.Standard(6, surfaces.GEOMETRY_PLANE, "", [14, 15, 16, 17], 1);
 
 // Create members
 var mem = new Member();
-mem.RibByLine(1, 16, "", "", "", "", "", {"section_start": section_2});
-mem.BeamByLine(2,  6, 0, "", "", "", "", "", {"section_start": section_1});
-mem.BeamByLine(3, 22, 0, "", "", "", "", "", {"section_start": section_4});
-mem.BeamByLine(4, 23, 0, "", "", "", "", "", {"section_start": section_4});
-mem.BeamByLine(5, 24, 0, "", "", "", "", "", {"section_start": section_4});
-mem.BeamByLine(6, 25, 0, "", "", "", "", "", {"section_start": section_4});
-mem.BeamByLine(7, 11, 0, "", "", "", "", "", {"section_start": section_3});
-mem.BeamByLine(8, 12, 0, "", "", "", "", "", {"section_start": section_3});
-mem.BeamByLine(9, 21, 0, "", "", "", "", "", {"section_start": section_3});
+mem.RibByLine(1, 16, 2);
+mem.BeamByLine(2,  6, 0, 1);
+mem.BeamByLine(3, 22, 0, 4);
+mem.BeamByLine(4, 23, 0, 4);
+mem.BeamByLine(5, 24, 0, 4);
+mem.BeamByLine(6, 25, 0, 4);
+mem.BeamByLine(7, 11, 0, 3);
+mem.BeamByLine(8, 12, 0, 3);
+mem.BeamByLine(9, 21, 0, 3);
 
 
 // Create eccentricity
@@ -110,8 +110,8 @@ var ecc_params_1 =
   "vertical_section_alignment" : member_eccentricities.ALIGN_TOP,
   "axial_offset_active": true,
   "transverse_offset_vertical_alignment" : member_eccentricities.ALIGN_BOTTOM  
-}
-MemberEccentricity(1, undefined, undefined, "", ecc_params_1)
+};
+MemberEccentricity(1, undefined, undefined, "", ecc_params_1);
 
 // Assign eccentricity to member
 members[9].member_eccentricity_end = member_eccentricities[1];
@@ -124,7 +124,7 @@ var hinges_params_1 =
   "axial_release_n":   member_hinges.SPRING_CONSTANT_NO,
   "axial_release_vy":  member_hinges.SPRING_CONSTANT_NO,
   "axial_release_vz":  member_hinges.SPRING_CONSTANT_NO,
-}
+};
 MemberHinge(1, undefined, undefined, "", hinges_params_1);
 
 // Assign hinge to members
@@ -132,24 +132,24 @@ for (var i = 3; i < 7; ++i)
 {
     members[i].member_hinge_start = member_hinges[1];
     members[i].member_hinge_end = member_hinges[1];
-}
+};
 // Define Supports
-var nod_sup = NodalSupport(undefined);
-nod_sup.spring_x = nodal_supports.SPRING_CONSTANT_YES;
-nod_sup.spring_y = nodal_supports.SPRING_CONSTANT_YES;
-nod_sup.spring_z = nodal_supports.SPRING_CONSTANT_YES;
-nod_sup.rotational_restraint_z = nodal_supports.SPRING_CONSTANT_YES;
+var nodalSupport = NodalSupport(undefined);
+nodalSupport.spring_x = nodal_supports.SPRING_CONSTANT_YES;
+nodalSupport.spring_y = nodal_supports.SPRING_CONSTANT_YES;
+nodalSupport.spring_z = nodal_supports.SPRING_CONSTANT_YES;
+nodalSupport.rotational_restraint_z = nodal_supports.SPRING_CONSTANT_YES;
 
-var lin_sup = LineSupport(undefined)
-lin_sup.spring_x = line_supports.SPRING_CONSTANT_YES;
-lin_sup.spring_y = line_supports.SPRING_CONSTANT_YES;
-lin_sup.spring_z = line_supports.SPRING_CONSTANT_YES;
-lin_sup.rotational_restraint_z = line_supports.SPRING_CONSTANT_YES;
+var lineSupport = LineSupport(undefined);
+lineSupport.spring_x = line_supports.SPRING_CONSTANT_YES;
+lineSupport.spring_y = line_supports.SPRING_CONSTANT_YES;
+lineSupport.spring_z = line_supports.SPRING_CONSTANT_YES;
+lineSupport.rotational_restraint_z = line_supports.SPRING_CONSTANT_YES;
 
 // Assign Supports
-nodes[5].support = nod_sup.no;
-nodes[7].support = nod_sup.no;
-nodes[8].support = nod_sup.no;
-lines[1].support = lin_sup.no;
-lines[2].support = lin_sup.no;
-lines[26].support = lin_sup.no;
+nodes[5].support = nodalSupport.no;
+nodes[7].support = nodalSupport.no;
+nodes[8].support = nodalSupport.no;
+lines[1].support = lineSupport.no;
+lines[2].support = lineSupport.no;
+lines[26].support = lineSupport.no;

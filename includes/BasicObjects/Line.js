@@ -1,19 +1,33 @@
+/**
+ * Create a line
+ * @param {int} no - Number of the line
+ * @param {array} nodes - List of nodes
+ * @param {string} comment - Comment for the line
+ * @param {dictionary} params - Parameters of the line
+ * @returns 
+ */
 function Line(no,
               nodes,
               comment,
               params) 
-{
-    // nodes = typeof nodes !== 'undefined' ? nodes : [];
+{    
     if (typeof (nodes) !== "undefined") 
     {
+        nodes = typeof nodes !== 'undefined' ? nodes : [];
         ASSERT(nodes.length > 1, "Minimum two nodes must be set to line");
         this.line = engine.create_line(no, nodes);
         set_comment_and_parameters(this.line, comment, params);
         return this.line;
-    }
-}
+    };
+};
 
-
+/**
+ * Create Polyline
+ * @param {int} no - Number of the line
+ * @param {array} nodes -List of nodes
+ * @param {string} comment - Comment for the line
+ * @param {dictionary} params - Parameters of the line
+ */
 Line.prototype.Polyline = function (no,
                                     nodes,
                                     comment,
@@ -26,8 +40,15 @@ Line.prototype.Polyline = function (no,
     set_comment_and_parameters(this.line, comment, params);
 };
 
-
-
+/**
+ * Create Arc
+ * @param {int} no - Number of the line
+ * @param {array} nodes - List of two nodes
+ * @param {array} control_point - Control point by format [x, y, z]
+ * @param {string} alpha_adjustment_target - Subsequent adjastment of alpha by displacing node at
+ * @param {string} comment - Comment for the line
+ * @param {dictionary} params - Parameters of the line
+ */
 Line.prototype.Arc = function (no,
                                nodes,
                                control_point,
@@ -48,19 +69,26 @@ Line.prototype.Arc = function (no,
     if (alpha_adjustment_target == lines.ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC || alpha_adjustment_target =="")
     {
         this.line.arc_alpha_adjustment_target = lines.ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC; 
-    }
-    if (alpha_adjustment_target == lines.ALPHA_ADJUSTMENT_TARGET_ARC_CONTROL_POINT)
+    } else if (alpha_adjustment_target == lines.ALPHA_ADJUSTMENT_TARGET_ARC_CONTROL_POINT)
     {
         this.line.arc_alpha_adjustment_target = lines.ALPHA_ADJUSTMENT_TARGET_ARC_CONTROL_POINT; 
-    }
-    if (alpha_adjustment_target == lines.ALPHA_ADJUSTMENT_TARGET_END_OF_ARC)
+    } else if (alpha_adjustment_target == lines.ALPHA_ADJUSTMENT_TARGET_END_OF_ARC)
     {
         this.line.arc_alpha_adjustment_target = lines.ALPHA_ADJUSTMENT_TARGET_END_OF_ARC; 
-    }
+    };
     set_comment_and_parameters(this.line, comment, params);
 };
 
-
+/**
+ * Create Circle
+ * @param {int} no - Number of the line
+ * @param {array} nodes - List of two nodes
+ * @param {array} center_of_circle - Center of circle by format [x, y, z]
+ * @param {number} circle_radius - Radius of Circle
+ * @param {array} point_of_normal_to_circle_plane - Define normal vector of circle by format [X, Y, Z]
+ * @param {string} comment - Comment for the line
+ * @param {dictionary} params - Parameters of the line
+ */
 Line.prototype.Circle = function (no,
                                   nodes,
                                   center_of_circle,
@@ -89,7 +117,18 @@ Line.prototype.Circle = function (no,
     set_comment_and_parameters(this.line, comment, params);
 };
 
-
+/**
+ * Create Elliptical Arc
+ * @param {int} no - Number of the line
+ * @param {array} nodes - List of two nodes
+ * @param {array} p1_control_point - First control point byt format [x, y, z]
+ * @param {array} p2_control_point - Second control point byt format [x, y, z]
+ * @param {array} p3_control_point - Third control point byt format [x, y, z]
+ * @param {number} arc_angle_alpha - Arc angle Alpha (Radians)
+ * @param {number} arc_angle_beta - Arc angle Beta (Radians) 
+ * @param {string} comment - Comment for the line
+ * @param {dictionary} params - Parameters of the line
+ */
 Line.prototype.EllipticalArc = function (no,
                                          nodes,
                                          p1_control_point,
@@ -130,7 +169,14 @@ Line.prototype.EllipticalArc = function (no,
     set_comment_and_parameters(this.line, comment, params);
 };
 
-
+/**
+ * Create Ellipse
+ * @param {int} no - Number of the line
+ * @param {array} nodes - List of two nodes
+ * @param {array} p3_control_point - Control point by format [x, y, z]
+ * @param {string} comment - Comment for the line
+ * @param {dictionary} params - Parameters of the line
+ */
 Line.prototype.Ellipse = function (no,
                                    nodes,
                                    p3_control_point,
@@ -151,7 +197,15 @@ Line.prototype.Ellipse = function (no,
     set_comment_and_parameters(this.line, comment, params);
 };
 
-
+/**
+ * Create Parabola
+ * @param {int} no - Number of the line
+ * @param {array} nodes - List of two nodes
+ * @param {array} p3_control_point - Control point by format [x, y, z]
+ * @param {number} parabola_alpha - Parabola Alpha
+ * @param {string} comment - Comment for the line
+ * @param {dictionary} params - Parameters of the line
+ */
 Line.prototype.Parabola = function (no,
                                     nodes,
                                     p3_control_point,
@@ -174,7 +228,13 @@ Line.prototype.Parabola = function (no,
     set_comment_and_parameters(this.line, comment, params);
 };
 
-
+/**
+ * Create Spline
+ * @param {int} no - Number of the line
+ * @param {array} nodes - List of two or more nodes
+ * @param {string} comment - Comment for the line
+ * @param {dictionary} params - Parameters of the line
+ */
 Line.prototype.Spline = function (no,
                                   nodes,
                                   comment,
@@ -188,11 +248,21 @@ Line.prototype.Spline = function (no,
     set_comment_and_parameters(this.line, comment, params);
 };
 
+/**
+ * Create Rectangular Polygon
+ * @param {int} no - Number of the line
+ * @param {array} control_point - Control point by format [x, y, z]
+ * @param {number} length - Length
+ * @param {number} width - Width
+ * @param {string} plane - Plane XY, XZ or YZ
+ * @param {string} comment - Comment for the line
+ * @param {dictionary} params - Parameters of the line
+ */
 Line.prototype.RectangularPolygon = function (no,
                                               center_point,
                                               length,
                                               width,
-                                              plane, //"XY" or "XZ" or "YZ"
+                                              plane,
                                               comment,
                                               params) 
 {
@@ -211,34 +281,44 @@ Line.prototype.RectangularPolygon = function (no,
         Node(no_n + 2, X + length/2, Y - width/2, Z);
         Node(no_n + 3, X + length/2, Y + width/2, Z);
         Node(no_n + 4, X - length/2, Y + width/2, Z);
-    }
-    if(plane == "XZ")
+    } else if(plane == "XZ")
     {
         Node(no_n + 1, X - length/2, Y, Z - width/2);
         Node(no_n + 2, X + length/2, Y, Z - width/2);
         Node(no_n + 3, X + length/2, Y, Z + width/2);
         Node(no_n + 4, X - length/2, Y, Z + width/2);
-    }
-    if(plane == "YZ")
+    } else if(plane == "YZ")
     {
         Node(no_n + 1, X, Y - length/2, Z - width/2);
         Node(no_n + 2, X, Y + length/2, Z - width/2);
         Node(no_n + 3, X, Y + length/2, Z + width/2);
         Node(no_n + 4, X, Y - length/2, Z + width/2);
-    }
+    };
 
     var nodes_list = [no_n + 1, no_n + 2, no_n + 3, no_n + 4, no_n + 1];
-    this.line = Line(no, nodes_list)
+    this.line = Line(no, nodes_list);
     set_comment_and_parameters(this.line, comment, params);
 };
 
+/**
+ * Create nPolygon
+ * @param {int} no - Number of the line
+ * @param {array} control_point - Control point by format [x, y, z]
+ * @param {number} no_edges - Number of edges
+ * @param {number} radius - Radius
+ * @param {string} plane - Plane XY, XZ or YZ
+ * @param {number} rotation_angle - Rotation angle (Degree)
+ * @param {string} join - Join in one "true" or in separate lines "false"
+ * @param {string} comment - Comment for the line
+ * @param {dictionary} params - Parameters of the line
+ */
 Line.prototype.nPolygon = function (no,
                                     center_point,
-                                    no_edges, // number of edges
-                                    radius,   // Circumscribed circle radius
-                                    plane,    //"XY" or "XZ" or "YZ"
+                                    no_edges,
+                                    radius,
+                                    plane,
                                     rotation_angle,
-                                    join,     // "true" or "" will make a polygon with just one line, "false" will make n lines separately.
+                                    join,
                                     comment,
                                     params) 
 {
@@ -264,9 +344,8 @@ Line.prototype.nPolygon = function (no,
             Node(no_n, X + radius*cos(alpha),  Y + radius*sin(alpha),  Z);
             nodes_list.push(no_n);
             no_n++;
-        }
-    }
-    if(plane == "XZ")
+        };
+    } else if(plane == "XZ")
     {
         for (var i = 0; i < no_edges; ++i)
         {
@@ -274,9 +353,8 @@ Line.prototype.nPolygon = function (no,
             Node(no_n, X + radius*cos(alpha),  Y,  Z + radius*sin(alpha));
             nodes_list.push(no_n);
             no_n++;
-        }
-    }
-    if(plane == "YZ")
+        };
+    } else if(plane == "YZ")
     {
         for (var i = 0; i < no_edges; ++i)
         {
@@ -284,21 +362,21 @@ Line.prototype.nPolygon = function (no,
             Node(no_n, X,  Y + radius*cos(alpha),  Z + radius*sin(alpha));
             nodes_list.push(no_n);
             no_n++;
-        }
-    }
+        };
+    };
+
     if (join == "true" || join == "")
     {
         nodes_list.push(no_n - no_edges);
         this.line = Line(no, nodes_list);
-    }
-    if (join == "false")
+    } else if (join == "false")
     {
         var no_l = lines.lastId() + 1;
         for (var i = 0; i < no_edges - 1; ++i)
         {
-            Line(no_l + i, [no_n_ref + i, no_n_ref + 1 + i])
-        }
+            Line(no_l + i, [no_n_ref + i, no_n_ref + 1 + i]);
+        };
         this.line = Line(no_l + no_edges - 1, [no_n_ref + no_edges - 1, no_n_ref]);
-    }
+    };
     set_comment_and_parameters(this.line, comment, params);
 };

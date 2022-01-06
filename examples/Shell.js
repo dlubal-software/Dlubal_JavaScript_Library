@@ -4,7 +4,7 @@ var b = 6;
 var thickness = 0.01;
 
 // create material and section
-var material = Material(undefined, 'LC50/55');
+var material = Material(1, 'LC50/55');
 
 Node(1, -a_1/2, b, 0);
 Node(2,  a_1/2, b, 0);
@@ -19,6 +19,6 @@ Line(4,  [2, 4]);
 
 var no = thicknesses.lastId() + 1;
 var th = new Thickness();
-var thickness_1 = th.Uniform(no, "test_01", "", [thickness],"", {"material": material});
+var thickness_1 = th.Uniform(no, "test_01", 1, [thickness]);
 var s = new Surface();
 s.Standard(1, surfaces.GEOMETRY_QUADRANGLE, "", [1, 2, 3, 4], no);

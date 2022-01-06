@@ -7,7 +7,7 @@
 // var rib_width = 0.18;        // Rib Width
 
 // create material 
-var material_1 = Material(1, 'LC50/55');    // Concrete
+var materialConcrete = Material(1, 'LC50/55');    // Concrete
 
 // Create thickness
 var th = new Thickness();
@@ -16,7 +16,7 @@ th.ShapeOrthotropy(1, "Roof", 1, thicknesses.ORTHOTROPIC_THICKNESS_TYPE_UNIDIREC
                    [slab_thickness, rib_height,rib_spacing, rib_width]);
 
 // Create section
-var section_1 = Section(1, 'R_M1 300/400', material_1);  // concrete column
+var section_1 = Section(1, 'R_M1 300/400', materialConcrete);  // concrete column
 
 // Create Nodes
 Node(1, 0, 0,  0);
@@ -46,14 +46,14 @@ var sur = new Surface();
 sur.Standard(1, surfaces.GEOMETRY_PLANE, "", [5, 6, 7, 8], 1);
 
 // Define Supports
-var nod_sup = NodalSupport(undefined);
-nod_sup.spring_x = nodal_supports.SPRING_CONSTANT_YES;
-nod_sup.spring_y = nodal_supports.SPRING_CONSTANT_YES;
-nod_sup.spring_z = nodal_supports.SPRING_CONSTANT_YES;
-nod_sup.rotational_restraint_z = nodal_supports.SPRING_CONSTANT_YES;
+var nodalSupport = NodalSupport(undefined);
+nodalSupport.spring_x = nodal_supports.SPRING_CONSTANT_YES;
+nodalSupport.spring_y = nodal_supports.SPRING_CONSTANT_YES;
+nodalSupport.spring_z = nodal_supports.SPRING_CONSTANT_YES;
+nodalSupport.rotational_restraint_z = nodal_supports.SPRING_CONSTANT_YES;
 
 // Assign Supports
 for (var i = 1; i < 5; ++i)
 {
-    nodes[i].support = nod_sup.no;
+    nodes[i].support = nodalSupport.no;
 }

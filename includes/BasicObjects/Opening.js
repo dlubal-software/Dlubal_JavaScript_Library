@@ -1,3 +1,11 @@
+/**
+ * Create Opening
+ * @param {int} no - Number of Opening
+ * @param {array} boundary_lines - Boundary lines of the Opening
+ * @param {string} comment - Comment for the Opening
+ * @param {dictionary} params - Parameters of the Opening
+ * @returns opening
+ */
 function Opening(no,
                  boundary_lines,
                  comment,

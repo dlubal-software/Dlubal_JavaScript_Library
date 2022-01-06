@@ -11,5 +11,6 @@
         <argument argument-name="o_r" default-value="1" label-name="Radius of polygonal opening"/>
         <argument argument-name="d_l" default-value="1" label-name="Length of door"/>
         <argument argument-name="d_h" default-value="2.2" label-name="Height of door"/>
+        <argument argument-name="thickness_1" default-value="0.2" label-name="Thickness of walls"/>
     </arguments>
 </script>
