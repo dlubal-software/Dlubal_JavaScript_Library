@@ -19,7 +19,7 @@ function LineLoad(no,
 {
 	if (arguments.length !== 0)
 	{
-		this.load = createBaseLoad("Line_Load", no, load_case, lines, comment, params);
+		return this.load = createBaseLoad("Line_Load", no, load_case, lines, comment, params);
 	}
 }
 

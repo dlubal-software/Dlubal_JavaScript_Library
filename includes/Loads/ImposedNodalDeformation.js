@@ -17,7 +17,7 @@ function ImposedNodalDeformation(no,
 {
 	if (arguments.length !== 0)
 	{
-		this.load = createBaseLoad("Imposed_Nodal_Deformation", no, load_case, nodes, comment, params);
+		return this.load = createBaseLoad("Imposed_Nodal_Deformation", no, load_case, nodes, comment, params);
 	}
 }
 

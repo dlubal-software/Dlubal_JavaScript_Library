@@ -23,7 +23,7 @@ function FreeRectangularLoad(no,
 {
 	if (arguments.length !== 0)
 	{
-		this.load = createBaseLoad("Free_Rectangular_Load", no, load_case, surfaces, comment, params);
+		return this.load = createBaseLoad("Free_Rectangular_Load", no, load_case, surfaces, comment, params);
 	}
 }
 

@@ -17,7 +17,7 @@ function SolidLoad(no,
 {
 	if (arguments.length !== 0)
 	{
-		this.load = createBaseLoad("Solid_Load", no, load_case, solids, comment, params);
+		return this.load = createBaseLoad("Solid_Load", no, load_case, solids, comment, params);
 	}
 }
 

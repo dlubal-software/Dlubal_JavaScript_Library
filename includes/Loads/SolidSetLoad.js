@@ -17,7 +17,7 @@ function SolidSetLoad(no,
 {
 	if (arguments.length !== 0)
 	{
-		this.load = createBaseLoad("Solid_Set_Load", no, load_case, solid_sets, comment, params);
+		return this.load = createBaseLoad("Solid_Set_Load", no, load_case, solid_sets, comment, params);
 	}
 }
 

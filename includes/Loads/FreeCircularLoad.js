@@ -17,7 +17,7 @@ function FreeCircularLoad(no,
 {
     if (arguments.length !== 0)
 	{
-		this.load = createBaseLoad("Free_Circular_Load", no, load_case, surfaces, comment, params);
+		return this.load = createBaseLoad("Free_Circular_Load", no, load_case, surfaces, comment, params);
 	}
 }
 

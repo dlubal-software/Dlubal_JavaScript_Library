@@ -19,7 +19,7 @@ function LineSetLoad(no,
 {
     if (arguments.length !== 0)
 	{
-		this.load = createBaseLoad("Line_Set_Load", no, load_case, line_sets, comment, params);
+		return this.load = createBaseLoad("Line_Set_Load", no, load_case, line_sets, comment, params);
 	}
 }
 

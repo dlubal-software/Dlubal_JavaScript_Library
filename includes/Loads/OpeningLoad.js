@@ -17,7 +17,7 @@ function OpeningLoad(no,
 {
     if (arguments.length !== 0)
 	{
-		this.load = createBaseLoad("Opening_Load", no, load_case, openings, comment, params);
+		return this.load = createBaseLoad("Opening_Load", no, load_case, openings, comment, params);
 	}
 };
 

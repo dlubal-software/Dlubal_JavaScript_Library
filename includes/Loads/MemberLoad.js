@@ -17,7 +17,7 @@ function MemberLoad(no,
 {	
 	if (arguments.length !== 0)
 	{
-		this.load = createBaseLoad("Member_Load", no, load_case, members, comment, params);
+		return this.load = createBaseLoad("Member_Load", no, load_case, members, comment, params);
 	}
 }
 

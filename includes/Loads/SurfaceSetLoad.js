@@ -17,7 +17,7 @@ function SurfaceSetLoad(no,
 {
 	if (arguments.length !== 0)
 	{
-		this.load = createBaseLoad("Surface_Set_Load", no, load_case, line_sets, comment, params);
+		return this.load = createBaseLoad("Surface_Set_Load", no, load_case, line_sets, comment, params);
 	}
 }
 

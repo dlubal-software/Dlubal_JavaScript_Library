@@ -17,7 +17,7 @@ function ImposedLineDeformation(no,
 {
 	if (arguments.length !== 0)
 	{
-		this.load = createBaseLoad("Imposed_Line_Deformation", no, load_case, nodes, comment, params);
+		return this.load = createBaseLoad("Imposed_Line_Deformation", no, load_case, nodes, comment, params);
 	}
 }
 

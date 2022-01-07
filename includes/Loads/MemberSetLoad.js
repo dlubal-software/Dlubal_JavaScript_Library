@@ -17,7 +17,7 @@ function MemberSetLoad(no,
 {
     if (arguments.length !== 0)
 	{
-		this.load = createBaseLoad("Member_Set_Load", no, load_case, member_sets, comment, params);
+		return this.load = createBaseLoad("Member_Set_Load", no, load_case, member_sets, comment, params);
 	}
 }
 

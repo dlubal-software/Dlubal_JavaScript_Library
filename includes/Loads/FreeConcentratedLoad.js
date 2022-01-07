@@ -17,7 +17,7 @@ function FreeConcentratedLoad(no,
 {
 	if (arguments.length !== 0)
 	{
-		this.load = createBaseLoad("Free_Concentrated_Load", no, load_case, surfaces, comment, params);
+		return this.load = createBaseLoad("Free_Concentrated_Load", no, load_case, surfaces, comment, params);
 	}
 }
 
