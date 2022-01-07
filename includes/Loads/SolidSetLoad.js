@@ -10,13 +10,14 @@ include("BaseLoad.js");
 * @return	{Object}	Created solid set load
 */
 function SolidSetLoad(no,
-	load_case,
-	solid_sets,
-	comment,
-	params) {
-	if (arguments.length !== 0) {
-		this.load = createBaseLoad("Solid_Set_Load", no, load_case, solid_sets, comment, params);
-		return this.load;
+                      load_case,
+                      solid_sets,
+                      comment,
+                      params)
+{
+	if (arguments.length !== 0)
+	{
+		return this.load = createBaseLoad("Solid_Set_Load", no, load_case, solid_sets, comment, params);
 	}
 }
 

@@ -10,13 +10,14 @@ include("BaseLoad.js");
 * @return	{Object}	Created imposed nodal deformation
 */
 function ImposedNodalDeformation(no,
-	load_case,
-	nodes,
-	comment,
-	params) {
-	if (arguments.length !== 0) {
-		this.load = createBaseLoad("Imposed_Nodal_Deformation", no, load_case, nodes, comment, params);
-		return this.load;
+                                 load_case,
+                                 nodes,
+                                 comment,
+                                 params)
+{
+	if (arguments.length !== 0)
+	{
+		return this.load = createBaseLoad("Imposed_Nodal_Deformation", no, load_case, nodes, comment, params);
 	}
 }
 

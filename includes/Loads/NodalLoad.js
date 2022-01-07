@@ -10,13 +10,14 @@ include("BaseLoad.js");
 * @return	{Object}	Created nodal load
 */
 function NodalLoad(no,
-	load_case,
-	nodes,
-	comment,
-	params) {
-	if (arguments.length !== 0) {
-		this.load = createBaseLoad("Nodal_Load", no, load_case, nodes, comment, params);
-		return this.load;
+				   load_case,
+				   nodes,
+				   comment,
+				   params)
+{	
+	if (arguments.length !== 0)
+	{
+		return this.load = createBaseLoad("Nodal_Load", no, load_case, nodes, comment, params);
 	}
 }
 

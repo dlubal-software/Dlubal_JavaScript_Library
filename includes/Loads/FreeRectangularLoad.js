@@ -16,13 +16,14 @@ include("BaseLoad.js");
 * @return	{Object}	Created free rectangular load
 */
 function FreeRectangularLoad(no,
-	load_case,
-	surfaces,
-	comment,
-	params) {
-	if (arguments.length !== 0) {
-		this.load = createBaseLoad("Free_Rectangular_Load", no, load_case, surfaces, comment, params);
-		return this.load;
+                             load_case,
+                             surfaces,
+                             comment,
+                             params)
+{
+	if (arguments.length !== 0)
+	{
+		return this.load = createBaseLoad("Free_Rectangular_Load", no, load_case, surfaces, comment, params);
 	}
 }
 

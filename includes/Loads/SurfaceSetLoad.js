@@ -10,13 +10,14 @@ include("BaseLoad.js");
 * @return	{Object}	Created line set load
 */
 function SurfaceSetLoad(no,
-	load_case,
-	surface_sets,
-	comment,
-	params) {
-	if (arguments.length !== 0) {
-		this.load = createBaseLoad("Surface_Set_Load", no, load_case, line_sets, comment, params);
-		return this.load;
+                        load_case,
+                        surface_sets,
+                        comment,
+                        params)
+{
+	if (arguments.length !== 0)
+	{
+		return this.load = createBaseLoad("Surface_Set_Load", no, load_case, line_sets, comment, params);
 	}
 }
 

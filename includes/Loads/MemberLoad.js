@@ -10,13 +10,14 @@ include("BaseLoad.js");
 * @return	{Object}	Created member load
 */
 function MemberLoad(no,
-	load_case,
-	members,
-	comment,
-	params) {
-	if (arguments.length !== 0) {
-		this.load = createBaseLoad("Member_Load", no, load_case, members, comment, params);
-		return this.load;
+				    load_case,
+				    members,
+				    comment,
+				    params)
+{	
+	if (arguments.length !== 0)
+	{
+		return this.load = createBaseLoad("Member_Load", no, load_case, members, comment, params);
 	}
 }
 

@@ -10,13 +10,14 @@ include("BaseLoad.js");
 * @return	{Object}	Created imposed line deformation
 */
 function ImposedLineDeformation(no,
-	load_case,
-	lines,
-	comment,
-	params) {
-	if (arguments.length !== 0) {
-		this.load = createBaseLoad("Imposed_Line_Deformation", no, load_case, nodes, comment, params);
-		return this.load;
+                                load_case,
+                                lines,
+                                comment,
+                                params)
+{
+	if (arguments.length !== 0)
+	{
+		return this.load = createBaseLoad("Imposed_Line_Deformation", no, load_case, lines, comment, params);
 	}
 }
 

@@ -10,13 +10,14 @@ include("BaseLoad.js");
 * @return	{Object}	Created free circular load
 */
 function FreeCircularLoad(no,
-	load_case,
-	surfaces,
-	comment,
-	params) {
-	if (arguments.length !== 0) {
-		this.load = createBaseLoad("Free_Circular_Load", no, load_case, surfaces, comment, params);
-		return this.load;
+                          load_case,
+                          surfaces,
+                          comment,
+                          params)
+{
+    if (arguments.length !== 0)
+	{
+		return this.load = createBaseLoad("Free_Circular_Load", no, load_case, surfaces, comment, params);
 	}
 }
 

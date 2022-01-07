@@ -10,13 +10,14 @@ include("BaseLoad.js");
 * @return	{Object}	Created opening load
 */
 function OpeningLoad(no,
-	load_case,
-	openings,
-	comment,
-	params) {
-	if (arguments.length !== 0) {
-		this.load = createBaseLoad("Opening_Load", no, load_case, openings, comment, params);
-		return this.load;
+                     load_case,
+                     openings,
+                     comment,
+                     params)
+{
+    if (arguments.length !== 0)
+	{
+		return this.load = createBaseLoad("Opening_Load", no, load_case, openings, comment, params);
 	}
 };
 

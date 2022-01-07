@@ -12,13 +12,14 @@ include("BaseLoad.js");
 * @return	{Object}	Created line set load
 */
 function LineSetLoad(no,
-	load_case,
-	line_sets,
-	comment,
-	params) {
-	if (arguments.length !== 0) {
-		this.load = createBaseLoad("Line_Set_Load", no, load_case, line_sets, comment, params);
-		return this.load;
+                     load_case,
+                     line_sets,
+                     comment,
+                     params)
+{
+    if (arguments.length !== 0)
+	{
+		return this.load = createBaseLoad("Line_Set_Load", no, load_case, line_sets, comment, params);
 	}
 }
 

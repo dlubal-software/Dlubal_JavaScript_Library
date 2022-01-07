@@ -12,13 +12,14 @@ include("BaseLoad.js");
 * @return	{Object}	Created line load
 */
 function LineLoad(no,
-	load_case,
-	lines,
-	comment,
-	params) {
-	if (arguments.length !== 0) {
-		this.load = createBaseLoad("Line_Load", no, load_case, lines, comment, params);
-		return this.load;
+				  load_case,
+				  lines,
+				  comment,
+				  params)
+{
+	if (arguments.length !== 0)
+	{
+		return this.load = createBaseLoad("Line_Load", no, load_case, lines, comment, params);
 	}
 }
 
