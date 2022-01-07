@@ -1,4 +1,5 @@
 ###############
 #    folder   #
 ###############
-node_module\
+node_modules/
+docfx_project/api/

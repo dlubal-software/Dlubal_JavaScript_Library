@@ -9,14 +9,14 @@ references:
   name: Force(no, load_case, lines, load_distribution, load_values, load_direction, comment, params)
   href: api/LineLoad.html#LineLoad_Force
   fullName: LineLoad.Force(no, load_case, lines, load_distribution, load_values, load_direction, comment, params)
-- uid: LineLoad#individual_mass_componnets
-  name: individual_mass_componnets(MX, MY, MZ)
-  href: api/LineLoad.html#LineLoad_individual_mass_componnets
-  fullName: LineLoad.individual_mass_componnets(MX, MY, MZ)
-- uid: LineLoad#load_over_line
-  name: load_over_line(value)
-  href: api/LineLoad.html#LineLoad_load_over_line
-  fullName: LineLoad.load_over_line(value)
+- uid: LineLoad#IndividualMassComponents
+  name: IndividualMassComponents(MX, MY, MZ)
+  href: api/LineLoad.html#LineLoad_IndividualMassComponents
+  fullName: LineLoad.IndividualMassComponents(MX, MY, MZ)
+- uid: LineLoad#LoadOverLine
+  name: LoadOverLine(value)
+  href: api/LineLoad.html#LineLoad_LoadOverLine
+  fullName: LineLoad.LoadOverLine(value)
 - uid: LineLoad#Mass
   name: Mass(no, load_case, lines, load_value, comment, params)
   href: api/LineLoad.html#LineLoad_Mass
@@ -25,14 +25,14 @@ references:
   name: Moment(no, load_case, lines, load_distribution, load_values, load_direction, comment, params)
   href: api/LineLoad.html#LineLoad_Moment
   fullName: LineLoad.Moment(no, load_case, lines, load_distribution, load_values, load_direction, comment, params)
-- uid: LineLoad#refer_distance_line_end
-  name: refer_distance_line_end(value)
-  href: api/LineLoad.html#LineLoad_refer_distance_line_end
-  fullName: LineLoad.refer_distance_line_end(value)
-- uid: LineLoad#reference_to_list_of_lines
-  name: reference_to_list_of_lines(value)
-  href: api/LineLoad.html#LineLoad_reference_to_list_of_lines
-  fullName: LineLoad.reference_to_list_of_lines(value)
+- uid: LineLoad#ReferDistanceLineEnd
+  name: ReferDistanceLineEnd(value)
+  href: api/LineLoad.html#LineLoad_ReferDistanceLineEnd
+  fullName: LineLoad.ReferDistanceLineEnd(value)
+- uid: LineLoad#ReferenceToListOfLines
+  name: ReferenceToListOfLines(value)
+  href: api/LineLoad.html#LineLoad_ReferenceToListOfLines
+  fullName: LineLoad.ReferenceToListOfLines(value)
 - uid: LineLoad.#ctor
   name: LineLoad(no, load_case, lines, comment, params)
   href: api/LineLoad.html#LineLoad__ctor
@@ -53,14 +53,14 @@ references:
   name: Force(no, load_case, line_sets, load_distribution, load_values, load_direction, comment, params)
   href: api/LineSetLoad.html#LineSetLoad_Force
   fullName: LineSetLoad.Force(no, load_case, line_sets, load_distribution, load_values, load_direction, comment, params)
-- uid: LineSetLoad#individual_mass_componnets
-  name: individual_mass_componnets(MX, MY, MZ)
-  href: api/LineSetLoad.html#LineSetLoad_individual_mass_componnets
-  fullName: LineSetLoad.individual_mass_componnets(MX, MY, MZ)
-- uid: LineSetLoad#load_over_line_set
-  name: load_over_line_set(value)
-  href: api/LineSetLoad.html#LineSetLoad_load_over_line_set
-  fullName: LineSetLoad.load_over_line_set(value)
+- uid: LineSetLoad#IndividualMassComponents
+  name: IndividualMassComponents(MX, MY, MZ)
+  href: api/LineSetLoad.html#LineSetLoad_IndividualMassComponents
+  fullName: LineSetLoad.IndividualMassComponents(MX, MY, MZ)
+- uid: LineSetLoad#LoadOverLineSet
+  name: LoadOverLineSet(value)
+  href: api/LineSetLoad.html#LineSetLoad_LoadOverLineSet
+  fullName: LineSetLoad.LoadOverLineSet(value)
 - uid: LineSetLoad#Mass
   name: Mass(no, load_case, line_sets, load_value, comment, params)
   href: api/LineSetLoad.html#LineSetLoad_Mass
@@ -69,10 +69,10 @@ references:
   name: Moment(no, load_case, line_sets, load_distribution, load_values, load_direction, comment, params)
   href: api/LineSetLoad.html#LineSetLoad_Moment
   fullName: LineSetLoad.Moment(no, load_case, line_sets, load_distribution, load_values, load_direction, comment, params)
-- uid: LineSetLoad#refer_distance_line_set_end
-  name: refer_distance_line_set_end(value)
-  href: api/LineSetLoad.html#LineSetLoad_refer_distance_line_set_end
-  fullName: LineSetLoad.refer_distance_line_set_end(value)
+- uid: LineSetLoad#ReferDistanceLineSetEnd
+  name: ReferDistanceLineSetEnd(value)
+  href: api/LineSetLoad.html#LineSetLoad_ReferDistanceLineSetEnd
+  fullName: LineSetLoad.ReferDistanceLineSetEnd(value)
 - uid: LineSetLoad.#ctor
   name: LineSetLoad(no, load_case, line_sets, comment, params)
   href: api/LineSetLoad.html#LineSetLoad__ctor
