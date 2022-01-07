@@ -132,7 +132,7 @@ for (var i = 3; i < 7; ++i)
 {
     members[i].member_hinge_start = member_hinges[1];
     members[i].member_hinge_end = member_hinges[1];
-};
+}
 // Define Supports
 var nodalSupport = NodalSupport(undefined);
 nodalSupport.spring_x = nodal_supports.SPRING_CONSTANT_YES;
