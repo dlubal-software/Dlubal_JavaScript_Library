@@ -56,4 +56,3 @@ MemberSet.prototype.GroupOfMembers = function (no,
         set_comment_and_parameters(this.member_set, comment, params);
     }
 };
-

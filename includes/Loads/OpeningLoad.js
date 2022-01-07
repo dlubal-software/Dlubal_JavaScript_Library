@@ -31,27 +31,22 @@ function OpeningLoad(no,
 *										- "Force" / "Linear/Trapezoidal": [Node1, Node2, Node3, p1, p2, p3]
 * @return	{Object}	Returns modified load
 */
-var setLoadDistribution = function(load,
-								   load_type,
-								   load_distribution,
-								   load_values)
-{
+var setLoadDistribution = function (load,
+	load_type,
+	load_distribution,
+	load_values) {
 	// In case of more load types remove this condition
-	if (load_type !== opening_loads.LOAD_TYPE_FORCE)
-	{
+	if (load_type !== opening_loads.LOAD_TYPE_FORCE) {
 		load.load_type = load_type;
 	}
-	
-	if (typeof load_distribution !== "undefined")
-	{
+
+	if (typeof load_distribution !== "undefined") {
 		load.load_distribution = load_distribution;
 	}
-	
-	switch (load_type)
-	{
+
+	switch (load_type) {
 		case opening_loads.LOAD_TYPE_FORCE:
-			switch (load_distribution)
-			{
+			switch (load_distribution) {
 				case opening_loads.LOAD_DISTRIBUTION_UNIFORM_TRAPEZOIDAL:
 					ASSERT(load_values.length === 1, "Wrong number of load values, one value is required (p)");
 					setLoadValues(load, load_values, "magnitude");
@@ -67,7 +62,7 @@ var setLoadDistribution = function(load,
 		default:
 			showLoadAssert(load_type);
 	}
-	
+
 	return load;
 };
 
@@ -83,23 +78,21 @@ var setLoadDistribution = function(load,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Created opening force load
 */
-OpeningLoad.prototype.Force = function(no,
-									   load_case,
-									   openings,
-									   load_distribution,
-									   load_values,
-									   load_direction,
-									   comment,
-									   params)
-{
+OpeningLoad.prototype.Force = function (no,
+	load_case,
+	openings,
+	load_distribution,
+	load_values,
+	load_direction,
+	comment,
+	params) {
 	this.load = createBaseLoad("Opening_Load", no, load_case, openings, comment, params);
 	this.load = setLoadDistribution(this.load, opening_loads.LOAD_TYPE_FORCE, load_distribution, load_values);
-	
-	if (typeof load_direction !== "undefined")
-	{
+
+	if (typeof load_direction !== "undefined") {
 		this.load.load_direction = load_direction;
 	}
-	
+
 	return this.load;
 };
 
@@ -107,12 +100,10 @@ OpeningLoad.prototype.Force = function(no,
 * Set smooth concentrated load
 * @param	{Boolean}	value, can be undefined (false)
 */
-OpeningLoad.prototype.SmoothConcentratedLoad = function(value)
-{
-	if (typeof value === "undefined")
-	{
+OpeningLoad.prototype.SmoothConcentratedLoad = function (value) {
+	if (typeof value === "undefined") {
 		value = false;
 	}
-	
+
 	this.load.smooth_punctual_load_enabled = value;
 };

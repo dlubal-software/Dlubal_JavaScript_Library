@@ -32,14 +32,13 @@ function NodalLoad(no,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Created nodal force load
 */
-NodalLoad.prototype.Force = function(no,
-									 load_case,
-									 nodes,
-									 force,
-									 load_direction,
-									 comment,
-									 params)
-{	
+NodalLoad.prototype.Force = function (no,
+	load_case,
+	nodes,
+	force,
+	load_direction,
+	comment,
+	params) {
 	this.load = createSimplyValueLoad("Nodal_Load", no, load_case, nodes, force, undefined, undefined, load_direction, comment, params);
 	return this.load;
 };
@@ -55,14 +54,13 @@ NodalLoad.prototype.Force = function(no,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Created nodal moment load
 */
-NodalLoad.prototype.Moment = function(no,
-									  load_case,
-									  nodes,
-									  moment,
-									  load_direction,
-									  comment,
-									  params)
-{	
+NodalLoad.prototype.Moment = function (no,
+	load_case,
+	nodes,
+	moment,
+	load_direction,
+	comment,
+	params) {
 	this.load = createSimplyValueLoad("Nodal_Load", no, load_case, nodes, undefined, moment, undefined, load_direction, comment, params);
 	return this.load;
 };
@@ -78,19 +76,18 @@ NodalLoad.prototype.Moment = function(no,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Create nodal components load
 */
-NodalLoad.prototype.Components = function(no,
-										  load_case,
-										  nodes,
-										  forces,
-										  moments,
-										  comment,
-										  params)
-{
+NodalLoad.prototype.Components = function (no,
+	load_case,
+	nodes,
+	forces,
+	moments,
+	comment,
+	params) {
 	ASSERT(forces.length === 3, "The force must have three components");
 	ASSERT(moments.length === 3, "The moment must have three components");
-	
+
 	this.load = createBaseLoad("Nodal_Load", no, load_case, nodes, comment, params);
-	
+
 	this.load.load_type = nodal_loads.LOAD_TYPE_COMPONENTS;
 	this.load.components_force_x = forces[0];
 	this.load.components_force_y = forces[1];
@@ -98,8 +95,8 @@ NodalLoad.prototype.Components = function(no,
 	this.load.components_moment_x = moments[0];
 	this.load.components_moment_y = moments[1];
 	this.load.components_moment_z = moments[2];
-	
-		return this.load;
+
+	return this.load;
 };
 
 /**
@@ -112,13 +109,12 @@ NodalLoad.prototype.Components = function(no,
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Create nodal mass load
 */
-NodalLoad.prototype.Mass = function(no,
-									load_case,
-									nodes,
-									mass,
-									comment,
-									params)
-{
+NodalLoad.prototype.Mass = function (no,
+	load_case,
+	nodes,
+	mass,
+	comment,
+	params) {
 	this.load = createSimplyValueLoad("Nodal_Load", no, load_case, nodes, undefined, undefined, mass, undefined, comment, params);
 	return this.load;
 };
@@ -139,21 +135,18 @@ NodalLoad.prototype.Mass = function(no,
  *								- [line_no] (for 4)
  *								- [member_no] (for 5)
 */
-NodalLoad.prototype.SpecificDirection = function(type,
-												 values)
-{
+NodalLoad.prototype.SpecificDirection = function (type,
+	values) {
 	ASSERT(this.load.load_type !== nodal_loads.LOAD_TYPE_MASS, "Specific direction cannot be set to mass load");
-	
-	switch (type)
-	{
+
+	switch (type) {
 		case 1:	// Rotated view 3 angles
 			ASSERT(values.length >= 3, "Wrong number of value parameters, three at least are required");
 			this.load.specific_direction_type = nodal_loads.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES;
 			this.load.rotated_about_angle_x = values[0];
 			this.load.rotated_about_angle_y = values[1];
 			this.load.rotated_about_angle_z = values[2];
-			if (values.length > 3)
-			{
+			if (values.length > 3) {
 				this.load.axes_sequence = values[3];
 			}
 			break;
@@ -189,19 +182,16 @@ NodalLoad.prototype.SpecificDirection = function(type,
  * @param	{Number}		eccentricity_x	Eccentricity eX
  * @param	{Number}		eccentricity_y	Eccentricity eY
  * @param	{Number}		eccentricity_z	Eccentricity eZ
-*/	
-NodalLoad.prototype.ForceEccentricity = function(eccentricity_x,
-												 eccentricity_y,
-												 eccentricity_z)
-{
+*/
+NodalLoad.prototype.ForceEccentricity = function (eccentricity_x,
+	eccentricity_y,
+	eccentricity_z) {
 	ASSERT(this.load.load_type === nodal_loads.LOAD_TYPE_FORCE || this.load.load_type === nodal_loads.LOAD_TYPE_COMPONENTS, "Eccentricity can be used only for load force or load components");
-	
-	if (typeof eccentricity_x === "undefined" && typeof eccentricity_y === "undefined" && typeof eccentricity_z === "undefined")
-	{
+
+	if (typeof eccentricity_x === "undefined" && typeof eccentricity_y === "undefined" && typeof eccentricity_z === "undefined") {
 		this.load.has_force_eccentricity = false;
 	}
-	else
-	{
+	else {
 		this.load.has_force_eccentricity = true;
 		this.load.force_eccentricity = $V(eccentricity_x, eccentricity_y, eccentricity_z);
 	}
@@ -212,17 +202,15 @@ NodalLoad.prototype.ForceEccentricity = function(eccentricity_x,
  * @param	{Array}		offset		Offset [ΔX,ΔY,ΔZ], example [0.1,0.2,0]
  * @param	{Number}	distance	Distance Δ
 */
-NodalLoad.prototype.ShiftedDisplay = function(offset,
-											  distance)
-{
+NodalLoad.prototype.ShiftedDisplay = function (offset,
+	distance) {
 	ASSERT(this.load.load_type !== nodal_loads.LOAD_TYPE_MASS, "Shifted display cannot be set to mass load");
-	
-	if (arguments.length === 0)
-	{
+
+	if (arguments.length === 0) {
 		this.load.has_shifted_display = false;
 		return;
 	}
-	
+
 	ASSERT(offset.length === 3, "Wrong number of offset parameters, three are required");
 	this.load.has_shifted_display = true;
 	this.load.offset_x = offset[0];
@@ -236,17 +224,15 @@ NodalLoad.prototype.ShiftedDisplay = function(offset,
  * @param	{Array}		mass		mass [MX,MY,MZ], example [0.1,0.2,0]
  * @param	{Number}	distance	mass_moment_of_inertia [IX,IY,IZ], example [0.1,0.2,0]			-
 */
-NodalLoad.prototype.IndividualMassComponents = function(mass,
-														mass_moment_of_inertia)
-{
+NodalLoad.prototype.IndividualMassComponents = function (mass,
+	mass_moment_of_inertia) {
 	ASSERT(this.load.load_type === nodal_loads.LOAD_TYPE_MASS, "Individual mass components be set only to mass load");
-	
-	if (arguments.length === 0)
-	{
+
+	if (arguments.length === 0) {
 		this.load.individual_mass_components = false;
 		return;
 	}
-	
+
 	ASSERT(mass.length === 3, "Wrong number of mass parameters, three are required");
 	ASSERT(mass_moment_of_inertia.length === 3, "Wrong number of mass of inertia parameters, three are required");
 	this.load.individual_mass_components = true;
