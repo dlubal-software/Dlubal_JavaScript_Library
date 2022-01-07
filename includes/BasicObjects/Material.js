@@ -7,10 +7,9 @@
  * @returns material
  */
 function Material(no,
-                  name,
-                  comment,
-                  params)
-{
+    name,
+    comment,
+    params) {
     name = typeof name !== 'undefined' ? name : "S235";
 
     var material = engine.create_material(no);

@@ -29,15 +29,15 @@ function Thickness(no,
         if (material !== 'undefined')
         {
             this.thickness.material = material;
-        };
+        }
 
         // Uniform Thickness d
         this.thickness.uniform_thickness = uniform_thickness_d;
 
         set_comment_and_parameters(this.thickness, comment, params);
         return this.thickness;
-    };
-};
+    }
+}
 
 /**
  * Create Uniform thickness
@@ -67,7 +67,7 @@ Thickness.prototype.Uniform = function (no,
     if (material !== 'undefined')
     {
         this.thickness.material = material;
-    };
+    }
 
     // Uniform Thickness d
     this.thickness.uniform_thickness = properties[0];
@@ -104,7 +104,7 @@ Thickness.prototype.Variable_3Nodes = function (no,
     if (material !== 'undefined')
     {
         this.thickness.material = material;
-    };
+    }
 
     this.thickness.type = thicknesses.TYPE_VARIABLE_THREE_NODES;
     this.thickness.thickness_1 = properties[0];
@@ -146,7 +146,7 @@ Thickness.prototype.Variable_2NodesAndDirection = function (no,
     if (material !== 'undefined')
     {
         this.thickness.material = material;
-    };
+    }
 
     this.thickness.type = thicknesses.TYPE_VARIABLE_TWO_NODES_AND_DIRECTION;
     this.thickness.thickness_1 = properties[0];
@@ -187,7 +187,7 @@ Thickness.prototype.Variable_4SurfaceCorners = function (no,
     if (material !== 'undefined')
     {
         this.thickness.material = material;
-    };
+    }
 
     this.thickness.type = thicknesses.TYPE_VARIABLE_FOUR_SURFACE_CORNERS;
     this.thickness.thickness_1 = properties[0];
@@ -231,7 +231,7 @@ Thickness.prototype.Variable_Circle = function (no,
     if (material !== 'undefined')
     {
         this.thickness.material = material;
-    };
+    }
 
     this.thickness.type = thicknesses.TYPE_VARIABLE_CIRCLE;
     this.thickness.thickness_circle_center = properties[0];
@@ -267,7 +267,7 @@ Thickness.prototype.Layers = function (no,
         this.thickness.layers_reference_table[i + 1].thickness = layers[i][1];
         this.thickness.layers_reference_table[i + 1].angle     =(layers[i][2])*PI/180;
         this.thickness.layers_reference_table[i + 1].comment   = layers[i][3];
-    };
+    }
     set_comment_and_parameters(this.thickness, comment, params);
 };
 
@@ -307,7 +307,7 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         this.thickness.orthotropy_type = thicknesses.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS;
         this.thickness.shape_orthotropy_effective_thickness_x = parameters[0];
         this.thickness.shape_orthotropy_effective_thickness_y = parameters[1];
-    };
+    }
 
     if (orthotropy_type == thicknesses.ORTHOTROPIC_THICKNESS_TYPE_COUPLING)
     {
@@ -318,7 +318,7 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         this.thickness.coupling_thickness = parameters[0];
         this.thickness.coupling_spacing = parameters[1];
         this.thickness.coupling_width = parameters[2];
-    };
+    }
 
     if (orthotropy_type == thicknesses.ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE)
     {
@@ -330,7 +330,7 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         this.thickness.rib_height = parameters[1];
         this.thickness.rib_spacing = parameters[2];
         this.thickness.rib_width = parameters[3];
-    };
+    }
 
     if (orthotropy_type == thicknesses.ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE)
     {
@@ -345,7 +345,7 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         this.thickness.rib_spacing_y = parameters[4];
         this.thickness.rib_width_x = parameters[5];
         this.thickness.rib_width_y = parameters[6];
-    };
+    }
 
 
     if (orthotropy_type == thicknesses.ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET)
@@ -359,7 +359,7 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         this.thickness.rib_spacing = parameters[2];
         this.thickness.top_flange_width = parameters[3];
         this.thickness.bottom_flange_width = parameters[4];
-    };
+    }
 
     if (orthotropy_type == thicknesses.ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB)
     {
@@ -370,7 +370,7 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         this.thickness.slab_thickness = parameters[0];
         this.thickness.void_spacing = parameters[1];
         this.thickness.void_diameter = parameters[2];
-    };
+    }
 
     if (orthotropy_type == thicknesses.ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE)
     {
@@ -383,22 +383,22 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         this.thickness.rib_spacing_y = parameters[2];
         this.thickness.rib_width_x = parameters[3];
         this.thickness.rib_width_y = parameters[4];
-    };
+    }
 
     if (consideration_of_self_weight[0] == thicknesses.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS)
     {
         this.thickness.shape_orthotropy_self_weight_definition_type = thicknesses.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS;
-    };
+    }
     if (consideration_of_self_weight[0] == thicknesses.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS)
     {
         this.thickness.shape_orthotropy_self_weight_definition_type = thicknesses.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS;
         this.thickness.orthotropy_fictitious_thickness = consideration_of_self_weight[1];
-    };
+    }
     if (consideration_of_self_weight[0] == thicknesses.SELF_WEIGHT_DEFINED_VIA_WEIGHT)
     {
         this.thickness.shape_orthotropy_self_weight_definition_type = thicknesses.SELF_WEIGHT_DEFINED_VIA_WEIGHT;
         this.thickness.shape_orthotropy_self_weight = consideration_of_self_weight[1];
-    };
+    }
 
     this.thickness.orthotropy_rotation_beta = rotation_beta*PI/180;
     // Thickness Name
@@ -408,7 +408,7 @@ Thickness.prototype.ShapeOrthotropy = function (no,
     if (material !== 'undefined')
     {
         this.thickness.material = material;
-    };
+    }
 
     set_comment_and_parameters(this.thickness, comment, params);
 };
