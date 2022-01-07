@@ -1,0 +1,264 @@
+### YamlMime:UniversalReference
+items:
+  - uid: LineSetLoad
+    id: LineSetLoad
+    name: LineSetLoad
+    summary: LineSetLoad
+    fullName: LineSetLoad
+    type: Class
+    children:
+      - LineSetLoad.#ctor
+      - LineSetLoad#Force
+      - LineSetLoad#Moment
+      - LineSetLoad#Mass
+      - LineSetLoad#refer_distance_line_set_end
+      - LineSetLoad#load_over_line_set
+      - LineSetLoad#individual_mass_componnets
+    langs:
+      - js
+  - id: LineSetLoad.#ctor
+    uid: LineSetLoad.#ctor
+    parent: LineSetLoad
+    name: 'LineSetLoad(no, load_case, line_sets, comment, params)'
+    fullName: 'LineSetLoad.LineSetLoad(no, load_case, line_sets, comment, params)'
+    summary: Creates line set load
+    type: Constructor
+    syntax:
+      parameters:
+        - id: 'no'
+          type:
+            - Number
+          description: 'Index of line set load, can be undefined'
+        - id: load_case
+          type:
+            - Object
+          description: Load case
+        - id: line_sets
+          type:
+            - Array
+          description: List of line sets indexes
+        - id: comment
+          type:
+            - String
+          description: 'Comment, can be undefined'
+        - id: params
+          type:
+            - Object
+          description: 'Load parameters, can be undefined'
+      return:
+        type:
+          - Object
+        description: Created line set load
+      content: 'new LineSetLoad(no, load_case, line_sets, comment, params)'
+    langs:
+      - js
+  - uid: LineSetLoad#Force
+    id: LineSetLoad#Force
+    parent: LineSetLoad
+    name: >-
+      Force(no, load_case, line_sets, load_distribution, load_values,
+      load_direction, comment, params)
+    summary: Creates line set force load
+    fullName: >-
+      LineSetLoad.Force(no, load_case, line_sets, load_distribution,
+      load_values, load_direction, comment, params)
+    type: Function
+    syntax:
+      parameters:
+        - id: 'no'
+          type:
+            - Number
+          description: 'Index of line set load, can be undefined'
+        - id: load_case
+          type:
+            - Object
+          description: Load case
+        - id: line_sets
+          type:
+            - Array
+          description: List of line sets
+        - id: load_distribution
+          type:
+            - String
+          description: Load distribution
+        - id: load_values
+          type:
+            - Array
+          description: >-
+            Load values depend on load distribution (for more information look
+            at setLineLoadDistribution function)
+        - id: load_direction
+          type:
+            - String
+          description: 'Load direction, can be undefined'
+        - id: comment
+          type:
+            - String
+          description: 'Comment, can be undefined'
+        - id: params
+          type:
+            - Object
+          description: 'Load parameters, can be undefined'
+      return:
+        type:
+          - Object
+        description: Created line set force load
+      content: >-
+        function Force(no, load_case, line_sets, load_distribution, load_values,
+        load_direction, comment, params)
+    langs:
+      - js
+  - uid: LineSetLoad#Moment
+    id: LineSetLoad#Moment
+    parent: LineSetLoad
+    name: >-
+      Moment(no, load_case, line_sets, load_distribution, load_values,
+      load_direction, comment, params)
+    summary: Creates line set moment load
+    fullName: >-
+      LineSetLoad.Moment(no, load_case, line_sets, load_distribution,
+      load_values, load_direction, comment, params)
+    type: Function
+    syntax:
+      parameters:
+        - id: 'no'
+          type:
+            - Number
+          description: 'Index of line set load, can be undefined'
+        - id: load_case
+          type:
+            - Object
+          description: Load case
+        - id: line_sets
+          type:
+            - Array
+          description: List of line sets
+        - id: load_distribution
+          type:
+            - String
+          description: Load distribution
+        - id: load_values
+          type:
+            - Array
+          description: >-
+            Load values depend on load distribution (for more information look
+            at setLineLoadDistribution function)
+        - id: load_direction
+          type:
+            - String
+          description: 'Load direction, can be undefined'
+        - id: comment
+          type:
+            - String
+          description: 'Comment, can be undefined'
+        - id: params
+          type:
+            - Object
+          description: 'Load parameters, can be undefined'
+      return:
+        type:
+          - Object
+        description: Created line set moment load
+      content: >-
+        function Moment(no, load_case, line_sets, load_distribution,
+        load_values, load_direction, comment, params)
+    langs:
+      - js
+  - uid: LineSetLoad#Mass
+    id: LineSetLoad#Mass
+    parent: LineSetLoad
+    name: 'Mass(no, load_case, line_sets, load_value, comment, params)'
+    summary: Creates line set mass load
+    fullName: 'LineSetLoad.Mass(no, load_case, line_sets, load_value, comment, params)'
+    type: Function
+    syntax:
+      parameters:
+        - id: 'no'
+          type:
+            - Number
+          description: 'Index of line set load, can be undefined'
+        - id: load_case
+          type:
+            - Object
+          description: Load case
+        - id: line_sets
+          type:
+            - Array
+          description: List of line sets
+        - id: load_value
+          type:
+            - Number
+          description: Uniform load value
+        - id: comment
+          type:
+            - String
+          description: 'Comment, can be undefined'
+        - id: params
+          type:
+            - Object
+          description: 'Load parameters, can be undefined'
+      return:
+        type:
+          - Object
+        description: Created line set mass load
+      content: 'function Mass(no, load_case, line_sets, load_value, comment, params)'
+    langs:
+      - js
+  - uid: LineSetLoad#refer_distance_line_set_end
+    id: LineSetLoad#refer_distance_line_set_end
+    parent: LineSetLoad
+    name: refer_distance_line_set_end(value)
+    summary: Sets option for refer distance to the end of line set
+    fullName: LineSetLoad.refer_distance_line_set_end(value)
+    type: Function
+    syntax:
+      parameters:
+        - id: value
+          type:
+            - Boolean
+          description: 'When undefined, true as default'
+      content: function refer_distance_line_set_end(value)
+    langs:
+      - js
+  - uid: LineSetLoad#load_over_line_set
+    id: LineSetLoad#load_over_line_set
+    parent: LineSetLoad
+    name: load_over_line_set(value)
+    summary: >-
+      Sets option for load over total length of line set (only for trapezoidal
+      load distribution)
+    fullName: LineSetLoad.load_over_line_set(value)
+    type: Function
+    syntax:
+      parameters:
+        - id: value
+          type:
+            - Boolean
+          description: 'When undefined, true as default'
+      content: function load_over_line_set(value)
+    langs:
+      - js
+  - uid: LineSetLoad#individual_mass_componnets
+    id: LineSetLoad#individual_mass_componnets
+    parent: LineSetLoad
+    name: 'individual_mass_componnets(MX, MY, MZ)'
+    summary: Sets individual mass components (only for mass load)
+    fullName: 'LineSetLoad.individual_mass_componnets(MX, MY, MZ)'
+    type: Function
+    syntax:
+      parameters:
+        - id: MX
+          type:
+            - Number
+          description: 'Mass in X coordination, can be undefined'
+        - id: MY
+          type:
+            - Number
+          description: 'Mass in Y coordination, can be undefined'
+        - id: MZ
+          type:
+            - Number
+          description: 'Mass in Z coordination, can be undefined'
+      content: 'function individual_mass_componnets(MX, MY, MZ)'
+    langs:
+      - js

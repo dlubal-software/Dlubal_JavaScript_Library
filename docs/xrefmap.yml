@@ -1,0 +1,79 @@
+### YamlMime:XRefMap
+sorted: true
+references:
+- uid: LineLoad
+  name: LineLoad
+  href: api/LineLoad.html
+  fullName: LineLoad
+- uid: LineLoad#Force
+  name: Force(no, load_case, lines, load_distribution, load_values, load_direction, comment, params)
+  href: api/LineLoad.html#LineLoad_Force
+  fullName: LineLoad.Force(no, load_case, lines, load_distribution, load_values, load_direction, comment, params)
+- uid: LineLoad#individual_mass_componnets
+  name: individual_mass_componnets(MX, MY, MZ)
+  href: api/LineLoad.html#LineLoad_individual_mass_componnets
+  fullName: LineLoad.individual_mass_componnets(MX, MY, MZ)
+- uid: LineLoad#load_over_line
+  name: load_over_line(value)
+  href: api/LineLoad.html#LineLoad_load_over_line
+  fullName: LineLoad.load_over_line(value)
+- uid: LineLoad#Mass
+  name: Mass(no, load_case, lines, load_value, comment, params)
+  href: api/LineLoad.html#LineLoad_Mass
+  fullName: LineLoad.Mass(no, load_case, lines, load_value, comment, params)
+- uid: LineLoad#Moment
+  name: Moment(no, load_case, lines, load_distribution, load_values, load_direction, comment, params)
+  href: api/LineLoad.html#LineLoad_Moment
+  fullName: LineLoad.Moment(no, load_case, lines, load_distribution, load_values, load_direction, comment, params)
+- uid: LineLoad#refer_distance_line_end
+  name: refer_distance_line_end(value)
+  href: api/LineLoad.html#LineLoad_refer_distance_line_end
+  fullName: LineLoad.refer_distance_line_end(value)
+- uid: LineLoad#reference_to_list_of_lines
+  name: reference_to_list_of_lines(value)
+  href: api/LineLoad.html#LineLoad_reference_to_list_of_lines
+  fullName: LineLoad.reference_to_list_of_lines(value)
+- uid: LineLoad.#ctor
+  name: LineLoad(no, load_case, lines, comment, params)
+  href: api/LineLoad.html#LineLoad__ctor
+  fullName: LineLoad.LineLoad(no, load_case, lines, comment, params)
+- uid: LineSet
+  name: LineSet
+  href: api/LineSet.html
+  fullName: LineSet
+- uid: LineSet.#ctor
+  name: LineSet(no, lines, comment, params)
+  href: api/LineSet.html#LineSet__ctor
+  fullName: LineSet.LineSet(no, lines, comment, params)
+- uid: LineSetLoad
+  name: LineSetLoad
+  href: api/LineSetLoad.html
+  fullName: LineSetLoad
+- uid: LineSetLoad#Force
+  name: Force(no, load_case, line_sets, load_distribution, load_values, load_direction, comment, params)
+  href: api/LineSetLoad.html#LineSetLoad_Force
+  fullName: LineSetLoad.Force(no, load_case, line_sets, load_distribution, load_values, load_direction, comment, params)
+- uid: LineSetLoad#individual_mass_componnets
+  name: individual_mass_componnets(MX, MY, MZ)
+  href: api/LineSetLoad.html#LineSetLoad_individual_mass_componnets
+  fullName: LineSetLoad.individual_mass_componnets(MX, MY, MZ)
+- uid: LineSetLoad#load_over_line_set
+  name: load_over_line_set(value)
+  href: api/LineSetLoad.html#LineSetLoad_load_over_line_set
+  fullName: LineSetLoad.load_over_line_set(value)
+- uid: LineSetLoad#Mass
+  name: Mass(no, load_case, line_sets, load_value, comment, params)
+  href: api/LineSetLoad.html#LineSetLoad_Mass
+  fullName: LineSetLoad.Mass(no, load_case, line_sets, load_value, comment, params)
+- uid: LineSetLoad#Moment
+  name: Moment(no, load_case, line_sets, load_distribution, load_values, load_direction, comment, params)
+  href: api/LineSetLoad.html#LineSetLoad_Moment
+  fullName: LineSetLoad.Moment(no, load_case, line_sets, load_distribution, load_values, load_direction, comment, params)
+- uid: LineSetLoad#refer_distance_line_set_end
+  name: refer_distance_line_set_end(value)
+  href: api/LineSetLoad.html#LineSetLoad_refer_distance_line_set_end
+  fullName: LineSetLoad.refer_distance_line_set_end(value)
+- uid: LineSetLoad.#ctor
+  name: LineSetLoad(no, load_case, line_sets, comment, params)
+  href: api/LineSetLoad.html#LineSetLoad__ctor
+  fullName: LineSetLoad.LineSetLoad(no, load_case, line_sets, comment, params)

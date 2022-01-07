@@ -33,8 +33,9 @@ var lc7 = createLoadCase(7, 2, load_cases.ACTION_CATEGORY_PERMANENT_G, "Other pe
 
 // assign stability to LC5
 lc5.self_weight_active = true
-lc5.stability_analysis = true
-lc5.stability_analysis_settings = 1
+var stabilitySettings =stability_analysis_settings.create();
+lc5.calculate_critical_load = true
+lc5.stability_analysis_settings = stabilitySettings;
 
 // assign imperfections to LC6
 lc6.consider_imperfection = true
@@ -62,6 +63,8 @@ for (var i = 0; i < number_of_frames; i++)
     Node(undefined, width - console_length, dy, -console_height)
 }
 
+var nodalSupport1 = new NodalSupport();
+nodalSupport1.Hinged();
 // assign nodal support to all nodes that have coordinate Z == 0
 for (var i = 1; i <= nodes.count(); i++)
 {

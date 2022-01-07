@@ -14,7 +14,21 @@ var section_params = { "shear_stiffness_deactivated": true }
 var section_IPE240 = Section(undefined, "IPE 240", material_steel, "", section_params)
 var section_IPE180 = Section(undefined, "IPE 180", material_steel, "", section_params)
 
-var thickness = Thickness(undefined, "", material_concrete, 120mm)
+var th = new Thickness();
+th.Uniform(1, "test 01", 1, [0.120]);
+thickness = 1;
+
+var nodal_support_1 = new NodalSupport();
+nodal_support_1.Hinged();
+
+
+var line_support_1 = new LineSupport();
+line_support_1.Hinged();
+
+eccentricity = MemberEccentricity(1)
+eccentricity.specification_type = member_eccentricities.TYPE_RELATIVE_AND_ABSOLUTE
+eccentricity.vertical_section_alignment = member_eccentricities.ALIGN_TOP
+eccentricity.horizontal_section_alignment = member_eccentricities.ALIGN_MIDDLE
 
 // create geometry of the model
 Node(1, 0, 0, -4)
@@ -30,7 +44,7 @@ Node(11, 0, 0, 0)
 Node(12, 6, 6, -4)
 Node(13, 9.5, 0, 0)
 Node(14, 9.5, 6, 0)
-Node(16, 6, 6, 0, "", { "support": 1 })
+Node(16, 6, 6, 0, "", { "support": nodal_support_1.GetNo() })
 Node(17, 0, 5, -3)
 Node(18, 0, 3, -3.52)
 Node(19, 0, 1, -3)
@@ -38,7 +52,7 @@ Node(20, 0, 5.456, 0)
 Node(21, 0, 0.588, 0)
 
 Line(undefined, "1,2")
-Line(undefined, "11,13", "", { "support": 1 })
+Line(undefined, "11,13", "", { "support": line_support_1.GetNo() })
 Member(undefined, "12,3", "", { "section_start": section_IPE240, "member_eccentricity_start": 1, "member_eccentricity_end": 1 })
 Line(undefined, "4,1")
 Line(undefined, "17,20")
@@ -68,10 +82,6 @@ Surface(undefined, "1,6,3,18,4", thickness)
 Opening(undefined, "5,15,22,20")
 Opening(undefined, "7-10")
 
-eccentricity = MemberEccentricity(1)
-eccentricity.specification_type = member_eccentricities.TYPE_RELATIVE_AND_ABSOLUTE
-eccentricity.vertical_section_alignment = member_eccentricities.ALIGN_TOP
-eccentricity.horizontal_section_alignment = member_eccentricities.ALIGN_MIDDLE
 
 var line_mesh_refinment = LineMeshRefinement()
 line_mesh_refinment.lines = 4

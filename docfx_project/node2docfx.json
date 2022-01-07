@@ -1,0 +1,7 @@
+{
+  "source": {
+    "include": ["../includes"]
+  },
+  "readme": "../README.md",
+  "destination": "api"
+}

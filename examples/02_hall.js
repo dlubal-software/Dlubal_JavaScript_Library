@@ -1,8 +1,10 @@
+run("clearAll.js");
 // setup standard for combination wizard
 general.current_standard_for_combination_wizard = general.NATIONAL_ANNEX_AND_EDITION_EN_1990_DIN_2012_08
 
 // setup required addons
 STRUCTURE_STABILITY.setActive(true)
+applyChanges();
 
 // definition of frame geometry
 var number_of_frames = 5
@@ -26,23 +28,24 @@ function createLoadCase(id, static_analysis_settings, action_category, name)
 
 if (!load_cases.exist(1))
 {
-    var lc1 = createLoadCase(1, 1, load_cases.ACTION_CATEGORY_PERMANENT_G, "Self weight")
+    var lc1 = createLoadCase(undefined, 1, load_cases.ACTION_CATEGORY_PERMANENT_G, "Self weight")
 }
-var lc2 = createLoadCase(2, 2, load_cases.ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H, "Live load")
-var lc3 = createLoadCase(3, 2, load_cases.ACTION_CATEGORY_WIND_QW, "Wind load")
-var lc4 = createLoadCase(4, 2, load_cases.ACTION_CATEGORY_WIND_QW, "Wind load 2")
-var lc5 = createLoadCase(5, 1, load_cases.ACTION_CATEGORY_PERMANENT_IMPOSED_GQ, "Stability - linear")
-var lc6 = createLoadCase(6, 2, load_cases.ACTION_CATEGORY_PERMANENT_IMPOSED_GQ, "Imperfections")
-var lc7 = createLoadCase(7, 2, load_cases.ACTION_CATEGORY_PERMANENT_G, "Other permanent load")
+var lc2 = createLoadCase(undefined, 2, load_cases.ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H, "Live load")
+var lc3 = createLoadCase(undefined, 2, load_cases.ACTION_CATEGORY_WIND_QW, "Wind load")
+var lc4 = createLoadCase(undefined, 2, load_cases.ACTION_CATEGORY_WIND_QW, "Wind load 2")
+var lc5 = createLoadCase(undefined, 1, load_cases.ACTION_CATEGORY_PERMANENT_IMPOSED_GQ, "Stability - linear")
+var lc6 = createLoadCase(undefined, 2, load_cases.ACTION_CATEGORY_PERMANENT_IMPOSED_GQ, "Imperfections")
+var lc7 = createLoadCase(undefined, 2, load_cases.ACTION_CATEGORY_PERMANENT_G, "Other permanent load")
 
 // assign stability to LC5
-lc5.self_weight_active = true
-lc5.stability_analysis = true
-lc5.stability_analysis_settings = 1
+var stabilitySettings =stability_analysis_settings.create();
+lc5.calculate_critical_load = true
+lc5.self_weight_active = true;
+
 
 // assign imperfections to LC6
 lc6.consider_imperfection = true
-lc6.imperfection_case = ImperfectionCase(1, "Local Imperfections Only")
+lc6.imperfection_case = ImperfectionCase(undefined, "Local Imperfections Only")
 
 // prepare materials and sections
 var material = Material(undefined, 'S235 | EN 1993-1-1:2005-05')
@@ -66,12 +69,15 @@ for (var i = 0; i < number_of_frames; i++)
     Node(undefined, width - console_length, dy, -console_height)
 }
 
+// Create nodal support
+var support = new NodalSupport();
+support.Hinged();
 // assign nodal support to all nodes that have coordinate Z == 0
 for (var i = 1; i <= nodes.count(); i++)
 {
     if (nodes[i].global_coordinate_3 == 0)
     {
-        nodes[i].support = nodal_supports[1]
+        nodes[i].support = support.GetNo();
     }
 }
 
