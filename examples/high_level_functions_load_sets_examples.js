@@ -1,4 +1,4 @@
-include("high_level_functions_support.js");
+include("../includes/Tools/high_level_functions_support.js");
 
 /**********************************************************************************************
 ********************************** Support functions ******************************************
