@@ -90,7 +90,7 @@ var lc = new LoadCase();
 var lineSetLoad = new LineSetLoad(undefined, lc, [1], "Line set load sets via parameters", { "load_type" : "Force", "load_distribution" : "Uniform", "magnitude" : 1500 });
 // Line set force concentrated 2x load with load distance "B" set with percents
 var lineSetLoad2 = new LineSetLoad();
-lineSetLoad.Force(undefined, lc, [2], line_set_loads.LOAD_DISTRIBUTION_CONCENTRATED_2, [2000, 0.5, 2500, 0.7, false, true]);
+lineSetLoad2.Force(undefined, lc, [2], line_set_loads.LOAD_DISTRIBUTION_CONCENTRATED_2, [2000, 0.5, 2500, 0.7, false, true]);
 // Line set force trapezoidal load with load over line sets
 var lineSetLoad3 = new LineSetLoad();
 lineSetLoad3.Force(undefined, lc, [3], "Trapezoidal", [1500, 2, 1000, 1]);

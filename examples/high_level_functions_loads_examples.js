@@ -219,11 +219,12 @@ solidLoad.Force(undefined, lc, [1], 2000);
 solidLoad.Temperature(undefined, lc, [1], "Linear in X", [91, 92, 100, 150]);
 // Strain linear in Z solid load
 // Parameter values: [Node1, Node2, ε1x, ε1y, ε1z, ε2x, ε2y, ε2z]
-solidLoad.Strain(undefined, lc, [1], "Linear in Z", [90, 94, 0.2]);
+solidLoad.Strain(undefined, lc, [1], "Linear in Z", [104, 108, 0.2]);
 
 // Buoyancy solid load set via parameters with air density defined by attitude
 var solidLoad2 = new SolidLoad(undefined, lc, [1], "Load set via parameters", { "load_type" : "Buoyancy", "uniform_magnitude" : 1500} );
-solidLoad2.AirDensity(10);
+
+
 
 /***************************************** Opening loads ****************************************/
 var openingLoad = new OpeningLoad();
