@@ -1,0 +1,5 @@
+###############
+#    folder   #
+###############
+node_modules/
+docfx_project/api/

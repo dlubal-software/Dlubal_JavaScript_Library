@@ -9,7 +9,7 @@
       "output": {
         ".html": {
           "relative_path": "api/LineLoad.html",
-          "hash": "s6u/OrOGDuTdrWIQUkPpgJQ8vamIYkM/xQL077bN/Ew="
+          "hash": "JOmgeWwWue5PMfnpqAALIQLyhy8HDiK237xnhKyj3+8="
         }
       },
       "is_incremental": false,
@@ -33,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "api/LineSetLoad.html",
-          "hash": "nLJaVSDL7jMsJNXd4A6/1VjPg01MhA87Bq7YI/busDc="
+          "hash": "mLnZeS+CCQC1zJ4F6twRALMFe/hH5jC4iM1p95yrHQs="
         }
       },
       "is_incremental": false,
@@ -57,10 +57,10 @@
       "output": {
         ".html": {
           "relative_path": "articles/intro.html",
-          "hash": "S7noM5iV2OIkOwyksOwyVa4BjTvQWhRbke6BbJaUneE="
+          "hash": "dnujzP/WrYdSlOt7L0ETlIZJzEsx0EfP/5gqhoIWkGo="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -81,10 +81,10 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "msKkkk/20wMOSa4/RZrnLkTZPB0c46xxLLByLj+llCk="
+          "hash": "KcfkJcEBdTdi35RCwCw1AnKmku5KipziAYNfbPWSzdI="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -106,17 +106,19 @@
   "incremental_info": [
     {
       "status": {
-        "can_incremental": true,
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
         "incrementalPhase": "build",
         "total_file_count": 0,
-        "skipped_file_count": 0
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
         "ConceptualDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 2,
-          "skipped_file_count": 2
+          "skipped_file_count": 0
         },
         "TocDocumentProcessor": {
           "can_incremental": false,
@@ -136,8 +138,8 @@
     },
     {
       "status": {
-        "can_incremental": true,
-        "details": "Can support incremental post processing.",
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
         "incrementalPhase": "postProcessing",
         "total_file_count": 0,
         "skipped_file_count": 0

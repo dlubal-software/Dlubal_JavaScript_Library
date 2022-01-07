@@ -1,10 +1,10 @@
-include("high_level_functions_support.js");
+include("../includes/Tools/high_level_functions_support.js");
 
 /*********************************************************************************************
 ****************************************** Main **********************************************
 *********************************************************************************************/
 
-run("../internal/clearAll.js");
+run("../includes/Tools/clearAll.js");
 
 var material = createMaterial("S235");
 var thickness = createThickness("0.250", material, thicknesses.TYPE_UNIFORM);
