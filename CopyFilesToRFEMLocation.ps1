@@ -60,6 +60,6 @@ catch
 Write-Output "Copying done"
 
 $PathToRFEMExe = $PathToRFEM + "\\bin\\"
-$AppExe = ".\RFEM6.exe --prerelease-mode --dev-mode --dbg-solver --DEV-branch-name-in-title"
+$AppExe = ".\RFEM6.exe"
 Write-Output $PathToRFEMExe
 Start-Process -WorkingDirectory $PathToRFEMExe $AppExe
