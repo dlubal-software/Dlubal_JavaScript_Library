@@ -1,11 +1,13 @@
 /**
  * Create Solid
+ * @class
+ * @constructor
  * @param {int} no - Number of Solid
  * @param {array} boundary_surfaces - List of boundary surfaces
  * @param {int} material - Number of material
  * @param {string} comment - Comment for the Solid
  * @param {dictionary} params - Parameters of the Solid
- * @returns 
+ * @returns Solid
  */
 function Solid(no,
     boundary_surfaces,

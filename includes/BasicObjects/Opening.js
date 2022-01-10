@@ -1,5 +1,7 @@
 /**
  * Create Opening
+ * @class
+ * @constructor
  * @param {int} no - Number of Opening
  * @param {array} boundary_lines - Boundary lines of the Opening
  * @param {string} comment - Comment for the Opening

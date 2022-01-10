@@ -1,5 +1,7 @@
 /**
  * Create Surface Set
+ * @class
+ * @constructor
  * @param {int} no - Number of Surface Set
  * @param {array} surfaces - List of surfaces
  * @param {string} surface_set_type - Surface Set type

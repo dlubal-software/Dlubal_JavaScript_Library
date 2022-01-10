@@ -1,11 +1,13 @@
 /**
  * Create Solid Set
+ * @class
+ * @constructor
  * @param {int} no - Number of Solid Set
  * @param {array} solids_no - List of solids
  * @param {string} solid_set_type - Type of the Solid Set
  * @param {string} comment - Comment for the Solid Set
  * @param {dictionary} params - Parameters of the Solid Set
- * @returns 
+ * @returns Solid Set
  */
 function SolidSet(no,
     solids_no,

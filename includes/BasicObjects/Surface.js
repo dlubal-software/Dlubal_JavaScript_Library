@@ -1,5 +1,7 @@
 /**
  * Create Surface
+ * @class
+ * @constructor
  * @param {int} no - Number of Surface
  * @param {array} boundary_lines - List of boundary lines of surface
  * @param {int} thickness - Number of thickness

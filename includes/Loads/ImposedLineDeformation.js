@@ -2,6 +2,8 @@ include("BaseLoad.js");
 
 /**
 * Creates imposed line deformation
+* @class
+* @constructor
 * @param 	{Number}	no					Index of imposed line deformation, can be undefined
 * @param 	{Object}	load_case			Load case
 * @param 	{Array}		lines				List of lines indexes

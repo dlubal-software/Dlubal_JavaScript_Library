@@ -1,6 +1,162 @@
 ### YamlMime:XRefMap
 sorted: true
 references:
+- uid: FreeCircularLoad
+  name: FreeCircularLoad
+  href: api/FreeCircularLoad.html
+  fullName: FreeCircularLoad
+- uid: FreeCircularLoad#Linear
+  name: Linear(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+  href: api/FreeCircularLoad.html#FreeCircularLoad_Linear
+  fullName: FreeCircularLoad.Linear(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+- uid: FreeCircularLoad#Uniform
+  name: Uniform(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+  href: api/FreeCircularLoad.html#FreeCircularLoad_Uniform
+  fullName: FreeCircularLoad.Uniform(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+- uid: FreeCircularLoad.#ctor
+  name: FreeCircularLoad(no, load_case, surfaces, comment, params)
+  href: api/FreeCircularLoad.html#FreeCircularLoad__ctor
+  fullName: FreeCircularLoad.FreeCircularLoad(no, load_case, surfaces, comment, params)
+- uid: FreeLineLoad
+  name: FreeLineLoad
+  href: api/FreeLineLoad.html
+  fullName: FreeLineLoad
+- uid: FreeLineLoad#Linear
+  name: Linear(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+  href: api/FreeLineLoad.html#FreeLineLoad_Linear
+  fullName: FreeLineLoad.Linear(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+- uid: FreeLineLoad#Uniform
+  name: Uniform(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+  href: api/FreeLineLoad.html#FreeLineLoad_Uniform
+  fullName: FreeLineLoad.Uniform(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+- uid: FreeLineLoad.#ctor
+  name: FreeLineLoad(no, load_case, surfaces, comment, params)
+  href: api/FreeLineLoad.html#FreeLineLoad__ctor
+  fullName: FreeLineLoad.FreeLineLoad(no, load_case, surfaces, comment, params)
+- uid: FreePolygonLoad
+  name: FreePolygonLoad
+  href: api/FreePolygonLoad.html
+  fullName: FreePolygonLoad
+- uid: FreePolygonLoad#Linear
+  name: Linear(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+  href: api/FreePolygonLoad.html#FreePolygonLoad_Linear
+  fullName: FreePolygonLoad.Linear(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+- uid: FreePolygonLoad#LinearX
+  name: LinearX(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+  href: api/FreePolygonLoad.html#FreePolygonLoad_LinearX
+  fullName: FreePolygonLoad.LinearX(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+- uid: FreePolygonLoad#LinearY
+  name: LinearY(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+  href: api/FreePolygonLoad.html#FreePolygonLoad_LinearY
+  fullName: FreePolygonLoad.LinearY(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+- uid: FreePolygonLoad#Uniform
+  name: Uniform(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+  href: api/FreePolygonLoad.html#FreePolygonLoad_Uniform
+  fullName: FreePolygonLoad.Uniform(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+- uid: FreePolygonLoad.#ctor
+  name: FreePolygonLoad(no, load_case, surfaces, comment, params)
+  href: api/FreePolygonLoad.html#FreePolygonLoad__ctor
+  fullName: FreePolygonLoad.FreePolygonLoad(no, load_case, surfaces, comment, params)
+- uid: FreeRectangularLoad
+  name: FreeRectangularLoad
+  href: api/FreeRectangularLoad.html
+  fullName: FreeRectangularLoad
+- uid: FreeRectangularLoad#LinearX
+  name: LinearX(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+  href: api/FreeRectangularLoad.html#FreeRectangularLoad_LinearX
+  fullName: FreeRectangularLoad.LinearX(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+- uid: FreeRectangularLoad#LinearY
+  name: LinearY(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+  href: api/FreeRectangularLoad.html#FreeRectangularLoad_LinearY
+  fullName: FreeRectangularLoad.LinearY(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+- uid: FreeRectangularLoad#Uniform
+  name: Uniform(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+  href: api/FreeRectangularLoad.html#FreeRectangularLoad_Uniform
+  fullName: FreeRectangularLoad.Uniform(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+- uid: FreeRectangularLoad#VaryingPerimeter
+  name: VaryingPerimeter(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+  href: api/FreeRectangularLoad.html#FreeRectangularLoad_VaryingPerimeter
+  fullName: FreeRectangularLoad.VaryingPerimeter(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+- uid: FreeRectangularLoad#VaryingZ
+  name: VaryingZ(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+  href: api/FreeRectangularLoad.html#FreeRectangularLoad_VaryingZ
+  fullName: FreeRectangularLoad.VaryingZ(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+- uid: FreeRectangularLoad#VaryingZAndPerimeter
+  name: VaryingZAndPerimeter(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+  href: api/FreeRectangularLoad.html#FreeRectangularLoad_VaryingZAndPerimeter
+  fullName: FreeRectangularLoad.VaryingZAndPerimeter(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+- uid: FreeRectangularLoad.#ctor
+  name: FreeRectangularLoad(no, load_case, surfaces, comment, params)
+  href: api/FreeRectangularLoad.html#FreeRectangularLoad__ctor
+  fullName: FreeRectangularLoad.FreeRectangularLoad(no, load_case, surfaces, comment, params)
+- uid: ImposedLineDeformation
+  name: ImposedLineDeformation
+  href: api/ImposedLineDeformation.html
+  fullName: ImposedLineDeformation
+- uid: ImposedLineDeformation#Set
+  name: Set(no, load_case, lines, displacement_line_start_x, displacement_line_start_y, displacement_line_start_z, displacement_line_end_x, displacement_line_end_y, displacement_line_end_z, rotation_line_start, rotation_line_end, comment, params)
+  href: api/ImposedLineDeformation.html#ImposedLineDeformation_Set
+  fullName: ImposedLineDeformation.Set(no, load_case, lines, displacement_line_start_x, displacement_line_start_y, displacement_line_start_z, displacement_line_end_x, displacement_line_end_y, displacement_line_end_z, rotation_line_start, rotation_line_end, comment, params)
+- uid: ImposedLineDeformation.#ctor
+  name: ImposedLineDeformation(no, load_case, lines, comment, params)
+  href: api/ImposedLineDeformation.html#ImposedLineDeformation__ctor
+  fullName: ImposedLineDeformation.ImposedLineDeformation(no, load_case, lines, comment, params)
+- uid: ImposedNodalDeformation
+  name: ImposedNodalDeformation
+  href: api/ImposedNodalDeformation.html
+  fullName: ImposedNodalDeformation
+- uid: ImposedNodalDeformation#Set
+  name: Set(no, load_case, nodes, imposed_displacement_x, imposed_displacement_y, imposed_displacement_z, imposed_rotation_x, imposed_rotation_y, imposed_rotation_z, comment, params)
+  href: api/ImposedNodalDeformation.html#ImposedNodalDeformation_Set
+  fullName: ImposedNodalDeformation.Set(no, load_case, nodes, imposed_displacement_x, imposed_displacement_y, imposed_displacement_z, imposed_rotation_x, imposed_rotation_y, imposed_rotation_z, comment, params)
+- uid: ImposedNodalDeformation.#ctor
+  name: ImposedNodalDeformation(no, load_case, nodes, comment, params)
+  href: api/ImposedNodalDeformation.html#ImposedNodalDeformation__ctor
+  fullName: ImposedNodalDeformation.ImposedNodalDeformation(no, load_case, nodes, comment, params)
+- uid: Line
+  name: Line
+  href: api/Line.html
+  fullName: Line
+- uid: Line#Arc
+  name: Arc(no, nodes, control_point, alpha_adjustment_target, comment, params)
+  href: api/Line.html#Line_Arc
+  fullName: Line.Arc(no, nodes, control_point, alpha_adjustment_target, comment, params)
+- uid: Line#Circle
+  name: Circle(no, nodes, center_of_circle, circle_radius, point_of_normal_to_circle_plane, comment, params)
+  href: api/Line.html#Line_Circle
+  fullName: Line.Circle(no, nodes, center_of_circle, circle_radius, point_of_normal_to_circle_plane, comment, params)
+- uid: Line#Ellipse
+  name: Ellipse(no, nodes, p3_control_point, comment, params)
+  href: api/Line.html#Line_Ellipse
+  fullName: Line.Ellipse(no, nodes, p3_control_point, comment, params)
+- uid: Line#EllipticalArc
+  name: EllipticalArc(no, nodes, p1_control_point, p2_control_point, p3_control_point, arc_angle_alpha, arc_angle_beta, comment, params)
+  href: api/Line.html#Line_EllipticalArc
+  fullName: Line.EllipticalArc(no, nodes, p1_control_point, p2_control_point, p3_control_point, arc_angle_alpha, arc_angle_beta, comment, params)
+- uid: Line#nPolygon
+  name: nPolygon(no, control_point, no_edges, radius, plane, rotation_angle, join, comment, params)
+  href: api/Line.html#Line_nPolygon
+  fullName: Line.nPolygon(no, control_point, no_edges, radius, plane, rotation_angle, join, comment, params)
+- uid: Line#Parabola
+  name: Parabola(no, nodes, p3_control_point, parabola_alpha, comment, params)
+  href: api/Line.html#Line_Parabola
+  fullName: Line.Parabola(no, nodes, p3_control_point, parabola_alpha, comment, params)
+- uid: Line#Polyline
+  name: Polyline(no, nodes, comment, params)
+  href: api/Line.html#Line_Polyline
+  fullName: Line.Polyline(no, nodes, comment, params)
+- uid: Line#RectangularPolygon
+  name: RectangularPolygon(no, control_point, length, width, plane, comment, params)
+  href: api/Line.html#Line_RectangularPolygon
+  fullName: Line.RectangularPolygon(no, control_point, length, width, plane, comment, params)
+- uid: Line#Spline
+  name: Spline(no, nodes, comment, params)
+  href: api/Line.html#Line_Spline
+  fullName: Line.Spline(no, nodes, comment, params)
+- uid: Line.#ctor
+  name: Line(no, nodes, comment, params)
+  href: api/Line.html#Line__ctor
+  fullName: Line.Line(no, nodes, comment, params)
 - uid: LineLoad
   name: LineLoad
   href: api/LineLoad.html
@@ -41,6 +197,14 @@ references:
   name: LineSet
   href: api/LineSet.html
   fullName: LineSet
+- uid: LineSet#ContinuousLines
+  name: ContinuousLines(no, lines, comment, params)
+  href: api/LineSet.html#LineSet_ContinuousLines
+  fullName: LineSet.ContinuousLines(no, lines, comment, params)
+- uid: LineSet#GroupOfLines
+  name: GroupOfLines(no, lines, comment, params)
+  href: api/LineSet.html#LineSet_GroupOfLines
+  fullName: LineSet.GroupOfLines(no, lines, comment, params)
 - uid: LineSet.#ctor
   name: LineSet(no, lines, comment, params)
   href: api/LineSet.html#LineSet__ctor
@@ -77,3 +241,615 @@ references:
   name: LineSetLoad(no, load_case, line_sets, comment, params)
   href: api/LineSetLoad.html#LineSetLoad__ctor
   fullName: LineSetLoad.LineSetLoad(no, load_case, line_sets, comment, params)
+- uid: Material
+  name: Material
+  href: api/Material.html
+  fullName: Material
+- uid: Material.#ctor
+  name: Material(no, name, comment, params)
+  href: api/Material.html#Material__ctor
+  fullName: Material.Material(no, name, comment, params)
+- uid: Member
+  name: Member
+  href: api/Member.html
+  fullName: Member
+- uid: Member#Beam
+  name: Beam(no, node_ids, rotation_angle, start_section_no, end_section_no, start_member_hinge_no, end_member_hinge_no, comment, params)
+  href: api/Member.html#Member_Beam
+  fullName: Member.Beam(no, node_ids, rotation_angle, start_section_no, end_section_no, start_member_hinge_no, end_member_hinge_no, comment, params)
+- uid: Member#BeamByLine
+  name: BeamByLine(no, line_no, rotation_angle, start_section_no, end_section_no, start_member_hinge_no, end_member_hinge_no, comment, params)
+  href: api/Member.html#Member_BeamByLine
+  fullName: Member.BeamByLine(no, line_no, rotation_angle, start_section_no, end_section_no, start_member_hinge_no, end_member_hinge_no, comment, params)
+- uid: Member#Buckling
+  name: Buckling(no, node_ids, rotation_angle, start_section_no, comment, params)
+  href: api/Member.html#Member_Buckling
+  fullName: Member.Buckling(no, node_ids, rotation_angle, start_section_no, comment, params)
+- uid: Member#Cable
+  name: Cable(no, node_ids, rotation_angle, start_section_no, comment, params)
+  href: api/Member.html#Member_Cable
+  fullName: Member.Cable(no, node_ids, rotation_angle, start_section_no, comment, params)
+- uid: Member#CableByLine
+  name: CableByLine(no, line_no, rotation_angle, start_section_no, comment, params)
+  href: api/Member.html#Member_CableByLine
+  fullName: Member.CableByLine(no, line_no, rotation_angle, start_section_no, comment, params)
+- uid: Member#Compression
+  name: Compression(no, node_ids, rotation_angle, start_section_no, comment, params)
+  href: api/Member.html#Member_Compression
+  fullName: Member.Compression(no, node_ids, rotation_angle, start_section_no, comment, params)
+- uid: Member#CouplingHinge_Hinge
+  name: CouplingHinge_Hinge(no, node_ids, rotation_angle, comment, params)
+  href: api/Member.html#Member_CouplingHinge_Hinge
+  fullName: Member.CouplingHinge_Hinge(no, node_ids, rotation_angle, comment, params)
+- uid: Member#CouplingHinge_Rigid
+  name: CouplingHinge_Rigid(no, node_ids, rotation_angle, comment, params)
+  href: api/Member.html#Member_CouplingHinge_Rigid
+  fullName: Member.CouplingHinge_Rigid(no, node_ids, rotation_angle, comment, params)
+- uid: Member#CouplingRigid_Hinge
+  name: CouplingRigid_Hinge(no, node_ids, rotation_angle, comment, params)
+  href: api/Member.html#Member_CouplingRigid_Hinge
+  fullName: Member.CouplingRigid_Hinge(no, node_ids, rotation_angle, comment, params)
+- uid: Member#CouplingRigid_Rigid
+  name: CouplingRigid_Rigid(no, node_ids, rotation_angle, comment, params)
+  href: api/Member.html#Member_CouplingRigid_Rigid
+  fullName: Member.CouplingRigid_Rigid(no, node_ids, rotation_angle, comment, params)
+- uid: Member#DefinableStiffness
+  name: DefinableStiffness(no, node_ids, rotation_angle, member_definable_stiffness, start_member_hinge_no, end_member_hinge_no, comment, params)
+  href: api/Member.html#Member_DefinableStiffness
+  fullName: Member.DefinableStiffness(no, node_ids, rotation_angle, member_definable_stiffness, start_member_hinge_no, end_member_hinge_no, comment, params)
+- uid: Member#ResultBeam
+  name: ResultBeam(no, node_ids, rotation_angle, start_section_no, end_section_no, comment, params)
+  href: api/Member.html#Member_ResultBeam
+  fullName: Member.ResultBeam(no, node_ids, rotation_angle, start_section_no, end_section_no, comment, params)
+- uid: Member#Rib
+  name: Rib(no, node_ids, start_section_no, end_section_no, start_member_hinge_no, end_member_hinge_no, comment, params)
+  href: api/Member.html#Member_Rib
+  fullName: Member.Rib(no, node_ids, start_section_no, end_section_no, start_member_hinge_no, end_member_hinge_no, comment, params)
+- uid: Member#RibByLine
+  name: RibByLine(no, line_no, start_section_no, end_section_no, start_member_hinge_no, end_member_hinge_no, comment, params)
+  href: api/Member.html#Member_RibByLine
+  fullName: Member.RibByLine(no, line_no, start_section_no, end_section_no, start_member_hinge_no, end_member_hinge_no, comment, params)
+- uid: Member#Rigid
+  name: Rigid(no, node_ids, rotation_angle, start_member_hinge_no, end_member_hinge_no, comment, params)
+  href: api/Member.html#Member_Rigid
+  fullName: Member.Rigid(no, node_ids, rotation_angle, start_member_hinge_no, end_member_hinge_no, comment, params)
+- uid: Member#Tension
+  name: Tension(no, node_ids, rotation_angle, start_section_no, comment, params)
+  href: api/Member.html#Member_Tension
+  fullName: Member.Tension(no, node_ids, rotation_angle, start_section_no, comment, params)
+- uid: Member#Truss
+  name: Truss(no, node_ids, rotation_angle, start_section_no, comment, params)
+  href: api/Member.html#Member_Truss
+  fullName: Member.Truss(no, node_ids, rotation_angle, start_section_no, comment, params)
+- uid: Member#TrussByLine
+  name: TrussByLine(no, line_no, rotation_angle, start_section_no, comment, params)
+  href: api/Member.html#Member_TrussByLine
+  fullName: Member.TrussByLine(no, line_no, rotation_angle, start_section_no, comment, params)
+- uid: Member#TrussOnlyN
+  name: TrussOnlyN(no, node_ids, rotation_angle, start_section_no, comment, params)
+  href: api/Member.html#Member_TrussOnlyN
+  fullName: Member.TrussOnlyN(no, node_ids, rotation_angle, start_section_no, comment, params)
+- uid: Member.#ctor
+  name: Member(no, node_ids, comment, params)
+  href: api/Member.html#Member__ctor
+  fullName: Member.Member(no, node_ids, comment, params)
+- uid: MemberLoad
+  name: MemberLoad
+  href: api/MemberLoad.html
+  fullName: MemberLoad
+- uid: MemberLoad#AxialDisplacement
+  name: AxialDisplacement(no, load_case, members, load_value, comment, params)
+  href: api/MemberLoad.html#MemberLoad_AxialDisplacement
+  fullName: MemberLoad.AxialDisplacement(no, load_case, members, load_value, comment, params)
+- uid: MemberLoad#AxialStrain
+  name: AxialStrain(no, load_case, members, load_distribution, load_values, load_direction, comment, params)
+  href: api/MemberLoad.html#MemberLoad_AxialStrain
+  fullName: MemberLoad.AxialStrain(no, load_case, members, load_distribution, load_values, load_direction, comment, params)
+- uid: MemberLoad#Displacement
+  name: Displacement(no, load_case, members, load_distribution, load_values, load_direction, comment, params)
+  href: api/MemberLoad.html#MemberLoad_Displacement
+  fullName: MemberLoad.Displacement(no, load_case, members, load_distribution, load_values, load_direction, comment, params)
+- uid: MemberLoad#Eccentricity
+  name: Eccentricity(reference_to, offset_member_start_ey, offset_member_start_ez, offset_member_end_ey, offset_member_end_ez)
+  href: api/MemberLoad.html#MemberLoad_Eccentricity
+  fullName: MemberLoad.Eccentricity(reference_to, offset_member_start_ey, offset_member_start_ez, offset_member_end_ey, offset_member_end_ez)
+- uid: MemberLoad#Force
+  name: Force(no, load_case, members, load_distribution, load_values, load_direction, comment, params)
+  href: api/MemberLoad.html#MemberLoad_Force
+  fullName: MemberLoad.Force(no, load_case, members, load_distribution, load_values, load_direction, comment, params)
+- uid: MemberLoad#IndividualMassComponents
+  name: IndividualMassComponents(MX, MY, MZ)
+  href: api/MemberLoad.html#MemberLoad_IndividualMassComponents
+  fullName: MemberLoad.IndividualMassComponents(MX, MY, MZ)
+- uid: MemberLoad#InitialPrestress
+  name: InitialPrestress(no, load_case, members, load_value, comment, params)
+  href: api/MemberLoad.html#MemberLoad_InitialPrestress
+  fullName: MemberLoad.InitialPrestress(no, load_case, members, load_value, comment, params)
+- uid: MemberLoad#LoadOverMember
+  name: LoadOverMember(value)
+  href: api/MemberLoad.html#MemberLoad_LoadOverMember
+  fullName: MemberLoad.LoadOverMember(value)
+- uid: MemberLoad#Mass
+  name: Mass(no, load_case, members, load_value, comment, params)
+  href: api/MemberLoad.html#MemberLoad_Mass
+  fullName: MemberLoad.Mass(no, load_case, members, load_value, comment, params)
+- uid: MemberLoad#Moment
+  name: Moment(no, load_case, members, load_distribution, load_values, load_direction, comment, params)
+  href: api/MemberLoad.html#MemberLoad_Moment
+  fullName: MemberLoad.Moment(no, load_case, members, load_distribution, load_values, load_direction, comment, params)
+- uid: MemberLoad#PipeContentFull
+  name: PipeContentFull(no, load_case, members, load_value, load_direction, comment, params)
+  href: api/MemberLoad.html#MemberLoad_PipeContentFull
+  fullName: MemberLoad.PipeContentFull(no, load_case, members, load_value, load_direction, comment, params)
+- uid: MemberLoad#PipeContentPartial
+  name: PipeContentPartial(no, load_case, members, load_values, load_direction, comment, params)
+  href: api/MemberLoad.html#MemberLoad_PipeContentPartial
+  fullName: MemberLoad.PipeContentPartial(no, load_case, members, load_values, load_direction, comment, params)
+- uid: MemberLoad#PipeInternalPressure
+  name: PipeInternalPressure(no, load_case, members, load_value, comment, params)
+  href: api/MemberLoad.html#MemberLoad_PipeInternalPressure
+  fullName: MemberLoad.PipeInternalPressure(no, load_case, members, load_value, comment, params)
+- uid: MemberLoad#Precamber
+  name: Precamber(no, load_case, members, load_distribution, load_values, load_direction, comment, params)
+  href: api/MemberLoad.html#MemberLoad_Precamber
+  fullName: MemberLoad.Precamber(no, load_case, members, load_distribution, load_values, load_direction, comment, params)
+- uid: MemberLoad#ReferDistanceMemberEnd
+  name: ReferDistanceMemberEnd(value)
+  href: api/MemberLoad.html#MemberLoad_ReferDistanceMemberEnd
+  fullName: MemberLoad.ReferDistanceMemberEnd(value)
+- uid: MemberLoad#ReferenceToListOfMembers
+  name: ReferenceToListOfMembers(value)
+  href: api/MemberLoad.html#MemberLoad_ReferenceToListOfMembers
+  fullName: MemberLoad.ReferenceToListOfMembers(value)
+- uid: MemberLoad#RotaryMotion
+  name: RotaryMotion(no, load_case, members, load_values, comment, params)
+  href: api/MemberLoad.html#MemberLoad_RotaryMotion
+  fullName: MemberLoad.RotaryMotion(no, load_case, members, load_values, comment, params)
+- uid: MemberLoad#Rotation
+  name: Rotation(no, load_case, members, load_distribution, load_values, load_direction, comment, params)
+  href: api/MemberLoad.html#MemberLoad_Rotation
+  fullName: MemberLoad.Rotation(no, load_case, members, load_distribution, load_values, load_direction, comment, params)
+- uid: MemberLoad#Temperature
+  name: Temperature(no, load_case, members, load_distribution, load_values, load_direction, comment, params)
+  href: api/MemberLoad.html#MemberLoad_Temperature
+  fullName: MemberLoad.Temperature(no, load_case, members, load_distribution, load_values, load_direction, comment, params)
+- uid: MemberLoad#TemperatureChange
+  name: TemperatureChange(no, load_case, members, load_distribution, load_values, load_direction, comment, params)
+  href: api/MemberLoad.html#MemberLoad_TemperatureChange
+  fullName: MemberLoad.TemperatureChange(no, load_case, members, load_distribution, load_values, load_direction, comment, params)
+- uid: MemberLoad.#ctor
+  name: MemberLoad(no, load_case, members, comment, params)
+  href: api/MemberLoad.html#MemberLoad__ctor
+  fullName: MemberLoad.MemberLoad(no, load_case, members, comment, params)
+- uid: MemberSet
+  name: MemberSet
+  href: api/MemberSet.html
+  fullName: MemberSet
+- uid: MemberSet#ContinuousMembers
+  name: ContinuousMembers(no, members, comment, params)
+  href: api/MemberSet.html#MemberSet_ContinuousMembers
+  fullName: MemberSet.ContinuousMembers(no, members, comment, params)
+- uid: MemberSet#GroupOfMembers
+  name: GroupOfMembers(no, members, comment, params)
+  href: api/MemberSet.html#MemberSet_GroupOfMembers
+  fullName: MemberSet.GroupOfMembers(no, members, comment, params)
+- uid: MemberSet.#ctor
+  name: MemberSet(no, members, comment, params)
+  href: api/MemberSet.html#MemberSet__ctor
+  fullName: MemberSet.MemberSet(no, members, comment, params)
+- uid: MemberSetLoad
+  name: MemberSetLoad
+  href: api/MemberSetLoad.html
+  fullName: MemberSetLoad
+- uid: MemberSetLoad#AxialDisplacement
+  name: AxialDisplacement(no, load_case, member_sets, load_value, comment, params)
+  href: api/MemberSetLoad.html#MemberSetLoad_AxialDisplacement
+  fullName: MemberSetLoad.AxialDisplacement(no, load_case, member_sets, load_value, comment, params)
+- uid: MemberSetLoad#AxialStrain
+  name: AxialStrain(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)
+  href: api/MemberSetLoad.html#MemberSetLoad_AxialStrain
+  fullName: MemberSetLoad.AxialStrain(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)
+- uid: MemberSetLoad#Displacement
+  name: Displacement(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)
+  href: api/MemberSetLoad.html#MemberSetLoad_Displacement
+  fullName: MemberSetLoad.Displacement(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)
+- uid: MemberSetLoad#Eccentricity
+  name: Eccentricity(reference_to, offset_member_start_ey, offset_member_start_ez, offset_member_end_ey, offset_member_end_ez)
+  href: api/MemberSetLoad.html#MemberSetLoad_Eccentricity
+  fullName: MemberSetLoad.Eccentricity(reference_to, offset_member_start_ey, offset_member_start_ez, offset_member_end_ey, offset_member_end_ez)
+- uid: MemberSetLoad#Force
+  name: Force(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)
+  href: api/MemberSetLoad.html#MemberSetLoad_Force
+  fullName: MemberSetLoad.Force(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)
+- uid: MemberSetLoad#IndividualMassComponents
+  name: IndividualMassComponents(MX, MY, MZ)
+  href: api/MemberSetLoad.html#MemberSetLoad_IndividualMassComponents
+  fullName: MemberSetLoad.IndividualMassComponents(MX, MY, MZ)
+- uid: MemberSetLoad#InitialPrestress
+  name: InitialPrestress(no, load_case, member_sets, load_value, comment, params)
+  href: api/MemberSetLoad.html#MemberSetLoad_InitialPrestress
+  fullName: MemberSetLoad.InitialPrestress(no, load_case, member_sets, load_value, comment, params)
+- uid: MemberSetLoad#LoadOverMember
+  name: LoadOverMember(value)
+  href: api/MemberSetLoad.html#MemberSetLoad_LoadOverMember
+  fullName: MemberSetLoad.LoadOverMember(value)
+- uid: MemberSetLoad#Mass
+  name: Mass(no, load_case, member_sets, load_value, comment, params)
+  href: api/MemberSetLoad.html#MemberSetLoad_Mass
+  fullName: MemberSetLoad.Mass(no, load_case, member_sets, load_value, comment, params)
+- uid: MemberSetLoad#Moment
+  name: Moment(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)
+  href: api/MemberSetLoad.html#MemberSetLoad_Moment
+  fullName: MemberSetLoad.Moment(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)
+- uid: MemberSetLoad#PipeContentFull
+  name: PipeContentFull(no, load_case, member_sets, load_value, load_direction, comment, params)
+  href: api/MemberSetLoad.html#MemberSetLoad_PipeContentFull
+  fullName: MemberSetLoad.PipeContentFull(no, load_case, member_sets, load_value, load_direction, comment, params)
+- uid: MemberSetLoad#PipeContentPartial
+  name: PipeContentPartial(no, load_case, member_sets, load_values, load_direction, comment, params)
+  href: api/MemberSetLoad.html#MemberSetLoad_PipeContentPartial
+  fullName: MemberSetLoad.PipeContentPartial(no, load_case, member_sets, load_values, load_direction, comment, params)
+- uid: MemberSetLoad#PipeInternalPressure
+  name: PipeInternalPressure(no, load_case, member_sets, load_value, comment, params)
+  href: api/MemberSetLoad.html#MemberSetLoad_PipeInternalPressure
+  fullName: MemberSetLoad.PipeInternalPressure(no, load_case, member_sets, load_value, comment, params)
+- uid: MemberSetLoad#Precamber
+  name: Precamber(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)
+  href: api/MemberSetLoad.html#MemberSetLoad_Precamber
+  fullName: MemberSetLoad.Precamber(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)
+- uid: MemberSetLoad#ReferDistanceMemberSetEnd
+  name: ReferDistanceMemberSetEnd(value)
+  href: api/MemberSetLoad.html#MemberSetLoad_ReferDistanceMemberSetEnd
+  fullName: MemberSetLoad.ReferDistanceMemberSetEnd(value)
+- uid: MemberSetLoad#RotaryMotion
+  name: RotaryMotion(no, load_case, member_sets, load_values, comment, params)
+  href: api/MemberSetLoad.html#MemberSetLoad_RotaryMotion
+  fullName: MemberSetLoad.RotaryMotion(no, load_case, member_sets, load_values, comment, params)
+- uid: MemberSetLoad#Rotation
+  name: Rotation(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)
+  href: api/MemberSetLoad.html#MemberSetLoad_Rotation
+  fullName: MemberSetLoad.Rotation(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)
+- uid: MemberSetLoad#Temperature
+  name: Temperature(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)
+  href: api/MemberSetLoad.html#MemberSetLoad_Temperature
+  fullName: MemberSetLoad.Temperature(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)
+- uid: MemberSetLoad#TemperatureChange
+  name: TemperatureChange(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)
+  href: api/MemberSetLoad.html#MemberSetLoad_TemperatureChange
+  fullName: MemberSetLoad.TemperatureChange(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)
+- uid: MemberSetLoad.#ctor
+  name: MemberSetLoad(no, load_case, member_sets, comment, params)
+  href: api/MemberSetLoad.html#MemberSetLoad__ctor
+  fullName: MemberSetLoad.MemberSetLoad(no, load_case, member_sets, comment, params)
+- uid: NodalLoad
+  name: NodalLoad
+  href: api/NodalLoad.html
+  fullName: NodalLoad
+- uid: NodalLoad#Components
+  name: Components(no, load_case, nodes, forces, moments, comment, params)
+  href: api/NodalLoad.html#NodalLoad_Components
+  fullName: NodalLoad.Components(no, load_case, nodes, forces, moments, comment, params)
+- uid: NodalLoad#Force
+  name: Force(no, load_case, nodes, force, load_direction, comment, params)
+  href: api/NodalLoad.html#NodalLoad_Force
+  fullName: NodalLoad.Force(no, load_case, nodes, force, load_direction, comment, params)
+- uid: NodalLoad#ForceEccentricity
+  name: ForceEccentricity(eccentricity_x, eccentricity_y, eccentricity_z)
+  href: api/NodalLoad.html#NodalLoad_ForceEccentricity
+  fullName: NodalLoad.ForceEccentricity(eccentricity_x, eccentricity_y, eccentricity_z)
+- uid: NodalLoad#IndividualMassComponents
+  name: IndividualMassComponents(mass, distance)
+  href: api/NodalLoad.html#NodalLoad_IndividualMassComponents
+  fullName: NodalLoad.IndividualMassComponents(mass, distance)
+- uid: NodalLoad#Mass
+  name: Mass(no, load_case, nodes, mass, comment, params)
+  href: api/NodalLoad.html#NodalLoad_Mass
+  fullName: NodalLoad.Mass(no, load_case, nodes, mass, comment, params)
+- uid: NodalLoad#Moment
+  name: Moment(no, load_case, nodes, moment, load_direction, comment, params)
+  href: api/NodalLoad.html#NodalLoad_Moment
+  fullName: NodalLoad.Moment(no, load_case, nodes, moment, load_direction, comment, params)
+- uid: NodalLoad#ShiftedDisplay
+  name: ShiftedDisplay(offset, distance)
+  href: api/NodalLoad.html#NodalLoad_ShiftedDisplay
+  fullName: NodalLoad.ShiftedDisplay(offset, distance)
+- uid: NodalLoad#SpecificDirection
+  name: SpecificDirection(type, values)
+  href: api/NodalLoad.html#NodalLoad_SpecificDirection
+  fullName: NodalLoad.SpecificDirection(type, values)
+- uid: NodalLoad.#ctor
+  name: NodalLoad(no, load_case, nodes, comment, params)
+  href: api/NodalLoad.html#NodalLoad__ctor
+  fullName: NodalLoad.NodalLoad(no, load_case, nodes, comment, params)
+- uid: Opening
+  name: Opening
+  href: api/Opening.html
+  fullName: Opening
+- uid: Opening.#ctor
+  name: Opening(no, boundary_lines, comment, params)
+  href: api/Opening.html#Opening__ctor
+  fullName: Opening.Opening(no, boundary_lines, comment, params)
+- uid: OpeningLoad
+  name: OpeningLoad
+  href: api/OpeningLoad.html
+  fullName: OpeningLoad
+- uid: OpeningLoad#Force
+  name: Force(no, load_case, openings, load_distribution, load_values, load_direction, comment, params)
+  href: api/OpeningLoad.html#OpeningLoad_Force
+  fullName: OpeningLoad.Force(no, load_case, openings, load_distribution, load_values, load_direction, comment, params)
+- uid: OpeningLoad#SmoothConcentratedLoad
+  name: SmoothConcentratedLoad(value,)
+  href: api/OpeningLoad.html#OpeningLoad_SmoothConcentratedLoad
+  fullName: OpeningLoad.SmoothConcentratedLoad(value,)
+- uid: OpeningLoad.#ctor
+  name: OpeningLoad(no, load_case, openings, comment, params)
+  href: api/OpeningLoad.html#OpeningLoad__ctor
+  fullName: OpeningLoad.OpeningLoad(no, load_case, openings, comment, params)
+- uid: Section
+  name: Section
+  href: api/Section.html
+  fullName: Section
+- uid: Section.#ctor
+  name: Section(no, name, material, comment, params)
+  href: api/Section.html#Section__ctor
+  fullName: Section.Section(no, name, material, comment, params)
+- uid: Solid
+  name: Solid
+  href: api/Solid.html
+  fullName: Solid
+- uid: Solid#Contact
+  name: Contact(no, boundary_surfaces, material, first_contact_surface, comment, params)
+  href: api/Solid.html#Solid_Contact
+  fullName: Solid.Contact(no, boundary_surfaces, material, first_contact_surface, comment, params)
+- uid: Solid#Gas
+  name: Gas(no, boundary_surfaces, material, comment, params)
+  href: api/Solid.html#Solid_Gas
+  fullName: Solid.Gas(no, boundary_surfaces, material, comment, params)
+- uid: Solid#Standard
+  name: Standard(no, boundary_surfaces, material, comment, params)
+  href: api/Solid.html#Solid_Standard
+  fullName: Solid.Standard(no, boundary_surfaces, material, comment, params)
+- uid: Solid.#ctor
+  name: Solid(no, boundary_surfaces, material, comment, params)
+  href: api/Solid.html#Solid__ctor
+  fullName: Solid.Solid(no, boundary_surfaces, material, comment, params)
+- uid: SolidLoad
+  name: SolidLoad
+  href: api/SolidLoad.html
+  fullName: SolidLoad
+- uid: SolidLoad#AirDensity
+  name: AirDensity(altitude)
+  href: api/SolidLoad.html#SolidLoad_AirDensity
+  fullName: SolidLoad.AirDensity(altitude)
+- uid: SolidLoad#Buoyancy
+  name: Buoyancy(no, load_case, solids, load_value, load_direction, comment, params)
+  href: api/SolidLoad.html#SolidLoad_Buoyancy
+  fullName: SolidLoad.Buoyancy(no, load_case, solids, load_value, load_direction, comment, params)
+- uid: SolidLoad#Force
+  name: Force(no, load_case, solids, load_value, load_direction, comment, params)
+  href: api/SolidLoad.html#SolidLoad_Force
+  fullName: SolidLoad.Force(no, load_case, solids, load_value, load_direction, comment, params)
+- uid: SolidLoad#RotaryMotion
+  name: RotaryMotion(no, load_case, solids, load_values, comment, params)
+  href: api/SolidLoad.html#SolidLoad_RotaryMotion
+  fullName: SolidLoad.RotaryMotion(no, load_case, solids, load_values, comment, params)
+- uid: SolidLoad#Strain
+  name: Strain(no, load_case, solids, load_distribution, load_values, comment, params)
+  href: api/SolidLoad.html#SolidLoad_Strain
+  fullName: SolidLoad.Strain(no, load_case, solids, load_distribution, load_values, comment, params)
+- uid: SolidLoad#Temperature
+  name: Temperature(no, load_case, solids, load_distribution, load_values, comment, params)
+  href: api/SolidLoad.html#SolidLoad_Temperature
+  fullName: SolidLoad.Temperature(no, load_case, solids, load_distribution, load_values, comment, params)
+- uid: SolidLoad.#ctor
+  name: SolidLoad(no, load_case, solids, comment, params)
+  href: api/SolidLoad.html#SolidLoad__ctor
+  fullName: SolidLoad.SolidLoad(no, load_case, solids, comment, params)
+- uid: SolidSet
+  name: SolidSet
+  href: api/SolidSet.html
+  fullName: SolidSet
+- uid: SolidSet#ContinuousSolids
+  name: ContinuousSolids(no, solids_no, comment, params)
+  href: api/SolidSet.html#SolidSet_ContinuousSolids
+  fullName: SolidSet.ContinuousSolids(no, solids_no, comment, params)
+- uid: SolidSet#GroupOfSolids
+  name: GroupOfSolids(no, solids_no, comment, params)
+  href: api/SolidSet.html#SolidSet_GroupOfSolids
+  fullName: SolidSet.GroupOfSolids(no, solids_no, comment, params)
+- uid: SolidSet.#ctor
+  name: SolidSet(no, solids_no, solid_set_type, comment, params)
+  href: api/SolidSet.html#SolidSet__ctor
+  fullName: SolidSet.SolidSet(no, solids_no, solid_set_type, comment, params)
+- uid: SolidSetLoad
+  name: SolidSetLoad
+  href: api/SolidSetLoad.html
+  fullName: SolidSetLoad
+- uid: SolidSetLoad#AirDensity
+  name: AirDensity(altitude)
+  href: api/SolidSetLoad.html#SolidSetLoad_AirDensity
+  fullName: SolidSetLoad.AirDensity(altitude)
+- uid: SolidSetLoad#Buoyancy
+  name: Buoyancy(no, load_case, solid_sets, load_value, load_direction, comment, params)
+  href: api/SolidSetLoad.html#SolidSetLoad_Buoyancy
+  fullName: SolidSetLoad.Buoyancy(no, load_case, solid_sets, load_value, load_direction, comment, params)
+- uid: SolidSetLoad#Force
+  name: Force(no, load_case, solid_sets, load_value, load_direction, comment, params)
+  href: api/SolidSetLoad.html#SolidSetLoad_Force
+  fullName: SolidSetLoad.Force(no, load_case, solid_sets, load_value, load_direction, comment, params)
+- uid: SolidSetLoad#RotaryMotion
+  name: RotaryMotion(no, load_case, solid_sets, load_values, comment, params)
+  href: api/SolidSetLoad.html#SolidSetLoad_RotaryMotion
+  fullName: SolidSetLoad.RotaryMotion(no, load_case, solid_sets, load_values, comment, params)
+- uid: SolidSetLoad#Strain
+  name: Strain(no, load_case, solid_sets, load_distribution, load_values, comment, params)
+  href: api/SolidSetLoad.html#SolidSetLoad_Strain
+  fullName: SolidSetLoad.Strain(no, load_case, solid_sets, load_distribution, load_values, comment, params)
+- uid: SolidSetLoad#Temperature
+  name: Temperature(no, load_case, solid_sets, load_distribution, load_values, comment, params)
+  href: api/SolidSetLoad.html#SolidSetLoad_Temperature
+  fullName: SolidSetLoad.Temperature(no, load_case, solid_sets, load_distribution, load_values, comment, params)
+- uid: SolidSetLoad.#ctor
+  name: SolidSetLoad(no, load_case, solid_sets, comment, params)
+  href: api/SolidSetLoad.html#SolidSetLoad__ctor
+  fullName: SolidSetLoad.SolidSetLoad(no, load_case, solid_sets, comment, params)
+- uid: Surface
+  name: Surface
+  href: api/Surface.html
+  fullName: Surface
+- uid: Surface#LoadDistribution
+  name: LoadDistribution(no, boundary_lines, load_transfer_direction, comment, params)
+  href: api/Surface.html#Surface_LoadDistribution
+  fullName: Surface.LoadDistribution(no, boundary_lines, load_transfer_direction, comment, params)
+- uid: Surface#Membrane
+  name: Membrane(no, geometry_type, geometry_type_parameters, boundary_lines, thickness, comment, params)
+  href: api/Surface.html#Surface_Membrane
+  fullName: Surface.Membrane(no, geometry_type, geometry_type_parameters, boundary_lines, thickness, comment, params)
+- uid: Surface#Rigid
+  name: Rigid(no, geometry_type, geometry_type_parameters, boundary_lines, comment, params)
+  href: api/Surface.html#Surface_Rigid
+  fullName: Surface.Rigid(no, geometry_type, geometry_type_parameters, boundary_lines, comment, params)
+- uid: Surface#Standard
+  name: Standard(no, geometry_type, geometry_type_parameters, boundary_lines, thickness, comment, params)
+  href: api/Surface.html#Surface_Standard
+  fullName: Surface.Standard(no, geometry_type, geometry_type_parameters, boundary_lines, thickness, comment, params)
+- uid: Surface#WithoutMembraneTension
+  name: WithoutMembraneTension(no, geometry_type, geometry_type_parameters, boundary_lines, thickness, comment, params)
+  href: api/Surface.html#Surface_WithoutMembraneTension
+  fullName: Surface.WithoutMembraneTension(no, geometry_type, geometry_type_parameters, boundary_lines, thickness, comment, params)
+- uid: Surface#WithoutThickness
+  name: WithoutThickness(no, geometry_type, geometry_type_parameters, boundary_lines, comment, params)
+  href: api/Surface.html#Surface_WithoutThickness
+  fullName: Surface.WithoutThickness(no, geometry_type, geometry_type_parameters, boundary_lines, comment, params)
+- uid: Surface.#ctor
+  name: Surface(no, boundary_lines, thickness, comment, params)
+  href: api/Surface.html#Surface__ctor
+  fullName: Surface.Surface(no, boundary_lines, thickness, comment, params)
+- uid: SurfaceLoad
+  name: SurfaceLoad
+  href: api/SurfaceLoad.html
+  fullName: SurfaceLoad
+- uid: SurfaceLoad#AxialStrain
+  name: AxialStrain(no, load_case, surfaces, load_distribution, load_values, comment, params)
+  href: api/SurfaceLoad.html#SurfaceLoad_AxialStrain
+  fullName: SurfaceLoad.AxialStrain(no, load_case, surfaces, load_distribution, load_values, comment, params)
+- uid: SurfaceLoad#Force
+  name: Force(no, load_case, surfaces, load_distribution, load_values, load_direction, comment, params)
+  href: api/SurfaceLoad.html#SurfaceLoad_Force
+  fullName: SurfaceLoad.Force(no, load_case, surfaces, load_distribution, load_values, load_direction, comment, params)
+- uid: SurfaceLoad#IndividualMassComponents
+  name: IndividualMassComponents(MX, MY, MZ)
+  href: api/SurfaceLoad.html#SurfaceLoad_IndividualMassComponents
+  fullName: SurfaceLoad.IndividualMassComponents(MX, MY, MZ)
+- uid: SurfaceLoad#Mass
+  name: Mass(no, load_case, surfaces, load_value, comment, params)
+  href: api/SurfaceLoad.html#SurfaceLoad_Mass
+  fullName: SurfaceLoad.Mass(no, load_case, surfaces, load_value, comment, params)
+- uid: SurfaceLoad#Precamber
+  name: Precamber(no, load_case, surfaces, load_value, comment, params)
+  href: api/SurfaceLoad.html#SurfaceLoad_Precamber
+  fullName: SurfaceLoad.Precamber(no, load_case, surfaces, load_value, comment, params)
+- uid: SurfaceLoad#RotaryMotion
+  name: RotaryMotion(no, load_case, surfaces, load_values, comment, params)
+  href: api/SurfaceLoad.html#SurfaceLoad_RotaryMotion
+  fullName: SurfaceLoad.RotaryMotion(no, load_case, surfaces, load_values, comment, params)
+- uid: SurfaceLoad#Temperature
+  name: Temperature(no, load_case, surfaces, load_distribution, load_values, comment, params)
+  href: api/SurfaceLoad.html#SurfaceLoad_Temperature
+  fullName: SurfaceLoad.Temperature(no, load_case, surfaces, load_distribution, load_values, comment, params)
+- uid: SurfaceLoad.#ctor
+  name: SurfaceLoad(no, load_case, surfaces, comment, params)
+  href: api/SurfaceLoad.html#SurfaceLoad__ctor
+  fullName: SurfaceLoad.SurfaceLoad(no, load_case, surfaces, comment, params)
+- uid: SurfaceSet
+  name: SurfaceSet
+  href: api/SurfaceSet.html
+  fullName: SurfaceSet
+- uid: SurfaceSet#ContinuousSurfaces
+  name: ContinuousSurfaces(no, surfaces, comment, params)
+  href: api/SurfaceSet.html#SurfaceSet_ContinuousSurfaces
+  fullName: SurfaceSet.ContinuousSurfaces(no, surfaces, comment, params)
+- uid: SurfaceSet#GroupOfSurfaces
+  name: GroupOfSurfaces(no, surfaces, comment, params)
+  href: api/SurfaceSet.html#SurfaceSet_GroupOfSurfaces
+  fullName: SurfaceSet.GroupOfSurfaces(no, surfaces, comment, params)
+- uid: SurfaceSet.#ctor
+  name: SurfaceSet(no, surfaces, surface_set_type, comment, params)
+  href: api/SurfaceSet.html#SurfaceSet__ctor
+  fullName: SurfaceSet.SurfaceSet(no, surfaces, surface_set_type, comment, params)
+- uid: SurfaceSetLoad
+  name: SurfaceSetLoad
+  href: api/SurfaceSetLoad.html
+  fullName: SurfaceSetLoad
+- uid: SurfaceSetLoad#AxialStrain
+  name: AxialStrain(no, load_case, surface_sets, load_distribution, load_values, comment, params)
+  href: api/SurfaceSetLoad.html#SurfaceSetLoad_AxialStrain
+  fullName: SurfaceSetLoad.AxialStrain(no, load_case, surface_sets, load_distribution, load_values, comment, params)
+- uid: SurfaceSetLoad#Force
+  name: Force(no, load_case, surface_sets, load_distribution, load_values, load_direction, comment, params)
+  href: api/SurfaceSetLoad.html#SurfaceSetLoad_Force
+  fullName: SurfaceSetLoad.Force(no, load_case, surface_sets, load_distribution, load_values, load_direction, comment, params)
+- uid: SurfaceSetLoad#IndividualMassComponents
+  name: IndividualMassComponents(MX, MY, MZ)
+  href: api/SurfaceSetLoad.html#SurfaceSetLoad_IndividualMassComponents
+  fullName: SurfaceSetLoad.IndividualMassComponents(MX, MY, MZ)
+- uid: SurfaceSetLoad#Mass
+  name: Mass(no, load_case, surface_sets, load_value, comment, params)
+  href: api/SurfaceSetLoad.html#SurfaceSetLoad_Mass
+  fullName: SurfaceSetLoad.Mass(no, load_case, surface_sets, load_value, comment, params)
+- uid: SurfaceSetLoad#Precamber
+  name: Precamber(no, load_case, surface_sets, load_value, comment, params)
+  href: api/SurfaceSetLoad.html#SurfaceSetLoad_Precamber
+  fullName: SurfaceSetLoad.Precamber(no, load_case, surface_sets, load_value, comment, params)
+- uid: SurfaceSetLoad#RotaryMotion
+  name: RotaryMotion(no, load_case, surface_sets, load_values, comment, params)
+  href: api/SurfaceSetLoad.html#SurfaceSetLoad_RotaryMotion
+  fullName: SurfaceSetLoad.RotaryMotion(no, load_case, surface_sets, load_values, comment, params)
+- uid: SurfaceSetLoad#Temperature
+  name: Temperature(no, load_case, surface_sets, load_distribution, load_values, comment, params)
+  href: api/SurfaceSetLoad.html#SurfaceSetLoad_Temperature
+  fullName: SurfaceSetLoad.Temperature(no, load_case, surface_sets, load_distribution, load_values, comment, params)
+- uid: SurfaceSetLoad.#ctor
+  name: SurfaceSetLoad(no, load_case, line_sets, comment, params)
+  href: api/SurfaceSetLoad.html#SurfaceSetLoad__ctor
+  fullName: SurfaceSetLoad.SurfaceSetLoad(no, load_case, line_sets, comment, params)
+- uid: Thickness
+  name: Thickness
+  href: api/Thickness.html
+  fullName: Thickness
+- uid: Thickness#Layers
+  name: Layers(no, name, layers, comment, params)
+  href: api/Thickness.html#Thickness_Layers
+  fullName: Thickness.Layers(no, name, layers, comment, params)
+- uid: Thickness#ShapeOrthotropy
+  name: ShapeOrthotropy(no, name, layers, orthotropy_type, rotation_beta, consideration_of_self_weight, parameters, comment, params)
+  href: api/Thickness.html#Thickness_ShapeOrthotropy
+  fullName: Thickness.ShapeOrthotropy(no, name, layers, orthotropy_type, rotation_beta, consideration_of_self_weight, parameters, comment, params)
+- uid: Thickness#StiffnessMatrix
+  name: StiffnessMatrix(no, name, rotation_beta, consideration_of_self_weight, coefficient_of_thermal_expansion, stiffness_matrix, comment, params)
+  href: api/Thickness.html#Thickness_StiffnessMatrix
+  fullName: Thickness.StiffnessMatrix(no, name, rotation_beta, consideration_of_self_weight, coefficient_of_thermal_expansion, stiffness_matrix, comment, params)
+- uid: Thickness#Uniform
+  name: Uniform(no, name, material, properties, comment, params)
+  href: api/Thickness.html#Thickness_Uniform
+  fullName: Thickness.Uniform(no, name, material, properties, comment, params)
+- uid: Thickness#Variable_2NodesAndDirection
+  name: Variable_2NodesAndDirection(no, name, material, properties, comment, params)
+  href: api/Thickness.html#Thickness_Variable_2NodesAndDirection
+  fullName: Thickness.Variable_2NodesAndDirection(no, name, material, properties, comment, params)
+- uid: Thickness#Variable_3Nodes
+  name: Variable_3Nodes(no, name, material, properties, comment, params)
+  href: api/Thickness.html#Thickness_Variable_3Nodes
+  fullName: Thickness.Variable_3Nodes(no, name, material, properties, comment, params)
+- uid: Thickness#Variable_4SurfaceCorners
+  name: Variable_4SurfaceCorners(no, name, material, properties, comment, params)
+  href: api/Thickness.html#Thickness_Variable_4SurfaceCorners
+  fullName: Thickness.Variable_4SurfaceCorners(no, name, material, properties, comment, params)
+- uid: Thickness#Variable_Circle
+  name: Variable_Circle(no, name, material, properties, comment, params)
+  href: api/Thickness.html#Thickness_Variable_Circle
+  fullName: Thickness.Variable_Circle(no, name, material, properties, comment, params)
+- uid: Thickness.#ctor
+  name: Thickness(no, name, material, uniform_thickness_d, comment, params)
+  href: api/Thickness.html#Thickness__ctor
+  fullName: Thickness.Thickness(no, name, material, uniform_thickness_d, comment, params)

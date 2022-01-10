@@ -1,6 +1,6 @@
 /**
- * @class LineSet
- * @constructor
+ * @class
+ * @constructor 
  * @param {int} no - Number of Line Set
  * @param {array} lines - List of the number of the lines
  * @param {string} comment - Comment for the Line Set

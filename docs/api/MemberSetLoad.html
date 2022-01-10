@@ -1,0 +1,1923 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class MemberSetLoad
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class MemberSetLoad
+   ">
+    <meta name="generator" content="docfx 2.57.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="MemberSetLoad">
+  
+  
+  <h1 id="MemberSetLoad" data-uid="MemberSetLoad">Class MemberSetLoad
+  </h1>
+  <div class="markdown level0 summary"><p>Creates member set load</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <h4 id="MemberSetLoad__ctor" data-uid="MemberSetLoad.#ctor">MemberSetLoad(no, load_case, member_sets, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates member set load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">new MemberSetLoad(no, load_case, member_sets, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of member set load, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
+        <td>
+          <p>Load case</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>member_sets</em></td>
+        <td>
+          <p>List of member sets indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Load parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>Created member set load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="functions">Functions
+  </h3>
+  
+  
+  <h4 id="MemberSetLoad_Force" data-uid="MemberSetLoad#Force">Force(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates member set force load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Force(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of member set load, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
+        <td>
+          <p>Load case</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>member_sets</em></td>
+        <td>
+          <p>List of member sets indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_distribution</em></td>
+        <td>
+          <p>Load distribution</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>load_values</em></td>
+        <td>
+          <p>Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_direction</em></td>
+        <td>
+          <p>Load direction, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Load parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>Created member set force load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MemberSetLoad_Moment" data-uid="MemberSetLoad#Moment">Moment(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates member set moment load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Moment(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of member set load, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
+        <td>
+          <p>Load case</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>member_sets</em></td>
+        <td>
+          <p>List of member sets indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_distribution</em></td>
+        <td>
+          <p>Load distribution</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>load_values</em></td>
+        <td>
+          <p>Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_direction</em></td>
+        <td>
+          <p>Load direction, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Load parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>Created member set moment load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MemberSetLoad_Mass" data-uid="MemberSetLoad#Mass">Mass(no, load_case, member_sets, load_value, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates member set mass load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Mass(no, load_case, member_sets, load_value, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of member set load, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
+        <td>
+          <p>Load case</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>member_sets</em></td>
+        <td>
+          <p>List of member sets indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>load_value</em></td>
+        <td>
+          <p>Uniform load parameter</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Load parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>Created member set mass load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MemberSetLoad_Temperature" data-uid="MemberSetLoad#Temperature">Temperature(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates member set temperature load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Temperature(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of member set load, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
+        <td>
+          <p>Load case</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>member_sets</em></td>
+        <td>
+          <p>List of member indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_distribution</em></td>
+        <td>
+          <p>Load distribution</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>load_values</em></td>
+        <td>
+          <p>Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_direction</em></td>
+        <td>
+          <p>Load direction, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Load parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>Created member set temperature load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MemberSetLoad_TemperatureChange" data-uid="MemberSetLoad#TemperatureChange">TemperatureChange(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates member set temperature change load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function TemperatureChange(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of member set load, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
+        <td>
+          <p>Load case</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>member_sets</em></td>
+        <td>
+          <p>List of member set indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_distribution</em></td>
+        <td>
+          <p>Load distribution</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>load_values</em></td>
+        <td>
+          <p>Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_direction</em></td>
+        <td>
+          <p>Load direction</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Load parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>Created member set temperature change load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MemberSetLoad_AxialStrain" data-uid="MemberSetLoad#AxialStrain">AxialStrain(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates member set axial strain load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function AxialStrain(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of member set load, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
+        <td>
+          <p>Load case</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>member_sets</em></td>
+        <td>
+          <p>List of member set indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_distribution</em></td>
+        <td>
+          <p>Load distribution</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>load_values</em></td>
+        <td>
+          <p>Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_direction</em></td>
+        <td>
+          <p>Load direction, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Load parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>Created member set axial strain load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MemberSetLoad_AxialDisplacement" data-uid="MemberSetLoad#AxialDisplacement">AxialDisplacement(no, load_case, member_sets, load_value, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates member set axial displacement load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function AxialDisplacement(no, load_case, member_sets, load_value, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of member set load, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
+        <td>
+          <p>Load case</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>member_sets</em></td>
+        <td>
+          <p>List of member sets indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>load_value</em></td>
+        <td>
+          <p>Uniform load parameter</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Load parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>Created member set axial displacement load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MemberSetLoad_Precamber" data-uid="MemberSetLoad#Precamber">Precamber(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates member set precamber load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Precamber(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of member set load, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
+        <td>
+          <p>Load case</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>member_sets</em></td>
+        <td>
+          <p>List of member sets indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_distribution</em></td>
+        <td>
+          <p>Load distribution</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>load_values</em></td>
+        <td>
+          <p>Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_direction</em></td>
+        <td>
+          <p>Load direction</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Load parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>Created member set precamber load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MemberSetLoad_InitialPrestress" data-uid="MemberSetLoad#InitialPrestress">InitialPrestress(no, load_case, member_sets, load_value, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates member set initial prestress load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function InitialPrestress(no, load_case, member_sets, load_value, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of member set load, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
+        <td>
+          <p>Load case</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>member_sets</em></td>
+        <td>
+          <p>List of member set indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>load_value</em></td>
+        <td>
+          <p>Uniform load parameter</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Load parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>Created member set initial prestress load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MemberSetLoad_Displacement" data-uid="MemberSetLoad#Displacement">Displacement(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates member set displacement load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Displacement(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of member set load, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
+        <td>
+          <p>Load case</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>member_sets</em></td>
+        <td>
+          <p>List of member set indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_distribution</em></td>
+        <td>
+          <p>Load distribution</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>load_values</em></td>
+        <td>
+          <p>Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_direction</em></td>
+        <td>
+          <p>Load direction, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Load parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>Created member set displacement load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MemberSetLoad_Rotation" data-uid="MemberSetLoad#Rotation">Rotation(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates member set rotation load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Rotation(no, load_case, member_sets, load_distribution, load_values, load_direction, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of member set load, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
+        <td>
+          <p>Load case</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>member_sets</em></td>
+        <td>
+          <p>List of member set indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_distribution</em></td>
+        <td>
+          <p>Load distribution</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>load_values</em></td>
+        <td>
+          <p>Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_direction</em></td>
+        <td>
+          <p>Load direction, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Load parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>Created member set rotation load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MemberSetLoad_PipeContentFull" data-uid="MemberSetLoad#PipeContentFull">PipeContentFull(no, load_case, member_sets, load_value, load_direction, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates member set content full load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function PipeContentFull(no, load_case, member_sets, load_value, load_direction, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of member set load, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
+        <td>
+          <p>Load case</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>member_sets</em></td>
+        <td>
+          <p>List of member sets indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>load_value</em></td>
+        <td>
+          <p>Uniform load parameter</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_direction</em></td>
+        <td>
+          <p>Load direction, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Load parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>Created member set pipe content full load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MemberSetLoad_PipeContentPartial" data-uid="MemberSetLoad#PipeContentPartial">PipeContentPartial(no, load_case, member_sets, load_values, load_direction, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates member set pipe content partial load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function PipeContentPartial(no, load_case, member_sets, load_values, load_direction, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of member set load, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
+        <td>
+          <p>Load case</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>member_sets</em></td>
+        <td>
+          <p>List of member set indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>load_values</em></td>
+        <td>
+          <p>Load parameters for Uniform distribution</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_direction</em></td>
+        <td>
+          <p>Load direction, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Load parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>Created member set pipe content partial load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MemberSetLoad_PipeInternalPressure" data-uid="MemberSetLoad#PipeInternalPressure">PipeInternalPressure(no, load_case, member_sets, load_value, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates member set pipe internal pressure load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function PipeInternalPressure(no, load_case, member_sets, load_value, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of member set load, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
+        <td>
+          <p>Load case</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>member_sets</em></td>
+        <td>
+          <p>List of member set indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>load_value</em></td>
+        <td>
+          <p>Uniform load parameter</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Load parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>Created member set pipe internal pressure load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MemberSetLoad_RotaryMotion" data-uid="MemberSetLoad#RotaryMotion">RotaryMotion(no, load_case, member_sets, load_values, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates member set rotary motion load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function RotaryMotion(no, load_case, member_sets, load_values, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of member set load, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
+        <td>
+          <p>Load case</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>member_sets</em></td>
+        <td>
+          <p>List of member set indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>load_values</em></td>
+        <td>
+          <p>Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Load parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>Created member set rotary motion load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MemberSetLoad_ReferDistanceMemberSetEnd" data-uid="MemberSetLoad#ReferDistanceMemberSetEnd">ReferDistanceMemberSetEnd(value)</h4>
+  <div class="markdown level1 summary"><p>Sets option for refer distance to the member set end</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function ReferDistanceMemberSetEnd(value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>value</em></td>
+        <td>
+          <p>When undefined, true as default</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MemberSetLoad_LoadOverMember" data-uid="MemberSetLoad#LoadOverMember">LoadOverMember(value)</h4>
+  <div class="markdown level1 summary"><p>Sets option for load over total length of member set (only for trapezoidal load distribution)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function LoadOverMember(value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>value</em></td>
+        <td>
+          <p>When undefined, true as default</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MemberSetLoad_Eccentricity" data-uid="MemberSetLoad#Eccentricity">Eccentricity(reference_to, offset_member_start_ey, offset_member_start_ez, offset_member_end_ey, offset_member_end_ez)</h4>
+  <div class="markdown level1 summary"><p>Sets eccentricity (only force load)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Eccentricity(reference_to, offset_member_start_ey, offset_member_start_ez, offset_member_end_ey, offset_member_end_ez)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>reference_to</em></td>
+        <td>
+          <p>Eccentricity is refereed to what (&quot;left_top&quot;, &quot;center_top&quot;, &quot;right_top&quot;, &quot;left_center&quot;, &quot;center_center&quot;, &quot;right_center&quot;,
+&quot;left_bottom&quot;, &quot;center_bottom&quot;, &quot;right_bottom&quot;, &quot;center_of_gravity&quot;, &quot;shear_center&quot;)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>offset_member_start_ey</em></td>
+        <td>
+          <p>Offset at member start, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>offset_member_start_ez</em></td>
+        <td>
+          <p>Offset at member start, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>offset_member_end_ey</em></td>
+        <td>
+          <p>Offset at member end, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>offset_member_end_ez</em></td>
+        <td>
+          <p>Offset at member end, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MemberSetLoad_IndividualMassComponents" data-uid="MemberSetLoad#IndividualMassComponents">IndividualMassComponents(MX, MY, MZ)</h4>
+  <div class="markdown level1 summary"><p>Sets individual mass components (only for mass load)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function IndividualMassComponents(MX, MY, MZ)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>MX</em></td>
+        <td>
+          <p>Mass in X coordination, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>MY</em></td>
+        <td>
+          <p>Mass in Y coordination, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>MZ</em></td>
+        <td>
+          <p>Mass in Z coordination, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

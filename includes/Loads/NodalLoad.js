@@ -2,6 +2,8 @@ include("BaseLoad.js");
 
 /**
 * Creates nodal load
+* @class
+* @constructor
 * @param 	{Number}	no					Index of nodal load, can be undefined
 * @param 	{Object}	load_case			Load case
 * @param 	{Array}		nodes				List of node indexes

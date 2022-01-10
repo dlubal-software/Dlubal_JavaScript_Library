@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class LineSetLoad
+    <title>Class NodalLoad
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class LineSetLoad
+    <meta name="title" content="Class NodalLoad
    ">
     <meta name="generator" content="docfx 2.57.2.0">
     
@@ -68,25 +68,25 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="LineSetLoad">
+            <article class="content wrap" id="_content" data-uid="NodalLoad">
   
   
-  <h1 id="LineSetLoad" data-uid="LineSetLoad">Class LineSetLoad
+  <h1 id="NodalLoad" data-uid="NodalLoad">Class NodalLoad
   </h1>
-  <div class="markdown level0 summary"><p>Creates line set load</p>
+  <div class="markdown level0 summary"><p>Creates nodal load</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <h4 id="LineSetLoad__ctor" data-uid="LineSetLoad.#ctor">LineSetLoad(no, load_case, line_sets, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates line set load</p>
+  <h4 id="NodalLoad__ctor" data-uid="NodalLoad.#ctor">NodalLoad(no, load_case, nodes, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates nodal load</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">new LineSetLoad(no, load_case, line_sets, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">new NodalLoad(no, load_case, nodes, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -102,7 +102,7 @@
         <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Index of line set load, can be undefined</p>
+          <p>Index of nodal load, can be undefined</p>
 
           
         </td>
@@ -118,9 +118,9 @@
       </tr>
       <tr>
         <td><span class="xref">Array</span></td>
-        <td><em>line_sets</em></td>
+        <td><em>nodes</em></td>
         <td>
-          <p>List of line sets indexes</p>
+          <p>List of node indexes</p>
 
           
         </td>
@@ -156,7 +156,7 @@
     <tbody>
       <tr>
         <td><span class="xref">Object</span></td>
-        <td><p>Created line set load</p>
+        <td><p>Created nodal load</p>
 </td>
       </tr>
     </tbody>
@@ -165,13 +165,13 @@
   </h3>
   
   
-  <h4 id="LineSetLoad_Force" data-uid="LineSetLoad#Force">Force(no, load_case, line_sets, load_distribution, load_values, load_direction, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates line set force load</p>
+  <h4 id="NodalLoad_Force" data-uid="NodalLoad#Force">Force(no, load_case, nodes, force, load_direction, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates nodal force load</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Force(no, load_case, line_sets, load_distribution, load_values, load_direction, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function Force(no, load_case, nodes, force, load_direction, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -187,7 +187,7 @@
         <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Index of line set load, can be undefined</p>
+          <p>Index of nodal load, can be undefined</p>
 
           
         </td>
@@ -203,27 +203,18 @@
       </tr>
       <tr>
         <td><span class="xref">Array</span></td>
-        <td><em>line_sets</em></td>
+        <td><em>nodes</em></td>
         <td>
-          <p>List of line sets</p>
+          <p>List of node indexes</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>load_distribution</em></td>
+        <td><span class="xref">Number</span></td>
+        <td><em>force</em></td>
         <td>
-          <p>Load distribution</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Array</span></td>
-        <td><em>load_values</em></td>
-        <td>
-          <p>Load parameters depend on load distribution (for more information look at setLineLoadDistribution function)</p>
+          <p>Load force value</p>
 
           
         </td>
@@ -268,20 +259,20 @@
     <tbody>
       <tr>
         <td><span class="xref">Object</span></td>
-        <td><p>Created line set force load</p>
+        <td><p>Created nodal force load</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <h4 id="LineSetLoad_Moment" data-uid="LineSetLoad#Moment">Moment(no, load_case, line_sets, load_distribution, load_values, load_direction, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates line set moment load</p>
+  <h4 id="NodalLoad_Moment" data-uid="NodalLoad#Moment">Moment(no, load_case, nodes, moment, load_direction, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates nodal moment load</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Moment(no, load_case, line_sets, load_distribution, load_values, load_direction, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function Moment(no, load_case, nodes, moment, load_direction, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -297,7 +288,7 @@
         <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Index of line set load, can be undefined</p>
+          <p>Index of nodal load, can be undefined</p>
 
           
         </td>
@@ -313,27 +304,18 @@
       </tr>
       <tr>
         <td><span class="xref">Array</span></td>
-        <td><em>line_sets</em></td>
+        <td><em>nodes</em></td>
         <td>
-          <p>List of line sets</p>
+          <p>List of node indexes</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>load_distribution</em></td>
+        <td><span class="xref">Number</span></td>
+        <td><em>moment</em></td>
         <td>
-          <p>Load distribution</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Array</span></td>
-        <td><em>load_values</em></td>
-        <td>
-          <p>Load parameters depend on load distribution (for more information look at setLineLoadDistribution function)</p>
+          <p>Load moment value</p>
 
           
         </td>
@@ -378,20 +360,20 @@
     <tbody>
       <tr>
         <td><span class="xref">Object</span></td>
-        <td><p>Created line set moment load</p>
+        <td><p>Created nodal moment load</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <h4 id="LineSetLoad_Mass" data-uid="LineSetLoad#Mass">Mass(no, load_case, line_sets, load_value, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates line set mass load</p>
+  <h4 id="NodalLoad_Components" data-uid="NodalLoad#Components">Components(no, load_case, nodes, forces, moments, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates nodal moment load</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Mass(no, load_case, line_sets, load_value, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function Components(no, load_case, nodes, forces, moments, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -407,7 +389,7 @@
         <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Index of line set load, can be undefined</p>
+          <p>Index of nodal load, can be undefined</p>
 
           
         </td>
@@ -423,18 +405,119 @@
       </tr>
       <tr>
         <td><span class="xref">Array</span></td>
-        <td><em>line_sets</em></td>
+        <td><em>nodes</em></td>
         <td>
-          <p>List of line sets</p>
+          <p>List of node indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>forces</em></td>
+        <td>
+          <p>List of forces [FX, FX, FY]</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>moments</em></td>
+        <td>
+          <p>List of moments [MX, MY, MZ]</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, van be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Load parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>Create nodal components load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="NodalLoad_Mass" data-uid="NodalLoad#Mass">Mass(no, load_case, nodes, mass, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates nodal moment load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Mass(no, load_case, nodes, mass, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of nodal load, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
+        <td>
+          <p>Load case</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>nodes</em></td>
+        <td>
+          <p>List of node indexes</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>load_value</em></td>
+        <td><em>mass</em></td>
         <td>
-          <p>Uniform parameter value</p>
+          <p>Load mass value</p>
 
           
         </td>
@@ -470,20 +553,20 @@
     <tbody>
       <tr>
         <td><span class="xref">Object</span></td>
-        <td><p>Created line set mass load</p>
+        <td><p>Create nodal mass load</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <h4 id="LineSetLoad_ReferDistanceLineSetEnd" data-uid="LineSetLoad#ReferDistanceLineSetEnd">ReferDistanceLineSetEnd(value)</h4>
-  <div class="markdown level1 summary"><p>Sets option for refer distance to the end of line set</p>
+  <h4 id="NodalLoad_SpecificDirection" data-uid="NodalLoad#SpecificDirection">SpecificDirection(type, values)</h4>
+  <div class="markdown level1 summary"><p>Adds specific direction to load</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function ReferDistanceLineSetEnd(value)</code></pre>
+    <pre><code class="lang-js hljs">function SpecificDirection(type, values)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -496,10 +579,30 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Boolean</span></td>
-        <td><em>value</em></td>
+        <td><span class="xref">Number</span></td>
+        <td><em>type</em></td>
         <td>
-          <p>When undefined, true as default</p>
+          <p>Specific direction type, can be one of:
+- 1 (Rotated view 3 angles)
+- 2 (Directed to node)
+- 3 (Parallel to two nodes)
+- 4 (Parallel to CS of line)
+- 4 (Parallel to CS of line)
+- 5 (Parallel to CS of member)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>values</em></td>
+        <td>
+          <p>List of values for specified direction:
+- [αX',αY',αZ',sequence] (for 1), example: [0.1,0.2,0.1,&quot;X'Y'Z'&quot;], sequence can be empty by default
+- [node_index] (for 2)
+- [node1_index, node2_index] (for 3)
+- [line_no] (for 4)
+- [member_no] (for 5)</p>
 
           
         </td>
@@ -508,13 +611,13 @@
   </table>
   
   
-  <h4 id="LineSetLoad_LoadOverLineSet" data-uid="LineSetLoad#LoadOverLineSet">LoadOverLineSet(value)</h4>
-  <div class="markdown level1 summary"><p>Sets option for load over total length of line set (only for trapezoidal load distribution)</p>
+  <h4 id="NodalLoad_ForceEccentricity" data-uid="NodalLoad#ForceEccentricity">ForceEccentricity(eccentricity_x, eccentricity_y, eccentricity_z)</h4>
+  <div class="markdown level1 summary"><p>Adds eccentricity to load</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function LoadOverLineSet(value)</code></pre>
+    <pre><code class="lang-js hljs">function ForceEccentricity(eccentricity_x, eccentricity_y, eccentricity_z)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -527,10 +630,28 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Boolean</span></td>
-        <td><em>value</em></td>
+        <td><span class="xref">Number</span></td>
+        <td><em>eccentricity_x</em></td>
         <td>
-          <p>When undefined, true as default</p>
+          <p>Eccentricity eX</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>eccentricity_y</em></td>
+        <td>
+          <p>Eccentricity eY</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>eccentricity_z</em></td>
+        <td>
+          <p>Eccentricity eZ</p>
 
           
         </td>
@@ -539,13 +660,13 @@
   </table>
   
   
-  <h4 id="LineSetLoad_IndividualMassComponents" data-uid="LineSetLoad#IndividualMassComponents">IndividualMassComponents(MX, MY, MZ)</h4>
-  <div class="markdown level1 summary"><p>Sets individual mass components (only for mass load)</p>
+  <h4 id="NodalLoad_ShiftedDisplay" data-uid="NodalLoad#ShiftedDisplay">ShiftedDisplay(offset, distance)</h4>
+  <div class="markdown level1 summary"><p>Adds shifted display to load</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function IndividualMassComponents(MX, MY, MZ)</code></pre>
+    <pre><code class="lang-js hljs">function ShiftedDisplay(offset, distance)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -558,28 +679,59 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>MX</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>offset</em></td>
         <td>
-          <p>Mass in X coordination, can be undefined</p>
+          <p>Offset [ΔX,ΔY,ΔZ], example [0.1,0.2,0]</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>MY</em></td>
+        <td><em>distance</em></td>
         <td>
-          <p>Mass in Y coordination, can be undefined</p>
+          <p>Distance Δ</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="NodalLoad_IndividualMassComponents" data-uid="NodalLoad#IndividualMassComponents">IndividualMassComponents(mass, distance)</h4>
+  <div class="markdown level1 summary"><p>Adds individual mass components to load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function IndividualMassComponents(mass, distance)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>mass</em></td>
+        <td>
+          <p>mass [MX,MY,MZ], example [0.1,0.2,0]</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>MZ</em></td>
+        <td><em>distance</em></td>
         <td>
-          <p>Mass in Z coordination, can be undefined</p>
+          <p>mass_moment_of_inertia [IX,IY,IZ], example [0.1,0.2,0]			-</p>
 
           
         </td>

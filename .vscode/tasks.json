@@ -1,0 +1,22 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "CopyFilesAndRunRFEM",
+            "command": "./CopyFilesToRFEMLocation.ps1",
+            "type": "shell",
+            "args": [
+                
+            ],
+        },
+        {
+            "label": "GenerateDocumentation",
+            "command": "./GenerateDocumentation.ps1",
+            "type": "shell",
+            "args": [
+                
+            ],
+        }
+    ]
+    ]
+}

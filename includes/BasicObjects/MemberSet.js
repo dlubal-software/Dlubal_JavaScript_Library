@@ -1,5 +1,7 @@
 /**
  * Create Member Set
+ * @class
+ * @constructor
  * @param {int} no - Number of Member Set
  * @param {array} members - List of the number of the members
  * @param {string} comment - Comment for the Member Set
