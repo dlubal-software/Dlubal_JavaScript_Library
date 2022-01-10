@@ -17,7 +17,7 @@ var load_case = LoadCase(undefined);
 
 // uniform member load
 var uniform_load = MemberLoad(undefined, load_case, [member]);
-uniform_load.magnitude = 1kN / m;
+uniform_load.magnitude = 1kN/m;
 
 // concentrated member load
 var concentrated_load = MemberLoad(undefined, load_case, [member]);

@@ -100,10 +100,10 @@ lc2.name = "Live load";
 lc2.static_analysis_settings = 2;
 lc2.action_category = load_cases.ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H;
 
-SurfaceLoad(undefined, lc2, "4", "", { "uniform_magnitude": 0.75kN/ m ^ 2});
+SurfaceLoad(undefined, lc2, "4", "", { "uniform_magnitude": 0.75kN/m^2});
 NodalLoad(undefined, lc2, "12", "", { "load_type": nodal_loads.LOAD_TYPE_COMPONENTS, "components_force": $V(1kN, 2kN, 3kN) });
-LineLoad(undefined, lc2, "15", "", { "magnitude": 1.25kN/ m ^ 2});
-MemberLoad(undefined, lc2, "1,2", "", { "magnitude": 1.25kN/ m ^ 2});
+LineLoad(undefined, lc2, "15", "", { "magnitude": 1.25kN/m^2});
+MemberLoad(undefined, lc2, "1,2", "", { "magnitude": 1.25kN/m^2});
 
 var co1 = LoadCombination(1);
 co1.design_situation = 1;

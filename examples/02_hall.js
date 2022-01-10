@@ -121,13 +121,13 @@ Member(undefined, [3, 10], "", bracing_member_params);
 // create member imperfections
 var imperfection = MemberImperfection(undefined, 1);
 imperfection.members = "1,9,17,25,33";
-imperfection.basic_value_absolute = 5mm
+imperfection.basic_value_absolute = 5mm;
 
 
 // loading values for live load and wind load
-var f_g = 150N/m2
-var f_q = 750N/m2
-var f_w = 500N/m2
+var f_g = 150N/m2;
+var f_q = 750N/m2;
+var f_w = 500N/m2;
 
 // helper function to get a list of member ids based on an list of offsets
 function getMembersByOffset(offsets) {

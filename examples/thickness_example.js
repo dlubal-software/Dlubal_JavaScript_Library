@@ -11,18 +11,18 @@ var materialConcrete = Material(1, 'LC50/55');    // Concrete
 
 // Create thickness
 var th = new Thickness();
-th.ShapeOrthotropy(1, "Roof", 1, thicknesses.ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE, 0, 
-                   thicknesses.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS,
-                   [slab_thickness, rib_height,rib_spacing, rib_width]);
+th.ShapeOrthotropy(1, "Roof", 1, thicknesses.ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE, 0,
+    thicknesses.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS,
+    [slab_thickness, rib_height, rib_spacing, rib_width]);
 
 // Create section
 var section_1 = Section(1, 'R_M1 300/400', materialConcrete);  // concrete column
 
 // Create Nodes
-Node(1, 0, 0,  0);
-Node(2, a, 0,  0);
-Node(3, 0, b,  0);
-Node(4, a, b,  0);
+Node(1, 0, 0, 0);
+Node(2, a, 0, 0);
+Node(3, 0, b, 0);
+Node(4, a, b, 0);
 Node(5, 0, 0, -H);
 Node(6, a, 0, -H);
 Node(7, 0, b, -H);
@@ -30,8 +30,7 @@ Node(8, a, b, -H);
 
 // Create Members
 var mem = new Member();
-for(var i = 0; i < 4; ++i)
-{
+for (var i = 0; i < 4; ++i) {
     mem.Beam(i + 1, [1 + i, 5 + i], 90, 1);
 }
 
@@ -53,7 +52,6 @@ nodalSupport.spring_z = nodal_supports.SPRING_CONSTANT_YES;
 nodalSupport.rotational_restraint_z = nodal_supports.SPRING_CONSTANT_YES;
 
 // Assign Supports
-for (var i = 1; i < 5; ++i)
-{
+for (var i = 1; i < 5; ++i) {
     nodes[i].support = nodalSupport.no;
 }
