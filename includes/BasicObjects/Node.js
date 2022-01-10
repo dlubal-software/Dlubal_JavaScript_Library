@@ -1,5 +1,7 @@
 /**
  * Create Node
+ * @class
+ * @constructor
  * @param {int} no - Number of Node
  * @param {number} coordinate_X - Coordinate X
  * @param {number} coordinate_Y - Coordinate Y
