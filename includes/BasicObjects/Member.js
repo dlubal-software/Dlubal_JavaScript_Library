@@ -1,10 +1,12 @@
 /**
  * Create Member
+ * @class
+ * @constructor
  * @param {int} no - Number of member
  * @param {array} node_ids - Number of nodes (Min. 2 nodes)
  * @param {string} comment - Comment for the member
  * @param {dictionary} params - Parameters of the member
- * @returns 
+ * @returns Member
  */
 function Member(no,
     node_ids,

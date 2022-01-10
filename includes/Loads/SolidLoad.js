@@ -2,6 +2,8 @@ include("BaseLoad.js");
 
 /**
 * Creates solid load
+* @class
+* @constructor
 * @param 	{Number}	no					Index of solid load, can be undefined
 * @param 	{Object}	load_case			Load case
 * @param 	{Array}		solids				List of solid indexes

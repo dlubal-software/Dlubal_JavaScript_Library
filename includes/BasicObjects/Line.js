@@ -1,10 +1,12 @@
 /**
  * Create a line
+ * @class
+ * @constructor
  * @param {int} no - Number of the line
  * @param {array} nodes - List of nodes
  * @param {string} comment - Comment for the line
  * @param {dictionary} params - Parameters of the line
- * @returns 
+ * @returns Line
  */
 function Line(no,
     nodes,

@@ -2,6 +2,8 @@ include("BaseLoad.js");
 
 /**
 * Creates imposed nodal deformation
+* @class
+* @constructor
 * @param 	{Number}	no					Index of imposed nodal deformation, can be undefined
 * @param 	{Object}	load_case			Load case
 * @param 	{Array}		nodes				List of nodes indexes

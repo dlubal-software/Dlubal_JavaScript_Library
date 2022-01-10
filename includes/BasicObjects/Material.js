@@ -1,5 +1,7 @@
 /**
  * Create Material
+ * @class
+ * @constructor
  * @param {int} no - Number of Material
  * @param {string} name - Name of Material
  * @param {string} comment - Comment for the Material

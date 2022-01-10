@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class LineSetLoad
+    <title>Class FreeLineLoad
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class LineSetLoad
+    <meta name="title" content="Class FreeLineLoad
    ">
     <meta name="generator" content="docfx 2.57.2.0">
     
@@ -68,25 +68,25 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="LineSetLoad">
+            <article class="content wrap" id="_content" data-uid="FreeLineLoad">
   
   
-  <h1 id="LineSetLoad" data-uid="LineSetLoad">Class LineSetLoad
+  <h1 id="FreeLineLoad" data-uid="FreeLineLoad">Class FreeLineLoad
   </h1>
-  <div class="markdown level0 summary"><p>Creates line set load</p>
+  <div class="markdown level0 summary"><p>Creates free line load</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <h4 id="LineSetLoad__ctor" data-uid="LineSetLoad.#ctor">LineSetLoad(no, load_case, line_sets, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates line set load</p>
+  <h4 id="FreeLineLoad__ctor" data-uid="FreeLineLoad.#ctor">FreeLineLoad(no, load_case, surfaces, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates free line load</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">new LineSetLoad(no, load_case, line_sets, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">new FreeLineLoad(no, load_case, surfaces, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -102,7 +102,7 @@
         <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Index of line set load, can be undefined</p>
+          <p>Index of free line load, can be undefined</p>
 
           
         </td>
@@ -118,9 +118,9 @@
       </tr>
       <tr>
         <td><span class="xref">Array</span></td>
-        <td><em>line_sets</em></td>
+        <td><em>surfaces</em></td>
         <td>
-          <p>List of line sets indexes</p>
+          <p>List of surface indexes</p>
 
           
         </td>
@@ -156,7 +156,7 @@
     <tbody>
       <tr>
         <td><span class="xref">Object</span></td>
-        <td><p>Created line set load</p>
+        <td><p>Created free line load</p>
 </td>
       </tr>
     </tbody>
@@ -165,13 +165,13 @@
   </h3>
   
   
-  <h4 id="LineSetLoad_Force" data-uid="LineSetLoad#Force">Force(no, load_case, line_sets, load_distribution, load_values, load_direction, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates line set force load</p>
+  <h4 id="FreeLineLoad_Uniform" data-uid="FreeLineLoad#Uniform">Uniform(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates free line uniform load</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Force(no, load_case, line_sets, load_distribution, load_values, load_direction, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function Uniform(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -187,7 +187,7 @@
         <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Index of line set load, can be undefined</p>
+          <p>Index of free line uniform load, can be undefined</p>
 
           
         </td>
@@ -203,18 +203,9 @@
       </tr>
       <tr>
         <td><span class="xref">Array</span></td>
-        <td><em>line_sets</em></td>
+        <td><em>surfaces</em></td>
         <td>
-          <p>List of line sets</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>load_distribution</em></td>
-        <td>
-          <p>Load distribution</p>
+          <p>List of surface indexes</p>
 
           
         </td>
@@ -223,7 +214,16 @@
         <td><span class="xref">Array</span></td>
         <td><em>load_values</em></td>
         <td>
-          <p>Load parameters depend on load distribution (for more information look at setLineLoadDistribution function)</p>
+          <p>Load parameters</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_projection</em></td>
+        <td>
+          <p>Load projection, can be undefined</p>
 
           
         </td>
@@ -238,6 +238,24 @@
         </td>
       </tr>
       <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>load_acting_region_from</em></td>
+        <td>
+          <p>Start of load acting region, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>load_acting_region_to</em></td>
+        <td>
+          <p>End of load acting region, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
         <td><span class="xref">String</span></td>
         <td><em>comment</em></td>
         <td>
@@ -268,20 +286,20 @@
     <tbody>
       <tr>
         <td><span class="xref">Object</span></td>
-        <td><p>Created line set force load</p>
+        <td><p>Created free line uniform load</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <h4 id="LineSetLoad_Moment" data-uid="LineSetLoad#Moment">Moment(no, load_case, line_sets, load_distribution, load_values, load_direction, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates line set moment load</p>
+  <h4 id="FreeLineLoad_Linear" data-uid="FreeLineLoad#Linear">Linear(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates free line linear load</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Moment(no, load_case, line_sets, load_distribution, load_values, load_direction, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function Linear(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -297,7 +315,7 @@
         <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Index of line set load, can be undefined</p>
+          <p>Index of free line linear load, can be undefined</p>
 
           
         </td>
@@ -313,18 +331,9 @@
       </tr>
       <tr>
         <td><span class="xref">Array</span></td>
-        <td><em>line_sets</em></td>
+        <td><em>surfaces</em></td>
         <td>
-          <p>List of line sets</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>load_distribution</em></td>
-        <td>
-          <p>Load distribution</p>
+          <p>List of surface indexes</p>
 
           
         </td>
@@ -333,7 +342,16 @@
         <td><span class="xref">Array</span></td>
         <td><em>load_values</em></td>
         <td>
-          <p>Load parameters depend on load distribution (for more information look at setLineLoadDistribution function)</p>
+          <p>Load parameters</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_projection</em></td>
+        <td>
+          <p>Load projection, can be undefined</p>
 
           
         </td>
@@ -348,93 +366,19 @@
         </td>
       </tr>
       <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>comment</em></td>
-        <td>
-          <p>Comment, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>params</em></td>
-        <td>
-          <p>Load parameters, can be undefined</p>
-
-          
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><p>Created line set moment load</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="LineSetLoad_Mass" data-uid="LineSetLoad#Mass">Mass(no, load_case, line_sets, load_value, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates line set mass load</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Mass(no, load_case, line_sets, load_value, comment, params)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>no</em></td>
+        <td><em>load_acting_region_from</em></td>
         <td>
-          <p>Index of line set load, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>load_case</em></td>
-        <td>
-          <p>Load case</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Array</span></td>
-        <td><em>line_sets</em></td>
-        <td>
-          <p>List of line sets</p>
+          <p>Start of load acting region, can be undefined</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>load_value</em></td>
+        <td><em>load_acting_region_to</em></td>
         <td>
-          <p>Uniform parameter value</p>
+          <p>End of load acting region, can be undefined</p>
 
           
         </td>
@@ -470,119 +414,8 @@
     <tbody>
       <tr>
         <td><span class="xref">Object</span></td>
-        <td><p>Created line set mass load</p>
+        <td><p>Created free line linear load</p>
 </td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="LineSetLoad_ReferDistanceLineSetEnd" data-uid="LineSetLoad#ReferDistanceLineSetEnd">ReferDistanceLineSetEnd(value)</h4>
-  <div class="markdown level1 summary"><p>Sets option for refer distance to the end of line set</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-js hljs">function ReferDistanceLineSetEnd(value)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Boolean</span></td>
-        <td><em>value</em></td>
-        <td>
-          <p>When undefined, true as default</p>
-
-          
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="LineSetLoad_LoadOverLineSet" data-uid="LineSetLoad#LoadOverLineSet">LoadOverLineSet(value)</h4>
-  <div class="markdown level1 summary"><p>Sets option for load over total length of line set (only for trapezoidal load distribution)</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-js hljs">function LoadOverLineSet(value)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Boolean</span></td>
-        <td><em>value</em></td>
-        <td>
-          <p>When undefined, true as default</p>
-
-          
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="LineSetLoad_IndividualMassComponents" data-uid="LineSetLoad#IndividualMassComponents">IndividualMassComponents(MX, MY, MZ)</h4>
-  <div class="markdown level1 summary"><p>Sets individual mass components (only for mass load)</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-js hljs">function IndividualMassComponents(MX, MY, MZ)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>MX</em></td>
-        <td>
-          <p>Mass in X coordination, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>MY</em></td>
-        <td>
-          <p>Mass in Y coordination, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>MZ</em></td>
-        <td>
-          <p>Mass in Z coordination, can be undefined</p>
-
-          
-        </td>
       </tr>
     </tbody>
   </table>

@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class LineSet
+    <title>Class OpeningLoad
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class LineSet
+    <meta name="title" content="Class OpeningLoad
    ">
     <meta name="generator" content="docfx 2.57.2.0">
     
@@ -68,23 +68,25 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="LineSet">
+            <article class="content wrap" id="_content" data-uid="OpeningLoad">
   
   
-  <h1 id="LineSet" data-uid="LineSet">Class LineSet
+  <h1 id="OpeningLoad" data-uid="OpeningLoad">Class OpeningLoad
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Creates solid load</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <h4 id="LineSet__ctor" data-uid="LineSet.#ctor">LineSet(no, lines, comment, params)</h4>
-  <div class="markdown level1 summary"></div>
+  <h4 id="OpeningLoad__ctor" data-uid="OpeningLoad.#ctor">OpeningLoad(no, load_case, openings, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates solid load</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">new LineSet(no, lines, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">new OpeningLoad(no, load_case, openings, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -97,37 +99,46 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">undefinedint</span></td>
+        <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Number of Line Set</p>
+          <p>Index of opening load, can be undefined</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">array</span></td>
-        <td><em>lines</em></td>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
         <td>
-          <p>List of the number of the lines</p>
+          <p>Load case</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">string</span></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>openings</em></td>
+        <td>
+          <p>List of opening indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
         <td><em>comment</em></td>
         <td>
-          <p>Comment for the Line Set</p>
+          <p>Comment, can be undefined</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">undefineddictionary</span></td>
+        <td><span class="xref">Object</span></td>
         <td><em>params</em></td>
         <td>
-          <p>Parameters of the Line Set</p>
+          <p>Load parameters, can be undefined</p>
 
           
         </td>
@@ -144,8 +155,8 @@
     </thead>
     <tbody>
       <tr>
-        <td></td>
-        <td><p>lineSet</p>
+        <td><span class="xref">Object</span></td>
+        <td><p>Created opening load</p>
 </td>
       </tr>
     </tbody>
@@ -154,13 +165,13 @@
   </h3>
   
   
-  <h4 id="LineSet_ContinuousLines" data-uid="LineSet#ContinuousLines">ContinuousLines(no, lines, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Create Continuous Lines lineSet type</p>
+  <h4 id="OpeningLoad_Force" data-uid="OpeningLoad#Force">Force(no, load_case, openings, load_distribution, load_values, load_direction, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates opening force load</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function ContinuousLines(no, lines, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function Force(no, load_case, openings, load_distribution, load_values, load_direction, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -173,52 +184,104 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">int</span></td>
+        <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Number of Line Set</p>
+          <p>Index of opening load, can be undefined</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">array</span></td>
-        <td><em>lines</em></td>
+        <td><span class="xref">Object</span></td>
+        <td><em>load_case</em></td>
         <td>
-          <p>List of the number of the lines</p>
+          <p>Load case</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">string</span></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>openings</em></td>
+        <td>
+          <p>List of openings indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_distribution</em></td>
+        <td>
+          <p>Load distribution</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>load_values</em></td>
+        <td>
+          <p>Load parameters depend on load distribution (for more information look at setLoadDistribution function)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>load_direction</em></td>
+        <td>
+          <p>Load direction, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
         <td><em>comment</em></td>
         <td>
-          <p>Comment for the Line Set</p>
+          <p>Comment, can be undefined</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">dictionary</span></td>
+        <td><span class="xref">Object</span></td>
         <td><em>params</em></td>
         <td>
-          <p>Parameters of the Line Set</p>
+          <p>Load parameters, can be undefined</p>
 
           
         </td>
       </tr>
     </tbody>
   </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>Created opening force load</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   
   
-  <h4 id="LineSet_GroupOfLines" data-uid="LineSet#GroupOfLines">GroupOfLines(no, lines, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Create Group of Lines</p>
+  <h4 id="OpeningLoad_SmoothConcentratedLoad" data-uid="OpeningLoad#SmoothConcentratedLoad">SmoothConcentratedLoad(value,)</h4>
+  <div class="markdown level1 summary"><p>Set smooth concentrated load</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function GroupOfLines(no, lines, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function SmoothConcentratedLoad(value,)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -231,37 +294,10 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">int</span></td>
-        <td><em>no</em></td>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>value,</em></td>
         <td>
-          <p>Number of Line Set</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">array</span></td>
-        <td><em>lines</em></td>
-        <td>
-          <p>List of the number of the lines</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">string</span></td>
-        <td><em>comment</em></td>
-        <td>
-          <p>Comment for the Line Set</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">dictionary</span></td>
-        <td><em>params</em></td>
-        <td>
-          <p>Parameters of the Line Set</p>
+          <p>can be undefined (false)</p>
 
           
         </td>

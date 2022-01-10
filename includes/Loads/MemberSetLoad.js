@@ -2,6 +2,8 @@ include("BaseLoad.js");
 
 /**
 * Creates member set load
+* @class
+* @constructor
 * @param 	{Number}	no					Index of member set load, can be undefined
 * @param 	{Object}	load_case			Load case
 * @param 	{Array}		member_sets			List of member sets indexes

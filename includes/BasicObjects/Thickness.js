@@ -1,12 +1,14 @@
 /**
  * Create Thickness
+ * @class
+ * @constructor
  * @param {int} no - Number of Thickness
  * @param {string} name - Name of the Thickness
  * @param {int} material - Number of material
  * @param {number} uniform_thickness_d - Uniform thickness in meters.
  * @param {string} comment - Comment for the Thickness
  * @param {dictionary} params - Parameters of the Thickness
- * @returns 
+ * @returns Thickness
  */
 function Thickness(no,
     name,

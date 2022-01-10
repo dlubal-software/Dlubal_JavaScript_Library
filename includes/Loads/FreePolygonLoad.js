@@ -2,6 +2,8 @@ include("BaseLoad.js");
 
 /**
 * Creates free polygon load
+* @class
+* @constructor
 * @param 	{Number}	no					Index of free polygon load, can be undefined
 * @param 	{Object}	load_case			Load case
 * @param 	{Array}		surfaces			List of surface indexes
