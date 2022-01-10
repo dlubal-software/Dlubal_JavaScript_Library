@@ -10,17 +10,14 @@ include("BaseLoad.js");
 * @return	{Object}	Created free line load
 */
 function FreeLineLoad(no,
-                      load_case,
-                      surfaces,
-                      comment,
-                      params)
-{
-	if (arguments.length !== 0)
-	{
+	load_case,
+	surfaces,
+	comment,
+	params) {
+	if (arguments.length !== 0) {
 		return this.load = createBaseLoad("Free_Line_Load", no, load_case, surfaces, comment, params);
 	}
 }
-
 /**
 * Set parameters to free line load depend on load distribution
 * @param	{Object}	load				Load
@@ -31,13 +28,11 @@ function FreeLineLoad(no,
 * @return	{Object}	Returns modified load
 */
 function setFreeLineLoadParameters(load,
-								   load_distribution,
-								   load_values)
-{
+	load_distribution,
+	load_values) {
 	load.load_distribution = load_distribution;
-	
-	switch (load_distribution)
-	{
+
+	switch (load_distribution) {
 		case free_line_loads.LOAD_DISTRIBUTION_UNIFORM:
 			ASSERT(load_values.length >= 3, "Wrong number of load parameters, at least three are required (p, X1, Y1)");
 			setLoadValues(load, load_values, "magnitude_uniform", "load_location_first_x", "load_location_first_y", "load_location_second_x", "load_location_second_y");
@@ -49,7 +44,7 @@ function setFreeLineLoadParameters(load,
 		default:
 			showLoadAssert(undefined, load_distribution);
 	}
-	
+
 	return load;
 }
 
@@ -67,21 +62,20 @@ function setFreeLineLoadParameters(load,
 * @param	{Object}	params					Load parameters, can be undefined
 * @return	{Object}	Created free line uniform load
 */
-FreeLineLoad.prototype.Uniform = function(no,
-										  load_case,
-										  surfaces,
-										  load_values,
-										  load_projection,
-										  load_direction,
-										  load_acting_region_from,
-										  load_acting_region_to,
-										  comment,
-										  params)
-{
+FreeLineLoad.prototype.Uniform = function (no,
+	load_case,
+	surfaces,
+	load_values,
+	load_projection,
+	load_direction,
+	load_acting_region_from,
+	load_acting_region_to,
+	comment,
+	params) {
 	this.load = createBaseLoad("Free_Line_Load", no, load_case, surfaces, comment, params);
 	this.load = setFreeLineLoadParameters(this.load, free_line_loads.LOAD_DISTRIBUTION_UNIFORM, load_values);
 	this.load = setCommonFreeLoadsValues(this.load, load_projection, load_direction, load_acting_region_from, load_acting_region_to);
-	
+
 	return this.load;
 };
 
@@ -99,20 +93,19 @@ FreeLineLoad.prototype.Uniform = function(no,
 * @param	{Object}	params					Load parameters, can be undefined
 * @return	{Object}	Created free line linear load
 */
-FreeLineLoad.prototype.Linear = function(no,
-										 load_case,
-										 surfaces,
-										 load_values,
-										 load_projection,
-										 load_direction,
-										 load_acting_region_from,
-										 load_acting_region_to,
-										 comment,
-										 params)
-{
+FreeLineLoad.prototype.Linear = function (no,
+	load_case,
+	surfaces,
+	load_values,
+	load_projection,
+	load_direction,
+	load_acting_region_from,
+	load_acting_region_to,
+	comment,
+	params) {
 	this.load = createBaseLoad("Free_Line_Load", no, load_case, surfaces, comment, params);
 	this.load = setFreeLineLoadParameters(this.load, free_line_loads.LOAD_DISTRIBUTION_LINEAR, load_values);
 	this.load = setCommonFreeLoadsValues(this.load, load_projection, load_direction, load_acting_region_from, load_acting_region_to);
-	
+
 	return this.load;
-};
+}

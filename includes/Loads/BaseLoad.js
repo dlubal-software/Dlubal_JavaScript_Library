@@ -9,19 +9,17 @@
  * @return 	{Object}	Created load
 */
 function createBaseLoad(load_type,
-						no,
-						load_case,
-						index_list,
-						comment,
-						params)
-{	
+	no,
+	load_case,
+	index_list,
+	comment,
+	params) {
 	ASSERT(typeof load_case !== "undefined", "Load case is not specified");
-	
+
 	var load = engine.create_load(no, load_type, load_case);
 	var handled_params = typeof params !== "undefined" ? params : {};
-	
-	switch (load_type)
-	{
+
+	switch (load_type) {
 		case "Nodal_Load":
 		case "Imposed_Nodal_Deformation":
 			handled_params["nodes"] = typeof index_list !== "undefined" ? index_list : [];
@@ -62,9 +60,9 @@ function createBaseLoad(load_type,
 		default:
 			ASSERT(false, "Unknown load type");
 	}
-	
+
 	set_comment_and_parameters(load, comment, handled_params);
-	
+
 	return load;
 }
 
@@ -83,36 +81,31 @@ function createBaseLoad(load_type,
  * @return 	{Object}	Created load
 */
 function createSimplyValueLoad(load_type,
-							   no,
-							   load_case,
-							   nodes,
-							   force,
-							   moment,
-							   mass,
-							   load_direction,
-							   comment,
-							   params)
-{	
+	no,
+	load_case,
+	nodes,
+	force,
+	moment,
+	mass,
+	load_direction,
+	comment,
+	params) {
 	var load = createBaseLoad(load_type, no, load_case, nodes, comment, params);
-	
-	if (typeof force !== "undefined")
-	{
+
+	if (typeof force !== "undefined") {
 		load.load_type = nodal_loads.LOAD_TYPE_FORCE;
 		load.force_magnitude = force;
 	}
-	else if (typeof moment !== "undefined")
-	{
+	else if (typeof moment !== "undefined") {
 		load.load_type = nodal_loads.LOAD_TYPE_MOMENT;
 		load.moment_magnitude = moment;
 	}
-	else
-	{
+	else {
 		load.load_type = nodal_loads.LOAD_TYPE_MASS;
 		load.mass_global = mass;
 	}
 
-	if (typeof load_direction !== "undefined")
-	{
+	if (typeof load_direction !== "undefined") {
 		load.load_direction = load_direction;
 	}
 
@@ -124,18 +117,14 @@ function createSimplyValueLoad(load_type,
 * @param {String}	load_type			Load type
 * @param {String}	load_distribution	Load distribution, can be undefined
 */
-var showLoadAssert = function(load_type, load_distribution)
-{
-	if (typeof load_type !== "undefined" && typeof load_distribution !== "undefined")
-	{
+var showLoadAssert = function (load_type, load_distribution) {
+	if (typeof load_type !== "undefined" && typeof load_distribution !== "undefined") {
 		assert(false, "Unknown load distribution (" + (load_type) + " - " + (load_distribution) + ")");
 	}
-	else if (load_type !== "undefined")
-	{
+	else if (load_type !== "undefined") {
 		assert(false, "Unknown load type (" + (load_type) + ")");
 	}
-	else
-	{
+	else {
 		assert(false, "Unknown load distribution (" + (load_distribution) + ")");
 	}
 };
@@ -144,8 +133,7 @@ var showLoadAssert = function(load_type, load_distribution)
 * Set load parameters
 * @param 	{Array}	arguments		Arguments: arg[0] - load, arg[1] - load parameters, arg[2] - load parameters to be set
 */
-var setLoadValues = function()
-{
+var setLoadValues = function () {
 	ASSERT(arguments.length >= 3);
 	var load = arguments[0];
 	var load_values = arguments[1];
@@ -153,42 +141,35 @@ var setLoadValues = function()
 	var distance_a_value = 0;
 	var distance_b_value = 0;
 	var distance_c_value = 0;
-	
-	for (var i = 0; i < load_values.length; ++i)
-	{
+
+	for (var i = 0; i < load_values.length; ++i) {
 		var arg = arguments[i + 2];
-		
+
 		// Remember value of distances, if any
-		if (arg === "distance_a")
-		{
+		if (arg === "distance_a") {
 			distance_a_value = load_values[i];
 			continue;
 		}
-		if (arg === "distance_b")
-		{
+		if (arg === "distance_b") {
 			distance_b_value = load_values[i];
 			continue;
 		}
-		if (arg === "distance_c")
-		{
+		if (arg === "distance_c") {
 			distance_c_value = load_values[i];
 			continue;
 		}
-		
+
 		load[arg] = load_values[i];
 	}
-	
+
 	// If some distances were specified, set them to load parameters depending of absolute or relative
-	if (distance_a_value !== 0)
-	{
+	if (distance_a_value !== 0) {
 		load.distance_a_is_defined_as_relative ? load.distance_a_relative = distance_a_value : load.distance_a_absolute = distance_a_value;
 	}
-	if (distance_b_value !== 0)
-	{
+	if (distance_b_value !== 0) {
 		load.distance_b_is_defined_as_relative ? load.distance_b_relative = distance_b_value : load.distance_b_absolute = distance_b_value;
 	}
-	if (distance_c_value !== 0)
-	{
+	if (distance_c_value !== 0) {
 		load.distance_c_is_defined_as_relative ? load.distance_c_relative = distance_c_value : load.distance_c_absolute = distance_c_value;
 	}
 };
@@ -199,18 +180,16 @@ var setLoadValues = function()
 * @param	{String}	value	Parallel axis (X, Y, Z)
 * @return	{Boolean}	True if axis and orientation was successfully set
 */
-var setAxis = function(load,
-					   value)
-{
+var setAxis = function (load,
+	value) {
 	ASSERT(load.load_distribution === surface_loads.LOAD_DISTRIBUTION_RADIAL);
-	
-	if (value.length === 1 && value.match("[X|Y|Z]") !== null)
-	{
+
+	if (value.length === 1 && value.match("[X|Y|Z]") !== null) {
 		load.axis_definition_axis = value.substring(0, 1);
-		
+
 		return true;
 	}
-	
+
 	return false;
 };
 
@@ -220,23 +199,20 @@ var setAxis = function(load,
 * @param	{String}	value	Parallel axis (+X, -X, ...)
 * @return	{Boolean}	True if axis and orientation was successfully set
 */
-var setAxisAndOrientation = function(load,
-									 value)
-{
-	if (value.length === 2 && value.match("[+|-][X|Y|Z]") !== null)
-	{
+var setAxisAndOrientation = function (load,
+	value) {
+	if (value.length === 2 && value.match("[+|-][X|Y|Z]") !== null) {
 		load.axis_definition_axis = value.substring(1, 2);
 		load.axis_definition_axis_orientation = value.substring(0, 1);
-		
+
 		return true;
 	}
-	
+
 	return false;
 };
 
-var setRotaryMotionLoad = function(load,
-								   load_values)
-{
+var setRotaryMotionLoad = function (load,
+	load_values) {
 	ASSERT(load_values.length >= 4, "Wrong number of load parameters, at least four values are required (type of axes definition, ω, α, [Node1] | XA)");
 	load.axis_definition_type = load_values[0] === 1 ? member_loads.AXIS_DEFINITION_TWO_POINTS : member_loads.AXIS_DEFINITION_POINT_AND_AXIS;
 	load.angular_velocity = load_values[1];
@@ -249,17 +225,15 @@ var setRotaryMotionLoad = function(load,
 		ASSERT(load_values[3].length >= 1, "Wrong number of defined nodes, at least one is required");
 		var node = nodes.getNthObject(load_values[3][0]);
 		load.axis_definition_p1 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
-		
+
 		// If axis definition is "Two points" and there are two axis coordinations
-		if (load_values[0] === TWO_POINTS && load_values[3].length === 2)
-		{
+		if (load_values[0] === TWO_POINTS && load_values[3].length === 2) {
 			node = nodes.getNthObject(load_values[3][1]);
 			load.axis_definition_p2 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
 		}
-		
+
 		// load_values = [axis_definition, ω, α, [Node1], parallel_axis]
-		if (load_values[0] === POINT_AND_PARALLEL && load_values.length >= 5)
-		{
+		if (load_values[0] === POINT_AND_PARALLEL && load_values.length >= 5) {
 			// Parallel axis is defined
 			setAxisAndOrientation(load, load_values[4]);
 		}
@@ -269,17 +243,15 @@ var setRotaryMotionLoad = function(load,
 		// Fourth parameter is x-coordinate of point A - "Two Points" are defined by coordinates of A or A and B points
 		ASSERT(load_values.length >= 6, "Wrong number of load parameters, at least six values are required (axes definition, ω, α, XA, YA, ZA)");
 		load.axis_definition_p1 = $V(load_values[3], load_values[4], load_values[5]);
-		
-		if (load_values[0] === TWO_POINTS && load_values.length > 6)
-		{
+
+		if (load_values[0] === TWO_POINTS && load_values.length > 6) {
 			// Coordinates of second axis point is defined
 			ASSERT(load_values.length === 9, "Wrong number of parameters, nine values are required (axis definition, ω, α, XA, YA, ZA, XB, YB, ZB)");
 			load.axis_definition_p2 = $V(load_values[6], load_values[7], load_values[8]);
 		}
-		
+
 		// load_values = [axis_definition, ω, α, XA, YA, ZA, parallel_axis]
-		if (load_values[0] === POINT_AND_PARALLEL && load_values.length >= 7)
-		{
+		if (load_values[0] === POINT_AND_PARALLEL && load_values.length >= 7) {
 			// Parallel axis is defined
 			setAxisAndOrientation(load, load_values[6]);
 		}
@@ -318,24 +290,20 @@ var setRotaryMotionLoad = function(load,
 *										- "Mass" / "Uniform": M
 * @return	{Object}	Returns modified load
 */
-var setLineLoadDistribution = function(load,
-									   load_type,
-									   load_distribution,
-									   load_values)
-{
+var setLineLoadDistribution = function (load,
+	load_type,
+	load_distribution,
+	load_values) {
 	load.load_type = load_type;
-	
-	if (typeof load_distribution !== "undefined")
-	{
+
+	if (typeof load_distribution !== "undefined") {
 		load.load_distribution = load_distribution;
 	}
-	
-	switch (load_type)
-	{
+
+	switch (load_type) {
 		case line_loads.LOAD_TYPE_FORCE:
 		case line_loads.LOAD_TYPE_MOMENT:
-			switch (load_distribution)
-			{
+			switch (load_distribution) {
 				case line_loads.LOAD_DISTRIBUTION_UNIFORM:
 				case line_loads.LOAD_DISTRIBUTION_UNIFORM_TOTAL:
 					ASSERT(load_values.length === 1, "Wrong number of load parameters, one value is required (p)");
@@ -361,8 +329,7 @@ var setLineLoadDistribution = function(load,
 				case line_loads.LOAD_DISTRIBUTION_VARYING:
 				case line_loads.LOAD_DISTRIBUTION_VARYING_IN_Z:
 					ASSERT(load_values.length % 2 === 0, "Wrong number of load parameters");
-					for (var i = 0; i < load_values.length; i+=2)
-					{
+					for (var i = 0; i < load_values.length; i += 2) {
 						load.varying_load_parameters[i / 2 + 1].magnitude = load_values[i];
 						load.varying_load_parameters[i / 2 + 1].distance = load_values[i + 1];
 					}
@@ -391,7 +358,7 @@ var setLineLoadDistribution = function(load,
 		default:
 			showLoadAssert(load_type);
 	}
-	
+
 	return load;
 };
 
@@ -474,28 +441,24 @@ var setLineLoadDistribution = function(load,
 *														   [axis_definition, ω, α, ([Node1] | XA, YA, ZA), parallel_axis] (axis definition 2 === "Point and axis")
 * @return	{Object}	Returns modified load
 */
-var setMemberLoadDistribution = function(load,
-										 load_type,
-										 load_distribution,
-										 load_values)
-{
+var setMemberLoadDistribution = function (load,
+	load_type,
+	load_distribution,
+	load_values) {
 	load.load_type = load_type;
-	
-	if (typeof load_distribution !== "undefined")
-	{
+
+	if (typeof load_distribution !== "undefined") {
 		load.load_distribution = load_distribution;
 	}
-	
-	switch (load_type)
-	{
+
+	switch (load_type) {
 		case member_loads.LOAD_TYPE_FORCE:
 		case member_loads.LOAD_TYPE_MOMENT:
 		case member_loads.LOAD_TYPE_AXIAL_STRAIN:
 		case member_loads.LOAD_TYPE_PRECAMBER:
 		case member_loads.LOAD_TYPE_DISPLACEMENT:
 		case member_loads.LOAD_TYPE_ROTATION:
-			switch (load_distribution)
-			{
+			switch (load_distribution) {
 				case member_loads.LOAD_DISTRIBUTION_UNIFORM:
 				case member_loads.LOAD_DISTRIBUTION_UNIFORM_TOTAL:
 					ASSERT(load_values.length === 1, "Wrong number of load parameters, one value is required (p)");
@@ -521,8 +484,7 @@ var setMemberLoadDistribution = function(load,
 				case member_loads.LOAD_DISTRIBUTION_VARYING:
 				case member_loads.LOAD_DISTRIBUTION_VARYING_IN_Z:
 					ASSERT(load_values.length % 2 === 0, "Wrong number of load parameters");
-					for (var i = 0; i < load_values.length; i+=2)
-					{
+					for (var i = 0; i < load_values.length; i += 2) {
 						load.varying_load_parameters[i / 2 + 1].magnitude = load_values[i];
 						load.varying_load_parameters[i / 2 + 1].distance = load_values[i + 1];
 					}
@@ -549,8 +511,7 @@ var setMemberLoadDistribution = function(load,
 			setLoadValues(load, load_values, "mass_global");
 			break;
 		case member_loads.LOAD_TYPE_TEMPERATURE:
-			switch (load_distribution)
-			{
+			switch (load_distribution) {
 				case member_loads.LOAD_DISTRIBUTION_UNIFORM:
 					ASSERT(load_values.length >= 1, "Wrong number of load parameters, at least one value is required (Tt or Tb)");
 					setLoadValues(load, load_values, "magnitude_t_t", "magnitude_t_b");
@@ -567,8 +528,7 @@ var setMemberLoadDistribution = function(load,
 					break;
 				case member_loads.LOAD_DISTRIBUTION_VARYING:
 					ASSERT(load_values.length % 3 === 0, "Wrong number of load parameters");
-					for (var i = 0; i < load_values.length; i+=3)
-					{
+					for (var i = 0; i < load_values.length; i += 3) {
 						load.varying_load_parameters[i / 3 + 1].magnitude_t_t = load_values[i];
 						load.varying_load_parameters[i / 3 + 1].magnitude_t_b = load_values[i + 1];
 						load.varying_load_parameters[i / 3 + 1].distance = load_values[i + 2];
@@ -579,8 +539,7 @@ var setMemberLoadDistribution = function(load,
 			}
 			break;
 		case member_loads.LOAD_TYPE_TEMPERATURE_CHANGE:
-			switch (load_distribution)
-			{
+			switch (load_distribution) {
 				case member_loads.LOAD_DISTRIBUTION_UNIFORM:
 					ASSERT(load_values.length >= 1, "Wrong number of load parameters, at least one value is required (Tc)");
 					setLoadValues(load, load_values, "magnitude_t_c", "magnitude_delta_t");
@@ -598,8 +557,7 @@ var setMemberLoadDistribution = function(load,
 					break;
 				case member_loads.LOAD_DISTRIBUTION_VARYING:
 					ASSERT(load_values.length % 3 === 0, "Wrong number of load parameters");
-					for (var i = 0; i < load_values.length; i+=3)
-					{
+					for (var i = 0; i < load_values.length; i += 3) {
 						load.varying_load_parameters[i / 3 + 1].magnitude_t_c = load_values[i];
 						load.varying_load_parameters[i / 3 + 1].magnitude_delta_t = load_values[i + 1];
 						load.varying_load_parameters[i / 3 + 1].distance = load_values[i + 2];
@@ -615,33 +573,26 @@ var setMemberLoadDistribution = function(load,
 		case member_loads.LOAD_TYPE_PIPE_CONTENT_PARTIAL:
 		case member_loads.LOAD_TYPE_PIPE_INTERNAL_PRESSURE:
 			ASSERT(load_distribution === LOAD_DISTRIBUTION_UNIFORM, "Load has only uniform distribution");
-			if (load_type === member_loads.LOAD_TYPE_AXIAL_DISPLACEMENT)
-			{
+			if (load_type === member_loads.LOAD_TYPE_AXIAL_DISPLACEMENT) {
 				ASSERT(load_values.length === 1, "Wrong number of load parameters, one value is required (Δl)");
 			}
-			else if (load_type === member_loads.LOAD_TYPE_INITIAL_PRESTRESS)
-			{
+			else if (load_type === member_loads.LOAD_TYPE_INITIAL_PRESTRESS) {
 				ASSERT(load_values.length === 1, "Wrong number of load parameters, one value is required (V)");
 			}
-			else if (load_type === member_loads.LOAD_TYPE_PIPE_CONTENT_FULL)
-			{
+			else if (load_type === member_loads.LOAD_TYPE_PIPE_CONTENT_FULL) {
 				ASSERT(load_values.length === 1, "Wrong number of load parameters, one value is required (γ)");
 			}
-			else if (load_type === member_loads.LOAD_TYPE_PIPE_CONTENT_PARTIAL)
-			{
+			else if (load_type === member_loads.LOAD_TYPE_PIPE_CONTENT_PARTIAL) {
 				ASSERT(load_values.length === 2, "Wrong number of load parameters, two values are required (γ, d)");
 			}
-			else
-			{
+			else {
 				ASSERT(load_type === member_loads.LOAD_TYPE_PIPE_INTERNAL_PRESSURE);
 				ASSERT(load_values.length === 1, "Wrong number of load parameters, one value is required (p)");
 			}
-			if (load_type !== member_loads.LOAD_TYPE_PIPE_CONTENT_PARTIAL)
-			{
+			if (load_type !== member_loads.LOAD_TYPE_PIPE_CONTENT_PARTIAL) {
 				setLoadValues(load, load_values, "magnitude");
 			}
-			else
-			{
+			else {
 				setLoadValues(load, load_values, "magnitude", "filling_height");
 			}
 			break;
@@ -651,7 +602,7 @@ var setMemberLoadDistribution = function(load,
 		default:
 			showLoadAssert(load_type);
 	}
-	
+
 	return load;
 };
 
@@ -688,38 +639,34 @@ var setMemberLoadDistribution = function(load,
 *										- "Mass" / "Uniform": [M]
 * @return	{Object}	Returns modified load
 */
-var setSurfaceLoadDistribution = function(load,
-										  load_type,
-										  load_distribution,
-										  load_values)
-{		
+var setSurfaceLoadDistribution = function (load,
+	load_type,
+	load_distribution,
+	load_values) {
 	load.load_type = load_type;
-	
-	if (typeof load_distribution !== "undefined")
-	{
+
+	if (typeof load_distribution !== "undefined") {
 		load.load_distribution = load_distribution;
 	}
-	
+
 	var TWO_POINTS = 1;
 	var POINT_AND_PARALLEL = 2;
-	
-	switch (load_type)
-	{
+
+	switch (load_type) {
 		case surface_loads.LOAD_TYPE_FORCE:
-			switch (load_distribution)
-			{
+			switch (load_distribution) {
 				case surface_loads.LOAD_DISTRIBUTION_UNIFORM:
 					ASSERT(load_values.length === 1, "Wrong number of load parameters, one value is required (p)");
 					setLoadValues(load, load_values, "uniform_magnitude");
 					break;
 				case surface_loads.LOAD_DISTRIBUTION_LINEAR:
-					ASSERT(load_values.length >=4, "Wrong number of load parameters, at least four values are required (Node1, Node2, Node3, p1)");
+					ASSERT(load_values.length >= 4, "Wrong number of load parameters, at least four values are required (Node1, Node2, Node3, p1)");
 					setLoadValues(load, load_values, "node_1", "node_2", "node_3", "magnitude_1", "magnitude_2", "magnitude_3");
 					break;
 				case surface_loads.LOAD_DISTRIBUTION_LINEAR_IN_X:
 				case surface_loads.LOAD_DISTRIBUTION_LINEAR_IN_Y:
 				case surface_loads.LOAD_DISTRIBUTION_LINEAR_IN_Z:
-					ASSERT(load_values.length >=3, "Wrong number of load parameters, at least three values are required (Node1, Node2, p1)");
+					ASSERT(load_values.length >= 3, "Wrong number of load parameters, at least three values are required (Node1, Node2, p1)");
 					setLoadValues(load, load_values, "node_1", "node_2", "magnitude_1", "magnitude_2");
 					break;
 				case surface_loads.LOAD_DISTRIBUTION_RADIAL:
@@ -735,17 +682,15 @@ var setSurfaceLoadDistribution = function(load,
 						ASSERT(load_values[5].length >= 1, "Wrong number of defined nodes, at least one is required");
 						var node = nodes.getNthObject(load_values[5][0]);
 						load.axis_definition_p1 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
-				
+
 						// If axis definition is "Two points" and there are two axis coordinations
-						if (load_values[0] === TWO_POINTS && load_values[5].length === 2)
-						{
+						if (load_values[0] === TWO_POINTS && load_values[5].length === 2) {
 							node = nodes.getNthObject(load_values[5][1]);
 							load.axis_definition_p2 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
 						}
-						
+
 						// load_values = [axis_definition, ω, α, [Node1], parallel_axis]
-						if (load_values[0] === POINT_AND_PARALLEL && load_values.length >= 7)
-						{
+						if (load_values[0] === POINT_AND_PARALLEL && load_values.length >= 7) {
 							// Parallel axis is defined
 							setAxis(load, load_values[6]);
 						}
@@ -755,17 +700,15 @@ var setSurfaceLoadDistribution = function(load,
 						// Sixth parameter is x-coordinate of point A
 						ASSERT(load_values.length >= 8, "Wrong number of load parameters, at least six values are required (axes definition, p1, p2, Node1, Node2, XA, YA, ZA)");
 						load.axis_definition_p1 = $V(load_values[5], load_values[6], load_values[7]);
-						
-						if (load_values[0] === TWO_POINTS && load_values.length > 8)
-						{
+
+						if (load_values[0] === TWO_POINTS && load_values.length > 8) {
 							// Coordinates of second axis point is defined
 							ASSERT(load_values.length === 11, "Wrong number of parameters, nine values are required (axis definition, p1, p2, Node1, Node2, XA, YA, ZA, XB, YB, ZB)");
 							load.axis_definition_p2 = $V(load_values[8], load_values[9], load_values[10]);
 						}
-						
+
 						// load_values = [axis_definition, p1, p2, Node1, Node2, XA, YA, ZA, parallel_axis]
-						if (load_values[0] === POINT_AND_PARALLEL && load_values.length >= 9)
-						{
+						if (load_values[0] === POINT_AND_PARALLEL && load_values.length >= 9) {
 							// Parallel axis is defined
 							setAxis(load, load_values[8]);
 						}
@@ -773,8 +716,7 @@ var setSurfaceLoadDistribution = function(load,
 					break;
 				case surface_loads.LOAD_DISTRIBUTION_VARYING_IN_Z:
 					ASSERT(load_values.length % 2 === 0, "Wrong number of load parameters");
-					for (var i = 0; i < load_values.length; i+=2)
-					{
+					for (var i = 0; i < load_values.length; i += 2) {
 						load.varying_load_parameters[i / 2 + 1].magnitude = load_values[i];
 						load.varying_load_parameters[i / 2 + 1].distance = load_values[i + 1];
 					}
@@ -784,20 +726,19 @@ var setSurfaceLoadDistribution = function(load,
 			}
 			break;
 		case surface_loads.LOAD_TYPE_TEMPERATURE:
-			switch (load_distribution)
-			{
+			switch (load_distribution) {
 				case surface_loads.LOAD_DISTRIBUTION_UNIFORM:
 					ASSERT(load_values.length === 1, "Wrong number of load parameters, one value is required (Tc)");
 					setLoadValues(load, load_values, "uniform_magnitude_t_c", "uniform_magnitude_delta_t");
 					break;
 				case surface_loads.LOAD_DISTRIBUTION_LINEAR:
-					ASSERT(load_values.length >=4, "Wrong number of load parameters, at least four values are required (Node1, Node2, Node3, Tc1)");
+					ASSERT(load_values.length >= 4, "Wrong number of load parameters, at least four values are required (Node1, Node2, Node3, Tc1)");
 					setLoadValues(load, load_values, "node_1", "node_2", "node_3", "magnitude_t_c_1", "magnitude_t_c_2", "magnitude_t_c_3", "magnitude_delta_t_1", "magnitude_delta_t_2", "magnitude_delta_t_3");
 					break;
 				case surface_loads.LOAD_DISTRIBUTION_LINEAR_IN_X:
 				case surface_loads.LOAD_DISTRIBUTION_LINEAR_IN_Y:
 				case surface_loads.LOAD_DISTRIBUTION_LINEAR_IN_Z:
-					ASSERT(load_values.length >=3, "Wrong number of load parameters, at least three values are required (Node1, Node2, Tc1)");
+					ASSERT(load_values.length >= 3, "Wrong number of load parameters, at least three values are required (Node1, Node2, Tc1)");
 					setLoadValues(load, load_values, "node_1", "node_2", "magnitude_t_c_1", "magnitude_t_c_2", "magnitude_delta_t_1", "magnitude_delta_t_2");
 					break;
 				case surface_loads.LOAD_DISTRIBUTION_RADIAL:
@@ -817,15 +758,13 @@ var setSurfaceLoadDistribution = function(load,
 						load.axis_definition_p1 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
 
 						// If axis definition is "Two points" and there are two axis coordinations
-						if (load_values[0] === TWO_POINTS && load_values[7].length === 2)
-						{
+						if (load_values[0] === TWO_POINTS && load_values[7].length === 2) {
 							node = nodes.getNthObject(load_values[7][1]);
 							load.axis_definition_p2 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
 						}
 
 						// load_values = [axis_definition, ω, α, [Node1], parallel_axis]
-						if (load_values[0] === POINT_AND_PARALLEL && load_values.length >= 9)
-						{
+						if (load_values[0] === POINT_AND_PARALLEL && load_values.length >= 9) {
 							// Parallel axis is defined
 							setAxis(load, load_values[8]);
 						}
@@ -835,17 +774,15 @@ var setSurfaceLoadDistribution = function(load,
 						// Sixth parameter is x-coordinate of point A
 						ASSERT(load_values.length >= 10, "Wrong number of load parameters, at least ten values are required (axes definition, Tc1, Tc2, ΔT1, ΔT2, Node1, Node2, XA, YA, ZA)");
 						load.axis_definition_p1 = $V(load_values[7], load_values[8], load_values[9]);
-						
-						if (load_values[0] === TWO_POINTS && load_values.length > 10)
-						{
+
+						if (load_values[0] === TWO_POINTS && load_values.length > 10) {
 							// Coordinates of second axis point is defined
 							ASSERT(load_values.length === 13, "Wrong number of parameters, thirteen values are required (axis definition, Tc1, Tc2, ΔT1, ΔT2, Node1, Node2, XA, YA, ZA, XB, YB, ZB)");
 							load.axis_definition_p2 = $V(load_values[10], load_values[11], load_values[12]);
 						}
-						
+
 						// load_values = [axis_definition, p1, p2, Node1, Node2, XA, YA, ZA, parallel_axis]
-						if (load_values[0] === POINT_AND_PARALLEL && load_values.length >= 11)
-						{
+						if (load_values[0] === POINT_AND_PARALLEL && load_values.length >= 11) {
 							// Parallel axis is defined
 							setAxis(load, load_values[10]);
 						}
@@ -856,20 +793,19 @@ var setSurfaceLoadDistribution = function(load,
 			}
 			break;
 		case surface_loads.LOAD_TYPE_AXIAL_STRAIN:
-			switch (load_distribution)
-			{
+			switch (load_distribution) {
 				case surface_loads.LOAD_DISTRIBUTION_UNIFORM:
 					ASSERT(load_values.length === 1, "Wrong number of load parameters, one value is required (εx)");
 					setLoadValues(load, load_values, "magnitude_axial_strain_1x", "magnitude_axial_strain_1y");
 					break;
 				case surface_loads.LOAD_DISTRIBUTION_LINEAR:
-					ASSERT(load_values.length >=5, "Wrong number of load parameters, at least five values are required (Node1, Node2, Node3, ε1x, ε1y)");
+					ASSERT(load_values.length >= 5, "Wrong number of load parameters, at least five values are required (Node1, Node2, Node3, ε1x, ε1y)");
 					setLoadValues(load, load_values, "node_1", "node_2", "node_3", "magnitude_axial_strain_1x", "magnitude_axial_strain_1y", "magnitude_axial_strain_2x", "magnitude_axial_strain_2y", "magnitude_axial_strain_3x", "magnitude_axial_strain_3y");
 					break;
 				case surface_loads.LOAD_DISTRIBUTION_LINEAR_IN_X:
 				case surface_loads.LOAD_DISTRIBUTION_LINEAR_IN_Y:
 				case surface_loads.LOAD_DISTRIBUTION_LINEAR_IN_Z:
-					ASSERT(load_values.length >=4, "Wrong number of load parameters, at least four values are required (Node1, Node2, ε1x, ε1y)");
+					ASSERT(load_values.length >= 4, "Wrong number of load parameters, at least four values are required (Node1, Node2, ε1x, ε1y)");
 					setLoadValues(load, load_values, "node_1", "node_2", "magnitude_axial_strain_1x", "magnitude_axial_strain_1y", "magnitude_axial_strain_2x", "magnitude_axial_strain_2y");
 					break;
 				default:
@@ -891,7 +827,7 @@ var setSurfaceLoadDistribution = function(load,
 		default:
 			showLoadAssert(load_type);
 	}
-	
+
 	return load;
 };
 
@@ -916,27 +852,23 @@ var setSurfaceLoadDistribution = function(load,
 *														   [axis_definition, p1, p2, Node1, Node2, ([Node1] | XA, YA, ZA), parallel_axis] (axis definition 2 === "Point and axis")
 * @return	{Object}	Returns modified load
 */
-var setSolidLoadDistribution = function(load,
-										load_type,
-										load_distribution,
-										load_values)
-{
+var setSolidLoadDistribution = function (load,
+	load_type,
+	load_distribution,
+	load_values) {
 	load.load_type = load_type;
-	
-	if (typeof load_distribution !== "undefined")
-	{
+
+	if (typeof load_distribution !== "undefined") {
 		load.load_distribution = load_distribution;
 	}
-	
-	switch (load_type)
-	{
+
+	switch (load_type) {
 		case solid_loads.LOAD_TYPE_FORCE:
 			ASSERT(load_values.length === 1, "Wrong number of load parameters, one value is required (p)");
 			setLoadValues(load, load_values, "uniform_magnitude");
 			break;
 		case solid_loads.LOAD_TYPE_TEMPERATURE:
-			switch (load_distribution)
-			{
+			switch (load_distribution) {
 				case solid_loads.LOAD_DISTRIBUTION_UNIFORM:
 					ASSERT(load_values.length === 1, "Wrong number of load parameters, one is required (p)");
 					setLoadValues(load, load_values, "uniform_magnitude");
@@ -952,8 +884,7 @@ var setSolidLoadDistribution = function(load,
 			}
 			break;
 		case solid_loads.LOAD_TYPE_STRAIN:
-			switch (load_distribution)
-			{
+			switch (load_distribution) {
 				case solid_loads.LOAD_DISTRIBUTION_UNIFORM:
 					ASSERT(load_values.length >= 1, "Wrong number of load parameters, at least one value is required (εx)");
 					setLoadValues(load, load_values, "strain_uniform_magnitude_x", "strain_uniform_magnitude_y", "strain_uniform_magnitude_z");
@@ -978,7 +909,7 @@ var setSolidLoadDistribution = function(load,
 		default:
 			showLoadAssert(load_type);
 	}
-	
+
 	return load;
 };
 
@@ -991,31 +922,26 @@ var setSolidLoadDistribution = function(load,
 * @param	{Number}	load_acting_region_to	End of load acting region, can be undefined
 * @return	{Object}	Updated free load
 */
-var setCommonFreeLoadsValues = function(load,
-										load_projection,
-										load_direction,
-										load_acting_region_from,
-										load_acting_region_to)
-{
-	if (typeof load_projection !== "undefined")
-	{
+var setCommonFreeLoadsValues = function (load,
+	load_projection,
+	load_direction,
+	load_acting_region_from,
+	load_acting_region_to) {
+	if (typeof load_projection !== "undefined") {
 		load.load_projection = load_projection;
 	}
-		
-	if (typeof load_direction !== "undefined")
-	{
+
+	if (typeof load_direction !== "undefined") {
 		load.load_direction = load_direction;
 	}
-		
-	if (typeof load_acting_region_from !== "undefined")
-	{
+
+	if (typeof load_acting_region_from !== "undefined") {
 		load.load_acting_region_from = load_acting_region_from;
 	}
-		
-	if (typeof load_acting_region_to !== "undefined")
-	{
+
+	if (typeof load_acting_region_to !== "undefined") {
 		load.load_acting_region_to = load_acting_region_to;
 	}
-	
+
 	return load;
 };

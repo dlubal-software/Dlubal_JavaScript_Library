@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<script>
+    <arguments>
+        <argument argument-name="n" default-value="6" label-name="Number of Edges" />
+        <argument argument-name="r_1" default-value="4" label-name="Radius of bottom polygon (circumscribed circle)" />
+        <argument argument-name="r_2" default-value="2" label-name="Radius of top polygon (circumscribed circle)" />
+        <argument argument-name="H" default-value="4" label-name="Height" />
+        <argument argument-name="rotation" default-value="0" label-name="Rotation degree"/>
+    </arguments>
+</script>

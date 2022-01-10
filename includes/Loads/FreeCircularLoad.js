@@ -30,14 +30,12 @@ function FreeCircularLoad(no,
 *											- "Linear": [pC, R, pR, CX, CY]
 * @return	{Object}	Returns modified load
 */
-var setFreeCircularLoadParameters = function(load,
-											 load_distribution,
-											 load_values)
-{
+var setFreeCircularLoadParameters = function (load,
+	load_distribution,
+	load_values) {
 	load.load_distribution = load_distribution;
 
-	switch (load_distribution)
-	{
+	switch (load_distribution) {
 		case free_circular_loads.LOAD_DISTRIBUTION_UNIFORM:
 			ASSERT(load_values.length >= 2, "Wrong number of load parameters, at least two values are required (p, R)");
 			setLoadValues(load, load_values, "magnitude_uniform", "load_location_radius", "load_location_x", "load_location_y");
@@ -49,7 +47,7 @@ var setFreeCircularLoadParameters = function(load,
 		default:
 			showLoadAssert(undefined, load_distribution);
 	}
-	
+
 	return load;
 };
 
@@ -67,21 +65,20 @@ var setFreeCircularLoadParameters = function(load,
 * @param	{Object}	params					Load parameters, can be undefined
 * @return	{Object}	Created free circular uniform load
 */
-FreeCircularLoad.prototype.Uniform = function(no,
-											  load_case,
-											  surfaces,
-											  load_values,
-											  load_projection,
-											  load_direction,
-											  load_acting_region_from,
-											  load_acting_region_to,
-											  comment,
-											  params)
-{
+FreeCircularLoad.prototype.Uniform = function (no,
+	load_case,
+	surfaces,
+	load_values,
+	load_projection,
+	load_direction,
+	load_acting_region_from,
+	load_acting_region_to,
+	comment,
+	params) {
 	this.load = createBaseLoad("Free_Circular_Load", no, load_case, surfaces, comment, params);
 	this.load = setFreeCircularLoadParameters(this.load, free_circular_loads.LOAD_DISTRIBUTION_UNIFORM, load_values);
 	this.load = setCommonFreeLoadsValues(this.load, load_projection, load_direction, load_acting_region_from, load_acting_region_to);
-	
+
 	return this.load;
 };
 
@@ -99,20 +96,19 @@ FreeCircularLoad.prototype.Uniform = function(no,
 * @param	{Object}	params					Load parameters, can be undefined
 * @return	{Object}	Created free linear uniform load
 */
-FreeCircularLoad.prototype.Linear = function(no,
-											 load_case,
-											 surfaces,
-											 load_values,
-											 load_projection,
-											 load_direction,
-											 load_acting_region_from,
-											 load_acting_region_to,
-											 comment,
-											 params)
-{
+FreeCircularLoad.prototype.Linear = function (no,
+	load_case,
+	surfaces,
+	load_values,
+	load_projection,
+	load_direction,
+	load_acting_region_from,
+	load_acting_region_to,
+	comment,
+	params) {
 	this.load = createBaseLoad("Free_Circular_Load", no, load_case, surfaces, comment, params);
 	this.load = setFreeCircularLoadParameters(this.load, free_circular_loads.LOAD_DISTRIBUTION_LINEAR, load_values);
 	this.load = setCommonFreeLoadsValues(this.load, load_projection, load_direction, load_acting_region_from, load_acting_region_to);
-	
+
 	return this.load;
 };

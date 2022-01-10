@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<script>
+    <arguments>
+        <argument argument-name="a_1" default-value="2.2" label-name="Radius 1" />
+        <argument argument-name="a_2" default-value="4" label-name="Radius 2" />
+        <argument argument-name="b" default-value="6" label-name="total Length" />
+        <argument argument-name="thickness" default-value="0.01" label-name="Thickness" />
+    </arguments>
+</script>

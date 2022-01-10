@@ -31,13 +31,11 @@ function FreeConcentratedLoad(no,
 * @return	{Object}	Returns modified load
 */
 function setFreeConcentratedLoadParameters(load,
-										   load_type,
-										   load_values)
-{
+	load_type,
+	load_values) {
 	load.load_type = load_type;
-	
-	switch (load_type)
-	{
+
+	switch (load_type) {
 		case free_concentrated_loads.LOAD_TYPE_FORCE:
 			ASSERT(load_values.length === 3, "Wrong number of load parameters, three are required (p, X, Y)");
 			setLoadValues(load, load_values, "magnitude", "load_location_x", "load_location_y");
@@ -49,7 +47,7 @@ function setFreeConcentratedLoadParameters(load,
 		default:
 			showLoadAssert(load_type);
 	}
-	
+
 	return load;
 }
 
@@ -67,21 +65,20 @@ function setFreeConcentratedLoadParameters(load,
 * @param	{Object}	params					Load parameters, can be undefined
 * @return	{Object}	Created free concentrated force load
 */
-FreeConcentratedLoad.prototype.Force = function(no,
-												load_case,
-												surfaces,
-												load_values,
-												load_projection,
-												load_direction,
-												load_acting_region_from,
-												load_acting_region_to,
-												comment,
-												params)
-{
+FreeConcentratedLoad.prototype.Force = function (no,
+	load_case,
+	surfaces,
+	load_values,
+	load_projection,
+	load_direction,
+	load_acting_region_from,
+	load_acting_region_to,
+	comment,
+	params) {
 	this.load = createBaseLoad("Free_Concentrated_Load", no, load_case, surfaces, comment, params);
 	this.load = setFreeConcentratedLoadParameters(this.load, free_concentrated_loads.LOAD_TYPE_FORCE, load_values);
 	this.load = setCommonFreeLoadsValues(this.load, load_projection, load_direction, load_acting_region_from, load_acting_region_to);
-	
+
 	return this.load;
 };
 
@@ -99,20 +96,19 @@ FreeConcentratedLoad.prototype.Force = function(no,
 * @param	{Object}	params					Load parameters, can be undefined
 * @return	{Object}	Created free concentrated moment load
 */
-FreeConcentratedLoad.prototype.Moment = function(no,
-												 load_case,
-												 surfaces,
-												 load_values,
-												 load_projection,
-												 load_direction,
-												 load_acting_region_from,
-												 load_acting_region_to,
-												 comment,
-												 params)
-{
+FreeConcentratedLoad.prototype.Moment = function (no,
+	load_case,
+	surfaces,
+	load_values,
+	load_projection,
+	load_direction,
+	load_acting_region_from,
+	load_acting_region_to,
+	comment,
+	params) {
 	this.load = createBaseLoad("Free_Concentrated_Load", no, load_case, surfaces, comment, params);
 	this.load = setFreeConcentratedLoadParameters(this.load, free_concentrated_loads.LOAD_TYPE_MOMENT, load_values);
 	this.load = setCommonFreeLoadsValues(this.load, load_projection, load_direction, load_acting_region_from, load_acting_region_to);
-	
+
 	return this.load;
 };
