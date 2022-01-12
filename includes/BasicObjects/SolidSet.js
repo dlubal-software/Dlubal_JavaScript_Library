@@ -14,7 +14,8 @@ function SolidSet(no,
     solid_set_type,
     comment,
     params) {
-    if (typeof (solids_no) !== "undefined") {
+
+    if (arguments.length !== 0) {
         solids_no = typeof solids_no !== 'undefined' ? solids_no : [];
         solid_set_type = typeof solid_set_type !== 'undefined' ? solid_set_type : "";
         this.solid_set = engine.create_solid_set(no, solids_no);

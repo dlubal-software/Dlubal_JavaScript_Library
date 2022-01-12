@@ -16,7 +16,8 @@ function Thickness(no,
     uniform_thickness_d,
     comment,
     params) {
-    if (typeof (name) !== "undefined") {
+
+    if (arguments.length !== 0) {
         name = typeof name !== 'undefined' ? name : "";
         uniform_thickness_d = typeof uniform_thickness_d !== 'undefined' ? uniform_thickness_d : 0.2;
 
@@ -252,8 +253,8 @@ Thickness.prototype.Layers = function (no,
     for (var i = 0; i < layers.length; ++i) {
         this.thickness.layers_reference_table[i + 1].material = layers[i][0];
         this.thickness.layers_reference_table[i + 1].thickness = layers[i][1];
-        this.thickness.layers_reference_table[i + 1].angle     =(layers[i][2])*PI/180;
-        this.thickness.layers_reference_table[i + 1].comment   = layers[i][3];
+        this.thickness.layers_reference_table[i + 1].angle = (layers[i][2]) * PI / 180;
+        this.thickness.layers_reference_table[i + 1].comment = layers[i][3];
     }
     set_comment_and_parameters(this.thickness, comment, params);
 };
@@ -367,13 +368,11 @@ Thickness.prototype.ShapeOrthotropy = function (no,
     if (consideration_of_self_weight[0] == thicknesses.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS) {
         this.thickness.shape_orthotropy_self_weight_definition_type = thicknesses.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS;
     }
-    if (consideration_of_self_weight[0] == thicknesses.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS)
-    {
+    if (consideration_of_self_weight[0] == thicknesses.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS) {
         this.thickness.shape_orthotropy_self_weight_definition_type = thicknesses.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS;
         this.thickness.orthotropy_fictitious_thickness = consideration_of_self_weight[1];
     }
-    if (consideration_of_self_weight[0] == thicknesses.SELF_WEIGHT_DEFINED_VIA_WEIGHT)
-    {
+    if (consideration_of_self_weight[0] == thicknesses.SELF_WEIGHT_DEFINED_VIA_WEIGHT) {
         this.thickness.shape_orthotropy_self_weight_definition_type = thicknesses.SELF_WEIGHT_DEFINED_VIA_WEIGHT;
         this.thickness.shape_orthotropy_self_weight = consideration_of_self_weight[1];
     }

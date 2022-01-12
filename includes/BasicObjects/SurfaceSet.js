@@ -14,7 +14,8 @@ function SurfaceSet(no,
     surface_set_type,
     comment,
     params) {
-    if (typeof (surfaces) !== "undefined") {
+
+    if (arguments.length !== 0) {
         surfaces = typeof surfaces !== 'undefined' ? surfaces : [];
 
         this.surface_set = engine.create_surface_set(no, surfaces);

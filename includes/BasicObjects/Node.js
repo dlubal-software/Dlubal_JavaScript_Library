@@ -16,7 +16,8 @@ function Node(no,
     coordinate_Z,
     comment,
     params) {
-    if (typeof (coordinate_X && coordinate_Y && coordinate_Z) !== "undefined") {
+
+    if (arguments.length !== 0) {
         coordinate_X = typeof coordinate_X !== 'undefined' ? coordinate_X : 0.0;
         coordinate_Y = typeof coordinate_Y !== 'undefined' ? coordinate_Y : 0.0;
         coordinate_Z = typeof coordinate_Z !== 'undefined' ? coordinate_Z : 0.0;

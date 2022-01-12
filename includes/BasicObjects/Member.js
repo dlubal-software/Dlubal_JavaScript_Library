@@ -12,7 +12,8 @@ function Member(no,
     node_ids,
     comment,
     params) {
-    if (typeof (node_ids) !== "undefined") {
+
+    if (arguments.length !== 0) {
         node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
         ASSERT(node_ids.length > 1, "Minimum two nodes must be set to Member");
         this.member = "undefined";

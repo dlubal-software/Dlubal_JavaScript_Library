@@ -12,7 +12,8 @@ function Line(no,
     nodes,
     comment,
     params) {
-    if (typeof (nodes) !== "undefined") {
+ 
+        if (arguments.length !== 0) {
         nodes = typeof nodes !== 'undefined' ? nodes : [];
         ASSERT(nodes.length > 1, "Minimum two nodes must be set to line");
         this.line = engine.create_line(no, nodes);

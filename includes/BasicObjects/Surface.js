@@ -14,7 +14,8 @@ function Surface(no,
     thickness,
     comment,
     params) {
-    if (typeof (boundary_lines) !== "undefined") {
+
+    if (arguments.length !== 0) {
         boundary_lines = typeof boundary_lines !== 'undefined' ? boundary_lines : [];
         this.surface = engine.create_surface(no, boundary_lines);
         if (thickness !== 'undefined') {

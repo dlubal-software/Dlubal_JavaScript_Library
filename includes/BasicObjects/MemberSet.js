@@ -12,7 +12,8 @@ function MemberSet(no,
     members,
     comment,
     params) {
-    if (typeof (members) !== "undefined") {
+
+    if (arguments.length !== 0) {
         members = typeof members !== 'undefined' ? members : [];
 
         this.member_set = engine.create_member_set(no, members);

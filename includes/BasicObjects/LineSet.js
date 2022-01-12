@@ -11,7 +11,8 @@ function LineSet(no,
     lines,
     comment,
     params) {
-    if (typeof (lines) !== "undefined") {
+
+    if (arguments.length !== 0) {
         lines = typeof lines !== 'undefined' ? lines : [];
         this.line_set = engine.create_line_set(no, lines);
         set_comment_and_parameters(this.line_set, comment, params);

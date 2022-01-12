@@ -14,7 +14,8 @@ function Solid(no,
     material,
     comment,
     params) {
-    if (typeof (boundary_surfaces) !== "undefined") {
+
+    if (arguments.length !== 0) {
         boundary_surfaces = typeof boundary_surfaces !== 'undefined' ? boundary_surfaces : [];
 
         this.solid = engine.create_solid(no, boundary_surfaces);
