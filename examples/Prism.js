@@ -1,3 +1,6 @@
+if (!RFEM) {
+    throw new Error("This script is only for RFEM, it creates surfaces.");
+}
 // var n = 6;        // Number of edges
 // var r_1 = 4;      // Radius of Bottom polygon
 // var r_2 = 2;      // Radius of top polygon

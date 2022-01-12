@@ -1,3 +1,6 @@
+if (!RFEM) {
+    throw new Error("This script is only for RFEM, it creates surfaces.");
+}
 // var a = 20;                   // Total Length and Width
 // var H = 3.5;                  // Height
 // var n_f = 10;                 // Number of floors

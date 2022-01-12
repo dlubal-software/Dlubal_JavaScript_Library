@@ -12,7 +12,6 @@ var sectionBottomChord = Section(2, 'UPN 160', materialSteel);
 var sectionVertical = Section(3, 'HE 100 A', materialSteel);
 var sectionDiagonal = Section(4, 'HE 100 A', materialSteel);
 var ns = nodes.count();
-var nl = lines.count();
 
 Node(1 + ns, 0, 0, 0);
 Node(2 + ns, 0, 0, -H);
@@ -28,7 +27,7 @@ for (var i = 1; i < n; ++i) {
     nodeCount++;
 }
 var mem = new Member();
-var memberCount = nl + 1;
+var memberCount = 1;
 for (var i = 0; i < n + 1; ++i)                                     // Verticals
 {
     mem.Truss(memberCount, [1 + 2 * i + ns, 2 + 2 * i + ns], 0, sectionVertical.no);

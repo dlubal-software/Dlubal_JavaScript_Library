@@ -1,3 +1,6 @@
+if (!RFEM) {
+  throw new Error("This script is only for RFEM, it creates surfaces.");
+}
 var a_1 = 5;
 var a_2 = 5;
 var b_1 = 5;

@@ -1,3 +1,6 @@
+if (!RFEM) {
+    throw new Error("This script is only for RFEM, it creates surfaces.");
+}
 // var a = 1.5;             // Short Length
 // var b = 4;               // Long Length
 // var H_1 = 3;             // Height 1

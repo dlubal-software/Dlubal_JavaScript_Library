@@ -1,3 +1,6 @@
+if (!RFEM) {
+    throw new Error("This script is only for RFEM, it creates surfaces.");
+}
 // create material and section
 var material = Material(undefined, 'LC50/55');
 

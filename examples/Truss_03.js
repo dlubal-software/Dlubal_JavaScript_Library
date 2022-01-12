@@ -1,3 +1,6 @@
+if (!RFEM) {
+    throw new Error("This script is only for RFEM, it creates lines.");
+}
 var L = 12;     // Total Length
 var n = 6;      // Number of Bays (it should be even) (min. 4) 
 var H = 3;      // Height
