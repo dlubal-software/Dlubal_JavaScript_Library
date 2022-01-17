@@ -92,7 +92,7 @@ sur.Standard(6, surfaces.GEOMETRY_PLANE, "", [14, 15, 16, 17], 1);
 
 // Create members
 var mem = new Member();
-mem.RibByLine(1, 16, 2);
+//mem.RibByLine(1, 16, 2);
 mem.BeamByLine(2, 6, 0, 1);
 mem.BeamByLine(3, 22, 0, 4);
 mem.BeamByLine(4, 23, 0, 4);

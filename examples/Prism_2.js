@@ -1,9 +1,14 @@
 if (!RFEM) {
     throw new Error("This script is only for RFEM, it creates surfaces.");
 }
-// var n = 6;        // Number of edges
-// var r = 4;        // Radius of Bottom polygon
-// var H = 4;        // Height
+
+if (r === undefined) {
+	console.log(n)
+	n = 6;        // Number of edges
+	r = 4;        // Radius of Bottom polygon
+	H = 4;        // Height
+	console.log(H)
+};
 
 ASSERT(n > 2, "Number of edges should be more than 2");
 
