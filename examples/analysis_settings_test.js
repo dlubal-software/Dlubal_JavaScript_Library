@@ -1,3 +1,4 @@
+run("/clearAll.js");
 var SAS = new StaticAnalysisSettings();
 SAS.SetMaxNumberOfItrations(600);
 SAS.SetNumberOfLoadIncremets(4);
@@ -13,7 +14,7 @@ var SAS4 = new StaticAnalysisSettings(undefined,2, 3, 4, 5, []);
 var SAS5 = new StaticAnalysisSettings(undefined, 45, "second order", "ges");
 var SAS6 = new StaticAnalysisSettings(undefined, "large deformations", "esss");
 
-const someParams = {
+var someParams = {
 	//calculation_diagrams_enabled				: true,
 	//mass_conversion_enabled						: true,
 	//mass_conversion_acceleration_in_direction_z	: 30,
@@ -33,3 +34,33 @@ var SAS13 = new StaticAnalysisSettings(undefined, "large deformations", čwd, "P
 var SAS14 = new StaticAnalysisSettings(undefined, "second order", "direct", "Postcritical");
 var SAS15 = new StaticAnalysisSettings(undefined, "second order", "Combined");
 var SAS16 = new StaticAnalysisSettings(undefined, "large deformations", "iterative", "Postcritical", "Iterative Postcritical");
+
+DYNAMIC_ANALYSIS.MODAL.setActive(true);
+var MAS = new ModalAnalysisSettings();
+var MAS1 = new ModalAnalysisSettings(undefined, 6);
+var MAS2 = new ModalAnalysisSettings(undefined, "auto");
+var MAS3 = new ModalAnalysisSettings(undefined, x);
+var MAS4 = new ModalAnalysisSettings(10, 8);
+var MAS5 = new ModalAnalysisSettings(12);
+MAS5.SetBeyondFrequency(30);
+
+var MAS6 = new ModalAnalysisSettings(undefined, "auto", "subspace");
+MAS6.SetBeyondFrequency(120);
+MAS6.SetMaximalFrequency(400);
+var MAS7 = new ModalAnalysisSettings(undefined, "auto", "root");
+var MAS8 = new ModalAnalysisSettings(undefined, 11, "subspace");
+var MAS9 = new ModalAnalysisSettings(undefined, 7, "root");
+var MAS10 = new ModalAnalysisSettings(undefined, "11", "subspace");
+var MAS11 = new ModalAnalysisSettings(undefined, "17", "root");
+var MAS12 = new ModalAnalysisSettings(undefined, "3", "root", 10);
+var MAS13 = new ModalAnalysisSettings(undefined, "auto", "root", 50, 500);
+var MAS13 = new ModalAnalysisSettings(undefined, 5, "root", 50, 500);
+
+someParams = {
+	mass_conversion_type					: modal_analysis_settings.MASS_CONVERSION_TYPE_FULL_LOADS_AS_MASS,
+	mass_matrix_type						: modal_analysis_settings.MASS_MATRIX_TYPE_DIAGONAL,
+	activate_minimum_initial_prestress		: true,
+	minimum_initial_strain					: 0.003
+};
+
+var MAS14 = new ModalAnalysisSettings(undefined, 5, "root", 50, 500, "with parameters", someParams);

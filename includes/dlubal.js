@@ -8,7 +8,7 @@ include("GlobalParameters/OptimizationDescendingGlobalParameter.js");
 include("GlobalParameters/ValueGlobalParameter.js");
 // Analysis settings
 include("AnalysisSettings/StaticAnalysisSettings.js");
-
+include("AnalysisSettings/ModalAnalysisSettings.js");
 // Basic objects
 if (RFEM)
 {

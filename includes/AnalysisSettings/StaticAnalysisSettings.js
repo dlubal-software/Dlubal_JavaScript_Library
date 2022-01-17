@@ -139,6 +139,7 @@ function AvoidWrongAssignment(SAS, param) {
 
 StaticAnalysisSettings.prototype.SetMaxNumberOfItrations = function(iterations) {
   // * @param   {integer}   iterations         Maximun number of iterations
+  console.log(SAS.analysis_type)
   if (AvoidWrongAssignment(this.SASettings, "max_number_of_iterations") === true) {   
     ASSERT(typeof iterations != undefined || typeof iterations != "number", "Parameter must be assigned as an integer.");
     this.SASettings.max_number_of_iterations = iterations;
