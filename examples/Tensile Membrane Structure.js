@@ -1,14 +1,17 @@
 if (!RFEM) {
     throw new Error("This script is only for RFEM, it creates surfaces.");
 }
-// var n = 8;                // Number of Edges
-// var r_p = 5;              // Radius of base polygon
-// var r_c = 0.5;            // Radius of beams at top
-// var H = 4;                // Height
-// var thickness_1 = 0.001;  // Membrane thickness
-// var S_r = 0.15;           // Target relative member sag in cables
-// var n_x = 1500;           // Force along X axis in membrane
-// var n_y = 1500;           // Force along Y axis in membrane
+
+if (n === undefined) {
+	n = 8;                // Number of Edges
+	r_p = 5;              // Radius of base polygon
+	r_c = 0.5;            // Radius of beams at top
+	H = 4;                // Height
+	thickness_1 = 0.001;  // Membrane thickness
+	S_r = 0.15;           // Target relative member sag in cables
+	n_x = 1500;           // Force along X axis in membrane
+	n_y = 1500;           // Force along Y axis in membrane
+};
 
 FORM_FINDING.setActive(true);
 ASSERT(n > 2, "Number of edges should be more than 2");

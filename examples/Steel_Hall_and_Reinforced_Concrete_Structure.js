@@ -1,21 +1,24 @@
 if (!RFEM) {
     throw new Error("This script is only for RFEM, it creates surfaces.");
 }
-// var H_1 = 7;
-// var H_2 = 7.5;
-// var a = 25;
-// var b = 20;
-// var n_b = 4;
-// var n_a = 6;
-// var braces_bays = [1, 3, 5, 6];
-// var d = 0.2;
-// var a_1 = 5;
-// var a_2 = 5;
+
+if (H_1 === undefined) {
+	H_1 = 7;
+	H_2 = 7.5;
+	a = 25;
+	b = 20;
+	n_b = 4;
+	n_a = 6;
+	braces_bays = [1, 3, 5, 6];
+	d = 0.2;
+	a_1 = 5;
+	a_2 = 5;
 // //opening
-// var l = 2.5;
-// var w = 1.5;
-// var thickness_1 = 0.2;   // roof
-// var thickness_2 = 0.2;   // wall
+	l = 2.5;
+	w = 1.5;
+	thickness_1 = 0.2;   // roof
+	thickness_2 = 0.2;   // wall
+};
 
 // create material 
 var materialConcrete = Material(1, 'LC50/55');    // Concrete

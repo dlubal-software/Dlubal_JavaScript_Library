@@ -83,8 +83,8 @@ Opening(4, [13]);
 
 // Create members
 var mem = new Member();
-mem.RibByLine(1, 7, 2);
-mem.RibByLine(2, 8, 2);
+//mem.RibByLine(1, 7, 2);
+//mem.RibByLine(2, 8, 2);
 mem.BeamByLine(3, 14, 0, 1);
 
 // Define Supports

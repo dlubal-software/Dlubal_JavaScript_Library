@@ -1,16 +1,20 @@
 if (!RFEM) {
     throw new Error("This script is only for RFEM, it creates surfaces.");
 }
-// var a = 5;
-// var b = 4;
-// var H = 3;
-// var len = 2;
-// var w = 1.5;
-// var o_n = 6;
-// var o_r = 1;
-// var d_l = 1;
-// var d_h = 2.2;
-// var thickness_1 = 0.2   // wall
+
+
+if (a === undefined) {
+	a = 5;
+	b = 4;
+	H = 3;
+	len = 2;
+	w = 1.5;
+	o_n = 6;
+	o_r = 1;
+	d_l = 1;
+	d_h = 2.2;
+	thickness_1 = 0.2   // wall
+};
 
 // Create material 
 var material = Material(1, 'LC50/55');

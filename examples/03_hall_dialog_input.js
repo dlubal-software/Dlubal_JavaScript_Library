@@ -33,8 +33,9 @@ var lc7 = createLoadCase(7, 2, load_cases.ACTION_CATEGORY_PERMANENT_G, "Other pe
 
 // assign stability to LC5
 lc5.self_weight_active = true
+var stabilitySettings =stability_analysis_settings.create();
 lc5.calculate_critical_load = true
-lc5.stability_analysis_settings = 1
+lc5.stability_analysis_settings = stabilitySettings;
 
 // assign imperfections to LC6
 lc6.consider_imperfection = true
