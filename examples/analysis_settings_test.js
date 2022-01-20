@@ -147,11 +147,30 @@ someParams = {
 
 var StAS03 = new StabilityAnalysisSettings(undefined,true,true,"ICG",3,"With parameters", someParams);
 
-//  #### response spectrum analysis
-//### function StabilityAnalysisSettings(no,
-//                                isEigenvalueSolver,
-//                                isIncremental,
-//                                eigenvalueMethod,
-//                                comment,
- //                               params) ###/
+/* #### response spectrum analysis
+//### function SpectralAnalysisSettings(no,
+                                combinationRulePeriodic,
+                                combinationRuleDirrectional,
+                                useEquivalentLinearCombination,
+                                signedResultsUsingDominantMode,
+                                saveResultsOfAllSelectedModes,
+                                comment,
+                                params) ###/*/
+
 DYNAMIC_ANALYSIS.SPECTRAL.setActive(true);
+
+var SpAS = new SpectralAnalysisSettings();
+
+SpAS.settings.save_results_of_all_selected_modes = true;
+
+var SpAS01 = new SpectralAnalysisSettings(undefined, "CQC", "Scaled");
+var SpAS01 = new SpectralAnalysisSettings(undefined, "Absolute", "Absolute");
+var SpAS01 = new SpectralAnalysisSettings(undefined, "Absolute", "Absolute", true, true, true);
+
+someParams = {
+	constant_d_for_each_mode							: 0.03,
+	combination_rule_for_directional_components_value 	: 0.02,
+};
+
+var SpAS01 = new SpectralAnalysisSettings(undefined, "SRSj", "gfgfd", x, f, x,"With comment.");
+var SpAS01 = new SpectralAnalysisSettings(undefined, "CQC", "Scaled", true, f, true,"With parameters.", someParams );

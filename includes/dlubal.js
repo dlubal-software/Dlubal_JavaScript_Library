@@ -8,6 +8,7 @@ include("GlobalParameters/OptimizationDescendingGlobalParameter.js");
 include("GlobalParameters/ValueGlobalParameter.js");
 // Analysis settings
 include("AnalysisSettings/ModalAnalysisSettings.js");
+include("AnalysisSettings/SpectralAnalysisSettings.js");
 include("AnalysisSettings/StabilityAnalysisSettings.js");
 include("AnalysisSettings/StaticAnalysisSettings.js");
 // Basic objects
