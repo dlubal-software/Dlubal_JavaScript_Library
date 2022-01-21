@@ -6,7 +6,7 @@
 * Creates member hinge
 * @class
 * @constructor
-* @param	{Number}	no				Index of member hinge, van be undefined
+* @param	{Number}	no				Index of member hinge, can be undefined
 * @param	{Object}	member_start	Member start, can be undefined
 * @param	{Object} 	member_end		Member end, can be undefined
 * @param	{String}	comment			Comment, can be undefined
