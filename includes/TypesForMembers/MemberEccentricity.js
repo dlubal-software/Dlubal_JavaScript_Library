@@ -148,31 +148,31 @@ MemberEccentricity.prototype.TransverseOffsetNone = function () {
 
 /**
 * Sets transverse offset (private)
-* @param	{Object}	memberEccentricity		Member eccentricity to be set
+* @param	{Object}	member_eccentricity		Member eccentricity to be set
 * @param	{String}	reference_type			Reference type
 * @param	{Number}	reference object index	Reference member or surface index
 * @param	{Number}	reference_node_index	Reference member node index, in case of surface is undefined
 * @param	{String}	alignment				For member offset: "left_top", "middle_top", "right_top", "left_middle", "middle_middle", "right_middle", "left_bottom", "middle_bottom", "right_bottom"
 *												For surface offset: "middle_top", "middle_middle", "middle_bottom"
 */
-var setTransverseOffset = function (memberEccentricity,
+var setTransverseOffset = function (member_eccentricity,
 	reference_type,
 	reference_object_index,
 	reference_node_index,
 	alignment) {
-	memberEccentricity.transverse_offset_reference_type = reference_type;
+	member_eccentricity.transverse_offset_reference_type = reference_type;
 	
 	if (reference_type === member_eccentricities.TRANSVERSE_OFFSET_TYPE_FROM_MEMBER_SECTION) {
-		memberEccentricity.transverse_offset_reference_member = reference_object_index;
+		member_eccentricity.transverse_offset_reference_member = reference_object_index;
 		if (typeof reference_node_index !== "undefined") {
-			memberEccentricity.transverse_offset_member_reference_node = reference_node_index;
+			member_eccentricity.transverse_offset_member_reference_node = reference_node_index;
 		}
-		memberEccentricity.transverse_offset_horizontal_alignment = getAlignmentParts(alignment)[0];
-		memberEccentricity.transverse_offset_vertical_alignment = getAlignmentParts(alignment)[1];
+		member_eccentricity.transverse_offset_horizontal_alignment = getAlignmentParts(alignment)[0];
+		member_eccentricity.transverse_offset_vertical_alignment = getAlignmentParts(alignment)[1];
 	}
 	else {
-		memberEccentricity.transverse_offset_reference_surface = reference_object_index;	
-		memberEccentricity.vertical_section_alignment = getAlignmentParts(alignment)[1];
+		member_eccentricity.transverse_offset_reference_surface = reference_object_index;	
+		member_eccentricity.vertical_section_alignment = getAlignmentParts(alignment)[1];
 	}
 };
 
@@ -208,18 +208,18 @@ var createEccentricity = function (no,
 
 /**
 * Sets member eccentricity for relative to section type (private)
-* @param 	{Object}	memberEccentricity	Member eccentricity to be set
+* @param 	{Object}	member_eccentricity	Member eccentricity to be set
 * @param	{String}	alignment			Alignment ("left_top", "middle_top", "right_top", "left_middle", "middle_middle", "right_middle", "left_bottom", "middle_bottom", "right_bottom")
 */
-var setRelativeValues = function (memberEccentricity,
+var setRelativeValues = function (member_eccentricity,
 	alignment) {
-	ASSERT(memberEccentricity.specification_type !== member_eccentricities.TYPE_ABSOLUTE);
+	ASSERT(member_eccentricity.specification_type !== member_eccentricities.TYPE_ABSOLUTE);
 	
 	var horizontal = getAlignmentParts(alignment)[0];
 	var vertical = getAlignmentParts(alignment)[1];
 
-	memberEccentricity.horizontal_section_alignment = horizontal;
-	memberEccentricity.vertical_section_alignment = vertical;
+	member_eccentricity.horizontal_section_alignment = horizontal;
+	member_eccentricity.vertical_section_alignment = vertical;
 };
 
 /**
@@ -250,19 +250,19 @@ var getAlignmentParts = function (alignment) {
 * @param	{Number}	ey					Eccentricity in Y
 * @param	{Number}	ez					Eccentricity in Z
 */
-var setAbsoluteValues = function (memberEccentricity,
+var setAbsoluteValues = function (member_eccentricity,
 	ex,
 	ey,
 	ez) {
-	ASSERT(memberEccentricity.specification_type !== member_eccentricities.TYPE_RELATIVE);
+	ASSERT(member_eccentricity.specification_type !== member_eccentricities.TYPE_RELATIVE);
 	
 	if (typeof ex !== "undefined") {
-		memberEccentricity.offset_x = ex;
+		member_eccentricity.offset_x = ex;
 	}
 	if (typeof ey !== "undefined") {
-		memberEccentricity.offset_y = ey;
+		member_eccentricity.offset_y = ey;
 	}
 	if (typeof ez !== "undefined") {
-		memberEccentricity.offset_z = ez;
+		member_eccentricity.offset_z = ez;
 	}
 };

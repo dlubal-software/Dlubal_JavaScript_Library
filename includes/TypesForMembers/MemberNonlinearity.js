@@ -228,20 +228,20 @@ MemberNonlinearity.prototype.Yielding = function (no,
 
 /**
 * Sets parameters to member nonlinearity (private)
-* @param 	{Object}	memberNonlinearity	Member nonlinearity to be setParameters
+* @param 	{Object}	member_nonlinearity	Member nonlinearity to be setParameters
 * @param	{Array}		parameters			Nonlinearity parameters
-* @param	{String}	param1Name			Name of first parameter
-* @param	{String}	param2Name			Name of first parameter, can be undefined
+* @param	{String}	param_1_name		Name of first parameter
+* @param	{String}	param_2_name			Name of first parameter, can be undefined
 */
-var setParameters = function (memberNonlinearity,
+var setParameters = function (member_nonlinearity,
 	parameters,
-	param1Name,
-	param2Name) {
+	param_1_name,
+	param_2_name) {
 	ASSERT(parameters.length > 0);
-	memberNonlinearity[param1Name] = parameters[0];
-	if (typeof param2Name !== "undefined") {
+	member_nonlinearity[param_1_name] = parameters[0];
+	if (typeof param_2_name !== "undefined") {
 		ASSERT(parameters.length > 1);
-		memberNonlinearity[param2Name] = parameters[1];
+		member_nonlinearity[param_2_name] = parameters[1];
 	}
 };
 

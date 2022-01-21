@@ -101,97 +101,97 @@ MemberHinge.prototype.Rotational = function (no,
 
 /**
 * Sets negative and/or positive zone to partial activity translation x nonlinearity
-* @param 	{Array}	negative_zone	Negative zone values depend on type (for more information look at setPartialActivityZoneValues function)
-* @param	{Array} positive_zone	Positive zone values depend on type (for more information look at setPartialActivityZoneValues function)
+* @param 	{Array}	negative_zone_values	Negative zone values depend on type (for more information look at setPartialActivityZoneValues function)
+* @param	{Array} positive_zone_values	Positive zone values depend on type (for more information look at setPartialActivityZoneValues function)
 */
-MemberHinge.prototype.PartialActivityTranslationalX = function (negativeZoneValues,
-	positiveZoneValues) {
+MemberHinge.prototype.PartialActivityTranslationalX = function (negative_zone_values,
+	positive_zone_values) {
 	ASSERT(this.memberHinge.axial_release_n_nonlinearity === member_hinges.NONLINEARITY_TYPE_PARTIAL_ACTIVITY, "Member hinge ux has no partial activity nonlinearity");
-	if (typeof negativeZoneValues !== "undefined") {
-		setPartialActivityZoneValues(this.memberHinge, negativeZoneValues, "partial_activity_along_x_negative_type", "partial_activity_along_x_negative_slippage", "partial_activity_along_x_negative_displacement", "partial_activity_along_x_negative_force");
+	if (typeof negative_zone_values !== "undefined") {
+		setPartialActivityZoneValues(this.memberHinge, negative_zone_values, "partial_activity_along_x_negative_type", "partial_activity_along_x_negative_slippage", "partial_activity_along_x_negative_displacement", "partial_activity_along_x_negative_force");
 	}
-	if (typeof positiveZoneValues !== "undefined") {
-		setPartialActivityZoneValues(this.memberHinge, positiveZoneValues, "partial_activity_along_x_positive_type", "partial_activity_along_x_positive_slippage", "partial_activity_along_x_positive_displacement", "partial_activity_along_x_positive_force");
+	if (typeof positive_zone_values !== "undefined") {
+		setPartialActivityZoneValues(this.memberHinge, positive_zone_values, "partial_activity_along_x_positive_type", "partial_activity_along_x_positive_slippage", "partial_activity_along_x_positive_displacement", "partial_activity_along_x_positive_force");
 	}
 };
 
 /**
 * Sets negative and/or positive zone to partial activity translation y nonlinearity
-* @param 	{Array}	negative_zone	Negative zone values depend on type (for more information look at setPartialActivityZoneValues function)
-* @param	{Array} positive_zone	Positive zone values depend on type (for more information look at setPartialActivityZoneValues function)
+* @param 	{Array}	negative_zone_values	Negative zone values depend on type (for more information look at setPartialActivityZoneValues function)
+* @param	{Array} positive_zone_values	Positive zone values depend on type (for more information look at setPartialActivityZoneValues function)
 */
-MemberHinge.prototype.PartialActivityTranslationalY = function (negativeZoneValues,
-	positiveZoneValues) {
+MemberHinge.prototype.PartialActivityTranslationalY = function (negative_zone_values,
+	positive_zone_values) {
 	ASSERT(this.memberHinge.axial_release_vy_nonlinearity === member_hinges.NONLINEARITY_TYPE_PARTIAL_ACTIVITY, "Member hinge uy has no partial activity nonlinearity");
-	if (typeof negativeZoneValues !== "undefined") {
-		setPartialActivityZoneValues(this.memberHinge, negativeZoneValues, "partial_activity_along_y_negative_type", "partial_activity_along_y_negative_slippage", "partial_activity_along_y_negative_displacement", "partial_activity_along_y_negative_force");
+	if (typeof negative_zone_values !== "undefined") {
+		setPartialActivityZoneValues(this.memberHinge, negative_zone_values, "partial_activity_along_y_negative_type", "partial_activity_along_y_negative_slippage", "partial_activity_along_y_negative_displacement", "partial_activity_along_y_negative_force");
 	}
-	if (typeof positiveZoneValues !== "undefined") {
-		setPartialActivityZoneValues(this.memberHinge, positiveZoneValues, "partial_activity_along_y_positive_type", "partial_activity_along_y_positive_slippage", "partial_activity_along_y_positive_displacement", "partial_activity_along_y_positive_force");
+	if (typeof positive_zone_values !== "undefined") {
+		setPartialActivityZoneValues(this.memberHinge, positive_zone_values, "partial_activity_along_y_positive_type", "partial_activity_along_y_positive_slippage", "partial_activity_along_y_positive_displacement", "partial_activity_along_y_positive_force");
 	}
 };
 
 /**
 * Sets negative and/or positive zone to partial activity translation z nonlinearity
-* @param 	{Array}	negative_zone	Negative zone values depend on type (for more information look at setPartialActivityZoneValues function)
-* @param	{Array} positive_zone	Positive zone values depend on type (for more information look at setPartialActivityZoneValues function)
+* @param 	{Array}	negative_zone_values	Negative zone values depend on type (for more information look at setPartialActivityZoneValues function)
+* @param	{Array} positive_zone_values	Positive zone values depend on type (for more information look at setPartialActivityZoneValues function)
 */
-MemberHinge.prototype.PartialActivityTranslationalZ = function (negativeZoneValues,
-	positiveZoneValues) {
+MemberHinge.prototype.PartialActivityTranslationalZ = function (negative_zone_values,
+	positive_zone_values) {
 	ASSERT(this.memberHinge.axial_release_vz_nonlinearity === member_hinges.NONLINEARITY_TYPE_PARTIAL_ACTIVITY, "Member hinge uz has no partial activity nonlinearity");
-	if (typeof negativeZoneValues !== "undefined") {
-		setPartialActivityZoneValues(this.memberHinge, negativeZoneValues, "partial_activity_along_z_negative_type", "partial_activity_along_z_negative_slippage", "partial_activity_along_z_negative_displacement", "partial_activity_along_z_negative_force");
+	if (typeof negative_zone_values !== "undefined") {
+		setPartialActivityZoneValues(this.memberHinge, negative_zone_values, "partial_activity_along_z_negative_type", "partial_activity_along_z_negative_slippage", "partial_activity_along_z_negative_displacement", "partial_activity_along_z_negative_force");
 	}
-	if (typeof positiveZoneValues !== "undefined") {
-		setPartialActivityZoneValues(this.memberHinge, positiveZoneValues, "partial_activity_along_z_positive_type", "partial_activity_along_z_positive_slippage", "partial_activity_along_z_positive_displacement", "partial_activity_along_z_positive_force");
+	if (typeof positive_zone_values !== "undefined") {
+		setPartialActivityZoneValues(this.memberHinge, positive_zone_values, "partial_activity_along_z_positive_type", "partial_activity_along_z_positive_slippage", "partial_activity_along_z_positive_displacement", "partial_activity_along_z_positive_force");
 	}
 };
 
 /**
 * Sets negative and/or positive zone to partial activity rotational x nonlinearity
-* @param 	{Array}	negative_zone	Negative zone values depend on type (for more information look at setPartialActivityZoneValues function)
-* @param	{Array} positive_zone	Positive zone values depend on type (for more information look at setPartialActivityZoneValues function)
+* @param 	{Array}	negative_zone_values	Negative zone values depend on type (for more information look at setPartialActivityZoneValues function)
+* @param	{Array} positive_zone_values	Positive zone values depend on type (for more information look at setPartialActivityZoneValues function)
 */
-MemberHinge.prototype.PartialActivityRotationalX = function (negativeZoneValues,
-	positiveZoneValues) {
+MemberHinge.prototype.PartialActivityRotationalX = function (negative_zone_values,
+	positive_zone_values) {
 	ASSERT(this.memberHinge.moment_release_mt_nonlinearity === member_hinges.NONLINEARITY_TYPE_PARTIAL_ACTIVITY, "Member hinge φx has no partial activity nonlinearity");
-	if (typeof negativeZoneValues !== "undefined") {
-		setPartialActivityZoneValues(this.memberHinge, negativeZoneValues, "partial_activity_around_x_negative_type", "partial_activity_around_x_negative_slippage", "partial_activity_around_x_negative_rotation", "partial_activity_around_x_negative_moment");
+	if (typeof negative_zone_values !== "undefined") {
+		setPartialActivityZoneValues(this.memberHinge, negative_zone_values, "partial_activity_around_x_negative_type", "partial_activity_around_x_negative_slippage", "partial_activity_around_x_negative_rotation", "partial_activity_around_x_negative_moment");
 	}
-	if (typeof positiveZoneValues !== "undefined") {
-		setPartialActivityZoneValues(this.memberHinge, positiveZoneValues, "partial_activity_around_x_positive_type", "partial_activity_around_x_positive_slippage", "partial_activity_around_x_positive_rotation", "partial_activity_around_x_positive_moment");
+	if (typeof positive_zone_values !== "undefined") {
+		setPartialActivityZoneValues(this.memberHinge, positive_zone_values, "partial_activity_around_x_positive_type", "partial_activity_around_x_positive_slippage", "partial_activity_around_x_positive_rotation", "partial_activity_around_x_positive_moment");
 	}
 };
 
 /**
 * Sets negative and/or positive zone to partial activity rotational y nonlinearity
-* @param 	{Array}	negative_zone	Negative zone values depend on type (for more information look at setPartialActivityZoneValues function)
+* @param 	{Array}	negative_zone_values	Negative zone values depend on type (for more information look at setPartialActivityZoneValues function)
 * @param	{Array} positive_zone	Positive zone values depend on type (for more information look at setPartialActivityZoneValues function)
 */
-MemberHinge.prototype.PartialActivityRotationalY = function (negativeZoneValues,
-	positiveZoneValues) {
+MemberHinge.prototype.PartialActivityRotationalY = function (negative_zone_values,
+	positive_zone_values) {
 	ASSERT(this.memberHinge.moment_release_my_nonlinearity === member_hinges.NONLINEARITY_TYPE_PARTIAL_ACTIVITY, "Member hinge φy has no partial activity nonlinearity");
-	if (typeof negativeZoneValues !== "undefined") {
-		setPartialActivityZoneValues(this.memberHinge, negativeZoneValues, "partial_activity_around_y_negative_type", "partial_activity_around_y_negative_slippage", "partial_activity_around_y_negative_rotation", "partial_activity_around_y_negative_moment");
+	if (typeof negative_zone_values !== "undefined") {
+		setPartialActivityZoneValues(this.memberHinge, negative_zone_values, "partial_activity_around_y_negative_type", "partial_activity_around_y_negative_slippage", "partial_activity_around_y_negative_rotation", "partial_activity_around_y_negative_moment");
 	}
-	if (typeof positiveZoneValues !== "undefined") {
-		setPartialActivityZoneValues(this.memberHinge, positiveZoneValues, "partial_activity_around_y_positive_type", "partial_activity_around_y_positive_slippage", "partial_activity_around_y_positive_rotation", "partial_activity_around_y_positive_moment");
+	if (typeof positive_zone_values !== "undefined") {
+		setPartialActivityZoneValues(this.memberHinge, positive_zone_values, "partial_activity_around_y_positive_type", "partial_activity_around_y_positive_slippage", "partial_activity_around_y_positive_rotation", "partial_activity_around_y_positive_moment");
 	}
 };
 
 /**
 * Sets negative and/or positive zone to partial activity rotational z nonlinearity
-* @param 	{Array}	negative_zone	Negative zone values depend on type (for more information look at setPartialActivityZoneValues function)
-* @param	{Array} positive_zone	Positive zone values depend on type (for more information look at setPartialActivityZoneValues function)
+* @param 	{Array}	negative_zone_values	Negative zone values depend on type (for more information look at setPartialActivityZoneValues function)
+* @param	{Array} positive_zone_values	Positive zone values depend on type (for more information look at setPartialActivityZoneValues function)
 */
-MemberHinge.prototype.PartialActivityRotationalZ = function (negativeZoneValues,
-	positiveZoneValues) {
+MemberHinge.prototype.PartialActivityRotationalZ = function (negative_zone_values,
+	positive_zone_values) {
 	ASSERT(this.memberHinge.moment_release_mz_nonlinearity === member_hinges.NONLINEARITY_TYPE_PARTIAL_ACTIVITY, "Member hinge φz has no partial activity nonlinearity");
-	if (typeof negativeZoneValues !== "undefined") {
-		setPartialActivityZoneValues(this.memberHinge, negativeZoneValues, "partial_activity_around_z_negative_type", "partial_activity_around_z_negative_slippage", "partial_activity_around_z_negative_rotation", "partial_activity_around_z_negative_moment");
+	if (typeof negative_zone_values !== "undefined") {
+		setPartialActivityZoneValues(this.memberHinge, negative_zone_values, "partial_activity_around_z_negative_type", "partial_activity_around_z_negative_slippage", "partial_activity_around_z_negative_rotation", "partial_activity_around_z_negative_moment");
 	}
-	if (typeof positiveZoneValues !== "undefined") {
-		setPartialActivityZoneValues(this.memberHinge, positiveZoneValues, "partial_activity_around_z_positive_type", "partial_activity_around_z_positive_slippage", "partial_activity_around_z_positive_rotation", "partial_activity_around_z_positive_moment");
+	if (typeof positive_zone_values !== "undefined") {
+		setPartialActivityZoneValues(this.memberHinge, positive_zone_values, "partial_activity_around_z_positive_type", "partial_activity_around_z_positive_slippage", "partial_activity_around_z_positive_rotation", "partial_activity_around_z_positive_moment");
 	}
 };
 
@@ -363,88 +363,88 @@ MemberHinge.prototype.FrictionNPlusVyTranslationalZ = function () {
 	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_zx", "friction_coefficient_zy", "axial_release_vz");
 }
 
-var setDiagramValues = function (memberHinge,
-	diagramValues,
-	paramTableName,
-	param1Name,
-	param2Name,
-	param3Name) {
-	ASSERT(diagramValues.length >= 3, "At least three values are required");
+var setDiagramValues = function (member_hinge,
+	diagram_values,
+	param_table_name,
+	param_1_name,
+	param_2_name,
+	param_3_name) {
+	ASSERT(diagram_values.length >= 3, "At least three values are required");
 	
-	for (var i = 0; i < diagramValues.length; i += 3)
+	for (var i = 0; i < diagram_values.length; i += 3)
 	{
-		var row = memberHinge[paramTableName].row_count();
+		var row = member_hinge[param_table_name].row_count();
 		
-		memberHinge[paramTableName][row][param1Name] = diagramValues[i];
-		memberHinge[paramTableName][row][param2Name] = diagramValues[i + 1];
-		memberHinge[paramTableName][row][param3Name] = diagramValues[i + 2];
+		member_hinge[param_table_name][row][param_1_name] = diagram_values[i];
+		member_hinge[param_table_name][row][param_2_name] = diagram_values[i + 1];
+		member_hinge[param_table_name][row][param_3_name] = diagram_values[i + 2];
 	}
 };
 
-var setFrictionValues = function (memberHinge,
-	frictionValues,
-	paramCoeficientName,
-	paramCoeficient2Name,
-	paramConstantName) {
-	memberHinge[paramCoeficientName] = frictionValues[0];
-	if (typeof paramCoeficient2Name != "undefined") {
-		memberHinge[paramCoeficient2Name] = frictionValues[1];
-		memberHinge[paramConstantName] = frictionValues[2];
+var setFrictionValues = function (member_hinge,
+	friction_values,
+	param_coeficient_name,
+	param_coeficient_2_name,
+	param_constant_name) {
+	member_hinge[param_coeficient_name] = friction_values[0];
+	if (typeof param_coeficient_2_name != "undefined") {
+		member_hinge[param_coeficient_2_name] = friction_values[1];
+		member_hinge[param_constant_name] = friction_values[2];
 	}
 	else {
-		memberHinge[paramConstantName] = frictionValues[1];
+		member_hinge[param_constant_name] = friction_values[1];
 	}
 }
 
 /**
 * Sets values for partial activity zone (private)
-* @param 	{Object}	memberHinge				Member hinge to which values has to be set
-* @param	{Array}		zoneValues				Negative / positive zone values
+* @param 	{Object}	member_hinge			Member hinge to which values has to be set
+* @param	{Array}		zone_values				Negative / positive zone values
 * 												- "Complete": [0, u(x|y|z)s-|φ(x|y|z)-] / [0, u(x|y|z)s+|φ(x|y|z)s+]
 *												- "Fixed": [1, u(x|y|z)-|φ(x|y|z)-, u(x|y|z)s-|φ(x|y|z)s-] / [1, u(x|y|z)+|φ(x|y|z)+, u(x|y|z)s+|φ(x|y|z)s+]
 *												- "Tearing": [2, N-, u(x|y|z)s-|φ(x|y|z)s-] / [2, N+, u(x|y|z)s+|φ(x|y|z)s+]
 *												- "Yielding": [3, N-, u(x|y|z)s-|φ(x|y|z)s-] / [3, N+, u(x|y|z)s+|φ(x|y|z)s+]
 *												- "Spring ineffectiveness": [4]
-* @param	{String}	paramTypeName			Parameter name for partial activity zone name
-* @param	{String}	paramSlippageName		Parameter name for partial activity slippage name
-* @param	{String}	paramDisplacementName	Parameter name for partial activity displacement name
-* @param	{String}	paramForceName			Parameter name for partial activity force name
+* @param	{String}	param_type_name			Parameter name for partial activity zone name
+* @param	{String}	param_slippage_name		Parameter name for partial activity slippage name
+* @param	{String}	param_displacement_name	Parameter name for partial activity displacement name
+* @param	{String}	param_force_name		Parameter name for partial activity force name
 */
-var setPartialActivityZoneValues = function (memberHinge,
-	zoneValues,
-	paramTypeName,
-	paramSlippageName,
-	paramDisplacementName,
-	paramForceName) {
-	ASSERT(zoneValues.length > 0, "Zone: at least type of zone is required");
+var setPartialActivityZoneValues = function (member_hinge,
+	zone_values,
+	param_type_name,
+	param_slippage_name,
+	param_displacement_name,
+	param_force_name) {
+	ASSERT(zone_values.length > 0, "Zone: at least type of zone is required");
 	
-	switch (zoneValues[0])
+	switch (zone_values[0])
 	{
 		case 0:		// Complete
-			ASSERT(zoneValues.length === 2, "Zone type complete: two values are required (zone type, uxs-)");
-			memberHinge[paramTypeName] = member_hinges.PARTIAL_ACTIVITY_TYPE_COMPLETE;
-			memberHinge[paramSlippageName] = zoneValues[1];
+			ASSERT(zone_values.length === 2, "Zone type complete: two values are required (zone type, uxs-)");
+			member_hinge[param_type_name] = member_hinges.PARTIAL_ACTIVITY_TYPE_COMPLETE;
+			member_hinge[param_slippage_name] = zone_values[1];
 			break;
 		case 1:		// Fixed
-			ASSERT(zoneValues.length === 3, "Zone type fixed: three values are required (zone type, N-, uxs-)");
-			memberHinge[paramTypeName] = member_hinges.PARTIAL_ACTIVITY_TYPE_FIXED;
-			memberHinge[paramDisplacementName] = zoneValues[1];
-			memberHinge[paramSlippageName] = zoneValues[2];
+			ASSERT(zone_values.length === 3, "Zone type fixed: three values are required (zone type, N-, uxs-)");
+			member_hinge[param_type_name] = member_hinges.PARTIAL_ACTIVITY_TYPE_FIXED;
+			member_hinge[param_displacement_name] = zone_values[1];
+			member_hinge[param_slippage_name] = zone_values[2];
 			break;
 		case 2:		// Tearing
 		case 3:		// Yielding
-			ASSERT(zoneValues.length === 3, "Zone type tearing/yielding: three values are required (zone type, ux-, uxs-)");
-			if (zoneValues[0] === 2) {
-				memberHinge[paramTypeName] = member_hinges.PARTIAL_ACTIVITY_TYPE_TEARING;
+			ASSERT(zone_values.length === 3, "Zone type tearing/yielding: three values are required (zone type, ux-, uxs-)");
+			if (zone_values[0] === 2) {
+				member_hinge[param_type_name] = member_hinges.PARTIAL_ACTIVITY_TYPE_TEARING;
 			}
 			else {
-				memberHinge[paramTypeName] = member_hinges.PARTIAL_ACTIVITY_TYPE_YIELDING;
+				member_hinge[param_type_name] = member_hinges.PARTIAL_ACTIVITY_TYPE_YIELDING;
 			}
-			memberHinge[paramForceName] = zoneValues[1];
-			memberHinge[paramSlippageName] = zoneValues[2];
+			member_hinge[param_force_name] = zone_values[1];
+			member_hinge[param_slippage_name] = zone_values[2];
 			break;
 		case 4:		// Spring ineffectiveness
-			memberHinge[paramTypeName] = member_hinges.PARTIAL_ACTIVITY_TYPE_INEFFECTIVNESS;
+			member_hinge[param_type_name] = member_hinges.PARTIAL_ACTIVITY_TYPE_INEFFECTIVNESS;
 			break;
 		default:
 			ASSERT(false, "Unknown zone type");
@@ -453,33 +453,33 @@ var setPartialActivityZoneValues = function (memberHinge,
 
 /**
 * Sets values to member hinge (private)
-* @param	{Object}	memberHinge		Member hinge
+* @param	{Object}	member_hinge	Member hinge
 * @param	{Array}		values			Values to be set, [Translational/Rotational, Spring constant, Nonlinearity]
 										- Values can be in two formats:
 											[bool, float, string] - if bool is true (translation is enabled), then can be specified next two values (spring constant and nonlinearity)
 											[bool, string]		  - if bool is false (translation is disabled), then can be specified only next one value (nonlinearity)
-* @param	{String}	property1		Spring constant string name
-* @param	{String}	property2		Nonlinearity string name
+* @param	{String}	property_1		Spring constant string name
+* @param	{String}	property_2		Nonlinearity string name
 * @return	Returns modified member hinge
 */
-var setMainHingeValues = function(memberHinge, 
+var setMainHingeValues = function(member_hinge, 
 	values,
-	property1,
-	property2) {
+	property_1,
+	property_2) {
 	ASSERT(values.length > 0);
 	if (values[0]) {
 		// Translational or Rotational is enabled
 		ASSERT(values.length >= 2);
-		memberHinge[property1] = values[1];		// Spring constant
+		member_hinge[property_1] = values[1];		// Spring constant
 		if (values.length > 2) {
-			memberHinge[property2] = values[2];	// Nonlinearity
+			member_hinge[property_2] = values[2];	// Nonlinearity
 		}
 	}
 	else {
 		// Translational or Rotational is enabled
 		ASSERT(values.length === 2);
-		memberHinge[property1] = "inf";
-		memberHinge[property2] = values[1];		// Nonlinearity
+		member_hinge[property_1] = "inf";
+		member_hinge[property_2] = values[1];		// Nonlinearity
 	}
 };
 
