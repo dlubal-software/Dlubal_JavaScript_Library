@@ -143,13 +143,11 @@ for (var j = 0; j < braces_bays.length; ++j) {
 }
 
 // Define Nodal Support
-var nodalSupport = NodalSupport(undefined);
-nodalSupport.spring_x = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.spring_y = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.spring_z = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.rotational_restraint_z = nodal_supports.SPRING_CONSTANT_YES;
+var nodalSupport = new NodalSupport();
+nodalSupport.Hinged();
+
 for (var i = 1; i < n_b + 2 * n_a + 2; ++i) {
-    nodes[i].support = nodalSupport.no;
+    nodes[i].support = nodalSupport.GetNo();
 }
 
 // Create concrete structure (walls and floors)
@@ -246,15 +244,15 @@ secondFloor.push(no_mem + 4 * (n_b + 1) + 6 * n_b + 1);
 secondFloor.push(no_mem + 4 * (n_b + 1) + 6 * n_b + 3);
 
 // Create surface support
-var surfaceSupport = SurfaceSupport(undefined);
-surfaceSupport.shear_xz = surface_supports.SPRING_CONSTANT_YES;
-surfaceSupport.shear_yz = surface_supports.SPRING_CONSTANT_YES;
-surfaceSupport.translation_x = 10000000;
-surfaceSupport.translation_y = 10000000;
-surfaceSupport.translation_z = 30000000;
+var surfaceSupport = new SurfaceSupport();
+surfaceSupport.ShearX(true);
+surfaceSupport.ShearY(true);
+surfaceSupport.TranslationX(10000000);
+surfaceSupport.TranslationY(10000000);
+surfaceSupport.TranslationZ(30000000);
 
 // create floor
-sur.Standard(surfaceCount, surfaces.GEOMETRY_PLANE, "", firstFloor, 1);// "", {"support": surfaceSupport});
+sur.Standard(surfaceCount, surfaces.GEOMETRY_PLANE, "", firstFloor, 1, "", {"support": surfaceSupport.GetNo()});
 var surface_support = new SurfaceSupport(undefined, surfaceCount, "Fixed");
 surface_support.Fixed();
 surfaceCount++;

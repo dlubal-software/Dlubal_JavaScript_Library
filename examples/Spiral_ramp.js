@@ -113,24 +113,10 @@ mem.BeamByLine(5, 36, 0, 1);
 mem.BeamByLine(6, 37, 0, 1);
 
 // Define Supports
-var nodalSupport = NodalSupport(undefined);
-nodalSupport.spring_x = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.spring_y = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.spring_z = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.rotational_restraint_z = nodal_supports.SPRING_CONSTANT_YES;
+var nodalSupport = new NodalSupport(undefined,[21,22,23,24,25,26]);
+nodalSupport.Hinged();
 
-var lineSupport = LineSupport(undefined);
-lineSupport.spring_x = line_supports.SPRING_CONSTANT_YES;
-lineSupport.spring_y = line_supports.SPRING_CONSTANT_YES;
-lineSupport.spring_z = line_supports.SPRING_CONSTANT_YES;
-lineSupport.rotational_restraint_z = line_supports.SPRING_CONSTANT_YES;
+var lineSupport = new LineSupport(undefined, [17,21]);
+lineSupport.Hinged();
+lineSupport.RotationZ(true);
 
-// Supports
-nodes[21].support = nodalSupport.no;
-nodes[22].support = nodalSupport.no;
-nodes[23].support = nodalSupport.no;
-nodes[24].support = nodalSupport.no;
-nodes[25].support = nodalSupport.no;
-nodes[26].support = nodalSupport.no;
-lines[17].support = lineSupport.no;
-lines[21].support = lineSupport.no;
