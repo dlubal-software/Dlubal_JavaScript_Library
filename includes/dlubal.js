@@ -11,6 +11,7 @@ include("AnalysisSettings/ModalAnalysisSettings.js");
 include("AnalysisSettings/SpectralAnalysisSettings.js");
 include("AnalysisSettings/StabilityAnalysisSettings.js");
 include("AnalysisSettings/StaticAnalysisSettings.js");
+include("AnalysisSettings/WindSimulationSettings.js");
 // Basic objects
 if (RFEM)
 {

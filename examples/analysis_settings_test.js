@@ -156,6 +156,16 @@ var StAS03 = new StabilityAnalysisSettings(undefined,true,true,"ICG",3,"With par
                                 saveResultsOfAllSelectedModes,
                                 comment,
                                 params) ###/*/
+   /**
+  * Creates stability analysis settings hight level function 
+
+  * @param   {Boolean}   isEigenvalueSolver             is eigenvalue solver
+  * @param   {Boolean}   isIncremental                  is incremental method
+  * @param   {String}    eigenvalueMethod               Definition of eigenvalue method
+  * @param   {Integer}   numberOfLowestEigenvalues      Number of lowest eigenvalues
+  * @param   {String}     comment       Comment, empty by default
+  * @param   {Object}  params        Stability analysis settings parameters, empty by default
+  */
 
 DYNAMIC_ANALYSIS.SPECTRAL.setActive(true);
 
@@ -174,3 +184,49 @@ someParams = {
 
 var SpAS01 = new SpectralAnalysisSettings(undefined, "SRSj", "gfgfd", x, f, x,"With comment.");
 var SpAS01 = new SpectralAnalysisSettings(undefined, "CQC", "Scaled", true, f, true,"With parameters.", someParams );
+
+// WIND SIMULATION
+WIND_SIMULATION.setActive(true);
+
+/* #### WIND SIMULATION analysis
+// Main function
+function WindSimulationSettings(no,
+                                density,
+                                kinematicViscosity,
+                                consider_turbulence,
+                                comment,
+                                params)
+{
+
+   /**
+  * Creates stability analysis settings hight level function 
+
+  * @param   {Float}      density                 number between 1 and 2
+  * @param   {Float}      kinematicViscosity      number between 1e-6 and 1e-4
+  * @param   {Boolean}    consider_turbulence     consider turbulence
+  * @param   {String}     comment       Comment, empty by default
+  * @param   {Object}  params        Spectral analysis settings parameters, empty by default
+  */
+
+var WSAS = new WindSimulationSettings();
+WSAS.settings.maximum_number_of_iterations = 1000;
+WSAS.settings.use_second_order_numerical_scheme = true;
+WSAS.settings.consider_wall_roughness = true;
+WSAS.settings.roughness_constant = 0.75;
+WSAS.settings.sand_grain_roughness_height = 0.4;
+
+var WSAS01 = new WindSimulationSettings(undefined, 1.3, 32e-6);
+var WSAS01 = new WindSimulationSettings(undefined, 1.3, 4e-6, false);
+var WSAS01 = new WindSimulationSettings(undefined, 1.3, 4e-6, false, "with comment");
+
+someParams = {
+	turbulence_model_type							: wind_simulation_analysis_settings.TURBULENCE_TYPE_OMEGA,
+	slip_boundary_condition_on_bottom_boundary 		: true,
+	member_load_distribution						: wind_simulation_analysis_settings.TRAPEZOIDAL,
+	boundary_layers_checked							: true,
+	boundary_layers_value							: 7,
+	target_residue									: 1e-6,
+	finite_volume_mesh_density						: 0.15
+};
+
+var WSAS01 = new WindSimulationSettings(undefined, 1.3, 4e-6, fs,"with parameters", someParams);
