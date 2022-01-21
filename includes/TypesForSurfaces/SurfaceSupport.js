@@ -45,6 +45,10 @@ SurfaceSupport.prototype.SetNo = function(no) {
   this.support = surface_supports[no];
 }
 
+SurfaceSupport.prototype.GetNo = function() {
+  return this.support.no;
+}
+
 SurfaceSupport.prototype.SetComment = function(intent) {
   this.support.comment = intent;
   return this.support;

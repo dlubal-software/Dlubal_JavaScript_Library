@@ -48,13 +48,10 @@ var sur = new Surface();
 sur.Standard(1, surfaces.GEOMETRY_PLANE, "", [5, 6, 7, 8], 1);
 
 // Define Supports
-var nodalSupport = NodalSupport(undefined);
-nodalSupport.spring_x = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.spring_y = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.spring_z = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.rotational_restraint_z = nodal_supports.SPRING_CONSTANT_YES;
+var nodalSupport = new NodalSupport();
+nodalSupport.Hinged();
 
 // Assign Supports
 for (var i = 1; i < 5; ++i) {
-    nodes[i].support = nodalSupport.no;
+    nodes[i].support = nodalSupport.GetNo();
 }
