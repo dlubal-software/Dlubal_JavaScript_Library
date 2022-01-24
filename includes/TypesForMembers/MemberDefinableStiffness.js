@@ -3,7 +3,7 @@
 * @class
 * @constructor
 * @param	{Number}	no				Index of member definable stiffness, can be undefined
-* @param	{Array}		members			Assigned members
+* @param	{Array}		members			Assigned members, can be undefined
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member definable stiffness parameters, can be undefined
 * @return	{Object}	Created member definable stiffness
