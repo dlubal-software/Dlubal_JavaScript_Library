@@ -83,16 +83,16 @@ function StaticAnalysisSettings(no,
 {
 
    /**
-  * Creates nodal support hight level function 
+  * Creates static analysis settings hight level function 
 
   * @param   {Array}   surfaces      List of surfaces
-  * @param   {String}  type          Analysis setting type
+  * @param   {String}  analysisType          Analysis setting type
   * @param   {String}  comment       Comment, empty by default
   * @param   {Object}  params        Nodal support parameters, empty by default
   */
 
   ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
-  ASSERT(typeof type != undefined || typeof name != "string", "Name must be assigned as a string.");
+  ASSERT(typeof analysisType != undefined || typeof name != "string", "Name must be assigned as a string.");
 
     if (no === undefined) {
     	var SAS = static_analysis_settings.create();	
@@ -117,8 +117,8 @@ function StaticAnalysisSettings(no,
 	// Static analysis settings
 	this.settings = SAS;
   set_comment_and_parameters(this.settings, comment, params);
-  console.log("-- Finish. Object created. --");
-  // object for creation new supports with callback link to instance
+  console.log("-- Done. Static analysis settings no. " + SAS.no + " all initial params set.");
+  // object for creation new static analysis settings with callback link to instance
   var self = this;
   return self;
 };
