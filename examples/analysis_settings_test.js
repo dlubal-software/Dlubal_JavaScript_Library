@@ -156,6 +156,16 @@ var StAS03 = new StabilityAnalysisSettings(undefined,true,true,"ICG",3,"With par
                                 saveResultsOfAllSelectedModes,
                                 comment,
                                 params) ###/*/
+   /**
+  * Creates stability analysis settings hight level function 
+
+  * @param   {Boolean}   isEigenvalueSolver             is eigenvalue solver
+  * @param   {Boolean}   isIncremental                  is incremental method
+  * @param   {String}    eigenvalueMethod               Definition of eigenvalue method
+  * @param   {Integer}   numberOfLowestEigenvalues      Number of lowest eigenvalues
+  * @param   {String}     comment       Comment, empty by default
+  * @param   {Object}  params        Stability analysis settings parameters, empty by default
+  */
 
 DYNAMIC_ANALYSIS.SPECTRAL.setActive(true);
 
@@ -174,3 +184,4 @@ someParams = {
 
 var SpAS01 = new SpectralAnalysisSettings(undefined, "SRSj", "gfgfd", x, f, x,"With comment.");
 var SpAS01 = new SpectralAnalysisSettings(undefined, "CQC", "Scaled", true, f, true,"With parameters.", someParams );
+

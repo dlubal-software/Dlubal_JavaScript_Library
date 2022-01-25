@@ -80,8 +80,8 @@ function ModalAnalysisSettings( no,
 
 	this.settings = MAS;
   set_comment_and_parameters(this.settings, comment, params);
-  console.log("-- Finish. Object created. --");
-  // object for creation new supports with callback link to instance
+  console.log("-- Done. Modal analysis settings no. " + MAS.no + " all initial params set.");
+  // object for creation new MAS with callback link to instance
   var self = this;
   return self;
 };
