@@ -10,7 +10,6 @@
 */
 function MemberResultIntermediatePoint(no,
 	members,
-	clear_ordinates,
 	comment,
 	params) {
     this.memberResultIntermediatePoint = engine.create_member_result_intermediate_point(no);
