@@ -78,10 +78,10 @@ function ModalAnalysisSettings( no,
       };
   }; 
 
-	this.MASettings = MAS;
-  set_comment_and_parameters(this.MASettings, comment, params);
-  console.log("-- Finish. Object created. --");
-  // object for creation new supports with callback link to instance
+	this.settings = MAS;
+  set_comment_and_parameters(this.settings, comment, params);
+  console.log("-- Done. Modal analysis settings no. " + MAS.no + " all initial params set.");
+  // object for creation new MAS with callback link to instance
   var self = this;
   return self;
 };
@@ -91,8 +91,8 @@ function ModalAnalysisSettings( no,
 ModalAnalysisSettings.prototype.SetMaximalFrequency = function(frequency) {
   // * @param   {integer}   frequency         Maximal number of frequency
   ASSERT(typeof frequency != undefined || typeof frequency != "number", "Parameter must be assigned as an integer.");  
-  if (this.MASettings.number_of_modes_method === modal_analysis_settings.NUMBER_OF_MODES_METHOD_MAXIMUM_FREQUENCY) {
-      this.MASettings.maxmimum_natural_frequency = frequency;
+  if (this.settings.number_of_modes_method === modal_analysis_settings.NUMBER_OF_MODES_METHOD_MAXIMUM_FREQUENCY) {
+      this.settings.maxmimum_natural_frequency = frequency;
       };
   };
 
@@ -100,6 +100,6 @@ ModalAnalysisSettings.prototype.SetMaximalFrequency = function(frequency) {
 ModalAnalysisSettings.prototype.SetBeyondFrequency = function(frequency) {
   // * @param   {integer}   frequency         Maximal number of frequency
   ASSERT(typeof frequency != undefined || typeof frequency != "number", "Parameter must be assigned as an integer.");  
-  this.MASettings.find_eigenvectors_beyond_frequency = true;
-  this.MASettings.frequency = frequency;
+  this.settings.find_eigenvectors_beyond_frequency = true;
+  this.settings.frequency = frequency;
   };

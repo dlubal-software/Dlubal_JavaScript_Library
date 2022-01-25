@@ -83,16 +83,16 @@ function StaticAnalysisSettings(no,
 {
 
    /**
-  * Creates nodal support hight level function 
+  * Creates static analysis settings hight level function 
 
   * @param   {Array}   surfaces      List of surfaces
-  * @param   {String}  type          Analysis setting type
+  * @param   {String}  analysisType          Analysis setting type
   * @param   {String}  comment       Comment, empty by default
   * @param   {Object}  params        Nodal support parameters, empty by default
   */
 
   ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
-  ASSERT(typeof type != undefined || typeof name != "string", "Name must be assigned as a string.");
+  ASSERT(typeof analysisType != undefined || typeof name != "string", "Name must be assigned as a string.");
 
     if (no === undefined) {
     	var SAS = static_analysis_settings.create();	
@@ -115,10 +115,10 @@ function StaticAnalysisSettings(no,
     };
   };
 	// Static analysis settings
-	this.SASettings = SAS;
-  set_comment_and_parameters(this.SASettings, comment, params);
-  console.log("-- Finish. Object created. --");
-  // object for creation new supports with callback link to instance
+	this.settings = SAS;
+  set_comment_and_parameters(this.settings, comment, params);
+  console.log("-- Done. Static analysis settings no. " + SAS.no + " all initial params set.");
+  // object for creation new static analysis settings with callback link to instance
   var self = this;
   return self;
 };
@@ -140,17 +140,17 @@ function AvoidWrongAssignment(SAS, param) {
 StaticAnalysisSettings.prototype.SetMaxNumberOfItrations = function(iterations) {
   // * @param   {integer}   iterations         Maximun number of iterations
   console.log(SAS.analysis_type)
-  if (AvoidWrongAssignment(this.SASettings, "max_number_of_iterations") === true) {   
+  if (AvoidWrongAssignment(this.settings, "max_number_of_iterations") === true) {   
     ASSERT(typeof iterations != undefined || typeof iterations != "number", "Parameter must be assigned as an integer.");
-    this.SASettings.max_number_of_iterations = iterations;
+    this.settings.max_number_of_iterations = iterations;
   };
 };
 
 
 StaticAnalysisSettings.prototype.SetNumberOfLoadIncremets = function(increments) {
   // * @param   {integer}   increments         Number of load increments
-if (AvoidWrongAssignment(this.SASettings, "number_of_load_increments") === true) { 
+if (AvoidWrongAssignment(this.settings, "number_of_load_increments") === true) { 
   ASSERT(typeof increments != undefined || typeof increments != "number", "Parameter must be assigned as an integer.");
-  this.SASettings.number_of_load_increments = increments;
+  this.settings.number_of_load_increments = increments;
   };
 };

@@ -1,9 +1,30 @@
 run("/clearAll.js");
+
+/*  #### static analysis
+//function StaticAnalysisSettings(no,
+                                analysisType,
+                                equationSolver,
+                                nonlinearMethod,
+                                comment,
+                                params)
+
+Access to settings via .settings
+                                 /*/
+
+// create empty instance
 var SAS = new StaticAnalysisSettings();
+
+// set parameters via HL functions
 SAS.SetMaxNumberOfItrations(600);
 SAS.SetNumberOfLoadIncremets(4);
+
+// dirrect access to  static analysis settings
+SAS.settings.comment = "Access via .settings";
+SAS.settings.analysis_type = static_analysis_settings.SECOND_ORDER_P_DELTA;
+
+// create instance with parameters
 var SAS0 = new StaticAnalysisSettings(undefined, "linear", "neco");
-var SAS1 = new StaticAnalysisSettings(undefined,  "fde", "iterative");
+var SAS1 = new StaticAnalysisSettings(undefined,  "fde", "direct");
 var SAS2 = new StaticAnalysisSettings(undefined, "second order", "iterative", "Postcritical" );
 SAS2.SetMaxNumberOfItrations(600);
 SAS2.SetNumberOfLoadIncremets(4);
@@ -35,8 +56,27 @@ var SAS14 = new StaticAnalysisSettings(undefined, "second order", "direct", "Pos
 var SAS15 = new StaticAnalysisSettings(undefined, "second order", "Combined");
 var SAS16 = new StaticAnalysisSettings(undefined, "large deformations", "iterative", "Postcritical", "Iterative Postcritical");
 
+
+/*  #### modal analysis
+function ModalAnalysisSettings( no,
+                                numberOfModes,
+                                solverMethod,
+                                beyondFrequency,
+                                maximalFrequency,
+                                comment,
+                                params)
+{
+
+Access to settings via .settings
+                                 /*/
+
 DYNAMIC_ANALYSIS.MODAL.setActive(true);
 var MAS = new ModalAnalysisSettings();
+
+// dirrect access to  static analysis settings
+MAS.settings.comment = "Access via .settings";
+MAS.settings.mass_conversion_type = modal_analysis_settings.MASS_CONVERSION_TYPE_FULL_LOADS_AS_MASS;
+
 var MAS1 = new ModalAnalysisSettings(undefined, 6);
 var MAS2 = new ModalAnalysisSettings(undefined, "auto");
 var MAS3 = new ModalAnalysisSettings(undefined, x);
@@ -64,3 +104,4 @@ someParams = {
 };
 
 var MAS14 = new ModalAnalysisSettings(undefined, 5, "root", 50, 500, "with parameters", someParams);
+
