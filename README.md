@@ -1,10 +1,10 @@
 # RFEM_JavaScript_Library
-<!--
 ![image](https://img.shields.io/badge/COMPATIBILITY-RFEM%206.00-yellow)
+![image](https://img.shields.io/badge/COMPATIBILITY-RSTAB%209.00-yellow)
+![image](https://img.shields.io/badge/COMPATIBILITY-RSECTION%201.00-yellow)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![CodeFactor](https://www.codefactor.io/repository/github/dlubal-software/dlubal_csharp_client/badge)](https://www.codefactor.io/repository/github/dlubal-software/dlubal_csharp_client)
-[![codecov](https://codecov.io/gh/jarabroz/Dlubal_CSharp_Client/branch/main/graph/badge.svg?token=wQ4PBPY8XY)](https://codecov.io/gh/jarabroz/Dlubal_CSharp_Client)
--->
+[![CodeFactor](https://www.codefactor.io/repository/github/dlubal-software/dlubal_javascript_library/badge)](https://www.codefactor.io/repository/github/dlubal-software/dlubal_javascript_library)
+
 ## Description
 
 This JavaScript project is focused on opening of possibility of scripting inside [**RFEM 6**](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem) [**RSTAB 9**](https://www.dlubal.com/en/products/rstab-beam-structures/what-is-rstab) and [**RSECTION**](https://www.dlubal.com/en/products/cross-section-properties-software/rsection) to all our customers. Library enables them possibility to create models and interact with our applications on much higher level. The goal is to create easily expandable JavaScript library for scripting inside RFEM / RSTAB /RSECTION.
