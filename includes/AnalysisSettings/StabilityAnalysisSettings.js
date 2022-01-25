@@ -54,12 +54,12 @@ function StabilityAnalysisSettings(no,
    /**
   * Creates stability analysis settings hight level function 
 
-  * @param   {Boolean}   isEigenvalueSolver             is eigenvalue solver
-  * @param   {Boolean}   isIncremental                  is incremental method
-  * @param   {String}    eigenvalueMethod               Definition of eigenvalue method
-  * @param   {Integer}   numberOfLowestEigenvalues      Number of lowest eigenvalues
-  * @param   {String}     comment       Comment, empty by default
-  * @param   {Object}  params        Stability analysis settings parameters, empty by default
+  * @param   {Boolean}    isEigenvalueSolver             is eigenvalue solver
+  * @param   {Boolean}    isIncremental                  is incremental method
+  * @param   {String}     eigenvalueMethod               Definition of eigenvalue method
+  * @param   {Integer}    numberOfLowestEigenvalues      Number of lowest eigenvalues
+  * @param   {String}     comment                        Comment, empty by default
+  * @param   {Object}     params                         Stability analysis settings parameters, empty by default
   */
 
   ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
@@ -83,7 +83,7 @@ function StabilityAnalysisSettings(no,
 	// Stability analysis settings
 	this.settings = StAS;
   set_comment_and_parameters(this.settings, comment, params);
-  console.log("-- Finish. Object created. --");
+  console.log("-- Done. Stability analysis settings no. " + StAS.no + " all initial params set.");
   // object for creation new stas with callback link to instance
   var self = this;
   return self;

@@ -45,15 +45,15 @@ function SpectralAnalysisSettings(no,
 {
 
    /**
-  * Creates stability analysis settings hight level function 
+  * Creates spectral analysis settings hight level function 
 
   * @param   {String}     combinationRulePeriodic             combination rule for periodic responses
   * @param   {String}     combinationRuleDirrectional         combination rule for directional components
   * @param   {Boolean}    useEquivalentLinearCombination      use equivalent linear combination
   * @param   {Boolean}    signedResultsUsingDominantMode      signed results using dominant mode
   * @param   {Boolean}    saveResultsOfAllSelectedModes       save results of all selected modes
-  * @param   {String}     comment       Comment, empty by default
-  * @param   {Object}  params        Spectral analysis settings parameters, empty by default
+  * @param   {String}     comment                             Comment, empty by default
+  * @param   {Object}     params                              Spectral analysis settings parameters, empty by default
   */
 
   ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
@@ -92,7 +92,7 @@ function SpectralAnalysisSettings(no,
 	// Spectral analysis settings
 	this.settings = SpAS;
   set_comment_and_parameters(this.settings, comment, params);
-  console.log("-- Finish. Object created. --");
+  console.log("-- Done. spectral analysis settings no. " + SpAS.no + " all initial params set.");
   // object for creation new stas with callback link to instance
   var self = this;
   return self;
