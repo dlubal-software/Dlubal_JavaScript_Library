@@ -14,8 +14,8 @@ This JavaScript project is focused on opening of possibility of scripting inside
 You can download [actual release]() of our JavaScript library and the use it for your project or you can fork our repository.
 
 ### Steps for downloaded release
-* Go to [release location]()
-* Download zip file called ......
+* Go to [release location](https://github.com/Dlubal-Software/Dlubal_JavaScript_Library/releases/latest)
+* Download zip file called **Source code.zip**
 * Unzip it
 * Use PowerShell script [CopyFilesToRFEMLocation](PowerShellScripts/CopyFilesToRFEMLocation.ps1) to copy content of library into you installation folder (you may need to have admin rights)
 
