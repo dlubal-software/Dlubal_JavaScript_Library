@@ -17,7 +17,7 @@ function MemberDefinableStiffness(no,
 		this.memberDefinableStiffness.assigned_to = members;
 	}
 	set_comment_and_parameters(this.memberDefinableStiffness, comment, params);
-};
+}
 
 /**
 * Sets torsional and bending stiffness parameters

@@ -17,7 +17,7 @@ function MemberNonlinearity(no,
 	{
 		return this.memberNonlinearity = createNonlinearity(no, member, comment, params);
 	}
-};
+}
 
 /**
 * Creates member failure if tension nonlinearity

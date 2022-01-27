@@ -17,7 +17,7 @@ function MemberStiffnessModification(no,
 		this.memberStiffnessModification.assigned_to_structure_modification = structure_modifications;
 	}
     set_comment_and_parameters(this.memberStiffnessModification, comment, params);
-};
+}
 
 /**
 * Sets total stiffness factor
@@ -83,10 +83,7 @@ MemberStiffnessModification.prototype.ConcreteStructuresAci = function(component
 * Sets concrete structure CSA
 * @param	{Number}	component_type			Component type: Columns (1), Walls uncracked (2), Walls cracked (3), Beams (4), Flat plates and flat stabs (5). Can be undefined
 */
-MemberStiffnessModification.prototype.ConcreteStructuresCsa = function(component_type,
-	bending_stiffness_y,
-	bending_stiffness_z,
-	axial_stiffness) {
+MemberStiffnessModification.prototype.ConcreteStructuresCsa = function(component_type) {
 	this.memberStiffnessModification.type = member_stiffness_modifications.TYPE_CONCRETE_STRUCTURES_CSA;
 	// The parameters bending_stiffness_y, bending_stiffness_z, axial_stiffness cannot be set, they are disabled
 	setConcreteStructures(this.memberStiffnessModification, component_type);

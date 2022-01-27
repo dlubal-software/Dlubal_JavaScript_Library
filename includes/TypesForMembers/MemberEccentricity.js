@@ -19,7 +19,7 @@ function MemberEccentricity(no,
     if (arguments.length !== 0) {
 		return this.memberEccentricity = createEccentricity(no, member_start, member_end, comment, params);
 	}
-};
+}
 
 /**
 * Creates member eccentricity relative to section

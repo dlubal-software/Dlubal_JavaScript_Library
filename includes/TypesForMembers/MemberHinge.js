@@ -21,7 +21,7 @@ function MemberHinge(no,
 	if (arguments.length !== 0) { 
 		return this.memberHinge = createHinge(no, member_start, member_end, comment, params);
 	}
-};
+}
 
 /**
 * Creates member hinge with specified axis release

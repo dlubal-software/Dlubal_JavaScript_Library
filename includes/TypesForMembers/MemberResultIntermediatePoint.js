@@ -17,7 +17,7 @@ function MemberResultIntermediatePoint(no,
 		this.memberResultIntermediatePoint.members = members;
 	}
     set_comment_and_parameters(this.memberResultIntermediatePoint, comment, params);
-};
+}
 
 /**
 * Sets number of points

@@ -13,7 +13,7 @@ var material = createMaterial("S235");
 var section = createSection(material, "IPE 80");
 
 var nodesForMembers = createNodesGrid(-28, -28, [10, 10], [3, 5]);
-var memberList = createMembersFromNodesGrid(nodesForMembers, [5, 10], members.TYPE_BEAM, section);
+createMembersFromNodesGrid(nodesForMembers, [5, 10], members.TYPE_BEAM, section);
 
 var memberEccentricity = new MemberEccentricity();
 memberEccentricity.RelativeToSection(undefined, 1, 1, "right_top");
