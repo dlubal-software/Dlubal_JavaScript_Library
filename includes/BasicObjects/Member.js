@@ -412,7 +412,6 @@ Member.prototype.ResultBeam = function (no,
     }
 };
 
-
 /**
  * Create Definable Stiffness member
  * @param {int} no - Number of member
@@ -456,7 +455,6 @@ Member.prototype.DefinableStiffness = function (no,
         set_comment_and_parameters(this.member, comment, params);
     }
 };
-
 
 /**
  * Create Coupling Rigid-Rigid member

@@ -7,12 +7,11 @@ include("GlobalParameters/OptimizationAscendingGlobalParameter.js");
 include("GlobalParameters/OptimizationDescendingGlobalParameter.js");
 include("GlobalParameters/ValueGlobalParameter.js");
 // Basic objects
-if (RFEM)
-{
+if (RFEM) {
     include("BasicObjects/LineSet.js");
     include("BasicObjects/Line.js");
     include("BasicObjects/SolidSet.js");
-    include("BasicObjects/solid.js");
+    include("BasicObjects/Solid.js");
     include("BasicObjects/SurfaceSet.js");
     include("BasicObjects/Surface.js");
     include("BasicObjects/Opening.js");
@@ -36,8 +35,7 @@ include("Supports/Nonlinearities/NonlinearitiesRz.js");
 include("TypesForNodes/NodalMeshRefinement.js");
 include("TypesForNodes/NodalSupport.js");
 // Types for Lines
-if (RFEM)
-{
+if (RFEM) {
     include("TypesForLines/LineHinge.js");
     include("TypesForLines/LineMeshRefinement.js");
     include("TypesForLines/LineSupport.js");
@@ -52,8 +50,7 @@ include("TypesForMembers/MemberStiffnessModification.js");
 include("TypesForMembers/MemberSupport.js");
 include("TypesForMembers/MemberTransverseStiffener.js");
 // Types for Surfaces
-if (RFEM)
-{
+if (RFEM) {
     include("TypesForSurfaces/SurfaceEccentricity.js");
     include("TypesForSurfaces/SurfaceMeshRefinement.js");
     include("TypesForSurfaces/SurfaceSupport.js");
@@ -61,8 +58,7 @@ if (RFEM)
 // Loading
 include("Loading/LoadCombination.js");
 // Loads
-if (RFEM)
-{
+if (RFEM) {
     include("Loads/FreeCircularLoad.js");
     include("Loads/FreeConcentratedLoad.js");
     include("Loads/FreeLineLoad.js");

@@ -2,7 +2,7 @@ include("BaseLoad.js");
 
 /**
 * Creates line set load
-* @class 
+* @class
 * @constructor
 * @param 	{Number}	no					Index of line set load, can be undefined
 * @param 	{Object}	load_case			Load case

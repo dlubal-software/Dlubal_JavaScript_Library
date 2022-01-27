@@ -40,7 +40,6 @@ var stabilitySettings = stability_analysis_settings.create();
 lc5.calculate_critical_load = true;
 lc5.self_weight_active = true;
 
-
 // assign imperfections to LC6
 lc6.consider_imperfection = true;
 lc6.imperfection_case = ImperfectionCase(undefined, "Local Imperfections Only");
@@ -122,7 +121,6 @@ Member(undefined, [3, 10], "", bracing_member_params);
 var imperfection = MemberImperfection(undefined, 1);
 imperfection.members = "1,9,17,25,33";
 imperfection.basic_value_absolute = 5mm;
-
 
 // loading values for live load and wind load
 var f_g = 150N/m2;

@@ -5,7 +5,6 @@ include("../Functions/global.js"); //import this script
 throw new Error("text"); //error message
 */
 
-
 function isObjectEmpty(object)
 {
     /*
@@ -18,7 +17,6 @@ function isObjectEmpty(object)
 
     return true;
 }
-
 
 //---------------------- Script Functions ----------------------
 function createCoordinateSystem(index, vector, options)
@@ -1059,7 +1057,6 @@ function copyLine(index, vector, options)
         arrNodes.push(nodeToAssign.id);
     }
 
-
     for(var i = 0; i <= lines.lastId(); i++)
     {
         if (lines.exist(i)==true)
@@ -1224,7 +1221,6 @@ if (!String.prototype.format) {
     });
   };
 }
-
 
 function createSteelJoint(index, nodes, options)
 {

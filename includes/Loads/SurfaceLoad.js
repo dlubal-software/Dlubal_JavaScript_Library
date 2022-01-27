@@ -46,12 +46,12 @@ SurfaceLoad.prototype.Force = function(no,
 {
 	this.load = createBaseLoad("Surface_Load", no, load_case, surfaces, comment, params);
 	this.load = setSurfaceLoadDistribution(this.load, surface_loads.LOAD_TYPE_FORCE, load_distribution, load_values);
-	
+
 	if (typeof load_direction !== "undefined")
 	{
 		this.load.load_direction = load_direction;
 	}
-	
+
 	return this.load;
 };
 
@@ -76,7 +76,7 @@ SurfaceLoad.prototype.Temperature = function(no,
 {
 	this.load = createBaseLoad("Surface_Load", no, load_case, surfaces, comment, params);
 	this.load = setSurfaceLoadDistribution(this.load, surface_loads.LOAD_TYPE_TEMPERATURE, load_distribution, load_values);
-	
+
 	return this.load;
 };
 
@@ -101,7 +101,7 @@ SurfaceLoad.prototype.AxialStrain = function(no,
 {
 	this.load = createBaseLoad("Surface_Load", no, load_case, surfaces, comment, params);
 	this.load = setSurfaceLoadDistribution(this.load, surface_loads.LOAD_TYPE_AXIAL_STRAIN, load_distribution, load_values);
-	
+
 	return this.load;
 };
 
@@ -124,7 +124,7 @@ SurfaceLoad.prototype.Precamber = function(no,
 {
 	this.load = createBaseLoad("Surface_Load", no, load_case, surfaces, comment, params);
 	this.load = setSurfaceLoadDistribution(this.load, surface_loads.LOAD_TYPE_PRECAMBER, undefined, [load_value]);
-	
+
 	return this.load;
 };
 
@@ -147,7 +147,7 @@ SurfaceLoad.prototype.RotaryMotion = function(no,
 {
 	this.load = createBaseLoad("Surface_Load", no, load_case, surfaces, comment, params);
 	this.load = setSurfaceLoadDistribution(this.load, surface_loads.LOAD_TYPE_ROTARY_MOTION, undefined, load_values);
-	
+
 	return this.load;
 };
 
@@ -170,7 +170,7 @@ SurfaceLoad.prototype.Mass = function(no,
 {
 	this.load = createBaseLoad("Surface_Load", no, load_case, surfaces, comment, params);
 	this.load = setSurfaceLoadDistribution(this.load, surface_loads.LOAD_TYPE_MASS, undefined, [load_value]);
-	
+
 	return this.load;
 };
 
@@ -183,7 +183,7 @@ SurfaceLoad.prototype.Mass = function(no,
 SurfaceLoad.prototype.IndividualMassComponents = function(MX,
 														  MY,
 														  MZ)
-{	
+{
 	ASSERT(this.load.load_type === surface_loads.LOAD_TYPE_MASS, "Can be set only for mass load type");
 
 	if (arguments.length === 0)
@@ -191,21 +191,21 @@ SurfaceLoad.prototype.IndividualMassComponents = function(MX,
 		this.load.individual_mass_components = false;
 		return;
 	}
-	
+
 	this.load.individual_mass_components = true;
-	
+
 	if (typeof MX !== "undefined")
 	{
 		this.load.magnitude_mass_x = MX;
 	}
-	
+
 	if (typeof MY !== "undefined")
 	{
 		this.load.magnitude_mass_y = MY;
 	}
-	
+
 	if (typeof MZ !== "undefined")
 	{
 		this.load.magnitude_mass_z = MZ;
-	}	
+	}
 };
