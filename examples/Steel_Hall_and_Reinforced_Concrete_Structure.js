@@ -243,16 +243,9 @@ for (var i = 0; i < n_b; ++i) {
 secondFloor.push(no_mem + 4 * (n_b + 1) + 6 * n_b + 1);
 secondFloor.push(no_mem + 4 * (n_b + 1) + 6 * n_b + 3);
 
-// Create surface support
-var surfaceSupport = new SurfaceSupport();
-surfaceSupport.ShearX(true);
-surfaceSupport.ShearY(true);
-surfaceSupport.TranslationX(10000000);
-surfaceSupport.TranslationY(10000000);
-surfaceSupport.TranslationZ(30000000);
 
 // create floor
-sur.Standard(surfaceCount, surfaces.GEOMETRY_PLANE, "", firstFloor, 1, "", {"support": surfaceSupport.GetNo()});
+sur.Standard(surfaceCount, surfaces.GEOMETRY_PLANE, "", firstFloor, 1, "");
 var surface_support = new SurfaceSupport(undefined, surfaceCount, "Fixed");
 surface_support.Fixed();
 surfaceCount++;
