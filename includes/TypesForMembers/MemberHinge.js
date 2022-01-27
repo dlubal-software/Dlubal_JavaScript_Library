@@ -201,7 +201,7 @@ MemberHinge.prototype.PartialActivityRotationalZ = function (negative_zone_value
 */
 MemberHinge.prototype.DiagramTranslationalX = function () {
 	ASSERT(this.memberHinge.axial_release_n_nonlinearity === member_hinges.NONLINEARITY_TYPE_DIAGRAM, "Member hinge ux has no diagram nonlinearity");
-	ASSERT(diagramValues.length % 3 === 0, "Values has to be specified in format [ux1, N1, Cux1, ux2, N2, Cux2 ... uxn, Nn, Cuxn]");
+	ASSERT(arguments.length % 3 === 0, "Values has to be specified in format [ux1, N1, Cux1, ux2, N2, Cux2 ... uxn, Nn, Cuxn]");
 	setDiagramValues(this.memberHinge, arguments, "diagram_along_x_table", "displacement", "force", "spring");
 };
 
@@ -211,7 +211,7 @@ MemberHinge.prototype.DiagramTranslationalX = function () {
 */
 MemberHinge.prototype.DiagramTranslationalY = function () {
 	ASSERT(this.memberHinge.axial_release_vy_nonlinearity === member_hinges.NONLINEARITY_TYPE_DIAGRAM, "Member hinge uy has no diagram nonlinearity");
-	ASSERT(diagramValues.length % 3 === 0, "Values has to be specified in format [uy1, N1, Cuy1, uy2, N2, Cuy2 ... uyn, Nn, Cuyn]");
+	ASSERT(arguments.length % 3 === 0, "Values has to be specified in format [uy1, N1, Cuy1, uy2, N2, Cuy2 ... uyn, Nn, Cuyn]");
 	setDiagramValues(this.memberHinge, arguments, "diagram_along_y_table", "displacement", "force", "spring");
 };
 
@@ -221,7 +221,7 @@ MemberHinge.prototype.DiagramTranslationalY = function () {
 */
 MemberHinge.prototype.DiagramTranslationalZ = function () {
 	ASSERT(this.memberHinge.axial_release_vz_nonlinearity === member_hinges.NONLINEARITY_TYPE_DIAGRAM, "Member hinge ux has no diagram nonlinearity");
-	ASSERT(diagramValues.length % 3 === 0, "Values has to be specified in format [uz1, N1, Cuz1, uz2, N2, Cuz2 ... uzn, Nn, Cuzn]");
+	ASSERT(arguments.length % 3 === 0, "Values has to be specified in format [uz1, N1, Cuz1, uz2, N2, Cuz2 ... uzn, Nn, Cuzn]");
 	setDiagramValues(this.memberHinge, arguments, "diagram_along_z_table", "displacement", "force", "spring");
 };
 
@@ -231,7 +231,7 @@ MemberHinge.prototype.DiagramTranslationalZ = function () {
 */
 MemberHinge.prototype.DiagramRotationalX = function () {
 	ASSERT(this.memberHinge.moment_release_mt_nonlinearity === member_hinges.NONLINEARITY_TYPE_DIAGRAM, "Member hinge φx has no diagram nonlinearity");
-	ASSERT(diagramValues.length % 3 === 0, "Values has to be specified in format [φx1, N1, Cφx1, φx2, N2, Cφx2 ... φxn, Nn, Cφxn]");
+	ASSERT(arguments.length % 3 === 0, "Values has to be specified in format [φx1, N1, Cφx1, φx2, N2, Cφx2 ... φxn, Nn, Cφxn]");
 	setDiagramValues(this.memberHinge, arguments, "diagram_around_x_table", "rotation", "moment", "spring");
 };
 
@@ -241,7 +241,7 @@ MemberHinge.prototype.DiagramRotationalX = function () {
 */
 MemberHinge.prototype.DiagramRotationalY = function () {
 	ASSERT(this.memberHinge.moment_release_my_nonlinearity === member_hinges.NONLINEARITY_TYPE_DIAGRAM, "Member hinge φy has no diagram nonlinearity");
-	ASSERT(diagramValues.length % 3 === 0, "Values has to be specified in format [φy1, N1, Cφy1, φy2, N2, Cφy2 ... φyn, Nn, Cφyn]");
+	ASSERT(arguments.length % 3 === 0, "Values has to be specified in format [φy1, N1, Cφy1, φy2, N2, Cφy2 ... φyn, Nn, Cφyn]");
 	setDiagramValues(this.memberHinge, arguments, "diagram_around_y_table", "rotation", "moment", "spring");
 };
 
@@ -251,7 +251,7 @@ MemberHinge.prototype.DiagramRotationalY = function () {
 */
 MemberHinge.prototype.DiagramRotationalZ = function () {
 	ASSERT(this.memberHinge.moment_release_mz_nonlinearity === member_hinges.NONLINEARITY_TYPE_DIAGRAM, "Member hinge φz has no diagram nonlinearity");
-	ASSERT(diagramValues.length % 3 === 0, "Values has to be specified in format [φz1, N1, Cφz1, φz2, N2, Cφz2 ... φzn, Nn, Cφzn]");
+	ASSERT(arguments.length % 3 === 0, "Values has to be specified in format [φz1, N1, Cφz1, φz2, N2, Cφz2 ... φzn, Nn, Cφzn]");
 	setDiagramValues(this.memberHinge, arguments, "diagram_around_z_table", "rotation", "moment", "spring");
 };
 
@@ -400,7 +400,7 @@ var setFrictionValues = function (member_hinge,
 * Sets values for partial activity zone (private)
 * @param 	{Object}	member_hinge			Member hinge to which values has to be set
 * @param	{Array}		zone_values				Negative / positive zone values
-* 												- "Complete": [0, u(x|y|z)s-|φ(x|y|z)-] / [0, u(x|y|z)s+|φ(x|y|z)s+]
+* 												- "Complete": [0]
 *												- "Fixed": [1, u(x|y|z)-|φ(x|y|z)-, u(x|y|z)s-|φ(x|y|z)s-] / [1, u(x|y|z)+|φ(x|y|z)+, u(x|y|z)s+|φ(x|y|z)s+]
 *												- "Tearing": [2, N-, u(x|y|z)s-|φ(x|y|z)s-] / [2, N+, u(x|y|z)s+|φ(x|y|z)s+]
 *												- "Yielding": [3, N-, u(x|y|z)s-|φ(x|y|z)s-] / [3, N+, u(x|y|z)s+|φ(x|y|z)s+]
@@ -455,14 +455,17 @@ var setPartialActivityZoneValues = function (member_hinge,
 * Sets values to member hinge (private)
 * @param	{Object}	member_hinge	Member hinge
 * @param	{Array}		values			Values to be set, [Translational/Rotational, Spring constant, Nonlinearity]
-										- Values can be in two formats:
-											[bool, float, string] - if bool is true (translation is enabled), then can be specified next two values (spring constant and nonlinearity)
-											[bool, string]		  - if bool is false (translation is disabled), then can be specified only next one value (nonlinearity)
+*										- Values can be in two formats:
+*											[bool, float, int] - if bool is true (translation is enabled), then can be specified next two values (spring constant and nonlinearity)
+*											[bool, int]		   - if bool is false (translation is disabled), then can be specified only next one value (nonlinearity)
+*											Nonlinearity: can be string name or index: None (0), Fixed if negative (1), Fixed if positive (2), Failure all if negative (3), Failure all if positive (4),
+*														  Partial activity (5), Diagram (6), Stiffness diagram (7), Friction direction 1 (8), Friction direction 2 (9),
+*														  Friction direction 1 2 (10), Friction direction 1 + 2 (11)
 * @param	{String}	property_1		Spring constant string name
 * @param	{String}	property_2		Nonlinearity string name
 * @return	Returns modified member hinge
 */
-var setMainHingeValues = function(member_hinge, 
+var setMainHingeValues = function (member_hinge, 
 	values,
 	property_1,
 	property_2) {
@@ -472,14 +475,46 @@ var setMainHingeValues = function(member_hinge,
 		ASSERT(values.length >= 2);
 		member_hinge[property_1] = values[1];		// Spring constant
 		if (values.length > 2) {
-			member_hinge[property_2] = values[2];	// Nonlinearity
+			member_hinge[property_2] = getNonlinearityString(values[2]);	// Nonlinearity
 		}
 	}
 	else {
 		// Translational or Rotational is enabled
 		ASSERT(values.length === 2);
 		member_hinge[property_1] = "inf";
-		member_hinge[property_2] = values[1];		// Nonlinearity
+		member_hinge[property_2] = getNonlinearityString(values[1]);		// Nonlinearity
+	}
+};
+
+var getNonlinearityString = function (nonlinearity) {
+	switch (nonlinearity)
+	{
+		case 0:
+			return member_hinges.NONLINEARITY_TYPE_NONE;
+		case 1:
+			return member_hinges.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE;
+		case 2:
+			return member_hinges.NONLINEARITY_TYPE_FAILURE_IF_POSITIVE;
+		case 3:
+			return member_hinges.NONLINEARITY_TYPE_FAILURE_ALL_IF_NEGATIVE;
+		case 4:
+			return member_hinges.NONLINEARITY_TYPE_FAILURE_ALL_IF_POSITIVE;
+		case 5:
+			return member_hinges.NONLINEARITY_TYPE_PARTIAL_ACTIVITY;
+		case 6:
+			return member_hinges.NONLINEARITY_TYPE_DIAGRAM;
+		case 7:
+			return member_hinges.NONLINEARITY_TYPE_STIFFNESS_DIAGRAM;
+		case 8:
+			return member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1;
+		case 9:
+			return member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_2;
+		case 10:
+			return member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2;
+		case 11:
+			return member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2;
+		default:
+			ASSERT(false);
 	}
 };
 

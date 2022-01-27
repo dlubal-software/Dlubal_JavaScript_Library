@@ -72,79 +72,53 @@ MemberStiffnessModification.prototype.PartialStiffnessFactors = function (axial_
 /**
 * Sets concrete structure ACI
 * @param	{Number}	component_type			Component type: Columns (1), Walls uncracked (2), Walls cracked (3), Beams (4), Flat plates and flat stabs (5). Can be undefined
-* @param	{Number}	bending_stiffness_y		Bending stiffness multiplier factors Z
-* @param	{Number}	bending_stiffness_z		Bending stiffness multiplier factors Y
-* @param	{Number}	axial_stiffness			Axial stiffness multiplier factor
 */
-MemberStiffnessModification.prototype.ConcreteStructuresAci = function(component_type,
-	bending_stiffness_y,
-	bending_stiffness_z,
-	axial_stiffness) {
+MemberStiffnessModification.prototype.ConcreteStructuresAci = function(component_type) {
 	this.memberStiffnessModification.type = member_stiffness_modifications.TYPE_CONCRETE_STRUCTURES_ACI;
-	setConcreteStructures(component_type, bending_stiffness_y, bending_stiffness_z, axial_stiffness);
+	// The parameters bending_stiffness_y, bending_stiffness_z, axial_stiffness cannot be set, they are disabled
+	setConcreteStructures(this.memberStiffnessModification, component_type);
 };
 
 /**
 * Sets concrete structure CSA
 * @param	{Number}	component_type			Component type: Columns (1), Walls uncracked (2), Walls cracked (3), Beams (4), Flat plates and flat stabs (5). Can be undefined
-* @param	{Number}	bending_stiffness_y		Bending stiffness multiplier factors Z
-* @param	{Number}	bending_stiffness_z		Bending stiffness multiplier factors Y
-* @param	{Number}	axial_stiffness			Axial stiffness multiplier factor
 */
 MemberStiffnessModification.prototype.ConcreteStructuresCsa = function(component_type,
 	bending_stiffness_y,
 	bending_stiffness_z,
 	axial_stiffness) {
 	this.memberStiffnessModification.type = member_stiffness_modifications.TYPE_CONCRETE_STRUCTURES_CSA;
-	setConcreteStructures(component_type, bending_stiffness_y, bending_stiffness_z, axial_stiffness);
+	// The parameters bending_stiffness_y, bending_stiffness_z, axial_stiffness cannot be set, they are disabled
+	setConcreteStructures(this.memberStiffnessModification, component_type);
 };
 
 /**
 * Sets steel structures AISC
 * @param 	{Number}	determine_tau_b			Determine τb: Iterative (1), Set to 1 (2). Can be undefined.
-* @param	{Number}	design_method			Design method: LRFD (1), ASD (2). Can be undefined.
-* @param	{Number}	bending_stiffness_y		Bending stiffness multiplier factors Z, can be undefined.
-* @param	{Number}	bending_stiffness_z		Bending stiffness multiplier factors Y, can be undefined.
-* @param	{Number}	axial_stiffness			Axial stiffness multiplier factor, can be undefined.
+* @param	{Number}	design_method			Design method: LRFD (1), ASD (2). Can be undefined. If determine τb has "Set to 1" value, must be undefined.
 */
 MemberStiffnessModification.prototype.SteelStructuresAisc = function (determine_tau_b,
-	design_method,
-	bending_stiffness_z,
-	bending_stiffness_y,
-	axial_stiffness) {
+	design_method) {
 	this.memberStiffnessModification.type = member_stiffness_modifications.TYPE_STEEL_STRUCTURES;
 	if (typeof determine_tau_b !== "undefined") {
-		this.memberStiffnessModification.steel_structure_csa_determine_tau_b = determine_tau_b == 1 ? member_stiffness_modifications.ITERATIVE : member_stiffness_modifications.SET_TO_1;
+		this.memberStiffnessModification.steel_structure_determine_tau_b = determine_tau_b == 1 ? member_stiffness_modifications.ITERATIVE : member_stiffness_modifications.SET_TO_1;
 	}
 	if (typeof design_method !== "undefined") {
+		ASSERT(this.memberStiffnessModification.steel_structure_determine_tau_b == member_stiffness_modifications.ITERATIVE, "Design method cannot be set if determine τb is set to 1");
 		this.memberStiffnessModification.steel_structure_design_method = design_method == 1 ? member_stiffness_modifications.LRFD : member_stiffness_modifications.ASD;
 	}
-	if (typeof bending_stiffness_y !== "undefined") {
-		this.memberStiffnessModification.factor_of_bending_y_stiffness = bending_stiffness_y;
-	}
-	if (typeof bending_stiffness_z !== "undefined") {
-		this.memberStiffnessModification.factor_of_bending_z_stiffness = bending_stiffness_z;
-	}
-	if (typeof axial_stiffness !== "undefined") {
-		this.memberStiffnessModification.factor_of_axial_stiffness = axial_stiffness;
-	}
+	// The parameters bending_stiffness_y, bending_stiffness_z, axial_stiffness cannot be set, they are disabled
 };
 
 /**,
 * Sets steel structures CSA
 * @param	{Number}	determine_tau_b						Determine τb: Iterative (1), Set to 1 (2). Can be undefined.
-* @param	{Number}	axial_stiffness						Axial stiffness multiplier factor, can be undefined.
-* @param	{Number}	bending_stiffness_y					Bending stiffness multiplier factors Z, can be undefined.
-* @param	{Number}	bending_stiffness_z					Bending stiffness multiplier factors Y, can be undefined.
-* @param	{Number}	shear_stiffness_y					Shear stiffness Y, can be undefined
-* @param	{Number}	shear_stiffness_z					Shear stiffness Z, can be undefined
-* @param	{Number}	torsional_stiffness					Torsional stiffness, can be undefined
-* @param	{Boolean}	axial_stiffness_apply_tau_b			Apply τb to axial stiffness multiplier factor, can be undefined.
-* @param	{Boolean}	bending_stiffness_y_apply_tau_b		Apply τb to bending stiffness multiplier factors Z, can be undefined.
-* @param	{Boolean}	bending_stiffness_z_apply_tau_b		Apply τb to bending stiffness multiplier factors Y, can be undefined.
-* @param	{Boolean}	shear_stiffness_y_apply_tau_b		Apply τb to shear stiffness Y, can be undefined
-* @param	{Boolean}	shear_stiffness_z_apply_tau_b		Apply τb to shear stiffness Z, can be undefined
-* @param	{Boolean}	torsional_stiffness_apply_tau_b		Apply τb to torsional stiffness, can be undefined
+* @param	{Number}	axial_stiffness						Axial stiffness multiplier factor, can be undefined. If defined, apply τb is set to true.
+* @param	{Number}	bending_stiffness_y					Bending stiffness multiplier factors Z, can be undefined. If defined, apply τb is set to true.
+* @param	{Number}	bending_stiffness_z					Bending stiffness multiplier factors Y, can be undefined. If defined, apply τb is set to true.
+* @param	{Number}	shear_stiffness_y					Shear stiffness Y, can be undefined. If defined, apply τb is set to true.
+* @param	{Number}	shear_stiffness_z					Shear stiffness Z, can be undefined. If defined, apply τb is set to true.
+* @param	{Number}	torsional_stiffness					Torsional stiffness, can be undefined. If defined, apply τb is set to true.
 */
 MemberStiffnessModification.prototype.SteelStructuresCSA = function (determine_tau_b,
 	axial_stiffness,
@@ -152,98 +126,79 @@ MemberStiffnessModification.prototype.SteelStructuresCSA = function (determine_t
 	bending_stiffness_z,
 	shear_stiffness_y,
 	shear_stiffness_z,
-	torsional_stiffness,
-	axial_stiffness_apply_tau_b,
-	bending_stiffness_y_apply_tau_b,
-	bending_stiffness_z_apply_tau_b,
-	shear_stiffness_y_apply_tau_b,
-	shear_stiffness_z_apply_tau_b,
-	torsional_stiffness_apply_tau_b) {
+	torsional_stiffness) {
 	this.memberStiffnessModification.type = member_stiffness_modifications.TYPE_STEEL_STRUCTURES_CSA;
-	if (typeof axial_stiffness !== "undefined") {
+	if (typeof determine_tau_b !== "undefined") {
+		this.memberStiffnessModification.steel_structure_csa_determine_tau_b = determine_tau_b === 1 ? member_stiffness_modifications.ITERATIVE : member_stiffness_modifications.SET_TO_1;
+	}
+	this.memberStiffnessModification.steel_structure_csa_factor_of_axial_stiffness_enable = !(typeof axial_stiffness !== "undefined");
+	if (!this.memberStiffnessModification.steel_structure_csa_factor_of_axial_stiffness_enable) {
 		this.memberStiffnessModification.factor_of_axial_stiffness = axial_stiffness;
 	}
-	if (typeof bending_stiffness_y !== "undefined") {
+	this.memberStiffnessModification.steel_structure_csa_factor_of_bending_y_stiffness_enable = !(typeof bending_stiffness_y !== "undefined");
+	if (!this.memberStiffnessModification.steel_structure_csa_factor_of_bending_y_stiffness_enable) {
 		this.memberStiffnessModification.factor_of_bending_y_stiffness = bending_stiffness_y;
 	}
-	if (typeof bending_stiffness_z !== "undefined") {
+	this.memberStiffnessModification.steel_structure_csa_factor_of_bending_z_stiffness_enable = !(typeof bending_stiffness_z !== "undefined");
+	if (!this.memberStiffnessModification.steel_structure_csa_factor_of_bending_z_stiffness_enable) {
 		this.memberStiffnessModification.factor_of_bending_z_stiffness = bending_stiffness_z;
 	}
-	if (typeof shear_stiffness_y !== "undefined") {
+	this.memberStiffnessModification.steel_structure_csa_factor_of_shear_y_stiffness_enable = !(typeof shear_stiffness_y !== "undefined");
+	if (!this.memberStiffnessModification.steel_structure_csa_factor_of_shear_y_stiffness_enable) {
 		this.memberStiffnessModification.partial_stiffness_factor_of_shear_y_stiffness = shear_stiffness_y;
 	}
-	if (typeof shear_stiffness_z !== "undefined") {
+	this.memberStiffnessModification.steel_structure_csa_factor_of_shear_z_stiffness_enable = !(typeof shear_stiffness_z !== "undefined");
+	if (!this.memberStiffnessModification.steel_structure_csa_factor_of_shear_z_stiffness_enable) {
 		this.memberStiffnessModification.partial_stiffness_factor_of_shear_z_stiffness = shear_stiffness_z;
 	}
-	if (typeof torsional_stiffness !== "undefined") {
+	this.memberStiffnessModification.steel_structure_csa_stiffness_factor_of_torsion_stiffness_enable = !(typeof torsional_stiffness !== "undefined");
+	if (!this.memberStiffnessModification.steel_structure_csa_stiffness_factor_of_torsion_stiffness_enable) {
 		this.memberStiffnessModification.partial_stiffness_factor_of_torsion_stiffness = torsional_stiffness;
 	}
-	if (typeof axial_stiffness_apply_tau_b === "undefined") {
-		axial_stiffness_apply_tau_b = true;
-	}
-	if (typeof bending_stiffness_y_apply_tau_b === "undefined") {
-		bending_stiffness_y_apply_tau_b = true;
-	}
-	if (typeof bending_stiffness_z_apply_tau_b === "undefined") {
-		bending_stiffness_z_apply_tau_b = true;
-	}
-	if (typeof shear_stiffness_y_apply_tau_b === "undefined") {
-		shear_stiffness_y_apply_tau_b = true;
-	}
-	if (typeof shear_stiffness_z_apply_tau_b === "undefined") {
-		shear_stiffness_z_apply_tau_b = true;
-	}
-	if (typeof torsional_stiffness_apply_tau_b === "undefined") {
-		torsional_stiffness_apply_tau_b = true;
-	}
-	this.memberStiffnessModification.steel_structure_csa_factor_of_axial_stiffness_enable = axial_stiffness_apply_tau_b;
-	this.memberStiffnessModification.steel_structure_csa_factor_of_bending_y_stiffness_enable = bending_stiffness_y_apply_tau_b;
-	this.memberStiffnessModification.steel_structure_csa_factor_of_bending_z_stiffness_enable = bending_stiffness_z_apply_tau_b;
-	this.memberStiffnessModification.steel_structure_csa_factor_of_shear_y_stiffness_enable = shear_stiffness_y_apply_tau_b;
-	this.memberStiffnessModification.steel_structure_csa_factor_of_shear_z_stiffness_enable = shear_stiffness_z_apply_tau_b;
-	this.memberStiffnessModification.steel_structure_csa_stiffness_factor_of_torsion_stiffness_enable = torsional_stiffness_apply_tau_b;
 };
 
 /**
 * Sets concrete structures patameters (private)
-* @param	{Number}	component_type			Component type: Columns (1), Walls uncracked (2), Walls cracked (3), Beams (4), Flat plates and flat stabs (5). Can be undefined
-* @param	{Number}	bending_stiffness_y		Bending stiffness multiplier factors Z, can be undefined.
-* @param	{Number}	bending_stiffness_z		Bending stiffness multiplier factors Y, can be undefined.
-* @param	{Number}	axial_stiffness			Axial stiffness multiplier factor, can be undefined.
+* @param	{Object}	member_stiffness_modification	Member stiffness modification to set
+* @param	{Number}	component_type					Component type: Columns (1), Walls uncracked (2), Walls cracked (3), Beams (4), Flat plates and flat stabs (5). Can be undefined
+* @param	{Number}	bending_stiffness_y				Bending stiffness multiplier factors Z, can be undefined.
+* @param	{Number}	bending_stiffness_z				Bending stiffness multiplier factors Y, can be undefined.
+* @param	{Number}	axial_stiffness					Axial stiffness multiplier factor, can be undefined.
 */
-var setConcreteStructures = function(component_type,
+var setConcreteStructures = function(member_stiffness_modification,
+	component_type,
 	bending_stiffness_y,
 	bending_stiffness_z,
 	axial_stiffness) {
 	if (typeof component_type !== "undefined") {
 		switch (component_type)	{
 			case 1:
-				this.memberStiffnessModification.concrete_structure_component_type = member_stiffness_modifications.COMPONENT_TYPE_COLUMNS;
+				member_stiffness_modification.concrete_structure_component_type = member_stiffness_modifications.COMPONENT_TYPE_COLUMNS;
 				break;
 			case 2:
-				this.memberStiffnessModification.concrete_structure_component_type = member_stiffness_modifications.COMPONENT_TYPE_WALLS_UNCRACKED;
+				member_stiffness_modification.concrete_structure_component_type = member_stiffness_modifications.COMPONENT_TYPE_WALLS_UNCRACKED;
 				break;
 			case 3:
-				this.memberStiffnessModification.concrete_structure_component_type = member_stiffness_modifications.COMPONENT_TYPE_WALLS_CRACKED;
+				member_stiffness_modification.concrete_structure_component_type = member_stiffness_modifications.COMPONENT_TYPE_WALLS_CRACKED;
 				break;
 			case 4:
-				this.memberStiffnessModification.concrete_structure_component_type = member_stiffness_modifications.COMPONENT_TYPE_BEAMS;
+				member_stiffness_modification.concrete_structure_component_type = member_stiffness_modifications.COMPONENT_TYPE_BEAMS;
 				break;
 			case 5:
-				this.memberStiffnessModification.concrete_structure_component_typ = member_stiffness_modifications.COMPONENT_TYPE_FLAT_PLATES_AND_FLAT_SLABS;
+				member_stiffness_modification.concrete_structure_component_typ = member_stiffness_modifications.COMPONENT_TYPE_FLAT_PLATES_AND_FLAT_SLABS;
 				break;
 			default:
 				ASSERT(false, "Unknown component type");
 		}
 	}
 	if (typeof bending_stiffness_y !== "undefined") {
-		this.memberStiffnessModification.factor_of_bending_y_stiffness = bending_stiffness_y;
+		member_stiffness_modification.factor_of_bending_y_stiffness = bending_stiffness_y;
 	}
 	if (typeof bending_stiffness_z !== "undefined") {
-		this.memberStiffnessModification.factor_of_bending_z_stiffness = bending_stiffness_z;
+		member_stiffness_modification.factor_of_bending_z_stiffness = bending_stiffness_z;
 	}
 	if (typeof axial_stiffness !== "undefined") {
-		this.memberStiffnessModification.factor_of_axial_stiffness = axial_stiffness;
+		member_stiffness_modification.factor_of_axial_stiffness = axial_stiffness;
 	}
 };
 
