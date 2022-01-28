@@ -1,8 +1,8 @@
 function SetSolverMethod(solverMethod	) {
 
   const SolverMethod_dict = {
-  "root"    : "METHOD_LANCZOS",
-  "Lanczos" : "METHOD_OF_EQUATION_SYSTEM_ITERATIVE",
+  "root"     : "METHOD_LANCZOS",
+  "Lanczos"  : "METHOD_OF_EQUATION_SYSTEM_ITERATIVE",
   "subspace" : "METHOD_SUBSPACE_ITERATION"
   };
 
@@ -31,6 +31,7 @@ function ModalAnalysisSettings( no,
 
   * @param   {Integer}              no              unique ID of MAS
   * @param   {String or Integer}    numberOfModes   number of modes calculated
+  * @param   {String}               SolverMethod    solver method values are "root", "Lanczos", "subspace"
   * @param   {String}               comment         Comment, empty by default
   * @param   {Object}               params          Nodal support parameters, empty by default
   */
