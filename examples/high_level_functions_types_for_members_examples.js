@@ -49,6 +49,9 @@ memberNonlinearity.TearingUnderTension(undefined, 14, 500);
 memberNonlinearity.YieldingUnderCompression(undefined, 15, 1000);
 memberNonlinearity.Yielding(undefined, 16, 500, 600);
 
+members[17].type = members.TYPE_DEFINABLE_STIFFNESS;
+members[18].type = members.TYPE_DEFINABLE_STIFFNESS;
+
 var memberDefinableStiffness = new MemberDefinableStiffness(undefined, [17, 18]);
 memberDefinableStiffness.TorsionalAndBending(5, 10, 20);
 memberDefinableStiffness.AxialAndShearStiffness(30, 40, 50);

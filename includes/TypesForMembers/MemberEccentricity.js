@@ -17,7 +17,8 @@ function MemberEccentricity(no,
 	comment,
 	params) {
     if (arguments.length !== 0) {
-		return this.memberEccentricity = createEccentricity(no, member_start, member_end, comment, params);
+		this.memberEccentricity = createEccentricity(no, member_start, member_end, comment, params);
+		return this.memberEccentricity;
 	}
 }
 
@@ -233,7 +234,7 @@ var setRelativeValues = function (member_eccentricity,
 */
 var getAlignmentParts = function (alignment) {
 	var params = alignment.split("_");
-	ASSERT(params.length === 2, "Wrong alignemtn string");
+	ASSERT(params.length === 2, "Wrong alignment string");
 	
 	var horizontal = params[0].charAt(0).toUpperCase() + params[0].slice(1);
 	var vertical = params[1].charAt(0).toUpperCase() + params[1].slice(1);

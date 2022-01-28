@@ -15,7 +15,8 @@ function MemberNonlinearity(no,
 {
     if (arguments.length !== 0)
 	{
-		return this.memberNonlinearity = createNonlinearity(no, member, comment, params);
+		this.memberNonlinearity = createNonlinearity(no, member, comment, params);
+		return this.memberNonlinearity;
 	}
 }
 
@@ -25,7 +26,7 @@ function MemberNonlinearity(no,
 * @param	{Object}	member			Assigned member
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
-* @return	{Object}	Created meber nonlinearity
+* @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.FailureIfTension = function(no,
 	member,
@@ -41,7 +42,7 @@ MemberNonlinearity.prototype.FailureIfTension = function(no,
 * @param	{Object}	member			Assigned member
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
-* @return	{Object}	Created meber nonlinearity
+* @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.FailureIfCompression = function (no,
 	member,
@@ -58,7 +59,7 @@ MemberNonlinearity.prototype.FailureIfCompression = function (no,
 * @param	{Number}	ux				Slippage
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
-* @return	{Object}	Created meber nonlinearity
+* @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.FailureIfTensionWithSlippage = function (no,
 	member,
@@ -77,7 +78,7 @@ MemberNonlinearity.prototype.FailureIfTensionWithSlippage = function (no,
 * @param	{Number}	ux				Slippage
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
-* @return	{Object}	Created meber nonlinearity
+* @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.FailureIfCompressionWithSlippage = function (no,
 	member,
@@ -96,7 +97,7 @@ MemberNonlinearity.prototype.FailureIfCompressionWithSlippage = function (no,
 * @param	{Number}	ux				Slippage
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
-* @return	{Object}	Created meber nonlinearity
+* @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.Slippage = function (no,
 	member,
@@ -115,7 +116,7 @@ MemberNonlinearity.prototype.Slippage = function (no,
 * @param	{Number}	nt				Tension force
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
-* @return	{Object}	Created meber nonlinearity
+* @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.TearingUnderTension = function (no,
 	member,
@@ -125,7 +126,7 @@ MemberNonlinearity.prototype.TearingUnderTension = function (no,
 	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_TEARING_IF_TENSION;
 	setParameters(this.memberNonlinearity, [nt], "tension_force");	
-}
+};
 
 /**
 * Creates member yielding under tension nonlinearity
@@ -134,7 +135,7 @@ MemberNonlinearity.prototype.TearingUnderTension = function (no,
 * @param	{Number}	nt				Tension force
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
-* @return	{Object}	Created meber nonlinearity
+* @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.YieldingUnderTension = function (no,
 	member,
@@ -153,7 +154,7 @@ MemberNonlinearity.prototype.YieldingUnderTension = function (no,
 * @param	{Number}	nc				Compression force
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
-* @return	{Object}	Created meber nonlinearity
+* @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.TearingUnderCompression = function (no,
 	member,
@@ -172,7 +173,7 @@ MemberNonlinearity.prototype.TearingUnderCompression = function (no,
 * @param	{Number}	nc				Compression force
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
-* @return	{Object}	Created meber nonlinearity
+* @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.YieldingUnderCompression = function (no,
 	member,
@@ -192,7 +193,7 @@ MemberNonlinearity.prototype.YieldingUnderCompression = function (no,
 * @param	{Number}	nt				Tension force
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
-* @return	{Object}	Created meber nonlinearity
+* @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.Tearing = function (no,
 	member,
@@ -213,7 +214,7 @@ MemberNonlinearity.prototype.Tearing = function (no,
 * @param	{Number}	nt				Tension force
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
-* @return	{Object}	Created meber nonlinearity
+* @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.Yielding = function (no,
 	member,

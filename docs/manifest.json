@@ -1,6 +1,6 @@
 {
   "homepages": [],
-  "source_base_path": "D:/Sources/RFEM_JavaScript_Library/docfx_project",
+  "source_base_path": "D:/Sources/Dlubal_JavaScript_Library/docfx_project",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
@@ -10,6 +10,18 @@
         ".html": {
           "relative_path": "api/FreeCircularLoad.html",
           "hash": "usTG1bKkvJPutuemIZOyd5TDV5yyUxRTvSf+gZpu6AE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "UniversalReference",
+      "source_relative_path": "api/FreeConcentratedLoad.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FreeConcentratedLoad.html",
+          "hash": "6fuIgmMfYGIxBg7VEi6msoJTgbEl8OwJe+VSi6LDOXg="
         }
       },
       "is_incremental": false,
@@ -149,11 +161,71 @@
     },
     {
       "type": "UniversalReference",
+      "source_relative_path": "api/MemberDefinableStiffness.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MemberDefinableStiffness.html",
+          "hash": "7MARAUNEFtwTMMW+j9M2+Iiw+PoPAl1pOPf2DtmJv+8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "UniversalReference",
+      "source_relative_path": "api/MemberEccentricity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MemberEccentricity.html",
+          "hash": "ma/e54/06JqFjxK7lMHpk8o/gwLJuCbDSYKRQslWHNc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "UniversalReference",
+      "source_relative_path": "api/MemberHinge.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MemberHinge.html",
+          "hash": "FSMKecAMh7Z93nOUTlljawRmvPIVCZ5MU3cTfHJdZ3I="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "UniversalReference",
       "source_relative_path": "api/MemberLoad.yml",
       "output": {
         ".html": {
           "relative_path": "api/MemberLoad.html",
           "hash": "+IT+83PXljsMljSVy8VpkhDiyqGzwqr24QED/JQ9bog="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "UniversalReference",
+      "source_relative_path": "api/MemberNonlinearity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MemberNonlinearity.html",
+          "hash": "5i1zvm6VqRMlCBNOGr4FNRwZqAmxlxv/6XXWF8pX8Nk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "UniversalReference",
+      "source_relative_path": "api/MemberResultIntermediatePoint.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MemberResultIntermediatePoint.html",
+          "hash": "EW0g92g1DdEa6FT3qMJKUaBXmyNycd0FAfxVNhx8Wac="
         }
       },
       "is_incremental": false,
@@ -185,11 +257,35 @@
     },
     {
       "type": "UniversalReference",
+      "source_relative_path": "api/MemberStiffnessModification.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MemberStiffnessModification.html",
+          "hash": "Dtf/zlAxgvJ+2x9s0WAWZ9kQO2nXVrsHHHPMfEBwQYk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "UniversalReference",
       "source_relative_path": "api/NodalLoad.yml",
       "output": {
         ".html": {
           "relative_path": "api/NodalLoad.html",
           "hash": "xxaQcIu7SmN8YEC7DzPBBNzzglt1IpcRUHCok1ox4yE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "UniversalReference",
+      "source_relative_path": "api/Node.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Node.html",
+          "hash": "4mk8tytySVz5/5iBE0FtU0NbHp3LxyZXoQA0qtw/GD0="
         }
       },
       "is_incremental": false,
@@ -333,7 +429,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Thickness.html",
-          "hash": "l4svFQ4TKzu5uRA9mLTsebNCi0AHdY8hNDSSB/oIsgA="
+          "hash": "5LydinKcPsL05fuqrl+WcQtUd3Wrm13YpmYmMT5siP4="
         }
       },
       "is_incremental": false,
@@ -345,7 +441,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "LSXPriCJgAnUpPvXvVigMziPB5aAcvtjy/mnFMAKdNY="
+          "hash": "jX0WpyCekESHr9ZdNrRWwjv3kkjVpJSQzocGsD6IgIY="
         }
       },
       "is_incremental": false,
@@ -357,10 +453,10 @@
       "output": {
         ".html": {
           "relative_path": "articles/intro.html",
-          "hash": "dnujzP/WrYdSlOt7L0ETlIZJzEsx0EfP/5gqhoIWkGo="
+          "hash": "J78N7997l/TFQQbVJXqK2+6GtgJN0Taby/nEk/SMxSA="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -381,10 +477,10 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "KcfkJcEBdTdi35RCwCw1AnKmku5KipziAYNfbPWSzdI="
+          "hash": "7A2AZipYO584fFvVFP4MJnibeRi0DQbPHmr19iHgvDI="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -406,17 +502,19 @@
   "incremental_info": [
     {
       "status": {
-        "can_incremental": true,
+        "can_incremental": false,
+        "details": "Cannot build incrementally because config changed.",
         "incrementalPhase": "build",
         "total_file_count": 0,
-        "skipped_file_count": 0
+        "skipped_file_count": 0,
+        "full_build_reason_code": "ConfigChanged"
       },
       "processors": {
         "ConceptualDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 2,
-          "skipped_file_count": 2
+          "skipped_file_count": 0
         },
         "TocDocumentProcessor": {
           "can_incremental": false,
@@ -436,8 +534,8 @@
     },
     {
       "status": {
-        "can_incremental": true,
-        "details": "Can support incremental post processing.",
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
         "incrementalPhase": "postProcessing",
         "total_file_count": 0,
         "skipped_file_count": 0

@@ -21,7 +21,7 @@ function MemberDefinableStiffness(no,
 
 /**
 * Sets torsional and bending stiffness parameters
-* @param	{Number}	torsional_stiffness		Torsional stifness
+* @param	{Number}	torsional_stiffness		Torsional stiffness
 * @param	{Number}	bending_stiffness_y		Bending stiffness Y
 * @param 	{Number}	bending_stiffness_z		Bending stiffness Z
 */
@@ -67,12 +67,12 @@ MemberDefinableStiffness.prototype.MainAxes = function (rotation) {
 };
 
 /**
-* Sets coeficient of thermal expansion stiffness parameters
+* Sets coefficient of thermal expansion stiffness parameters
 * @param	{Number}	thermal_expansion	Thermal expansion
 * @param	{Number}	width				Width
 * @param 	{Number}	height				Height
 */
-MemberDefinableStiffness.prototype.ThermalExpansionCoeficient = function (thermal_expansion,
+MemberDefinableStiffness.prototype.ThermalExpansionCoefficient = function (thermal_expansion,
 	width,
 	height) {
 	this.memberDefinableStiffness.thermal_expansion_alpha = thermal_expansion;

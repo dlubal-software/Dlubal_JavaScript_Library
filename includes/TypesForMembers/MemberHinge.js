@@ -262,7 +262,7 @@ MemberHinge.prototype.DiagramRotationalZ = function () {
 MemberHinge.prototype.FrictionVyTranslationalX = function () {
 	ASSERT(this.memberHinge.axial_release_n_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1, "Member hinge ux has no friction Vy nonlinearity");
 	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_x", undefined, "axial_release_n");
-}
+};
 
 /**
 * Sets translational friction Vz values for ux
@@ -271,7 +271,7 @@ MemberHinge.prototype.FrictionVyTranslationalX = function () {
 MemberHinge.prototype.FrictionVzTranslationalX = function () {
 	ASSERT(this.memberHinge.axial_release_n_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_2, "Member hinge ux has no friction Vz nonlinearity");
 	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_x", undefined, "axial_release_n");
-}
+};
 
 /**
 * Sets translational friction VyVz values for ux
@@ -280,7 +280,7 @@ MemberHinge.prototype.FrictionVzTranslationalX = function () {
 MemberHinge.prototype.FrictionVyVzTranslationalX = function () {
 	ASSERT(this.memberHinge.axial_release_n_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2, "Member hinge ux has no friction VyVz nonlinearity");
 	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_x", undefined, "axial_release_n");
-}
+};
 
 /**
 * Sets translational friction Vy+Vz values for ux
@@ -289,7 +289,7 @@ MemberHinge.prototype.FrictionVyVzTranslationalX = function () {
 MemberHinge.prototype.FrictionVyPlusVzTranslationalX = function () {
 	ASSERT(this.memberHinge.axial_release_n_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2, "Member hinge ux has no friction Vy+Vz nonlinearity");
 	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_xy", "friction_coefficient_xz", "axial_release_n");
-}
+};
 
 /**
 * Sets translational friction N values for uy
@@ -298,7 +298,7 @@ MemberHinge.prototype.FrictionVyPlusVzTranslationalX = function () {
 MemberHinge.prototype.FrictionNTranslationalY = function () {
 	ASSERT(this.memberHinge.axial_release_vy_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1, "Member hinge uy has no friction N nonlinearity");
 	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_y", undefined, "axial_release_vy");
-}
+};
 
 /**
 * Sets translational friction Vz values for uy
@@ -307,7 +307,7 @@ MemberHinge.prototype.FrictionNTranslationalY = function () {
 MemberHinge.prototype.FrictionVzTranslationalY = function () {
 	ASSERT(this.memberHinge.axial_release_vy_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_2, "Member hinge uy has no friction Vz nonlinearity");
 	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_y", undefined, "axial_release_vy");
-}
+};
 
 /**
 * Sets translational friction NVz values for uy
@@ -316,7 +316,7 @@ MemberHinge.prototype.FrictionVzTranslationalY = function () {
 MemberHinge.prototype.FrictionNVzTranslationalY = function () {
 	ASSERT(this.memberHinge.axial_release_vy_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2, "Member hinge uy has no friction NVz nonlinearity");
 	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_y", undefined, "axial_release_vy");
-}
+};
 
 /**
 * Sets translational friction N+Vz values for uy
@@ -325,7 +325,7 @@ MemberHinge.prototype.FrictionNVzTranslationalY = function () {
 MemberHinge.prototype.FrictionNPlusVzTranslationalY = function () {
 	ASSERT(this.memberHinge.axial_release_vy_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2, "Member hinge uy has no friction N+Vz nonlinearity");
 	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_yx", "friction_coefficient_yz", "axial_release_vy");
-}
+};
 
 /**
 * Sets translational friction N values for uz
@@ -334,7 +334,7 @@ MemberHinge.prototype.FrictionNPlusVzTranslationalY = function () {
 MemberHinge.prototype.FrictionNTranslationalZ = function () {
 	ASSERT(this.memberHinge.axial_release_vz_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1, "Member hinge uz has no friction N nonlinearity");
 	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_z", undefined, "axial_release_vz");
-}
+};
 
 /**
 * Sets translational friction Vy values for uz
@@ -343,7 +343,7 @@ MemberHinge.prototype.FrictionNTranslationalZ = function () {
 MemberHinge.prototype.FrictionVyTranslationalZ = function () {
 	ASSERT(this.memberHinge.axial_release_vz_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_2, "Member hinge uz has no friction Vy nonlinearity");
 	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_z", undefined, "axial_release_vz");
-}
+};
 
 /**
 * Sets translational friction NVy values for uz
@@ -352,7 +352,7 @@ MemberHinge.prototype.FrictionVyTranslationalZ = function () {
 MemberHinge.prototype.FrictionNVyTranslationalZ = function () {
 	ASSERT(this.memberHinge.axial_release_vz_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2, "Member hinge uz has no friction NVy nonlinearity");
 	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_z", undefined, "axial_release_vz");
-}
+};
 
 /**
 * Sets translational friction N+Vy values for uz
@@ -361,7 +361,7 @@ MemberHinge.prototype.FrictionNVyTranslationalZ = function () {
 MemberHinge.prototype.FrictionNPlusVyTranslationalZ = function () {
 	ASSERT(this.memberHinge.axial_release_vz_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2, "Member hinge uz has no friction N+Vy nonlinearity");
 	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_zx", "friction_coefficient_zy", "axial_release_vz");
-}
+};
 
 var setDiagramValues = function (member_hinge,
 	diagram_values,
@@ -383,18 +383,18 @@ var setDiagramValues = function (member_hinge,
 
 var setFrictionValues = function (member_hinge,
 	friction_values,
-	param_coeficient_name,
-	param_coeficient_2_name,
+	param_coefficient_name,
+	param_coefficient_2_name,
 	param_constant_name) {
-	member_hinge[param_coeficient_name] = friction_values[0];
-	if (typeof param_coeficient_2_name != "undefined") {
-		member_hinge[param_coeficient_2_name] = friction_values[1];
+	member_hinge[param_coefficient_name] = friction_values[0];
+	if (typeof param_coefficient_2_name != "undefined") {
+		member_hinge[param_coefficient_2_name] = friction_values[1];
 		member_hinge[param_constant_name] = friction_values[2];
 	}
 	else {
 		member_hinge[param_constant_name] = friction_values[1];
 	}
-}
+};
 
 /**
 * Sets values for partial activity zone (private)
@@ -520,6 +520,7 @@ var getNonlinearityString = function (nonlinearity) {
 
 /**
 * Creates member hinge (private)
+* @private
 * @param	{Number}	no				Index of member hinge, van be undefined
 * @param	{Object}	member_start	Member start, can be undefined
 * @param	{Object} 	member_end		Member end, can be undefined
