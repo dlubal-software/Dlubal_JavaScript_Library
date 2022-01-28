@@ -135,13 +135,8 @@ tensionMemberLoad.form_finding_internal_force = member_loads.FORM_FINDING_INTERN
 tensionMemberLoad.members = cablesList;
 
 // Define Supports
-var nodalSupport = NodalSupport(undefined);
-nodalSupport.spring_x = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.spring_y = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.spring_z = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.rotational_restraint_x = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.rotational_restraint_y = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.rotational_restraint_z = nodal_supports.SPRING_CONSTANT_YES;
+var nodalSupport = new NodalSupport();
+nodalSupport.Fixed();
 
 // Assign supports
-nodes[1].support = nodalSupport.no;  
+nodes[1].support = nodalSupport.GetNo();  

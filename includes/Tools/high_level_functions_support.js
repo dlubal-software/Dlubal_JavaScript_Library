@@ -218,7 +218,7 @@ function makeSolid(boundaryNodes)
 	var node6 = createNode2(boundaryNodes[5]);
 	var node7 = createNode2(boundaryNodes[6]);
 	var node8 = createNode2(boundaryNodes[7]);
-	
+
 	var solidLines = [
 		// Bottom cap
 		createLine(node1.no, node2.no).no,	// line1
@@ -236,7 +236,7 @@ function makeSolid(boundaryNodes)
 		createLine(node3.no, node7.no).no,	// line11
 		createLine(node4.no, node8.no).no	// line12
 	];
-	
+
 	var solidSurfaces = [
 		createSurface([solidLines[0], solidLines[1], solidLines[2], solidLines[3]], surfaces.TYPE_STANDARD, thickness),
 		createSurface([solidLines[4], solidLines[5], solidLines[6], solidLines[7]], surfaces.TYPE_STANDARD, thickness),
@@ -245,11 +245,11 @@ function makeSolid(boundaryNodes)
 		createSurface([solidLines[2], solidLines[10], solidLines[6], solidLines[11]], surfaces.TYPE_STANDARD, thickness),
 		createSurface([solidLines[3], solidLines[8], solidLines[7], solidLines[11]], surfaces.TYPE_STANDARD, thickness)
 	];
-	
+
 	var solid = solids.create();
 	solid.boundary_surfaces = solidSurfaces;
 	solid.type = solids.TYPE_STANDARD;
 	solid.material = createMaterial("C25/30");
-	
+
 	return solid;
 }

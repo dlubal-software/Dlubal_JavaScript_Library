@@ -112,19 +112,13 @@ members[10].member_eccentricity_end = member_eccentricities[1];
 members[10].member_eccentricity_start = member_eccentricities[1];
 
 // Define Supports
-var nodalSupport = NodalSupport(undefined);
-nodalSupport.spring_x = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.spring_y = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.spring_z = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.rotational_restraint_z = nodal_supports.SPRING_CONSTANT_YES;
+var nodalSupport = new NodalSupport();
+nodalSupport.Hinged();
 
-var lineSupport = LineSupport(undefined);
-lineSupport.spring_x = line_supports.SPRING_CONSTANT_YES;
-lineSupport.spring_y = line_supports.SPRING_CONSTANT_YES;
-lineSupport.spring_z = line_supports.SPRING_CONSTANT_YES;
-lineSupport.rotational_restraint_z = line_supports.SPRING_CONSTANT_YES;
+var lineSupport = new LineSupport();
+lineSupport.Hinged();
 
 // Assign Supports
-nodes[1].support = nodalSupport.no;
-nodes[4].support = nodalSupport.no;
-lines[20].support = lineSupport.no;
+nodes[1].support = nodalSupport.GetNo();
+nodes[4].support = nodalSupport.GetNo();
+lines[20].support = lineSupport.GetNo();

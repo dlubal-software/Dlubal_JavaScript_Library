@@ -144,7 +144,6 @@ Node.prototype.BetweenTwoNodes = function (no,
     set_comment_and_parameters(this.node, comment, params);
 };
 
-
 /**
  * Create Node between two points
  * @param {int} no - Number of Node

@@ -20,7 +20,6 @@ thickness = 1;
 var nodal_support_1 = new NodalSupport();
 nodal_support_1.Hinged();
 
-
 var line_support_1 = new LineSupport();
 line_support_1.Hinged();
 
@@ -80,7 +79,6 @@ Surface(undefined, "1,6,3,18,4", thickness);
 
 Opening(undefined, "5,15,22,20");
 Opening(undefined, "7-10");
-
 
 var line_mesh_refinment = LineMeshRefinement();
 line_mesh_refinment.lines = 4;

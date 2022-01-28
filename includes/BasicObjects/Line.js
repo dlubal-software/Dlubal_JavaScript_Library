@@ -12,8 +12,8 @@ function Line(no,
     nodes,
     comment,
     params) {
- 
-        if (arguments.length !== 0) {
+
+    if (arguments.length !== 0) {
         nodes = typeof nodes !== 'undefined' ? nodes : [];
         ASSERT(nodes.length > 1, "Minimum two nodes must be set to line");
         this.line = engine.create_line(no, nodes);
@@ -120,7 +120,7 @@ Line.prototype.Circle = function (no,
  * @param {array} p2_control_point - Second control point byt format [x, y, z]
  * @param {array} p3_control_point - Third control point byt format [x, y, z]
  * @param {number} arc_angle_alpha - Arc angle Alpha (Radians)
- * @param {number} arc_angle_beta - Arc angle Beta (Radians) 
+ * @param {number} arc_angle_beta - Arc angle Beta (Radians)
  * @param {string} comment - Comment for the line
  * @param {dictionary} params - Parameters of the line
  */

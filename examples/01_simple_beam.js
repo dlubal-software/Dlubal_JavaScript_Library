@@ -6,7 +6,7 @@ var section = Section(undefined, 'IPE 200', material);
 var first = Node(undefined, 0, 0, 0);
 var second = Node(undefined, 10, 0, 0);
 
-var member = Member(undefined, [first, second]);
+var member = new Member(undefined, [first, second]);
 member.section_start = section;
 
 // assign one of pre-defined nodal supports to new nodes
@@ -25,4 +25,3 @@ concentrated_load.load_distribution = member_loads.LOAD_DISTRIBUTION_CONCENTRATE
 concentrated_load.load_direction = member_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE;
 concentrated_load.magnitude = -2kN;
 concentrated_load.distance_a_absolute = 5m;
-

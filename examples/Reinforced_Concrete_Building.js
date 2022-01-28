@@ -187,22 +187,17 @@ for (var j = 0; j < n_f; ++j) {
 }
 
 // Define Supports
-var nodalSupport = NodalSupport(undefined);
-nodalSupport.spring_x = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.spring_y = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.spring_z = nodal_supports.SPRING_CONSTANT_YES;
-nodalSupport.rotational_restraint_z = nodal_supports.SPRING_CONSTANT_YES;
+var nodalSupport = new NodalSupport();
+nodalSupport.Hinged();
 
-var lineSupport = LineSupport(undefined);
-lineSupport.spring_x = line_supports.SPRING_CONSTANT_YES;
-lineSupport.spring_y = line_supports.SPRING_CONSTANT_YES;
-lineSupport.spring_z = line_supports.SPRING_CONSTANT_YES;
-lineSupport.rotational_restraint_z = line_supports.SPRING_CONSTANT_YES;
+var lineSupport = new LineSupport();
+lineSupport.Hinged();
+lineSupport.RotationZ(true);
 
 // Assign Supports
 for (var i = 0; i < 8; ++i) {
-    nodes[19 + i].support = nodalSupport.no;
+    nodes[19 + i].support = nodalSupport.GetNo();
 }
 for (var i = 0; i < 11; ++i) {
-    lines[9 * (n_f + 1) + 1 + i].support = lineSupport.no;
+    lines[9 * (n_f + 1) + 1 + i].support = lineSupport.GetNo();
 }
