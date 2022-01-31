@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<script>
+    <arguments>
+        <argument argument-name="a" default-value="4" label-name="Total Length" />
+        <argument argument-name="b" default-value="5" label-name="Width" />
+        <argument argument-name="H" default-value="3" label-name="Height" />
+        <argument argument-name="slab_thickness" default-value="0.35" label-name="Slab thickness"/>
+        <argument argument-name="rib_height" default-value="0.2" label-name="Rib height"/>
+        <argument argument-name="rib_spacing" default-value="0.5" label-name="Rib spacing"/>
+        <argument argument-name="rib_width" default-value="0.18" label-name="Rib width"/>
+    </arguments>
+</script>

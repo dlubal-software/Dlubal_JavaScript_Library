@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<script>
+    <arguments>
+        <argument argument-name="a" default-value="1.5" label-name="Short Length" />
+        <argument argument-name="b" default-value="4" label-name="Long Length)" />
+        <argument argument-name="H_1" default-value="3" label-name="Height 1" />
+        <argument argument-name="H_2" default-value="1.5" label-name="Height 2" />
+        <argument argument-name="r" default-value="0.15" label-name="Radius of circular beam" />
+        <argument argument-name="thickness_1" default-value="0.001" label-name="Membrane thickness"/>
+        <argument argument-name="S_r" default-value="0.07" label-name="Target relative member sag in cables"/>
+        <argument argument-name="n_x" default-value="700" label-name="Force along X axis in membrane"/>
+        <argument argument-name="n_y" default-value="700" label-name="Force along Y axis in membrane"/>
+    </arguments>
+</script>
