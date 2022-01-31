@@ -21,7 +21,7 @@ function OpeningLoad(no,
 	{
 		return this.load = createBaseLoad("Opening_Load", no, load_case, openings, comment, params);
 	}
-};
+}
 
 /**
 * Assignes values to load depend of load type and load distribution (private)

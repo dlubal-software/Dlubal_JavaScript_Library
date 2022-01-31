@@ -8,7 +8,7 @@ if (n === undefined) {
 	r_2 = 2;      // Radius of top polygon
 	H = 4;        // Height
 	rotation = 0; // Rotation degree
-};
+}
 
 ASSERT(n > 2, "Number of edges should be more than 2");
 
