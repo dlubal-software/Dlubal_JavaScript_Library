@@ -2,8 +2,8 @@ function SetPeriodicCombinationRule(rule) {
 
   const CombinationRule_dict = {
   "SRSS"        : "SRSS",
-  "CQC"           : "CQC",
-  "Absolute"       : "ABSOLUTE_SUM",
+  "CQC"         : "CQC",
+  "Absolute"    : "ABSOLUTE_SUM",
   };
 
   var CombinationRule = CombinationRule_dict[rule];
@@ -43,13 +43,13 @@ function WindSimulationSettings(no,
 {
 
    /**
-  * Creates stability analysis settings hight level function 
+  * Creates wind simulation analysis settings hight level function 
 
   * @param   {Float}      density                 number between 1 and 2
   * @param   {Float}      kinematicViscosity      number between 1e-6 and 1e-4
   * @param   {Boolean}    consider_turbulence     consider turbulence
-  * @param   {String}     comment       Comment, empty by default
-  * @param   {Object}  params        Spectral analysis settings parameters, empty by default
+  * @param   {String}     comment                 Comment, empty by default
+  * @param   {Object}     params                  Spectral analysis settings parameters, empty by default
   */
 
   ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
@@ -82,8 +82,8 @@ function WindSimulationSettings(no,
 	// Wind simulation analysis settings
 	this.settings = WSAS;
   set_comment_and_parameters(this.settings, comment, params);
-  console.log("-- Finish. Object created. --");
-  // object for creation new stas with callback link to instance
+  console.log("-- Done. Wind simulation analysis settings no. " + WSAS.no + " all initial params set.");
+  // object for creation new WSAS with callback link to instance
   var self = this;
   return self;
 };

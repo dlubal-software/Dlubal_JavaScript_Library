@@ -29,10 +29,13 @@ function ModalAnalysisSettings( no,
    /**
   * Creates nodal support hight level function 
 
-  * @param   {Integer}              no              unique ID of MAS
-  * @param   {String or Integer}    numberOfModes   number of modes calculated
-  * @param   {String}               comment         Comment, empty by default
-  * @param   {Object}               params          Nodal support parameters, empty by default
+  * @param   {Integer}              no                  unique ID of MAS
+  * @param   {String or Integer}    numberOfModes       number of modes calculated
+  * @param   {String}               solverMethod        solver method definition ("root", "Lanczos","subspace")
+  * @param   {float}                beyondFrequency     minimal natural frequency
+  * @param   {float}                maximalFrequency    maximal natural frequency
+  * @param   {String}               comment             Comment, empty by default
+  * @param   {Object}               params              Nodal support parameters, empty by default
   */
 
   ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
@@ -102,4 +105,9 @@ ModalAnalysisSettings.prototype.SetBeyondFrequency = function(frequency) {
   ASSERT(typeof frequency != undefined || typeof frequency != "number", "Parameter must be assigned as an integer.");  
   this.settings.find_eigenvectors_beyond_frequency = true;
   this.settings.frequency = frequency;
+  };
+
+
+ModalAnalysisSettings.prototype.GetNo = function() {
+  return this.settings.no;
   };

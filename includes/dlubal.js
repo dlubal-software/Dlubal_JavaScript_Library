@@ -66,6 +66,7 @@ if (RFEM)
 }
 // Loading
 include("Loading/LoadCombination.js");
+include("Loading/LoadCase.js");
 // Loads
 if (RFEM)
 {
