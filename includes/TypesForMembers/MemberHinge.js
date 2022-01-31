@@ -18,7 +18,7 @@ function MemberHinge(no,
                      member_end,
                      comment,
                      params) {
-	if (arguments.length !== 0) { 
+	if (arguments.length !== 0) {
 		return this.memberHinge = createHinge(no, member_start, member_end, comment, params);
 	}
 }
@@ -85,7 +85,7 @@ MemberHinge.prototype.Rotational = function (no,
 		
 	if (typeof fx !== "undefined") {
 		ASSERT(fx.length > 0, "φx: at least two values has to be set");
-		setMainHingeValues(this.memberHinge, fx, "moment_release_mt", "moment_release_mt_nonlinearity");	
+		setMainHingeValues(this.memberHinge, fx, "moment_release_mt", "moment_release_mt_nonlinearity");
 	}
 	if (typeof fy !== "undefined") {
 		ASSERT(fy.length > 0, "φy: at least two values has to be set");
@@ -465,7 +465,7 @@ var setPartialActivityZoneValues = function (member_hinge,
 * @param	{String}	property_2		Nonlinearity string name
 * @return	Returns modified member hinge
 */
-var setMainHingeValues = function (member_hinge, 
+var setMainHingeValues = function (member_hinge,
 	values,
 	property_1,
 	property_2) {

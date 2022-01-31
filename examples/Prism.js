@@ -12,7 +12,7 @@ if (n === undefined) {
 
 ASSERT(n > 2, "Number of edges should be more than 2");
 
-// Create material 
+// Create material
 var material = Material(1, 'LC50/55');
 
 // Create Lines

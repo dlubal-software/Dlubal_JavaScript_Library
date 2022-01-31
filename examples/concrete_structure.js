@@ -15,7 +15,7 @@ var thickness_1 = 0.18;   // roof
 var thickness_2 = 0.2;    // walls
 
 
-// create material 
+// create material
 var material = Material(1, 'LC50/55');
 
 // Create thickness
@@ -23,7 +23,7 @@ var th = new Thickness();
 th.Uniform(1, "Roof", 1, [thickness_1]);
 th.Uniform(2, "Walls", 1, [thickness_2]);
 
-// Create section 
+// Create section
 var columnSection = Section(1, 'CIRCLE_M1 200', material);
 var ribSection = Section(2, 'R_M1 200/400', material);
 

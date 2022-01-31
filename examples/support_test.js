@@ -131,7 +131,7 @@ nodal_support_12.Nonlinear.X.FrictionYplusZ(0.35, 0.55);
 
 //   ################# Line supports
 
-if (RFEM) {	
+if (RFEM) {
 	//   ##### Constructors:
 	// Empty
 	var line_support_1 = new LineSupport();

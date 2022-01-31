@@ -141,7 +141,7 @@ MemberEccentricity.prototype.TransverseOffsetMember = function (reference_member
 */
 MemberEccentricity.prototype.TransverseOffsetSurface = function (reference_surface_index,
 	alignment) {
-	setTransverseOffset(this.memberEccentricity, member_eccentricities.TRANSVERSE_OFFSET_TYPE_FROM_SURFACE_THICKNESS, reference_surface_index, undefined, alignment);	
+	setTransverseOffset(this.memberEccentricity, member_eccentricities.TRANSVERSE_OFFSET_TYPE_FROM_SURFACE_THICKNESS, reference_surface_index, undefined, alignment);
 };
 
 /**
@@ -176,7 +176,7 @@ var setTransverseOffset = function (member_eccentricity,
 		member_eccentricity.transverse_offset_vertical_alignment = getAlignmentParts(alignment)[1];
 	}
 	else {
-		member_eccentricity.transverse_offset_reference_surface = reference_object_index;	
+		member_eccentricity.transverse_offset_reference_surface = reference_object_index;
 		member_eccentricity.vertical_section_alignment = getAlignmentParts(alignment)[1];
 	}
 };

@@ -4,13 +4,13 @@ if (!RFEM) {
 // var a = 7;                // Length
 // var b = 6;                // Width
 // var H = 4;                // Height
-// var H_1 = 3;              // Height 1 
+// var H_1 = 3;              // Height 1
 // var H_2 = 3.9;            // Height 2
 // var len = 2.5;            // Opening Length
 // var w = 1;                // Opening Width
 // var thickness_1 = 0.2;    // Thickness of roof and wall
 
-// create material 
+// create material
 var materialConcrete = Material(1, 'C30/37');     // Concrete
 var materialSteel = Material(2, 'S235');       // Steel
 

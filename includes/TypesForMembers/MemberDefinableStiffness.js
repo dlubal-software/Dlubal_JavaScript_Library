@@ -29,7 +29,7 @@ MemberDefinableStiffness.prototype.TorsionalAndBending = function (torsional_sti
 	bending_stiffness_y,
 	bending_stiffness_z) {
 	this.memberDefinableStiffness.torsional_stiffness = torsional_stiffness;
-	this.memberDefinableStiffness.bending_stiffness_y = bending_stiffness_y;	
+	this.memberDefinableStiffness.bending_stiffness_y = bending_stiffness_y;
 	this.memberDefinableStiffness.bending_stiffness_z = bending_stiffness_z;
 };
 

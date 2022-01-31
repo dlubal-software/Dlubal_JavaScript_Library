@@ -149,7 +149,7 @@ memberLoad2.Force(undefined, lc, [17], "Uniform", [2500]);
 memberLoad2.Eccentricity("right_bottom", 0.01, 0.02, 0.03, 0.04);
 
 // Moment parabolic load sets via parameters
-var memberLoad3 = new MemberLoad(undefined, lc, [6], "Moment parabolic load sets via parameters", 
+var memberLoad3 = new MemberLoad(undefined, lc, [6], "Moment parabolic load sets via parameters",
 	{ "load_type" : "Moment", "load_distribution" : "Parabolic", "magnitude_1" : 500, "magnitude_2" : 700, "magnitude_3" : 1500, "load_direction" : "X_L (U_L )" });
 var memberLoad4 = new MemberLoad();
 // Moment varying load with global in X on true length
@@ -173,7 +173,7 @@ var memberLoad7 = new MemberLoad();
 // Rotary motion member load
 /* Parameter values: 	[axis_definition, ω, α, [Node1, Node2] | XA, YA, ZA, XB, YB, ZB] (axis definition 1 == "Two points")
  				[axis_definition, ω, α, ([Node1] | XA, YA, ZA), parallel_axis] (axis definition 2 == "Point and axis")*/
-// Rotary motion with "two points" axes definition, both defined by node indexes				
+// Rotary motion with "two points" axes definition, both defined by node indexes
 memberLoad7.RotaryMotion(undefined, lc, [13], [1, 10, 12, [49, 50]]);
 // Rotary motion with "two points" axes definition, both defined by its coordinates
 memberLoad7.RotaryMotion(undefined, lc, [14], [1, 10, 12, 0.1, 0.2, 0, 2.0, 2.0, 0]);

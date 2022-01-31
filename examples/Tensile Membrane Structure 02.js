@@ -13,7 +13,7 @@ if (!RFEM) {
 
 FORM_FINDING.setActive(true);
 
-// Material 
+// Material
 var materialSteel = Material(1, 'S235');                    // Steel
 var materialMembrane = Material(2, 'PES-PVC Typ II');       // Membrane
 materialMembrane.material_model = materials.MODEL_ORTHOTROPIC_2D;
@@ -139,4 +139,4 @@ var nodalSupport = new NodalSupport();
 nodalSupport.Fixed();
 
 // Assign supports
-nodes[1].support = nodalSupport.GetNo();  
+nodes[1].support = nodalSupport.GetNo();

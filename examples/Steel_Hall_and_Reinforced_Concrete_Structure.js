@@ -20,7 +20,7 @@ if (H_1 === undefined) {
 	thickness_2 = 0.2;   // wall
 };
 
-// create material 
+// create material
 var materialConcrete = Material(1, 'LC50/55');    // Concrete
 var materialSteel = Material(2, 'S235');         // Steel
 

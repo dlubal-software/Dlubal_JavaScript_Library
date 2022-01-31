@@ -10,7 +10,7 @@ var H_2 = 3.5;
 var thickness_1 = 0.2;   // roof
 var thickness_2 = 0.2;   // wall
 
-// create material 
+// create material
 var materialLightConcrete = new Material(1, 'LC50/55');    // Concrete
 var materialSteel = new Material(2, 'S235');               // Steel
 

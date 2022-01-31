@@ -16,7 +16,7 @@ if (a === undefined) {
 	thickness_1 = 0.2   // wall
 };
 
-// Create material 
+// Create material
 var material = Material(1, 'LC50/55');
 
 // Create thickness

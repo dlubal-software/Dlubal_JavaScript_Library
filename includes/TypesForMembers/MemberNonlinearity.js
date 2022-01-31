@@ -106,7 +106,7 @@ MemberNonlinearity.prototype.Slippage = function (no,
 	params) {
 	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_SLIPPAGE;
-	setParameters(this.memberNonlinearity, [ux], "slippage");	
+	setParameters(this.memberNonlinearity, [ux], "slippage");
 };
 
 /**
@@ -125,7 +125,7 @@ MemberNonlinearity.prototype.TearingUnderTension = function (no,
 	params) {
 	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_TEARING_IF_TENSION;
-	setParameters(this.memberNonlinearity, [nt], "tension_force");	
+	setParameters(this.memberNonlinearity, [nt], "tension_force");
 };
 
 /**
@@ -144,7 +144,7 @@ MemberNonlinearity.prototype.YieldingUnderTension = function (no,
 	params) {
 	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_YIELDING_IF_TENSION;
-	setParameters(this.memberNonlinearity, [nt], "tension_force");		
+	setParameters(this.memberNonlinearity, [nt], "tension_force");
 };
 
 /**
@@ -163,7 +163,7 @@ MemberNonlinearity.prototype.TearingUnderCompression = function (no,
 	params) {
 	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_TEARING_IF_COMPRESSION;
-	setParameters(this.memberNonlinearity, [nc], "compression_force");	
+	setParameters(this.memberNonlinearity, [nc], "compression_force");
 };
 
 /**
@@ -182,7 +182,7 @@ MemberNonlinearity.prototype.YieldingUnderCompression = function (no,
 	params) {
 	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_YIELDING_IF_COMPRESSION;
-	setParameters(this.memberNonlinearity, [nc], "compression_force");	
+	setParameters(this.memberNonlinearity, [nc], "compression_force");
 };
 
 /**
@@ -203,7 +203,7 @@ MemberNonlinearity.prototype.Tearing = function (no,
 	params) {
 	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_TEARING;
-	setParameters(this.memberNonlinearity, [nc, nt], "compression_force", "tension_force");	
+	setParameters(this.memberNonlinearity, [nc, nt], "compression_force", "tension_force");
 };
 
 /**
@@ -224,7 +224,7 @@ MemberNonlinearity.prototype.Yielding = function (no,
 	params) {
 	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_YIELDING;
-	setParameters(this.memberNonlinearity, [nc, nt], "compression_force", "tension_force");	
+	setParameters(this.memberNonlinearity, [nc, nt], "compression_force", "tension_force");
 };
 
 /**
@@ -265,5 +265,5 @@ var createNonlinearity = function (no,
 	}
     set_comment_and_parameters(memberNonlinearity, comment, params);
     
-	return memberNonlinearity;	
+	return memberNonlinearity;
 };
