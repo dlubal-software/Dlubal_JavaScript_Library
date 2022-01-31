@@ -94,8 +94,6 @@ for (var i = 0; i < 3; ++i) {
 }
 sur.Membrane(4, surfaces.GEOMETRY_QUADRANGLE, "", [18, 22, 10, 19], 1);
 surfacesList.push(4);
-
-
 // Define Load case and loads
 if (!load_cases.exist(1)) {
     var formFindingLoadCase = LoadCase(1, "Form-Finding");
@@ -115,9 +113,6 @@ else {
 static_analysis_settings[1].analysis_type.analysis_type = static_analysis_settings.LARGE_DEFORMATIONS;
 static_analysis_settings[1].iterative_method_for_nonlinear_analysis = static_analysis_settings.NEWTON_RAPHSON;
 formFindingLoadCase.static_analysis_settings = staticAnalysisSettings;
-
-
-
 var tensionSurfaceLoad = SurfaceLoad(1, formFindingLoadCase);
 tensionSurfaceLoad.load_type = surface_loads.LOAD_TYPE_FORM_FINDING;
 tensionSurfaceLoad.form_finding_calculation_method = surface_loads.FORM_FINDING_CALCULATION_METHOD_PROJECTION;

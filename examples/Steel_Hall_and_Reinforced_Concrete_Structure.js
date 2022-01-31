@@ -62,8 +62,6 @@ for (var j = 0; j < n_a + 1; ++j) {
         }
     }
 }
-
-
 // Create members
 var mem = new Member();
 var memberCount = 1;
@@ -242,8 +240,6 @@ for (var i = 0; i < n_b; ++i) {
 }
 secondFloor.push(no_mem + 4 * (n_b + 1) + 6 * n_b + 1);
 secondFloor.push(no_mem + 4 * (n_b + 1) + 6 * n_b + 3);
-
-
 // create floor
 sur.Standard(surfaceCount, surfaces.GEOMETRY_PLANE, "", firstFloor, 1, "");
 var surface_support = new SurfaceSupport(undefined, surfaceCount, "Fixed");
@@ -293,8 +289,6 @@ for (var i = 0; i < 2; ++i) {
     openingCount++;
     memberCount++;
 }
-
-
 // Create concrete beams
 // Create nodes
 var no_no3 = nodes.lastId() + 1;

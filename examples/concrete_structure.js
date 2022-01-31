@@ -13,8 +13,6 @@ var a_1 = 1;
 var a_2 = 1;
 var thickness_1 = 0.18;   // roof
 var thickness_2 = 0.2;    // walls
-
-
 // create material
 var material = Material(1, 'LC50/55');
 

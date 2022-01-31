@@ -27,7 +27,5 @@ If applicable, add screenshots to help explain your problem.
  - OS: e.g. WIN 10 2H20
  - Version of RFEM6
  - Version of tool / library [e.g. 22]
-
-
 **Additional context**
 Add any other context about the problem here.

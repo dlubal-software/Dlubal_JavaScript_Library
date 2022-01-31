@@ -1,8 +1,6 @@
 if (!RFEM) {
     throw new Error("This script is only for RFEM, it creates surfaces.");
 }
-
-
 if (a === undefined) {
 	a = 5;
 	b = 4;
