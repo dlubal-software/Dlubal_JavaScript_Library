@@ -44,7 +44,7 @@ MemberHinge.prototype.Translational = function (no,
 	comment,
 	params) {
 	this.memberHinge = createHinge(no, member_start, member_end, comment, params);
-	
+
 	if (typeof ux !== "undefined") {
 		ASSERT(ux.length > 0, "ux: at least two values has to be set");
 		setMainHingeValues(this.memberHinge, ux, "axial_release_n", "axial_release_n_nonlinearity");
@@ -57,7 +57,7 @@ MemberHinge.prototype.Translational = function (no,
 		ASSERT(uz.length > 0, "uz: at least two values has to be set");
 		setMainHingeValues(this.memberHinge, uz, "axial_release_vz", "axial_release_vz_nonlinearity");
 	}
-	
+
 	return this.memberHinge;
 };
 
@@ -82,7 +82,7 @@ MemberHinge.prototype.Rotational = function (no,
 	comment,
 	params) {
 	this.memberHinge = createHinge(no, member_start, member_end, comment, params);
-		
+
 	if (typeof fx !== "undefined") {
 		ASSERT(fx.length > 0, "φx: at least two values has to be set");
 		setMainHingeValues(this.memberHinge, fx, "moment_release_mt", "moment_release_mt_nonlinearity");
@@ -95,7 +95,7 @@ MemberHinge.prototype.Rotational = function (no,
 		ASSERT(fz.length > 0, "φz: at least two values has to be set");
 		setMainHingeValues(this.memberHinge, fz, "moment_release_mz", "moment_release_mz_nonlinearity");
 	}
-	
+
 	return this.memberHinge;
 };
 
@@ -370,11 +370,11 @@ var setDiagramValues = function (member_hinge,
 	param_2_name,
 	param_3_name) {
 	ASSERT(diagram_values.length >= 3, "At least three values are required");
-	
+
 	for (var i = 0; i < diagram_values.length; i += 3)
 	{
 		var row = member_hinge[param_table_name].row_count();
-		
+
 		member_hinge[param_table_name][row][param_1_name] = diagram_values[i];
 		member_hinge[param_table_name][row][param_2_name] = diagram_values[i + 1];
 		member_hinge[param_table_name][row][param_3_name] = diagram_values[i + 2];
@@ -417,7 +417,7 @@ var setPartialActivityZoneValues = function (member_hinge,
 	param_displacement_name,
 	param_force_name) {
 	ASSERT(zone_values.length > 0, "Zone: at least type of zone is required");
-	
+
 	switch (zone_values[0])
 	{
 		case 0:		// Complete
@@ -543,6 +543,6 @@ var createHinge = function (no,
 	}
 
 	set_comment_and_parameters(memberHinge, comment, params);
-	
+
 	return memberHinge;
 };

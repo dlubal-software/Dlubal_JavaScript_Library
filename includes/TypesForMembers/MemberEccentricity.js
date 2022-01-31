@@ -166,7 +166,7 @@ var setTransverseOffset = function (member_eccentricity,
 	reference_node_index,
 	alignment) {
 	member_eccentricity.transverse_offset_reference_type = reference_type;
-	
+
 	if (reference_type === member_eccentricities.TRANSVERSE_OFFSET_TYPE_FROM_MEMBER_SECTION) {
 		member_eccentricity.transverse_offset_reference_member = reference_object_index;
 		if (typeof reference_node_index !== "undefined") {
@@ -207,7 +207,7 @@ var createEccentricity = function (no,
     }
 
     set_comment_and_parameters(member_eccentricity, comment, params);
-    
+
 	return member_eccentricity;
 };
 
@@ -219,7 +219,7 @@ var createEccentricity = function (no,
 var setRelativeValues = function (member_eccentricity,
 	alignment) {
 	ASSERT(member_eccentricity.specification_type !== member_eccentricities.TYPE_ABSOLUTE);
-	
+
 	var horizontal = getAlignmentParts(alignment)[0];
 	var vertical = getAlignmentParts(alignment)[1];
 
@@ -235,7 +235,7 @@ var setRelativeValues = function (member_eccentricity,
 var getAlignmentParts = function (alignment) {
 	var params = alignment.split("_");
 	ASSERT(params.length === 2, "Wrong alignment string");
-	
+
 	var horizontal = params[0].charAt(0).toUpperCase() + params[0].slice(1);
 	var vertical = params[1].charAt(0).toUpperCase() + params[1].slice(1);
 	if (horizontal !== "Middle") {
@@ -262,7 +262,7 @@ var setAbsoluteValues = function (member_eccentricity,
 	ez,
 	coordinate_system) {
 	ASSERT(member_eccentricity.specification_type !== member_eccentricities.TYPE_RELATIVE);
-	
+
 	if (typeof ex !== "undefined") {
 		member_eccentricity.offset_x = ex;
 	}

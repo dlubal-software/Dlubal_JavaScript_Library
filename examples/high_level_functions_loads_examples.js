@@ -10,7 +10,7 @@ include("../includes/Tools/high_level_functions_support.js");
 function makeOpenings(surfaceList, nodeList)
 {
 	var openingList = [];
-	
+
 	for (var i = 0; i < 3; ++i)
 	{
 		var node = createNode(nodeList[i * 2].coordinate_1 + (nodeList[1 + i * 2].coordinate_1 - nodeList[i * 2].coordinate_1) / 2, nodeList[i * 2].coordinate_2 + (nodeList[6 + i * 2].coordinate_2 - nodeList[i * 2].coordinate_2) / 2, 0);
@@ -22,7 +22,7 @@ function makeOpenings(surfaceList, nodeList)
 		opening.boundary_lines = [line];
 		openingList.push(opening);
 	}
-	
+
 	return openingList;
 }
 /************************************* Support functions end *********************************/

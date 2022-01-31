@@ -264,6 +264,6 @@ var createNonlinearity = function (no,
 		member.member_nonlinearity = memberNonlinearity;
 	}
     set_comment_and_parameters(memberNonlinearity, comment, params);
-    
+
 	return memberNonlinearity;
 };
