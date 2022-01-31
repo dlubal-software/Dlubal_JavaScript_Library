@@ -155,7 +155,7 @@ MemberStiffnessModification.prototype.SteelStructuresCSA = function (determine_t
 };
 
 /**
-* Sets concrete structures patameters (private)
+* Sets concrete structures parameters (private)
 * @param	{Object}	member_stiffness_modification	Member stiffness modification to set
 * @param	{Number}	component_type					Component type: Columns (1), Walls uncracked (2), Walls cracked (3), Beams (4), Flat plates and flat stabs (5). Can be undefined
 * @param	{Number}	bending_stiffness_y				Bending stiffness multiplier factors Z, can be undefined.

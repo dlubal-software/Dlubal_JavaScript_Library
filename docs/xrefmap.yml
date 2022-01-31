@@ -365,10 +365,10 @@ references:
   name: SelfWeight(specific_weight, section_area)
   href: api/MemberDefinableStiffness.html#MemberDefinableStiffness_SelfWeight
   fullName: MemberDefinableStiffness.SelfWeight(specific_weight, section_area)
-- uid: MemberDefinableStiffness#ThermalExpansionCoeficient
-  name: ThermalExpansionCoeficient(thermal_expansion, width, height)
-  href: api/MemberDefinableStiffness.html#MemberDefinableStiffness_ThermalExpansionCoeficient
-  fullName: MemberDefinableStiffness.ThermalExpansionCoeficient(thermal_expansion, width, height)
+- uid: MemberDefinableStiffness#ThermalExpansionCoefficient
+  name: ThermalExpansionCoefficient(thermal_expansion, width, height)
+  href: api/MemberDefinableStiffness.html#MemberDefinableStiffness_ThermalExpansionCoefficient
+  fullName: MemberDefinableStiffness.ThermalExpansionCoefficient(thermal_expansion, width, height)
 - uid: MemberDefinableStiffness#TorsionalAndBending
   name: TorsionalAndBending(torsional_stiffness, bending_stiffness_y, bending_stiffness_z)
   href: api/MemberDefinableStiffness.html#MemberDefinableStiffness_TorsionalAndBending
