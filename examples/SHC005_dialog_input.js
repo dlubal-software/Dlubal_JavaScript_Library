@@ -7,7 +7,7 @@ if (a_1 === undefined) {
 	a_2=4;
 	b=6;
 	thickness=0.01;
-};
+}
 
 // create material and section
 var material = Material(undefined, 'LC50/55');

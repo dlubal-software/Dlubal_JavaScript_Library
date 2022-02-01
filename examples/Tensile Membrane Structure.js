@@ -11,7 +11,7 @@ if (n === undefined) {
 	S_r = 0.15;           // Target relative member sag in cables
 	n_x = 1500;           // Force along X axis in membrane
 	n_y = 1500;           // Force along Y axis in membrane
-};
+}
 
 FORM_FINDING.setActive(true);
 ASSERT(n > 2, "Number of edges should be more than 2");
