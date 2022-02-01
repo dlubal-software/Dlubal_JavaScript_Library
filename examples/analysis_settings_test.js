@@ -10,6 +10,16 @@ run("/clearAll.js");
 
 Access to settings via .settings
                                  /*/
+   /**
+  * Creates static analysis settings hight level function 
+
+  * @param   {Integer}         no                  unique ID of SAS
+  * @param   {String}          analysisType        Analysis setting type ("linear", "second order", "large deformations")
+  * @param   {String}          equationSolver      Equation solver ("direct", "iterative")
+  * @param   {String}          nonlinearMethod     Nonlinear method ("Picard", "Combined", "Postcritical", "Newton", "Constant stiffness", "Dynamic" )  
+  * @param   {String}          comment             Comment, empty by default
+  * @param   {Object}          params              Static analysis settings parameters, empty by default
+  */
 
 // create empty instance
 var SAS = new StaticAnalysisSettings();
@@ -21,6 +31,29 @@ SAS.SetNumberOfLoadIncremets(4);
 // dirrect access to  static analysis settings
 SAS.settings.comment = "Access via .settings";
 SAS.settings.analysis_type = static_analysis_settings.SECOND_ORDER_P_DELTA;
+
+
+// prototypes with analysis type
+var l = new StaticAnalysisSettings();
+l.Linear("iterative");
+l.SetMaxNumberOfItrations(1000);
+l.SetNumberOfLoadIncremets(4);
+l.SetComment("Linear iterative, 1000 iterations, 4 load increments");
+
+
+var s = new StaticAnalysisSettings();
+s.SecondOrder("iterative", "Postcritical");
+s.SetMaxNumberOfItrations(1500);
+s.SetNumberOfLoadIncremets(6);
+s.SetComment("Second order, iterative ,picard, 1500 iterations, 6 load increments");
+
+var large_def = new StaticAnalysisSettings();
+large_def.LargeDeformations("iterative", "Combined");
+large_def.SetMaxNumberOfItrations(500);
+large_def.SetNumberOfLoadIncremets(8);
+large_def.SetComment("Second order, iterative ,combined, 500 iterations, 8 load increments");
+
+
 
 // create instance with parameters
 var SAS0 = new StaticAnalysisSettings(undefined, "linear", "neco");
@@ -45,6 +78,8 @@ var someParams = {
 	//maximum_number_of_reactivations				:20
 };
 
+
+
 var SAS7 = new StaticAnalysisSettings(undefined, "second order", "iterative", "Newton", "Analysis settings with params" ,someParams);
 var SAS8 = new StaticAnalysisSettings(undefined, "second order", "Picard");
 var SAS9 = new StaticAnalysisSettings(undefined, "large deformations", "Combined");
@@ -55,5 +90,3 @@ var SAS13 = new StaticAnalysisSettings(undefined, "large deformations", čwd, "P
 var SAS14 = new StaticAnalysisSettings(undefined, "second order", "direct", "Postcritical");
 var SAS15 = new StaticAnalysisSettings(undefined, "second order", "Combined");
 var SAS16 = new StaticAnalysisSettings(undefined, "large deformations", "iterative", "Postcritical", "Iterative Postcritical");
-
-

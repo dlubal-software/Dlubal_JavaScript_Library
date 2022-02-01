@@ -85,10 +85,12 @@ function StaticAnalysisSettings(no,
    /**
   * Creates static analysis settings hight level function 
 
-  * @param   {Array}   surfaces      List of surfaces
-  * @param   {String}  analysisType          Analysis setting type
-  * @param   {String}  comment       Comment, empty by default
-  * @param   {Object}  params        Nodal support parameters, empty by default
+  * @param   {Integer}         no                  unique ID of SAS
+  * @param   {String}          analysisType        Analysis setting type ("linear", "second order", "large deformations")
+  * @param   {String}          equationSolver      Equation solver ("direct", "iterative")
+  * @param   {String}          nonlinearMethod     Nonlinear method ("Picard", "Combined", "Postcritical", "Newton", "Constant stiffness", "Dynamic" )  
+  * @param   {String}          comment             Comment, empty by default
+  * @param   {Object}          params              Static analysis settings parameters, empty by default
   */
 
   ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
@@ -123,6 +125,7 @@ function StaticAnalysisSettings(no,
   return self;
 };
 
+
 function AvoidWrongAssignment(SAS, param) {
   var setParameter = false; 
   if (SAS.analysis_type === static_analysis_settings.GEOMETRICALLY_LINEAR) {
@@ -137,9 +140,65 @@ function AvoidWrongAssignment(SAS, param) {
   return setParameter;
 };
 
+
+StaticAnalysisSettings.prototype.Linear = function(equationSolver) {
+// * @param   {String}          equationSolver      Equation solver ("direct", "iterative")
+  this.settings.analysis_type = static_analysis_settings.GEOMETRICALLY_LINEAR;
+  if (equationSolver != undefined) {
+    this.settings.method_of_equation_system = static_analysis_settings[SetEquationSolver(equationSolver)];
+  };
+};
+
+
+StaticAnalysisSettings.prototype.SecondOrder = function(equationSolver, nonlinearMethod) {
+// * @param   {String}          equationSolver      Equation solver ("direct", "iterative")
+// * @param   {String}          nonlinearMethod     Nonlinear method ("Picard", "Postcritical", "Newton")  
+  this.settings.analysis_type = static_analysis_settings.SECOND_ORDER_P_DELTA;
+  if (equationSolver != undefined) {
+    this.settings.method_of_equation_system = static_analysis_settings[SetEquationSolver(equationSolver)];
+  };
+  if (equationSolver != undefined) {
+    this.settings.method_of_equation_system = static_analysis_settings[SetEquationSolver(equationSolver)];
+  };
+  if (nonlinearMethod != undefined) {
+    var NA_method = NonlinearMethods(this.settings.analysis_type, nonlinearMethod);
+    if (NA_method != undefined) {
+      this.settings.iterative_method_for_nonlinear_analysis = static_analysis_settings[NA_method];
+      console.log("Nonlinear analysis method: " + this.settings.iterative_method_for_nonlinear_analysis);
+    };
+  };
+};
+
+
+StaticAnalysisSettings.prototype.LargeDeformations = function(equationSolver, nonlinearMethod) {
+// * @param   {String}          equationSolver      Equation solver ("direct", "iterative")
+// * @param   {String}          nonlinearMethod     Nonlinear method ("Picard", "Combined", "Postcritical", "Newton", "Constant stiffness", "Dynamic" )  
+  this.settings.analysis_type = static_analysis_settings.LARGE_DEFORMATIONS;
+  if (equationSolver != undefined) {
+    this.settings.method_of_equation_system = static_analysis_settings[SetEquationSolver(equationSolver)];
+  };
+  if (equationSolver != undefined) {
+    this.settings.method_of_equation_system = static_analysis_settings[SetEquationSolver(equationSolver)];
+  };
+  if (nonlinearMethod != undefined) {
+    var NA_method = NonlinearMethods(this.settings.analysis_type, nonlinearMethod);
+    if (NA_method != undefined) {
+      this.settings.iterative_method_for_nonlinear_analysis = static_analysis_settings[NA_method];
+      console.log("Nonlinear analysis method: " + this.settings.iterative_method_for_nonlinear_analysis);
+    };
+  };
+};
+
+
+StaticAnalysisSettings.prototype.SetComment = function(comment) {
+//  * @param   {String}          comment             Comment, empty by default
+  this.settings.comment = comment;
+};
+
+
+
 StaticAnalysisSettings.prototype.SetMaxNumberOfItrations = function(iterations) {
   // * @param   {integer}   iterations         Maximun number of iterations
-  console.log(SAS.analysis_type)
   if (AvoidWrongAssignment(this.settings, "max_number_of_iterations") === true) {   
     ASSERT(typeof iterations != undefined || typeof iterations != "number", "Parameter must be assigned as an integer.");
     this.settings.max_number_of_iterations = iterations;
