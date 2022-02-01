@@ -14,7 +14,7 @@ if (a === undefined) {
 	d_l = 1;
 	d_h = 2.2;
 	thickness_1 = 0.2   // wall
-};
+}
 
 // Create material 
 var material = Material(1, 'LC50/55');
