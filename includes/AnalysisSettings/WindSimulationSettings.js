@@ -11,9 +11,9 @@ function SetPeriodicCombinationRule(rule) {
       CombinationRule = "SRSS";
       console.log("Wrong periodic combination rule method input. Value was: " + rule);
       console.log("Correct values are: ( " + Object.keys(CombinationRule_dict) + ")");
-    };
+    }
   return CombinationRule;  
-};
+}
 
 function SetDirrectionalCombinationRule(rule) {
 
@@ -28,9 +28,9 @@ function SetDirrectionalCombinationRule(rule) {
       CombinationRule = "SRSS";
       console.log("Wrong dirrection combination rule method input. Value was: " + rule);
       console.log("Correct values are: ( " + Object.keys(CombinationRule_dict) + ")");
-    };
+    }
   return CombinationRule;  
-};
+}
 
 
 // Main function
@@ -60,22 +60,22 @@ function WindSimulationSettings(no,
     }
     else {
     	var WSAS = wind_simulation_analysis_settings.create(no);
-	};
+	}
 
   console.log("New wind simulation analysis settings no. " + WSAS.no + " was created");
   
   // Spectral anlysis settings : combination rules
   if (density != undefined) {
     WSAS.density = density;
-  };
+  }
 
    if (kinematicViscosity != undefined) {
     WSAS.kinematic_viscosity = kinematicViscosity;
-  };
+  }
 
   if (consider_turbulence != undefined) {
     WSAS.consider_turbulence = consider_turbulence;
-  };
+  }
 
  
 
@@ -86,7 +86,7 @@ function WindSimulationSettings(no,
   // object for creation new WSAS with callback link to instance
   var self = this;
   return self;
-};
+}
 
 WindSimulationSettings.prototype.GetNo = function() {
   // * @param   {integer}   no         NO of settings

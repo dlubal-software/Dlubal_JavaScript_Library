@@ -18,7 +18,7 @@ if (H_1 === undefined) {
 	w = 1.5;
 	thickness_1 = 0.2;   // roof
 	thickness_2 = 0.2;   // wall
-};
+}
 
 // create material 
 var materialConcrete = Material(1, 'LC50/55');    // Concrete

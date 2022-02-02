@@ -1,10 +1,10 @@
 function StabilityAnalysisType(eigenValue, incremental) {
   if (eigenValue === undefined) {
     eigenValue = true;
-  };
+  }
   if (incremental === undefined) {
     incremental = false;
-  };
+  }
   switch (eigenValue) {
     case false:
       return "INCREMENTALY_METHOD_WITHOUT_EIGENVALUE";
@@ -17,8 +17,8 @@ function StabilityAnalysisType(eigenValue, incremental) {
           case true:
             return "INCREMENTALY_METHOD_WITH_EIGENVALUE";
             break;
-    };
-  }; 
+    }
+  } 
 }
 
 function SetEigenValueMethod(method) {
@@ -35,9 +35,9 @@ function SetEigenValueMethod(method) {
       eigenValueMethod = "EIGENVALUE_METHOD_LANCZOS";
       console.log("Wrong eigenvalue solver method input. Value was: " + method);
       console.log("Correct values are: ( " + Object.keys(eigenValueMethods_dict) + ")");
-    };
+    }
   return eigenValueMethod;  
-};
+}
 
 
 
@@ -70,16 +70,16 @@ function StabilityAnalysisSettings(no,
     }
     else {
     	var StAS = stability_analysis_settings.create(no);
-	};
+	}
   console.log("New stability analysis settings no. " + StAS.no + " was created");
   // Static anlysis settings : type
   StAS.analysis_type = stability_analysis_settings[StabilityAnalysisType(isEigenvalueSolver,isIncremental)];
   if (eigenvalueMethod != undefined && isEigenvalueSolver != false) {
     StAS.eigenvalue_method = stability_analysis_settings[SetEigenValueMethod(eigenvalueMethod)];
-  };
+  }
   if (numberOfLowestEigenvalues != undefined && isEigenvalueSolver != false) {
     StAS.number_of_lowest_eigenvalues = numberOfLowestEigenvalues;
-  };
+  }
 	// Stability analysis settings
 	this.settings = StAS;
   set_comment_and_parameters(this.settings, comment, params);
@@ -87,7 +87,7 @@ function StabilityAnalysisSettings(no,
   // object for creation new stas with callback link to instance
   var self = this;
   return self;
-};
+}
 
 StabilityAnalysisSettings.prototype.GetNo = function() {
   return this.settings.no;

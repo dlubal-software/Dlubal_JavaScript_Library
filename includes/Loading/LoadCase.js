@@ -22,7 +22,7 @@ function LoadCase(no,
     }
     else {
         var LC = load_cases.create(no);
-    };
+    }
     this.settings = LC;
 
 // analysis type
@@ -30,24 +30,24 @@ function LoadCase(no,
   console.log(atype)
   if (analysisType != undefined) {
     this.settings.analysis_type = load_cases[atype];
-  };
+  }
 
 // analysis settings
   if (analysisSettings === undefined) {
         analysisSettings = 1;
-      };
+      }
     var self = this;
     this.settings = self.AnalysisSettings_dict(self, atype)(analysisSettings, undefined, self);
 
   if (stabilityAnalysis != undefined && analysisType != "spectral" && analysisType != "modal") {
     this.settings =  self.SetStabilityAnalysis(stabilityAnalysis, self);
-      };
+      }
 
   set_comment_and_parameters(this.settings, comment, params);
 
   var self = this;
   return self;
-};
+}
 
 
 LoadCase.prototype.SetStabilityAnalysis = function(stabilityAnalysisSetings_no, LC) {
@@ -58,7 +58,7 @@ LoadCase.prototype.SetStabilityAnalysis = function(stabilityAnalysisSetings_no, 
     }
     else {
         var self = this
-    };
+    }
   self.settings.calculate_critical_load = true
   self.settings.stability_analysis_settings = stability_analysis_settings[stabilityAnalysisSetings_no];
   return self.settings
@@ -72,16 +72,16 @@ LoadCase.prototype.SetTime = function(startTime, duration) {
   if (this.settings.analysis_type === load_cases.ANALYSIS_TYPE_TIME_DEPENDENT) {
     if (startTime === undefined) {
         startTime = 0;
-    };
+    }
     if (duration === undefined) {
         duration = 100;
-    };
+    }
     this.settings.loading_start = startTime;
     this.settings.time_being_investigated = duration;
   }
   else {
     console.log("This analyse is not time dependent.")
-  };
+  }
 };
 
 
@@ -102,7 +102,7 @@ LoadCase.prototype.SetAnalysisType = function (type) {
     AType = "ANALYSIS_TYPE_STATIC";
     console.log("Wrong analysis type input. Value was: " + type);
     console.log("Correct values are: ( " + Object.keys(AnalysisType_dict) + ")");
-  };
+  }
   console.log("Analysis type: " + AType);
   return AType;  
 };
@@ -112,13 +112,13 @@ LoadCase.prototype.SetAnalysisType = function (type) {
 LoadCase.prototype.SetStaticAnalysis = function(settings_static_no, undefined, LC) {
     if (settings_static_no === undefined) {
        settings_static_no = 1; 
-    };
+    }
     if (LC != undefined) {
         var self = LC;
     }
     else {
         var self = this
-    };
+    }
     self.settings.static_analysis_settings = static_analysis_settings[settings_static_no];
     return self.settings;
 };
@@ -126,14 +126,14 @@ LoadCase.prototype.SetStaticAnalysis = function(settings_static_no, undefined, L
 LoadCase.prototype.SetModalAnalysis = function (settings_modal_no, undefined, LC) {
     if (settings_modal_no === undefined) {
        settings_modal_no = 1; 
-    };
+    }
 
     if (LC != undefined) {
         var self = LC;
     }
     else {
         var self = this
-    };
+    }
     self.settings.modal_analysis_settings = modal_analysis_settings[settings_modal_no];
     return self.settings
 };
@@ -141,7 +141,7 @@ LoadCase.prototype.SetModalAnalysis = function (settings_modal_no, undefined, LC
 LoadCase.prototype.SetDTAAnalysis = function (settings_static_no, time, LC) {
     if (settings_static_no === undefined) {
        settings_static_no = 1; 
-    };
+    }
     if (time === undefined) {
        time = 86400; 
     }
@@ -150,7 +150,7 @@ LoadCase.prototype.SetDTAAnalysis = function (settings_static_no, time, LC) {
     }
     else {
         var self = this
-    };
+    }
     self.settings.static_analysis_settings = static_analysis_settings[settings_static_no];
     self.settings.time_being_investigated = time;
     return self.settings 
@@ -165,7 +165,7 @@ LoadCase.prototype.SetSpectralAnalysis = function (settings_spectral_no, dirrect
     }
     else {
         var self = this
-    };
+    }
 
     switch(dirrection) {
       case "x":
@@ -184,7 +184,7 @@ LoadCase.prototype.SetSpectralAnalysis = function (settings_spectral_no, dirrect
         break;
       default:
         self.settings.response_spectrum_is_enabled_in_direction_x = true;
-    };
+    }
     
 
     self.settings.spectral_analysis_settings = spectral_analysis_settings[settings_spectral_no];
@@ -194,17 +194,17 @@ LoadCase.prototype.SetSpectralAnalysis = function (settings_spectral_no, dirrect
 LoadCase.prototype.SetWindSimulationAnalysis = function (settings,settings_wind_simulation, LC) {
     if (settings === undefined) {
        settings = 1; 
-    };
+    }
 
     if (settings_wind_simulation === undefined) {
        settings_wind_simulation = 1; 
-    };
+    }
     if (LC != undefined) {
         var self = LC;
     }
     else {
         var self = this
-    };
+    }
     self.settings.static_analysis_settings = static_analysis_settings[settings];
     self.settings.wind_simulation_analysis_settings = wind_simulation_analysis_settings[settings_wind_simulation];
     self.settings.wind_simulation_wind_profile = wind_profiles[1];

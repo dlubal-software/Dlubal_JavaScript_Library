@@ -11,9 +11,9 @@ function SetSolverMethod(solverMethod	) {
     console.log("Wrong equation solver input. Value was: " + solverMethod	);
     console.log("Correct values are: ( " + Object.keys(EquationSolver_dict) + ")");
     equationSolver = "METHOD_LANCZOS";
-  };
+  }
   return equationSolver 
-};
+}
 
 
 // Main function ModalAnalysisSettings (MAS)
@@ -46,7 +46,7 @@ function ModalAnalysisSettings( no,
     }
     else {
     	var MAS = modal_analysis_settings.create(no);
-	};
+	}
   console.log("New modal analysis settings no. " + MAS.no + " was created");
   // Modal anlysis number of modes calculated
   if (typeof numberOfModes === "string") {
@@ -64,22 +64,22 @@ function ModalAnalysisSettings( no,
       MAS.number_of_modes_method = modal_analysis_settings.NUMBER_OF_MODES_METHOD_USER_DEFINED;
       MAS.number_of_modes = numberOfModes;
       console.log("First " + numberOfModes + " natural frequencies will be calculated");
-    };
+    }
 
   if (solverMethod != undefined) {
     MAS.solution_method = modal_analysis_settings[SetSolverMethod(solverMethod)];
-  };
+  }
 
   if (beyondFrequency != undefined) {
       MAS.find_eigenvectors_beyond_frequency = true;
       MAS.frequency = beyondFrequency;
-    };
+    }
 
   if (maximalFrequency != undefined) {
     if (MAS.number_of_modes_method === modal_analysis_settings.NUMBER_OF_MODES_METHOD_MAXIMUM_FREQUENCY) {
         MAS.maxmimum_natural_frequency = maximalFrequency;
-      };
-  }; 
+      }
+  } 
 
 	this.settings = MAS;
   set_comment_and_parameters(this.settings, comment, params);
@@ -87,7 +87,7 @@ function ModalAnalysisSettings( no,
   // object for creation new supports with callback link to instance
   var self = this;
   return self;
-};
+}
 
 
 
@@ -96,7 +96,7 @@ ModalAnalysisSettings.prototype.SetMaximalFrequency = function(frequency) {
   ASSERT(typeof frequency != undefined || typeof frequency != "number", "Parameter must be assigned as an integer.");  
   if (this.settings.number_of_modes_method === modal_analysis_settings.NUMBER_OF_MODES_METHOD_MAXIMUM_FREQUENCY) {
       this.settings.maxmimum_natural_frequency = frequency;
-      };
+      }
   };
 
 

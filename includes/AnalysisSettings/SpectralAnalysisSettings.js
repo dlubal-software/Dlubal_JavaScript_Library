@@ -11,9 +11,9 @@ function SetPeriodicCombinationRule(rule) {
       CombinationRule = "SRSS";
       console.log("Wrong periodic combination rule method input. Value was: " + rule);
       console.log("Correct values are: ( " + Object.keys(CombinationRule_dict) + ")");
-    };
+    }
   return CombinationRule;  
-};
+}
 
 function SetDirrectionalCombinationRule(rule) {
 
@@ -28,9 +28,9 @@ function SetDirrectionalCombinationRule(rule) {
       CombinationRule = "SRSS";
       console.log("Wrong dirrection combination rule method input. Value was: " + rule);
       console.log("Correct values are: ( " + Object.keys(CombinationRule_dict) + ")");
-    };
+    }
   return CombinationRule;  
-};
+}
 
 
 // Main function
@@ -64,30 +64,30 @@ function SpectralAnalysisSettings(no,
     }
     else {
     	var SpAS = spectral_analysis_settings.create(no);
-	};
+	}
 
   console.log("New spectral analysis settings no. " + SpAS.no + " was created");
   
   // Spectral anlysis settings : combination rules
   if (combinationRulePeriodic != undefined) {
     SpAS.combination_rule_for_periodic_responses = spectral_analysis_settings[SetPeriodicCombinationRule(combinationRulePeriodic)];
-  };
+  }
 
    if (combinationRuleDirrectional != undefined) {
     SpAS.combination_rule_for_directional_components = spectral_analysis_settings[SetDirrectionalCombinationRule(combinationRuleDirrectional)];
-  };
+  }
 
   if (useEquivalentLinearCombination === true) {
     SpAS.use_equivalent_linear_combination = true;
-  };
+  }
 
   if (signedResultsUsingDominantMode === true) {
     SpAS.signed_results_using_dominant_mode = true;
-  };
+  }
 
   if (saveResultsOfAllSelectedModes === true) {
     SpAS.save_results_of_all_selected_modes = true;
-  };
+  }
 
 	// Spectral analysis settings
 	this.settings = SpAS;
@@ -96,7 +96,7 @@ function SpectralAnalysisSettings(no,
   // object for creation new stas with callback link to instance
   var self = this;
   return self;
-};
+}
 
 SpectralAnalysisSettings.prototype.GetNo = function() {
   // * @param   {integer}   no         NO of settings

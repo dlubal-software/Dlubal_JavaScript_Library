@@ -26,7 +26,7 @@ function SurfaceSupport(no,
     }
     else {
     	var support = surface_supports.create(no);
-	};
+	}
 	// Create support
 	this.support = support;
   this.support.surfaces = surfaces;
