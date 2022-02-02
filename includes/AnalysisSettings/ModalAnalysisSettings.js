@@ -11,9 +11,9 @@ function SetSolverMethod(solverMethod	) {
     console.log("Wrong equation solver input. Value was: " + solverMethod	);
     console.log("Correct values are: ( " + Object.keys(EquationSolver_dict) + ")");
     equationSolver = "METHOD_LANCZOS";
-  };
+  }
   return equationSolver 
-};
+}
 
 
 // Main function ModalAnalysisSettings (MAS)
@@ -29,10 +29,13 @@ function ModalAnalysisSettings( no,
    /**
   * Creates nodal support hight level function 
 
-  * @param   {Integer}              no              unique ID of MAS
-  * @param   {String or Integer}    numberOfModes   number of modes calculated
-  * @param   {String}               comment         Comment, empty by default
-  * @param   {Object}               params          Nodal support parameters, empty by default
+  * @param   {Integer}              no                  unique ID of MAS
+  * @param   {String or Integer}    numberOfModes       number of modes calculated
+  * @param   {String}               solverMethod        solver method definition ("root", "Lanczos","subspace")
+  * @param   {float}                beyondFrequency     minimal natural frequency
+  * @param   {float}                maximalFrequency    maximal natural frequency
+  * @param   {String}               comment             Comment, empty by default
+  * @param   {Object}               params              Nodal support parameters, empty by default
   */
 
   ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
@@ -43,7 +46,7 @@ function ModalAnalysisSettings( no,
     }
     else {
     	var MAS = modal_analysis_settings.create(no);
-	};
+	}
   console.log("New modal analysis settings no. " + MAS.no + " was created");
   // Modal anlysis number of modes calculated
   if (typeof numberOfModes === "string") {
@@ -61,30 +64,30 @@ function ModalAnalysisSettings( no,
       MAS.number_of_modes_method = modal_analysis_settings.NUMBER_OF_MODES_METHOD_USER_DEFINED;
       MAS.number_of_modes = numberOfModes;
       console.log("First " + numberOfModes + " natural frequencies will be calculated");
-    };
+    }
 
   if (solverMethod != undefined) {
     MAS.solution_method = modal_analysis_settings[SetSolverMethod(solverMethod)];
-  };
+  }
 
   if (beyondFrequency != undefined) {
       MAS.find_eigenvectors_beyond_frequency = true;
       MAS.frequency = beyondFrequency;
-    };
+    }
 
   if (maximalFrequency != undefined) {
     if (MAS.number_of_modes_method === modal_analysis_settings.NUMBER_OF_MODES_METHOD_MAXIMUM_FREQUENCY) {
         MAS.maxmimum_natural_frequency = maximalFrequency;
-      };
-  }; 
+      }
+  } 
 
 	this.settings = MAS;
   set_comment_and_parameters(this.settings, comment, params);
-  console.log("-- Done. Modal analysis settings no. " + MAS.no + " all initial params set.");
-  // object for creation new MAS with callback link to instance
+  console.log("-- Finish. Object created. --");
+  // object for creation new supports with callback link to instance
   var self = this;
   return self;
-};
+}
 
 
 
@@ -93,7 +96,7 @@ ModalAnalysisSettings.prototype.SetMaximalFrequency = function(frequency) {
   ASSERT(typeof frequency != undefined || typeof frequency != "number", "Parameter must be assigned as an integer.");  
   if (this.settings.number_of_modes_method === modal_analysis_settings.NUMBER_OF_MODES_METHOD_MAXIMUM_FREQUENCY) {
       this.settings.maxmimum_natural_frequency = frequency;
-      };
+      }
   };
 
 
@@ -102,4 +105,9 @@ ModalAnalysisSettings.prototype.SetBeyondFrequency = function(frequency) {
   ASSERT(typeof frequency != undefined || typeof frequency != "number", "Parameter must be assigned as an integer.");  
   this.settings.find_eigenvectors_beyond_frequency = true;
   this.settings.frequency = frequency;
+  };
+
+
+ModalAnalysisSettings.prototype.GetNo = function() {
+  return this.settings.no;
   };
