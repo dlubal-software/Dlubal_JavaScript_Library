@@ -12,7 +12,7 @@ if (!RFEM) {
 // var thickness_1 = 0.35;       // Roof thickness
 // var thickness_2 = 0.3;        // Wall thickness
 
-// create material 
+// create material
 var materialConcrete = Material(1, 'LC50/55');    // Concrete
 
 // Create thickness

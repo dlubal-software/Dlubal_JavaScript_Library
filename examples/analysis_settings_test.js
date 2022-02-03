@@ -11,12 +11,12 @@ run("/clearAll.js");
 Access to settings via .settings
                                  /*/
    /**
-  * Creates static analysis settings hight level function 
+  * Creates static analysis settings hight level function
 
   * @param   {Integer}         no                  unique ID of SAS
   * @param   {String}          analysisType        Analysis setting type ("linear", "second order", "large deformations")
   * @param   {String}          equationSolver      Equation solver ("direct", "iterative")
-  * @param   {String}          nonlinearMethod     Nonlinear method ("Picard", "Combined", "Postcritical", "Newton", "Constant stiffness", "Dynamic" )  
+  * @param   {String}          nonlinearMethod     Nonlinear method ("Picard", "Combined", "Postcritical", "Newton", "Constant stiffness", "Dynamic" )
   * @param   {String}          comment             Comment, empty by default
   * @param   {Object}          params              Static analysis settings parameters, empty by default
   */
@@ -31,16 +31,12 @@ SAS.SetNumberOfLoadIncremets(4);
 // dirrect access to  static analysis settings
 SAS.settings.comment = "Access via .settings";
 SAS.settings.analysis_type = static_analysis_settings.SECOND_ORDER_P_DELTA;
-
-
 // prototypes with analysis type
 var l = new StaticAnalysisSettings();
 l.Linear("iterative");
 l.SetMaxNumberOfItrations(1000);
 l.SetNumberOfLoadIncremets(4);
 l.SetComment("Linear iterative, 1000 iterations, 4 load increments");
-
-
 var s = new StaticAnalysisSettings();
 s.SecondOrder("iterative", "Postcritical");
 s.SetMaxNumberOfItrations(1500);
@@ -52,9 +48,6 @@ large_def.LargeDeformations("iterative", "Combined");
 large_def.SetMaxNumberOfItrations(500);
 large_def.SetNumberOfLoadIncremets(8);
 large_def.SetComment("Second order, iterative ,combined, 500 iterations, 8 load increments");
-
-
-
 // create instance with parameters
 new StaticAnalysisSettings(undefined, "linear", "neco");
 new StaticAnalysisSettings(undefined,  "fde", "direct");
@@ -77,9 +70,6 @@ var someParams = {
 	plate_bending_theory						: static_analysis_settings.PLATE_BENDING_THEORY_KIRCHHOFF,
 	//maximum_number_of_reactivations				:20
 };
-
-
-
 new StaticAnalysisSettings(undefined, "second order", "iterative", "Newton", "Analysis settings with params" ,someParams);
 new StaticAnalysisSettings(undefined, "second order", "Picard");
 new StaticAnalysisSettings(undefined, "large deformations", "Combined");

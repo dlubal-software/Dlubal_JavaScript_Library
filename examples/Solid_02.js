@@ -7,7 +7,7 @@ var a_1 = 5;
 var a_2 = 4;
 var H = 2;
 
-// create material 
+// create material
 var material = Material(1, 'LC50/55');
 
 // Create Nodes

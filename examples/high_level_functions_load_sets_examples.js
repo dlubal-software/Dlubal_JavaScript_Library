@@ -9,14 +9,14 @@ include("../includes/Tools/high_level_functions_support.js");
 
 function makeSurfacesForLines(nodeList)
 {
-	
+
 }
 
 function createSets(list, grid, type)
 {
 	var indexes = [];
 	var sets = [];
-	
+
 	for (var i = 0; i < list.length; ++i)
 	{
 		if (i < grid[0])
@@ -46,7 +46,7 @@ function createSets(list, grid, type)
 				break;
 		}
 	}
-	
+
 	return sets;
 }
 /************************************* Support functions end ********************************/

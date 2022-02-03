@@ -10,8 +10,6 @@ var columns_height = 3.0;
 var gable_height = 1.5;
 var console_height = 2.5;
 var console_length = 0.3;
-
-
 // setup load cases
 function createLoadCase(id, static_analysis_settings, action_category, name) {
     var load_case = LoadCase(id);
