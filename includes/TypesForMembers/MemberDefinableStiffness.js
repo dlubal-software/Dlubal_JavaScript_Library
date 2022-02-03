@@ -3,19 +3,31 @@
 * @class
 * @constructor
 * @param	{Number}	no				Index of member definable stiffness, can be undefined
-* @param	{Array}		members			Assigned members, can be undefined
+* @param	{Array}		member_list		Assigned members, can be undefined
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member definable stiffness parameters, can be undefined
 * @return	{Object}	Created member definable stiffness
 */
 function MemberDefinableStiffness(no,
-	members,
+	member_list,
 	comment,
 	params) {
 	this.memberDefinableStiffness = engine.create_member_definable_stiffness(no);
-	if (typeof members !== "undefined") {
-		this.memberDefinableStiffness.assigned_to = members;
+	
+	if (typeof member_list !== "undefined") {
+		for (var i = 0; i < member_list.length; ++i) {
+			if (members.exist(member_list[i])) {
+				var member = members[member_list[i]];
+				ASSERT(member.type === members.TYPE_DEFINABLE_STIFFNESS, "Definable stiffness can be set only for member type definable stiffness");
+			}
+			else {
+				ASSERT(false, "Member no." + member_list[i] + " does not exist");
+			}
+		}
+		
+		this.memberDefinableStiffness.assigned_to = member_list;
 	}
+	
 	set_comment_and_parameters(this.memberDefinableStiffness, comment, params);
 }
 
@@ -25,7 +37,7 @@ function MemberDefinableStiffness(no,
 * @param	{Number}	bending_stiffness_y		Bending stiffness Y
 * @param 	{Number}	bending_stiffness_z		Bending stiffness Z
 */
-MemberDefinableStiffness.prototype.TorsionalAndBending = function (torsional_stiffness,
+MemberDefinableStiffness.prototype.TorsionalAndBendingStiffness = function (torsional_stiffness,
 	bending_stiffness_y,
 	bending_stiffness_z) {
 	this.memberDefinableStiffness.torsional_stiffness = torsional_stiffness;

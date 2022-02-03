@@ -39,10 +39,12 @@ MemberResultIntermediatePoint.prototype.UniformDistances = function (division_co
 * Sets division ordinates
 * @param	{Array}		division_ordinates	Division ordinates
 * @param	{Array}		notes				Division ordinates notes, can be undefined
+* @param	{Boolean}	absolute			Distances are absolute or relativem can be undefined (default value is absolute)
 * @param	{Boolean}	clear_ordinates		Clears default ordinates, can be undefined (default value is true)
 */
 MemberResultIntermediatePoint.prototype.DivisionOrdinates = function (division_ordinates,
 	notes,
+	absolute,
 	clear_ordinates) {
 	this.memberResultIntermediatePoint.uniform_distribution = false;
 	if (typeof notes != "undefined") {
@@ -61,16 +63,19 @@ MemberResultIntermediatePoint.prototype.DivisionOrdinates = function (division_o
 			this.memberResultIntermediatePoint.distances[row].note = notes[i];
 		}
 	}
+	DistancesAreAbsolute(this.memberResultIntermediatePoint, absolute);
 };
 
 /**
-* Sets division ordinates as absolute
-* @param	{Boolean}	absolute	Division ordinates are absolute, can be undefined (default value is true)
+* Sets division ordinates as absolute (private)
+* @param	{Object}	memberResultIntermediatePoint	Member result intermediate point to be set
+* @param	{Boolean}	absolute						Division ordinates are absolute, can be undefined (default value is true)
 */
-MemberResultIntermediatePoint.prototype.DistancesAreAbsolute = function (absolute) {
-	ASSERT(this.memberResultIntermediatePoint.uniform_distribution === false, "Uniform distances must be off");
+var DistancesAreAbsolute = function (memberResultIntermediatePoint,
+	absolute) {
+	ASSERT(memberResultIntermediatePoint.uniform_distribution === false, "Uniform distances must be off");
 	if (typeof absolute === "undefined") {
 		absolute = true;
 	}
-	this.memberResultIntermediatePoint.distances_are_defined_as_absolute = absolute;
+	memberResultIntermediatePoint.distances_are_defined_as_absolute = absolute;
 };

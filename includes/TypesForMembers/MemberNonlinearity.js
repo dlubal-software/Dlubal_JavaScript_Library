@@ -3,228 +3,224 @@
 * @class
 * @constructor
 * @param	{Number}	no				Index of member nonlinearity, can be undefined
-* @param	{Object}	member			Assigned member
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
 * @return	{Object}	Created member nonlinearity
 */
 function MemberNonlinearity(no,
-	member,
 	comment,
-	params)
-{
+	params) {
     if (arguments.length !== 0)
 	{
-		this.memberNonlinearity = createNonlinearity(no, member, comment, params);
-		return this.memberNonlinearity;
+		return this.memberNonlinearity = createNonlinearity(no, undefined, comment, params);
 	}
 }
 
 /**
 * Creates member failure if tension nonlinearity
 * @param	{Number}	no				Index of member nonlinearity, can be undefined
-* @param	{Object}	member			Assigned member
+* @param	{Array}		members			Assigned members
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
 * @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.FailureIfTension = function(no,
-	member,
+	members,
 	comment,
 	params) {
-	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
+	this.memberNonlinearity = createNonlinearity(no, members, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_FAILURE_IF_TENSION;
 };
 
 /**
 * Creates member failure if compression nonlinearity
 * @param	{Number}	no				Index of member nonlinearity, can be undefined
-* @param	{Object}	member			Assigned member
+* @param	{Array}		members			Assigned members
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
 * @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.FailureIfCompression = function (no,
-	member,
+	members,
 	comment,
 	params) {
-	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
+	this.memberNonlinearity = createNonlinearity(no, members, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_FAILURE_IF_COMPRESSION;
 };
 
 /**
 * Creates member failure if tension with slippage nonlinearity
 * @param	{Number}	no				Index of member nonlinearity, can be undefined
-* @param	{Object}	member			Assigned member
-* @param	{Number}	ux				Slippage
+* @param	{Array}		members			Assigned members
+* @param	{Number}	slippage		Slippage
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
 * @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.FailureIfTensionWithSlippage = function (no,
-	member,
-	ux,
+	members,
+	slippage,
 	comment,
 	params) {
-	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
+	this.memberNonlinearity = createNonlinearity(no, members, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_FAILURE_IF_TENSION_WITH_SLIPPAGE;
-	setParameters(this.memberNonlinearity, [ux], "slippage");
+	setParameters(this.memberNonlinearity, [slippage], "slippage");
 };
 
 /**
 * Creates member failure if compression with slippage nonlinearity
 * @param	{Number}	no				Index of member nonlinearity, can be undefined
-* @param	{Object}	member			Assigned member
-* @param	{Number}	ux				Slippage
+* @param	{Array}		members			Assigned members
+* @param	{Number}	slippage		Slippage
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
 * @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.FailureIfCompressionWithSlippage = function (no,
-	member,
-	ux,
+	members,
+	slippage,
 	comment,
 	params) {
-	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
+	this.memberNonlinearity = createNonlinearity(no, members, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_FAILURE_IF_COMPRESSION_WITH_SLIPPAGE;
-	setParameters(this.memberNonlinearity, [ux], "slippage");
+	setParameters(this.memberNonlinearity, [slippage], "slippage");
 };
 
 /**
 * Creates member slippage nonlinearity
 * @param	{Number}	no				Index of member nonlinearity, can be undefined
-* @param	{Object}	member			Assigned member
-* @param	{Number}	ux				Slippage
+* @param	{Array}		members			Assigned members
+* @param	{Number}	slippage				Slippage
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
 * @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.Slippage = function (no,
-	member,
-	ux,
+	members,
+	slippage,
 	comment,
 	params) {
-	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
+	this.memberNonlinearity = createNonlinearity(no, members, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_SLIPPAGE;
-	setParameters(this.memberNonlinearity, [ux], "slippage");
+	setParameters(this.memberNonlinearity, [slippage], "slippage");
 };
 
 /**
 * Creates member tearing under tension nonlinearity
 * @param	{Number}	no				Index of member nonlinearity, can be undefined
-* @param	{Object}	member			Assigned member
-* @param	{Number}	nt				Tension force
+* @param	{Array}		members			Assigned members
+* @param	{Number}	tension_force	Tension force
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
 * @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.TearingUnderTension = function (no,
-	member,
-	nt,
+	members,
+	tension_force,
 	comment,
 	params) {
-	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
+	this.memberNonlinearity = createNonlinearity(no, members, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_TEARING_IF_TENSION;
-	setParameters(this.memberNonlinearity, [nt], "tension_force");
+	setParameters(this.memberNonlinearity, [tension_force], "tension_force");
 };
 
 /**
 * Creates member yielding under tension nonlinearity
 * @param	{Number}	no				Index of member nonlinearity, can be undefined
-* @param	{Object}	member			Assigned member
-* @param	{Number}	nt				Tension force
+* @param	{Array}		members			Assigned members
+* @param	{Number}	tension_force	Tension force
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
 * @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.YieldingUnderTension = function (no,
-	member,
-	nt,
+	members,
+	tension_force,
 	comment,
 	params) {
-	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
+	this.memberNonlinearity = createNonlinearity(no, members, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_YIELDING_IF_TENSION;
-	setParameters(this.memberNonlinearity, [nt], "tension_force");
+	setParameters(this.memberNonlinearity, [tension_force], "tension_force");		
 };
 
 /**
 * Creates member tearing under compression nonlinearity
-* @param	{Number}	no				Index of member nonlinearity, can be undefined
-* @param	{Object}	member			Assigned member
-* @param	{Number}	nc				Compression force
-* @param	{String}	comment			Comment, can be undefined
-* @param	{Object}	params			Member nonlinearity parameters, can be undefined
+* @param	{Number}	no					Index of member nonlinearity, can be undefined
+* @param	{Array}		members				Assigned members
+* @param	{Number}	compression_force	Compression force
+* @param	{String}	comment				Comment, can be undefined
+* @param	{Object}	params				Member nonlinearity parameters, can be undefined
 * @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.TearingUnderCompression = function (no,
-	member,
-	nc,
+	members,
+	compression_force,
 	comment,
 	params) {
-	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
+	this.memberNonlinearity = createNonlinearity(no, members, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_TEARING_IF_COMPRESSION;
-	setParameters(this.memberNonlinearity, [nc], "compression_force");
+	setParameters(this.memberNonlinearity, [compression_force], "compression_force");
 };
 
 /**
 * Creates member yielding under compression nonlinearity
-* @param	{Number}	no				Index of member nonlinearity, can be undefined
-* @param	{Object}	member			Assigned member
-* @param	{Number}	nc				Compression force
-* @param	{String}	comment			Comment, can be undefined
-* @param	{Object}	params			Member nonlinearity parameters, can be undefined
+* @param	{Number}	no					Index of member nonlinearity, can be undefined
+* @param	{Array}		members				Assigned members
+* @param	{Number}	compression_force	Compression force
+* @param	{String}	comment				Comment, can be undefined
+* @param	{Object}	params				Member nonlinearity parameters, can be undefined
 * @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.YieldingUnderCompression = function (no,
-	member,
-	nc,
+	members,
+	compression_force,
 	comment,
 	params) {
-	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
+	this.memberNonlinearity = createNonlinearity(no, members, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_YIELDING_IF_COMPRESSION;
-	setParameters(this.memberNonlinearity, [nc], "compression_force");
+	setParameters(this.memberNonlinearity, [compression_force], "compression_force");
 };
 
 /**
 * Creates member tearing nonlinearity
-* @param	{Number}	no				Index of member nonlinearity, can be undefined
-* @param	{Object}	member			Assigned member
-* @param	{Number}	nc				Compression force
-* @param	{Number}	nt				Tension force
-* @param	{String}	comment			Comment, can be undefined
-* @param	{Object}	params			Member nonlinearity parameters, can be undefined
+* @param	{Number}	no					Index of member nonlinearity, can be undefined
+* @param	{Array}		members				Assigned members
+* @param	{Number}	compression_force	Compression force
+* @param	{Number}	tension_force		Tension force
+* @param	{String}	comment				Comment, can be undefined
+* @param	{Object}	params				Member nonlinearity parameters, can be undefined
 * @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.Tearing = function (no,
-	member,
-	nc,
-	nt,
+	members,
+	compression_force,
+	tension_force,
 	comment,
 	params) {
-	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
+	this.memberNonlinearity = createNonlinearity(no, members, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_TEARING;
-	setParameters(this.memberNonlinearity, [nc, nt], "compression_force", "tension_force");
+	setParameters(this.memberNonlinearity, [compression_force, tension_force], "compression_force", "tension_force");
 };
 
 /**
 * Creates member yielding nonlinearity
-* @param	{Number}	no				Index of member nonlinearity, can be undefined
-* @param	{Object}	member			Assigned member
-* @param	{Number}	nc				Compression force
-* @param	{Number}	nt				Tension force
-* @param	{String}	comment			Comment, can be undefined
-* @param	{Object}	params			Member nonlinearity parameters, can be undefined
+* @param	{Number}	no					Index of member nonlinearity, can be undefined
+* @param	{Array}		members				Assigned members
+* @param	{Number}	compression_force	Compression force
+* @param	{Number}	tension_force		Tension force
+* @param	{String}	comment				Comment, can be undefined
+* @param	{Object}	params				Member nonlinearity parameters, can be undefined
 * @return	{Object}	Created member nonlinearity
 */
 MemberNonlinearity.prototype.Yielding = function (no,
-	member,
-	nc,
-	nt,
+	members,
+	compression_force,
+	tension_force,
 	comment,
 	params) {
-	this.memberNonlinearity = createNonlinearity(no, member, comment, params);
+	this.memberNonlinearity = createNonlinearity(no, members, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_YIELDING;
-	setParameters(this.memberNonlinearity, [nc, nt], "compression_force", "tension_force");
+	setParameters(this.memberNonlinearity, [compression_force, tension_force], "compression_force", "tension_force");
 };
 
 /**
@@ -232,7 +228,7 @@ MemberNonlinearity.prototype.Yielding = function (no,
 * @param 	{Object}	member_nonlinearity	Member nonlinearity to be setParameters
 * @param	{Array}		parameters			Nonlinearity parameters
 * @param	{String}	param_1_name		Name of first parameter
-* @param	{String}	param_2_name			Name of first parameter, can be undefined
+* @param	{String}	param_2_name		Name of first parameter, can be undefined
 */
 var setParameters = function (member_nonlinearity,
 	parameters,
@@ -249,20 +245,28 @@ var setParameters = function (member_nonlinearity,
 /**
 * Creates member nonlinearity
 * @param	{Number}	no				Index of member nonlinearity, can be undefined
-* @param	{Object}	member			Assigned member
+* @param	{Array}		member_list		Assigned members
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
 * @return	{Object}	Created member nonlinearity
 */
 var createNonlinearity = function (no,
-	member,
+	member_list,
 	comment,
 	params) {
 	var memberNonlinearity = engine.create_member_nonlinearity(no);
-
-	if (typeof member !== "undefined") {
-		member.member_nonlinearity = memberNonlinearity;
+	
+	if (typeof member_list !== "undefined") {
+		for (var i = 0; i < member_list.length; ++i) {
+			if (members.exist(member_list[i])) {
+				members[member_list[i]].member_nonlinearity = memberNonlinearity;
+			}
+			else {
+				console.log("Member no." + member_list[i] + " does not exist");
+			}
+		}
 	}
+
     set_comment_and_parameters(memberNonlinearity, comment, params);
 
 	return memberNonlinearity;

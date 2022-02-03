@@ -1,61 +1,61 @@
-// Problem:
-// displacement / rotation - špatně se nastavuje
-// symetric - chybí v API?
+// Problems:
+// displacement / rotation - does not work?
+// symetric - there is no support in API?
 
 /**
 * Creates member hinge
 * @class
 * @constructor
-* @param	{Number}	no				Index of member hinge, can be undefined
-* @param	{Object}	member_start	Member start, can be undefined
-* @param	{Object} 	member_end		Member end, can be undefined
-* @param	{String}	comment			Comment, can be undefined
-* @param	{Object}	params			Member hinge parameters, can be undefined
+* @param	{Number}	no					Index of member hinge, can be undefined
+* @param	{Array}		members_start_list	Member start, can be undefined
+* @param	{Array} 	members_end_list	Member end, can be undefined
+* @param	{String}	comment				Comment, can be undefined
+* @param	{Object}	params				Member hinge parameters, can be undefined
 * @return	{Object}	Created member hinge
 */
 function MemberHinge(no,
-                     member_start,
-                     member_end,
-                     comment,
-                     params) {
+	members_start_list,
+	members_end_list,
+	comment,
+	params) {
 	if (arguments.length !== 0) {
-		return this.memberHinge = createHinge(no, member_start, member_end, comment, params);
+		return this.memberHinge = createHinge(no, members_start_list, members_end_list, comment, params);
 	}
 }
 
 /**
 * Creates member hinge with specified axis release
-* @param	{Number}	no				Index of member hinge, can be undefined
-* @param	{Object}	member_start	Member start, can be undefined
-* @param	{Object} 	member_end		Member end, can be undefined
-* @param	{Array}		ux				Axis release for ux, for more information look at comment in private setMainHingeValues function
-* @param	{Array}		uy				Axis release for uy, for more information look at comment in private setMainHingeValues function
-* @param	{Array}		uz				Axis release for uz, for more information look at comment in private setMainHingeValues function
-* @param	{String}	comment			Comment, can be undefined
-* @param	{Object}	params			Member hinge parameters, can be undefined
+* @param	{Number}	no					Index of member hinge, can be undefined
+* @param	{Array}		members_start_list	Member start, can be undefined
+* @param	{Array} 	members_end_list	Member end, can be undefined
+* @param	{Array}		axial_release_n		Axis release for ux, for more information look at comment in private setMainHingeValues function
+* @param	{Array}		axial_release_vy	Axis release for uy, for more information look at comment in private setMainHingeValues function
+* @param	{Array}		axial_release_vz	Axis release for uz, for more information look at comment in private setMainHingeValues function
+* @param	{String}	comment				Comment, can be undefined
+* @param	{Object}	params				Member hinge parameters, can be undefined
 * @return	{Object}	Created member hinge
 */
 MemberHinge.prototype.Translational = function (no,
-	member_start,
-	member_end,
-	ux,
-	uy,
-	uz,
+	members_start_list,
+	members_end_list,
+	axial_release_n,
+	axial_release_vy,
+	axial_release_vz,
 	comment,
 	params) {
-	this.memberHinge = createHinge(no, member_start, member_end, comment, params);
+	this.memberHinge = createHinge(no, members_start_list, members_end_list, comment, params);
 
-	if (typeof ux !== "undefined") {
-		ASSERT(ux.length > 0, "ux: at least two values has to be set");
-		setMainHingeValues(this.memberHinge, ux, "axial_release_n", "axial_release_n_nonlinearity");
+	if (typeof axial_release_n !== "undefined") {
+		ASSERT(axial_release_n.length > 0, "ux: at least two values has to be set");
+		setMainHingeValues(this.memberHinge, axial_release_n, "axial_release_n", "axial_release_n_nonlinearity");
 	}
-	if (typeof uy !== "undefined") {
-		ASSERT(uy.length > 0, "uy: at least two values has to be set");
-		setMainHingeValues(this.memberHinge, uy, "axial_release_vy", "axial_release_vy_nonlinearity");
+	if (typeof axial_release_vy !== "undefined") {
+		ASSERT(axial_release_vy.length > 0, "uy: at least two values has to be set");
+		setMainHingeValues(this.memberHinge, axial_release_vy, "axial_release_vy", "axial_release_vy_nonlinearity");
 	}
-	if (typeof uz !== "undefined") {
-		ASSERT(uz.length > 0, "uz: at least two values has to be set");
-		setMainHingeValues(this.memberHinge, uz, "axial_release_vz", "axial_release_vz_nonlinearity");
+	if (typeof axial_release_vz !== "undefined") {
+		ASSERT(axial_release_vz.length > 0, "uz: at least two values has to be set");
+		setMainHingeValues(this.memberHinge, axial_release_vz, "axial_release_vz", "axial_release_vz_nonlinearity");
 	}
 
 	return this.memberHinge;
@@ -63,37 +63,37 @@ MemberHinge.prototype.Translational = function (no,
 
 /**
 * Creates member hinge with specified moment release
-* @param	{Number}	no				Index of member hinge, can be undefined
-* @param	{Object}	member_start	Member start, can be undefined
-* @param	{Object} 	member_end		Member end, can be undefined
-* @param	{Array}		φx				Moment release for φx, for more information look at comment in private setMainHingeValues function
-* @param	{Array}		φy				Moment release for φy, for more information look at comment in private setMainHingeValues function
-* @param	{Array}		φz				Moment release for φz, for more information look at comment in private setMainHingeValues function
-* @param	{String}	comment			Comment, can be undefined
-* @param	{Object}	params			Member hinge parameters, can be undefined
+* @param	{Number}	no					Index of member hinge, can be undefined
+* @param	{Array}		members_start_list	Member start, can be undefined
+* @param	{Array} 	members_end_list	Member end, can be undefined
+* @param	{Array}		moment_release_mt	Moment release for φx, for more information look at comment in private setMainHingeValues function
+* @param	{Array}		moment_release_my	Moment release for φy, for more information look at comment in private setMainHingeValues function
+* @param	{Array}		moment_release_mz	Moment release for φz, for more information look at comment in private setMainHingeValues function
+* @param	{String}	comment				Comment, can be undefined
+* @param	{Object}	params				Member hinge parameters, can be undefined
 * @return	{Object}	Created member hinge
 */
 MemberHinge.prototype.Rotational = function (no,
-	member_start,
-	member_end,
-	fx,
-	fy,
-	fz,
+	members_start_list,
+	members_end_list,
+	moment_release_mt,
+	moment_release_my,
+	moment_release_mz,
 	comment,
 	params) {
-	this.memberHinge = createHinge(no, member_start, member_end, comment, params);
+	this.memberHinge = createHinge(no, members_start_list, members_end_list, comment, params);
 
-	if (typeof fx !== "undefined") {
-		ASSERT(fx.length > 0, "φx: at least two values has to be set");
-		setMainHingeValues(this.memberHinge, fx, "moment_release_mt", "moment_release_mt_nonlinearity");
+	if (typeof moment_release_mt !== "undefined") {
+		ASSERT(moment_release_mt.length > 0, "φx: at least two values has to be set");
+		setMainHingeValues(this.memberHinge, moment_release_mt, "moment_release_mt", "moment_release_mt_nonlinearity");
 	}
-	if (typeof fy !== "undefined") {
-		ASSERT(fy.length > 0, "φy: at least two values has to be set");
-		setMainHingeValues(this.memberHinge, fy, "moment_release_my", "moment_release_my_nonlinearity");
+	if (typeof moment_release_my !== "undefined") {
+		ASSERT(moment_release_my.length > 0, "φy: at least two values has to be set");
+		setMainHingeValues(this.memberHinge, moment_release_my, "moment_release_my", "moment_release_my_nonlinearity");
 	}
-	if (typeof fz !== "undefined") {
-		ASSERT(fz.length > 0, "φz: at least two values has to be set");
-		setMainHingeValues(this.memberHinge, fz, "moment_release_mz", "moment_release_mz_nonlinearity");
+	if (typeof moment_release_mz !== "undefined") {
+		ASSERT(moment_release_mz.length > 0, "φz: at least two values has to be set");
+		setMainHingeValues(this.memberHinge, moment_release_mz, "moment_release_mz", "moment_release_mz_nonlinearity");
 	}
 
 	return this.memberHinge;
@@ -197,170 +197,194 @@ MemberHinge.prototype.PartialActivityRotationalZ = function (negative_zone_value
 
 /**
 * Sets translational diagram values for ux
-* @param	{Number}	ux1, N1, Cux1, ux2, N2, Cux2 ... uxn, Nn, Cuxn
+* @param	{Array}	diagram_values	[[ux1, N1, Cux1], [ux2, N2, Cux2] ... [uxn, Nn, Cuxn]]
 */
-MemberHinge.prototype.DiagramTranslationalX = function () {
+MemberHinge.prototype.DiagramTranslationalX = function (diagram_values) {
 	ASSERT(this.memberHinge.axial_release_n_nonlinearity === member_hinges.NONLINEARITY_TYPE_DIAGRAM, "Member hinge ux has no diagram nonlinearity");
-	ASSERT(arguments.length % 3 === 0, "Values has to be specified in format [ux1, N1, Cux1, ux2, N2, Cux2 ... uxn, Nn, Cuxn]");
-	setDiagramValues(this.memberHinge, arguments, "diagram_along_x_table", "displacement", "force", "spring");
+	setDiagramValues(this.memberHinge, diagram_values, "diagram_along_x_table", "displacement", "force", "spring", "[[ux1, N1, Cux1], [ux2, N2, Cux2] ... [uxn, Nn, Cuxn]]");
 };
 
 /**
 * Sets translational diagram values for uy
-* @param	{Number}	uy1, N1, Cuy1, uy2, N2, Cuy2 ... uyn, Nn, Cuyn
+* @param	{Array}	diagram_values	[[uy1, N1, Cuy1], [uy2, N2, Cuy2] ... [uyn, Nn, Cuyn]]
 */
-MemberHinge.prototype.DiagramTranslationalY = function () {
+MemberHinge.prototype.DiagramTranslationalY = function (diagram_values) {
 	ASSERT(this.memberHinge.axial_release_vy_nonlinearity === member_hinges.NONLINEARITY_TYPE_DIAGRAM, "Member hinge uy has no diagram nonlinearity");
-	ASSERT(arguments.length % 3 === 0, "Values has to be specified in format [uy1, N1, Cuy1, uy2, N2, Cuy2 ... uyn, Nn, Cuyn]");
-	setDiagramValues(this.memberHinge, arguments, "diagram_along_y_table", "displacement", "force", "spring");
+	setDiagramValues(this.memberHinge, diagram_values, "diagram_along_y_table", "displacement", "force", "spring", "[[uy1, N1, Cuy1], [uy2, N2, Cuy2] ... [uyn, Nn, Cuyn]]");
 };
 
 /**
 * Sets translational diagram values for uz
-* @param	{Number}	uz1, N1, Cuz1, uz2, N2, Cuz2 ... uzn, Nn, Cuzn
+* @param	{Array}	diagram_values	[[uz1, N1, Cuz1], [uz2, N2, Cuz2] ... [uzn, Nn, Cuzn]]
 */
-MemberHinge.prototype.DiagramTranslationalZ = function () {
+MemberHinge.prototype.DiagramTranslationalZ = function (diagram_values) {
 	ASSERT(this.memberHinge.axial_release_vz_nonlinearity === member_hinges.NONLINEARITY_TYPE_DIAGRAM, "Member hinge ux has no diagram nonlinearity");
-	ASSERT(arguments.length % 3 === 0, "Values has to be specified in format [uz1, N1, Cuz1, uz2, N2, Cuz2 ... uzn, Nn, Cuzn]");
-	setDiagramValues(this.memberHinge, arguments, "diagram_along_z_table", "displacement", "force", "spring");
+	setDiagramValues(this.memberHinge, diagram_values, "diagram_along_z_table", "displacement", "force", "spring", "[[uz1, N1, Cuz1], [uz2, N2, Cuz2] ... [uzn, Nn, Cuzn]]");
 };
 
 /**
 * Sets rotational diagram values for φx
-* @param	{Number}	φx1, N1, Cφx1, φx2, N2, Cφx2 ... φxn, Nn, Cφxn
+* @param	{Array}	diagram_values	[[φx1, N1, Cφx1], [φx2, N2, Cφx2] ... [φxn, Nn, Cφxn]]
 */
-MemberHinge.prototype.DiagramRotationalX = function () {
+MemberHinge.prototype.DiagramRotationalX = function (diagram_values) {
 	ASSERT(this.memberHinge.moment_release_mt_nonlinearity === member_hinges.NONLINEARITY_TYPE_DIAGRAM, "Member hinge φx has no diagram nonlinearity");
-	ASSERT(arguments.length % 3 === 0, "Values has to be specified in format [φx1, N1, Cφx1, φx2, N2, Cφx2 ... φxn, Nn, Cφxn]");
-	setDiagramValues(this.memberHinge, arguments, "diagram_around_x_table", "rotation", "moment", "spring");
+	setDiagramValues(this.memberHinge, diagram_values, "diagram_around_x_table", "rotation", "moment", "spring", "[[φx1, N1, Cφx1], [φx2, N2, Cφx2] ... [φxn, Nn, Cφxn]]");
 };
 
 /**
 * Sets rotational diagram values for φy
-* @param	{Number}	φy1, N1, Cφy1, φy2, N2, Cφy2 ... φyn, Nn, Cφyn
+* @param	{Array}	diagram_values	[[φy1, N1, Cφy1], [φy2, N2, Cφy2] ... [φyn, Nn, Cφyn]]
 */
-MemberHinge.prototype.DiagramRotationalY = function () {
+MemberHinge.prototype.DiagramRotationalY = function (diagram_values) {
 	ASSERT(this.memberHinge.moment_release_my_nonlinearity === member_hinges.NONLINEARITY_TYPE_DIAGRAM, "Member hinge φy has no diagram nonlinearity");
-	ASSERT(arguments.length % 3 === 0, "Values has to be specified in format [φy1, N1, Cφy1, φy2, N2, Cφy2 ... φyn, Nn, Cφyn]");
-	setDiagramValues(this.memberHinge, arguments, "diagram_around_y_table", "rotation", "moment", "spring");
+	setDiagramValues(this.memberHinge, diagram_values, "diagram_around_y_table", "rotation", "moment", "spring", "[[φy1, N1, Cφy1], [φy2, N2, Cφy2] ... [φyn, Nn, Cφyn]]");
 };
 
 /**
 * Sets rotational diagram values for φz
-* @param	{Number}	φz1, N1, Cφz1, φz2, N2, Cφz2 ... φzn, Nn, Cφzn
+* @param	{Array}	diagram_values	[[φz1, N1, Cφz1], [φz2, N2, Cφz2] ... [φzn, Nn, Cφzn]]
 */
-MemberHinge.prototype.DiagramRotationalZ = function () {
+MemberHinge.prototype.DiagramRotationalZ = function (diagram_values) {
 	ASSERT(this.memberHinge.moment_release_mz_nonlinearity === member_hinges.NONLINEARITY_TYPE_DIAGRAM, "Member hinge φz has no diagram nonlinearity");
-	ASSERT(arguments.length % 3 === 0, "Values has to be specified in format [φz1, N1, Cφz1, φz2, N2, Cφz2 ... φzn, Nn, Cφzn]");
-	setDiagramValues(this.memberHinge, arguments, "diagram_around_z_table", "rotation", "moment", "spring");
+	setDiagramValues(this.memberHinge, diagram_values, "diagram_around_z_table", "rotation", "moment", "spring", "[[φz1, N1, Cφz1], [φz2, N2, Cφz2] ... [φzn, Nn, Cφzn]]");
 };
 
 /**
 * Sets translational friction Vy values for ux
-* @param	{Number}	μx, Cu,x
+* @param	{Number}	friction_coefficient_x	Friction coefficient X
+* @param	{Number}	spring_constant_x		Spring constant X
 */
-MemberHinge.prototype.FrictionVyTranslationalX = function () {
+MemberHinge.prototype.FrictionVyTranslationalX = function (friction_coefficient_x,
+	spring_constant_x) {
 	ASSERT(this.memberHinge.axial_release_n_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1, "Member hinge ux has no friction Vy nonlinearity");
-	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_x", undefined, "axial_release_n");
+	setFrictionValues(this.memberHinge, [friction_coefficient_x, undefined, spring_constant_x], "friction_coefficient_x", undefined, "axial_release_n");
 };
 
 /**
 * Sets translational friction Vz values for ux
-* @param	{Number}	μx, Cu,x
+* @param	{Number}	friction_coefficient_x	Friction coefficient X
+* @param	{Number}	spring_constant_x		Spring constant X
 */
-MemberHinge.prototype.FrictionVzTranslationalX = function () {
+MemberHinge.prototype.FrictionVzTranslationalX = function (friction_coefficient_x,
+	spring_constant_x) {
 	ASSERT(this.memberHinge.axial_release_n_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_2, "Member hinge ux has no friction Vz nonlinearity");
-	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_x", undefined, "axial_release_n");
+	setFrictionValues(this.memberHinge, [friction_coefficient_x, undefined, spring_constant_x], "friction_coefficient_x", undefined, "axial_release_n");
 };
 
 /**
 * Sets translational friction VyVz values for ux
-* @param	{Number}	μx, Cu,x
+* @param	{Number}	friction_coefficient_x	Friction coefficient X
+* @param	{Number}	spring_constant_x		Spring constant X
 */
-MemberHinge.prototype.FrictionVyVzTranslationalX = function () {
+MemberHinge.prototype.FrictionVyVzTranslationalX = function (friction_coefficient_x,
+	spring_constant_x) {
 	ASSERT(this.memberHinge.axial_release_n_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2, "Member hinge ux has no friction VyVz nonlinearity");
-	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_x", undefined, "axial_release_n");
+	setFrictionValues(this.memberHinge, [friction_coefficient_x, undefined, spring_constant_x], "friction_coefficient_x", undefined, "axial_release_n");
 };
 
 /**
 * Sets translational friction Vy+Vz values for ux
-* @param	{Number}	μxy, μxz, Cu,x
+* @param	{Number}	friction_coefficient_xy	Friction coefficient XY
+* @param	{Number}	friction_coefficient_xz	Friction coefficient XZ
+* @param	{Number}	spring_constant_x		Spring constant X
 */
-MemberHinge.prototype.FrictionVyPlusVzTranslationalX = function () {
+MemberHinge.prototype.FrictionVyPlusVzTranslationalX = function (friction_coefficient_xy,
+	friction_coefficient_xz,
+	spring_constant_x) {
 	ASSERT(this.memberHinge.axial_release_n_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2, "Member hinge ux has no friction Vy+Vz nonlinearity");
-	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_xy", "friction_coefficient_xz", "axial_release_n");
+	setFrictionValues(this.memberHinge, [friction_coefficient_xy, friction_coefficient_xz, spring_constant_x], "friction_coefficient_xy", "friction_coefficient_xz", "axial_release_n");
 };
 
 /**
 * Sets translational friction N values for uy
-* @param	{Number}	μy, Cu,y
+* @param	{Number}	friction_coefficient_y	Friction coefficient Y
+* @param	{Number}	spring_constant_y		Spring constant Y
 */
-MemberHinge.prototype.FrictionNTranslationalY = function () {
+MemberHinge.prototype.FrictionNTranslationalY = function (friction_coefficient_y,
+	spring_constant_y) {
 	ASSERT(this.memberHinge.axial_release_vy_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1, "Member hinge uy has no friction N nonlinearity");
-	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_y", undefined, "axial_release_vy");
+	setFrictionValues(this.memberHinge, [friction_coefficient_y, undefined, spring_constant_y], "friction_coefficient_y", undefined, "axial_release_vy");
 };
 
 /**
 * Sets translational friction Vz values for uy
-* @param	{Number}	μy, Cu,y
+* @param	{Number}	friction_coefficient_y	Friction coefficient Y
+* @param	{Number}	spring_constant_y		Spring constant Y
 */
-MemberHinge.prototype.FrictionVzTranslationalY = function () {
+MemberHinge.prototype.FrictionVzTranslationalY = function (friction_coefficient_y,
+	spring_constant_y) {
 	ASSERT(this.memberHinge.axial_release_vy_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_2, "Member hinge uy has no friction Vz nonlinearity");
-	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_y", undefined, "axial_release_vy");
+	setFrictionValues(this.memberHinge, [friction_coefficient_y, undefined, spring_constant_y], "friction_coefficient_y", undefined, "axial_release_vy");
 };
 
 /**
 * Sets translational friction NVz values for uy
-* @param	{Number}	μy, Cu,y
+* @param	{Number}	friction_coefficient_y	Friction coefficient Y
+* @param	{Number}	spring_constant_y		Spring constant Y
 */
-MemberHinge.prototype.FrictionNVzTranslationalY = function () {
+MemberHinge.prototype.FrictionNVzTranslationalY = function (friction_coefficient_y,
+	spring_constant_y) {
 	ASSERT(this.memberHinge.axial_release_vy_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2, "Member hinge uy has no friction NVz nonlinearity");
-	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_y", undefined, "axial_release_vy");
+	setFrictionValues(this.memberHinge, [friction_coefficient_y, undefined, spring_constant_y], "friction_coefficient_y", undefined, "axial_release_vy");
 };
 
 /**
 * Sets translational friction N+Vz values for uy
-* @param	{Number}	μyy, μyz, Cu,y
+* @param	{Number}	friction_coefficient_yx	Friction coefficient YX
+* @param	{Number}	friction_coefficient_yz	Friction coeficient YZ
+* @param	{Number}	spring_constant_y		Spring constant Y
 */
-MemberHinge.prototype.FrictionNPlusVzTranslationalY = function () {
+MemberHinge.prototype.FrictionNPlusVzTranslationalY = function (friction_coefficient_yx,
+	friction_coefficient_yz,
+	spring_constant_y) {
 	ASSERT(this.memberHinge.axial_release_vy_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2, "Member hinge uy has no friction N+Vz nonlinearity");
-	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_yx", "friction_coefficient_yz", "axial_release_vy");
+	setFrictionValues(this.memberHinge, [friction_coefficient_yx, friction_coefficient_yz, spring_constant_y], "friction_coefficient_yx", "friction_coefficient_yz", "axial_release_vy");
 };
 
 /**
 * Sets translational friction N values for uz
-* @param	{Number}	μz, Cu,z
+* @param	{Number}	friction_coefficient_z	Friction coefficient Z
+* @param	{Number}	spring_constant_z		Spring constant Z
 */
-MemberHinge.prototype.FrictionNTranslationalZ = function () {
+MemberHinge.prototype.FrictionNTranslationalZ = function (friction_coefficient_z,
+	spring_constant_z) {
 	ASSERT(this.memberHinge.axial_release_vz_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1, "Member hinge uz has no friction N nonlinearity");
-	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_z", undefined, "axial_release_vz");
+	setFrictionValues(this.memberHinge, [friction_coefficient_z, undefined, spring_constant_z], "friction_coefficient_z", undefined, "axial_release_vz");
 };
 
 /**
 * Sets translational friction Vy values for uz
-* @param	{Number}	μz, Cu,z
+* @param	{Number}	friction_coefficient_z	Friction coefficient Z
+* @param	{Number}	spring_constant_z		Spring constant Z
 */
-MemberHinge.prototype.FrictionVyTranslationalZ = function () {
+MemberHinge.prototype.FrictionVyTranslationalZ = function (friction_coefficient_z,
+	spring_constant_z) {
 	ASSERT(this.memberHinge.axial_release_vz_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_2, "Member hinge uz has no friction Vy nonlinearity");
-	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_z", undefined, "axial_release_vz");
+	setFrictionValues(this.memberHinge, [friction_coefficient_z, undefined, spring_constant_z], "friction_coefficient_z", undefined, "axial_release_vz");
 };
 
 /**
 * Sets translational friction NVy values for uz
-* @param	{Number}	μz, Cu,z
+* @param	{Number}	friction_coefficient_z	Friction coefficient Z
+* @param	{Number}	spring_constant_z		Spring constant Z
 */
-MemberHinge.prototype.FrictionNVyTranslationalZ = function () {
+MemberHinge.prototype.FrictionNVyTranslationalZ = function (friction_coefficient_z,
+	spring_constant_z) {
 	ASSERT(this.memberHinge.axial_release_vz_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2, "Member hinge uz has no friction NVy nonlinearity");
-	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_z", undefined, "axial_release_vz");
+	setFrictionValues(this.memberHinge, [friction_coefficient_z, undefined, spring_constant_z], "friction_coefficient_z", undefined, "axial_release_vz");
 };
 
 /**
 * Sets translational friction N+Vy values for uz
-* @param	{Number}	μzx, μzy, Cu,z
+* @param	{Number}	friction_coefficient_zx	Friction coefficient ZX
+* @param	{Number}	friction_coefficient_zy	Griction coefficient ZY
+* @param	{Number}	spring_constant_z		Spring constant Z
 */
-MemberHinge.prototype.FrictionNPlusVyTranslationalZ = function () {
+MemberHinge.prototype.FrictionNPlusVyTranslationalZ = function (friction_coefficient_zx,
+	friction_coefficient_zy,
+	spring_constant_z) {
 	ASSERT(this.memberHinge.axial_release_vz_nonlinearity === member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2, "Member hinge uz has no friction N+Vy nonlinearity");
-	setFrictionValues(this.memberHinge, arguments, "friction_coefficient_zx", "friction_coefficient_zy", "axial_release_vz");
+	setFrictionValues(this.memberHinge, [friction_coefficient_zx, friction_coefficient_zy, spring_constant_z], "friction_coefficient_zx", "friction_coefficient_zy", "axial_release_vz");
 };
 
 var setDiagramValues = function (member_hinge,
@@ -368,16 +392,16 @@ var setDiagramValues = function (member_hinge,
 	param_table_name,
 	param_1_name,
 	param_2_name,
-	param_3_name) {
-	ASSERT(diagram_values.length >= 3, "At least three values are required");
-
-	for (var i = 0; i < diagram_values.length; i += 3)
-	{
+	param_3_name,
+	assert_string) {
+	ASSERT(Array.isArray(diagram_values), "Diagram values has to be specified as 2D array");
+	
+	for (var i = 0; i < diagram_values.length; ++i) {
+		ASSERT(diagram_values[i].length === 3, "Diagram values has to be in format " + assert_string);
 		var row = member_hinge[param_table_name].row_count();
-
-		member_hinge[param_table_name][row][param_1_name] = diagram_values[i];
-		member_hinge[param_table_name][row][param_2_name] = diagram_values[i + 1];
-		member_hinge[param_table_name][row][param_3_name] = diagram_values[i + 2];
+		member_hinge[param_table_name][row][param_1_name] = diagram_values[i][0];
+		member_hinge[param_table_name][row][param_2_name] = diagram_values[i][1];
+		member_hinge[param_table_name][row][param_3_name] = diagram_values[i][2];
 	}
 };
 
@@ -389,11 +413,8 @@ var setFrictionValues = function (member_hinge,
 	member_hinge[param_coefficient_name] = friction_values[0];
 	if (typeof param_coefficient_2_name != "undefined") {
 		member_hinge[param_coefficient_2_name] = friction_values[1];
-		member_hinge[param_constant_name] = friction_values[2];
 	}
-	else {
-		member_hinge[param_constant_name] = friction_values[1];
-	}
+	member_hinge[param_constant_name] = friction_values[2];
 };
 
 /**
@@ -401,9 +422,9 @@ var setFrictionValues = function (member_hinge,
 * @param 	{Object}	member_hinge			Member hinge to which values has to be set
 * @param	{Array}		zone_values				Negative / positive zone values
 * 												- "Complete": [0]
-*												- "Fixed": [1, u(x|y|z)-|φ(x|y|z)-, u(x|y|z)s-|φ(x|y|z)s-] / [1, u(x|y|z)+|φ(x|y|z)+, u(x|y|z)s+|φ(x|y|z)s+]
-*												- "Tearing": [2, N-, u(x|y|z)s-|φ(x|y|z)s-] / [2, N+, u(x|y|z)s+|φ(x|y|z)s+]
-*												- "Yielding": [3, N-, u(x|y|z)s-|φ(x|y|z)s-] / [3, N+, u(x|y|z)s+|φ(x|y|z)s+]
+*												- "Fixed from release displacement": [1, u(x|y|z)-|φ(x|y|z)-, u(x|y|z)s-|φ(x|y|z)s-] / [1, u(x|y|z)+|φ(x|y|z)+, u(x|y|z)s+|φ(x|y|z)s+]
+*												- "Tearing from release force": [2, N-, u(x|y|z)s-|φ(x|y|z)s-] / [2, N+, u(x|y|z)s+|φ(x|y|z)s+]
+*												- "Yielding from release force": [3, N-, u(x|y|z)s-|φ(x|y|z)s-] / [3, N+, u(x|y|z)s+|φ(x|y|z)s+]
 *												- "Spring ineffectiveness": [4]
 * @param	{String}	param_type_name			Parameter name for partial activity zone name
 * @param	{String}	param_slippage_name		Parameter name for partial activity slippage name
@@ -421,19 +442,19 @@ var setPartialActivityZoneValues = function (member_hinge,
 	switch (zone_values[0])
 	{
 		case 0:		// Complete
-			ASSERT(zone_values.length === 2, "Zone type complete: two values are required (zone type, uxs-)");
+			ASSERT(zone_values.length === 2, "Zone type complete: two values are required (zone type, slippage)");
 			member_hinge[param_type_name] = member_hinges.PARTIAL_ACTIVITY_TYPE_COMPLETE;
 			member_hinge[param_slippage_name] = zone_values[1];
 			break;
 		case 1:		// Fixed
-			ASSERT(zone_values.length === 3, "Zone type fixed: three values are required (zone type, N-, uxs-)");
+			ASSERT(zone_values.length === 3, "Zone type fixed: three values are required (zone type, release displacement, slippage)");
 			member_hinge[param_type_name] = member_hinges.PARTIAL_ACTIVITY_TYPE_FIXED;
 			member_hinge[param_displacement_name] = zone_values[1];
 			member_hinge[param_slippage_name] = zone_values[2];
 			break;
 		case 2:		// Tearing
 		case 3:		// Yielding
-			ASSERT(zone_values.length === 3, "Zone type tearing/yielding: three values are required (zone type, ux-, uxs-)");
+			ASSERT(zone_values.length === 3, "Zone type tearing/yielding: three values are required (zone type, release force, slippage)");
 			if (zone_values[0] === 2) {
 				member_hinge[param_type_name] = member_hinges.PARTIAL_ACTIVITY_TYPE_TEARING;
 			}
@@ -481,7 +502,7 @@ var setMainHingeValues = function (member_hinge,
 	else {
 		// Translational or Rotational is enabled
 		ASSERT(values.length === 2);
-		member_hinge[property_1] = "inf";
+		member_hinge[property_1] = member_hinges.SPRING_CONSTANT_NO;
 		member_hinge[property_2] = getNonlinearityString(values[1]);		// Nonlinearity
 	}
 };
@@ -520,28 +541,42 @@ var getNonlinearityString = function (nonlinearity) {
 
 /**
 * Creates member hinge (private)
-* @private
-* @param	{Number}	no				Index of member hinge, van be undefined
-* @param	{Object}	member_start	Member start, can be undefined
-* @param	{Object} 	member_end		Member end, can be undefined
-* @param	{String}	comment			Comment, can be undefined
-* @param	{Object}	params			Member hinge parameters, can be undefined
+* @param	{Number}	no					Index of member hinge, van be undefined
+* @param	{Array}		members_start_list	Member start, can be undefined
+* @param	{Array} 	members_end_list	Member end, can be undefined
+* @param	{String}	comment				Comment, can be undefined
+* @param	{Object}	params				Member hinge parameters, can be undefined
 * @return	{Object}	Created member hinge
 */
 var createHinge = function (no,
-    member_start,
-	member_end,
+    members_start_list,
+	members_end_list,
 	comment,
 	params) {
 	var memberHinge = engine.create_member_hinge(no);
 
-	if (typeof member_start !== "undefined") {
-		member_start.member_hinge_start = memberHinge;
+	if (typeof members_start_list !== "undefined") {
+		for (var i = 0; i < members_start_list.length; ++i) {
+			if (members.exist(members_start_list[i])) {
+				members[members_start_list[i]].member_hinge_start = memberHinge;
+			}
+			else {
+				console.log("Member no." + members_start_list[i] + " does not exist");
+			}
+		}
 	}
-	if (typeof member_end !== "undefined") {
-		member_end.member_hinge_end = memberHinge;
+	
+	if (typeof members_end_list !== "undefined") {
+		for (var i = 0; i < members_end_list.length; ++i) {
+			if (members.exist(members_end_list[i])) {
+				members[members_end_list[i]].member_hinge_start = memberHinge;
+			}
+			else {
+				console.log("Member no." + members_end_list[i] + " does not exist");
+			}
+		}
 	}
-
+	
 	set_comment_and_parameters(memberHinge, comment, params);
 
 	return memberHinge;

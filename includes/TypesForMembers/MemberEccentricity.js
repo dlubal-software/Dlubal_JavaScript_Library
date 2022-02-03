@@ -1,44 +1,55 @@
 // AxialOffset, HingeLocationAtNode: problem
 
+const SectionAlignment = {
+	"SECTION_ALIGNMENT_LEFT_TOP" : "left_top",
+	"SECTION_ALIGNMENT_CENTER_TOP" : "middle_top",
+	"SECTION_ALIGNMENT_RIGHT_TOP" : "right_top",
+	"SECTION_ALIGNMENT_LEFT_CENTER" : "left_middle",
+	"SECTION_ALIGNMENT_CENTER_CENTER" : "middle_middle",
+	"SECTION_ALIGNMENT_RIGHT_CENTER" : "right_middle",
+	"SECTION_ALIGNMENT_LEFT_BOTTOM" : "left_bottom",
+	"SECTION_ALIGNMENT_CENTER_BOTTOM" : "middle_bottom",
+	"SECTION_ALIGNMENT_RIGHT_BOTTOM" : "right_bottom"
+};
+
 /**
 * Creates member eccentricity
 * @class
 * @constructor
-* @param	{Number}	no				Index of member eccentricity, can be undefined
-* @param	{Object}	member_start	Member start, can be undefined
-* @param	{Object} 	member_end		Member end, can be undefined
-* @param	{String}	comment			Comment, can be undefined
-* @param	{Object}	params			Member eccentricity parameters, can be undefined
+* @param	{Number}	no					Index of member eccentricity, can be undefined
+* @param	{Array}		members_start_list	Members start, can be undefined
+* @param	{Array} 	members_end_list	Members end, can be undefined
+* @param	{String}	comment				Comment, can be undefined
+* @param	{Object}	params				Member eccentricity parameters, can be undefined
 * @return	{Object}	Created member eccentricity
 */
 function MemberEccentricity(no,
-	member_start,
-	member_end,
+	members_start_list,
+	members_end_list,
 	comment,
 	params) {
     if (arguments.length !== 0) {
-		this.memberEccentricity = createEccentricity(no, member_start, member_end, comment, params);
-		return this.memberEccentricity;
+		return this.memberEccentricity = createEccentricity(no, members_start_list, members_end_list, comment, params);
 	}
 }
 
 /**
 * Creates member eccentricity relative to section
-* @param	{Number}	no				Index of member eccentricity, can be undefined
-* @param	{Object}	member_start	Member start
-* @param	{Object} 	member_end		Member end
-* @param	{String}	alignment		Alignment, for more info look at private function setRelativeValues
-* @param	{String}	comment			Comment, can be undefined
-* @param	{Object}	params			Member eccentricity parameters, can be undefined
+* @param	{Number}	no					Index of member eccentricity, can be undefined
+* @param	{Array}		members_start_list	Member start
+* @param	{Array} 	members_end_list	Member end
+* @param	{String}	alignment			Alignment, for more info look at private function setRelativeValues
+* @param	{String}	comment				Comment, can be undefined
+* @param	{Object}	params				Member eccentricity parameters, can be undefined
 * @return	{Object}	Created member eccentricity
 */
 MemberEccentricity.prototype.RelativeToSection = function (no,
-	member_start,
-	member_end,
+	members_start_list,
+	members_end_list,
 	alignment,
 	comment,
 	params) {
-	this.memberEccentricity = createEccentricity(no, member_start, member_end, comment, params);
+	this.memberEccentricity = createEccentricity(no, members_start_list, members_end_list, comment, params);
 	this.memberEccentricity.specification_type = member_eccentricities.TYPE_RELATIVE;
 	setRelativeValues(this.memberEccentricity, alignment);
 };
@@ -46,38 +57,38 @@ MemberEccentricity.prototype.RelativeToSection = function (no,
 /**
 * Creates absolute member eccentricity
 * @param	{Number}	no					Index of member eccentricity, can be undefined
-* @param	{Object}	member_start		Member start
-* @param	{Object} 	member_end			Member end
-* @param	{Number}	ex					Eccentricity in X
-* @param	{Number}	ey					Eccentricity in Y
-* @param	{Number}	ez					Eccentricity in Z
+* @param	{Array}		members_start_list	Members start
+* @param	{Array} 	members_end_list	Members end
+* @param	{Number}	offset_x			Eccentricity in X
+* @param	{Number}	offset_y			Eccentricity in Y
+* @param	{Number}	offset_z			Eccentricity in Z
 * @param	{Number}	coordinate_system	Coordinate system, can be undefined. Default value is "Local xyz".
 * @param	{String}	comment				Comment, can be undefined
 * @param	{Object}	params				Member eccentricity parameters, can be undefined
 * @return	{Object}	Created member eccentricity
 */
 MemberEccentricity.prototype.Absolute = function (no,
-	member_start,
-	member_end,
-	ex,
-	ey,
-	ez,
+	members_start_list,
+	members_end_list,
+	offset_x,
+	offset_y,
+	offset_z,
 	coordinate_system,
 	comment,
 	params) {
-	this.memberEccentricity = createEccentricity(no, member_start, member_end, comment, params);
+	this.memberEccentricity = createEccentricity(no, members_start_list, members_end_list, comment, params);
 	this.memberEccentricity.specification_type = member_eccentricities.TYPE_ABSOLUTE;
-	setAbsoluteValues(this.memberEccentricity, ex, ey, ez, coordinate_system);
+	setAbsoluteValues(this.memberEccentricity, offset_x, offset_y, offset_z, coordinate_system);
 };
 
 /**
 * Creates absolute member eccentricity
 * @param	{Number}	no					Index of member eccentricity, can be undefined
-* @param	{Object}	member_start		Member start
-* @param	{Object} 	member_end			Member end
-* @param	{Number}	ex					Eccentricity in X
-* @param	{Number}	ey					Eccentricity in Y
-* @param	{Number}	ez					Eccentricity in Z
+* @param	{Array}		members_start_list	Members start
+* @param	{Array} 	members_end_list	Members end
+* @param	{Number}	offset_x			Eccentricity in X
+* @param	{Number}	offset_y			Eccentricity in Y
+* @param	{Number}	offset_z			Eccentricity in Z
 * @param	{Number}	coordinate_system	Coordinate system, can be undefined. Default value is "Local xyz".
 * @param	{String}	alignment			Alignment, for more info look at private function setRelativeValues
 * @param	{String}	comment				Comment, can be undefined
@@ -85,19 +96,19 @@ MemberEccentricity.prototype.Absolute = function (no,
 * @return	{Object}	Created member eccentricity
 */
 MemberEccentricity.prototype.RelativeAndAbsolute = function (no,
-	member_start,
-	member_end,
+	members_start_list,
+	members_end_list,
 	alignment,
-	ex,
-	ey,
-	ez,
+	offset_x,
+	offset_y,
+	offset_z,
 	coordinate_system,
 	comment,
 	params) {
-	this.memberEccentricity = createEccentricity(no, member_start, member_end, comment, params);
+	this.memberEccentricity = createEccentricity(no, members_start_list, members_end_list, comment, params);
 	this.memberEccentricity.specification_type = member_eccentricities.TYPE_RELATIVE_AND_ABSOLUTE;
 	setRelativeValues(this.memberEccentricity, alignment);
-	setAbsoluteValues(this.memberEccentricity, ex, ey, ez, coordinate_system);
+	setAbsoluteValues(this.memberEccentricity, offset_x, offset_y, offset_z, coordinate_system);
 };
 
 /**
@@ -157,15 +168,28 @@ MemberEccentricity.prototype.TransverseOffsetNone = function () {
 * @param	{String}	reference_type			Reference type ("None", "Member", "Surface")
 * @param	{Number}	reference object index	Reference member or surface index
 * @param	{Number}	reference_node_index	Reference member node index, in case of surface is undefined
-* @param	{String}	alignment				For member offset: "left_top", "middle_top", "right_top", "left_middle", "middle_middle", "right_middle", "left_bottom", "middle_bottom", "right_bottom"
-*												For surface offset: "middle_top", "middle_middle", "middle_bottom"
+* @param	{String}	alignment_type			For member offset:	SECTION_ALIGNMENT_LEFT_TOP, 
+*																	SECTION_ALIGNMENT_CENTER_TOP, 
+*																	SECTION_ALIGNMENT_RIGHT_TOP, 
+*																	SECTION_ALIGNMENT_LEFT_CENTER, 
+*																	SECTION_ALIGNMENT_CENTER_CENTER, 
+*																	SECTION_ALIGNMENT_RIGHT_CENTER, 
+*																	SECTION_ALIGNMENT_LEFT_BOTTOM, 
+*																	SECTION_ALIGNMENT_CENTER_BOTTOM, 
+*																	SECTION_ALIGNMENT_RIGHT_BOTTOM.
+*												For surface offset:	SECTION_ALIGNMENT_CENTER_TOP, 
+*																	SECTION_ALIGNMENT_CENTER_CENTER, 
+*																	SECTION_ALIGNMENT_CENTER_BOTTOM.
 */
 var setTransverseOffset = function (member_eccentricity,
 	reference_type,
 	reference_object_index,
 	reference_node_index,
-	alignment) {
+	alignment_type) {
 	member_eccentricity.transverse_offset_reference_type = reference_type;
+	ASSERT(alignment_type in SectionAlignment, "Unknown alignment type");
+	
+	var alignment = SectionAlignment[alignment_type];
 
 	if (reference_type === member_eccentricities.TRANSVERSE_OFFSET_TYPE_FROM_MEMBER_SECTION) {
 		member_eccentricity.transverse_offset_reference_member = reference_object_index;
@@ -183,28 +207,41 @@ var setTransverseOffset = function (member_eccentricity,
 
 /**
 * Creates member eccentricity
-* @param	{Number}	no				Index of member eccentricity, can be undefined
-* @param	{Object}	member_start	Member start, can be undefined
-* @param	{Object} 	member_end		Member end, can be undefined
-* @param	{String}	comment			Comment, can be undefined
-* @param	{Object}	params			Member eccentricity parameters, can be undefined
+* @param	{Number}	no					Index of member eccentricity, can be undefined
+* @param	{Array}		members_start_list	Members start, can be undefined
+* @param	{Array} 	members_end_list	Members end, can be undefined
+* @param	{String}	comment				Comment, can be undefined
+* @param	{Object}	params				Member eccentricity parameters, can be undefined
 * @return	{Object}	Created member eccentricity
 */
 var createEccentricity = function (no,
-	member_start,
-	member_end,
+	members_start_list,
+	members_end_list,
 	comment,
 	params) {
 	var member_eccentricity = engine.create_member_eccentricity(no);
-
-    if (typeof member_start !== "undefined")
-    {
-        member_start.member_eccentricity_start = member_eccentricity;
-    }
-    if (typeof member_end !== "undefined")
-    {
-        member_end.member_eccentricity_end = member_eccentricity;
-    }
+	
+	if (typeof members_start_list !== "undefined") {
+		for (var i = 0; i < members_start_list.length; ++i) {
+			if (members.exist(members_start_list[i])) {
+				members[members_start_list[i]].member_eccentricity_start = member_eccentricity;
+			}
+			else {
+				console.log("Member no." + members_start_list[i] + " does not exist");
+			}
+		}
+	}
+	
+	if (typeof members_end_list !== "undefined") {
+		for (var i = 0; i < members_end_list.length; ++i) {
+			if (members.exist(members_end_list[i])) {
+				members[members_end_list[i]].member_eccentricity_start = member_eccentricity;
+			}
+			else {
+				console.log("Member no." + members_end_list[i] + " does not exist");
+			}
+		}
+	}
 
     set_comment_and_parameters(member_eccentricity, comment, params);
 
@@ -214,12 +251,22 @@ var createEccentricity = function (no,
 /**
 * Sets member eccentricity for relative to section type (private)
 * @param 	{Object}	member_eccentricity	Member eccentricity to be set
-* @param	{String}	alignment			Alignment ("left_top", "middle_top", "right_top", "left_middle", "middle_middle", "right_middle", "left_bottom", "middle_bottom", "right_bottom")
+* @param	{String}	alignment_type		Alignment: 	SECTION_ALIGNMENT_LEFT_TOP, 
+*														SECTION_ALIGNMENT_CENTER_TOP, 
+*														SECTION_ALIGNMENT_RIGHT_TOP, 
+*														SECTION_ALIGNMENT_LEFT_CENTER, 
+*														SECTION_ALIGNMENT_CENTER_CENTER, 
+*														SECTION_ALIGNMENT_RIGHT_CENTER, 
+*														SECTION_ALIGNMENT_LEFT_BOTTOM, 
+*														SECTION_ALIGNMENT_CENTER_BOTTOM, 
+*														SECTION_ALIGNMENT_RIGHT_BOTTOM.
 */
 var setRelativeValues = function (member_eccentricity,
-	alignment) {
+	alignment_type) {	
 	ASSERT(member_eccentricity.specification_type !== member_eccentricities.TYPE_ABSOLUTE);
+	ASSERT(alignment_type in SectionAlignment, "Unknown alignment type");
 
+	var alignment = SectionAlignment[alignment_type];
 	var horizontal = getAlignmentParts(alignment)[0];
 	var vertical = getAlignmentParts(alignment)[1];
 
@@ -251,26 +298,26 @@ var getAlignmentParts = function (alignment) {
 /**
 * Sets member eccentricity for absolute type (private)
 * @param	{Object}	memberEccentricity	Member eccentricity to be set
-* @param	{Number}	ex					Eccentricity in X
-* @param	{Number}	ey					Eccentricity in Y
-* @param	{Number}	ez					Eccentricity in Z
+* @param	{Number}	offset_x			Eccentricity in X
+* @param	{Number}	offset_y			Eccentricity in Y
+* @param	{Number}	offset_z			Eccentricity in Z
 * @param	{Number}	coordinate_system	Coordinate system, can be undefined. Default value is "Local xyz".
 */
 var setAbsoluteValues = function (member_eccentricity,
-	ex,
-	ey,
-	ez,
+	offset_x,
+	offset_y,
+	offset_z,
 	coordinate_system) {
 	ASSERT(member_eccentricity.specification_type !== member_eccentricities.TYPE_RELATIVE);
 
-	if (typeof ex !== "undefined") {
-		member_eccentricity.offset_x = ex;
+	if (typeof offset_x !== "undefined") {
+		member_eccentricity.offset_x = offset_x;
 	}
-	if (typeof ey !== "undefined") {
-		member_eccentricity.offset_y = ey;
+	if (typeof offset_y !== "undefined") {
+		member_eccentricity.offset_y = offset_y;
 	}
-	if (typeof ez !== "undefined") {
-		member_eccentricity.offset_z = ez;
+	if (typeof offset_z !== "undefined") {
+		member_eccentricity.offset_z = offset_z;
 	}
 	if (typeof coordinate_system !== "undefined") {
 		member_eccentricity.coordinate_system = coordinate_system;
