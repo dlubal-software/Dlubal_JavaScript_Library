@@ -25,38 +25,38 @@ Access to settings via .settings
 var SAS = new StaticAnalysisSettings();
 
 // set parameters via HL functions
-SAS.SetMaxNumberOfItrations(600);
-SAS.SetNumberOfLoadIncremets(4);
+SAS.SetMaxNumberOfIterations(600);
+SAS.SetNumberOfLoadIncrements(4);
 
-// dirrect access to  static analysis settings
+// direct access to  static analysis settings
 SAS.settings.comment = "Access via .settings";
 SAS.settings.analysis_type = static_analysis_settings.SECOND_ORDER_P_DELTA;
 // prototypes with analysis type
 var l = new StaticAnalysisSettings();
 l.Linear("iterative");
-l.SetMaxNumberOfItrations(1000);
-l.SetNumberOfLoadIncremets(4);
+l.SetMaxNumberOfIterations(1000);
+l.SetNumberOfLoadIncrements(4);
 l.SetComment("Linear iterative, 1000 iterations, 4 load increments");
 var s = new StaticAnalysisSettings();
 s.SecondOrder("iterative", "Postcritical");
-s.SetMaxNumberOfItrations(1500);
-s.SetNumberOfLoadIncremets(6);
+s.SetMaxNumberOfIterations(1500);
+s.SetNumberOfLoadIncrements(6);
 s.SetComment("Second order, iterative ,picard, 1500 iterations, 6 load increments");
 
 var large_def = new StaticAnalysisSettings();
 large_def.LargeDeformations("iterative", "Combined");
-large_def.SetMaxNumberOfItrations(500);
-large_def.SetNumberOfLoadIncremets(8);
+large_def.SetMaxNumberOfIterations(500);
+large_def.SetNumberOfLoadIncrements(8);
 large_def.SetComment("Second order, iterative ,combined, 500 iterations, 8 load increments");
 // create instance with parameters
 new StaticAnalysisSettings(undefined, "linear", "neco");
 new StaticAnalysisSettings(undefined,  "fde", "direct");
 var SAS2 = new StaticAnalysisSettings(undefined, "second order", "iterative", "Postcritical" );
-SAS2.SetMaxNumberOfItrations(600);
-SAS2.SetNumberOfLoadIncremets(4);
+SAS2.SetMaxNumberOfIterations(600);
+SAS2.SetNumberOfLoadIncrements(4);
 var SAS3 = new StaticAnalysisSettings(undefined, "large deformations", hgfgf, "Dynamic");
-SAS3.SetMaxNumberOfItrations(600);
-SAS3.SetNumberOfLoadIncremets(4);
+SAS3.SetMaxNumberOfIterations(600);
+SAS3.SetNumberOfLoadIncrements(4);
 new StaticAnalysisSettings(undefined,2, 3, 4, 5, []);
 new StaticAnalysisSettings(undefined, 45, "second order", "ges");
 new StaticAnalysisSettings(undefined, "large deformations", "esss");

@@ -34,12 +34,12 @@ function NonlinearMethods(type, method) {
     "Dynamic": "DYNAMIC_RELAXATION",
   };
 
-  const nonlinearMehodsSwitcher = {
+  const nonlinearMethodsSwitcher = {
     "Second-order (P-Δ)": nonlinearMethods_secondOrder_dict,
     "Large deformations": nonlinearMethods_largeDeformations_dict,
   };
 
-  const method_dict = nonlinearMehodsSwitcher[type];
+  const method_dict = nonlinearMethodsSwitcher[type];
   var nonlinear_method = undefined;
 
   if (method_dict === undefined) {
@@ -51,7 +51,7 @@ function NonlinearMethods(type, method) {
       nonlinear_method = "NEWTON_RAPHSON";
       console.log("Wrong nonlinear analysis method input. Value was: " + method);
       console.log("Correct values are: ( " + Object.keys(method_dict) + ")");
-    };
+    }
   }
   return nonlinear_method;
 }
@@ -68,7 +68,7 @@ function SetEquationSolver(solverType) {
     console.log("Correct values are: ( " + Object.keys(EquationSolver_dict) + ")");
     equationSolver = "METHOD_OF_EQUATION_SYSTEM_DIRECT";
   }
-  return equationSolver
+  return equationSolver;
 }
 // Main function
 function StaticAnalysisSettings(no,
@@ -79,15 +79,15 @@ function StaticAnalysisSettings(no,
   params) {
 
   /**
- * Creates static analysis settings hight level function
-
- * @param   {Integer}         no                  unique ID of SAS
- * @param   {String}          analysisType        Analysis setting type ("linear", "second order", "large deformations")
- * @param   {String}          equationSolver      Equation solver ("direct", "iterative")
- * @param   {String}          nonlinearMethod     Nonlinear method ("Picard", "Combined", "Postcritical", "Newton", "Constant stiffness", "Dynamic" )
- * @param   {String}          comment             Comment, empty by default
- * @param   {Object}          params              Static analysis settings parameters, empty by default
- */
+  * Creates static analysis settings hight level function
+ 
+  * @param   {Integer}         no                  unique ID of SAS
+  * @param   {String}          analysisType        Analysis setting type ("linear", "second order", "large deformations")
+  * @param   {String}          equationSolver      Equation solver ("direct", "iterative")
+  * @param   {String}          nonlinearMethod     Nonlinear method ("Picard", "Combined", "Postcritical", "Newton", "Constant stiffness", "Dynamic" )
+  * @param   {String}          comment             Comment, empty by default
+  * @param   {Object}          params              Static analysis settings parameters, empty by default
+  */
 
   ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
   ASSERT(typeof analysisType != undefined || typeof name != "string", "Name must be assigned as a string.");
@@ -99,7 +99,7 @@ function StaticAnalysisSettings(no,
     var SAS = static_analysis_settings.create(no);
   }
   console.log("New static analysis settings no. " + SAS.no + " was created");
-  // Static anlysis settings : type
+  // Static analysis settings : type
   SAS.analysis_type = static_analysis_settings[StaticAnalysisType(analysisType)];
   if (equationSolver != undefined) {
     SAS.method_of_equation_system = static_analysis_settings[SetEquationSolver(equationSolver)];
@@ -120,6 +120,7 @@ function StaticAnalysisSettings(no,
   var self = this;
   return self;
 }
+
 function AvoidWrongAssignment(SAS, param) {
   var setParameter = false;
   if (SAS.analysis_type === static_analysis_settings.GEOMETRICALLY_LINEAR) {
@@ -133,6 +134,7 @@ function AvoidWrongAssignment(SAS, param) {
   }
   return setParameter;
 }
+
 StaticAnalysisSettings.prototype.Linear = function (equationSolver) {
   // * @param   {String}          equationSolver      Equation solver ("direct", "iterative")
   this.settings.analysis_type = static_analysis_settings.GEOMETRICALLY_LINEAR;
@@ -140,6 +142,7 @@ StaticAnalysisSettings.prototype.Linear = function (equationSolver) {
     this.settings.method_of_equation_system = static_analysis_settings[SetEquationSolver(equationSolver)];
   }
 };
+
 StaticAnalysisSettings.prototype.SecondOrder = function (equationSolver, nonlinearMethod) {
   // * @param   {String}          equationSolver      Equation solver ("direct", "iterative")
   // * @param   {String}          nonlinearMethod     Nonlinear method ("Picard", "Postcritical", "Newton")
@@ -158,6 +161,7 @@ StaticAnalysisSettings.prototype.SecondOrder = function (equationSolver, nonline
     }
   }
 };
+
 StaticAnalysisSettings.prototype.LargeDeformations = function (equationSolver, nonlinearMethod) {
   // * @param   {String}          equationSolver      Equation solver ("direct", "iterative")
   // * @param   {String}          nonlinearMethod     Nonlinear method ("Picard", "Combined", "Postcritical", "Newton", "Constant stiffness", "Dynamic" )
@@ -176,18 +180,21 @@ StaticAnalysisSettings.prototype.LargeDeformations = function (equationSolver, n
     }
   }
 };
+
 StaticAnalysisSettings.prototype.SetComment = function (comment) {
   //  * @param   {String}          comment             Comment, empty by default
   this.settings.comment = comment;
 };
-StaticAnalysisSettings.prototype.SetMaxNumberOfItrations = function (iterations) {
-  // * @param   {integer}   iterations         Maximun number of iterations
+
+StaticAnalysisSettings.prototype.SetMaxNumberOfIterations = function (iterations) {
+  // * @param   {integer}   iterations         Maximum number of iterations
   if (AvoidWrongAssignment(this.settings, "max_number_of_iterations") === true) {
     ASSERT(typeof iterations != undefined || typeof iterations != "number", "Parameter must be assigned as an integer.");
     this.settings.max_number_of_iterations = iterations;
   }
 };
-StaticAnalysisSettings.prototype.SetNumberOfLoadIncremets = function (increments) {
+
+StaticAnalysisSettings.prototype.SetNumberOfLoadIncrements = function (increments) {
   // * @param   {integer}   increments         Number of load increments
   if (AvoidWrongAssignment(this.settings, "number_of_load_increments") === true) {
     ASSERT(typeof increments != undefined || typeof increments != "number", "Parameter must be assigned as an integer.");
