@@ -29,7 +29,8 @@ function MemberEccentricity(no,
 	comment,
 	params) {
     if (arguments.length !== 0) {
-		return this.memberEccentricity = createEccentricity(no, members_start_list, members_end_list, comment, params);
+		this.memberEccentricity = createEccentricity(no, members_start_list, members_end_list, comment, params);
+		return this.memberEccentricity;
 	}
 }
 
