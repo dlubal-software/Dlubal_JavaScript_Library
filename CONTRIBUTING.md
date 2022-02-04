@@ -16,7 +16,7 @@ These steps cloud be done once for the project
   It creates a copy of our project repository in your GitHub account.
 
   ![image](https://user-images.githubusercontent.com/29481431/146366646-a394cab6-2c16-4a01-9dea-1404ddbda09d.png)
-  
+
   Now, you can update your repository from upstream.
  * Clone repository to desktop
 
