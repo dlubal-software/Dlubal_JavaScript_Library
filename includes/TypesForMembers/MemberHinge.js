@@ -331,7 +331,7 @@ MemberHinge.prototype.FrictionNVzTranslationalY = function (friction_coefficient
 /**
 * Sets translational friction N+Vz values for uy
 * @param	{Number}	friction_coefficient_yx	Friction coefficient YX
-* @param	{Number}	friction_coefficient_yz	Friction coeficient YZ
+* @param	{Number}	friction_coefficient_yz	Friction coefficient YZ
 * @param	{Number}	spring_constant_y		Spring constant Y
 */
 MemberHinge.prototype.FrictionNPlusVzTranslationalY = function (friction_coefficient_yx,
@@ -377,7 +377,7 @@ MemberHinge.prototype.FrictionNVyTranslationalZ = function (friction_coefficient
 /**
 * Sets translational friction N+Vy values for uz
 * @param	{Number}	friction_coefficient_zx	Friction coefficient ZX
-* @param	{Number}	friction_coefficient_zy	Griction coefficient ZY
+* @param	{Number}	friction_coefficient_zy	Friction coefficient ZY
 * @param	{Number}	spring_constant_z		Spring constant Z
 */
 MemberHinge.prototype.FrictionNPlusVyTranslationalZ = function (friction_coefficient_zx,

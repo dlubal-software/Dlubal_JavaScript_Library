@@ -74,7 +74,7 @@ MemberDefinableStiffness.prototype.SelfWeight = function (specific_weight,
 * Sets main axes rotation parameter
 * @param	{Number}	rotation		Rotation
 */
-MemberDefinableStiffness.prototype.MainAxes = function (rotation) {
+MemberDefinableStiffness.prototype.MainAxesRotation = function (rotation) {
 	this.memberDefinableStiffness.rotation = rotation;
 };
 

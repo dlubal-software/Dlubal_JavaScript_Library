@@ -62,6 +62,8 @@ members[39].type = members.TYPE_DEFINABLE_STIFFNESS;
 var memberDefinableStiffness = new MemberDefinableStiffness(undefined, [38, 39]);
 memberDefinableStiffness.TorsionalAndBendingStiffness(5, 10, 20);
 memberDefinableStiffness.AxialAndShearStiffness(30, 40, 50);
+memberDefinableStiffness.SelfWeight(2500,0.01);
+memberDefinableStiffness.ThermalExpansionCoefficient(0.00001,0.001,0.001);
 
 var memberResultIntermediatePoint = new MemberResultIntermediatePoint(undefined, [45, 46], "MemberResultIntermediatePoint with uniform distances");
 memberResultIntermediatePoint.UniformDistances(5, ["ord. 1", "ord. 2", "ord. 3", "ord. 4", "ord. 5"]);

@@ -80,13 +80,13 @@
   </h3>
   
   
-  <h4 id="MemberNonlinearity__ctor" data-uid="MemberNonlinearity.#ctor">MemberNonlinearity(no, member, comment, params)</h4>
+  <h4 id="MemberNonlinearity__ctor" data-uid="MemberNonlinearity.#ctor">MemberNonlinearity(no, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates member nonlinearity</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">new MemberNonlinearity(no, member, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">new MemberNonlinearity(no, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -103,15 +103,6 @@
         <td><em>no</em></td>
         <td>
           <p>Index of member nonlinearity, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member</em></td>
-        <td>
-          <p>Assigned member</p>
 
           
         </td>
@@ -156,13 +147,13 @@
   </h3>
   
   
-  <h4 id="MemberNonlinearity_FailureIfTension" data-uid="MemberNonlinearity#FailureIfTension">FailureIfTension(no, member, comment, params)</h4>
+  <h4 id="MemberNonlinearity_FailureIfTension" data-uid="MemberNonlinearity#FailureIfTension">FailureIfTension(no, members, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates member failure if tension nonlinearity</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function FailureIfTension(no, member, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function FailureIfTension(no, members, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -184,10 +175,10 @@
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members</em></td>
         <td>
-          <p>Assigned member</p>
+          <p>Assigned members</p>
 
           
         </td>
@@ -230,13 +221,13 @@
   </table>
   
   
-  <h4 id="MemberNonlinearity_FailureIfCompression" data-uid="MemberNonlinearity#FailureIfCompression">FailureIfCompression(no, member, comment, params)</h4>
+  <h4 id="MemberNonlinearity_FailureIfCompression" data-uid="MemberNonlinearity#FailureIfCompression">FailureIfCompression(no, members, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates member failure if compression nonlinearity</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function FailureIfCompression(no, member, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function FailureIfCompression(no, members, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -258,10 +249,10 @@
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members</em></td>
         <td>
-          <p>Assigned member</p>
+          <p>Assigned members</p>
 
           
         </td>
@@ -304,13 +295,13 @@
   </table>
   
   
-  <h4 id="MemberNonlinearity_FailureIfTensionWithSlippage" data-uid="MemberNonlinearity#FailureIfTensionWithSlippage">FailureIfTensionWithSlippage(no, member, ux, comment, params)</h4>
+  <h4 id="MemberNonlinearity_FailureIfTensionWithSlippage" data-uid="MemberNonlinearity#FailureIfTensionWithSlippage">FailureIfTensionWithSlippage(no, members, slippage, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates member failure if tension with slippage nonlinearity</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function FailureIfTensionWithSlippage(no, member, ux, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function FailureIfTensionWithSlippage(no, members, slippage, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -332,17 +323,17 @@
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members</em></td>
         <td>
-          <p>Assigned member</p>
+          <p>Assigned members</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>ux</em></td>
+        <td><em>slippage</em></td>
         <td>
           <p>Slippage</p>
 
@@ -387,13 +378,13 @@
   </table>
   
   
-  <h4 id="MemberNonlinearity_FailureIfCompressionWithSlippage" data-uid="MemberNonlinearity#FailureIfCompressionWithSlippage">FailureIfCompressionWithSlippage(no, member, ux, comment, params)</h4>
+  <h4 id="MemberNonlinearity_FailureIfCompressionWithSlippage" data-uid="MemberNonlinearity#FailureIfCompressionWithSlippage">FailureIfCompressionWithSlippage(no, members, slippage, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates member failure if compression with slippage nonlinearity</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function FailureIfCompressionWithSlippage(no, member, ux, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function FailureIfCompressionWithSlippage(no, members, slippage, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -415,17 +406,17 @@
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members</em></td>
         <td>
-          <p>Assigned member</p>
+          <p>Assigned members</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>ux</em></td>
+        <td><em>slippage</em></td>
         <td>
           <p>Slippage</p>
 
@@ -470,13 +461,13 @@
   </table>
   
   
-  <h4 id="MemberNonlinearity_Slippage" data-uid="MemberNonlinearity#Slippage">Slippage(no, member, ux, comment, params)</h4>
+  <h4 id="MemberNonlinearity_Slippage" data-uid="MemberNonlinearity#Slippage">Slippage(no, members, slippage, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates member slippage nonlinearity</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Slippage(no, member, ux, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function Slippage(no, members, slippage, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -498,17 +489,17 @@
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members</em></td>
         <td>
-          <p>Assigned member</p>
+          <p>Assigned members</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>ux</em></td>
+        <td><em>slippage</em></td>
         <td>
           <p>Slippage</p>
 
@@ -553,13 +544,13 @@
   </table>
   
   
-  <h4 id="MemberNonlinearity_TearingUnderTension" data-uid="MemberNonlinearity#TearingUnderTension">TearingUnderTension(no, member, nt, comment, params)</h4>
+  <h4 id="MemberNonlinearity_TearingUnderTension" data-uid="MemberNonlinearity#TearingUnderTension">TearingUnderTension(no, members, tension_force, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates member tearing under tension nonlinearity</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function TearingUnderTension(no, member, nt, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function TearingUnderTension(no, members, tension_force, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -581,17 +572,17 @@
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members</em></td>
         <td>
-          <p>Assigned member</p>
+          <p>Assigned members</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>nt</em></td>
+        <td><em>tension_force</em></td>
         <td>
           <p>Tension force</p>
 
@@ -636,13 +627,13 @@
   </table>
   
   
-  <h4 id="MemberNonlinearity_YieldingUnderTension" data-uid="MemberNonlinearity#YieldingUnderTension">YieldingUnderTension(no, member, nt, comment, params)</h4>
+  <h4 id="MemberNonlinearity_YieldingUnderTension" data-uid="MemberNonlinearity#YieldingUnderTension">YieldingUnderTension(no, members, tension_force, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates member yielding under tension nonlinearity</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function YieldingUnderTension(no, member, nt, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function YieldingUnderTension(no, members, tension_force, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -664,17 +655,17 @@
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members</em></td>
         <td>
-          <p>Assigned member</p>
+          <p>Assigned members</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>nt</em></td>
+        <td><em>tension_force</em></td>
         <td>
           <p>Tension force</p>
 
@@ -719,13 +710,13 @@
   </table>
   
   
-  <h4 id="MemberNonlinearity_TearingUnderCompression" data-uid="MemberNonlinearity#TearingUnderCompression">TearingUnderCompression(no, member, nc, comment, params)</h4>
+  <h4 id="MemberNonlinearity_TearingUnderCompression" data-uid="MemberNonlinearity#TearingUnderCompression">TearingUnderCompression(no, members, compression_force, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates member tearing under compression nonlinearity</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function TearingUnderCompression(no, member, nc, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function TearingUnderCompression(no, members, compression_force, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -747,17 +738,17 @@
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members</em></td>
         <td>
-          <p>Assigned member</p>
+          <p>Assigned members</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>nc</em></td>
+        <td><em>compression_force</em></td>
         <td>
           <p>Compression force</p>
 
@@ -802,13 +793,13 @@
   </table>
   
   
-  <h4 id="MemberNonlinearity_YieldingUnderCompression" data-uid="MemberNonlinearity#YieldingUnderCompression">YieldingUnderCompression(no, member, nc, comment, params)</h4>
+  <h4 id="MemberNonlinearity_YieldingUnderCompression" data-uid="MemberNonlinearity#YieldingUnderCompression">YieldingUnderCompression(no, members, compression_force, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates member yielding under compression nonlinearity</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function YieldingUnderCompression(no, member, nc, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function YieldingUnderCompression(no, members, compression_force, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -830,17 +821,17 @@
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members</em></td>
         <td>
-          <p>Assigned member</p>
+          <p>Assigned members</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>nc</em></td>
+        <td><em>compression_force</em></td>
         <td>
           <p>Compression force</p>
 
@@ -885,13 +876,13 @@
   </table>
   
   
-  <h4 id="MemberNonlinearity_Tearing" data-uid="MemberNonlinearity#Tearing">Tearing(no, member, nc, nt, comment, params)</h4>
+  <h4 id="MemberNonlinearity_Tearing" data-uid="MemberNonlinearity#Tearing">Tearing(no, members, compression_force, tension_force, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates member tearing nonlinearity</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Tearing(no, member, nc, nt, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function Tearing(no, members, compression_force, tension_force, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -913,17 +904,17 @@
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members</em></td>
         <td>
-          <p>Assigned member</p>
+          <p>Assigned members</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>nc</em></td>
+        <td><em>compression_force</em></td>
         <td>
           <p>Compression force</p>
 
@@ -932,7 +923,7 @@
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>nt</em></td>
+        <td><em>tension_force</em></td>
         <td>
           <p>Tension force</p>
 
@@ -977,13 +968,13 @@
   </table>
   
   
-  <h4 id="MemberNonlinearity_Yielding" data-uid="MemberNonlinearity#Yielding">Yielding(no, member, nc, nt, comment, params)</h4>
+  <h4 id="MemberNonlinearity_Yielding" data-uid="MemberNonlinearity#Yielding">Yielding(no, members, compression_force, tension_force, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates member yielding nonlinearity</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Yielding(no, member, nc, nt, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function Yielding(no, members, compression_force, tension_force, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1005,17 +996,17 @@
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members</em></td>
         <td>
-          <p>Assigned member</p>
+          <p>Assigned members</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>nc</em></td>
+        <td><em>compression_force</em></td>
         <td>
           <p>Compression force</p>
 
@@ -1024,7 +1015,7 @@
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>nt</em></td>
+        <td><em>tension_force</em></td>
         <td>
           <p>Tension force</p>
 

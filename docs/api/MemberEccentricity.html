@@ -80,13 +80,13 @@
   </h3>
   
   
-  <h4 id="MemberEccentricity__ctor" data-uid="MemberEccentricity.#ctor">MemberEccentricity(no, member_start, member_end, comment, params)</h4>
+  <h4 id="MemberEccentricity__ctor" data-uid="MemberEccentricity.#ctor">MemberEccentricity(no, members_start_list, members_end_list, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates member eccentricity</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">new MemberEccentricity(no, member_start, member_end, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">new MemberEccentricity(no, members_start_list, members_end_list, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -108,19 +108,19 @@
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member_start</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members_start_list</em></td>
         <td>
-          <p>Member start, can be undefined</p>
+          <p>Members start, can be undefined</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member_end</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members_end_list</em></td>
         <td>
-          <p>Member end, can be undefined</p>
+          <p>Members end, can be undefined</p>
 
           
         </td>
@@ -165,13 +165,13 @@
   </h3>
   
   
-  <h4 id="MemberEccentricity_RelativeToSection" data-uid="MemberEccentricity#RelativeToSection">RelativeToSection(no, member_start, member_end, alignment, comment, params)</h4>
+  <h4 id="MemberEccentricity_RelativeToSection" data-uid="MemberEccentricity#RelativeToSection">RelativeToSection(no, members_start_list, members_end_list, alignment, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates member eccentricity relative to section</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function RelativeToSection(no, member_start, member_end, alignment, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function RelativeToSection(no, members_start_list, members_end_list, alignment, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -193,8 +193,8 @@
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member_start</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members_start_list</em></td>
         <td>
           <p>Member start</p>
 
@@ -202,8 +202,8 @@
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member_end</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members_end_list</em></td>
         <td>
           <p>Member end</p>
 
@@ -257,13 +257,13 @@
   </table>
   
   
-  <h4 id="MemberEccentricity_Absolute" data-uid="MemberEccentricity#Absolute">Absolute(no, member_start, member_end, ex, ey, ez, coordinate_system, comment, params)</h4>
+  <h4 id="MemberEccentricity_Absolute" data-uid="MemberEccentricity#Absolute">Absolute(no, members_start_list, members_end_list, offset_x, offset_y, offset_z, coordinate_system, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates absolute member eccentricity</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Absolute(no, member_start, member_end, ex, ey, ez, coordinate_system, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function Absolute(no, members_start_list, members_end_list, offset_x, offset_y, offset_z, coordinate_system, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -285,26 +285,26 @@
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member_start</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members_start_list</em></td>
         <td>
-          <p>Member start</p>
+          <p>Members start</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member_end</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members_end_list</em></td>
         <td>
-          <p>Member end</p>
+          <p>Members end</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>ex</em></td>
+        <td><em>offset_x</em></td>
         <td>
           <p>Eccentricity in X</p>
 
@@ -313,7 +313,7 @@
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>ey</em></td>
+        <td><em>offset_y</em></td>
         <td>
           <p>Eccentricity in Y</p>
 
@@ -322,7 +322,7 @@
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>ez</em></td>
+        <td><em>offset_z</em></td>
         <td>
           <p>Eccentricity in Z</p>
 
@@ -376,13 +376,13 @@
   </table>
   
   
-  <h4 id="MemberEccentricity_RelativeAndAbsolute" data-uid="MemberEccentricity#RelativeAndAbsolute">RelativeAndAbsolute(no, member_start, member_end, ex, ey, ez, coordinate_system, alignment, comment, params)</h4>
+  <h4 id="MemberEccentricity_RelativeAndAbsolute" data-uid="MemberEccentricity#RelativeAndAbsolute">RelativeAndAbsolute(no, members_start_list, members_end_list, offset_x, offset_y, offset_z, coordinate_system, alignment, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates absolute member eccentricity</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function RelativeAndAbsolute(no, member_start, member_end, ex, ey, ez, coordinate_system, alignment, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function RelativeAndAbsolute(no, members_start_list, members_end_list, offset_x, offset_y, offset_z, coordinate_system, alignment, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -404,26 +404,26 @@
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member_start</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members_start_list</em></td>
         <td>
-          <p>Member start</p>
+          <p>Members start</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>member_end</em></td>
+        <td><span class="xref">Array</span></td>
+        <td><em>members_end_list</em></td>
         <td>
-          <p>Member end</p>
+          <p>Members end</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>ex</em></td>
+        <td><em>offset_x</em></td>
         <td>
           <p>Eccentricity in X</p>
 
@@ -432,7 +432,7 @@
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>ey</em></td>
+        <td><em>offset_y</em></td>
         <td>
           <p>Eccentricity in Y</p>
 
@@ -441,7 +441,7 @@
       </tr>
       <tr>
         <td><span class="xref">Number</span></td>
-        <td><em>ez</em></td>
+        <td><em>offset_z</em></td>
         <td>
           <p>Eccentricity in Z</p>
 

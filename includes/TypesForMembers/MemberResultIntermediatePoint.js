@@ -39,7 +39,7 @@ MemberResultIntermediatePoint.prototype.UniformDistances = function (division_co
 * Sets division ordinates
 * @param	{Array}		division_ordinates	Division ordinates
 * @param	{Array}		notes				Division ordinates notes, can be undefined
-* @param	{Boolean}	absolute			Distances are absolute or relativem can be undefined (default value is absolute)
+* @param	{Boolean}	absolute			Distances are absolute or relative can be undefined (default value is absolute)
 * @param	{Boolean}	clear_ordinates		Clears default ordinates, can be undefined (default value is true)
 */
 MemberResultIntermediatePoint.prototype.DivisionOrdinates = function (division_ordinates,

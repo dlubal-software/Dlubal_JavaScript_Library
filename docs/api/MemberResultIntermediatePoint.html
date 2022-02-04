@@ -196,13 +196,13 @@
   </table>
   
   
-  <h4 id="MemberResultIntermediatePoint_DivisionOrdinates" data-uid="MemberResultIntermediatePoint#DivisionOrdinates">DivisionOrdinates(division_ordinates, notes, clear_ordinates)</h4>
+  <h4 id="MemberResultIntermediatePoint_DivisionOrdinates" data-uid="MemberResultIntermediatePoint#DivisionOrdinates">DivisionOrdinates(division_ordinates, notes, absolute, clear_ordinates)</h4>
   <div class="markdown level1 summary"><p>Sets division ordinates</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function DivisionOrdinates(division_ordinates, notes, clear_ordinates)</code></pre>
+    <pre><code class="lang-js hljs">function DivisionOrdinates(division_ordinates, notes, absolute, clear_ordinates)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -234,40 +234,18 @@
       </tr>
       <tr>
         <td><span class="xref">Boolean</span></td>
-        <td><em>clear_ordinates</em></td>
+        <td><em>absolute</em></td>
         <td>
-          <p>Clears default ordinates, can be undefined (default value is true)</p>
+          <p>Distances are absolute or relative can be undefined (default value is absolute)</p>
 
           
         </td>
       </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="MemberResultIntermediatePoint_DistancesAreAbsolute" data-uid="MemberResultIntermediatePoint#DistancesAreAbsolute">DistancesAreAbsolute(absolute)</h4>
-  <div class="markdown level1 summary"><p>Sets division ordinates as absolute</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-js hljs">function DistancesAreAbsolute(absolute)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
       <tr>
         <td><span class="xref">Boolean</span></td>
-        <td><em>absolute</em></td>
+        <td><em>clear_ordinates</em></td>
         <td>
-          <p>Division ordinates are absolute, can be undefined (default value is true)</p>
+          <p>Clears default ordinates, can be undefined (default value is true)</p>
 
           
         </td>
