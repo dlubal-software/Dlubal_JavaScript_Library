@@ -3,20 +3,18 @@
     "tasks": [
         {
             "label": "CopyFilesAndRunRFEM",
-            "command": "./CopyFilesToRFEMLocation.ps1",
+            "command": "PowerShellScripts/CopyFilesToRFEMLocation.ps1",
             "type": "shell",
-            "args": [
-                
-            ],
+            "args": [],
+            "problemMatcher": [
+                "$pester"
+            ]
         },
         {
             "label": "GenerateDocumentation",
             "command": "./GenerateDocumentation.ps1",
             "type": "shell",
-            "args": [
-                
-            ],
+            "args": []
         }
-    ]
     ]
 }

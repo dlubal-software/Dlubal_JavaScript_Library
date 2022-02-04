@@ -1,6 +1,6 @@
-# Contributing 
+# Contributing
 
-Contributions are always welcome as we handle this as an open source project! 
+Contributions are always welcome as we handle this as an open source project!
 Here are guidelines how to contribute.
 * Search previous suggestions before making a new one, as yours may be a duplicate.
 * Contact us to discuss your development so that we are aware of it
@@ -13,10 +13,10 @@ These steps cloud be done once for the project
 
   ![image](https://user-images.githubusercontent.com/29481431/146365610-b64f7775-f53b-491c-9389-a3b86c47a7ab.png)
 
-  It creates a copy of our project repository in your GitHub account. 
+  It creates a copy of our project repository in your GitHub account.
 
   ![image](https://user-images.githubusercontent.com/29481431/146366646-a394cab6-2c16-4a01-9dea-1404ddbda09d.png)
-  
+
   Now, you can update your repository from upstream.
  * Clone repository to desktop
 

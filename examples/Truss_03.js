@@ -2,7 +2,7 @@ if (!RFEM) {
     throw new Error("This script is only for RFEM, it creates lines.");
 }
 var L = 12;     // Total Length
-var n = 6;      // Number of Bays (it should be even) (min. 4) 
+var n = 6;      // Number of Bays (it should be even) (min. 4)
 var H = 3;      // Height
 var r = H / 2 + sqr(L) / (8 * H);    // Radius of the top chord
 
@@ -64,7 +64,7 @@ lin.Arc(memberCount, [2 * n + ns, 2 + ns], [L - L / (2 * n), 0, -(sqrt(sqr(r) - 
 mem.TrussByLine(memberCount, memberCount, 90, 1);
 memberCount++;
 
-for (var i = 0; i < n / 2 - 1; ++i)                                                                    // Diagonals                    
+for (var i = 0; i < n / 2 - 1; ++i)                                                                    // Diagonals
 {
     mem.Truss(memberCount, [5 + 2 * i + ns, 4 + 2 * i + ns], 0, 4);
     memberCount++;

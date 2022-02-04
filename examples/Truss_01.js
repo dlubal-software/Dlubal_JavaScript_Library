@@ -1,5 +1,5 @@
 var L = 12;     // Total Length
-var n = 6;      // Number of Bays (it should be even) (min. 4) 
+var n = 6;      // Number of Bays (it should be even) (min. 4)
 var H = 2;      // Height
 
 ASSERT(n > 3, "Minimum number of bays is 4.");

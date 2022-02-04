@@ -8,7 +8,7 @@ var H = 3;
 var thickness_1 = 0.35;   // ramp
 var thickness_2 = 0.24;   // walls
 
-// create material 
+// create material
 var material = Material(1, 'LC50/55');
 
 // Create thickness
@@ -16,7 +16,7 @@ var th = new Thickness();
 th.Uniform(1, "Ramp", 1, [thickness_1]);
 th.Uniform(2, "Walls", 1, [thickness_2]);
 
-// Create section 
+// Create section
 var column = Section(1, 'CIRCLE_M1 300', material);
 
 // Create nodes

@@ -18,11 +18,17 @@ var surfaceList = createSurfacesFromNodesGrid(nodesForSurfaces, [3, 5], surfaces
 var nodesForLines = createNodesGrid(-28, 24, [6, 1], [5, 5]);
 var lineList = createLinesFromNodesGrid(nodesForLines, [3, 1]);
 
-var lineSupport = new LineSupport(undefined, 61);
-lineSupport.Hinged();
+var lineSupport = line_supports.create();
+lineSupport.spring_x = line_supports.SPRING_CONSTANT_YES;
+lineSupport.spring_y = line_supports.SPRING_CONSTANT_YES;
+lineSupport.spring_z = line_supports.SPRING_CONSTANT_YES;
+lineSupport.lines = [61];
 
-var nodalSupports = new NodalSupport(undefined, [63, 64, 65, 66]);
-nodalSupports.Hinged();
+var nodalSupports = nodal_supports.create();
+nodalSupports.spring_x = nodal_supports.SPRING_CONSTANT_YES;
+nodalSupports.spring_y = nodal_supports.SPRING_CONSTANT_YES;
+nodalSupports.spring_z = nodal_supports.SPRING_CONSTANT_YES;
+nodalSupports.nodes = [63, 64, 65, 66];
 
 /**************************************** Free loads *******************************************
 * Common information:

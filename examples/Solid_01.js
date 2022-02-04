@@ -4,7 +4,7 @@ if (!RFEM) {
 var r_0 = 1;
 var r = 4;
 
-// Create material 
+// Create material
 var material = Material(1, 'LC50/55');
 
 // Create Nodes
