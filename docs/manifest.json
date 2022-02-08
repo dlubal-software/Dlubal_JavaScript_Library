@@ -377,6 +377,18 @@
     },
     {
       "type": "UniversalReference",
+      "source_relative_path": "api/StaticAnalysisSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/StaticAnalysisSettings.html",
+          "hash": "7SBM1cSbMJaUjOvLumlQosRF9K0cuo+b0TcwD29Z+X8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "UniversalReference",
       "source_relative_path": "api/Surface.yml",
       "output": {
         ".html": {
@@ -441,7 +453,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "jX0WpyCekESHr9ZdNrRWwjv3kkjVpJSQzocGsD6IgIY="
+          "hash": "bkxIyLzsYoKz5hBb3ijZ+ZQTnTFEPjSLasM9I/gGRdw="
         }
       },
       "is_incremental": false,

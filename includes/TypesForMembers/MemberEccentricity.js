@@ -169,17 +169,17 @@ MemberEccentricity.prototype.TransverseOffsetNone = function () {
 * @param	{String}	reference_type			Reference type ("None", "Member", "Surface")
 * @param	{Number}	reference object index	Reference member or surface index
 * @param	{Number}	reference_node_index	Reference member node index, in case of surface is undefined
-* @param	{String}	alignment_type			For member offset:	SECTION_ALIGNMENT_LEFT_TOP, 
-*																	SECTION_ALIGNMENT_CENTER_TOP, 
-*																	SECTION_ALIGNMENT_RIGHT_TOP, 
-*																	SECTION_ALIGNMENT_LEFT_CENTER, 
-*																	SECTION_ALIGNMENT_CENTER_CENTER, 
-*																	SECTION_ALIGNMENT_RIGHT_CENTER, 
-*																	SECTION_ALIGNMENT_LEFT_BOTTOM, 
-*																	SECTION_ALIGNMENT_CENTER_BOTTOM, 
+* @param	{String}	alignment_type			For member offset:	SECTION_ALIGNMENT_LEFT_TOP,
+*																	SECTION_ALIGNMENT_CENTER_TOP,
+*																	SECTION_ALIGNMENT_RIGHT_TOP,
+*																	SECTION_ALIGNMENT_LEFT_CENTER,
+*																	SECTION_ALIGNMENT_CENTER_CENTER,
+*																	SECTION_ALIGNMENT_RIGHT_CENTER,
+*																	SECTION_ALIGNMENT_LEFT_BOTTOM,
+*																	SECTION_ALIGNMENT_CENTER_BOTTOM,
 *																	SECTION_ALIGNMENT_RIGHT_BOTTOM.
-*												For surface offset:	SECTION_ALIGNMENT_CENTER_TOP, 
-*																	SECTION_ALIGNMENT_CENTER_CENTER, 
+*												For surface offset:	SECTION_ALIGNMENT_CENTER_TOP,
+*																	SECTION_ALIGNMENT_CENTER_CENTER,
 *																	SECTION_ALIGNMENT_CENTER_BOTTOM.
 */
 var setTransverseOffset = function (member_eccentricity,
@@ -189,7 +189,7 @@ var setTransverseOffset = function (member_eccentricity,
 	alignment_type) {
 	member_eccentricity.transverse_offset_reference_type = reference_type;
 	ASSERT(alignment_type in SectionAlignment, "Unknown alignment type");
-	
+
 	var alignment = SectionAlignment[alignment_type];
 
 	if (reference_type === member_eccentricities.TRANSVERSE_OFFSET_TYPE_FROM_MEMBER_SECTION) {
@@ -221,7 +221,7 @@ var createEccentricity = function (no,
 	comment,
 	params) {
 	var member_eccentricity = engine.create_member_eccentricity(no);
-	
+
 	if (typeof members_start_list !== "undefined") {
 		for (var i = 0; i < members_start_list.length; ++i) {
 			if (members.exist(members_start_list[i])) {
@@ -232,7 +232,7 @@ var createEccentricity = function (no,
 			}
 		}
 	}
-	
+
 	if (typeof members_end_list !== "undefined") {
 		for (var i = 0; i < members_end_list.length; ++i) {
 			if (members.exist(members_end_list[i])) {
@@ -252,18 +252,18 @@ var createEccentricity = function (no,
 /**
 * Sets member eccentricity for relative to section type (private)
 * @param 	{Object}	member_eccentricity	Member eccentricity to be set
-* @param	{String}	alignment_type		Alignment: 	SECTION_ALIGNMENT_LEFT_TOP, 
-*														SECTION_ALIGNMENT_CENTER_TOP, 
-*														SECTION_ALIGNMENT_RIGHT_TOP, 
-*														SECTION_ALIGNMENT_LEFT_CENTER, 
-*														SECTION_ALIGNMENT_CENTER_CENTER, 
-*														SECTION_ALIGNMENT_RIGHT_CENTER, 
-*														SECTION_ALIGNMENT_LEFT_BOTTOM, 
-*														SECTION_ALIGNMENT_CENTER_BOTTOM, 
+* @param	{String}	alignment_type		Alignment: 	SECTION_ALIGNMENT_LEFT_TOP,
+*														SECTION_ALIGNMENT_CENTER_TOP,
+*														SECTION_ALIGNMENT_RIGHT_TOP,
+*														SECTION_ALIGNMENT_LEFT_CENTER,
+*														SECTION_ALIGNMENT_CENTER_CENTER,
+*														SECTION_ALIGNMENT_RIGHT_CENTER,
+*														SECTION_ALIGNMENT_LEFT_BOTTOM,
+*														SECTION_ALIGNMENT_CENTER_BOTTOM,
 *														SECTION_ALIGNMENT_RIGHT_BOTTOM.
 */
 var setRelativeValues = function (member_eccentricity,
-	alignment_type) {	
+	alignment_type) {
 	ASSERT(member_eccentricity.specification_type !== member_eccentricities.TYPE_ABSOLUTE);
 	ASSERT(alignment_type in SectionAlignment, "Unknown alignment type");
 
