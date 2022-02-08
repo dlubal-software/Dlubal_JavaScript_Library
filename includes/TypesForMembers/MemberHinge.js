@@ -395,7 +395,7 @@ var setDiagramValues = function (member_hinge,
 	param_3_name,
 	assert_string) {
 	ASSERT(Array.isArray(diagram_values), "Diagram values has to be specified as 2D array");
-	
+
 	for (var i = 0; i < diagram_values.length; ++i) {
 		ASSERT(diagram_values[i].length === 3, "Diagram values has to be in format " + assert_string);
 		var row = member_hinge[param_table_name].row_count();
@@ -565,7 +565,7 @@ var createHinge = function (no,
 			}
 		}
 	}
-	
+
 	if (typeof members_end_list !== "undefined") {
 		for (var i = 0; i < members_end_list.length; ++i) {
 			if (members.exist(members_end_list[i])) {
@@ -576,7 +576,7 @@ var createHinge = function (no,
 			}
 		}
 	}
-	
+
 	set_comment_and_parameters(memberHinge, comment, params);
 
 	return memberHinge;
