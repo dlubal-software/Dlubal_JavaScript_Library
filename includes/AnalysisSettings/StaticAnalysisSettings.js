@@ -1,4 +1,3 @@
-
 function StaticAnalysisType(type) {
   const StaticAnalysisType_dict = {
     undefined: "GEOMETRICALLY_LINEAR",
@@ -143,31 +142,6 @@ function StaticAnalysisSettings(no,
   }
 }
 
-// function AvoidWrongAssignment(SAS, param) {
-//   var setParameter = false;
-//   if (SAS.analysis_type === static_analysis_settings.GEOMETRICALLY_LINEAR) {
-//     console.log("(" + param + ") This parameter cant be set for linear analysis.");
-//   }
-//   else if (SAS.iterative_method_for_nonlinear_analysis === static_analysis_settings.DYNAMIC_RELAXATION) {
-//     console.log("(" + param + ") This parameter cant be set for dynamic relaxation iterative method.");
-//   }
-//   else {
-//     setParameter = true;
-//   }
-//   return setParameter;
-// }
-/**
- * Creates linear static analysis settings
- * @param   {String}          equationSolver      Equation solver ("direct", "iterative")
- */
-// StaticAnalysisSettings.prototype.Linear = function (equationSolver) {
-//   //
-//   this.settings.analysis_type = static_analysis_settings.GEOMETRICALLY_LINEAR;
-//   if (equationSolver != undefined) {
-//     this.settings.method_of_equation_system = static_analysis_settings[SetEquationSolver(equationSolver)];
-//   }
-// };
-
 /**
  *
  * @param {*} no
@@ -180,7 +154,6 @@ function StaticAnalysisSettings(no,
  * @param {*} params
  * @returns
  */
-
 StaticAnalysisSettings.prototype.GeometricallyLinear = function (no, name, equationSolver, plateBendingTheory, activeMass, modifyLoading, comment, params) {
 
   ASSERT(typeof no !== undefined || typeof no !== "number", "No must be assigned as an integer.");
@@ -242,29 +215,6 @@ StaticAnalysisSettings.prototype.GeometricallyLinear = function (no, name, equat
   var self = this;
   return self;
 };
-
-/**
- *
- * @param   {String}          equationSolver      Equation solver ("direct", "iterative")
- * @param   {String}          nonlinearMethod     Nonlinear method ("Picard", "Postcritical", "Newton")
- */
-// StaticAnalysisSettings.prototype.SecondOrder = function (equationSolver, nonlinearMethod) {
-
-//   this.settings.analysis_type = static_analysis_settings.SECOND_ORDER_P_DELTA;
-//   if (equationSolver != undefined) {
-//     this.settings.method_of_equation_system = static_analysis_settings[SetEquationSolver(equationSolver)];
-//   }
-//   if (equationSolver != undefined) {
-//     this.settings.method_of_equation_system = static_analysis_settings[SetEquationSolver(equationSolver)];
-//   }
-//   if (nonlinearMethod != undefined) {
-//     var NA_method = NonlinearMethods(this.settings.analysis_type, nonlinearMethod);
-//     if (NA_method != undefined) {
-//       this.settings.iterative_method_for_nonlinear_analysis = static_analysis_settings[NA_method];
-//       console.log("Nonlinear analysis method: " + this.settings.iterative_method_for_nonlinear_analysis);
-//     }
-//   }
-// };
 
 /**
  *
@@ -366,28 +316,21 @@ StaticAnalysisSettings.prototype.SecondOrder = function (no, name, equationSolve
 };
 
 /**
- *
- * @param   {String}          equationSolver      Equation solver ("direct", "iterative")
- * @param   {String}          nonlinearMethod     Nonlinear method ("Picard", "Combined", "Postcritical", "Newton", "Constant stiffness", "Dynamic" )
+ * 
+ * @param {*} no 
+ * @param {*} name 
+ * @param {*} equationSolver 
+ * @param {*} nonlinearMethod 
+ * @param {*} maxNumberOfIterations 
+ * @param {*} numberOfLoadIncrements 
+ * @param {*} percentageOfIterations 
+ * @param {*} plateBendingTheory 
+ * @param {*} activeMass 
+ * @param {*} modifyLoading 
+ * @param {*} comment 
+ * @param {*} params 
+ * @returns 
  */
-// StaticAnalysisSettings.prototype.LargeDeformations = function (equationSolver, nonlinearMethod) {
-
-//   this.settings.analysis_type = static_analysis_settings.LARGE_DEFORMATIONS;
-//   if (equationSolver != undefined) {
-//     this.settings.method_of_equation_system = static_analysis_settings[SetEquationSolver(equationSolver)];
-//   }
-//   if (equationSolver != undefined) {
-//     this.settings.method_of_equation_system = static_analysis_settings[SetEquationSolver(equationSolver)];
-//   }
-//   if (nonlinearMethod != undefined) {
-//     var NA_method = NonlinearMethods(this.settings.analysis_type, nonlinearMethod);
-//     if (NA_method != undefined) {
-//       this.settings.iterative_method_for_nonlinear_analysis = static_analysis_settings[NA_method];
-//       console.log("Nonlinear analysis method: " + this.settings.iterative_method_for_nonlinear_analysis);
-//     }
-//   }
-// };
-
 StaticAnalysisSettings.prototype.LargeDeformations = function (no, name, equationSolver, nonlinearMethod, maxNumberOfIterations, numberOfLoadIncrements, percentageOfIterations, plateBendingTheory, activeMass, modifyLoading, comment, params) {
 
   if (no === undefined) {
@@ -478,27 +421,3 @@ StaticAnalysisSettings.prototype.LargeDeformations = function (no, name, equatio
   var self = this;
   return self;
 };
-
-//  * @param   {String}          comment             Comment, empty by default
-// StaticAnalysisSettings.prototype.SetComment = function (comment) {
-
-//   this.settings.comment = comment;
-// };
-
-// // * @param   {integer}   iterations         Maximum number of iterations
-// StaticAnalysisSettings.prototype.SetMaxNumberOfIterations = function (iterations) {
-
-//   if (AvoidWrongAssignment(this.settings, "max_number_of_iterations") === true) {
-//     ASSERT(typeof iterations != undefined || typeof iterations != "number", "Parameter must be assigned as an integer.");
-//     this.settings.max_number_of_iterations = iterations;
-//   }
-// };
-
-// // * @param   {integer}   increments         Number of load increments
-// StaticAnalysisSettings.prototype.SetNumberOfLoadIncrements = function (increments) {
-
-//   if (AvoidWrongAssignment(this.settings, "number_of_load_increments") === true) {
-//     ASSERT(typeof increments != undefined || typeof increments != "number", "Parameter must be assigned as an integer.");
-//     this.settings.number_of_load_increments = increments;
-//   }
-// };
