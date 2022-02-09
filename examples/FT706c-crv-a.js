@@ -2,7 +2,7 @@ if (!RFEM) {
     throw new Error("This script is only for RFEM, it creates surfaces.");
 }
 var L = 12;     // Total Length
-var n = 6;      // Number of Bays (it should be even) (min. 4) 
+var n = 6;      // Number of Bays (it should be even) (min. 4)
 var H = 3;      // Height
 
 var r = H / 2 + sqr(L) / (8 * H);    // Radius of the top chord
@@ -65,7 +65,7 @@ lin.Arc(member_count, [2 * n + ns, 2 + ns], [L - L / (2 * n), 0, -(sqrt(sqr(r) -
 mem.TrussByLine(member_count, member_count, 90, "", "", { "section_start": top_chord });
 member_count++;
 
-for (var i = 0; i < n / 2 - 1; ++i)                                                                    // Diagonals                    
+for (var i = 0; i < n / 2 - 1; ++i)                                                                    // Diagonals
 {
     mem.Truss(member_count, [5 + 2 * i + ns, 4 + 2 * i + ns], 0, "", "", { "section_start": diagonal });
     member_count++;

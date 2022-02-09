@@ -10,7 +10,7 @@ var H_2 = 3.5;
 var thickness_1 = 0.2;   // roof
 var thickness_2 = 0.2;   // wall
 
-// create material 
+// create material
 var materialLightConcrete = new Material(1, 'LC50/55');    // Concrete
 var materialSteel = new Material(2, 'S235');               // Steel
 
@@ -24,9 +24,6 @@ var concreteColumn = new Section(1, 'CIRCLE_M1 300', materialLightConcrete);
 var concreteRib = new Section(2, 'R_M1 300/400', materialLightConcrete);
 var steelFrame = new Section(3, 'HE 200 A', materialSteel);
 var steelBeams = new Section(4, 'IPE 200', materialSteel);
-
-
-
 // Create Nodes
 Node(1, 0, 0, 0);
 Node(2, a_1, 0, 0);
@@ -88,8 +85,6 @@ sur.Standard(3, surfaces.GEOMETRY_PLANE, "", [18, 7, 17, 8], 2);
 sur.Standard(4, surfaces.GEOMETRY_PLANE, "", [26, 10, 15, 9], 2);
 sur.Standard(5, surfaces.GEOMETRY_PLANE, "", [13, 18, 19, 20], 1);
 sur.Standard(6, surfaces.GEOMETRY_PLANE, "", [14, 15, 16, 17], 1);
-
-
 // Create members
 var mem = new Member();
 //mem.RibByLine(1, 16, 2);
@@ -101,8 +96,6 @@ mem.BeamByLine(6, 25, 0, 4);
 mem.BeamByLine(7, 11, 0, 3);
 mem.BeamByLine(8, 12, 0, 3);
 mem.BeamByLine(9, 21, 0, 3);
-
-
 // Create eccentricity
 var ecc_params_1 =
 {

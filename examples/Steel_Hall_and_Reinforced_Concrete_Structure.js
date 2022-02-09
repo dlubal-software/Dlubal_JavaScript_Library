@@ -20,7 +20,7 @@ if (H_1 === undefined) {
 	thickness_2 = 0.2;   // wall
 }
 
-// create material 
+// create material
 var materialConcrete = Material(1, 'LC50/55');    // Concrete
 var materialSteel = Material(2, 'S235');         // Steel
 
@@ -62,8 +62,6 @@ for (var j = 0; j < n_a + 1; ++j) {
         }
     }
 }
-
-
 // Create members
 var mem = new Member();
 var memberCount = 1;
@@ -242,17 +240,8 @@ for (var i = 0; i < n_b; ++i) {
 }
 secondFloor.push(no_mem + 4 * (n_b + 1) + 6 * n_b + 1);
 secondFloor.push(no_mem + 4 * (n_b + 1) + 6 * n_b + 3);
-
-// Create surface support
-var surfaceSupport = new SurfaceSupport();
-surfaceSupport.ShearX(true);
-surfaceSupport.ShearY(true);
-surfaceSupport.TranslationX(10000000);
-surfaceSupport.TranslationY(10000000);
-surfaceSupport.TranslationZ(30000000);
-
 // create floor
-sur.Standard(surfaceCount, surfaces.GEOMETRY_PLANE, "", firstFloor, 1, "", {"support": surfaceSupport.GetNo()});
+sur.Standard(surfaceCount, surfaces.GEOMETRY_PLANE, "", firstFloor, 1, "");
 var surface_support = new SurfaceSupport(undefined, surfaceCount, "Fixed");
 surface_support.Fixed();
 surfaceCount++;
@@ -300,8 +289,6 @@ for (var i = 0; i < 2; ++i) {
     openingCount++;
     memberCount++;
 }
-
-
 // Create concrete beams
 // Create nodes
 var no_no3 = nodes.lastId() + 1;

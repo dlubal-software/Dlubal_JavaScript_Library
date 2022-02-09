@@ -17,6 +17,22 @@ references:
   name: FreeCircularLoad(no, load_case, surfaces, comment, params)
   href: api/FreeCircularLoad.html#FreeCircularLoad__ctor
   fullName: FreeCircularLoad.FreeCircularLoad(no, load_case, surfaces, comment, params)
+- uid: FreeConcentratedLoad
+  name: FreeConcentratedLoad
+  href: api/FreeConcentratedLoad.html
+  fullName: FreeConcentratedLoad
+- uid: FreeConcentratedLoad#Force
+  name: Force(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+  href: api/FreeConcentratedLoad.html#FreeConcentratedLoad_Force
+  fullName: FreeConcentratedLoad.Force(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+- uid: FreeConcentratedLoad#Moment
+  name: Moment(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+  href: api/FreeConcentratedLoad.html#FreeConcentratedLoad_Moment
+  fullName: FreeConcentratedLoad.Moment(no, load_case, surfaces, load_values, load_projection, load_direction, load_acting_region_from, load_acting_region_to, comment, params)
+- uid: FreeConcentratedLoad.#ctor
+  name: FreeConcentratedLoad(no, load_case, surfaces, comment, params)
+  href: api/FreeConcentratedLoad.html#FreeConcentratedLoad__ctor
+  fullName: FreeConcentratedLoad.FreeConcentratedLoad(no, load_case, surfaces, comment, params)
 - uid: FreeLineLoad
   name: FreeLineLoad
   href: api/FreeLineLoad.html
@@ -333,6 +349,186 @@ references:
   name: Member(no, node_ids, comment, params)
   href: api/Member.html#Member__ctor
   fullName: Member.Member(no, node_ids, comment, params)
+- uid: MemberDefinableStiffness
+  name: MemberDefinableStiffness
+  href: api/MemberDefinableStiffness.html
+  fullName: MemberDefinableStiffness
+- uid: MemberDefinableStiffness#AxialAndShearStiffness
+  name: AxialAndShearStiffness(axial_stiffness, shear_stiffness_y, shear_stiffness_z)
+  href: api/MemberDefinableStiffness.html#MemberDefinableStiffness_AxialAndShearStiffness
+  fullName: MemberDefinableStiffness.AxialAndShearStiffness(axial_stiffness, shear_stiffness_y, shear_stiffness_z)
+- uid: MemberDefinableStiffness#MainAxesRotation
+  name: MainAxesRotation(rotation)
+  href: api/MemberDefinableStiffness.html#MemberDefinableStiffness_MainAxesRotation
+  fullName: MemberDefinableStiffness.MainAxesRotation(rotation)
+- uid: MemberDefinableStiffness#SelfWeight
+  name: SelfWeight(specific_weight, section_area)
+  href: api/MemberDefinableStiffness.html#MemberDefinableStiffness_SelfWeight
+  fullName: MemberDefinableStiffness.SelfWeight(specific_weight, section_area)
+- uid: MemberDefinableStiffness#ThermalExpansionCoefficient
+  name: ThermalExpansionCoefficient(thermal_expansion, width, height)
+  href: api/MemberDefinableStiffness.html#MemberDefinableStiffness_ThermalExpansionCoefficient
+  fullName: MemberDefinableStiffness.ThermalExpansionCoefficient(thermal_expansion, width, height)
+- uid: MemberDefinableStiffness#TorsionalAndBendingStiffness
+  name: TorsionalAndBendingStiffness(torsional_stiffness, bending_stiffness_y, bending_stiffness_z)
+  href: api/MemberDefinableStiffness.html#MemberDefinableStiffness_TorsionalAndBendingStiffness
+  fullName: MemberDefinableStiffness.TorsionalAndBendingStiffness(torsional_stiffness, bending_stiffness_y, bending_stiffness_z)
+- uid: MemberDefinableStiffness.#ctor
+  name: MemberDefinableStiffness(no, member_list, comment, params)
+  href: api/MemberDefinableStiffness.html#MemberDefinableStiffness__ctor
+  fullName: MemberDefinableStiffness.MemberDefinableStiffness(no, member_list, comment, params)
+- uid: MemberEccentricity
+  name: MemberEccentricity
+  href: api/MemberEccentricity.html
+  fullName: MemberEccentricity
+- uid: MemberEccentricity#Absolute
+  name: Absolute(no, members_start_list, members_end_list, offset_x, offset_y, offset_z, coordinate_system, comment, params)
+  href: api/MemberEccentricity.html#MemberEccentricity_Absolute
+  fullName: MemberEccentricity.Absolute(no, members_start_list, members_end_list, offset_x, offset_y, offset_z, coordinate_system, comment, params)
+- uid: MemberEccentricity#AxialOffset
+  name: AxialOffset(active)
+  href: api/MemberEccentricity.html#MemberEccentricity_AxialOffset
+  fullName: MemberEccentricity.AxialOffset(active)
+- uid: MemberEccentricity#HingeLocationAtNode
+  name: HingeLocationAtNode(active)
+  href: api/MemberEccentricity.html#MemberEccentricity_HingeLocationAtNode
+  fullName: MemberEccentricity.HingeLocationAtNode(active)
+- uid: MemberEccentricity#RelativeAndAbsolute
+  name: RelativeAndAbsolute(no, members_start_list, members_end_list, offset_x, offset_y, offset_z, coordinate_system, alignment, comment, params)
+  href: api/MemberEccentricity.html#MemberEccentricity_RelativeAndAbsolute
+  fullName: MemberEccentricity.RelativeAndAbsolute(no, members_start_list, members_end_list, offset_x, offset_y, offset_z, coordinate_system, alignment, comment, params)
+- uid: MemberEccentricity#RelativeToSection
+  name: RelativeToSection(no, members_start_list, members_end_list, alignment, comment, params)
+  href: api/MemberEccentricity.html#MemberEccentricity_RelativeToSection
+  fullName: MemberEccentricity.RelativeToSection(no, members_start_list, members_end_list, alignment, comment, params)
+- uid: MemberEccentricity#TransverseOffsetMember
+  name: TransverseOffsetMember(reference_member, reference_node, alignment)
+  href: api/MemberEccentricity.html#MemberEccentricity_TransverseOffsetMember
+  fullName: MemberEccentricity.TransverseOffsetMember(reference_member, reference_node, alignment)
+- uid: MemberEccentricity#TransverseOffsetNone
+  name: TransverseOffsetNone()
+  href: api/MemberEccentricity.html#MemberEccentricity_TransverseOffsetNone
+  fullName: MemberEccentricity.TransverseOffsetNone()
+- uid: MemberEccentricity#TransverseOffsetSurface
+  name: TransverseOffsetSurface(reference_surface, alignment)
+  href: api/MemberEccentricity.html#MemberEccentricity_TransverseOffsetSurface
+  fullName: MemberEccentricity.TransverseOffsetSurface(reference_surface, alignment)
+- uid: MemberEccentricity.#ctor
+  name: MemberEccentricity(no, members_start_list, members_end_list, comment, params)
+  href: api/MemberEccentricity.html#MemberEccentricity__ctor
+  fullName: MemberEccentricity.MemberEccentricity(no, members_start_list, members_end_list, comment, params)
+- uid: MemberHinge
+  name: MemberHinge
+  href: api/MemberHinge.html
+  fullName: MemberHinge
+- uid: MemberHinge#DiagramRotationalX
+  name: DiagramRotationalX(diagram_values)
+  href: api/MemberHinge.html#MemberHinge_DiagramRotationalX
+  fullName: MemberHinge.DiagramRotationalX(diagram_values)
+- uid: MemberHinge#DiagramRotationalY
+  name: DiagramRotationalY(diagram_values)
+  href: api/MemberHinge.html#MemberHinge_DiagramRotationalY
+  fullName: MemberHinge.DiagramRotationalY(diagram_values)
+- uid: MemberHinge#DiagramRotationalZ
+  name: DiagramRotationalZ(diagram_values)
+  href: api/MemberHinge.html#MemberHinge_DiagramRotationalZ
+  fullName: MemberHinge.DiagramRotationalZ(diagram_values)
+- uid: MemberHinge#DiagramTranslationalX
+  name: DiagramTranslationalX(diagram_values)
+  href: api/MemberHinge.html#MemberHinge_DiagramTranslationalX
+  fullName: MemberHinge.DiagramTranslationalX(diagram_values)
+- uid: MemberHinge#DiagramTranslationalY
+  name: DiagramTranslationalY(diagram_values)
+  href: api/MemberHinge.html#MemberHinge_DiagramTranslationalY
+  fullName: MemberHinge.DiagramTranslationalY(diagram_values)
+- uid: MemberHinge#DiagramTranslationalZ
+  name: DiagramTranslationalZ(diagram_values)
+  href: api/MemberHinge.html#MemberHinge_DiagramTranslationalZ
+  fullName: MemberHinge.DiagramTranslationalZ(diagram_values)
+- uid: MemberHinge#FrictionNPlusVyTranslationalZ
+  name: FrictionNPlusVyTranslationalZ(friction_coefficient_zx, friction_coefficient_zy, spring_constant_z)
+  href: api/MemberHinge.html#MemberHinge_FrictionNPlusVyTranslationalZ
+  fullName: MemberHinge.FrictionNPlusVyTranslationalZ(friction_coefficient_zx, friction_coefficient_zy, spring_constant_z)
+- uid: MemberHinge#FrictionNPlusVzTranslationalY
+  name: FrictionNPlusVzTranslationalY(friction_coefficient_yx, friction_coefficient_yz, spring_constant_y)
+  href: api/MemberHinge.html#MemberHinge_FrictionNPlusVzTranslationalY
+  fullName: MemberHinge.FrictionNPlusVzTranslationalY(friction_coefficient_yx, friction_coefficient_yz, spring_constant_y)
+- uid: MemberHinge#FrictionNTranslationalY
+  name: FrictionNTranslationalY(friction_coefficient_y, spring_constant_y)
+  href: api/MemberHinge.html#MemberHinge_FrictionNTranslationalY
+  fullName: MemberHinge.FrictionNTranslationalY(friction_coefficient_y, spring_constant_y)
+- uid: MemberHinge#FrictionNTranslationalZ
+  name: FrictionNTranslationalZ(friction_coefficient_z, spring_constant_z)
+  href: api/MemberHinge.html#MemberHinge_FrictionNTranslationalZ
+  fullName: MemberHinge.FrictionNTranslationalZ(friction_coefficient_z, spring_constant_z)
+- uid: MemberHinge#FrictionNVyTranslationalZ
+  name: FrictionNVyTranslationalZ(friction_coefficient_z, spring_constant_z)
+  href: api/MemberHinge.html#MemberHinge_FrictionNVyTranslationalZ
+  fullName: MemberHinge.FrictionNVyTranslationalZ(friction_coefficient_z, spring_constant_z)
+- uid: MemberHinge#FrictionNVzTranslationalY
+  name: FrictionNVzTranslationalY(friction_coefficient_y, spring_constant_y)
+  href: api/MemberHinge.html#MemberHinge_FrictionNVzTranslationalY
+  fullName: MemberHinge.FrictionNVzTranslationalY(friction_coefficient_y, spring_constant_y)
+- uid: MemberHinge#FrictionVyPlusVzTranslationalX
+  name: FrictionVyPlusVzTranslationalX(friction_coefficient_xy, friction_coefficient_xz, spring_constant_x)
+  href: api/MemberHinge.html#MemberHinge_FrictionVyPlusVzTranslationalX
+  fullName: MemberHinge.FrictionVyPlusVzTranslationalX(friction_coefficient_xy, friction_coefficient_xz, spring_constant_x)
+- uid: MemberHinge#FrictionVyTranslationalX
+  name: FrictionVyTranslationalX(friction_coefficient_x, spring_constant_x)
+  href: api/MemberHinge.html#MemberHinge_FrictionVyTranslationalX
+  fullName: MemberHinge.FrictionVyTranslationalX(friction_coefficient_x, spring_constant_x)
+- uid: MemberHinge#FrictionVyTranslationalZ
+  name: FrictionVyTranslationalZ(friction_coefficient_z, spring_constant_z)
+  href: api/MemberHinge.html#MemberHinge_FrictionVyTranslationalZ
+  fullName: MemberHinge.FrictionVyTranslationalZ(friction_coefficient_z, spring_constant_z)
+- uid: MemberHinge#FrictionVyVzTranslationalX
+  name: FrictionVyVzTranslationalX(friction_coefficient_x, spring_constant_x)
+  href: api/MemberHinge.html#MemberHinge_FrictionVyVzTranslationalX
+  fullName: MemberHinge.FrictionVyVzTranslationalX(friction_coefficient_x, spring_constant_x)
+- uid: MemberHinge#FrictionVzTranslationalX
+  name: FrictionVzTranslationalX(friction_coefficient_x, spring_constant_x)
+  href: api/MemberHinge.html#MemberHinge_FrictionVzTranslationalX
+  fullName: MemberHinge.FrictionVzTranslationalX(friction_coefficient_x, spring_constant_x)
+- uid: MemberHinge#FrictionVzTranslationalY
+  name: FrictionVzTranslationalY(friction_coefficient_y, spring_constant_y)
+  href: api/MemberHinge.html#MemberHinge_FrictionVzTranslationalY
+  fullName: MemberHinge.FrictionVzTranslationalY(friction_coefficient_y, spring_constant_y)
+- uid: MemberHinge#PartialActivityRotationalX
+  name: PartialActivityRotationalX(negative_zone_values, positive_zone_values)
+  href: api/MemberHinge.html#MemberHinge_PartialActivityRotationalX
+  fullName: MemberHinge.PartialActivityRotationalX(negative_zone_values, positive_zone_values)
+- uid: MemberHinge#PartialActivityRotationalY
+  name: PartialActivityRotationalY(negative_zone_values, positive_zone)
+  href: api/MemberHinge.html#MemberHinge_PartialActivityRotationalY
+  fullName: MemberHinge.PartialActivityRotationalY(negative_zone_values, positive_zone)
+- uid: MemberHinge#PartialActivityRotationalZ
+  name: PartialActivityRotationalZ(negative_zone_values, positive_zone_values)
+  href: api/MemberHinge.html#MemberHinge_PartialActivityRotationalZ
+  fullName: MemberHinge.PartialActivityRotationalZ(negative_zone_values, positive_zone_values)
+- uid: MemberHinge#PartialActivityTranslationalX
+  name: PartialActivityTranslationalX(negative_zone_values, positive_zone_values)
+  href: api/MemberHinge.html#MemberHinge_PartialActivityTranslationalX
+  fullName: MemberHinge.PartialActivityTranslationalX(negative_zone_values, positive_zone_values)
+- uid: MemberHinge#PartialActivityTranslationalY
+  name: PartialActivityTranslationalY(negative_zone_values, positive_zone_values)
+  href: api/MemberHinge.html#MemberHinge_PartialActivityTranslationalY
+  fullName: MemberHinge.PartialActivityTranslationalY(negative_zone_values, positive_zone_values)
+- uid: MemberHinge#PartialActivityTranslationalZ
+  name: PartialActivityTranslationalZ(negative_zone_values, positive_zone_values)
+  href: api/MemberHinge.html#MemberHinge_PartialActivityTranslationalZ
+  fullName: MemberHinge.PartialActivityTranslationalZ(negative_zone_values, positive_zone_values)
+- uid: MemberHinge#Rotational
+  name: Rotational(no, members_start_list, members_end_list, moment_release_mt, moment_release_my, moment_release_mz, comment, params)
+  href: api/MemberHinge.html#MemberHinge_Rotational
+  fullName: MemberHinge.Rotational(no, members_start_list, members_end_list, moment_release_mt, moment_release_my, moment_release_mz, comment, params)
+- uid: MemberHinge#Translational
+  name: Translational(no, members_start_list, members_end_list, axial_release_n, axial_release_vy, axial_release_vz, comment, params)
+  href: api/MemberHinge.html#MemberHinge_Translational
+  fullName: MemberHinge.Translational(no, members_start_list, members_end_list, axial_release_n, axial_release_vy, axial_release_vz, comment, params)
+- uid: MemberHinge.#ctor
+  name: MemberHinge(no, members_start_list, members_end_list, comment, params)
+  href: api/MemberHinge.html#MemberHinge__ctor
+  fullName: MemberHinge.MemberHinge(no, members_start_list, members_end_list, comment, params)
 - uid: MemberLoad
   name: MemberLoad
   href: api/MemberLoad.html
@@ -421,6 +617,74 @@ references:
   name: MemberLoad(no, load_case, members, comment, params)
   href: api/MemberLoad.html#MemberLoad__ctor
   fullName: MemberLoad.MemberLoad(no, load_case, members, comment, params)
+- uid: MemberNonlinearity
+  name: MemberNonlinearity
+  href: api/MemberNonlinearity.html
+  fullName: MemberNonlinearity
+- uid: MemberNonlinearity#FailureIfCompression
+  name: FailureIfCompression(no, members, comment, params)
+  href: api/MemberNonlinearity.html#MemberNonlinearity_FailureIfCompression
+  fullName: MemberNonlinearity.FailureIfCompression(no, members, comment, params)
+- uid: MemberNonlinearity#FailureIfCompressionWithSlippage
+  name: FailureIfCompressionWithSlippage(no, members, slippage, comment, params)
+  href: api/MemberNonlinearity.html#MemberNonlinearity_FailureIfCompressionWithSlippage
+  fullName: MemberNonlinearity.FailureIfCompressionWithSlippage(no, members, slippage, comment, params)
+- uid: MemberNonlinearity#FailureIfTension
+  name: FailureIfTension(no, members, comment, params)
+  href: api/MemberNonlinearity.html#MemberNonlinearity_FailureIfTension
+  fullName: MemberNonlinearity.FailureIfTension(no, members, comment, params)
+- uid: MemberNonlinearity#FailureIfTensionWithSlippage
+  name: FailureIfTensionWithSlippage(no, members, slippage, comment, params)
+  href: api/MemberNonlinearity.html#MemberNonlinearity_FailureIfTensionWithSlippage
+  fullName: MemberNonlinearity.FailureIfTensionWithSlippage(no, members, slippage, comment, params)
+- uid: MemberNonlinearity#Slippage
+  name: Slippage(no, members, slippage, comment, params)
+  href: api/MemberNonlinearity.html#MemberNonlinearity_Slippage
+  fullName: MemberNonlinearity.Slippage(no, members, slippage, comment, params)
+- uid: MemberNonlinearity#Tearing
+  name: Tearing(no, members, compression_force, tension_force, comment, params)
+  href: api/MemberNonlinearity.html#MemberNonlinearity_Tearing
+  fullName: MemberNonlinearity.Tearing(no, members, compression_force, tension_force, comment, params)
+- uid: MemberNonlinearity#TearingUnderCompression
+  name: TearingUnderCompression(no, members, compression_force, comment, params)
+  href: api/MemberNonlinearity.html#MemberNonlinearity_TearingUnderCompression
+  fullName: MemberNonlinearity.TearingUnderCompression(no, members, compression_force, comment, params)
+- uid: MemberNonlinearity#TearingUnderTension
+  name: TearingUnderTension(no, members, tension_force, comment, params)
+  href: api/MemberNonlinearity.html#MemberNonlinearity_TearingUnderTension
+  fullName: MemberNonlinearity.TearingUnderTension(no, members, tension_force, comment, params)
+- uid: MemberNonlinearity#Yielding
+  name: Yielding(no, members, compression_force, tension_force, comment, params)
+  href: api/MemberNonlinearity.html#MemberNonlinearity_Yielding
+  fullName: MemberNonlinearity.Yielding(no, members, compression_force, tension_force, comment, params)
+- uid: MemberNonlinearity#YieldingUnderCompression
+  name: YieldingUnderCompression(no, members, compression_force, comment, params)
+  href: api/MemberNonlinearity.html#MemberNonlinearity_YieldingUnderCompression
+  fullName: MemberNonlinearity.YieldingUnderCompression(no, members, compression_force, comment, params)
+- uid: MemberNonlinearity#YieldingUnderTension
+  name: YieldingUnderTension(no, members, tension_force, comment, params)
+  href: api/MemberNonlinearity.html#MemberNonlinearity_YieldingUnderTension
+  fullName: MemberNonlinearity.YieldingUnderTension(no, members, tension_force, comment, params)
+- uid: MemberNonlinearity.#ctor
+  name: MemberNonlinearity(no, comment, params)
+  href: api/MemberNonlinearity.html#MemberNonlinearity__ctor
+  fullName: MemberNonlinearity.MemberNonlinearity(no, comment, params)
+- uid: MemberResultIntermediatePoint
+  name: MemberResultIntermediatePoint
+  href: api/MemberResultIntermediatePoint.html
+  fullName: MemberResultIntermediatePoint
+- uid: MemberResultIntermediatePoint#DivisionOrdinates
+  name: DivisionOrdinates(division_ordinates, notes, absolute, clear_ordinates)
+  href: api/MemberResultIntermediatePoint.html#MemberResultIntermediatePoint_DivisionOrdinates
+  fullName: MemberResultIntermediatePoint.DivisionOrdinates(division_ordinates, notes, absolute, clear_ordinates)
+- uid: MemberResultIntermediatePoint#UniformDistances
+  name: UniformDistances(divisions_count, notes)
+  href: api/MemberResultIntermediatePoint.html#MemberResultIntermediatePoint_UniformDistances
+  fullName: MemberResultIntermediatePoint.UniformDistances(divisions_count, notes)
+- uid: MemberResultIntermediatePoint.#ctor
+  name: MemberResultIntermediatePoint(no, members, comment, params)
+  href: api/MemberResultIntermediatePoint.html#MemberResultIntermediatePoint__ctor
+  fullName: MemberResultIntermediatePoint.MemberResultIntermediatePoint(no, members, comment, params)
 - uid: MemberSet
   name: MemberSet
   href: api/MemberSet.html
@@ -521,6 +785,38 @@ references:
   name: MemberSetLoad(no, load_case, member_sets, comment, params)
   href: api/MemberSetLoad.html#MemberSetLoad__ctor
   fullName: MemberSetLoad.MemberSetLoad(no, load_case, member_sets, comment, params)
+- uid: MemberStiffnessModification
+  name: MemberStiffnessModification
+  href: api/MemberStiffnessModification.html
+  fullName: MemberStiffnessModification
+- uid: MemberStiffnessModification#ConcreteStructuresAci
+  name: ConcreteStructuresAci(component_type)
+  href: api/MemberStiffnessModification.html#MemberStiffnessModification_ConcreteStructuresAci
+  fullName: MemberStiffnessModification.ConcreteStructuresAci(component_type)
+- uid: MemberStiffnessModification#ConcreteStructuresCsa
+  name: ConcreteStructuresCsa(component_type)
+  href: api/MemberStiffnessModification.html#MemberStiffnessModification_ConcreteStructuresCsa
+  fullName: MemberStiffnessModification.ConcreteStructuresCsa(component_type)
+- uid: MemberStiffnessModification#PartialStiffnessFactors
+  name: PartialStiffnessFactors(axial_stiffness, bending_stiffness_y, bending_stiffness_z, shear_stiffness_y, shear_stiffness_z, torsional_stiffness, weight)
+  href: api/MemberStiffnessModification.html#MemberStiffnessModification_PartialStiffnessFactors
+  fullName: MemberStiffnessModification.PartialStiffnessFactors(axial_stiffness, bending_stiffness_y, bending_stiffness_z, shear_stiffness_y, shear_stiffness_z, torsional_stiffness, weight)
+- uid: MemberStiffnessModification#SteelStructuresAisc
+  name: SteelStructuresAisc(determine_tau_b, design_method)
+  href: api/MemberStiffnessModification.html#MemberStiffnessModification_SteelStructuresAisc
+  fullName: MemberStiffnessModification.SteelStructuresAisc(determine_tau_b, design_method)
+- uid: MemberStiffnessModification#SteelStructuresCSA
+  name: SteelStructuresCSA(determine_tau_b, axial_stiffness, bending_stiffness_y, bending_stiffness_z, shear_stiffness_y, shear_stiffness_z, torsional_stiffness)
+  href: api/MemberStiffnessModification.html#MemberStiffnessModification_SteelStructuresCSA
+  fullName: MemberStiffnessModification.SteelStructuresCSA(determine_tau_b, axial_stiffness, bending_stiffness_y, bending_stiffness_z, shear_stiffness_y, shear_stiffness_z, torsional_stiffness)
+- uid: MemberStiffnessModification#TotalStiffnessFactor
+  name: TotalStiffnessFactor(total_stiffness)
+  href: api/MemberStiffnessModification.html#MemberStiffnessModification_TotalStiffnessFactor
+  fullName: MemberStiffnessModification.TotalStiffnessFactor(total_stiffness)
+- uid: MemberStiffnessModification.#ctor
+  name: MemberStiffnessModification(no, structure_modifications, comment, params)
+  href: api/MemberStiffnessModification.html#MemberStiffnessModification__ctor
+  fullName: MemberStiffnessModification.MemberStiffnessModification(no, structure_modifications, comment, params)
 - uid: NodalLoad
   name: NodalLoad
   href: api/NodalLoad.html
@@ -561,6 +857,34 @@ references:
   name: NodalLoad(no, load_case, nodes, comment, params)
   href: api/NodalLoad.html#NodalLoad__ctor
   fullName: NodalLoad.NodalLoad(no, load_case, nodes, comment, params)
+- uid: Node
+  name: Node
+  href: api/Node.html
+  fullName: Node
+- uid: Node#BetweenTwoNodes
+  name: BetweenTwoNodes(no, start_node_no, end_node_no, node_reference, parameters, offset_y, offset_z, comment, params)
+  href: api/Node.html#Node_BetweenTwoNodes
+  fullName: Node.BetweenTwoNodes(no, start_node_no, end_node_no, node_reference, parameters, offset_y, offset_z, comment, params)
+- uid: Node#BetweenTwoPoints
+  name: BetweenTwoPoints(no, start_point, end_point, node_reference, parameters, offset_y, offset_z, comment, params)
+  href: api/Node.html#Node_BetweenTwoPoints
+  fullName: Node.BetweenTwoPoints(no, start_point, end_point, node_reference, parameters, offset_y, offset_z, comment, params)
+- uid: Node#OnLine
+  name: OnLine(no, line_number, node_reference, parameters, comment, params)
+  href: api/Node.html#Node_OnLine
+  fullName: Node.OnLine(no, line_number, node_reference, parameters, comment, params)
+- uid: Node#OnMember
+  name: OnMember(no, member_number, node_reference, parameters, comment, params)
+  href: api/Node.html#Node_OnMember
+  fullName: Node.OnMember(no, member_number, node_reference, parameters, comment, params)
+- uid: Node#Standard
+  name: Standard(no, coordinate_system, coordinate_system_type, comment, params)
+  href: api/Node.html#Node_Standard
+  fullName: Node.Standard(no, coordinate_system, coordinate_system_type, comment, params)
+- uid: Node.#ctor
+  name: Node(no, coordinate_X, coordinate_Y, coordinate_Z, comment, params)
+  href: api/Node.html#Node__ctor
+  fullName: Node.Node(no, coordinate_X, coordinate_Y, coordinate_Z, comment, params)
 - uid: Opening
   name: Opening
   href: api/Opening.html
@@ -693,6 +1017,26 @@ references:
   name: SolidSetLoad(no, load_case, solid_sets, comment, params)
   href: api/SolidSetLoad.html#SolidSetLoad__ctor
   fullName: SolidSetLoad.SolidSetLoad(no, load_case, solid_sets, comment, params)
+- uid: StaticAnalysisSettings
+  name: StaticAnalysisSettings
+  href: api/StaticAnalysisSettings.html
+  fullName: StaticAnalysisSettings
+- uid: StaticAnalysisSettings#LargeDeformations
+  name: LargeDeformations(equationSolver, nonlinearMethod)
+  href: api/StaticAnalysisSettings.html#StaticAnalysisSettings_LargeDeformations
+  fullName: StaticAnalysisSettings.LargeDeformations(equationSolver, nonlinearMethod)
+- uid: StaticAnalysisSettings#Linear
+  name: Linear()
+  href: api/StaticAnalysisSettings.html#StaticAnalysisSettings_Linear
+  fullName: StaticAnalysisSettings.Linear()
+- uid: StaticAnalysisSettings#SecondOrder
+  name: SecondOrder(equationSolver, nonlinearMethod)
+  href: api/StaticAnalysisSettings.html#StaticAnalysisSettings_SecondOrder
+  fullName: StaticAnalysisSettings.SecondOrder(equationSolver, nonlinearMethod)
+- uid: StaticAnalysisSettings.#ctor
+  name: StaticAnalysisSettings(no, analysisType, equationSolver, nonlinearMethod, comment, params)
+  href: api/StaticAnalysisSettings.html#StaticAnalysisSettings__ctor
+  fullName: StaticAnalysisSettings.StaticAnalysisSettings(no, analysisType, equationSolver, nonlinearMethod, comment, params)
 - uid: Surface
   name: Surface
   href: api/Surface.html

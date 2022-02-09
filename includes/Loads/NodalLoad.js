@@ -16,7 +16,7 @@ function NodalLoad(no,
 				   nodes,
 				   comment,
 				   params)
-{	
+{
 	if (arguments.length !== 0)
 	{
 		return this.load = createBaseLoad("Nodal_Load", no, load_case, nodes, comment, params);

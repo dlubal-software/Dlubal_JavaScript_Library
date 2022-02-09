@@ -259,9 +259,8 @@ Thickness.prototype.Layers = function (no,
     set_comment_and_parameters(this.thickness, comment, params);
 };
 
-
 /**
- * Create Shape                                                         Orthotropy thickness
+ * Create Shape Orthotropy thickness
  * @param {int} no - Number of Thickness
  * @param {string} name - Name of the Thickness
  * @param {array} layers - List of layers
@@ -329,7 +328,6 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         this.thickness.rib_width_x = parameters[5];
         this.thickness.rib_width_y = parameters[6];
     }
-
 
     if (orthotropy_type == thicknesses.ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET) {
         ASSERT(parameters.length == 5, "WARNING: The properties parameter needs to be of length 5. Kindly check list inputs for completeness and correctness.");

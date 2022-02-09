@@ -15,7 +15,7 @@ if (n === undefined) {
 
 FORM_FINDING.setActive(true);
 ASSERT(n > 2, "Number of edges should be more than 2");
-// Material 
+// Material
 var materialSteel = Material(1, 'S235');                    // Steel
 var materialMembrane = Material(2, 'PES-PVC Typ II');       // Membrane
 materialMembrane.material_model = materials.MODEL_ORTHOTROPIC_2D;

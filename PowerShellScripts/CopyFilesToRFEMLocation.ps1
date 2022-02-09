@@ -2,7 +2,7 @@ Function Get-Folder($initialDirectory="")
 {
     [System.Reflection.Assembly]::LoadWithPartialName("System.windows.forms")|Out-Null
 
-    $foldername = New-Object System.Windows.Forms.FolderBrowserDialog 
+    $foldername = New-Object System.Windows.Forms.FolderBrowserDialog
     $foldername.Description = "Please enter path to RFEM installation, where you want to copy library"
     $foldername.rootfolder = "MyComputer"
     $foldername.SelectedPath = $initialDirectory
@@ -23,7 +23,7 @@ $PathToRFEMScriptsInclude = $PathToRFEM + "\\scripts\\includes\"
 $PathToRFEMExamples = $PathToRFEM + "\\scripts\\examples\"
 try
 {
-    Remove-Item PathToRFEMScriptsInclude+"*.*" -Force -Recurse -ErrorAction 
+    Remove-Item PathToRFEMScriptsInclude+"*.*" -Force -Recurse -ErrorAction
 }
 catch
 {

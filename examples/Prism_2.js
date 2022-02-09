@@ -8,11 +8,11 @@ if (r === undefined) {
 	r = 4;        // Radius of Bottom polygon
 	H = 4;        // Height
 	console.log(H)
-};
+}
 
 ASSERT(n > 2, "Number of edges should be more than 2");
 
-// Create material 
+// Create material
 var material = Material(1, 'LC50/55');
 
 // Create Lines

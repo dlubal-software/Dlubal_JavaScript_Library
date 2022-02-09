@@ -9,7 +9,7 @@ if (!RFEM) {
 // var rib_spacing = 0.5;       // Rib spacing
 // var rib_width = 0.18;        // Rib Width
 
-// create material 
+// create material
 var materialConcrete = Material(1, 'LC50/55');    // Concrete
 
 // Create thickness

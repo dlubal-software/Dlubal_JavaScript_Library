@@ -46,6 +46,3 @@ Examples can be found under [Examples](/examples) folder.
 
 ## Contribute
 Contributions are always welcome! Please ensure your pull request adheres to the following guidelines [Contributing](/CONTRIBUTING.md)
-
-
-
