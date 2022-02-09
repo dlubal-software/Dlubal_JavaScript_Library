@@ -14,13 +14,13 @@ var SASSecondOrder = new StaticAnalysisSettings().SecondOrder(2, "MySASLinear", 
 var SASLargeDeformation = new StaticAnalysisSettings().LargeDeformations(3, "MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON", 100, 1, undefined, "PLATE_BENDING_THEORY_KIRCHHOFF", [true, 2.0, 3.0, 4.0], [true, 5, true]);
 // Modal
 DYNAMIC_ANALYSIS.MODAL.setActive(true);
-// var MAS = new ModalAnalysisSettings();
+var MAS = new ModalAnalysisSettings();
 
-// // dirrect access to  static analysis settings
+// dirrect access to  static analysis settings
 // MAS.settings.comment = "Access via .settings";
 // MAS.settings.mass_conversion_type = modal_analysis_settings.MASS_CONVERSION_TYPE_FULL_LOADS_AS_MASS;
 
-// new ModalAnalysisSettings(undefined, 6);
+new ModalAnalysisSettings(undefined, 6);
 // new ModalAnalysisSettings(undefined, "auto");
 // new ModalAnalysisSettings(undefined, x);
 // new ModalAnalysisSettings(10, 8);
