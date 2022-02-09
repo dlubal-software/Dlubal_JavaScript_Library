@@ -2,16 +2,18 @@
 
 run("/clearAll.js");
 
-var SAS = new StaticAnalysisSettings();
-SAS.SetMaxNumberOfItrations(600);
-SAS.SetNumberOfLoadIncremets(4);
+// var SAS = new StaticAnalysisSettings();
+// SAS.SetMaxNumberOfItrations(600);
+// SAS.SetNumberOfLoadIncremets(4);
 
-var SAS1 = new StaticAnalysisSettings(undefined, "und", "iterative");
+// var SAS1 = new StaticAnalysisSettings(undefined, "und", "iterative");
 
-var SAS2 = new StaticAnalysisSettings(undefined, "second order", "iterative", "Postcritical" );
-SAS2.SetMaxNumberOfItrations(600);
-SAS2.SetNumberOfLoadIncremets(4);
+// var SAS2 = new StaticAnalysisSettings(undefined, "second order", "iterative", "Postcritical" );
+// SAS2.SetMaxNumberOfItrations(600);
+// SAS2.SetNumberOfLoadIncremets(4);
 
+var SAS1 = new StaticAnalysisSettings().GeometricallyLinear(undefined,"MySASLinear","METHOD_OF_EQUATION_SYSTEM_DIRECT","PLATE_BENDING_THEORY_KIRCHHOFF",[true,2.0,3.0,4.0],[true,5,true]);
+var SAS2 = new StaticAnalysisSettings().SecondOrder(undefined,"MySASLinear","METHOD_OF_EQUATION_SYSTEM_DIRECT","NEWTON_RAPHSON",100,1,"PLATE_BENDING_THEORY_KIRCHHOFF",[true,2.0,3.0,4.0],[true,5,true]);
 
 DYNAMIC_ANALYSIS.MODAL.setActive(true);
 var MAS = new ModalAnalysisSettings();
@@ -99,7 +101,7 @@ LC3.settings.time_being_investigated = 20e5; // in sec. converted to days in RFE
 LC3.settings.loading_start = 3e5;
 console.log(Object.keys(LC3.settings));
 var LC4 = new LoadCase(undefined,"static");
-LC4.settings.static_analysis_settings = SAS2.settings;
+LC4.settings.static_analysis_settings = SAS2.SAS;
 LC4.settings.calculate_critical_load = true;
 LC4.settings.stability_analysis_settings = StAS03.settings;
 var LC5 = new LoadCase(undefined,"DTA");

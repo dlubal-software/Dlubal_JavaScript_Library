@@ -21,22 +21,22 @@ $PathToRFEM = Get-Folder
 Write-Output "You have selected: $PathToRFEM"
 $PathToRFEMScriptsInclude = $PathToRFEM + "\\scripts\\includes\"
 $PathToRFEMExamples = $PathToRFEM + "\\scripts\\examples\"
-try
-{
-    Remove-Item PathToRFEMScriptsInclude+"*.*" -Force -Recurse -ErrorAction
-}
-catch
-{
-    Write-Host "Deleting"  $PathToRFEMScriptsInclude "Failure"
-}
-try
-{
-    Remove-Item PathToRFEMExamples+"*.*" -Force -Recurse -ErrorAction
-}
-catch
-{
-    Write-Host "Deleting"  $PathToRFEMExamples "Failure"
-}
+# try
+# {
+#    Remove-Item PathToRFEMScriptsInclude+"*.*" -Force -Recurse -ErrorAction
+# }
+# catch
+# {
+#     Write-Host "Deleting"  $PathToRFEMScriptsInclude "Failure"
+# }
+# try
+# {
+#     Remove-Item PathToRFEMExamples+"*.*" -Force -Recurse -ErrorAction
+# }
+# catch
+# {
+#     Write-Host "Deleting"  $PathToRFEMExamples "Failure"
+# }
 
 try
 {
