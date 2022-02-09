@@ -12,7 +12,7 @@ function SetPeriodicCombinationRule(rule) {
       console.log("Wrong periodic combination rule method input. Value was: " + rule);
       console.log("Correct values are: ( " + Object.keys(CombinationRule_dict) + ")");
     }
-  return CombinationRule;  
+  return CombinationRule;
 }
 
 function SetDirrectionalCombinationRule(rule) {
@@ -29,10 +29,8 @@ function SetDirrectionalCombinationRule(rule) {
       console.log("Wrong dirrection combination rule method input. Value was: " + rule);
       console.log("Correct values are: ( " + Object.keys(CombinationRule_dict) + ")");
     }
-  return CombinationRule;  
+  return CombinationRule;
 }
-
-
 // Main function
 function WindSimulationSettings(no,
                                 density,
@@ -43,7 +41,7 @@ function WindSimulationSettings(no,
 {
 
    /**
-  * Creates wind simulation analysis settings hight level function 
+  * Creates wind simulation analysis settings hight level function
 
   * @param   {Float}      density                 number between 1 and 2
   * @param   {Float}      kinematicViscosity      number between 1e-6 and 1e-4
@@ -56,14 +54,14 @@ function WindSimulationSettings(no,
   ASSERT(typeof type != undefined || typeof name != "string", "Name must be assigned as a string.");
 
     if (no === undefined) {
-    	var WSAS = wind_simulation_analysis_settings.create();	
+    	var WSAS = wind_simulation_analysis_settings.create();
     }
     else {
     	var WSAS = wind_simulation_analysis_settings.create(no);
 	}
 
   console.log("New wind simulation analysis settings no. " + WSAS.no + " was created");
-  
+
   // Spectral anlysis settings : combination rules
   if (density != undefined) {
     WSAS.density = density;
@@ -76,9 +74,6 @@ function WindSimulationSettings(no,
   if (consider_turbulence != undefined) {
     WSAS.consider_turbulence = consider_turbulence;
   }
-
- 
-
 	// Wind simulation analysis settings
 	this.settings = WSAS;
   set_comment_and_parameters(this.settings, comment, params);

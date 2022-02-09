@@ -6,11 +6,11 @@ function LoadCase(no,
   params) {
 
   /**
-   * Creates Load case hight level function 
- 
+   * Creates Load case hight level function
+
    * @param   {Integer}              no                  unique ID of Load case
    * @param   {String}               analysisType        LC analysis_type parameter
-   * @param   {Integer}              analysisSettings    LC analysis settings no. according to analysis type 
+   * @param   {Integer}              analysisSettings    LC analysis settings no. according to analysis type
    * @param   {Integer}              stabilityAnalysis   LC stability analysis no. (if is allowed to set)
    * @param   {String}               comment             Comment, empty by default
    * @param   {Object}               params              Load case parameters, empty by default
@@ -47,10 +47,8 @@ function LoadCase(no,
   var self = this;
   return self;
 }
-
-
 LoadCase.prototype.SetStabilityAnalysis = function (stabilityAnalysisSetings_no, LC) {
-  // * @param   {integer}   stabilityAnalysisSetings_no         unique ID of stability analysis settings  
+  // * @param   {integer}   stabilityAnalysisSetings_no         unique ID of stability analysis settings
   ASSERT(typeof stabilityAnalysisSetings_no != undefined || typeof stabilityAnalysisSetings_no != "number", "Parameter must be assigned as an integer.");
   if (LC != undefined) {
     var self = LC;
@@ -62,8 +60,6 @@ LoadCase.prototype.SetStabilityAnalysis = function (stabilityAnalysisSetings_no,
   self.settings.stability_analysis_settings = stability_analysis_settings[stabilityAnalysisSetings_no];
   return self.settings
 };
-
-
 LoadCase.prototype.SetTime = function (startTime, duration) {
   // * @param   {float}   startTime         analysis start time
   // * @param   {float}   duration          analysis duration (input in second, RFEM dialog in days)
@@ -82,8 +78,6 @@ LoadCase.prototype.SetTime = function (startTime, duration) {
     console.log("This analyse is not time dependent.")
   }
 };
-
-
 LoadCase.prototype.SetAnalysisType = function (type) {
   const AnalysisType_dict = {
     undefined: "ANALYSIS_TYPE_STATIC",
@@ -105,9 +99,6 @@ LoadCase.prototype.SetAnalysisType = function (type) {
   console.log("Analysis type: " + AType);
   return AType;
 };
-
-
-
 LoadCase.prototype.SetStaticAnalysis = function (settings_static_no, undefined, LC) {
   if (settings_static_no === undefined) {
     settings_static_no = 1;
@@ -184,8 +175,6 @@ LoadCase.prototype.SetSpectralAnalysis = function (settings_spectral_no, dirrect
     default:
       self.settings.response_spectrum_is_enabled_in_direction_x = true;
   }
-
-
   self.settings.spectral_analysis_settings = spectral_analysis_settings[settings_spectral_no];
   return self.settings
 };
@@ -209,8 +198,6 @@ LoadCase.prototype.SetWindSimulationAnalysis = function (settings, settings_wind
   self.settings.wind_simulation_wind_profile = wind_profiles[1];
   return self.settings
 };
-
-
 LoadCase.prototype.AnalysisSettings_dict = function (LC, atype) {
   const atype_dict = {
     "ANALYSIS_TYPE_STATIC": LC.SetStaticAnalysis,

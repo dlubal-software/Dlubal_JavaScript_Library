@@ -316,20 +316,20 @@ StaticAnalysisSettings.prototype.SecondOrder = function (no, name, equationSolve
 };
 
 /**
- * 
- * @param {*} no 
- * @param {*} name 
- * @param {*} equationSolver 
- * @param {*} nonlinearMethod 
- * @param {*} maxNumberOfIterations 
- * @param {*} numberOfLoadIncrements 
- * @param {*} percentageOfIterations 
- * @param {*} plateBendingTheory 
- * @param {*} activeMass 
- * @param {*} modifyLoading 
- * @param {*} comment 
- * @param {*} params 
- * @returns 
+ *
+ * @param {*} no
+ * @param {*} name
+ * @param {*} equationSolver
+ * @param {*} nonlinearMethod
+ * @param {*} maxNumberOfIterations
+ * @param {*} numberOfLoadIncrements
+ * @param {*} percentageOfIterations
+ * @param {*} plateBendingTheory
+ * @param {*} activeMass
+ * @param {*} modifyLoading
+ * @param {*} comment
+ * @param {*} params
+ * @returns
  */
 StaticAnalysisSettings.prototype.LargeDeformations = function (no, name, equationSolver, nonlinearMethod, maxNumberOfIterations, numberOfLoadIncrements, percentageOfIterations, plateBendingTheory, activeMass, modifyLoading, comment, params) {
 

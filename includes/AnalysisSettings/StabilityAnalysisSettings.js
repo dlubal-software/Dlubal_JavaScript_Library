@@ -18,7 +18,7 @@ function StabilityAnalysisType(eigenValue, incremental) {
             return "INCREMENTALY_METHOD_WITH_EIGENVALUE";
             break;
     }
-  } 
+  }
 }
 
 function SetEigenValueMethod(method) {
@@ -36,11 +36,8 @@ function SetEigenValueMethod(method) {
       console.log("Wrong eigenvalue solver method input. Value was: " + method);
       console.log("Correct values are: ( " + Object.keys(eigenValueMethods_dict) + ")");
     }
-  return eigenValueMethod;  
+  return eigenValueMethod;
 }
-
-
-
 // Main function
 function StabilityAnalysisSettings(no,
                                 isEigenvalueSolver,
@@ -52,7 +49,7 @@ function StabilityAnalysisSettings(no,
 {
 
    /**
-  * Creates stability analysis settings hight level function 
+  * Creates stability analysis settings hight level function
 
   * @param   {Boolean}    isEigenvalueSolver             is eigenvalue solver
   * @param   {Boolean}    isIncremental                  is incremental method
@@ -66,7 +63,7 @@ function StabilityAnalysisSettings(no,
   ASSERT(typeof type != undefined || typeof name != "string", "Name must be assigned as a string.");
 
     if (no === undefined) {
-    	var StAS = stability_analysis_settings.create();	
+    	var StAS = stability_analysis_settings.create();
     }
     else {
     	var StAS = stability_analysis_settings.create(no);

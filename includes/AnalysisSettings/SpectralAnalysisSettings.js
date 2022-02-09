@@ -12,7 +12,7 @@ function SetPeriodicCombinationRule(rule) {
       console.log("Wrong periodic combination rule method input. Value was: " + rule);
       console.log("Correct values are: ( " + Object.keys(CombinationRule_dict) + ")");
     }
-  return CombinationRule;  
+  return CombinationRule;
 }
 
 function SetDirrectionalCombinationRule(rule) {
@@ -29,10 +29,8 @@ function SetDirrectionalCombinationRule(rule) {
       console.log("Wrong dirrection combination rule method input. Value was: " + rule);
       console.log("Correct values are: ( " + Object.keys(CombinationRule_dict) + ")");
     }
-  return CombinationRule;  
+  return CombinationRule;
 }
-
-
 // Main function
 function SpectralAnalysisSettings(no,
                                 combinationRulePeriodic,
@@ -45,7 +43,7 @@ function SpectralAnalysisSettings(no,
 {
 
    /**
-  * Creates spectral analysis settings hight level function 
+  * Creates spectral analysis settings hight level function
 
   * @param   {String}     combinationRulePeriodic             combination rule for periodic responses
   * @param   {String}     combinationRuleDirrectional         combination rule for directional components
@@ -60,14 +58,14 @@ function SpectralAnalysisSettings(no,
   ASSERT(typeof type != undefined || typeof name != "string", "Name must be assigned as a string.");
 
     if (no === undefined) {
-    	var SpAS = spectral_analysis_settings.create();	
+    	var SpAS = spectral_analysis_settings.create();
     }
     else {
     	var SpAS = spectral_analysis_settings.create(no);
 	}
 
   console.log("New spectral analysis settings no. " + SpAS.no + " was created");
-  
+
   // Spectral anlysis settings : combination rules
   if (combinationRulePeriodic != undefined) {
     SpAS.combination_rule_for_periodic_responses = spectral_analysis_settings[SetPeriodicCombinationRule(combinationRulePeriodic)];

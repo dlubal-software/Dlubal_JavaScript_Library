@@ -23,8 +23,6 @@ MAS.settings.comment = "Access via .settings";
 MAS.settings.mass_conversion_type = modal_analysis_settings.MASS_CONVERSION_TYPE_FULL_LOADS_AS_MASS;
 
 var MAS1 = new ModalAnalysisSettings(undefined, 6);
-
-
 STRUCTURE_STABILITY.setActive(true);
 
 var StAS = new StabilityAnalysisSettings();
@@ -35,8 +33,6 @@ StAS.settings.matrix_type = stability_analysis_settings.MATRIX_TYPE_UNIT;
 var StAS01 = new StabilityAnalysisSettings(undefined,true,true);
 var StAS02 = new StabilityAnalysisSettings(undefined,true,false);
 var StAS03 = new StabilityAnalysisSettings(undefined,false);
-
-
 DYNAMIC_ANALYSIS.SPECTRAL.setActive(true);
 
 var SpAS = new SpectralAnalysisSettings();
@@ -48,8 +44,6 @@ var SpAS01 = new SpectralAnalysisSettings(undefined, "CQC", "Scaled");
 // WIND SIMULATION
 WIND_SIMULATION.setActive(true);
 TIME_DEPENDENT.setActive(true);
-
-
 var WSAS = new WindSimulationSettings();
 WSAS.settings.maximum_number_of_iterations = 1000;
 WSAS.settings.use_second_order_numerical_scheme = true;
@@ -61,8 +55,6 @@ var WSAS01 = new WindSimulationSettings(undefined, 1.3, 32e-6);
 var WSAS02 = new WindSimulationSettings(undefined, 1.7, 1e-6);
 
  // #########   Example load cases
-
-
  /**
 function LoadCase(no,
                    analysisType,
@@ -72,15 +64,15 @@ function LoadCase(no,
                    params)
 {
 
-  * Creates Load case hight level function 
+  * Creates Load case hight level function
 
   * @param   {Integer}              no                  unique ID of Load case
   * @param   {String}               analysisType        LC analysis_type parameter
-  * @param   {Integer}              analysisSettings    LC analysis settings no. according to analysis type 
+  * @param   {Integer}              analysisSettings    LC analysis settings no. according to analysis type
   * @param   {Integer}              stabilityAnalysis   LC stability analysis no. (if is allowed to set)
   * @param   {String}               comment             Comment, empty by default
   * @param   {Object}               params              Load case parameters, empty by default
-  */  
+  */
 
 var LC = new LoadCase();
 LC.SetStabilityAnalysis(2);
