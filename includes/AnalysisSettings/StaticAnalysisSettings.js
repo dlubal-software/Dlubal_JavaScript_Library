@@ -32,7 +32,7 @@ function plateBendingTheoryType(type) {
   return PlateType;
 }
 
-function NonlinearMethods(type, method) {
+function NonlinearMethodsType(type, method) {
 
   const nonlinearMethods_secondOrder_dict = {
     "NEWTON_RAPHSON": "NEWTON_RAPHSON",
@@ -71,7 +71,7 @@ function NonlinearMethods(type, method) {
   return nonlinear_method;
 }
 
-function SetEquationSolver(solverType) {
+function EquationSolverType(solverType) {
 
   const EquationSolver_dict = {
     METHOD_OF_EQUATION_SYSTEM_DIRECT: "METHOD_OF_EQUATION_SYSTEM_DIRECT",
@@ -91,9 +91,9 @@ function SetEquationSolver(solverType) {
   * @class
   * @constructor
   * @param   {Integer}         no                  unique ID of SAS
-  * @param   {String}          analysisType        Analysis setting type ("linear", "second order", "large deformations")
-  * @param   {String}          equationSolver      Equation solver ("direct", "iterative")
-  * @param   {String}          nonlinearMethod     Nonlinear method ("Picard", "Combined", "Postcritical", "Newton", "Constant stiffness", "Dynamic" )
+  * @param   {String}          analysisType        Analysis setting type ("GEOMETRICALLY_LINEAR", "SECOND_ORDER_P_DELTA", "LARGE_DEFORMATIONS")
+  * @param   {String}          equationSolver      Equation solver ("METHOD_OF_EQUATION_SYSTEM_DIRECT", "METHOD_OF_EQUATION_SYSTEM_ITERATIVE")
+  * @param   {String}          nonlinearMethod     Nonlinear method ("NEWTON_RAPHSON", "NEWTON_RAPHSON_COMBINED_WITH_PICARD", "PICARD", "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS", "NEWTON_RAPHSON_WITH_CONSTANT_STIFFNESS", "DYNAMIC_RELAXATION" )
   * @param   {String}          comment             Comment, empty by default
   * @param   {Object}          params              Static analysis settings parameters, empty by default
  * @returns Static Analysis object
@@ -105,37 +105,32 @@ function StaticAnalysisSettings(no,
   comment,
   params) {
 
-  if (arguments.length != 0) {
+  if (arguments.length !== 0) {
     ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
     ASSERT(typeof analysisType != undefined || typeof name != "string", "Name must be assigned as a string.");
 
     if (no === undefined) {
-      var SAS = static_analysis_settings.create();
+      this.Settings = static_analysis_settings.create();
     }
     else {
-      var SAS = static_analysis_settings.create(no);
+      this.Settings = static_analysis_settings.create(no);
     }
-    console.log("New static analysis settings no. " + SAS.no + " was created");
+    console.log("New static analysis settings no. " + this.Settings.no + " was created");
     // Static analysis settings : type
-    SAS.analysis_type = static_analysis_settings[StaticAnalysisType(analysisType)];
-    if (equationSolver !== undefined) {
-      SAS.method_of_equation_system = static_analysis_settings[SetEquationSolver(equationSolver)];
-    }
-    else {
-      SAS.method_of_equation_system = static_analysis_settings[SetEquationSolver("METHOD_OF_EQUATION_SYSTEM_DIRECT")];
-    }
+    this.Settings.analysis_type = static_analysis_settings[StaticAnalysisType(analysisType)];
+    SetEquationSolver(this.Settings, equationSolver);
+
     // Nonlinear method
-    if (nonlinearMethod != undefined) {
-      var NA_method = NonlinearMethods(SAS.analysis_type, nonlinearMethod);
+    if (nonlinearMethod !== undefined) {
+      var NA_method = NonlinearMethodsType(this.Settings.analysis_type, nonlinearMethod);
       if (NA_method != undefined) {
-        SAS.iterative_method_for_nonlinear_analysis = static_analysis_settings[NA_method];
-        console.log("Nonlinear analysis method: " + SAS.iterative_method_for_nonlinear_analysis);
+        this.Settings.iterative_method_for_nonlinear_analysis = static_analysis_settings[NA_method];
+        console.log("Nonlinear analysis method: " + this.Settings.iterative_method_for_nonlinear_analysis);
       }
     }
-    // Static analysis settings
-    this.settings = SAS;
-    set_comment_and_parameters(this.settings, comment, params);
-    console.log("-- Done. Static analysis settings no. " + SAS.no + " all initial params set.");
+
+    set_comment_and_parameters(this.Settings, comment, params);
+    console.log("-- Done. Static analysis settings no. " + this.Settings.no + " all initial params set.");
     // object for creation new static analysis settings with callback link to instance
     var self = this;
     return self;
@@ -158,60 +153,19 @@ StaticAnalysisSettings.prototype.GeometricallyLinear = function (no, name, equat
 
   ASSERT(typeof no !== undefined || typeof no !== "number", "No must be assigned as an integer.");
 
-  if (no === undefined) {
-    this.SAS = static_analysis_settings.create();
-  }
-  else {
-    this.SAS = static_analysis_settings.create(no);
-  }
+  this.Settings = CreateStaticAnalysisSettings(no, name);
 
-  if (name !== undefined) {
-    this.SAS.user_defined_name_enabled = true;
-    this.SAS.name = name;
-  }
+  this.Settings.analysis_type = static_analysis_settings[StaticAnalysisType("GEOMETRICALLY_LINEAR")];
 
-  this.SAS.analysis_type = static_analysis_settings[StaticAnalysisType("GEOMETRICALLY_LINEAR")];
-  if (equationSolver !== undefined) {
-    this.SAS.method_of_equation_system = static_analysis_settings[SetEquationSolver(equationSolver)];
-  }
-  else {
-    this.SAS.method_of_equation_system = static_analysis_settings[SetEquationSolver("METHOD_OF_EQUATION_SYSTEM_DIRECT")];
-  }
+  SetEquationSolver(this.Settings, equationSolver);
 
-  if (plateBendingTheory !== undefined) {
-    this.SAS.plate_bending_theory = static_analysis_settings[plateBendingTheoryType(plateBendingTheory)];
-  } else {
-    this.SAS.plate_bending_theory = static_analysis_settings[plateBendingTheoryType("PLATE_BENDING_THEORY_MINDLIN")];
-  }
+  SetPlateBendingTheory(this.Settings, plateBendingTheory);
 
-  if (activeMass !== undefined) {
-    if (activeMass.length === 4) {
-      this.SAS.mass_conversion_enabled = activeMass[0];
-      if (this.SAS.mass_conversion_enabled === true) {
-        this.SAS.mass_conversion_factor_in_direction_x = activeMass[1];
-        this.SAS.mass_conversion_factor_in_direction_y = activeMass[2];
-        this.SAS.mass_conversion_factor_in_direction_z = activeMass[3];
-      }
-    }
-    else {
-      ASSERT(activeMass.length !== 4, "Length of activeMass array have to be equal to 4");
-    }
-  }
+  SetActiveMass(this.Settings, activeMass);
 
-  if (modifyLoading !== undefined) {
-    if (modifyLoading.length === 3) {
-      this.SAS.modify_loading_by_multiplier_factor = modifyLoading[0];
-      if (this.SAS.modify_loading_by_multiplier_factor === true) {
-        this.SAS.loading_multiplier_factor = modifyLoading[1];
-        this.SAS.divide_results_by_loading_factor = modifyLoading[2];
-      }
-    }
-    else {
-      ASSERT(modifyLoading.length !== 3, "Length of modifyLoading array have to be equal to 3");
-    }
-  }
+  SetLoadModification(this.Settings, modifyLoading);
 
-  set_comment_and_parameters(this.SAS, comment, params);
+  set_comment_and_parameters(this.Settings, comment, params);
   var self = this;
   return self;
 };
@@ -233,84 +187,27 @@ StaticAnalysisSettings.prototype.GeometricallyLinear = function (no, name, equat
  */
 StaticAnalysisSettings.prototype.SecondOrder = function (no, name, equationSolver, nonlinearMethod, maxNumberOfIterations, numberOfLoadIncrements, plateBendingTheory, activeMass, modifyLoading, comment, params) {
 
-  if (no === undefined) {
-    this.SAS = static_analysis_settings.create();
-  }
-  else {
-    this.SAS = static_analysis_settings.create(no);
-  }
+  ASSERT(typeof no !== undefined || typeof no !== "number", "No must be assigned as an integer.");
 
-  if (name !== undefined) {
-    this.SAS.user_defined_name_enabled = true;
-    this.SAS.name = name;
-  }
+  this.Settings = CreateStaticAnalysisSettings(no, name);
 
-  this.SAS.analysis_type = static_analysis_settings[StaticAnalysisType("SECOND_ORDER_P_DELTA")];
+  this.Settings.analysis_type = static_analysis_settings[StaticAnalysisType("SECOND_ORDER_P_DELTA")];
 
-  if (equationSolver !== undefined) {
-    this.SAS.method_of_equation_system = static_analysis_settings[SetEquationSolver(equationSolver)];
-  }
-  else {
-    this.SAS.method_of_equation_system = static_analysis_settings[SetEquationSolver("METHOD_OF_EQUATION_SYSTEM_DIRECT")];
-  }
-  if (nonlinearMethod !== undefined) {
-    var NA_method = NonlinearMethods("SECOND_ORDER_P_DELTA", nonlinearMethod);
-    if (NA_method !== undefined) {
-      this.SAS.iterative_method_for_nonlinear_analysis = static_analysis_settings[NA_method];
-      console.log("Nonlinear analysis method: " + this.SAS.iterative_method_for_nonlinear_analysis);
-    }
-  }
-  else {
-    this.SAS.iterative_method_for_nonlinear_analysis = static_analysis_settings["NEWTON_RAPHSON"];
-  }
+  SetEquationSolver(this.Settings, equationSolver);
 
-  if (maxNumberOfIterations !== undefined) {
-    this.SAS.max_number_of_iterations = maxNumberOfIterations;
-  }
-  else {
-    this.SAS.max_number_of_iterations = 100;
-  }
-  if (numberOfLoadIncrements !== undefined) {
-    this.SAS.number_of_load_increments = numberOfLoadIncrements;
-  }
-  else {
-    this.SAS.number_of_load_increments = 1;
-  }
+  SetPlateBendingTheory(this.Settings, plateBendingTheory);
 
-  if (plateBendingTheory !== undefined) {
-    this.SAS.plate_bending_theory = static_analysis_settings[plateBendingTheoryType(plateBendingTheory)];
-  } else {
-    this.SAS.plate_bending_theory = static_analysis_settings[plateBendingTheoryType("PLATE_BENDING_THEORY_MINDLIN")];
-  }
+  SetActiveMass(this.Settings, activeMass);
 
-  if (activeMass !== undefined) {
-    if (activeMass.length === 4) {
-      this.SAS.mass_conversion_enabled = activeMass[0];
-      if (this.SAS.mass_conversion_enabled === true) {
-        this.SAS.mass_conversion_factor_in_direction_x = activeMass[1];
-        this.SAS.mass_conversion_factor_in_direction_y = activeMass[2];
-        this.SAS.mass_conversion_factor_in_direction_z = activeMass[3];
-      }
-    }
-    else {
-      ASSERT(activeMass.length !== 4, "Length of activeMass array have to be equal to 4");
-    }
-  }
+  SetLoadModification(this.Settings, modifyLoading);
 
-  if (modifyLoading !== undefined) {
-    if (modifyLoading.length === 3) {
-      this.SAS.modify_loading_by_multiplier_factor = modifyLoading[0];
-      if (this.SAS.modify_loading_by_multiplier_factor === true) {
-        this.SAS.loading_multiplier_factor = modifyLoading[1];
-        this.SAS.divide_results_by_loading_factor = modifyLoading[2];
-      }
-    }
-    else {
-      ASSERT(modifyLoading.length !== 3, "Length of modifyLoading array have to be equal to 3");
-    }
-  }
+  SetNonlinearMethod(this.Settings, "SECOND_ORDER_P_DELTA", nonlinearMethod);
 
-  set_comment_and_parameters(this.SAS, comment, params);
+  SetMaxNumberOfIterations(this.Settings, maxNumberOfIterations);
+
+  SetNumberOfLoadIncrements(this.Settings, numberOfLoadIncrements);
+
+  set_comment_and_parameters(this.Settings, comment, params);
   var self = this;
   return self;
 };
@@ -333,91 +230,153 @@ StaticAnalysisSettings.prototype.SecondOrder = function (no, name, equationSolve
  */
 StaticAnalysisSettings.prototype.LargeDeformations = function (no, name, equationSolver, nonlinearMethod, maxNumberOfIterations, numberOfLoadIncrements, percentageOfIterations, plateBendingTheory, activeMass, modifyLoading, comment, params) {
 
-  if (no === undefined) {
-    this.SAS = static_analysis_settings.create();
-  }
-  else {
-    this.SAS = static_analysis_settings.create(no);
-  }
+  this.Settings = CreateStaticAnalysisSettings(no, name);
 
-  if (name !== undefined) {
-    this.SAS.user_defined_name_enabled = true;
-    this.SAS.name = name;
-  }
+  this.Settings.analysis_type = static_analysis_settings[StaticAnalysisType("SECOND_ORDER_P_DELTA")];
 
-  this.SAS.analysis_type = static_analysis_settings[StaticAnalysisType("LARGE_DEFORMATIONS")];
-  if (nonlinearMethod !== undefined) {
-    var NA_method = NonlinearMethods("LARGE_DEFORMATIONS", nonlinearMethod);
-    if (NA_method !== undefined) {
-      this.SAS.iterative_method_for_nonlinear_analysis = static_analysis_settings[NA_method];
-      console.log("Nonlinear analysis method: " + this.SAS.iterative_method_for_nonlinear_analysis);
-    }
+  if (nonlinearMethod === "DYNAMIC_RELAXATION" && equationSolver !== "METHOD_OF_EQUATION_SYSTEM_DIRECT") {
+    equationSolver = "METHOD_OF_EQUATION_SYSTEM_DIRECT";
   }
-  else {
-    this.SAS.iterative_method_for_nonlinear_analysis = static_analysis_settings["NEWTON_RAPHSON"];
-  }
+  SetEquationSolver(this.Settings, equationSolver);
 
+  SetPlateBendingTheory(this.Settings, plateBendingTheory);
+
+  SetActiveMass(this.Settings, activeMass);
+
+  SetLoadModification(this.Settings, modifyLoading);
+
+  SetNonlinearMethod(this.Settings, "LARGE_DEFORMATIONS", nonlinearMethod);
   if (nonlinearMethod !== "DYNAMIC_RELAXATION") {
-    if (equationSolver !== undefined) {
-      this.SAS.method_of_equation_system = static_analysis_settings[SetEquationSolver(equationSolver)];
-    }
-    else {
-      this.SAS.method_of_equation_system = static_analysis_settings[SetEquationSolver("METHOD_OF_EQUATION_SYSTEM_DIRECT")];
-    }
-    if (maxNumberOfIterations !== undefined) {
-      this.SAS.max_number_of_iterations = maxNumberOfIterations;
-    }
-    else {
-      this.SAS.max_number_of_iterations = 100;
-    }
-    if (numberOfLoadIncrements !== undefined) {
-      this.SAS.number_of_load_increments = numberOfLoadIncrements;
-    }
-    else {
-      this.SAS.number_of_load_increments = 1;
-    }
+    SetMaxNumberOfIterations(this.Settings, maxNumberOfIterations);
+
+    SetNumberOfLoadIncrements(this.Settings, numberOfLoadIncrements);
     if (nonlinearMethod === "NEWTON_RAPHSON_COMBINED_WITH_PICARD") {
-      this.SAS.percentage_of_iteration = percentageOfIterations;
+      this.Settings.percentage_of_iteration = percentageOfIterations;
+    }
+  }
+  set_comment_and_parameters(this.Settings, comment, params);
+  var self = this;
+  return self;
+};
+
+
+StaticAnalysisSettings.prototype.SetComment = function (comment) {
+  //  * @param   {String}          comment             Comment, empty by default
+  this.settings.comment = comment;
+};
+
+
+
+function SetMaxNumberOfIterations(StaticAnalysisSettings, iterations) {
+
+  if (maxNumberOfIterations === undefined) {
+    StaticAnalysisSettings.max_number_of_iterations = 100;
+  }
+  if (AvoidWrongAssignment(StaticAnalysisSettings, "max_number_of_iterations") === true) {
+    StaticAnalysisSettings.max_number_of_iterations = iterations;
+  }
+}
+
+
+function SetNumberOfLoadIncrements(StaticAnalysisSettings, increments) {
+  // * @param   {integer}   increments         Number of load increments
+  if (numberOfLoadIncrements === undefined) {
+    StaticAnalysisSettings.number_of_load_increments = 1;
+  }
+  if (AvoidWrongAssignment(StaticAnalysisSettings, "number_of_load_increments") === true) {
+    StaticAnalysisSettings.number_of_load_increments = increments;
+  }
+};
+
+function SetNonlinearMethod(StaticAnalysisSettings, staticAnalysisType, nonlinearMethod) {
+  if (nonlinearMethod !== undefined) {
+    var NA_method = NonlinearMethodsType(staticAnalysisType, nonlinearMethod);
+    if (NA_method !== undefined) {
+      StaticAnalysisSettings.iterative_method_for_nonlinear_analysis = static_analysis_settings[NA_method];
+      console.log("Nonlinear analysis method: " + StaticAnalysisSettings.iterative_method_for_nonlinear_analysis);
     }
   }
   else {
-    this.SAS.method_of_equation_system = static_analysis_settings[SetEquationSolver("METHOD_OF_EQUATION_SYSTEM_DIRECT")];
+    StaticAnalysisSettings.iterative_method_for_nonlinear_analysis = static_analysis_settings["NEWTON_RAPHSON"];
   }
+}
 
-  if (plateBendingTheory !== undefined) {
-    this.SAS.plate_bending_theory = static_analysis_settings[plateBendingTheoryType(plateBendingTheory)];
-  } else {
-    this.SAS.plate_bending_theory = static_analysis_settings[plateBendingTheoryType("PLATE_BENDING_THEORY_MINDLIN")];
-  }
-
-  if (activeMass !== undefined) {
-    if (activeMass.length === 4) {
-      this.SAS.mass_conversion_enabled = activeMass[0];
-      if (this.SAS.mass_conversion_enabled === true) {
-        this.SAS.mass_conversion_factor_in_direction_x = activeMass[1];
-        this.SAS.mass_conversion_factor_in_direction_y = activeMass[2];
-        this.SAS.mass_conversion_factor_in_direction_z = activeMass[3];
-      }
-    }
-    else {
-      ASSERT(activeMass.length !== 4, "Length of activeMass array have to be equal to 4");
-    }
-  }
-
+function SetLoadModification(StaticAnalysisSettings, modifyLoading) {
   if (modifyLoading !== undefined) {
     if (modifyLoading.length === 3) {
-      this.SAS.modify_loading_by_multiplier_factor = modifyLoading[0];
-      if (this.SAS.modify_loading_by_multiplier_factor === true) {
-        this.SAS.loading_multiplier_factor = modifyLoading[1];
-        this.SAS.divide_results_by_loading_factor = modifyLoading[2];
+      StaticAnalysisSettings.modify_loading_by_multiplier_factor = modifyLoading[0];
+      if (StaticAnalysisSettings.modify_loading_by_multiplier_factor === true) {
+        StaticAnalysisSettings.loading_multiplier_factor = modifyLoading[1];
+        StaticAnalysisSettings.divide_results_by_loading_factor = modifyLoading[2];
       }
     }
     else {
       ASSERT(modifyLoading.length !== 3, "Length of modifyLoading array have to be equal to 3");
     }
   }
+}
 
-  set_comment_and_parameters(this.SAS, comment, params);
-  var self = this;
-  return self;
-};
+function SetActiveMass(StaticAnalysisSettings, activeMass) {
+  if (activeMass !== undefined) {
+    if (activeMass.length === 4) {
+      StaticAnalysisSettings.mass_conversion_enabled = activeMass[0];
+      if (StaticAnalysisSettings.mass_conversion_enabled === true) {
+        StaticAnalysisSettings.mass_conversion_factor_in_direction_x = activeMass[1];
+        StaticAnalysisSettings.mass_conversion_factor_in_direction_y = activeMass[2];
+        StaticAnalysisSettings.mass_conversion_factor_in_direction_z = activeMass[3];
+      }
+    }
+    else {
+      ASSERT(activeMass.length !== 4, "Length of activeMass array have to be equal to 4");
+    }
+  }
+}
+
+function SetPlateBendingTheory(StaticAnalysisSettings, plateBendingTheory) {
+  if (plateBendingTheory !== undefined) {
+    StaticAnalysisSettings.plate_bending_theory = static_analysis_settings[plateBendingTheoryType(plateBendingTheory)];
+  } else {
+    StaticAnalysisSettings.plate_bending_theory = static_analysis_settings[plateBendingTheoryType("PLATE_BENDING_THEORY_MINDLIN")];
+  }
+}
+
+function SetEquationSolver(StaticAnalysisSettings, equationSolver) {
+
+  if (equationSolver !== undefined) {
+    StaticAnalysisSettings.method_of_equation_system = static_analysis_settings[EquationSolverType(equationSolver)];
+  }
+  else {
+    StaticAnalysisSettings.method_of_equation_system = static_analysis_settings[EquationSolverType("METHOD_OF_EQUATION_SYSTEM_DIRECT")];
+  }
+}
+
+function CreateStaticAnalysisSettings(no, name) {
+
+  var StaticAnalysisSettings = undefined;
+  if (no === undefined) {
+    StaticAnalysisSettings = static_analysis_settings.create();
+  }
+  else {
+    StaticAnalysisSettings = static_analysis_settings.create(no);
+  }
+
+  if (name !== undefined) {
+    StaticAnalysisSettings.user_defined_name_enabled = true;
+    StaticAnalysisSettings.name = name;
+  }
+  return StaticAnalysisSettings;
+}
+
+function AvoidWrongAssignment(SAS, param) {
+  var setParameter = false;
+  if (SAS.analysis_type === static_analysis_settings.GEOMETRICALLY_LINEAR) {
+    console.log("(" + param + ") This parameter cant be set for linear analysis.");
+  }
+  else if (SAS.iterative_method_for_nonlinear_analysis === static_analysis_settings.DYNAMIC_RELAXATION) {
+    console.log("(" + param + ") This parameter cant be set for dynamic relaxation iterative method.");
+  }
+  else {
+    setParameter = true;
+  }
+  return setParameter;
+}

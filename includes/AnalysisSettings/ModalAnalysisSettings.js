@@ -47,6 +47,7 @@ function ModalAnalysisSettings(no,
     var MAS = modal_analysis_settings.create(no);
   }
   console.log("New modal analysis settings no. " + MAS.no + " was created");
+  
   // Modal analysis number of modes calculated
   if (typeof numberOfModes === "string") {
     if (isNaN(parseInt(numberOfModes))) {
@@ -87,6 +88,8 @@ function ModalAnalysisSettings(no,
   var self = this;
   return self;
 }
+
+
 ModalAnalysisSettings.prototype.SetMaximalFrequency = function (frequency) {
   // * @param   {integer}   frequency         Maximal number of frequency
   ASSERT(typeof frequency != undefined || typeof frequency != "number", "Parameter must be assigned as an integer.");

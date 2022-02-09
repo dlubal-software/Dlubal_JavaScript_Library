@@ -93,7 +93,7 @@ LC3.settings.time_being_investigated = 20e5; // in sec. converted to days in RFE
 LC3.settings.loading_start = 3e5;
 console.log(Object.keys(LC3.settings));
 var LC4 = new LoadCase(undefined,"static");
-LC4.settings.static_analysis_settings = SAS2.SAS;
+LC4.settings.static_analysis_settings = SAS2.Settings;
 LC4.settings.calculate_critical_load = true;
 LC4.settings.stability_analysis_settings = StAS03.settings;
 var LC5 = new LoadCase(undefined,"DTA");

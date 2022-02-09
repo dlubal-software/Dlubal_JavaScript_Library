@@ -11,42 +11,42 @@ var SASGeometricallyLinear = new StaticAnalysisSettings().GeometricallyLinear(1,
 // 	//maximum_number_of_reactivations				:20
 // };
 var SASSecondOrder = new StaticAnalysisSettings().SecondOrder(2, "MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON", 100, 1, "PLATE_BENDING_THEORY_KIRCHHOFF", [true, 2.0, 3.0, 4.0], [true, 5, true]);
-var SASSecondOrder = new StaticAnalysisSettings().LargeDeformations(3, "MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON", 100, 1, undefined, "PLATE_BENDING_THEORY_KIRCHHOFF", [true, 2.0, 3.0, 4.0], [true, 5, true]);
+var SASLargeDeformation = new StaticAnalysisSettings().LargeDeformations(3, "MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON", 100, 1, undefined, "PLATE_BENDING_THEORY_KIRCHHOFF", [true, 2.0, 3.0, 4.0], [true, 5, true]);
 // Modal
 DYNAMIC_ANALYSIS.MODAL.setActive(true);
-var MAS = new ModalAnalysisSettings();
+// var MAS = new ModalAnalysisSettings();
 
-// dirrect access to  static analysis settings
-MAS.settings.comment = "Access via .settings";
-MAS.settings.mass_conversion_type = modal_analysis_settings.MASS_CONVERSION_TYPE_FULL_LOADS_AS_MASS;
+// // dirrect access to  static analysis settings
+// MAS.settings.comment = "Access via .settings";
+// MAS.settings.mass_conversion_type = modal_analysis_settings.MASS_CONVERSION_TYPE_FULL_LOADS_AS_MASS;
 
-new ModalAnalysisSettings(undefined, 6);
-new ModalAnalysisSettings(undefined, "auto");
-new ModalAnalysisSettings(undefined, x);
-new ModalAnalysisSettings(10, 8);
-var MAS5 = new ModalAnalysisSettings(12);
-MAS5.SetBeyondFrequency(30);
+// new ModalAnalysisSettings(undefined, 6);
+// new ModalAnalysisSettings(undefined, "auto");
+// new ModalAnalysisSettings(undefined, x);
+// new ModalAnalysisSettings(10, 8);
+// var MAS5 = new ModalAnalysisSettings(12);
+// MAS5.SetBeyondFrequency(30);
 
-var MAS6 = new ModalAnalysisSettings(undefined, "auto", "subspace");
-MAS6.SetBeyondFrequency(120);
-MAS6.SetMaximalFrequency(400);
-new ModalAnalysisSettings(undefined, "auto", "root");
-new ModalAnalysisSettings(undefined, 11, "subspace");
-new ModalAnalysisSettings(undefined, 7, "root");
-new ModalAnalysisSettings(undefined, "11", "subspace");
-new ModalAnalysisSettings(undefined, "17", "root");
-new ModalAnalysisSettings(undefined, "3", "root", 10);
-new ModalAnalysisSettings(undefined, "auto", "root", 50, 500);
-new ModalAnalysisSettings(undefined, 5, "root", 50, 500);
+// var MAS6 = new ModalAnalysisSettings(undefined, "auto", "subspace");
+// MAS6.SetBeyondFrequency(120);
+// MAS6.SetMaximalFrequency(400);
+// new ModalAnalysisSettings(undefined, "auto", "root");
+// new ModalAnalysisSettings(undefined, 11, "subspace");
+// new ModalAnalysisSettings(undefined, 7, "root");
+// new ModalAnalysisSettings(undefined, "11", "subspace");
+// new ModalAnalysisSettings(undefined, "17", "root");
+// new ModalAnalysisSettings(undefined, "3", "root", 10);
+// new ModalAnalysisSettings(undefined, "auto", "root", 50, 500);
+// new ModalAnalysisSettings(undefined, 5, "root", 50, 500);
 
-someParams = {
-  mass_conversion_type: modal_analysis_settings.MASS_CONVERSION_TYPE_FULL_LOADS_AS_MASS,
-  mass_matrix_type: modal_analysis_settings.MASS_MATRIX_TYPE_DIAGONAL,
-  activate_minimum_initial_prestress: true,
-  minimum_initial_strain: 0.003
-};
+// someParams = {
+//   mass_conversion_type: modal_analysis_settings.MASS_CONVERSION_TYPE_FULL_LOADS_AS_MASS,
+//   mass_matrix_type: modal_analysis_settings.MASS_MATRIX_TYPE_DIAGONAL,
+//   activate_minimum_initial_prestress: true,
+//   minimum_initial_strain: 0.003
+// };
 
-new ModalAnalysisSettings(undefined, 5, "root", 50, 500, "with parameters", someParams);
+// new ModalAnalysisSettings(undefined, 5, "root", 50, 500, "with parameters", someParams);
 // Stability
 STRUCTURE_STABILITY.setActive(true);
 
