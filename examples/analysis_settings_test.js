@@ -30,37 +30,38 @@ MASMaxFrequency.SetBeyondFrequency(100);
 // Stability
 STRUCTURE_STABILITY.setActive(true);
 
-var StAS = new StabilityAnalysisSettings();
+// var StAS = new StabilityAnalysisSettings();
 
-StAS.settings.comment = "Access via .settings";
-StAS.settings.matrix_type = stability_analysis_settings.MATRIX_TYPE_UNIT;
+// StAS.settings.comment = "Access via .settings";
+// StAS.settings.matrix_type = stability_analysis_settings.MATRIX_TYPE_UNIT;
 
-new StabilityAnalysisSettings(undefined, true, true);
-new StabilityAnalysisSettings(undefined, true, false);
-new StabilityAnalysisSettings(undefined, false);
-new StabilityAnalysisSettings(undefined, true, true, "root");
-new StabilityAnalysisSettings(undefined, true, true, "subspace");
-new StabilityAnalysisSettings(undefined, true, true, "Lanczos");
-new StabilityAnalysisSettings(undefined, true, true, "ICG");
-new StabilityAnalysisSettings(undefined, false, true, "root");
-new StabilityAnalysisSettings(undefined, true, false, "subspace");
-new StabilityAnalysisSettings(undefined, true, true, "Lanczos");
-new StabilityAnalysisSettings(undefined, true, true, "ICG");
-new StabilityAnalysisSettings(undefined, false, true, "root", 5);
-new StabilityAnalysisSettings(undefined, true, false, "subspace", 8);
-new StabilityAnalysisSettings(undefined, true, true, "Lanczos", 3);
-new StabilityAnalysisSettings(undefined, true, true, "ICG", 2);
+// new StabilityAnalysisSettings(undefined, true, true);
+// new StabilityAnalysisSettings(undefined, true, false);
+// new StabilityAnalysisSettings(undefined, false);
+// new StabilityAnalysisSettings(undefined, true, true, "root");
+// new StabilityAnalysisSettings(undefined, true, true, "subspace");
+// new StabilityAnalysisSettings(undefined, true, true, "Lanczos");
+// new StabilityAnalysisSettings(undefined, true, true, "ICG");
+// new StabilityAnalysisSettings(undefined, false, true, "root");
+// new StabilityAnalysisSettings(undefined, true, false, "subspace");
+// new StabilityAnalysisSettings(undefined, true, true, "Lanczos");
+// new StabilityAnalysisSettings(undefined, true, true, "ICG");
+// new StabilityAnalysisSettings(undefined, false, true, "root", 5);
+// new StabilityAnalysisSettings(undefined, true, false, "subspace", 8);
+// new StabilityAnalysisSettings(undefined, true, true, "Lanczos", 3);
+// new StabilityAnalysisSettings(undefined, true, true, "ICG", 2);
 
-someParams = {
-  activate_stopping_of_load_increasing: true,
-  stopping_of_load_increasing_limit_result_displacement: 0.02,
-  matrix_type: stability_analysis_settings.MATRIX_TYPE_UNIT,
-  activate_minimum_initial_prestress: true,
-  minimum_initial_strain: 0.003,
-  save_results_of_all_increments: true
-};
+// someParams = {
+//   activate_stopping_of_load_increasing: true,
+//   stopping_of_load_increasing_limit_result_displacement: 0.02,
+//   matrix_type: stability_analysis_settings.MATRIX_TYPE_UNIT,
+//   activate_minimum_initial_prestress: true,
+//   minimum_initial_strain: 0.003,
+//   save_results_of_all_increments: true
+// };
 
-new StabilityAnalysisSettings(undefined, true, true, "ICG", 3, "With parameters", someParams);
+// new StabilityAnalysisSettings(undefined, true, true, "ICG", 3, "With parameters", someParams);
+
 // spectral
 /* #### response spectrum analysis
 //### function SpectralAnalysisSettings(no,
