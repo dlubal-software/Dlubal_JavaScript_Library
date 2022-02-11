@@ -18,31 +18,33 @@ function StabilityAnalysisSettings(no,
  * @param   {Object}     params                         Stability analysis settings parameters, empty by default
  */
 
-  ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
-  ASSERT(typeof type != undefined || typeof name != "string", "Name must be assigned as a string.");
+  if (arguments.length !== 0) {
+    ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
+    ASSERT(typeof type != undefined || typeof name != "string", "Name must be assigned as a string.");
 
-  if (no === undefined) {
-    var StAS = stability_analysis_settings.create();
+    if (no === undefined) {
+      var StAS = stability_analysis_settings.create();
+    }
+    else {
+      var StAS = stability_analysis_settings.create(no);
+    }
+    console.log("New stability analysis settings no. " + StAS.no + " was created");
+    // Static anlysis settings : type
+    StAS.analysis_type = stability_analysis_settings[StabilityAnalysisType(isEigenvalueSolver, isIncremental)];
+    if (eigenvalueMethod != undefined && isEigenvalueSolver != false) {
+      StAS.eigenvalue_method = stability_analysis_settings[SetEigenValueMethod(eigenvalueMethod)];
+    }
+    if (numberOfLowestEigenvalues != undefined && isEigenvalueSolver != false) {
+      StAS.number_of_lowest_eigenvalues = numberOfLowestEigenvalues;
+    }
+    // Stability analysis settings
+    this.settings = StAS;
+    set_comment_and_parameters(this.settings, comment, params);
+    console.log("-- Done. Stability analysis settings no. " + StAS.no + " all initial params set.");
+    // object for creation new stas with callback link to instance
+    var self = this;
+    return self;
   }
-  else {
-    var StAS = stability_analysis_settings.create(no);
-  }
-  console.log("New stability analysis settings no. " + StAS.no + " was created");
-  // Static anlysis settings : type
-  StAS.analysis_type = stability_analysis_settings[StabilityAnalysisType(isEigenvalueSolver, isIncremental)];
-  if (eigenvalueMethod != undefined && isEigenvalueSolver != false) {
-    StAS.eigenvalue_method = stability_analysis_settings[SetEigenValueMethod(eigenvalueMethod)];
-  }
-  if (numberOfLowestEigenvalues != undefined && isEigenvalueSolver != false) {
-    StAS.number_of_lowest_eigenvalues = numberOfLowestEigenvalues;
-  }
-  // Stability analysis settings
-  this.settings = StAS;
-  set_comment_and_parameters(this.settings, comment, params);
-  console.log("-- Done. Stability analysis settings no. " + StAS.no + " all initial params set.");
-  // object for creation new stas with callback link to instance
-  var self = this;
-  return self;
 }
 
 StabilityAnalysisSettings.prototype.EigenValueMethod = function (no, name, numberOfLowestEigenvalues, eigenValueMethod, matrixType, eigenValueBeyondCriticalFactor, comment, params) {
@@ -53,7 +55,7 @@ StabilityAnalysisSettings.prototype.EigenValueMethod = function (no, name, numbe
 
   SetPropertiesForEigenValueMethod(this.Settings, numberOfLowestEigenvalues, eigenValueMethod, matrixType, eigenValueBeyondCriticalFactor);
   //stability_analysis_settings[].minimum_initial_strain
-  set_comment_and_parameters(this.settings, comment, params);
+  set_comment_and_parameters(this.Settings, comment, params);
   var self = this;
   return self;
 };
@@ -85,11 +87,10 @@ StabilityAnalysisSettings.prototype.IncrementalMethodWithEigenValueAnalysis = fu
       break;
   }
 
-  incrementalMethodSettings = typeof Array !== 'undefined' ? eigenValueMethodSettings : [];
+  incrementalMethodSettings = typeof Array !== 'undefined' ? incrementalMethodSettings : [];
   imSettingsLengths = incrementalMethodSettings.length;
   var initialLoadFactor = undefined; var loadFactorIncrement = undefined; var maximumNumberLoadIncrements = undefined; var refinementLastLoadIncrement = undefined;
-  var numberOfLowestEigenvalues = undefined; var eigenValueMethod = undefined; matrixType = undefined; eigenValueBeyondCriticalFactor = undefined;
-  switch (evmSettingsLengths) {
+  switch (imSettingsLengths) {
     case 1:
       initialLoadFactor = incrementalMethodSettings[0];
       break;
@@ -109,10 +110,9 @@ StabilityAnalysisSettings.prototype.IncrementalMethodWithEigenValueAnalysis = fu
       refinementLastLoadIncrement = incrementalMethodSettings[3];
       break;
   }
+
   this.Settings = CreateStabilityAnalysisSettings(no, name);
   this.Settings.analysis_type = stability_analysis_settings["INCREMENTALY_METHOD_WITH_EIGENVALUE"];
-
-
 
   //numberOfLowestEigenvalues, eigenValueMethod, matrixType, eigenValueBeyondCriticalFactor
   SetPropertiesForEigenValueMethod(this.Settings, numberOfLowestEigenvalues, eigenValueMethod, matrixType, eigenValueBeyondCriticalFactor);
@@ -120,7 +120,7 @@ StabilityAnalysisSettings.prototype.IncrementalMethodWithEigenValueAnalysis = fu
   //initialLoadFactor, loadFactorIncrement, maximumNumberLoadIncrements, refinementLastLoadIncrement
   SetPropertiesForIncrementalMethod(this.Settings, initialLoadFactor, loadFactorIncrement, maximumNumberLoadIncrements, refinementLastLoadIncrement);
 
-  set_comment_and_parameters(this.settings, comment, params);
+  set_comment_and_parameters(this.Settings, comment, params);
   var self = this;
   return self;
 };
@@ -133,13 +133,13 @@ StabilityAnalysisSettings.prototype.IncrementalMethodWithoutEigenValueAnalysis =
   SetPropertiesForIncrementalMethod(this.Settings, initialLoadFactor, loadFactorIncrement, maximumNumberLoadIncrements, refinementLastLoadIncrement);
 
 
-  set_comment_and_parameters(this.settings, comment, params);
+  set_comment_and_parameters(this.Settings, comment, params);
   var self = this;
   return self;
 };
 
 StabilityAnalysisSettings.prototype.GetNo = function () {
-  return this.settings.no;
+  return this.Settings.no;
 };
 
 function SetPropertiesForIncrementalMethod(StAS, initialLoadFactor, loadFactorIncrement, maximumNumberLoadIncrements, refinementLastLoadIncrement) {
@@ -174,7 +174,7 @@ function SetPropertiesForEigenValueMethod(StAS, numberOfLowestEigenvalues, eigen
     StAS.number_of_lowest_eigenvalues = numberOfLowestEigenvalues;
   }
   else {
-    StAS.numberOfLowestEigenvalues = 4;
+    StAS.number_of_lowest_eigenvalues = 4;
   }
   StAS.eigenvalue_method = stability_analysis_settings[SetEigenValueMethod(eigenValueMethod)];
   StAS.matrix_type = stability_analysis_settings[SetMatrixType(matrixType)];
