@@ -113,7 +113,7 @@ function WindSimulationSettings(no,
   * @param   {Object}  params        Spectral analysis settings parameters, empty by default
   */
 WIND_SIMULATION.setActive(true);
-wind_analysis_settings.erase(1);
+wind_simulation_analysis_settings.erase(1);
 var WSAS = new WindSimulationSettings(20,"Wind simulation:",1.25,0.000015,true,"TURBULENCE_TYPE_OMEGA","CONCENTRATED");
 // WSAS.settings.maximum_number_of_iterations = 1000;
 // WSAS.settings.use_second_order_numerical_scheme = true;

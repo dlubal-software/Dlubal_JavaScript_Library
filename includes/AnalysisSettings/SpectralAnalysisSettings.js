@@ -191,7 +191,7 @@ function SpectralAnalysisSettings(no,
    this.Settings.combination_rule_for_periodic_responses = spectral_analysis_settings[SetPeriodicCombinationRule(combinationRulePeriodic)];
 
    this.Settings.combination_rule_for_directional_components = spectral_analysis_settings[SetDirectionalCombinationRule(combinationRuleDirectional)];
-    if (SpAS.combination_rule_for_directional_components === "SCALED_SUM") {
+    if (this.Settings.combination_rule_for_directional_components === "SCALED_SUM") {
       if (scaledSumDirectionalComponentValue !== undefined) {
        this.Settings.combination_rule_for_directional_components_value = scaledSumDirectionalComponentValue;
       }

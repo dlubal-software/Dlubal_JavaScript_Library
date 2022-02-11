@@ -1,3 +1,4 @@
+// create prototypes for load case types
 function LoadCase(no,
   analysisType,
   analysisSettings,

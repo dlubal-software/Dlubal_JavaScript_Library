@@ -102,7 +102,7 @@ function WindSimulationSettings(no,
 
   // Wind simulation analysis settings
   
-  set_comment_and_parameters(this.settings, comment, params);
+  set_comment_and_parameters(this.Settings, comment, params);
   console.log("-- Done. Wind simulation analysis settings no. " + this.Settings.no + " all initial params set.");
   // object for creation new WSAS with callback link to instance
   var self = this;
