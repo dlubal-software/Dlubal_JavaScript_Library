@@ -82,7 +82,9 @@ function createMember(nodes, section, memberType, line)
     }
 
 	member.type = memberType;
-	member.section_start = section;
+	if (typeof section !== "undefined") {
+		member.section_start = section;
+	}
 
     return member;
 }

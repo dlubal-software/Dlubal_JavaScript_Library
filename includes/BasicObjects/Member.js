@@ -1,715 +1,513 @@
 /**
- * Create Member
+ * Creates member
  * @class
  * @constructor
- * @param {int} no - Number of member
- * @param {array} node_ids - Number of nodes (Min. 2 nodes)
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
- * @returns Member
+ * @param	{Number}		no				Index of member, can be undefined
+ * @param	{Array/Number}	nodes_or_line	List of node indexes or number of line
+ * @param	{String}		comment			Comment, can be undefined
+ * @param	{Object}		params  		Member's parameters, can be undefined
+ * @returns	Created member
  */
-function Member(no,
-    node_ids,
+function Member (no,
+    nodes_or_line,
     comment,
     params) {
-
     if (arguments.length !== 0) {
-        node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
-        ASSERT(node_ids.length > 1, "Minimum two nodes must be set to Member");
-        this.member = "undefined";
-        if (RFEM) {
-            var line = engine.create_line(no, node_ids);
-            this.member = engine.create_member(no, line);
-        }
-        else {
-            this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        }
-        set_comment_and_parameters(this.member, comment, params);
-        return this.member;
+		return this.member = createBaseMember(no, nodes_or_line, members.TYPE_BEAM, undefined, comment, params);
     }
 }
 
 /**
- * Create Beam
- * @param {int} no - Number of member
- * @param {array} node_ids - Number of nodes (Min. 2 nodes)
- * @param {number} rotation_angle - Rotation angle of section (Degree)
- * @param {int} start_section_no - Number of start section
- * @param {int} end_section_no - Number of end section
- * @param {int} start_member_hinge_no - Number of start hinge
- * @param {int} end_member_hinge_no - Number of end hinge
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
+ * Creates beam member
+ * @param	{Number}		no				Index of member, can be undefined
+ * @param	{Array/Number}	nodes_or_line	List of node indexes or number of line
+ * @param	{Number}		section_start	Section start. Section end is same as section start by default. To set section end specify distribution type.
+ * @param	{String}		comment			Comment, can be undefined
+ * @param	{Object}		params  		Member's parameters, can be undefined
+ * @returns	Created member
  */
 Member.prototype.Beam = function (no,
-    node_ids,
-    rotation_angle,
-    start_section_no,
-    end_section_no,
-    start_member_hinge_no,
-    end_member_hinge_no,
-    comment,
-    params) {
-    if (typeof (node_ids) !== "undefined") {
-        node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
-        rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
-        ASSERT(node_ids.length > 1, "Minimum two nodes must be set to Beam member");
-        this.member = "undefined";
-        if (RFEM) {
-            var line = engine.create_line(no, node_ids);
-            this.member = engine.create_member(no, line);
-        }
-        else {
-            this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        }
-        this.member.type = members.TYPE_BEAM;
-        this.member.rotation_angle = rotation_angle * PI / 180;
-        this.member.section_start = sections[start_section_no];
-        if (end_section_no > 0) {
-            this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_LINEAR;
-            this.member.section_end = sections[end_section_no];
-        }
-        if (start_member_hinge_no > 0) {
-            this.member.member_hinge_start = member_hinges[start_member_hinge_no];
-        }
-        if (end_member_hinge_no > 0) {
-            this.member.member_hinge_end = member_hinges[end_member_hinge_no];
-        }
-
-        set_comment_and_parameters(this.member, comment, params);
-    }
+	nodes_or_line,
+	section_start,
+	comment,
+	params) {
+	return this.member = createBaseMember(no, nodes_or_line, members.TYPE_BEAM, section_start, comment, params);
 };
 
 /**
- * Create Rigid Member
- * @param {int} no - Number of member
- * @param {array} node_ids - Number of nodes (Min. 2 nodes)
- * @param {number} rotation_angle - Rotation angle of section (Degree)
- * @param {int} start_member_hinge_no - Number of start hinge
- * @param {int} end_member_hinge_no - Number of end hinge
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
+ * Creates rigid member
+ * @param	{Number}		no				Index of member, can be undefined
+ * @param	{Array/Number}	nodes_or_line	List of node indexes or number of line
+ * @param	{String}		comment			Comment, can be undefined
+ * @param	{Object}		params  		Member's parameters, can be undefined
+ * @returns	Created member
  */
 Member.prototype.Rigid = function (no,
-    node_ids,
-    rotation_angle,
-    start_member_hinge_no,
-    end_member_hinge_no,
-    comment,
-    params) {
-    if (typeof (node_ids) !== "undefined") {
-        node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
-        rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
-        ASSERT(node_ids.length > 1, "Minimum two nodes must be set to Rigid member");
-        this.member = "undefined";
-        if (RFEM) {
-            var line = engine.create_line(no, node_ids);
-            this.member = engine.create_member(no, line);
-        }
-        else {
-            this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        }
-        this.member.type = members.TYPE_RIGID;
-        this.member.rotation_angle = rotation_angle * PI / 180;
-        if (start_member_hinge_no > 0) {
-            this.member.member_hinge_start = member_hinges[start_member_hinge_no];
-        }
-        if (end_member_hinge_no > 0) {
-            this.member.member_hinge_end = member_hinges[end_member_hinge_no];
-        }
-
-        set_comment_and_parameters(this.member, comment, params);
-    }
+	nodes_or_line,
+	comment,
+	params) {
+	return this.member = createBaseMember(no, nodes_or_line, members.TYPE_RIGID, undefined, comment, params);
 };
 
 /**
- * Create Rib
- * @param {int} no - Number of member
- * @param {array} node_ids - Number of nodes
- * @param {int} start_section_no - Number of start section
- * @param {int} end_section_no - Number of end section
- * @param {int} start_member_hinge_no - Number of start hinge
- * @param {int} end_member_hinge_no - Number of end hinge
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
- */
-Member.prototype.Rib = function (no,
-    node_ids,
-    start_section_no,
-    end_section_no,
-    start_member_hinge_no,
-    end_member_hinge_no,
-    comment,
-    params) {
-    if (typeof (node_ids) !== "undefined") {
-        node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
-        ASSERT(node_ids.length > 1, "Minimum two nodes must be set to Rib member");
-        this.member = "undefined";
-        if (RFEM) {
-            var line = engine.create_line(no, node_ids);
-            this.member = engine.create_member(no, line);
-        }
-        else {
-            this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        }
-        this.member.type = members.TYPE_RIB;
-        this.member.section_start = sections[start_section_no];
-        if (end_section_no > 0) {
-            this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_LINEAR;
-            this.member.section_end = sections[end_section_no];
-        }
-        if (start_member_hinge_no > 0) {
-            this.member.member_hinge_start = member_hinges[start_member_hinge_no];
-        }
-        if (end_member_hinge_no > 0) {
-            this.member.member_hinge_end = member_hinges[end_member_hinge_no];
-        }
-        set_comment_and_parameters(this.member, comment, params);
-    }
-};
-
-/**
- * Create Truss member
- * @param {int} no - Number of member
- * @param {array} node_ids - Number of nodes
- * @param {number} rotation_angle - Rotation angle of section (Degree)
- * @param {int} start_section_no - Number of start section
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
+ * Creates truss member
+ * @param	{Number}		no				Index of member, can be undefined
+ * @param	{Array/Number}	nodes_or_line	List of node indexes or number of line
+ * @param	{Number}		section_start	Section start. Section end is same as section start by default. To set section end specify distribution type.
+ * @param	{String}		comment			Comment, can be undefined
+ * @param	{Object}		params  		Member's parameters, can be undefined
+ * @returns	Created member
  */
 Member.prototype.Truss = function (no,
-    node_ids,
-    rotation_angle,
-    start_section_no,
-    comment,
-    params) {
-    if (typeof (node_ids) !== "undefined") {
-        node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
-        rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
-        ASSERT(node_ids.length > 1, "Minimum two nodes must be set to Truss member");
-        this.member = "undefined";
-        if (RFEM) {
-            var line = engine.create_line(no, node_ids);
-            this.member = engine.create_member(no, line);
-        }
-        else {
-            this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        }
-        this.member.type = members.TYPE_TRUSS;
-        this.member.rotation_angle = rotation_angle * PI / 180;
-        this.member.section_start = sections[start_section_no];
-        set_comment_and_parameters(this.member, comment, params);
-    }
+	nodes_or_line,
+	section_start,
+	comment,
+	params) {
+	return this.member = createBaseMember(no, nodes_or_line, members.TYPE_TRUSS, section_start, comment, params);
 };
 
 /**
- * Create Truss (Only N)
- * @param {int} no - Number of member
- * @param {array} node_ids - Number of nodes
- * @param {number} rotation_angle - Rotation angle of section (Degree)
- * @param {int} start_section_no - Number of start section
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
+ * Creates truss (only N) member
+ * @param	{Number}		no				Index of member, can be undefined
+ * @param	{Array/Number}	nodes_or_line	List of node indexes or number of line
+ * @param	{Number}		section_start	Section start. Section end is same as section start by default. To set section end specify distribution type.
+ * @param	{String}		comment			Comment, can be undefined
+ * @param	{Object}		params  		Member's parameters, can be undefined
+ * @returns	Created member
  */
 Member.prototype.TrussOnlyN = function (no,
-    node_ids,
-    rotation_angle,
-    start_section_no,
-    comment,
-    params) {
-    if (typeof (node_ids) !== "undefined") {
-        node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
-        rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
-        ASSERT(node_ids.length == 2, "Just two nodes must be set for TrussOnlyN member");
-        this.member = "undefined";
-        if (RFEM) {
-            var line = engine.create_line(no, node_ids);
-            this.member = engine.create_member(no, line);
-        }
-        else {
-            this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        }
-        this.member.type = members.TYPE_TRUSS_ONLY_N;
-        this.member.rotation_angle = rotation_angle * PI / 180;
-        this.member.section_start = sections[start_section_no];
-        set_comment_and_parameters(this.member, comment, params);
-    }
+	nodes_or_line,
+	section_start,
+	comment,
+	params) {
+	return this.member = createBaseMember(no, nodes_or_line, members.TYPE_TRUSS_ONLY_N, section_start, comment, params);
 };
 
 /**
- * Create Tension member
- * @param {int} no - Number of member
- * @param {array} node_ids - Number of nodes
- * @param {number} rotation_angle - Rotation angle of section (Degree)
- * @param {int} start_section_no - Number of start section
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
+ * Creates tension member
+ * @param	{Number}		no				Index of member, can be undefined
+ * @param	{Array/Number}	nodes_or_line	List of node indexes or number of line
+ * @param	{Number}		section_start	Section start. Section end is same as section start by default. To set section end specify distribution type.
+ * @param	{String}		comment			Comment, can be undefined
+ * @param	{Object}		params  		Member's parameters, can be undefined
+ * @returns	Created member
  */
 Member.prototype.Tension = function (no,
-    node_ids,
-    rotation_angle,
-    start_section_no,
-    comment,
-    params) {
-    if (typeof (node_ids) !== "undefined") {
-        node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
-        rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
-        ASSERT(node_ids.length == 2, "Just two nodes must be set for Tension member");
-        this.member = "undefined";
-        if (RFEM) {
-            var line = engine.create_line(no, node_ids);
-            this.member = engine.create_member(no, line);
-        }
-        else {
-            this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        }
-        this.member.type = members.TYPE_TENSION;
-        this.member.rotation_angle = rotation_angle * PI / 180;
-        this.member.section_start = sections[start_section_no];
-        set_comment_and_parameters(this.member, comment, params);
-    }
+	nodes_or_line,
+	section_start,
+	comment,
+	params) {
+	return this.member = createBaseMember(no, nodes_or_line, members.TYPE_TENSION, section_start, comment, params);
 };
 
 /**
- * Create Compression member
- * @param {int} no - Number of member
- * @param {array} node_ids - Number of nodes
- * @param {number} rotation_angle - Rotation angle of section (Degree)
- * @param {int} start_section_no - Number of start section
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
+ * Creates compression member
+ * @param	{Number}		no				Index of member, can be undefined
+ * @param	{Array/Number}	nodes_or_line	List of node indexes or number of line
+ * @param	{Number}		section_start	Section start. Section end is same as section start by default. To set section end specify distribution type.
+ * @param	{String}		comment			Comment, can be undefined
+ * @param	{Object}		params  		Member's parameters, can be undefined
+ * @returns	Created member
  */
 Member.prototype.Compression = function (no,
-    node_ids,
-    rotation_angle,
-    start_section_no,
-    comment,
-    params) {
-    if (typeof (node_ids) !== "undefined") {
-        node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
-        rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
-        ASSERT(node_ids.length == 2, "Just two nodes must be set for Compression member");
-        this.member = "undefined";
-        if (RFEM) {
-            var line = engine.create_line(no, node_ids);
-            this.member = engine.create_member(no, line);
-        }
-        else {
-            this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        }
-        this.member.type = members.TYPE_COMPRESSION;
-        this.member.rotation_angle = rotation_angle * PI / 180;
-        this.member.section_start = sections[start_section_no];
-        set_comment_and_parameters(this.member, comment, params);
-    }
+	nodes_or_line,
+	section_start,
+	comment,
+	params) {
+	return this.member = createBaseMember(no, nodes_or_line, members.TYPE_COMPRESSION, section_start, comment, params);
 };
 
 /**
- * Create Buckling member
- * @param {int} no - Number of member
- * @param {array} node_ids - Number of nodes
- * @param {number} rotation_angle - Rotation angle of section (Degree)
- * @param {int} start_section_no - Number of start section
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
+ * Creates buckling member
+ * @param	{Number}		no				Index of member, can be undefined
+ * @param	{Array/Number}	nodes_or_line	List of node indexes or number of line
+ * @param	{Number}		section_start	Section start. Section end is same as section start by default. To set section end specify distribution type.
+ * @param	{String}		comment			Comment, can be undefined
+ * @param	{Object}		params  		Member's parameters, can be undefined
+ * @returns	Created member
  */
 Member.prototype.Buckling = function (no,
-    node_ids,
-    rotation_angle,
-    start_section_no,
-    comment,
-    params) {
-    if (typeof (node_ids) !== "undefined") {
-        node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
-        rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
-        ASSERT(node_ids.length == 2, "Just two nodes must be set for Buckling member");
-        this.member = "undefined";
-        if (RFEM) {
-            var line = engine.create_line(no, node_ids);
-            this.member = engine.create_member(no, line);
-        }
-        else {
-            this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        }
-        this.member.type = members.TYPE_BUCKLING;
-        this.member.rotation_angle = rotation_angle * PI / 180;
-        this.member.section_start = sections[start_section_no];
-        set_comment_and_parameters(this.member, comment, params);
-    }
+	nodes_or_line,
+	section_start,
+	comment,
+	params) {
+	return this.member = createBaseMember(no, nodes_or_line, members.TYPE_BUCKLING, section_start, comment, params);
 };
 
 /**
- * Create Cable
- * @param {int} no - Number of member
- * @param {array} node_ids - Number of nodes
- * @param {number} rotation_angle - Rotation angle of section (Degree)
- * @param {int} start_section_no - Number of start section
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
+ * Creates cable member
+ * @param	{Number}		no				Index of member, can be undefined
+ * @param	{Array/Number}	nodes_or_line	List of node indexes or number of line
+ * @param	{Number}		section_start	Section start. Section end is same as section start by default. To set section end specify distribution type.
+ * @param	{String}		comment			Comment, can be undefined
+ * @param	{Object}		params  		Member's parameters, can be undefined
+ * @returns	Created member
  */
 Member.prototype.Cable = function (no,
-    node_ids,
-    rotation_angle,
-    start_section_no,
-    comment,
-    params) {
-    if (typeof (node_ids) !== "undefined") {
-        node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
-        rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
-        ASSERT(node_ids.length > 1, "Minimum two nodes must be set to Cable member");
-        this.member = "undefined";
-        if (RFEM) {
-            var line = engine.create_line(no, node_ids);
-            this.member = engine.create_member(no, line);
-        }
-        else {
-            this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        }
-        this.member.type = members.TYPE_CABLE;
-        this.member.rotation_angle = rotation_angle * PI / 180;
-        this.member.section_start = sections[start_section_no];
-        set_comment_and_parameters(this.member, comment, params);
-    }
+	nodes_or_line,
+	section_start,
+	comment,
+	params) {
+	return this.member = createBaseMember(no, nodes_or_line, members.TYPE_CABLE, section_start, comment, params);
 };
 
 /**
- * Create Result Beam
- * @param {int} no - Number of member
- * @param {array} node_ids - Number of nodes
- * @param {number} rotation_angle - Rotation angle of section (Degree)
- * @param {int} start_section_no - Number of start section
- * @param {int} end_section_no - Number of end section
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
- */
+* Create result beam member
+* @param	{Number}		no											Index of member, can be undefined
+* @param	{Array/Number}	nodes_or_line								List of node indexes or number of line
+* @param	{Number}		section_start								Section start. Section end is same as section start by default. To set section end specify distribution type.
+* @param	{Number} 		result_beam_integrate_stresses_and_forces	Stresses and forces type, can be undefined:
+*																			1 - Integrate stresses and forces within block with square area
+*																			2 - Integrate stresses and forces within cuboid
+*																			3 - Integrate stresses and forces within cylinder
+*																			4 - Integrate stresses and forces from listed objects
+* @param	{Array}			result_beam_parameters						Result beam parameters, can be undefined
+*																			1 - [Yz]
+*																			2 - [Y+, Y-, Z+, Z-]
+*																			3 - [R]
+*																			4 - undefined
+* @param	{Array}			included_objects							Included surfaces, members and solids, can be undefined ([true, [1, 2], true]: true = all objects, array of indexes = only specified objects)
+* @param	{Array}			excluded_objects							Excluded surfaces, members and solids, can be undefined ([undefined, [1, 2], undefined]: array of indexes = only specified objects)
+* @param	{String}		comment										Comment, can be undefined
+* @param	{Object}		params  									Member's parameters, can be undefined
+* @returns	Created member
+*/
 Member.prototype.ResultBeam = function (no,
-    node_ids,
-    rotation_angle,
-    start_section_no,
-    end_section_no,
-    comment,
-    params) {
-    if (typeof (node_ids) !== "undefined") {
-        node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
-        rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
-        ASSERT(node_ids.length > 1, "Minimum two nodes must be set to ResultBeam");
-        this.member = "undefined";
-        if (RFEM) {
-            var line = engine.create_line(no, node_ids);
-            this.member = engine.create_member(no, line);
-        }
-        else {
-            this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        }
-        this.member.type = members.TYPE_RESULT_BEAM;
-        this.member.rotation_angle = rotation_angle * PI / 180;
-        this.member.section_start = sections[start_section_no];
-        if (end_section_no > 0) {
-            this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_LINEAR;
-            this.member.section_end = sections[end_section_no];
-        }
-        set_comment_and_parameters(this.member, comment, params);
-    }
+	nodes_or_line,
+	section_start,
+	result_beam_integrate_stresses_and_forces,
+	result_beam_parameters,
+	included_objects,
+	excluded_objects,
+	comment,
+	params) {
+	this.member = createBaseMember(no, nodes_or_line, members.TYPE_RESULT_BEAM, section_start, comment, params);
+	if (typeof result_beam_integrate_stresses_and_forces !== "undefined") {
+		switch (result_beam_integrate_stresses_and_forces)
+		{
+			case 1:		// Integrate stresses and forces within block with square area
+				this.member.result_beam_integrate_stresses_and_forces = members.INTEGRATE_WITHIN_CUBOID_QUADRATIC;
+				if (typeof result_beam_parameters !== "undefined") {
+					ASSERT(result_beam_parameters.length === 1, "Dimension parameter is required: [Yz]");
+					this.member.result_beam_y_z = result_beam_parameters[0];
+				}
+				break;
+			case 2:		// Integrate stresses and forces within cuboid
+				this.member.result_beam_integrate_stresses_and_forces = members.INTEGRATE_WITHIN_CUBOID_GENERAL;
+				if (typeof result_beam_parameters !== "undefined") {
+					ASSERT(result_beam_parameters.length === 4, "Four parameters are required: [Y+, Y-, Z+, Z-]");
+					this.member.result_beam_y_plus = result_beam_parameters[0];
+					this.member.result_beam_y_minus = result_beam_parameters[1];
+					this.member.result_beam_z_plus = result_beam_parameters[2];
+					this.member.result_beam_z_minus = result_beam_parameters[3];
+				}
+				break;
+			case 3:		// Integrate stresses and forces within cylinder
+				this.member.result_beam_integrate_stresses_and_forces = members.INTEGRATE_WITHIN_CYLINDER;
+				if (typeof result_beam_parameters !== "undefined") {
+					ASSERT(result_beam_parameters.length === 1, "Radius parameter is required: [R]");
+					this.member.result_beam_radius = result_beam_parameters[0];
+				}
+				break;
+			case 4:		// Integrate stresses and forces from listed objects
+				this.member.result_beam_integrate_stresses_and_forces = members.INTEGRATE_FROM_LISTED_OBJECT;
+				break;
+			default:
+				ASSERT(false, "Unknown stresses and forces type");
+		}
+	}
+	if (typeof included_objects !== "undefined") {
+		ASSERT(included_objects.length === 3, "Three parameters are required");
+		setResultBeamObjects(this.member, "result_beam_include_all_surfaces", "result_beam_include_surfaces", included_objects[0]);
+		setResultBeamObjects(this.member, "result_beam_include_all_members", "result_beam_include_members", included_objects[1]);
+		setResultBeamObjects(this.member, "result_beam_include_all_solids", "result_beam_include_solids", included_objects[2]);
+	}
+	if (typeof excluded_objects !== "undefined") {
+		ASSERT(excluded_objects.length === 3, "Three parameters are required");
+		setResultBeamObjects(this.member, undefined, "result_beam_exclude_surfaces", excluded_objects[0]);
+		setResultBeamObjects(this.member, undefined, "result_beam_exclude_members", excluded_objects[1]);
+		setResultBeamObjects(this.member, undefined, "result_beam_exclude_solids", excluded_objects[2]);
+	}
+	return this.member;
 };
 
 /**
- * Create Definable Stiffness member
- * @param {int} no - Number of member
- * @param {array} node_ids - Number of nodes
- * @param {number} rotation_angle - Rotation angle of section (Degree)
- * @param {int} member_definable_stiffness - Number of Member definable stiffness
- * @param {int} start_member_hinge_no - Number of start hinge
- * @param {int} end_member_hinge_no - Number of end hinge
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
- */
+* Create definable stiffness member
+* @param	{Number}		no					Index of member, can be undefined
+* @param	{Array/Number}	nodes_or_line		List of node indexes or number of line
+* @param	{Number}		definable_stiffness	Definable stiffness
+* @param	{String}		comment				Comment, can be undefined
+* @param	{Object}		params  			Member's parameters, can be undefined
+* @return 	Created definable stiffness member
+*/
 Member.prototype.DefinableStiffness = function (no,
-    node_ids,
-    rotation_angle,
-    member_definable_stiffness,
-    start_member_hinge_no,
-    end_member_hinge_no,
-    comment,
-    params) {
-    if (typeof (node_ids) !== "undefined") {
-        node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
-        rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
-        ASSERT(node_ids.length > 1, "Minimum two nodes must be set to DefinableStiffness member");
-        this.member = "undefined";
-        if (RFEM) {
-            var line = engine.create_line(no, node_ids);
-            this.member = engine.create_member(no, line);
-        }
-        else {
-            this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        }
-        this.member.type = members.TYPE_DEFINABLE_STIFFNESS;
-        this.member.rotation_angle = rotation_angle * PI / 180;
-        if (start_member_hinge_no > 0) {
-            this.member.member_hinge_start = member_hinges[start_member_hinge_no];
-        }
-        if (end_member_hinge_no > 0) {
-            this.member.member_hinge_end = member_hinges[end_member_hinge_no];
-        }
-        this.member.member_type_definable_stiffness = member_definable_stiffnesses[member_definable_stiffness];
-        set_comment_and_parameters(this.member, comment, params);
-    }
+	nodes_or_line,
+	definable_stiffness,
+	comment,
+	params) {
+	this.member = createBaseMember(no, nodes_or_line, members.TYPE_DEFINABLE_STIFFNESS, undefined, comment, params);
+	ASSERT(member_definable_stiffnesses.exist(definable_stiffness), "Member definable stiffness no. " + definable_stiffness + " doesn't exist");
+	this.member.member_type_definable_stiffness = member_definable_stiffnesses[definable_stiffness];
 };
 
 /**
- * Create Coupling Rigid-Rigid member
- * @param {int} no - Number of member
- * @param {array} node_ids - Number of nodes
- * @param {number} rotation_angle - Rotation angle of section (Degree)
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
- */
-Member.prototype.CouplingRigid_Rigid = function (no,
-    node_ids,
-    rotation_angle,
-    comment,
-    params) {
-    if (typeof (node_ids) !== "undefined") {
-        node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
-        rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
-        ASSERT(node_ids.length > 1, "Minimum two nodes must be set to CouplingRigid_Rigid member");
-        this.member = "undefined";
-        if (RFEM) {
-            var line = engine.create_line(no, node_ids);
-            this.member = engine.create_member(no, line);
-        }
-        else {
-            this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        }
-        this.member.type = members.TYPE_COUPLING_RIGID_RIGID;
-        this.member.rotation_angle = rotation_angle * PI / 180;
-        set_comment_and_parameters(this.member, comment, params);
-    }
+* Create coupling rigid-rigid member
+* @param	{Number}		no					Index of member, can be undefined
+* @param	{Array/Number}	nodes_or_line		List of node indexes or number of line
+* @param	{String}		comment				Comment, can be undefined
+* @param	{Object}		params  			Member's parameters, can be undefined
+* @return 	Created coupling rigid-rigid member
+*/
+Member.prototype.CouplingRigidRigid = function (no,
+	nodes_or_line,
+	comment,
+	params) {
+	this.member = createBaseMember(no, nodes_or_line, members.TYPE_COUPLING_RIGID_RIGID, undefined, comment, params);
 };
 
 /**
- * Create Coupling Rigid-Hinge member
- * @param {int} no - Number of member
- * @param {array} node_ids - Number of nodes
- * @param {number} rotation_angle - Rotation angle of section (Degree)
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
- */
-Member.prototype.CouplingRigid_Hinge = function (no,
-    node_ids,
-    rotation_angle,
-    comment,
-    params) {
-    if (typeof (node_ids) !== "undefined") {
-        node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
-        rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
-        ASSERT(node_ids.length > 1, "Minimum two nodes must be set to CouplingRigid_Hinge member");
-        this.member = "undefined";
-        if (RFEM) {
-            var line = engine.create_line(no, node_ids);
-            this.member = engine.create_member(no, line);
-        }
-        else {
-            this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        }
-        this.member.type = members.TYPE_COUPLING_RIGID_HINGE;
-        this.member.rotation_angle = rotation_angle * PI / 180;
-        set_comment_and_parameters(this.member, comment, params);
-    }
+* Create coupling rigid-hinge member
+* @param	{Number}		no					Index of member, can be undefined
+* @param	{Array/Number}	nodes_or_line		List of node indexes or number of line
+* @param	{String}		comment				Comment, can be undefined
+* @param	{Object}		params  			Member's parameters, can be undefined
+* @return 	Created coupling rigid-hinge member
+*/
+Member.prototype.CouplingRigidHinge = function (no,
+	nodes_or_line,
+	comment,
+	params) {
+	this.member = createBaseMember(no, nodes_or_line, members.TYPE_COUPLING_RIGID_HINGE, undefined, comment, params);
 };
 
 /**
- * Create Coupling Hinge-Rigid member
- * @param {int} no - Number of member
- * @param {array} node_ids - Number of nodes
- * @param {number} rotation_angle - Rotation angle of section (Degree)
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
- */
-Member.prototype.CouplingHinge_Rigid = function (no,
-    node_ids,
-    rotation_angle,
-    comment,
-    params) {
-    if (typeof (node_ids) !== "undefined") {
-        node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
-        rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
-        ASSERT(node_ids.length > 1, "Minimum two nodes must be set to CouplingHinge_Rigid member");
-        this.member = "undefined";
-        if (RFEM) {
-            var line = engine.create_line(no, node_ids);
-            this.member = engine.create_member(no, line);
-        }
-        else {
-            this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        }
-        this.member.type = members.TYPE_COUPLING_HINGE_RIGID;
-        this.member.rotation_angle = rotation_angle * PI / 180;
-        set_comment_and_parameters(this.member, comment, params);
-    }
+* Create coupling hinge-rigid member
+* @param	{Number}		no					Index of member, can be undefined
+* @param	{Array/Number}	nodes_or_line		List of node indexes or number of line
+* @param	{String}		comment				Comment, can be undefined
+* @param	{Object}		params  			Member's parameters, can be undefined
+* @return 	Created coupling hinge-rigid member
+*/
+Member.prototype.CouplingHingeRigid = function (no,
+	nodes_or_line,
+	comment,
+	params) {
+	this.member = createBaseMember(no, nodes_or_line, members.TYPE_COUPLING_HINGE_RIGID, undefined, comment, params);
 };
 
 /**
- * Create Coupling Hinge-Hinge member
- * @param {int} no - Number of member
- * @param {array} node_ids - Number of nodes
- * @param {number} rotation_angle - Rotation angle of section (Degree)
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
- */
-Member.prototype.CouplingHinge_Hinge = function (no,
-    node_ids,
-    rotation_angle,
-    comment,
-    params) {
-    if (typeof (node_ids) !== "undefined") {
-        node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
-        rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
-        ASSERT(node_ids.length > 1, "Minimum two nodes must be set to CouplingHinge_Hinge member");
-        this.member = "undefined";
-        if (RFEM) {
-            var line = engine.create_line(no, node_ids);
-            this.member = engine.create_member(no, line);
-        }
-        else {
-            this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        }
-        this.member.type = members.TYPE_COUPLING_HINGE_HINGE;
-        this.member.rotation_angle = rotation_angle * PI / 180;
-        set_comment_and_parameters(this.member, comment, params);
-    }
+* Create coupling hinge-hinge member
+* @param	{Number}		no					Index of member, can be undefined
+* @param	{Array/Number}	nodes_or_line		List of node indexes or number of line
+* @param	{String}		comment				Comment, can be undefined
+* @param	{Object}		params  			Member's parameters, can be undefined
+* @return 	Created coupling hinge-hinge member
+*/
+Member.prototype.CouplingHingeHinge = function (no,
+	nodes_or_line,
+	comment,
+	params) {
+	this.member = createBaseMember(no, nodes_or_line, members.TYPE_COUPLING_HINGE_HINGE, undefined, comment, params);
 };
 
 /**
- * Create Beam by Line
- * @param {int} no - Number of member
- * @param {int} line_no - Number of line to assign section
- * @param {number} rotation_angle - Rotation angle of section (Degree)
- * @param {int} start_section_no - Number of start section
- * @param {int} end_section_no - Number of end section
- * @param {int} start_member_hinge_no - Number of start hinge
- * @param {int} end_member_hinge_no - Number of end hinge
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
- */
-Member.prototype.BeamByLine = function (no,
-    line_no,
-    rotation_angle,
-    start_section_no,
-    end_section_no,
-    start_member_hinge_no,
-    end_member_hinge_no,
-    comment,
-    params) {
-    if (typeof (line_no) !== "undefined") {
-        line_no = typeof line_no !== 'undefined' ? line_no : 0;
-        rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
-        this.member = engine.create_member(no, line_no);
-        this.member.type = members.TYPE_BEAM;
-        this.member.rotation_angle = rotation_angle * PI / 180;
-        this.member.section_start = sections[start_section_no];
-
-        if (end_section_no > 0) {
-            this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_LINEAR;
-            this.member.section_end = sections[end_section_no];
-        }
-        if (start_member_hinge_no > 0) {
-            this.member.member_hinge_start = member_hinges[start_member_hinge_no];
-        }
-        if (end_member_hinge_no > 0) {
-            this.member.member_hinge_end = member_hinges[end_member_hinge_no];
-        }
-        set_comment_and_parameters(this.member, comment, params);
-    }
-
+* Sets nodes on member
+* @param	{Array}		values	Nodes on member values in format [[node_1, reference_1, from_start_1, from_end1_1] ... [node_n, reference_n, from_start_n, from_end_1]]
+*/
+Member.prototype.NodesOnMember = function (values) {
+	for (var i = 0; i < values.length; ++i) {
+		ASSERT(values[i].length === 4, "Values has to be set in this format: [[node_1, reference_1, from_start_1, from_end1_1] ... [node_n, reference_n, from_start_n, from_end_1]]");
+		if (typeof values[i][0] !== "undefined") {
+			this.member.nodes_on_member_assignment[i + 1].node = values[i][0];
+		}
+		this.member.nodes_on_member_assignment[i + 1].reference = values[i][1];
+		this.member.nodes_on_member_assignment[i + 1].fromStart = values[i][2];
+		this.member.nodes_on_member_assignment[i + 1].fromEnd = values[i][3];
+	}
 };
 
 /**
- * Create Truss member by Line
- * @param {int} no - Number of member
- * @param {int} line_no - Number of line to assign section
- * @param {number} rotation_angle - Rotation angle of section (Degree)
- * @param {int} start_section_no - Number of start section
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
- */
-Member.prototype.TrussByLine = function (no,
-    line_no,
-    rotation_angle,
-    start_section_no,
-    comment,
-    params) {
-    if (typeof (line_no) !== "undefined") {
-        line_no = typeof line_no !== 'undefined' ? line_no : 0;
-        rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
-        this.member = engine.create_member(no, line_no);
-        this.member.type = members.TYPE_TRUSS;
-        this.member.rotation_angle = rotation_angle * PI / 180;
-        this.member.section_start = sections[start_section_no];
-        set_comment_and_parameters(this.member, comment, params);
-    }
+* Sets member start and/or member end hinges
+* @param	{Number}	member_start_hinge	Member hinge object id at member start, can be undefined
+* @param	{Number}	member_end_hinge	Member hinge object id at member end, can be undefined
+*/
+Member.prototype.Hinges = function (member_start_hinge,
+	member_end_hinge) {
+	ASSERT(this.member.type === members.TYPE_BEAM || this.member.type === members.TYPE_RIGID || this.member.type === members.TYPE_RIB || this.member.type === members.TYPE_DEFINABLE_STIFFNESS, "Hinges cannot be set for this type of member");
+	if (typeof member_start_hinge !== "undefined") {
+		ASSERT(member_hinges.exist(member_start_hinge), "Member hinge no. " + member_start_hinge + " doesn't exist");
+		this.member.member_hinge_start = member_hinges[member_start_hinge];
+	}
+	if (typeof member_end_hinge !== "undefined") {
+		ASSERT(member_hinges.exist(member_end_hinge), "Member hinge no. " + member_end_hinge + " doesn't exist");
+		this.member.member_hinge_end = member_hinges[member_end_hinge];
+	}
+}
 
-};
 /**
- * Create Cable by Line
- * @param {int} no - Number of member
- * @param {int} line_no - Number of line to assign section
- * @param {number} rotation_angle - Rotation angle of section (Degree)
- * @param {int} start_section_no - Number of start section
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
- */
-Member.prototype.CableByLine = function (no,
-    line_no,
-    rotation_angle,
-    start_section_no,
-    comment,
-    params) {
-    if (typeof (line_no) !== "undefined") {
-        line_no = typeof line_no !== 'undefined' ? line_no : 0;
-        rotation_angle = typeof rotation_angle !== 'undefined' ? rotation_angle : 0.0;
-        this.member = engine.create_member(no, line_no);
-        this.member.type = members.TYPE_CABLE;
-        this.member.rotation_angle = rotation_angle * PI / 180;
-        this.member.section_start = sections[start_section_no];
-        set_comment_and_parameters(this.member, comment, params);
-    }
+* Sets member start and/or member end eccentricities
+* @param	{Number}	member_start_eccentricity	Member eccentricity object id at member start, can be undefined
+* @param	{Number}	member_end_eccentricity		Member eccentricity object id at member end, can be undefined
+*/
+Member.prototype.Eccentricities = function (member_start_eccentricity,
+	member_end_eccentricity) {
+	ASSERT(this.member.type === members.TYPE_BEAM || this.member.type === members.TYPE_RIGID || this.member.type === members.TYPE_TRUSS || this.member.type === members.TYPE_TRUSS_ONLY_N ||
+		this.member.type === members.TYPE_TENSION || this.member.type === members.TYPE_COMPRESSION || this.member.type === members.TYPE_BUCKLING ||
+		this.member.type === members.TYPE_DEFINABLE_STIFFNESS, "Eccentricity cannot be set for this type of member");
+	if (typeof member_start_eccentricity !== "undefined") {
+		ASSERT(member_eccentricities.exist(member_start_eccentricity), "Member eccentricity no. " + member_start_eccentricity + " doesn't exist");
+		this.member.member_eccentricity_start = member_eccentricities[member_start_eccentricity];
+	}
+	if (typeof member_end_eccentricity !== "undefined") {
+		ASSERT(member_eccentricities.exist(member_end_eccentricity), "Member eccentricity no. " + member_end_eccentricity + " doesn't exist");
+		this.member.member_eccentricity_end = member_eccentricities[member_end_eccentricity];
+	}
 };
 
 /**
- * Create Rib by Line
- * @param {int} no - Number of member
- * @param {int} line_no - Number of line to assign section
- * @param {int} start_section_no - Number of start section
- * @param {int} end_section_no - Number of end section
- * @param {int} start_member_hinge_no - Number of start hinge
- * @param {int} end_member_hinge_no - Number of end hinge
- * @param {string} comment - Comment for the member
- * @param {dictionary} params - Parameters of the member
+* Sets member supports
+* @param	{Number}	member_support	Member supports object id
+*/
+Member.prototype.Supports = function (member_support) {
+	ASSERT(this.member.type === members.TYPE_BEAM || this.member.type === members.TYPE_RIGID || this.member.type === members.TYPE_RIB, "Support cannot be set to this type of member");
+	ASSERT(typeof member_support !== "undefined");
+	ASSERT(member_supports.exist(member_support), "Member support no. " + member_support + " doesn't exist");
+	this.member.support = member_supports[member_support];
+};
+
+/**
+* Sets member nonlinearity
+* @param	{Number}	member_nonlinearity	Member nonlinearity object id
+*/
+Member.prototype.Nonlinearity = function (member_nonlinearity) {
+	ASSERT(this.member.type === members.TYPE_BEAM || this.member.type === members.TYPE_RIGID || this.member.type === members.TYPE_TRUSS || this.member.type === members.TYPE_TRUSS_ONLY_N ||
+		this.member.type === members.TYPE_DEFINABLE_STIFFNESS, "Nonlinearity cannot be set for this type of member");
+	ASSERT(typeof member_nonlinearity !== "undefined");
+	ASSERT(member_nonlinearities.exist(member_nonlinearity), "Member nonlinearity no. " + member_nonlinearity + " doesn't exist");
+	this.member.member_nonlinearity = member_nonlinearities[member_nonlinearity];
+};
+
+/**
+* @param	{Number}	member_result_intermediate_point	member result intermediate point object id
+*/
+Member.prototype.ResultIntermediatePoints = function (member_result_intermediate_point) {
+	ASSERT(this.member.type === members.TYPE_BEAM || this.member.type === members.TYPE_RIGID || this.member.type === members.TYPE_RIB || this.member.type === members.TYPE_RESULT_BEAM ||
+		this.member.type === members.TYPE_DEFINABLE_STIFFNESS, "Result intermediate points cannot be set for this type of member");
+	ASSERT(typeof member_result_intermediate_points !== "undefined");
+	ASSERT(member_result_intermediate_points.exist(member_result_intermediate_point), "Result intermediate points no. " + member_result_intermediate_points + " doesn't exist");
+	this.member.member_result_intermediate_point = member_result_intermediate_point;
+}
+
+/**
+* Sets member start and/or member end extensions
+* @param	{Array}		member_start	Member start values, can be undefined ([Δi, αi,y, αi,z])
+* @param	{Array}		member_end		Member end values, can be undefined ([Δj, αj,y, αj,z])
+*/
+Member.prototype.EndModifications = function (member_start,
+	member_end) {
+	ASSERT(this.member.type === members.TYPE_BEAM || this.member.type === members.TYPE_RIB || this.member.type === members.TYPE_TRUSS || this.member.type === members.TYPE_TRUSS_ONLY_N ||
+		this.member.type === members.TYPE_TENSION || this.member.type === members.TYPE_COMPRESSION || this.member.type === members.TYPE_BUCKLING || this.member.type === members.TYPE_CABLE ||
+		this.member.type === members.TYPE_RESULT_BEAM, "End modification cannot be set for this type of member");
+	if (typeof member_start !== "undefined") {
+		ASSERT(member_start.length === 3, "Member start requires three values: [Δi, αi,y, αi,z]");
+		this.member.end_modifications_member_start_extension = member_start[0];
+		this.member.end_modifications_member_start_slope_y = member_start[1];
+		this.member.end_modifications_member_start_slope_z = member_start[2];
+	}
+	if (typeof member_end !== "undefined") {
+		ASSERT(member_end.length === 3, "Member end extension requires three values: [Δj, αj,y, αj,z]");
+		this.member.end_modifications_member_end_extension = member_end[0];
+		this.member.end_modifications_member_end_slope_y = member_end[1];
+		this.member.end_modifications_member_end_slope_z = member_end[2];
+	}
+};
+
+Member.prototype.DeactivateForCalculation = function (deactivate) {
+	if (typeof deactivate === "undefined") {
+		deactivate = true;
+	}
+	this.member.is_deactivated_for_calculation = deactivate;
+}
+
+/**
+* Sets result beam objects
+* @param	{Object}		member			Member to be set
+* @param	{String}		param1_to_set	Name of parameter for include/exclude "all" objects
+* @param	{String}		param2_to_set	Name of parameter for include/exclude object's indexes
+* @param	{Boolean/Array}	value			Value can be specified in two formats, as boolean or array with numbers
+* @return	Modified member	
+*/
+var setResultBeamObjects = function (member,
+	param1_to_set,
+	param2_to_set,
+	value) {
+	if (typeof value === "boolean") {
+		member[param1_to_set] = value;
+	}
+	else if (typeof value !== "undefined") {
+		ASSERT(Array.isArray(value), "It must be specified true or indexes of included objects");
+		if (typeof param1_to_set !== "undefined") {
+			member[param1_to_set] = false;
+		}
+		member[param2_to_set] = value;
+	}
+};
+
+/**
+ * Creates member (private)
+ * @param	{Number}		no				Index of member, can be undefined
+ * @param	{Array/Number}	nodes_or_line	List of node indexes or number of line
+ * @param	{String}		type			Type of member, can be undefined
+ * @param	{Number}		section_start	Section start, can be undefined. Section end is same as section start by default. To set section end specify distribution type.
+ * @param	{String}		comment			Comment, can be undefined
+ * @param	{Object}		params  		Member's parameters, can be undefined
+ * @returns	Created member
  */
-Member.prototype.RibByLine = function (no,
-    line_no,
-    start_section_no,
-    end_section_no,
-    start_member_hinge_no,
-    end_member_hinge_no,
-    comment,
-    params) {
-    if (typeof (line_no) !== "undefined") {
-        line_no = typeof line_no !== 'undefined' ? line_no : 0;
-        this.member = engine.create_member(no, line_no);
-        this.member.type = members.TYPE_RIB;
-        this.member.section_start = sections[start_section_no];
-        if (end_section_no > 0) {
-            this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_LINEAR;
-            this.member.section_end = sections[end_section_no];
-        }
-        if (start_member_hinge_no > 0) {
-            this.member.member_hinge_start = member_hinges[start_member_hinge_no];
-        }
-        if (end_member_hinge_no > 0) {
-            this.member.member_hinge_end = member_hinges[end_member_hinge_no];
-        }
-        set_comment_and_parameters(this.member, comment, params);
-    }
+var createBaseMember = function (no,
+	nodes_or_line,
+	type,
+	section_start,
+	comment,
+	params) {
+	ASSERT(typeof nodes_or_line !== "undefined", "Nodes or line must be defined");
+	
+	if (Array.isArray(nodes_or_line)) {
+		// Member is defined by nodes
+		if (RFEM) {
+			// Member will be defined by line with defined nodes
+			ASSERT(nodes_or_line.length >= 2, "At least two nodes must be set as member's defined nodes");
+		}
+		else {
+			// RSTAB has no lines, therefore member will be defined by two nodes
+			ASSERT(nodes_or_line.length === 2, "Two nodes must be set as member's defined nodes");
+		}
+	}
+	else {
+		ASSERT(RFEM, "Member can be defined by line only with RFEM");
+	}
+
+	if (RFEM) {
+		if (Array.isArray(nodes_or_line)) {
+			// Member is defined by line created from defined nodes
+			var line = engine.create_line(no, nodes_or_line);
+			var member = engine.create_member(no, line);
+		}
+		else {
+			// Member is defined by line
+			var member = engine.create_member(no, nodes_or_line);
+		}
+	}
+	else {
+		// Member is defined by two nodes
+		var member = engine.create_member(no, nodes_or_line[0], nodes_or_line[1]);
+	}
+	
+	member.type = type;
+	if (typeof section_start !== "undefined") {
+		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
+		member.section_start = sections[section_start];
+	}
+	set_comment_and_parameters(member, comment, params);
+	
+	return member;
 };
