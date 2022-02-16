@@ -78,7 +78,7 @@ function WindSimulationSettings(no,
   }
   console.log("New wind simulation analysis settings no. " + this.Settings.no + " was created");
 
-  // Spectral anlysis settings : combination rules
+  
   if (density !== undefined) {
     this.Settings.density = density;
   }

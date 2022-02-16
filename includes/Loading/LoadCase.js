@@ -1,55 +1,24 @@
-// create prototypes for load case types
+// ToDo create prototypes for load case types
 /**
-   * Creates Load case hight level function
-
-   * @param   {Integer}              no                  unique ID of Load case
-   * @param   {String}               analysisType        LC analysis_type parameter
-   * @param   {Integer}              analysisSettings    LC analysis settings no. according to analysis type
-   * @param   {Integer}              stabilityAnalysis   LC stability analysis no. (if is allowed to set)
-   * @param   {String}               comment             Comment, empty by default
-   * @param   {Object}               params              Load case parameters, empty by default
-   */
+ * 
+ * @param {*} no 
+ * @param {*} name 
+ * @param {*} comment 
+ * @param {*} params 
+ * @returns 
+ */
 function LoadCase(no,
-  analysisType,
-  analysisSettings,
-  stabilityAnalysis,
+  name,
   comment,
   params) {
 
-
   if (arguments.length !== 0) {
-    // if (no === undefined) {
-    //   var LC = load_cases.create();
-    // }
-    // else {
-    //   var LC = load_cases.create(no);
-    // }
-    // this.settings = LC;
-
-    // // analysis type
-    // const atype = this.SetAnalysisType(analysisType);
-    // console.log(atype);
-    // if (analysisType != undefined) {
-    //   this.settings.analysis_type = load_cases[atype];
-    // }
-
-    // // analysis settings
-    // if (analysisSettings === undefined) {
-    //   analysisSettings = 1;
-    // }
-    // var self = this;
-    // this.settings = self.AnalysisSettings_dict(self, atype)(analysisSettings, undefined, self);
-
-    // if (stabilityAnalysis != undefined && analysisType != "spectral" && analysisType != "modal") {
-    //   this.settings = SetStabilityAnalysis(this.settings,stabilityAnalysis);
-    // }
-
-    set_comment_and_parameters(this.settings, comment, params);
-
-    var self = this;
-    return self;
+    var LoadCase = CreateLoadCase(no, name);
+    set_comment_and_parameters(LoadCase, comment, params);
+    return LoadCase;
   }
 }
+
 /**
  * 
  * @param {*} no 
@@ -86,7 +55,7 @@ LoadCase.prototype.StaticAnalysis = function (no, name, staticAnalysisSettingsNo
  * @param {*} params 
  * @returns 
  */
-LoadCase.prototype.ModalAnalysis = function (no, name, modalAnalysisSettingsNo, importMassesFrom, selfWeighParams, comment, params) {
+LoadCase.prototype.ModalAnalysis = function (no, name, modalAnalysisSettingsNo, importMassesFrom, comment, params) {
 
   this.LoadCase = CreateLoadCase(no, name);
   this.LoadCase.analysis_type = load_cases["ANALYSIS_TYPE_MODAL"];
@@ -120,26 +89,163 @@ LoadCase.prototype.ResponseSpectrumAnalysis = function (no, name, responseSpectr
   return self;
 };
 
-LoadCase.prototype.WindSimulation = function (no, name, comment, params) {
+
+LoadCase.prototype.WindSimulation = function (no, name, staticAnalysisSettingsNo, windAnalysisSettingsNo, windProfileNo, windDirection, terrainOffset, stabilityAnalysisSettingsNo, comment, params) {
 
   this.LoadCase = CreateLoadCase(no, name);
   this.LoadCase.analysis_type = load_cases["ANALYSIS_TYPE_WIND_SIMULATION"];
-
-  SetStabilityAnalysisSettings(this.settings, stabilityAnalysis);
+  SetActionCategory(this.LoadCase, actionCategory_dict["ACTION_CATEGORY_WIND_QW"]);
+  SetStaticAnalysisSettings(this.LoadCase, staticAnalysisSettingsNo);
+  SetWindAnalysisSettings(this.LoadCase, windAnalysisSettingsNo);
+  SetWindProfile(this.LoadCase, windProfileNo);
+  SetWindLoadParameters(this.LoadCase, windDirection, terrainOffset);
+  SetStabilityAnalysisSettings(this.LoadCase, stabilityAnalysisSettingsNo);
 
   set_comment_and_parameters(this.LoadCase, comment, params);
   var self = this;
   return self;
 };
 
+/**
+ * 
+ * @param {*} imperfectionCaseNo 
+ */
+LoadCase.prototype.ConsiderImperfection = function (imperfectionCaseNo) {
+  if (this.LC !== undefined) {
+    if (imperfectionCaseNo !== undefined) {
+      if (imperfection_cases.exist(imperfectionCaseNo)) {
+        this.LC.consider_imperfection = true;
+        this.LC.imperfection_case = imperfection_cases[imperfectionCaseNo];
+      } else {
+        this.LC.consider_imperfection = false;
+      }
+
+    }
+    else {
+      this.LC.consider_imperfection = false;
+    }
+
+  }
+};
+
+/**
+ * 
+ * @param {*} structureModificationNo 
+ */
+LoadCase.prototype.SetStructureModification = function (structureModificationNo) {
+  if (this.LC !== undefined) {
+    if (imperfectionCaseNo !== undefined) {
+      if (structure_modifications.exist(structureModificationNo)) {
+        this.LC.structure_modification_enabled = true;
+        this.LC.structure_modification = structure_modifications[structureModificationNo];
+      } else {
+        this.LC.structure_modification_enabled = false;
+      }
+
+    }
+    else {
+      this.LC.structure_modification_enabled = false;
+    }
+  }
+};
+
+/**
+ * 
+ * @returns List of action categories
+ */
+LoadCase.prototype.GetActionCategoryList = function () {
+  return actionCategory_dict;
+};
+
+// private methods
+function CreateLoadCase(no, name) {
+
+  var LoadCase = undefined;
+  if (no === undefined) {
+    LoadCase = load_cases.create();
+  }
+  else {
+    LoadCase = load_cases.create(no);
+  }
+
+  if (name !== undefined) {
+    LoadCase.name = name;
+  }
+  return LoadCase;
+}
+
+function SetActionCategory(LC, actionCategory) {
+  if (LC !== undefined) {
+    if (actionCategory !== undefined) {
+      var actionCategoryType = actionCategory_dict[actionCategory];
+      if (actionCategoryType === undefined) {
+        console.log("Wrong equation solver input. Value was: " + actionCategory);
+        console.log("Correct values are: ( " + Object.keys(actionCategory_dict) + ")");
+        actionCategory = "ACTION_CATEGORY_PERMANENT_G";
+      }
+      LC.action_category = load_cases[actionCategoryType];
+    } else {
+      LC.action_category = load_cases["ACTION_CATEGORY_PERMANENT_G"];
+    }
+  }
+  else {
+    console.log("LoadCase is undefined in " + arguments.callee.name);
+  }
+}
+
+function SetWindAnalysisSettings(LC, windAnalysisSettingsNo) {
+  ASSERT(typeof windAnalysisSettingsNo !== undefined || typeof windAnalysisSettingsNo != "number", "Parameter must be assigned as an integer.");
+  if (LC !== undefined) {
+    if (wind_simulation_analysis_settings.exist(windAnalysisSettingsNo)) {
+      LC.wind_simulation_analysis_settings = wind_simulation_analysis_settings[windAnalysisSettingsNo];
+    }
+  }
+  else {
+    console.log("LoadCase is undefined in " + arguments.callee.name);
+  }
+}
 
 function SetStabilityAnalysisSettings(LC, stabilityAnalysisSettingsNo) {
-  ASSERT(typeof stabilityAnalysisSettingsNo !== undefined || typeof stabilityAnalysisSettings_no != "number", "Parameter must be assigned as an integer.");
+  ASSERT(typeof stabilityAnalysisSettingsNo !== undefined || typeof stabilityAnalysisSettingsNo != "number", "Parameter must be assigned as an integer.");
   if (LC !== undefined) {
     if (stability_analysis_settings.exist(stabilityAnalysisSettingsNo)) {
       LC.calculate_critical_load = true;
       LC.stability_analysis_settings = stability_analysis_settings[stabilityAnalysisSettingsNo];
     }
+  }
+  else {
+    console.log("LoadCase is undefined in " + arguments.callee.name);
+  }
+}
+
+function SetWindProfile(LC, windProfileNo) {
+  ASSERT(typeof windProfileNo !== undefined || typeof windProfileNo != "number", "Parameter must be assigned as an integer.");
+  if (LC !== undefined) {
+    if (wind_profiles.exist(windProfileNo)) {
+      LC.wind_simulation_wind_profile = wind_profiles[windProfileNo];
+    }
+  }
+  else {
+    console.log("LoadCase is undefined in " + arguments.callee.name);
+  }
+}
+
+function SetWindLoadParameters(LC, windDirection, terrainOffset) {
+  if (LC !== undefined) {
+    if (windDirection !== undefined) {
+      LC.wind_simulation_wind_direction_angle = windDirection;
+    }
+    else{
+      LC.wind_simulation_wind_direction_angle = 0.0;
+    }
+    if (terrainOffset !== undefined) {
+      LC.wind_simulation_terrain_offset = terrainOffset;
+    } else {
+      LC.wind_simulation_terrain_offset = 0.0;
+    }
+  }
+  else {
+    console.log("LoadCase is undefined in " + arguments.callee.name);
   }
 }
 
@@ -150,6 +256,9 @@ function SetStaticAnalysisSettings(LC, staticAnalysisSettingsNo) {
       LC.static_analysis_settings = static_analysis_settings[staticAnalysisSettingsNo];
     }
   }
+  else {
+    console.log("LoadCase is undefined in " + arguments.callee.name);
+  }
 }
 
 function SetModalAnalysisSettings(LC, modalAnalysisSettingsNo) {
@@ -159,6 +268,9 @@ function SetModalAnalysisSettings(LC, modalAnalysisSettingsNo) {
       LC.modal_analysis_settings = modal_analysis_settings[modalAnalysisSettingsNo];
     }
   }
+  else {
+    console.log("LoadCase is undefined in " + arguments.callee.name);
+  }
 }
 function SetResponseSpectrumAnalysisSettings(LC, responseAnalysisSettingsNo) {
   ASSERT(typeof responseAnalysisSettingsNo !== undefined || typeof responseAnalysisSettingsNo != "number", "Parameter must be assigned as an integer.");
@@ -166,6 +278,9 @@ function SetResponseSpectrumAnalysisSettings(LC, responseAnalysisSettingsNo) {
     if (spectral_analysis_settings.exist(responseAnalysisSettingsNo)) {
       LC.spectral_analysis_settings = spectral_analysis_settings[responseAnalysisSettingsNo];
     }
+  }
+  else {
+    console.log("LoadCase is undefined in " + arguments.callee.name);
   }
 }
 
@@ -186,6 +301,9 @@ function SetSelfWeightParams(LC, selfWeighParams) {
       LC.self_weight_active = false;
     }
   }
+  else {
+    console.log("LoadCase is undefined in " + arguments.callee.name);
+  }
 }
 
 function ImportMassesFrom(LC, importMassesFrom) {
@@ -195,6 +313,9 @@ function ImportMassesFrom(LC, importMassesFrom) {
       LC.import_masses_from = load_cases[importMassesFrom];
     }
   }
+  else {
+    console.log("LoadCase is undefined in " + arguments.callee.name);
+  }
 }
 
 function ImportModalAnalysisFrom(LC, importModalAnalysisFrom) {
@@ -203,6 +324,9 @@ function ImportModalAnalysisFrom(LC, importModalAnalysisFrom) {
     if (load_cases.exist(importModalAnalysisFrom)) {
       LC.import_modal_analysis_from = load_cases[importModalAnalysisFrom];
     }
+  }
+  else {
+    console.log("LoadCase is undefined in " + arguments.callee.name);
   }
 }
 
@@ -243,250 +367,14 @@ function SetResponseSpectrums(LC, responseSpectrums) {
         console.log("Response spectrum in direction z is disabled due to insufficient number of parameters.");
       }
     }
-  }
-}
-
-
-// LoadCase.prototype.SetTime = function (startTime, duration) {
-//   // * @param   {float}   startTime         analysis start time
-//   // * @param   {float}   duration          analysis duration (input in second, RFEM dialog in days)
-//   ASSERT(typeof stabilityAnalysisSetings_no != undefined || typeof stabilityAnalysisSetings_no != "number", "Parameter must be assigned as an integer.");
-//   if (this.settings.analysis_type === load_cases.ANALYSIS_TYPE_TIME_DEPENDENT) {
-//     if (startTime === undefined) {
-//       startTime = 0;
-//     }
-//     if (duration === undefined) {
-//       duration = 100;
-//     }
-//     this.settings.loading_start = startTime;
-//     this.settings.time_being_investigated = duration;
-//   }
-//   else {
-//     console.log("This analyse is not time dependent.");
-//   }
-// };
-// LoadCase.prototype.SetAnalysisType = function (type) {
-//   const AnalysisType_dict = {
-//     undefined: "ANALYSIS_TYPE_STATIC",
-//     "static": "ANALYSIS_TYPE_STATIC",
-//     "DTA": "ANALYSIS_TYPE_TIME_DEPENDENT",
-//     //"creep"             : "ANALYSIS_TYPE_CREEP_AND_SHRINKAGE",
-//     "modal": "ANALYSIS_TYPE_MODAL",
-//     "spectral": "ANALYSIS_TYPE_RESPONSE_SPECTRUM",
-//     "wind": "ANALYSIS_TYPE_WIND_SIMULATION",
-
-//   };
-
-//   var AType = AnalysisType_dict[type];
-//   if (AType === undefined) {
-//     AType = "ANALYSIS_TYPE_STATIC";
-//     console.log("Wrong analysis type input. Value was: " + type);
-//     console.log("Correct values are: ( " + Object.keys(AnalysisType_dict) + ")");
-//   }
-//   console.log("Analysis type: " + AType);
-//   return AType;
-// };
-// LoadCase.prototype.SetStaticAnalysis = function (settings_static_no, undefined, LC) {
-//   if (settings_static_no === undefined) {
-//     settings_static_no = 1;
-//   }
-//   if (LC != undefined) {
-//     var self = LC;
-//   }
-//   else {
-//     var self = this;
-//   }
-//   self.settings.static_analysis_settings = static_analysis_settings[settings_static_no];
-//   return self.settings;
-// };
-
-// LoadCase.prototype.SetModalAnalysis = function (settings_modal_no, undefined, LC) {
-//   if (settings_modal_no === undefined) {
-//     settings_modal_no = 1;
-//   }
-
-//   if (LC != undefined) {
-//     var self = LC;
-//   }
-//   else {
-//     var self = this
-//   }
-//   self.settings.modal_analysis_settings = modal_analysis_settings[settings_modal_no];
-//   return self.settings
-// };
-
-// LoadCase.prototype.SetDTAAnalysis = function (settings_static_no, time, LC) {
-//   if (settings_static_no === undefined) {
-//     settings_static_no = 1;
-//   }
-//   if (time === undefined) {
-//     time = 86400;
-//   }
-//   if (LC != undefined) {
-//     var self = LC;
-//   }
-//   else {
-//     var self = this
-//   }
-//   self.settings.static_analysis_settings = static_analysis_settings[settings_static_no];
-//   self.settings.time_being_investigated = time;
-//   return self.settings
-// };
-
-// LoadCase.prototype.SetSpectralAnalysis = function (settings_spectral_no, direction, LC) {
-//   if (settings_spectral_no === undefined) {
-//     settings_spectral_no = 1;
-//   }
-//   if (LC != undefined) {
-//     var self = LC;
-//   }
-//   else {
-//     var self = this
-//   }
-
-//   switch (direction) {
-//     case "x":
-//       self.settings.response_spectrum_is_enabled_in_direction_x = true;
-//       break;
-//     case "y":
-//       self.settings.response_spectrum_is_enabled_in_direction_y = true;
-//       break;
-//     case "z":
-//       self.settings.response_spectrum_is_enabled_in_direction_z = true;
-//       break;
-//     case "all":
-//       self.settings.response_spectrum_is_enabled_in_direction_x = true;
-//       self.settings.response_spectrum_is_enabled_in_direction_y = true;
-//       self.settings.response_spectrum_is_enabled_in_direction_z = true;
-//       break;
-//     default:
-//       self.settings.response_spectrum_is_enabled_in_direction_x = true;
-//   }
-//   self.settings.spectral_analysis_settings = spectral_analysis_settings[settings_spectral_no];
-//   return self.settings
-// };
-
-// LoadCase.prototype.SetWindSimulationAnalysis = function (settings, settings_wind_simulation, LC) {
-//   if (settings === undefined) {
-//     settings = 1;
-//   }
-
-//   if (settings_wind_simulation === undefined) {
-//     settings_wind_simulation = 1;
-//   }
-//   if (LC != undefined) {
-//     var self = LC;
-//   }
-//   else {
-//     var self = this
-//   }
-//   self.settings.static_analysis_settings = static_analysis_settings[settings];
-//   self.settings.wind_simulation_analysis_settings = wind_simulation_analysis_settings[settings_wind_simulation];
-//   self.settings.wind_simulation_wind_profile = wind_profiles[1];
-//   return self.settings
-// };
-// LoadCase.prototype.AnalysisSettings_dict = function (LC, atype) {
-//   const atype_dict = {
-//     "ANALYSIS_TYPE_STATIC": LC.SetStaticAnalysis,
-//     "ANALYSIS_TYPE_TIME_DEPENDENT": LC.SetDTAAnalysis,
-//     "ANALYSIS_TYPE_MODAL": LC.SetModalAnalysis,
-//     "ANALYSIS_TYPE_RESPONSE_SPECTRUM": LC.SetSpectralAnalysis,
-//     "ANALYSIS_TYPE_WIND_SIMULATION": LC.SetWindSimulationAnalysis,
-//   };
-//   return atype_dict[atype];
-// };
-
-LoadCase.prototype.ConsiderImperfection = function (imperfectionCaseNo) {
-  if (this.LC !== undefined) {
-    if (imperfectionCaseNo !== undefined) {
-      if (imperfection_cases.exist(imperfectionCaseNo)) {
-        this.LC.consider_imperfection = true;
-        this.LC.imperfection_case = imperfection_cases[imperfectionCaseNo];
-      } else {
-        this.LC.consider_imperfection = false;
-      }
-
-    }
     else {
-      this.LC.consider_imperfection = false;
+      console.log("Response spectrum input have to have 3 parameters.");
     }
-
-  }
-};
-
-LoadCase.prototype.SetStructureModification = function (structureModificationNo) {
-  if (this.LC !== undefined) {
-    if (imperfectionCaseNo !== undefined) {
-      if (structure_modifications.exist(structureModificationNo)) {
-        this.LC.structure_modification_enabled = true;
-        this.LC.structure_modification = structure_modifications[structureModificationNo];
-      } else {
-        this.LC.structure_modification_enabled = false;
-      }
-
-    }
-    else {
-      this.LC.structure_modification_enabled = false;
-    }
-  }
-};
-
-
-LoadCase.prototype.ConsiderImperfection = function (imperfectionCaseNo) {
-  if (this.LC !== undefined) {
-    if (imperfectionCaseNo !== undefined) {
-      if (imperfection_cases.exist(imperfectionCaseNo)) {
-        this.LC.consider_imperfection = true;
-        this.LC.imperfection_case = imperfectionCaseNo;
-      } else {
-        this.LC.consider_imperfection = false;
-      }
-
-    }
-    else {
-      this.LC.consider_imperfection = false;
-    }
-
-  }
-};
-
-
-function CreateLoadCase(no, name) {
-
-  var LoadCase = undefined;
-  if (no === undefined) {
-    LoadCase = load_cases.create();
   }
   else {
-    LoadCase = load_cases.create(no);
-  }
-
-  if (name !== undefined) {
-    LoadCase.name = name;
-  }
-  return LoadCase;
-}
-
-function SetActionCategory(LC, actionCategory) {
-  if (LC !== undefined) {
-    if (actionCategory !== undefined) {
-      var actionCategoryType = actionCategory_dict[actionCategory];
-      if (actionCategoryType === undefined) {
-        console.log("Wrong equation solver input. Value was: " + actionCategory);
-        console.log("Correct values are: ( " + Object.keys(actionCategory_dict) + ")");
-        actionCategory = "ACTION_CATEGORY_PERMANENT_G";
-      }
-      LC.action_category = load_cases[actionCategoryType];
-    } else {
-      LC.action_category = load_cases["ACTION_CATEGORY_PERMANENT_G"];
-    }
+    console.log("LoadCase is undefined " + arguments.callee.name);
   }
 }
-
-LoadCase.prototype.GetActionCategoryList = function () {
-  return actionCategory_dict;
-};
-
 
 const actionCategory_dict = {
 

@@ -40,6 +40,7 @@ var WSAS = new WindSimulationSettings(20,"Wind simulation:",1.25,0.000015,true,"
 var LCSW = new LoadCase().StaticAnalysis(1,"Static analysis",SASGeometricallyLinear.Settings.no,"ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_A_DOMESTIC_RESIDENTIAL_AREAS_QI_A",[true,0,0,1.0]);
 var LCModalLoad = new LoadCase().ModalAnalysis(2,"Modal analysis",MASUserDefined.Settings.no,LCSW.LoadCase.no);
 var LCSpectralAnalysis = new LoadCase().ResponseSpectrumAnalysis(3,"Spectral analysis",SpAS.Settings.no,LCModalLoad.LoadCase.no,[[0,0],[0,0],[1,1]]);
+var LCWind = new LoadCase().WindSimulation(4,"Wind simulation",SASGeometricallyLinear.Settings.no,WSAS.Settings.no,1);
 
 // var LC = new LoadCase();
 // LC.SetStabilityAnalysis(2);
