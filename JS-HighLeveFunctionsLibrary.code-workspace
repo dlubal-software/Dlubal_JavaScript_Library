@@ -2,9 +2,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"path": "..\\..\\RFEM-TestingVersions\\masterJSTesting\\scripts\\internal"
 		}
 	],
 	"settings": {
