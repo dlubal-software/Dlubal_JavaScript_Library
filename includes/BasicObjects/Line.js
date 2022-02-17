@@ -286,6 +286,135 @@ Line.prototype.NURBS = function (no,
 }
 
 /**
+ * Create Rectangular polygon
+ * @param {int} 	no				Number of the line, can be undefined
+ * @param {array} 	center_point	Center point by format
+ * @param {number} 	length 			Length
+ * @param {number} 	width 			Width
+ * @param {string} 	plane 			Plane XY, XZ or YZ, can be undefined
+ * @param {string} 	comment 		Comment for the line, can be undefined
+ * @param {Object} 	params 			Parameters of the line, can be undefined
+ * @return Rectangular polygon
+ */
+Line.prototype.RectangularPolygon = function (no,
+	center_point,
+	length,
+	width,
+	plane,
+	comment,
+	params) {
+	ASSERT(typeof center_point !== "undefined", "Control point must be specified");
+	ASSERT(center_point.length === 3, "Center point: [X, Y, Z]");
+	ASSERT(typeof length !== "undefined", "Length of rectangle must be specified");
+	ASSERT(typeof width !== "undefined", "Width of rectangle must be specified");
+	
+	if (typeof plane === "undefined") {
+		plane = "XY";
+	}
+	var X = center_point[0];
+    var Y = center_point[1];
+    var Z = center_point[2];
+	var lastNodeNo = nodes.lastId();
+	if (plane == "XY") {
+        createNode(X - length / 2, Y - width / 2, Z);
+        createNode(X + length / 2, Y - width / 2, Z);
+        createNode(X + length / 2, Y + width / 2, Z);
+        createNode(X - length / 2, Y + width / 2, Z);
+    } else if (plane == "XZ") {
+        createNode(X - length / 2, Y, Z - width / 2);
+        createNode(X + length / 2, Y, Z - width / 2);
+        createNode(X + length / 2, Y, Z + width / 2);
+        createNode(X - length / 2, Y, Z + width / 2);
+    } else if (plane == "YZ") {
+        createNode(X, Y - length / 2, Z - width / 2);
+        createNode(X, Y + length / 2, Z - width / 2);
+        createNode(X, Y + length / 2, Z + width / 2);
+        createNode(X, Y - length / 2, Z + width / 2);
+    }
+	
+    this.line = Line(undefined, [lastNodeNo + 1, lastNodeNo + 2, lastNodeNo + 3, lastNodeNo + 4, lastNodeNo + 1]);
+	
+    set_comment_and_parameters(this.line, comment, params);
+	
+	return this.line;
+}
+
+/**
+ * Create nPolygon
+ * @param {int}		no				Number of the line, can be undefined
+ * @param {array}	control_point 	Control point by format [x, y, z]
+ * @param {number} 	no_edges 		Number of edges
+ * @param {number} 	radius 			Radius
+ * @param {string} 	plane 			Plane, can be undefined
+ * @param {number} 	rotation_angle 	Rotation angle
+ * @param {string} 	join 			Join in one "true" or in separate lines "false"
+ * @param {string} 	comment 		Comment for the line, can be undefined
+ * @param {Object} 	params 			Parameters of the line, can be undefined
+ */
+Line.prototype.nPolygon = function (no,
+	center_point,
+	no_edges,
+	radius,
+	plane,
+	rotation_angle,
+	join,
+	comment,
+	params) {
+	ASSERT(center_point.length == 3, "Define the center point of rectangle by this format [X, Y, Z]");
+    ASSERT(no_edges > 2, "Number of edges should be more than 2");
+	
+	center_point = typeof center_point !== "undefined" ? center_point : [];
+    no_edges = typeof no_edges !== "undefined" ? no_edges : 0.0;
+    radius = typeof radius !== "undefined" ? radius : 0.0;
+    plane = typeof plane !== "undefined" ? plane : "XY";
+    join = typeof join !== "undefined" ? join : true;
+    rotation_angle = typeof rotation_angle !== "undefined" ? rotation_angle : 0.0;
+    
+    var X = center_point[0];
+    var Y = center_point[1];
+    var Z = center_point[2];
+    var no_n = nodes.lastId() + 1;
+    var no_n_ref = nodes.lastId() + 1;
+    var nodes_list = [];
+    if (plane == "XY") {
+        for (var i = 0; i < no_edges; ++i) {
+            var alpha = i * PI * 2 / no_edges + rotation_angle;
+            Node(no_n, X + radius * cos(alpha), Y + radius * sin(alpha), Z);
+            nodes_list.push(no_n);
+            no_n++;
+        }
+    } else if (plane == "XZ") {
+        for (var i = 0; i < no_edges; ++i) {
+            var alpha = i * PI * 2 / no_edges + rotation_angle;
+            Node(no_n, X + radius * cos(alpha), Y, Z + radius * sin(alpha));
+            nodes_list.push(no_n);
+            no_n++;
+        }
+    } else if (plane == "YZ") {
+        for (var i = 0; i < no_edges; ++i) {
+            var alpha = i * PI * 2 / no_edges + rotation_angle;
+            Node(no_n, X, Y + radius * cos(alpha), Z + radius * sin(alpha));
+            nodes_list.push(no_n);
+            no_n++;
+        }
+    }
+
+    if (join) {
+        nodes_list.push(no_n - no_edges);
+        this.line = Line(no, nodes_list);
+    } else {
+        var no_l = lines.lastId() + 1;
+        for (var i = 0; i < no_edges - 1; ++i) {
+            Line(no_l + i, [no_n_ref + i, no_n_ref + 1 + i]);
+        }
+        this.line = Line(no_l + no_edges - 1, [no_n_ref + no_edges - 1, no_n_ref]);
+    }
+    set_comment_and_parameters(this.line, comment, params);
+	
+	return this.line;
+}
+
+/**
 * Sets line rotation
 * @param {Number}	rotation_values 	Rotation values depends on rotatopon type:
 *											1 - [β]

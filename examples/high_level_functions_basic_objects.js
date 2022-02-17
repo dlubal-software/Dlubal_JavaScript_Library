@@ -14,6 +14,8 @@ if (RFEM) {
 	var nodeForLines = createNodesGrid(-28, -6, [10, 10], [3, 4]);
 	var thickness = createThickness("0.250", material, thicknesses.TYPE_UNIFORM);
 	var solid = makeSolid([[8, -16, 0], [20, -16, 0], [20, -8, 0], [8, -8, 0], [8, -16, -5], [20, -16, -5], [20, -8, -5], [8, -8, -5]]);
+	var nodesForSurfaces = createNodesGrid(1, 10, [6, 4], [5, 5]);
+	var surfaceList = createSurfacesFromNodesGrid(nodesForSurfaces, [3, 2], surfaces.TYPE_STANDARD, thickness);
 
 	 /*For line welded joints
 					line1			line2
@@ -35,12 +37,12 @@ if (RFEM) {
 					   | /
 					   +node7
 	*/
-	var node1 = createNode(8, -2, 0);
-	var node2 = createNode(13, -2, 0);
-	var node3 = createNode(18, -2, 0);
-	var node4 = createNode(18, 3, 0);
-	var node5 = createNode(13, 3, 0);
-	var node6 = createNode(8, 3, 0);
+	var node1 = createNode(8, -5, 0);
+	var node2 = createNode(13, -5, 0);
+	var node3 = createNode(18, -5, 0);
+	var node4 = createNode(18, 0, 0);
+	var node5 = createNode(13, 0, 0);
+	var node6 = createNode(8, 0, 0);
 	var node7 = createNode(node5.coordinate_1, node5.coordinate_2, 5);
 	var node8 = createNode(node2.coordinate_1, node2.coordinate_2, 5);
 	var line1 = createLine(node1.no, node2.no);
@@ -171,5 +173,9 @@ if (RFEM) {
 	// Option: welded joints
 	var lineWeldedJoint = line_welded_joints.create();
 	lineForWeldedJoint.WeldedJoints([[lineWeldedJoint.no, surfaceForWeldedJoint.no, surface2ForWeldedJoint.no, undefined]]);
+	// Other
+	var line8 = new Line();
+	line8.RectangularPolygon(undefined, [nodes[114].coordinate_1, nodes[114].coordinate_2, nodes[114].coordinate_3], 2, 4);
+	line8.nPolygon(undefined, [nodes[149].coordinate_1, nodes[149].coordinate_2, nodes[149].coordinate_3], 5, 2);
 	/*********************************************************************************************/
 }
