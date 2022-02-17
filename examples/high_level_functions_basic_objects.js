@@ -82,10 +82,12 @@ member.CouplingRigidRigid(undefined, [17, 18], "CouplingRigidRigid member");
 member.CouplingRigidHinge(undefined, [19, 20], "CouplingRigidHinge member");
 member.CouplingHingeRigid(undefined, [21, 22], "CouplingHingeRigid member");
 member.CouplingHingeHinge(undefined, [23, 24], "CouplingHingeHinge memnber");
-// Result beam with "Integrate stresses and forces within block with square area" (1), with included objects
-member.ResultBeam(undefined, [25, 26], 1, 1, [1.5], [[1], [1, 2], true]);
-// Result beam with "Integrate stresses and forces within cuboid" (2), with excluded members
-member.ResultBeam(undefined, [27, 28], 1, 2, [0, 1.1, 0, 1.2], undefined, [undefined, [1], undefined]);
+if (RFEM) {
+	// Result beam with "Integrate stresses and forces within block with square area" (1), with included objects
+	member.ResultBeam(undefined, [25, 26], 1, 1, [1.5], [[1], [1, 2], true]);
+	// Result beam with "Integrate stresses and forces within cuboid" (2), with excluded members
+	member.ResultBeam(undefined, [27, 28], 1, 2, [0, 1.1, 0, 1.2], undefined, [undefined, [1], undefined]);
+}
 // Definable stiffness member (set via member definable stiffness object)
 var member2 = new Member(undefined, [29, 30]);
 member2.type = members.TYPE_DEFINABLE_STIFFNESS;
@@ -123,7 +125,12 @@ member8.Beam(undefined, [41, 42], 1);
 member8.ResultIntermediatePoints(1);
 // Option: End modifications
 var member9 = new Member();
-member9.Beam(undefined, [43, 44, 56, 46, 47], 1);
+if (RFEM) {
+	member9.Beam(undefined, [43, 44, 56, 46, 47], 1);
+}
+else {
+	member9.Beam(undefined, [43, 44], 1);
+}
 member9.EndModifications([0.1, 0.2, 0.2], [0.5, 0.2, 0.3]);
 // Option: Deactivate for calculation
 member9.DeactivateForCalculation();

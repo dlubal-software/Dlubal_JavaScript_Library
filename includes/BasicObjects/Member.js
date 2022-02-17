@@ -181,54 +181,56 @@ Member.prototype.ResultBeam = function (no,
 	excluded_objects,
 	comment,
 	params) {
-	this.member = createBaseMember(no, nodes_or_line, members.TYPE_RESULT_BEAM, section_start, comment, params);
-	if (typeof result_beam_integrate_stresses_and_forces !== "undefined") {
-		switch (result_beam_integrate_stresses_and_forces)
-		{
-			case 1:		// Integrate stresses and forces within block with square area
-				this.member.result_beam_integrate_stresses_and_forces = members.INTEGRATE_WITHIN_CUBOID_QUADRATIC;
-				if (typeof result_beam_parameters !== "undefined") {
-					ASSERT(result_beam_parameters.length === 1, "Dimension parameter is required: [Yz]");
-					this.member.result_beam_y_z = result_beam_parameters[0];
-				}
-				break;
-			case 2:		// Integrate stresses and forces within cuboid
-				this.member.result_beam_integrate_stresses_and_forces = members.INTEGRATE_WITHIN_CUBOID_GENERAL;
-				if (typeof result_beam_parameters !== "undefined") {
-					ASSERT(result_beam_parameters.length === 4, "Four parameters are required: [Y+, Y-, Z+, Z-]");
-					this.member.result_beam_y_plus = result_beam_parameters[0];
-					this.member.result_beam_y_minus = result_beam_parameters[1];
-					this.member.result_beam_z_plus = result_beam_parameters[2];
-					this.member.result_beam_z_minus = result_beam_parameters[3];
-				}
-				break;
-			case 3:		// Integrate stresses and forces within cylinder
-				this.member.result_beam_integrate_stresses_and_forces = members.INTEGRATE_WITHIN_CYLINDER;
-				if (typeof result_beam_parameters !== "undefined") {
-					ASSERT(result_beam_parameters.length === 1, "Radius parameter is required: [R]");
-					this.member.result_beam_radius = result_beam_parameters[0];
-				}
-				break;
-			case 4:		// Integrate stresses and forces from listed objects
-				this.member.result_beam_integrate_stresses_and_forces = members.INTEGRATE_FROM_LISTED_OBJECT;
-				break;
-			default:
-				ASSERT(false, "Unknown stresses and forces type");
+	if (RFEM) {
+		this.member = createBaseMember(no, nodes_or_line, members.TYPE_RESULT_BEAM, section_start, comment, params);
+		if (typeof result_beam_integrate_stresses_and_forces !== "undefined") {
+			switch (result_beam_integrate_stresses_and_forces)
+			{
+				case 1:		// Integrate stresses and forces within block with square area
+					this.member.result_beam_integrate_stresses_and_forces = members.INTEGRATE_WITHIN_CUBOID_QUADRATIC;
+					if (typeof result_beam_parameters !== "undefined") {
+						ASSERT(result_beam_parameters.length === 1, "Dimension parameter is required: [Yz]");
+						this.member.result_beam_y_z = result_beam_parameters[0];
+					}
+					break;
+				case 2:		// Integrate stresses and forces within cuboid
+					this.member.result_beam_integrate_stresses_and_forces = members.INTEGRATE_WITHIN_CUBOID_GENERAL;
+					if (typeof result_beam_parameters !== "undefined") {
+						ASSERT(result_beam_parameters.length === 4, "Four parameters are required: [Y+, Y-, Z+, Z-]");
+						this.member.result_beam_y_plus = result_beam_parameters[0];
+						this.member.result_beam_y_minus = result_beam_parameters[1];
+						this.member.result_beam_z_plus = result_beam_parameters[2];
+						this.member.result_beam_z_minus = result_beam_parameters[3];
+					}
+					break;
+				case 3:		// Integrate stresses and forces within cylinder
+					this.member.result_beam_integrate_stresses_and_forces = members.INTEGRATE_WITHIN_CYLINDER;
+					if (typeof result_beam_parameters !== "undefined") {
+						ASSERT(result_beam_parameters.length === 1, "Radius parameter is required: [R]");
+						this.member.result_beam_radius = result_beam_parameters[0];
+					}
+					break;
+				case 4:		// Integrate stresses and forces from listed objects
+					this.member.result_beam_integrate_stresses_and_forces = members.INTEGRATE_FROM_LISTED_OBJECT;
+					break;
+				default:
+					ASSERT(false, "Unknown stresses and forces type");
+			}
 		}
+		if (typeof included_objects !== "undefined") {
+			ASSERT(included_objects.length === 3, "Three parameters are required");
+			setResultBeamObjects(this.member, "result_beam_include_all_surfaces", "result_beam_include_surfaces", included_objects[0]);
+			setResultBeamObjects(this.member, "result_beam_include_all_members", "result_beam_include_members", included_objects[1]);
+			setResultBeamObjects(this.member, "result_beam_include_all_solids", "result_beam_include_solids", included_objects[2]);
+		}
+		if (typeof excluded_objects !== "undefined") {
+			ASSERT(excluded_objects.length === 3, "Three parameters are required");
+			setResultBeamObjects(this.member, undefined, "result_beam_exclude_surfaces", excluded_objects[0]);
+			setResultBeamObjects(this.member, undefined, "result_beam_exclude_members", excluded_objects[1]);
+			setResultBeamObjects(this.member, undefined, "result_beam_exclude_solids", excluded_objects[2]);
+		}
+		return this.member;
 	}
-	if (typeof included_objects !== "undefined") {
-		ASSERT(included_objects.length === 3, "Three parameters are required");
-		setResultBeamObjects(this.member, "result_beam_include_all_surfaces", "result_beam_include_surfaces", included_objects[0]);
-		setResultBeamObjects(this.member, "result_beam_include_all_members", "result_beam_include_members", included_objects[1]);
-		setResultBeamObjects(this.member, "result_beam_include_all_solids", "result_beam_include_solids", included_objects[2]);
-	}
-	if (typeof excluded_objects !== "undefined") {
-		ASSERT(excluded_objects.length === 3, "Three parameters are required");
-		setResultBeamObjects(this.member, undefined, "result_beam_exclude_surfaces", excluded_objects[0]);
-		setResultBeamObjects(this.member, undefined, "result_beam_exclude_members", excluded_objects[1]);
-		setResultBeamObjects(this.member, undefined, "result_beam_exclude_solids", excluded_objects[2]);
-	}
-	return this.member;
 };
 
 /**
