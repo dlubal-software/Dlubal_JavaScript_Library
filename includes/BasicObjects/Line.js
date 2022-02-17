@@ -6,10 +6,10 @@ if (!RFEM) {
  * Creates line
  * @class
  * @constructor
- * @param	{Number}		no			Index of line, can be undefined
+ * @param	{Number}	no			Index of line, can be undefined
  * @param	{Array}		nodes		List of node indexes
- * @param	{String}		comment		Comment, can be undefined
- * @param	{Object}		params  	Line's parameters, can be undefined
+ * @param	{String}	comment		Comment, can be undefined
+ * @param	{Object}	params  	Line's parameters, can be undefined
  * @returns	Created line
  */
 function Line (no,
@@ -267,12 +267,15 @@ Line.prototype.NURBS = function (no,
 
 	for (var i = 0; i < control_points_by_components.length; ++i) {
 		var control_point_values = control_points_by_components[i];
-		ASSERT(control_point_values.length === 4, "Control point values required four parameters [X, Y, Z, Weight]");
+		ASSERT(control_point_values.length === 4, "Control point values required four parameters [X, Y, Z, Weight|undefined]");
 		var row = this.line.nurbs_control_points_by_components.row_count();
+		this.line.nurbs_control_points_by_components.insert_row(row);
 		this.line.nurbs_control_points_by_components[row].global_coordinate_x = control_point_values[0];
 		this.line.nurbs_control_points_by_components[row].global_coordinate_y = control_point_values[1];
 		this.line.nurbs_control_points_by_components[row].global_coordinate_z = control_point_values[2];
-		this.line.nurbs_control_points_by_components[row].weight = control_point_values[3];
+		if (typeof control_point_values[3] !== "undefined") {
+			this.line.nurbs_control_points_by_components[row].weight = control_point_values[3];
+		}
 	}
 
 	if (typeof nurbs_order !== "undefined") {
@@ -282,6 +285,138 @@ Line.prototype.NURBS = function (no,
 	return this.line;
 }
 
+/**
+* Sets line rotation
+* @param {Number}	rotation_values 	Rotation values depends on rotatopon type:
+*											1 - [β]
+*											2 - [help_node_index, rotation_plane ("x-y"|"x-z")]
+*											3 - [rotation_plane ("x-y"|"x-z")]
+* @param {Number}	rotation_type		Line rotation via: Angle (1), Help node (2), Inside (non-straight line) (3)
+*/
+Line.prototype.Rotation = function (rotation_values,
+	rotation_type) {
+	ASSERT(typeof rotation_values !== "undefined", "Rotation values must be specified");
+	
+	if (typeof rotation_type === "undefined") {
+		rotation_type = 1;
+	}
+
+	switch (rotation_type) {
+		case 1:		// Angle
+			ASSERT(rotation_values.length === 1, "One value is required [β]");
+			this.line.rotation_specification_type = lines.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE;
+			this.line.rotation_angle = rotation_values[0];
+			break;
+		case 2:		// Help node
+			ASSERT(rotation_values.length === 2, "Two values are required [help_node_index, rotation_plane (x-y|x-z)]");
+			ASSERT(nodes.exist(rotation_values[0]), "Node no " + rotation_values[0] + " doesn't exist");
+			this.line.rotation_specification_type = lines.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE;
+			this.line.rotation_help_node = rotation_values[0];
+			this.line.rotation_plane = getRotationPlane(rotation_values[1]);
+			break;
+		case 3:		// Inside
+			ASSERT(rotation_values.length === 1, "One value is required [rotation_plane (x-y|x-z)]");
+			this.line.rotation_specification_type = lines.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE;
+			this.line.rotation_plane = getRotationPlane(rotation_values[0]);
+			break;
+		default:
+			ASSERT(false, "Unknown type of rotation");
+	}
+};
+
+/**
+* Sets new default beam member to line
+*/
+Line.prototype.AssignMember = function () {
+	ASSERT(sections.count() > 0, "No section found, before use this section you has to create section");
+	return createMember(undefined, sections[1], members.TYPE_BEAM, this.line.no);
+};
+
+/**
+* Sets nodes on line
+* @param	{Array}		values	Nodes on line values in format [[node_1, reference_1, from_start_1, from_end1_1] ... [node_n, reference_n, from_start_n, from_end_1]]
+*/
+Line.prototype.NodesOnLine = function (values) {
+	for (var i = 0; i < values.length; ++i) {
+		ASSERT(values[i].length === 4, "Values has to be set in this format: [[node_1, reference_1, from_start_1, from_end1_1] ... [node_n, reference_n, from_start_n, from_end_1]]");
+		if (typeof values[i][0] !== "undefined") {
+			this.line.nodes_on_line_assignment[i + 1].node = values[i][0];
+		}
+		this.line.nodes_on_line_assignment[i + 1].reference = values[i][1];
+		this.line.nodes_on_line_assignment[i + 1].fromStart = values[i][2];
+		this.line.nodes_on_line_assignment[i + 1].fromEnd = values[i][3];
+	}
+};
+
+/**
+* Sets line supports
+* @param	{Number}	line_support	Line supports object id
+*/
+Line.prototype.Supports = function (line_support) {
+	ASSERT(line_supports.exist(line_support), "Line support no. " + line_support + " doesn't exist");
+	
+	this.line.support = line_supports[line_support];
+};
+
+/**
+* Sets line mesh refinement
+* @param 	{Array}		line_mesh_refinement	Line mesh refinement object id
+*/
+Line.prototype.MeshRefinement = function (mesh_refinement) {
+	ASSERT(line_mesh_refinements.exist(mesh_refinement), "Line mesh refinement no. " + mesh_refinement + " doesn't exist");
+	
+	this.line.mesh_refinement = line_mesh_refinements[mesh_refinement];
+};
+
+/**
+* Sets line welded joints
+* @param	{Array}		values		Line welded joints values, [[weld1, surface1,1, surface2,1, surface3,1] ... [weldn, surface1n, surface2n, surface3n]]
+*/
+Line.prototype.WeldedJoints = function (values) {
+	for (var i = 0; i < values.length; ++i) {
+		var line_welded_values = values[i];
+		ASSERT(line_welded_values.length === 4, "Four values are required for line welded specification [weld, surface1, surface2, surface3]");
+		ASSERT(line_welded_joints.exist(line_welded_values[0]), "Line welded joint no. " + line_welded_values[0] + " doesn't exist");
+		ASSERT(surfaces.exist(line_welded_values[1]), "Surface no. " + line_welded_values[1] + " doesn§t exist");
+		var row = this.line.line_weld_assignment.row_count();
+		this.line.line_weld_assignment.insert_row(row);
+		this.line.line_weld_assignment[row].weld = line_welded_values[0];
+		this.line.line_weld_assignment[row].surface1 = line_welded_values[1];
+		if (typeof line_welded_values[2] !== "undefined") {
+			ASSERT(surfaces.exist(line_welded_values[2]), "Surface no. " + line_welded_values[2] + " doesn§t exist");
+			this.line.line_weld_assignment[row].surface2 = line_welded_values[2];
+		}
+		if (typeof line_welded_values[3] !== "undefined") {
+			ASSERT(surfaces.exist(line_welded_values[3]), "Surface no. " + line_welded_values[3] + " doesn§t exist");
+			this.line.line_weld_assignment[row].surface3 = line_welded_values[3];
+		}
+	}
+}
+
+/**
+* Returns rotation plane from string representation
+* @param	{String}	rotation_plane	Rotation plane (x-y, x-z)
+* @return Rotation plane
+*/
+var getRotationPlane = function (rotation_plane) {
+	switch (rotation_plane) {
+		case "x-y":
+			return lines.ROTATION_PLANE_XY;
+		case "x-z":
+			return lines.ROTATION_PLANE_XZ;
+		default:
+			ASSERT(false, "Unknown rotation plane");
+	}
+};
+
+/**
+* Creates line
+* @param	{Number}	no			Index of line, can be undefined
+* @param	{Array}		nodes		List of node indexes
+* @param	{String}	comment		Comment, can be undefined
+* @param	{Object}	params  	Line's parameters, can be undefined
+* @returns	Created line
+*/
 var createBaseLine = function (no,
 	nodes,
 	line_type,
@@ -295,10 +430,12 @@ var createBaseLine = function (no,
 		ASSERT(typeof nodes !== "undefined", "Nodes must be defined");
 		ASSERT(nodes.length >=2, "At least two nodes must be specified");
 	}
+
 	var line = engine.create_line(no, nodes);
 	if (typeof line_type != "undefined") {
 		line.type = line_type;
 	}
 	set_comment_and_parameters(line, comment, params);
+
 	return line;
 };

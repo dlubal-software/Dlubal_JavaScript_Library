@@ -9,13 +9,54 @@ run("../includes/Tools/clearAll.js");
 var material = createMaterial("S235");
 var section = createSection(material, "IPE 80");
 var section2 = createSection(material, "IPE 100");
-var nodesForMembers = createNodesGrid(-28, -28, [10, 6], [3, 5]);
+var nodesForMembers = createNodesGrid(-28, -28, [10, 6], [3, 4]);
 if (RFEM) {
-	var nodeForLines = createNodesGrid(-28, 2, [10, 6], [3, 5]);
+	var nodeForLines = createNodesGrid(-28, -6, [10, 10], [3, 4]);
 	var thickness = createThickness("0.250", material, thicknesses.TYPE_UNIFORM);
 	var solid = makeSolid([[8, -16, 0], [20, -16, 0], [20, -8, 0], [8, -8, 0], [8, -16, -5], [20, -16, -5], [20, -8, -5], [8, -8, -5]]);
-	var nodesForSurfaces = createNodesGrid(8, -2, [6, 2], [5, 5]);
-	createSurfacesFromNodesGrid(nodesForSurfaces, [3, 1], surfaces.TYPE_STANDARD, thickness);
+
+	 /*For line welded joints
+					line1			line2
+				+-------------+-------------+node3
+			   /node1		 /|	node2	   /
+			  /				/ |			  /
+			 /			   /  |			 /line3
+	  line6	/		line7 /	  |	line9   /
+		   /			 /	  |		   /
+		  /	node6		/node5|		  /
+		 +----line5----+-----line4---+node4
+					   |	  |
+							  +node8
+					   |	  /
+				line8  |	 /
+					   |	/line10
+					   |   /
+					   |  /
+					   | /
+					   +node7
+	*/
+	var node1 = createNode(8, -2, 0);
+	var node2 = createNode(13, -2, 0);
+	var node3 = createNode(18, -2, 0);
+	var node4 = createNode(18, 3, 0);
+	var node5 = createNode(13, 3, 0);
+	var node6 = createNode(8, 3, 0);
+	var node7 = createNode(node5.coordinate_1, node5.coordinate_2, 5);
+	var node8 = createNode(node2.coordinate_1, node2.coordinate_2, 5);
+	var line1 = createLine(node1.no, node2.no);
+	var line2 = createLine(node2.no, node3.no);
+	var line3 = createLine(node3.no, node4.no);
+	var line4 = createLine(node5.no, node4.no);
+	var line5 = createLine(node6.no, node5.no);
+	var line6 = createLine(node6.no, node1.no);
+	var lineForWeldedJoint = new Line();
+	var lineForWeldedJointNo = lineForWeldedJoint.Polyline(undefined, [node5.no, node2.no]).no;
+	var line8 = createLine(node5.no, node7.no);
+	var line9 = createLine(node2.no, node8.no);
+	var line10 = createLine(node7.no, node8.no);
+	var surfaceForWeldedJoint = createSurface([line1.no, lineForWeldedJointNo, line5.no, line6.no], surfaces.TYPE_STANDARD, thickness);
+	var surface2ForWeldedJoint = createSurface([line2.no, line3.no, line4.no, lineForWeldedJointNo], surfaces.TYPE_STANDARD, thickness);
+	var surface3ForWeldedJoint = createSurface([lineForWeldedJointNo, line9.no, line10.no, line8.no], surfaces.TYPE_STANDARD, thickness);
 }
 
 /*************************************** Members *********************************************/
@@ -52,7 +93,7 @@ var memberDefinableStiffness = new MemberDefinableStiffness(undefined, [member2.
 // Option: nodes on member
 var member4 = new Member();
 member4.Beam(undefined, [33, 34], 1);
-member4.NodesOnMember([[undefined, "L", 0.1, 0.9], [undefined, "XY", 0.2, 0.8]]);
+member4.NodesOnMember([[undefined, "XY", 0.1, 0.9], [undefined, "XY", 0.2, 0.8]]);
 // Option: member hinges
 var member5 = new Member();
 member5.Beam(undefined, [35, 36], 1);
@@ -87,17 +128,48 @@ member9.DeactivateForCalculation();
 /*********************************************************************************************/
 
 if (RFEM) {
-/***************************************** Lines *********************************************/
-var line = new Line(undefined, [61, 62], "First line with default type");
-var line2 = new Line();
-line2.Polyline(undefined, [63, 74, 64, 75, 65]);
-line2.Arc(undefined, [66, 68], [-10, 7, 0]);
-line2.Arc(undefined, [69, 70], [-8, 7, 0], [undefined, undefined, 2.5]);	// with α parameter defined
-line2.Arc(undefined, [71, 72], [-24, 8, 0], undefined, [-29, 7.5, 0]);		// with moved center of arc
-line2.Circle(undefined, [nodes[83].coordinate_1, nodes[83].coordinate_2, nodes[83].coordinate_3], 2, [1, 0, 0]); // with normal parallel to X-Axis
-line2.EllipticalArc(undefined, [nodes[84].coordinate_1, nodes[84].coordinate_2, nodes[84].coordinate_3], [nodes[87].coordinate_1, nodes[87].coordinate_2, nodes[87].coordinate_3], [nodes[96].coordinate_1, nodes[96].coordinate_2, nodes[96].coordinate_3]);
-line2.Ellipse(undefined, [88, 100], [nodes[98].coordinate_1, nodes[98].coordinate_2, nodes[98].coordinate_3]);
-line2.Parabola(undefined, [81, 93], [nodes[101].coordinate_1, nodes[101].coordinate_2, nodes[101].coordinate_3]);
-line2.Spline(undefined, [103, 94, 105, 95, 106]);
-/*********************************************************************************************/
-};
+	/***************************************** Lines *********************************************/
+	var line = new Line(undefined, [61, 62], "First line with default type");
+	var line2 = new Line();
+	line2.Polyline(undefined, [63, 74, 64, 75, 65]);
+	line2.Arc(undefined, [66, 68], [-10, 7, 0]);
+	line2.Arc(undefined, [69, 70], [-8, 7, 0], [undefined, undefined, 2.5]);	// with α parameter defined
+	line2.Arc(undefined, [71, 72], [-24, 8, 0], undefined, [-29, 7.5, 0]);		// with moved center of arc
+	line2.Circle(undefined, [nodes[83].coordinate_1, nodes[83].coordinate_2, nodes[83].coordinate_3], 2, [1, 0, 0]); // with normal parallel to X-Axis
+	line2.EllipticalArc(undefined, [nodes[84].coordinate_1, nodes[84].coordinate_2, nodes[84].coordinate_3], [nodes[87].coordinate_1, nodes[87].coordinate_2, nodes[87].coordinate_3], [nodes[96].coordinate_1, nodes[96].coordinate_2, nodes[96].coordinate_3]);
+	line2.Ellipse(undefined, [88, 100], [nodes[98].coordinate_1, nodes[98].coordinate_2, nodes[98].coordinate_3]);
+	line2.Parabola(undefined, [81, 93], [nodes[101].coordinate_1, nodes[101].coordinate_2, nodes[101].coordinate_3]);
+	line2.Spline(undefined, [103, 94, 105, 95, 106]);
+	line2.NURBS(undefined, [107, 119], [[nodes[109].coordinate_1, nodes[109].coordinate_2, nodes[109].coordinate_3, undefined], [nodes[120].coordinate_1, nodes[120].coordinate_2, nodes[120].coordinate_3, undefined], [nodes[120].coordinate_1, nodes[120].coordinate_2, nodes[120].coordinate_3, undefined]], 5);
+	// Option: rotation
+	var line3 = new Line();
+	line3.Polyline(undefined, [121, 122]);
+	line3.Rotation([20]);	// type: angle
+	line3.Polyline(undefined, [123, 124]);
+	line3.Rotation([124, "x-z"], 2);	// type: help node
+	line3.Circle(undefined, [nodes[126].coordinate_1, nodes[126].coordinate_2, nodes[126].coordinate_3], 3);
+	line3.Rotation(["x-z"], 3);	// Inside (non-straight line)
+	// Option: member
+	var line4 = new Line();
+	line4.Polyline(undefined, [128, 129]);
+	line4.AssignMember();
+	// Option: nodes on line
+	var line5 = new Line();
+	line5.Polyline(undefined, [131, 132]);
+	line5.NodesOnLine([[undefined, "XY", 0.1, 0.9], [undefined, "XZ", 0.2, 0.8]]);
+	// Option: Supports
+	var lineSupport = new LineSupport();
+	lineSupport.Hinged();
+	var line6 = new Line();
+	line6.Spline(undefined, [142, 133, 144, 134, 145]);
+	line6.Supports(1);
+	// Option: line mesh refinement
+	var lineMeshRefinement = new LineMeshRefinement();
+	var line7 = new Line();
+	line7.Polyline(undefined, [146, 147]);
+	line7.MeshRefinement(lineMeshRefinement.no);
+	// Option: welded joints
+	var lineWeldedJoint = line_welded_joints.create();
+	lineForWeldedJoint.WeldedJoints([[lineWeldedJoint.no, surfaceForWeldedJoint.no, surface2ForWeldedJoint.no, undefined]]);
+	/*********************************************************************************************/
+}
