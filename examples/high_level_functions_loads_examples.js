@@ -4,12 +4,10 @@ include("../includes/Tools/high_level_functions_support.js");
 ********************************** Support functions ******************************************
 **********************************************************************************************/
 
-function makeOpenings(surfaceList, nodeList)
-{
+function makeOpenings(surfaceList, nodeList) {
 	var openingList = [];
 
-	for (var i = 0; i < 3; ++i)
-	{
+	for (var i = 0; i < 3; ++i) {
 		var node = createNode(nodeList[i * 2].coordinate_1 + (nodeList[1 + i * 2].coordinate_1 - nodeList[i * 2].coordinate_1) / 2, nodeList[i * 2].coordinate_2 + (nodeList[6 + i * 2].coordinate_2 - nodeList[i * 2].coordinate_2) / 2, 0);
 		var line = lines.create();
 		line.type = lines.TYPE_CIRCLE;
@@ -33,15 +31,13 @@ run("../internal/clearAll.js");
 var material = createMaterial("S235");
 var section = createSection(material, "IPE 80");
 
-if (RFEM)
-{
+if (RFEM) {
 	var thickness = createThickness("0.250", material, thicknesses.TYPE_UNIFORM);
 }
 var nodesForNodes = createNodesGrid(-28, -28, [8, 1], [4, 2]);
 var nodesForMembers = createNodesGrid(-28, -8, [10, 4], [3, 5]);
 
-if (RFEM)
-{
+if (RFEM) {
 	var nodesForLines = createNodesGrid(-28, -18, [8, 2], [4, 4]);
 	modifyNodesToZCoord(nodesForLines, [[0, 8]]);
 	var nodesForSurfaces = createNodesGrid(-28, 12, [6, 4], [5, 5]);
@@ -54,14 +50,13 @@ if (RFEM)
 	var openingList = makeOpenings(surfaceForOpeningsList, nodesForSurfacesForOpenings);
 }
 
-if (RFEM)
-{
+if (RFEM) {
 	createSurfacesFromNodesGrid(nodesForLines, [4, 1], surfaces.TYPE_STANDARD, thickness);
 }
 
 var memberList = createMembersFromNodesGrid(nodesForMembers, [5, 4], members.TYPE_BEAM, section);
 
-var lc = new LoadCase();
+var lc = LoadCase(undefined);
 
 /**************************************** Nodal loads *******************************************
 * Common information:
@@ -88,7 +83,7 @@ nodalLoad2.Moment(undefined, lc, [5], 2000);
 
 var nodalLoad3 = new NodalLoad();
 // Two components nodal loads
-nodalLoad3.Components(undefined, lc, [6, 7], [10,20,30], [30,40,50]);
+nodalLoad3.Components(undefined, lc, [6, 7], [10, 20, 30], [30, 40, 50]);
 // Add eccentricity (ex, ey, ez)
 nodalLoad3.ForceEccentricity(0.5, 0.2, 0);
 
@@ -96,8 +91,7 @@ var nodalLoad4 = new NodalLoad();
 // Mass nodal load with comment
 nodalLoad4.Mass(undefined, lc, [8], 1500, "Mass nodal load example");
 
-if (RFEM)
-{
+if (RFEM) {
 	/***************************************** Line loads *******************************************/
 	var lineLoad = new LineLoad();
 	// Force uniform line load, with global in X on projected length
@@ -140,7 +134,7 @@ if (RFEM)
 
 /***************************************** Member loads ******************************************/
 // Default member load with magnitude sets via load parameters
-var memberLoad = new MemberLoad(undefined, lc, [1], "Default member load sets via parameters", { "magnitude" : 500 });
+var memberLoad = new MemberLoad(undefined, lc, [1], "Default member load sets via parameters", { "magnitude": 500 });
 var memberLoad2 = new MemberLoad();
 // Force concentrated - 1 member load with relative distance
 memberLoad2.Force(undefined, lc, [2], member_loads.LOAD_DISTRIBUTION_CONCENTRATED_1, [500, 0.5, true]);
@@ -161,7 +155,7 @@ memberLoad2.Eccentricity("right_bottom", 0.01, 0.02, 0.03, 0.04);
 
 // Moment parabolic load sets via parameters
 var memberLoad3 = new MemberLoad(undefined, lc, [6], "Moment parabolic load sets via parameters",
-	{ "load_type" : "Moment", "load_distribution" : "Parabolic", "magnitude_1" : 500, "magnitude_2" : 700, "magnitude_3" : 1500, "load_direction" : "X_L (U_L )" });
+	{ "load_type": "Moment", "load_distribution": "Parabolic", "magnitude_1": 500, "magnitude_2": 700, "magnitude_3": 1500, "load_direction": "X_L (U_L )" });
 var memberLoad4 = new MemberLoad();
 // Moment varying load with global in X on true length
 memberLoad4.Moment(undefined, lc, [7], "Varying", [500, 0.1, 800, 1, 1200, 2, 600, 3], "X_L (U_L )");
@@ -180,8 +174,7 @@ var memberLoad6 = new MemberLoad();
 // Parameter values: [Tt1, ΔT1, Tt2, ΔT2, Tt3, ΔT3]
 memberLoad6.TemperatureChange(undefined, lc, [12], "Parabolic", [60, 10, 50, 20, 100, 10], "z");
 
-if (RFEM)
-{
+if (RFEM) {
 	var memberLoad7 = new MemberLoad();
 	// Rotary motion member load
 	/* Parameter values: 	[axis_definition, ω, α, [Node1, Node2] | XA, YA, ZA, XB, YB, ZB] (axis definition 1 == "Two points")
@@ -196,8 +189,7 @@ if (RFEM)
 	memberLoad7.RotaryMotion(undefined, lc, [16], [2, 10, 12, 0.5, 0.6, 0.3, "+Y"]);
 }
 
-if (RFEM)
-{
+if (RFEM) {
 	/***************************************** Surface loads ******************************************/
 	var surfaceLoad = new SurfaceLoad();
 	// Force linear surface load
@@ -241,7 +233,7 @@ if (RFEM)
 	solidLoad.Strain(undefined, lc, [1], "Linear in Z", [104, 108, 0.2]);
 
 	// Buoyancy solid load set via parameters with air density defined by attitude
-	var solidLoad2 = new SolidLoad(undefined, lc, [1], "Load set via parameters", { "load_type" : "Buoyancy", "uniform_magnitude" : 1500} );
+	var solidLoad2 = new SolidLoad(undefined, lc, [1], "Load set via parameters", { "load_type": "Buoyancy", "uniform_magnitude": 1500 });
 
 	/***************************************** Opening loads ****************************************/
 	var openingLoad = new OpeningLoad();

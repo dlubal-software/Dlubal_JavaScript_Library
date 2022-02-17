@@ -18,9 +18,11 @@ DYNAMIC_ANALYSIS.MODAL.setActive(true);
 modal_analysis_settings.erase(1);
 modal_analysis_settings.erase(2);
 modal_analysis_settings.erase(3);
-var MASUserDefined = new ModalAnalysisSettings().UserDefinedNumberOfModes(1,"UserDefinedNumberOfModes",10,"METHOD_LANCZOS");
-var MASMaxFrequency = new ModalAnalysisSettings().AutomaticNumberOfModesToReachMaxFreq(2,"AutomaticMaxFreq",1200,"METHOD_LANCZOS");
-var MASMass = new ModalAnalysisSettings().AutomaticNumberOfModesToReachEffMass(3,"AutomaticMass",0.8,"METHOD_LANCZOS");
+var MASUserDefined = new ModalAnalysisSettings().UserDefinedNumberOfModes(1, "UserDefinedNumberOfModes", 10, "METHOD_LANCZOS");
+var MASMaxFrequency = new ModalAnalysisSettings().AutomaticNumberOfModesToReachMaxFreq(2, "AutomaticMaxFreq", 1200, "METHOD_LANCZOS");
+if (PRERELEASE_MODE) {
+  var MASMass = new ModalAnalysisSettings().AutomaticNumberOfModesToReachEffMass(3, "AutomaticMass", 0.8, "METHOD_LANCZOS");
+}
 
 // direct access to  static analysis settings
 MASUserDefined.Settings.comment = "Access via .settings";
@@ -32,9 +34,9 @@ STRUCTURE_STABILITY.setActive(true);
 stability_analysis_settings.erase(1);
 stability_analysis_settings.erase(2);
 stability_analysis_settings.erase(3);
-var StASEigenValue = new StabilityAnalysisSettings().EigenValueMethod(1,"EigenValueMethod name",5,"EIGENVALUE_METHOD_LANCZOS","MATRIX_TYPE_STANDARD");
-var StASIncremental = new StabilityAnalysisSettings().IncrementalMethodWithoutEigenValueAnalysis(2,"Incremental without EV",1,0.1,100,10);
-var StASIncrementalWithEigenValue = new StabilityAnalysisSettings().IncrementalMethodWithEigenValueAnalysis(3,"Incremental with EV",[5,"EIGENVALUE_METHOD_LANCZOS","MATRIX_TYPE_STANDARD"],[1,0.1,100,10]);
+var StASEigenValue = new StabilityAnalysisSettings().EigenValueMethod(1, "EigenValueMethod name", 5, "EIGENVALUE_METHOD_LANCZOS", "MATRIX_TYPE_STANDARD");
+var StASIncremental = new StabilityAnalysisSettings().IncrementalMethodWithoutEigenValueAnalysis(2, "Incremental without EV", 1, 0.1, 100, 10);
+var StASIncrementalWithEigenValue = new StabilityAnalysisSettings().IncrementalMethodWithEigenValueAnalysis(3, "Incremental with EV", [5, "EIGENVALUE_METHOD_LANCZOS", "MATRIX_TYPE_STANDARD"], [1, 0.1, 100, 10]);
 
 // StAS.settings.comment = "Access via .settings";
 // StAS.settings.matrix_type = stability_analysis_settings.MATRIX_TYPE_UNIT;
@@ -89,10 +91,11 @@ var StASIncrementalWithEigenValue = new StabilityAnalysisSettings().IncrementalM
 DYNAMIC_ANALYSIS.SPECTRAL.setActive(true);
 spectral_analysis_settings.erase(1);
 
-var SpAS = new SpectralAnalysisSettings(1,"Spectral analysis","CQC","SCALED_SUM",0.3,true,true,true);
-SpAS.SetDampingRuleForCQC("CONSTANT_FOR_EACH_MODE",0.3);
-SpAS.IncludeMissingMasses("SRSS","USER_DEFINED",0.05);
-
+var SpAS = new SpectralAnalysisSettings(1, "Spectral analysis", "CQC", "SCALED_SUM", 0.3, true, true, true);
+SpAS.SetDampingRuleForCQC("CONSTANT_FOR_EACH_MODE", 0.3);
+if (PRERELEASE_MODE) {
+  SpAS.IncludeMissingMasses("SRSS", "USER_DEFINED", 0.05);
+}
 
 //Wind
 /* #### WIND SIMULATION analysis
@@ -114,7 +117,7 @@ function WindSimulationSettings(no,
   */
 WIND_SIMULATION.setActive(true);
 wind_simulation_analysis_settings.erase(1);
-var WSAS = new WindSimulationSettings(20,"Wind simulation:",1.25,0.000015,true,"TURBULENCE_TYPE_OMEGA","CONCENTRATED");
+var WSAS = new WindSimulationSettings(20, "Wind simulation:", 1.25, 0.000015, true, "TURBULENCE_TYPE_OMEGA", "CONCENTRATED");
 // WSAS.settings.maximum_number_of_iterations = 1000;
 // WSAS.settings.use_second_order_numerical_scheme = true;
 // WSAS.settings.consider_wall_roughness = true;

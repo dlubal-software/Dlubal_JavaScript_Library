@@ -83,7 +83,7 @@ if (RFEM) {
 	solidSet.GroupOfSolids(undefined, [1, 2, 3]);
 }
 
-var lc = new LoadCase();
+var lc = LoadCase(undefined);
 
 if (RFEM) {
 	/**************************************** Line set loads **************************************/
