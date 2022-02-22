@@ -523,7 +523,7 @@ Line.prototype.WeldedJoints = function (values) {
 }
 
 /**
-* Returns rotation plane from string representation
+* Returns rotation plane from string representation (private)
 * @param	{String}	rotation_plane	Rotation plane (x-y, x-z)
 * @return Rotation plane
 */
@@ -539,7 +539,7 @@ var getRotationPlane = function (rotation_plane) {
 };
 
 /**
-* Creates line
+* Creates line (private)
 * @param	{Number}	no			Index of line, can be undefined
 * @param	{Array}		nodes		List of node indexes
 * @param	{String}	comment		Comment, can be undefined

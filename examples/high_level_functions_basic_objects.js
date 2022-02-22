@@ -14,8 +14,8 @@ if (RFEM) {
 	var nodeForLines = createNodesGrid(-28, -6, [10, 10], [3, 4]);
 	var thickness = createThickness("0.250", material, thicknesses.TYPE_UNIFORM);
 	var solid = makeSolid([[8, -16, 0], [20, -16, 0], [20, -8, 0], [8, -8, 0], [8, -16, -5], [20, -16, -5], [20, -8, -5], [8, -8, -5]]);
-	var nodesForSurfaces = createNodesGrid(1, 10, [6, 4], [5, 5]);
-	var surfaceList = createSurfacesFromNodesGrid(nodesForSurfaces, [3, 2], surfaces.TYPE_STANDARD, thickness);
+	var nodesForSurfaces = createNodesGrid(1, 10, [10, 10], [3, 2]);
+	var linesForSurfaces = createSurfacesFromNodesGrid(nodesForSurfaces, [5, 5], undefined, undefined, true);
 
 	 /*For line welded joints
 					line1			line2
@@ -184,5 +184,53 @@ if (RFEM) {
 	var line8 = new Line();
 	line8.RectangularPolygon(undefined, [nodes[114].coordinate_1, nodes[114].coordinate_2, nodes[114].coordinate_3], 2, 4);
 	line8.nPolygon(undefined, [nodes[149].coordinate_1, nodes[149].coordinate_2, nodes[149].coordinate_3], 5, 2);
+	/*********************************************************************************************/
+	
+	/*************************************** Surfaces ********************************************/
+	// Default plane surfaces
+	var surface = new Surface();
+	surface.Standard(undefined, linesForSurfaces[1][0], 1, "With default plane geometry type");
+	surface.WithoutThickness(undefined, linesForSurfaces[2][0], "With default plane geometry type");
+	surface.Rigid(undefined, linesForSurfaces[3][0], "With default plane geometry type");
+	surface.Membrane(undefined, linesForSurfaces[4][0], 1, "With default plane geometry type");
+	surface.WithoutMembraneTension(undefined, linesForSurfaces[5][0], 1, "With default plane geometry type");
+	surface.LoadTransfer(undefined, linesForSurfaces[6][0], "With default plane geometry type");
+	// Geometry type: quadrangle
+	nodes[202].coordinate_3 = 0.5;
+	surface.Standard(undefined, linesForSurfaces[7][0], 1);
+	surface.Quadrangle();
+	// Geometry type NURBS
+	var coreSurface = surface.Standard(undefined, linesForSurfaces[8][0], 1);
+	for (var i = 0; i < coreSurface.boundary_lines.length; ++i) {
+		coreSurface.boundary_lines[i].type = lines.TYPE_NURBS;
+	}
+	surface.NURBS();
+	// Geometry type: rotated
+	surface.Standard(undefined, linesForSurfaces[9][0], 1);
+	// TODO
+	// Geometry type: pipe
+	surface.Standard(undefined, linesForSurfaces[10][0], 1);
+	// TODO
+	// Option: grid for results
+	// TODO
+	// Option: hinges
+	surfaceWithHingesNo = surface.Standard(undefined, linesForSurfaces[11][0], 1).no;
+	var lineHinge = new LineHinge(undefined, undefined);
+	surface.Hinges([[surfaces[surfaceWithHingesNo].boundary_lines[1], lineHinge.no]]);
+	// Option: support
+	var surfaceSupport = new SurfaceSupport();
+	surfaceSupport.Fixed();
+	surface.Rigid(undefined, linesForSurfaces[12][0]);
+	surface.Support(1);
+	// Option: eccentricity
+	var surfaceEccentricity = new SurfaceEccentricity();
+	surface.Standard(undefined, linesForSurfaces[13][0]);
+	surface.Eccentricity(1);
+	// Option: mesh refinement (free meshing type)
+	var meshRefinement = new SurfaceMeshRefinement();
+	surface.WithoutThickness(undefined, linesForSurfaces[14][0]);
+	surface.MeshRefinement(1, 3);
+	// Option: specific axes
+	surface.Standard(undefined, linesForSurfaces[15][0]);
 	/*********************************************************************************************/
 }
