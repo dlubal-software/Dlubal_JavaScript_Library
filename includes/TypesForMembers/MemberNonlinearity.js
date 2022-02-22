@@ -140,7 +140,7 @@ MemberNonlinearity.prototype.YieldingUnderTension = function (no,
 	params) {
 	this.memberNonlinearity = createNonlinearity(no, members, comment, params);
 	this.memberNonlinearity.type = member_nonlinearities.TYPE_YIELDING_IF_TENSION;
-	setParameters(this.memberNonlinearity, [tension_force], "tension_force");		
+	setParameters(this.memberNonlinearity, [tension_force], "tension_force");
 };
 
 /**
@@ -255,7 +255,7 @@ var createNonlinearity = function (no,
 	comment,
 	params) {
 	var memberNonlinearity = engine.create_member_nonlinearity(no);
-	
+
 	if (typeof member_list !== "undefined") {
 		for (var i = 0; i < member_list.length; ++i) {
 			if (members.exist(member_list[i])) {

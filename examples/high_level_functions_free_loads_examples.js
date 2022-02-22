@@ -11,7 +11,7 @@ run("../includes/Tools/clearAll.js");
 
 var material = createMaterial("S235");
 var thickness = createThickness("0.250", material, thicknesses.TYPE_UNIFORM);
-var lc = new LoadCase();
+var lc = LoadCase(undefined);
 
 var nodesForSurfaces = createNodesGrid(-28, -28, [6, 10], [5, 5]);
 var surfaceList = createSurfacesFromNodesGrid(nodesForSurfaces, [3, 5], surfaces.TYPE_STANDARD, thickness);

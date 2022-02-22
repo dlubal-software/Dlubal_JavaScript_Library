@@ -13,7 +13,7 @@ function MemberDefinableStiffness(no,
 	comment,
 	params) {
 	this.memberDefinableStiffness = engine.create_member_definable_stiffness(no);
-	
+
 	if (typeof member_list !== "undefined") {
 		for (var i = 0; i < member_list.length; ++i) {
 			if (members.exist(member_list[i])) {
@@ -24,10 +24,10 @@ function MemberDefinableStiffness(no,
 				ASSERT(false, "Member no." + member_list[i] + " does not exist");
 			}
 		}
-		
+
 		this.memberDefinableStiffness.assigned_to = member_list;
 	}
-	
+
 	set_comment_and_parameters(this.memberDefinableStiffness, comment, params);
 }
 

@@ -1017,6 +1017,26 @@ references:
   name: SolidSetLoad(no, load_case, solid_sets, comment, params)
   href: api/SolidSetLoad.html#SolidSetLoad__ctor
   fullName: SolidSetLoad.SolidSetLoad(no, load_case, solid_sets, comment, params)
+- uid: StaticAnalysisSettings
+  name: StaticAnalysisSettings
+  href: api/StaticAnalysisSettings.html
+  fullName: StaticAnalysisSettings
+- uid: StaticAnalysisSettings#LargeDeformations
+  name: LargeDeformations(equationSolver, nonlinearMethod)
+  href: api/StaticAnalysisSettings.html#StaticAnalysisSettings_LargeDeformations
+  fullName: StaticAnalysisSettings.LargeDeformations(equationSolver, nonlinearMethod)
+- uid: StaticAnalysisSettings#Linear
+  name: Linear()
+  href: api/StaticAnalysisSettings.html#StaticAnalysisSettings_Linear
+  fullName: StaticAnalysisSettings.Linear()
+- uid: StaticAnalysisSettings#SecondOrder
+  name: SecondOrder(equationSolver, nonlinearMethod)
+  href: api/StaticAnalysisSettings.html#StaticAnalysisSettings_SecondOrder
+  fullName: StaticAnalysisSettings.SecondOrder(equationSolver, nonlinearMethod)
+- uid: StaticAnalysisSettings.#ctor
+  name: StaticAnalysisSettings(no, analysisType, equationSolver, nonlinearMethod, comment, params)
+  href: api/StaticAnalysisSettings.html#StaticAnalysisSettings__ctor
+  fullName: StaticAnalysisSettings.StaticAnalysisSettings(no, analysisType, equationSolver, nonlinearMethod, comment, params)
 - uid: Surface
   name: Surface
   href: api/Surface.html
