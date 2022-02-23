@@ -27,7 +27,7 @@ function Surface (no,
 * Creates standard surface
 * @param	{Number}	no				Index of surface, can be undefined
 * @param	{Array}		boundary_lines	List of boundary lines indexes
-* @param	{Number}	thickness		Thickness index, can be undefined
+* @param	{Number}	thickness		Thickness index
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params  		Surface's parameters, can be undefined
 * @returns	Created surface
@@ -74,7 +74,7 @@ Surface.prototype.Rigid = function (no,
 * Creates membrane surface
 * @param	{Number}	no				Index of surface, can be undefined
 * @param	{Array}		boundary_lines	List of boundary lines indexes
-* @param	{Number}	thickness		Thickness index, can be undefined
+* @param	{Number}	thickness		Thickness index
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params  		Surface's parameters, can be undefined
 * @returns	Created surface
@@ -91,7 +91,7 @@ Surface.prototype.Membrane = function (no,
 * Creates without membrane tension surface
 * @param	{Number}	no				Index of surface, can be undefined
 * @param	{Array}		boundary_lines	List of boundary lines indexes
-* @param	{Number}	thickness		Thickness index, can be undefined
+* @param	{Number}	thickness		Thickness index
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params  		Surface's parameters, can be undefined
 * @returns	Created surface
@@ -137,7 +137,7 @@ Surface.prototype.Quadrangle = function (corner_node_1,
 	corner_node_2,
 	corner_node_3,
 	corner_node_4) {
-	ASSERT(this.surface.type !== surfaces.TYPE_LOAD_TRANSFER, "Quadrangle geometry type acnnot be used for this type of surface");
+	ASSERT(this.surface.type !== surfaces.TYPE_LOAD_TRANSFER, "Quadrangle geometry type cannot be used for this type of surface");
 	this.surface.geometry = surfaces.GEOMETRY_QUADRANGLE;
 	if (typeof corner_node_1 !== "undefined") {
 		this.surface.quadrangle_corner_node_1 = corner_node_1;
@@ -157,7 +157,7 @@ Surface.prototype.Quadrangle = function (corner_node_1,
 * Sets NURBS geometry type of surface
 */
 Surface.prototype.NURBS = function () {
-	ASSERT(this.surface.type !== surfaces.TYPE_LOAD_TRANSFER, "Quadrangle geometry type acnnot be used for this type of surface");
+	ASSERT(this.surface.type !== surfaces.TYPE_LOAD_TRANSFER, "Quadrangle geometry type cannot be used for this type of surface");
 	this.surface.geometry = surfaces.GEOMETRY_NURBS;
 };
 
@@ -172,7 +172,7 @@ Surface.prototype.Rotated = function (boundary_line,
 	angle_of_rotation,
 	rotation_axis_p,
 	rotation_axis_r) {
-	ASSERT(this.surface.type !== surfaces.TYPE_LOAD_TRANSFER, "Quadrangle geometry type acnnot be used for this type of surface");
+	ASSERT(this.surface.type !== surfaces.TYPE_LOAD_TRANSFER, "Quadrangle geometry type cannot be used for this type of surface");
 	ASSERT(typeof boundary_line !== "undefined", "Boundary line must be specified");
 	this.surface.rotated_boundary_line = boundary_line;
 	if (typeof angle_of_rotation !== "undefined") {
@@ -199,7 +199,7 @@ Surface.prototype.Rotated = function (boundary_line,
 */
 Surface.prototype.Pipe = function (center_line,
 	radius) {
-	ASSERT(this.surface.type !== surfaces.TYPE_LOAD_TRANSFER, "Quadrangle geometry type acnnot be used for this type of surface");
+	ASSERT(this.surface.type !== surfaces.TYPE_LOAD_TRANSFER, "Quadrangle geometry type cannot be used for this type of surface");
 	ASSERT(typeof center_line !== "undefined", "Center line must be specified");
 	this.surface.pipe_center_line = center_line;
 	if (typeof radius !== "undefined") {
@@ -398,7 +398,7 @@ Surface.prototype.GridForResults = function (grid_type,
 		this.surface.grid_origin_y = grid_origin[1];
 		this.surface.grid_origin_z = grid_origin[2];
 	}
-}
+};
 
 /**
 * Sets integrated objects to surface

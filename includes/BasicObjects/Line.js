@@ -19,7 +19,7 @@ function Line (no,
 	if (arguments.length != 0) {
 		return this.line = createBaseLine(no, nodes, undefined, comment, params);
 	}
-}
+};
 
 /**
 * Creates polyline
@@ -79,7 +79,7 @@ Line.prototype.Arc = function (no,
 			this.line.arc_alpha = arc_parameters[2];
 		}
 	}
-	
+
 	if (typeof center_of_arc !== "undefined") {
 		ASSERT(center_of_arc.length === 3, "Center of arc: three values are requierd: [X, Y, Z]");
 		this.line.arc_center_x = center_of_arc[0];
@@ -108,23 +108,23 @@ Line.prototype.Circle = function (no,
 	params) {
 	ASSERT(typeof center_of_circle !== "undefined", "Center point must be specified");
 	ASSERT(center_of_circle.length === 3, "Center of circle: three values are required [X, Y, Z]");
-	
+
 	this.line = createBaseLine(no, undefined, lines.TYPE_CIRCLE, comment, params);
 	this.line.circle_center_coordinate_1 = center_of_circle[0];
 	this.line.circle_center_coordinate_2 = center_of_circle[1];
 	this.line.circle_center_coordinate_3 = center_of_circle[2];
-	
+
 	if (typeof circle_radius !== "undefined") {
 		this.line.circle_radius = circle_radius;
 	}
-	
+
 	if (typeof normal_point !== "undefined") {
 		ASSERT(normal_point.length === 3, "Normal point: three values are required [X, Y, Z]");
 		this.line.circle_normal_coordinate_1 = normal_point[0];
 		this.line.circle_normal_coordinate_2 = normal_point[1];
 		this.line.circle_normal_coordinate_3 = normal_point[2];
 	}
-	
+
 	return this.line;
 };
 
@@ -154,7 +154,7 @@ Line.prototype.EllipticalArc = function (no,
 	ASSERT(control_point_1.length === 3, "Control point 1: three values are rquired [P1,X, P1,Y, P1,Z]");
 	ASSERT(control_point_2.length === 3, "Control point 2: three values are rquired [P2,X, P2,Y, P2,Z]");
 	ASSERT(perimeter_point.length === 3, "Perimeter point: three values are rquired [P3,X, P3,Y, P3,Z]");
-	
+
 	this.line = createBaseLine(no, undefined, lines.TYPE_ELLIPTICAL_ARC, comment, params);
 	this.line.elliptical_arc_first_control_point_x = control_point_1[0];
 	this.line.elliptical_arc_first_control_point_y = control_point_1[1];
@@ -171,9 +171,9 @@ Line.prototype.EllipticalArc = function (no,
 	if (typeof elliptical_arc_beta !== "undefined") {
 		this.line.elliptical_arc_beta = elliptical_arc_beta;
 	}
-	
+
 	return this.line;
-}
+};
 
 /**
 * Creates ellipse line
@@ -191,14 +191,14 @@ Line.prototype.Ellipse = function (no,
 	params) {
 	ASSERT(typeof control_point !== "undefined", "Control point must be specified");
 	ASSERT(control_point.length === 3, "Control point requires three values [X, Y, Z]");
-	
+
 	this.line = createBaseLine(no, nodes, lines.TYPE_ELLIPSE, comment, params);
 	this.line.ellipse_control_point_x = control_point[0];
 	this.line.ellipse_control_point_y = control_point[1];
 	this.line.ellipse_control_point_z = control_point[2];
-	
+
 	return this.line;
-}
+};
 
 /**
 * Creates parabola line
@@ -218,7 +218,7 @@ Line.prototype.Parabola = function (no,
 	params) {
 	ASSERT(typeof control_point !== "undefined", "Control point must be specified");
 	ASSERT(control_point.length === 3, "Control point requires three values [X, Y, Z]");
-	
+
 	this.line = createBaseLine(no, nodes, lines.TYPE_PARABOLA, comment, params);
 	this.line.parabola_control_point_x = control_point[0];
 	this.line.parabola_control_point_y = control_point[1];
@@ -226,9 +226,9 @@ Line.prototype.Parabola = function (no,
 	if (typeof parabola_alpha !== "undefined") {
 		this.line.parabola_alpha = parabola_alpha;
 	}
-	
+
 	return this.line;
-}
+};
 
 /**
 * Creates spline
@@ -243,7 +243,7 @@ Line.prototype.Spline = function (no,
 	comment,
 	params) {
 	return this.line = createBaseLine(undefined, nodes, lines.TYPE_SPLINE, comment, params);
-}
+};
 
 /**
 * Creates NURBS line
@@ -283,10 +283,10 @@ Line.prototype.NURBS = function (no,
 	}
 
 	return this.line;
-}
+};
 
 /**
- * Create Rectangular polygon
+ * Create rectangular polygon
  * @param {int} 	no				Number of the line, can be undefined
  * @param {array} 	center_point	Center point by format
  * @param {number} 	length 			Length
@@ -307,7 +307,7 @@ Line.prototype.RectangularPolygon = function (no,
 	ASSERT(center_point.length === 3, "Center point: [X, Y, Z]");
 	ASSERT(typeof length !== "undefined", "Length of rectangle must be specified");
 	ASSERT(typeof width !== "undefined", "Width of rectangle must be specified");
-	
+
 	if (typeof plane === "undefined") {
 		plane = "XY";
 	}
@@ -331,13 +331,13 @@ Line.prototype.RectangularPolygon = function (no,
         createNode(X, Y + length / 2, Z + width / 2);
         createNode(X, Y - length / 2, Z + width / 2);
     }
-	
-    this.line = Line(undefined, [lastNodeNo + 1, lastNodeNo + 2, lastNodeNo + 3, lastNodeNo + 4, lastNodeNo + 1]);
-	
-    set_comment_and_parameters(this.line, comment, params);
-	
+
+	this.line = Line(undefined, [lastNodeNo + 1, lastNodeNo + 2, lastNodeNo + 3, lastNodeNo + 4, lastNodeNo + 1]);
+
+	set_comment_and_parameters(this.line, comment, params);
+
 	return this.line;
-}
+};
 
 /**
  * Create nPolygon
@@ -350,6 +350,7 @@ Line.prototype.RectangularPolygon = function (no,
  * @param {string} 	join 			Join in one "true" or in separate lines "false"
  * @param {string} 	comment 		Comment for the line, can be undefined
  * @param {Object} 	params 			Parameters of the line, can be undefined
+ * @return nPolygon
  */
 Line.prototype.nPolygon = function (no,
 	center_point,
@@ -369,7 +370,7 @@ Line.prototype.nPolygon = function (no,
     plane = typeof plane !== "undefined" ? plane : "XY";
     join = typeof join !== "undefined" ? join : true;
     rotation_angle = typeof rotation_angle !== "undefined" ? rotation_angle : 0.0;
-    
+   
     var X = center_point[0];
     var Y = center_point[1];
     var Z = center_point[2];
@@ -409,10 +410,11 @@ Line.prototype.nPolygon = function (no,
         }
         this.line = Line(no_l + no_edges - 1, [no_n_ref + no_edges - 1, no_n_ref]);
     }
-    set_comment_and_parameters(this.line, comment, params);
-	
+
+	set_comment_and_parameters(this.line, comment, params);
+
 	return this.line;
-}
+};
 
 /**
 * Sets line rotation
@@ -425,7 +427,7 @@ Line.prototype.nPolygon = function (no,
 Line.prototype.Rotation = function (rotation_values,
 	rotation_type) {
 	ASSERT(typeof rotation_values !== "undefined", "Rotation values must be specified");
-	
+
 	if (typeof rotation_type === "undefined") {
 		rotation_type = 1;
 	}
@@ -483,7 +485,6 @@ Line.prototype.NodesOnLine = function (values) {
 */
 Line.prototype.Supports = function (line_support) {
 	ASSERT(line_supports.exist(line_support), "Line support no. " + line_support + " doesn't exist");
-	
 	this.line.support = line_supports[line_support];
 };
 
@@ -493,7 +494,6 @@ Line.prototype.Supports = function (line_support) {
 */
 Line.prototype.MeshRefinement = function (mesh_refinement) {
 	ASSERT(line_mesh_refinements.exist(mesh_refinement), "Line mesh refinement no. " + mesh_refinement + " doesn't exist");
-	
 	this.line.mesh_refinement = line_mesh_refinements[mesh_refinement];
 };
 
@@ -520,7 +520,7 @@ Line.prototype.WeldedJoints = function (values) {
 			this.line.line_weld_assignment[row].surface3 = line_welded_values[3];
 		}
 	}
-}
+};
 
 /**
 * Returns rotation plane from string representation (private)
