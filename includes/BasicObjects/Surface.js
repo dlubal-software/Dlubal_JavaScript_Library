@@ -213,7 +213,6 @@ Surface.prototype.Pipe = function (center_line,
 */
 Surface.prototype.Hinges = function (hinges_values) {
 	ASSERT(typeof hinges_values.length !== "undefined", "At least one hinge must be specified");
-	//this.surface.has_line_hinges = true;
 	for (var i = 0; i < hinges_values.length; ++i) {
 		var hinge_values = hinges_values[i];
 		ASSERT(hinge_values.length === 2, "Two values are required [[line_no1, line_hinge_no1] ... [line_non, line_hinge_non]]");
@@ -267,6 +266,81 @@ Surface.prototype.MeshRefinement = function (mesh_refinement,
 			default:
 				ASSERT(false, "Unknown type of meshing type");
 		}
+	}
+};
+
+/**
+* @param	{Array}		input_axes		Input axes values [category, [values], reverse_local_z_axis], can be undefined
+*											1 - Angular rotation category, values: [α, [X, Y, Z], [X2, Y2, Z2]], first and second point can be undefined
+*											2 - Axis parallel to lines category, values: [[line1_no, line2_no ... linen_no], axis (Axis x|Axis y)], second parameter can be undefined ("Axis x" as default)
+*											3 - Axis directed to point category, values: [[X1, Y1, Z1], [X2, Y2, Z2], axis (Axis x|Axis y)], thirs parameter can be undefined ("Axis x" by default)
+*											4 - Axis parallel to coordinate system category, values: [coordinate_system_no], can be undefined (Global XYZ by default)
+*											reverse_local_z_axis, can be undefined
+* @param	{Array}		result_axes		Result axes values [category], can be undefined (Identical to input axes by default)
+*											1 - Identical to input axes category, by default
+*											
+*/
+Surface.prototype.SpecificAxes = function (input_axes,
+	result_axes) {
+	if (typeof input_axes !== "undefined") {
+		ASSERT(input_axes.length >= 2, "At least two parameters are required [[category, [values]]");
+		var values = input_axes[1];
+		switch (input_axes[0]) {
+			case 1:	// Angular rotation category
+				ASSERT(values.length === 3, "Three parameters are required [α, [X, Y, Z], [X2, Y2, Z2]], first and second point can be undefined");
+				this.surface.input_axes_rotation_specification_type = surfaces.INPUT_AXES_ROTATION_SPECIFICATION_TYPE_ANGULAR_ROTATION;
+				this.surface.input_axes_angular_rotation = values[0];
+				if (typeof values[1] !== "undefined") {
+					ASSERT(values[1].length === 3, "Point 1: three parameters are required [X, Y, Z]");
+					this.surface.input_axes_point_1_x = values[1][0];
+					this.surface.input_axes_point_1_y = values[1][1];
+					this.surface.input_axes_point_1_z = values[1][2];
+				}
+				if (typeof values[2] !== "undefined") {
+					ASSERT(values[2].length === 3, "Point 2: three parameters are required [X2, Y2, Z2]");
+					this.surface.input_axes_point_2_x = values[2][0];
+					this.surface.input_axes_point_2_y = values[2][1];
+					this.surface.input_axes_point_2_z = values[2][2];
+				}
+				break;
+			case 2:	// Axis parallel to lines category
+				ASSERT(values.length >= 1, "At least one parameter is required [[line1_no, line2_no ... linen_no], axis]");
+				this.surface.input_axes_rotation_specification_type = surfaces.INPUT_AXES_ROTATION_SPECIFICATION_TYPE_PARALLEL_TO_LINES;
+				this.surface.input_axes_lines = values[0];
+				if (typeof values[1] !== "undefined") {
+					this.surface.input_axes_axis = values[1];
+				}
+				break;
+			case 3:	// Axis directed to point category
+				ASSERT(values.length === 3, "Three parameters are required [[X1, Y1, Z1], [X2, Y2, Z2], axis]");
+				ASSERT(values[0].length === 3, "Point 1: three parameters are required [X, Y, Z]");
+				ASSERT(values[1].length === 3, "Point 2: three parameters are required [X2, Y2, Z2]");
+				this.surface.input_axes_rotation_specification_type = surfaces.INPUT_AXES_ROTATION_SPECIFICATION_TYPE_DIRECT_TO_POINT;
+				this.surface.input_axes_point_1_x = values[0][0];
+				this.surface.input_axes_point_1_y = values[0][1];
+				this.surface.input_axes_point_1_z = values[0][2];
+				this.surface.input_axes_point_2_x = values[1][0];
+				this.surface.input_axes_point_2_y = values[1][1];
+				this.surface.input_axes_point_2_z = values[1][2];
+				if (typeof values[2] !== "undefined") {
+					this.surface.input_axes_axis = values[2];
+				}
+				break;
+			case 4:	// Axis parallel to coordinate system category
+				this.surface.input_axes_rotation_specification_type = surfaces.INPUT_AXES_ROTATION_SPECIFICATION_TYPE_PARALLEL_TO_COORDINATE_SYSTEM;
+				if (values.length === 1) {
+					this.surface.input_axes_coordinate_system = values[0];
+				}
+				break;
+			default:
+				ASSERT(false, "Unknown input axes category");
+		}
+		if (input_axes.length === 3 && input_axes[2] !== "undefined") {
+			this.surface.reversed_normal = input_axes[2]
+		}
+	}
+	if (typeof result_axes !== "undefined") {
+		// For now only "Identical to input axes" without any parameters
 	}
 };
 
@@ -325,6 +399,35 @@ Surface.prototype.GridForResults = function (grid_type,
 		this.surface.grid_origin_z = grid_origin[2];
 	}
 }
+
+/**
+* Sets integrated objects to surface
+* @param	{Boolean}	auto_detection_of_integrated_objects	Integrated objects are detected automatically, can be undefined (true by default)
+* @param	{Array}		integrated_nodes						List of integrated nodes indexes, can be undefined
+* @param	{Array}		integrated_lines						List of integrated lines indexes, can be undefined
+* @param	{Array}		integrated_openings						List of integrated openings indexes, can be undefined;
+*/
+Surface.prototype.IntegratedObjects = function(auto_detection_of_integrated_objects,
+	integrated_nodes,
+	integrated_lines,
+	integrated_openings) {
+	if (typeof auto_detection_of_integrated_objects === "undefined") {
+		auto_detection_of_integrated_objects = true;
+	}
+	this.surface.auto_detection_of_integrated_objects = auto_detection_of_integrated_objects;
+	if (!auto_detection_of_integrated_objects) {
+		ASSERT(typeof integrated_nodes !== "undefined" || typeof integrated_lines !== "undefined" || typeof integrated_openings !== "undefined", "Integrated nodes, lines or openings must be specified");
+		if (typeof integrated_nodes !== "undefined") {
+			this.surface.integrated_nodes = integrated_nodes;
+		}
+		if (typeof integrated_lines !== "undefined") {
+			this.surface.integrated_lines = integrated_lines;
+		}
+		if (typeof integrated_openings !== "undefined") {
+			this.surface.integrated_openings = integrated_openings;
+		}
+	}
+};
 
 /**
 * Creates surface (private)

@@ -232,5 +232,22 @@ if (RFEM) {
 	surface.MeshRefinement(1, 3);
 	// Option: specific axes
 	surface.Standard(undefined, linesForSurfaces[15][0]);
+	var inputAxesValues = [1, [45, undefined, undefined]];
+	surface.SpecificAxes(inputAxesValues);	// Angular rotation category
+	surface.Standard(undefined, linesForSurfaces[16][0]);
+	inputAxesValues = [2, [[surface.surface.boundary_lines[0], surface.surface.boundary_lines[2]], "Axis y"]];
+	surface.SpecificAxes(inputAxesValues);	// Axis parallel to lines category
+	surface.Standard(undefined, linesForSurfaces[17][0]);
+	var node1 = linesForSurfaces[17][1][0];
+	var node2 = linesForSurfaces[17][1][2];
+	inputAxesValues = [3, [[node1.coordinate_1, node1.coordinate_2, node1.coordinate_3], [node2.coordinate_1, node2.coordinate_2, node2.coordinate_3], undefined]];
+	surface.SpecificAxes(inputAxesValues);	// Axis directed to point category, with default "Axis x"
+	surface.Standard(undefined, linesForSurfaces[18][0]);
+	surface.SpecificAxes([4, [], true]);	// Axis parallel to coordinate system category, with default global axis and reverse local z-axis
+	// Option: integrated objects
+	var integratedLine = new Line();
+	integratedLine.Polyline(undefined, [linesForSurfaces[19][1][0], linesForSurfaces[19][1][2]]);
+	surface.Standard(undefined, linesForSurfaces[19][0]);
+	surface.IntegratedObjects(false, undefined, [integratedLine.line.no]);
 	/*********************************************************************************************/
 }
