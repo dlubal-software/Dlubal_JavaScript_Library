@@ -60,6 +60,7 @@ if (RFEM) {
     include("TypesForSurfaces/SurfaceEccentricity.js");
     include("TypesForSurfaces/SurfaceMeshRefinement.js");
     include("TypesForSurfaces/SurfaceSupport.js");
+	include("TypesForSurfaces/SurfaceStiffnessModification.js");
 }
 // Loading
 include("Loading/LoadCombination.js");
