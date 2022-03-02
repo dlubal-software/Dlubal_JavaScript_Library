@@ -12,7 +12,6 @@ run("../includes/Tools/clearAll.js");
 var material = createMaterial("S235");
 var section = createSection(material, "IPE 80");
 
-var material = createMaterial("S235");
 var thickness = createThickness("0.250", material, thicknesses.TYPE_UNIFORM);
 var nodesForSurfaces = createNodesGrid(-28, -28, [10, 10], [3, 2]);
 var linesForSurfaces = createSurfacesFromNodesGrid(nodesForSurfaces, [5, 5], surfaces.TYPE_STANDARD, thickness);

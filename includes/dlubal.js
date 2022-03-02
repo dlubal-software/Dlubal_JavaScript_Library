@@ -61,6 +61,10 @@ if (RFEM) {
     include("TypesForSurfaces/SurfaceMeshRefinement.js");
     include("TypesForSurfaces/SurfaceSupport.js");
 	include("TypesForSurfaces/SurfaceStiffnessModification.js");
+// Types for solids
+	include("TypesForSolids/ContactSolids.js");
+	include("TypesForSolids/GasSolids.js");
+	include("TypesForSolids/SolidMeshRefinement.js");
 }
 // Loading
 include("Loading/LoadCombination.js");

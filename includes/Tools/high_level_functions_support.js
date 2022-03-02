@@ -222,9 +222,12 @@ function modifyNodesToZCoord(nodes, nodeIndexes, z)
 	}
 }
 
-function makeSolid(boundaryNodes)
+function makeSolid(boundaryNodes, type, materialName)
 {
-	var material = createMaterial("S235");
+	if (typeof materialName === "undefined") {
+		materialName = "S235";
+	}
+	var material = createMaterial(materialName);
 	var thickness = createThickness("0.250", material, thicknesses.TYPE_UNIFORM);
 
 	var node1 = createNode2(boundaryNodes[0]);
@@ -265,8 +268,14 @@ function makeSolid(boundaryNodes)
 
 	var solid = solids.create();
 	solid.boundary_surfaces = solidSurfaces;
-	solid.type = solids.TYPE_STANDARD;
-	solid.material = createMaterial("C25/30");
+	if (typeof type !== "undefined") {
+		solid.type = type;
+	}
+	else
+	{
+		solid.type = solids.TYPE_STANDARD;
+	}
+	solid.material = material;
 
 	return solid;
 }
