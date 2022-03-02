@@ -53,13 +53,15 @@ var createSurfaceMeshRefinement = function (no,
 	params) {
 	var surface_mesh_refinement = engine.create_surface_mesh_refinement(no);
 	set_comment_and_parameters(surface_mesh_refinement, comment, params);
-	var surfaceList = [];
-	for (var i = 0; i < surface_list.length; ++i) {
-		if (surfaces.exist(surface_list[i])) {
-			surfaceList.push(surface_list[i]);
-		}
-		else {
-			console.log("Surface no. " + surface_list[i] + " doesn't exist");
+	if (typeof surface_list !== "undefined") {
+		var surfaceList = [];
+		for (var i = 0; i < surface_list.length; ++i) {
+			if (surfaces.exist(surface_list[i])) {
+				surfaceList.push(surface_list[i]);
+			}
+			else {
+				console.log("Surface no. " + surface_list[i] + " doesn't exist");
+			}
 		}
 	}
 	surface_mesh_refinement.surfaces = surfaceList;

@@ -9,7 +9,7 @@ if (!RFEM) {
  * @param	{Number}	no			Index of line, can be undefined
  * @param	{Array}		nodes		List of node indexes
  * @param	{String}	comment		Comment, can be undefined
- * @param	{Object}	params  	Line's parameters, can be undefined
+ * @param	{Object}	params		Line's parameters, can be undefined
  * @returns	Created line
  */
 function Line (no,
@@ -48,7 +48,7 @@ Line.prototype.Polyline = function (no,
 *														2 - Arc control point
 *														3 - End of arc
 * @param	{String}	comment				Comment, can be undefined
-* @param	{Object}	params  			Line's parameters, can be undefined
+* @param	{Object}	params				Line's parameters, can be undefined
 * @returns	Created arc line
 */
 Line.prototype.Arc = function (no,
@@ -59,10 +59,10 @@ Line.prototype.Arc = function (no,
 	alpha_adjustement_target,
 	comment,
 	params) {
-	this.line = createBaseLine(no, nodes, lines.TYPE_ARC, comment, params);
 	ASSERT(typeof control_point !== "undefined", "Control point og arc must be specified");
 	ASSERT(control_point.length === 3, "Control point: three values are required [X, Y, Z]");
-	
+
+	this.line = createBaseLine(no, nodes, lines.TYPE_ARC, comment, params);
 	this.line.arc_control_point_x = control_point[0];
 	this.line.arc_control_point_y = control_point[1];
 	this.line.arc_control_point_z = control_point[2];
@@ -151,9 +151,9 @@ Line.prototype.EllipticalArc = function (no,
 	ASSERT(typeof control_point_1 !== "undefined", "Control point 1 cannot be undefined");
 	ASSERT(typeof control_point_2 !== "undefined", "Control point 2 cannot be undefined");
 	ASSERT(typeof perimeter_point !== "undefined", "Perimeter point cannot be undefined");
-	ASSERT(control_point_1.length === 3, "Control point 1: three values are rquired [P1,X, P1,Y, P1,Z]");
-	ASSERT(control_point_2.length === 3, "Control point 2: three values are rquired [P2,X, P2,Y, P2,Z]");
-	ASSERT(perimeter_point.length === 3, "Perimeter point: three values are rquired [P3,X, P3,Y, P3,Z]");
+	ASSERT(control_point_1.length === 3, "Control point 1: three values are required [P1,X, P1,Y, P1,Z]");
+	ASSERT(control_point_2.length === 3, "Control point 2: three values are required [P2,X, P2,Y, P2,Z]");
+	ASSERT(perimeter_point.length === 3, "Perimeter point: three values are required [P3,X, P3,Y, P3,Z]");
 
 	this.line = createBaseLine(no, undefined, lines.TYPE_ELLIPTICAL_ARC, comment, params);
 	this.line.elliptical_arc_first_control_point_x = control_point_1[0];
@@ -207,7 +207,7 @@ Line.prototype.Ellipse = function (no,
 * @param	{Array}		control_point	Control point
 * @param	{Number}	parabola_alpha	Parabola's parameter α
 * @param	{String}	comment			Comment, can be undefined
-* @param	{Object}	params  		Line's parameters, can be undefined
+* @param	{Object}	params 			Line's parameters, can be undefined
 * @returns	Created parabola line
 */
 Line.prototype.Parabola = function (no,
@@ -253,7 +253,7 @@ Line.prototype.Spline = function (no,
 * @param	{Number}	nurbs_order						Nurbs order, can be undefined
 * @param	{String}	comment							Comment, can be undefined
 * @param	{Object}	params  						Line's parameters, can be undefined
-* @returns	Created parabola line
+* @returns	Created NURBS line
 */
 Line.prototype.NURBS = function (no,
 	nodes,
@@ -286,16 +286,16 @@ Line.prototype.NURBS = function (no,
 };
 
 /**
- * Create rectangular polygon
- * @param {int} 	no				Number of the line, can be undefined
- * @param {array} 	center_point	Center point by format
- * @param {number} 	length 			Length
- * @param {number} 	width 			Width
- * @param {string} 	plane 			Plane XY, XZ or YZ, can be undefined
- * @param {string} 	comment 		Comment for the line, can be undefined
- * @param {Object} 	params 			Parameters of the line, can be undefined
- * @return Rectangular polygon
- */
+* Create rectangular polygon
+* @param {int} 	no				Number of the line, can be undefined
+* @param {array} 	center_point	Center point by format
+* @param {number} 	length 			Length
+* @param {number} 	width 			Width
+* @param {string} 	plane 			Plane XY, XZ or YZ, can be undefined
+* @param {string} 	comment 		Comment for the line, can be undefined
+* @param {Object} 	params 			Parameters of the line, can be undefined
+* @return Created rectangular polygon
+*/
 Line.prototype.RectangularPolygon = function (no,
 	center_point,
 	length,
@@ -312,46 +312,45 @@ Line.prototype.RectangularPolygon = function (no,
 		plane = "XY";
 	}
 	var X = center_point[0];
-    var Y = center_point[1];
-    var Z = center_point[2];
+	var Y = center_point[1];
+	var Z = center_point[2];
 	var lastNodeNo = nodes.lastId();
 	if (plane == "XY") {
-        createNode(X - length / 2, Y - width / 2, Z);
-        createNode(X + length / 2, Y - width / 2, Z);
-        createNode(X + length / 2, Y + width / 2, Z);
-        createNode(X - length / 2, Y + width / 2, Z);
-    } else if (plane == "XZ") {
-        createNode(X - length / 2, Y, Z - width / 2);
-        createNode(X + length / 2, Y, Z - width / 2);
-        createNode(X + length / 2, Y, Z + width / 2);
-        createNode(X - length / 2, Y, Z + width / 2);
-    } else if (plane == "YZ") {
-        createNode(X, Y - length / 2, Z - width / 2);
-        createNode(X, Y + length / 2, Z - width / 2);
-        createNode(X, Y + length / 2, Z + width / 2);
-        createNode(X, Y - length / 2, Z + width / 2);
-    }
+		createNode(X - length / 2, Y - width / 2, Z);
+		createNode(X + length / 2, Y - width / 2, Z);
+		createNode(X + length / 2, Y + width / 2, Z);
+		createNode(X - length / 2, Y + width / 2, Z);
+	} else if (plane == "XZ") {
+		createNode(X - length / 2, Y, Z - width / 2);
+		createNode(X + length / 2, Y, Z - width / 2);
+		createNode(X + length / 2, Y, Z + width / 2);
+		createNode(X - length / 2, Y, Z + width / 2);
+	} else if (plane == "YZ") {
+		createNode(X, Y - length / 2, Z - width / 2);
+		createNode(X, Y + length / 2, Z - width / 2);
+		createNode(X, Y + length / 2, Z + width / 2);
+		createNode(X, Y - length / 2, Z + width / 2);
+	}
 
 	this.line = Line(undefined, [lastNodeNo + 1, lastNodeNo + 2, lastNodeNo + 3, lastNodeNo + 4, lastNodeNo + 1]);
-
 	set_comment_and_parameters(this.line, comment, params);
 
 	return this.line;
 };
 
 /**
- * Create nPolygon
- * @param {int}		no				Number of the line, can be undefined
- * @param {array}	control_point 	Control point by format [x, y, z]
- * @param {number} 	no_edges 		Number of edges
- * @param {number} 	radius 			Radius
- * @param {string} 	plane 			Plane, can be undefined
- * @param {number} 	rotation_angle 	Rotation angle
- * @param {string} 	join 			Join in one "true" or in separate lines "false"
- * @param {string} 	comment 		Comment for the line, can be undefined
- * @param {Object} 	params 			Parameters of the line, can be undefined
- * @return nPolygon
- */
+* Creates nPolygon
+* @param {int}		no				Number of the line, can be undefined
+* @param {array}	control_point 	Control point by format [x, y, z]
+* @param {number} 	no_edges 		Number of edges
+* @param {number} 	radius 			Radius
+* @param {string} 	plane 			Plane, can be undefined
+* @param {number} 	rotation_angle 	Rotation angle
+* @param {string} 	join 			Join in one "true" or in separate lines "false"
+* @param {string} 	comment 		Comment for the line, can be undefined
+* @param {Object} 	params 			Parameters of the line, can be undefined
+* @return Created nPolygon
+*/
 Line.prototype.nPolygon = function (no,
 	center_point,
 	no_edges,
@@ -362,54 +361,54 @@ Line.prototype.nPolygon = function (no,
 	comment,
 	params) {
 	ASSERT(center_point.length == 3, "Define the center point of rectangle by this format [X, Y, Z]");
-    ASSERT(no_edges > 2, "Number of edges should be more than 2");
-	
-	center_point = typeof center_point !== "undefined" ? center_point : [];
-    no_edges = typeof no_edges !== "undefined" ? no_edges : 0.0;
-    radius = typeof radius !== "undefined" ? radius : 0.0;
-    plane = typeof plane !== "undefined" ? plane : "XY";
-    join = typeof join !== "undefined" ? join : true;
-    rotation_angle = typeof rotation_angle !== "undefined" ? rotation_angle : 0.0;
-   
-    var X = center_point[0];
-    var Y = center_point[1];
-    var Z = center_point[2];
-    var no_n = nodes.lastId() + 1;
-    var no_n_ref = nodes.lastId() + 1;
-    var nodes_list = [];
-    if (plane == "XY") {
-        for (var i = 0; i < no_edges; ++i) {
-            var alpha = i * PI * 2 / no_edges + rotation_angle;
-            Node(no_n, X + radius * cos(alpha), Y + radius * sin(alpha), Z);
-            nodes_list.push(no_n);
-            no_n++;
-        }
-    } else if (plane == "XZ") {
-        for (var i = 0; i < no_edges; ++i) {
-            var alpha = i * PI * 2 / no_edges + rotation_angle;
-            Node(no_n, X + radius * cos(alpha), Y, Z + radius * sin(alpha));
-            nodes_list.push(no_n);
-            no_n++;
-        }
-    } else if (plane == "YZ") {
-        for (var i = 0; i < no_edges; ++i) {
-            var alpha = i * PI * 2 / no_edges + rotation_angle;
-            Node(no_n, X, Y + radius * cos(alpha), Z + radius * sin(alpha));
-            nodes_list.push(no_n);
-            no_n++;
-        }
-    }
+	ASSERT(no_edges > 2, "Number of edges should be more than 2");
 
-    if (join) {
-        nodes_list.push(no_n - no_edges);
-        this.line = Line(no, nodes_list);
-    } else {
-        var no_l = lines.lastId() + 1;
-        for (var i = 0; i < no_edges - 1; ++i) {
-            Line(no_l + i, [no_n_ref + i, no_n_ref + 1 + i]);
-        }
-        this.line = Line(no_l + no_edges - 1, [no_n_ref + no_edges - 1, no_n_ref]);
-    }
+	center_point = typeof center_point !== "undefined" ? center_point : [];
+	no_edges = typeof no_edges !== "undefined" ? no_edges : 0.0;
+	radius = typeof radius !== "undefined" ? radius : 0.0;
+	plane = typeof plane !== "undefined" ? plane : "XY";
+	join = typeof join !== "undefined" ? join : true;
+	rotation_angle = typeof rotation_angle !== "undefined" ? rotation_angle : 0.0;
+
+	var X = center_point[0];
+	var Y = center_point[1];
+	var Z = center_point[2];
+	var no_n = nodes.lastId() + 1;
+	var no_n_ref = nodes.lastId() + 1;
+	var nodes_list = [];
+	if (plane == "XY") {
+		for (var i = 0; i < no_edges; ++i) {
+			var alpha = i * PI * 2 / no_edges + rotation_angle;
+			Node(no_n, X + radius * cos(alpha), Y + radius * sin(alpha), Z);
+			nodes_list.push(no_n);
+			no_n++;
+		}
+	} else if (plane == "XZ") {
+		for (var i = 0; i < no_edges; ++i) {
+			var alpha = i * PI * 2 / no_edges + rotation_angle;
+			Node(no_n, X + radius * cos(alpha), Y, Z + radius * sin(alpha));
+			nodes_list.push(no_n);
+			no_n++;
+			}
+	} else if (plane == "YZ") {
+		for (var i = 0; i < no_edges; ++i) {
+			var alpha = i * PI * 2 / no_edges + rotation_angle;
+			Node(no_n, X, Y + radius * cos(alpha), Z + radius * sin(alpha));
+			nodes_list.push(no_n);
+			no_n++;
+		}
+	}
+
+	if (join) {
+		nodes_list.push(no_n - no_edges);
+		this.line = Line(no, nodes_list);
+	} else {
+		var no_l = lines.lastId() + 1;
+		for (var i = 0; i < no_edges - 1; ++i) {
+			Line(no_l + i, [no_n_ref + i, no_n_ref + 1 + i]);
+		}
+		this.line = Line(no_l + no_edges - 1, [no_n_ref + no_edges - 1, no_n_ref]);
+	}
 
 	set_comment_and_parameters(this.line, comment, params);
 
@@ -459,7 +458,7 @@ Line.prototype.Rotation = function (rotation_values,
 * Sets new default beam member to line
 */
 Line.prototype.AssignMember = function () {
-	ASSERT(sections.count() > 0, "No section found, before use this section you has to create section");
+	ASSERT(sections.count() > 0, "No section found, before use this section you has to create one");
 	return createMember(undefined, sections[1], members.TYPE_BEAM, this.line.no);
 };
 
@@ -512,11 +511,11 @@ Line.prototype.WeldedJoints = function (values) {
 		this.line.line_weld_assignment[row].weld = line_welded_values[0];
 		this.line.line_weld_assignment[row].surface1 = line_welded_values[1];
 		if (typeof line_welded_values[2] !== "undefined") {
-			ASSERT(surfaces.exist(line_welded_values[2]), "Surface no. " + line_welded_values[2] + " doesn§t exist");
+			ASSERT(surfaces.exist(line_welded_values[2]), "Surface no. " + line_welded_values[2] + " doesn't exist");
 			this.line.line_weld_assignment[row].surface2 = line_welded_values[2];
 		}
 		if (typeof line_welded_values[3] !== "undefined") {
-			ASSERT(surfaces.exist(line_welded_values[3]), "Surface no. " + line_welded_values[3] + " doesn§t exist");
+			ASSERT(surfaces.exist(line_welded_values[3]), "Surface no. " + line_welded_values[3] + " doesn't exist");
 			this.line.line_weld_assignment[row].surface3 = line_welded_values[3];
 		}
 	}
@@ -559,12 +558,10 @@ var createBaseLine = function (no,
 		ASSERT(typeof nodes !== "undefined", "Nodes must be defined");
 		ASSERT(nodes.length >=2, "At least two nodes must be specified");
 	}
-
 	var line = engine.create_line(no, nodes);
 	if (typeof line_type != "undefined") {
 		line.type = line_type;
 	}
 	set_comment_and_parameters(line, comment, params);
-
 	return line;
 };

@@ -17,7 +17,7 @@ function SurfaceEccentricity(no,
 	comment,
 	params)
 {
-	this.surface_eccentricity = createEccentricity(no, surfaces_list, comment, params);
+	this.surface_eccentricity = createSurfaceEccentricity(no, surfaces_list, comment, params);
 };
 
 /**
@@ -76,19 +76,20 @@ SurfaceEccentricity.prototype.TransverseOffset = function (reference_type,
 * @param	{Object}	params  		Surface eccentricity's parameters, can be undefined
 * @return Surface eccentricity
 */
-var createEccentricity = function (no,
+var createSurfaceEccentricity = function (no,
 	surfaces_list,
 	comment,
 	params) {
-	ASSERT(typeof surfaces_list !== "undefined", "Surfaces indexes must be specified");
 	var surface_eccentricity = engine.create_surface_eccentricity(no);
-	var assignedSurfaces = [];
-	for (var i = 0; i < surfaces_list.length; ++i) {
-		if (surfaces.exist(surfaces_list[i])) {
-			assignedSurfaces.push(surfaces[surfaces_list[i]]);
-		}
-		else {
-			console.log("Surface no " + surfaces_list[i] + " doesn't exist");
+	if (typeof surface_list !== "undefined") {
+		var assignedSurfaces = [];
+		for (var i = 0; i < surfaces_list.length; ++i) {
+			if (surfaces.exist(surfaces_list[i])) {
+				assignedSurfaces.push(surfaces[surfaces_list[i]]);
+			}
+			else {
+				console.log("Surface no " + surfaces_list[i] + " doesn't exist");
+			}
 		}
 	}
 	surface_eccentricity.assigned_to_surfaces = assignedSurfaces;

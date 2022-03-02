@@ -3,23 +3,23 @@ if (!RFEM) {
 }
 
 /**
- * Creates surface
- * @class
- * @constructor
- * @param	{Number}	no				Index of surface, can be undefined
- * @param	{Array}		boundary_lines	List of boundary lines indexes
- * @param	{Number}	thickness		Thickness index, can be undefined
- * @param	{String}	comment			Comment, can be undefined
- * @param	{Object}	params  		Surface's parameters, can be undefined
- * @returns	Created surface
- */
+* Creates surface
+* @class
+* @constructor
+* @param	{Number}	no				Index of surface, can be undefined
+* @param	{Array}		boundary_lines	List of boundary lines indexes
+* @param	{Number}	thickness		Thickness index, can be undefined
+* @param	{String}	comment			Comment, can be undefined
+* @param	{Object}	params  		Surface's parameters, can be undefined
+* @returns	Created surface
+*/
 function Surface (no,
 	boundary_lines,
 	thickness,
 	comment,
 	params) {
 	if (arguments.length !== 0) {
-		return this.surface = createBaseSurface(no, boundary_lines, undefined, thickness, comment, params);
+		return this.surface = createSurfaceWithType(no, boundary_lines, undefined, thickness, comment, params);
 	}
 };
 
@@ -37,7 +37,7 @@ Surface.prototype.Standard = function (no,
 	thickness,
 	comment,
 	params) {
-	return this.surface = createBaseSurface(no, boundary_lines, surfaces.TYPE_STANDARD, thickness, comment, params);
+	return this.surface = createSurfaceWithType(no, boundary_lines, surfaces.TYPE_STANDARD, thickness, comment, params);
 };
 
 /**
@@ -52,7 +52,7 @@ Surface.prototype.WithoutThickness = function (no,
 	boundary_lines,
 	comment,
 	params) {
-	return this.surface = createBaseSurface(no, boundary_lines, surfaces.TYPE_WITHOUT_THICKNESS, undefined, comment, params);
+	return this.surface = createSurfaceWithType(no, boundary_lines, surfaces.TYPE_WITHOUT_THICKNESS, undefined, comment, params);
 };
 
 /**
@@ -67,7 +67,7 @@ Surface.prototype.Rigid = function (no,
 	boundary_lines,
 	comment,
 	params) {
-	return this.surface = createBaseSurface(no, boundary_lines, surfaces.TYPE_RIGID, undefined, comment, params);
+	return this.surface = createSurfaceWithType(no, boundary_lines, surfaces.TYPE_RIGID, undefined, comment, params);
 };
 
 /**
@@ -84,7 +84,7 @@ Surface.prototype.Membrane = function (no,
 	thickness,
 	comment,
 	params) {
-	return this.surface = createBaseSurface(no, boundary_lines, surfaces.TYPE_MEMBRANE, thickness, comment, params);
+	return this.surface = createSurfaceWithType(no, boundary_lines, surfaces.TYPE_MEMBRANE, thickness, comment, params);
 };
 
 /**
@@ -101,7 +101,7 @@ Surface.prototype.WithoutMembraneTension = function (no,
 	thickness,
 	comment,
 	params) {
-	return this.surface = createBaseSurface(no, boundary_lines, surfaces.TYPE_WITHOUT_MEMBRANE_TENSION, thickness, comment, params);
+	return this.surface = createSurfaceWithType(no, boundary_lines, surfaces.TYPE_WITHOUT_MEMBRANE_TENSION, thickness, comment, params);
 };
 
 /**
@@ -116,7 +116,7 @@ Surface.prototype.LoadTransfer = function (no,
 	boundary_lines,
 	comment,
 	params) {
-	return this.surface = createBaseSurface(no, boundary_lines, surfaces.TYPE_LOAD_TRANSFER, undefined, comment, params);
+	return this.surface = createSurfaceWithType(no, boundary_lines, surfaces.TYPE_LOAD_TRANSFER, undefined, comment, params);
 };
 
 /**
@@ -243,7 +243,7 @@ Surface.prototype.Eccentricity = function (eccentricity) {
 /**
 * Sets surface mesh refinement
 * @param	{Number}	mesh_refinement		Index of surface mesh refinement
-* @param	{Number}	meshing_type		Meshing type, can be undefine (According to global settings by default)
+* @param	{Number}	meshing_type		Meshing type, can be undefined (According to global settings by default)
 *												1 - According to global settings
 *												2 - Mapped
 *												3 - Free
@@ -273,7 +273,7 @@ Surface.prototype.MeshRefinement = function (mesh_refinement,
 * @param	{Array}		input_axes		Input axes values [category, [values], reverse_local_z_axis], can be undefined
 *											1 - Angular rotation category, values: [α, [X, Y, Z], [X2, Y2, Z2]], first and second point can be undefined
 *											2 - Axis parallel to lines category, values: [[line1_no, line2_no ... linen_no], axis (Axis x|Axis y)], second parameter can be undefined ("Axis x" as default)
-*											3 - Axis directed to point category, values: [[X1, Y1, Z1], [X2, Y2, Z2], axis (Axis x|Axis y)], thirs parameter can be undefined ("Axis x" by default)
+*											3 - Axis directed to point category, values: [[X1, Y1, Z1], [X2, Y2, Z2], axis (Axis x|Axis y)], third parameter can be undefined ("Axis x" by default)
 *											4 - Axis parallel to coordinate system category, values: [coordinate_system_no], can be undefined (Global XYZ by default)
 *											reverse_local_z_axis, can be undefined
 * @param	{Array}		result_axes		Result axes values [category], can be undefined (Identical to input axes by default)
@@ -438,7 +438,7 @@ Surface.prototype.IntegratedObjects = function(auto_detection_of_integrated_obje
 * @param	{Object}	params  		Surface's parameters, can be undefined
 * @returns	Created surface
 */
-var createBaseSurface = function (no,
+var createSurfaceWithType = function (no,
 	boundary_lines,
 	surface_type,
 	thickness,

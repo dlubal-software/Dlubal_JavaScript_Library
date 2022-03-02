@@ -227,7 +227,7 @@ if (RFEM) {
 	surface.Standard(undefined, linesForSurfaces[13][0]);
 	surface.Eccentricity(1);
 	// Option: mesh refinement (free meshing type)
-	var meshRefinement = new SurfaceMeshRefinement();
+	var meshRefinement = new SurfaceMeshRefinement(undefined);
 	surface.WithoutThickness(undefined, linesForSurfaces[14][0]);
 	surface.MeshRefinement(1, 3);
 	// Option: specific axes
