@@ -19,7 +19,7 @@ function Line (no,
 	if (arguments.length != 0) {
 		return this.line = createBaseLine(no, nodes, undefined, comment, params);
 	}
-};
+}
 
 /**
 * Creates polyline
@@ -33,7 +33,7 @@ Line.prototype.Polyline = function (no,
 	nodes,
 	comment,
 	params) {
-	return this.line = createBaseLine(undefined, nodes, lines.TYPE_POLYLINE);
+	return this.line = createBaseLine(no, nodes, lines.TYPE_POLYLINE, comment, params);
 };
 
 /**
@@ -47,8 +47,8 @@ Line.prototype.Polyline = function (no,
 *														1 - Beginning of arc
 *														2 - Arc control point
 *														3 - End of arc
-* @param	{String}	comment				Comment, can be undefined
-* @param	{Object}	params				Line's parameters, can be undefined
+* @param	{String}	comment						Comment, can be undefined
+* @param	{Object}	params						Line's parameters, can be undefined
 * @returns	Created arc line
 */
 Line.prototype.Arc = function (no,
@@ -242,7 +242,7 @@ Line.prototype.Spline = function (no,
 	nodes,
 	comment,
 	params) {
-	return this.line = createBaseLine(undefined, nodes, lines.TYPE_SPLINE, comment, params);
+	return this.line = createBaseLine(no, nodes, lines.TYPE_SPLINE, comment, params);
 };
 
 /**
@@ -332,7 +332,7 @@ Line.prototype.RectangularPolygon = function (no,
 		createNode(X, Y - length / 2, Z + width / 2);
 	}
 
-	this.line = Line(undefined, [lastNodeNo + 1, lastNodeNo + 2, lastNodeNo + 3, lastNodeNo + 4, lastNodeNo + 1]);
+	this.line = Line(no, [lastNodeNo + 1, lastNodeNo + 2, lastNodeNo + 3, lastNodeNo + 4, lastNodeNo + 1]);
 	set_comment_and_parameters(this.line, comment, params);
 
 	return this.line;
@@ -344,7 +344,7 @@ Line.prototype.RectangularPolygon = function (no,
 * @param {array}	control_point 	Control point by format [x, y, z]
 * @param {number} 	no_edges 		Number of edges
 * @param {number} 	radius 			Radius
-* @param {string} 	plane 			Plane, can be undefined
+* @param {string} 	rotation_plane	Rotation plane (x-y, x-z), can be undefined (x-y by default)
 * @param {number} 	rotation_angle 	Rotation angle
 * @param {string} 	join 			Join in one "true" or in separate lines "false"
 * @param {string} 	comment 		Comment for the line, can be undefined
@@ -355,7 +355,7 @@ Line.prototype.nPolygon = function (no,
 	center_point,
 	no_edges,
 	radius,
-	plane,
+	rotation_plane,
 	rotation_angle,
 	join,
 	comment,
@@ -366,7 +366,7 @@ Line.prototype.nPolygon = function (no,
 	center_point = typeof center_point !== "undefined" ? center_point : [];
 	no_edges = typeof no_edges !== "undefined" ? no_edges : 0.0;
 	radius = typeof radius !== "undefined" ? radius : 0.0;
-	plane = typeof plane !== "undefined" ? plane : "XY";
+	rotation_plane = typeof rotation_plane !== "undefined" ? rotation_plane : "x-y";
 	join = typeof join !== "undefined" ? join : true;
 	rotation_angle = typeof rotation_angle !== "undefined" ? rotation_angle : 0.0;
 
@@ -376,27 +376,30 @@ Line.prototype.nPolygon = function (no,
 	var no_n = nodes.lastId() + 1;
 	var no_n_ref = nodes.lastId() + 1;
 	var nodes_list = [];
-	if (plane == "XY") {
+	switch (rotation_plane) {
+		case "x-y":
+			rotation_plane = lines.ROTATION_PLANE_XY;
+			break;
+		case "x-z":
+			rotation_plane = lines.ROTATION_PLANE_XZ;
+			break;
+		default:
+			ASSERT(false, "Unknown rotation plane");
+	}
+	if (rotation_plane == lines.ROTATION_PLANE_XY) {
 		for (var i = 0; i < no_edges; ++i) {
 			var alpha = i * PI * 2 / no_edges + rotation_angle;
 			Node(no_n, X + radius * cos(alpha), Y + radius * sin(alpha), Z);
 			nodes_list.push(no_n);
 			no_n++;
 		}
-	} else if (plane == "XZ") {
+	} else if (rotation_plane == lines.ROTATION_PLANE_XZ) {
 		for (var i = 0; i < no_edges; ++i) {
 			var alpha = i * PI * 2 / no_edges + rotation_angle;
 			Node(no_n, X + radius * cos(alpha), Y, Z + radius * sin(alpha));
 			nodes_list.push(no_n);
 			no_n++;
 			}
-	} else if (plane == "YZ") {
-		for (var i = 0; i < no_edges; ++i) {
-			var alpha = i * PI * 2 / no_edges + rotation_angle;
-			Node(no_n, X, Y + radius * cos(alpha), Z + radius * sin(alpha));
-			nodes_list.push(no_n);
-			no_n++;
-		}
 	}
 
 	if (join) {
@@ -417,7 +420,7 @@ Line.prototype.nPolygon = function (no,
 
 /**
 * Sets line rotation
-* @param {Number}	rotation_values 	Rotation values depends on rotatopon type:
+* @param {Number}	rotation_values 	Rotation values depends on rotation type:
 *											1 - [β]
 *											2 - [help_node_index, rotation_plane ("x-y"|"x-z")]
 *											3 - [rotation_plane ("x-y"|"x-z")]
@@ -505,7 +508,7 @@ Line.prototype.WeldedJoints = function (values) {
 		var line_welded_values = values[i];
 		ASSERT(line_welded_values.length === 4, "Four values are required for line welded specification [weld, surface1, surface2, surface3]");
 		ASSERT(line_welded_joints.exist(line_welded_values[0]), "Line welded joint no. " + line_welded_values[0] + " doesn't exist");
-		ASSERT(surfaces.exist(line_welded_values[1]), "Surface no. " + line_welded_values[1] + " doesn§t exist");
+		ASSERT(surfaces.exist(line_welded_values[1]), "Surface no. " + line_welded_values[1] + " doesn't exist");
 		var row = this.line.line_weld_assignment.row_count();
 		this.line.line_weld_assignment.insert_row(row);
 		this.line.line_weld_assignment[row].weld = line_welded_values[0];

@@ -42,6 +42,5 @@ surfaceStiffnessModification.ConcreteStructuresCSA(no++, 1, 4);	// Beams compone
 /*********************************************************************************************/
 
 /**********************************Surface mesh refinement************************************/
-var surfaceMeshRefinement = new SurfaceMeshRefinement();
-surfaceMeshRefinement.TargetLength(undefined, [16, 17, 18, 19], 0.025);
+var surfaceMeshRefinement = new SurfaceMeshRefinement(undefined, [16, 17, 18, 19], 0.025);
 /*********************************************************************************************/

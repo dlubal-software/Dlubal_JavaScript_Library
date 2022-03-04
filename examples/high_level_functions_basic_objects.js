@@ -78,15 +78,15 @@ member.Tension(undefined, [9, 10], 1, "Tension members");
 member.Compression(undefined, [11, 12], 1, "Compression member");
 member.Buckling(undefined, [13, 14], 1, "Buckling member");
 member.Cable(undefined, [15, 16], 1, "Cable member");
-member.CouplingRigidRigid(undefined, [17, 18], "CouplingRigidRigid member");
-member.CouplingRigidHinge(undefined, [19, 20], "CouplingRigidHinge member");
-member.CouplingHingeRigid(undefined, [21, 22], "CouplingHingeRigid member");
-member.CouplingHingeHinge(undefined, [23, 24], "CouplingHingeHinge memnber");
+member.CouplingRigidRigid(undefined, [17, 18], "Coupling rigid-rigid member");
+member.CouplingRigidHinge(undefined, [19, 20], "Coupling rigid-hinge member");
+member.CouplingHingeRigid(undefined, [21, 22], "Coupling hinge-rigid member");
+member.CouplingHingeHinge(undefined, [23, 24], "Coupling hinge-hinge memnber");
 if (RFEM) {
 	// Result beam with "Integrate stresses and forces within block with square area" (1), with included objects
-	member.ResultBeam(undefined, [25, 26], 1, 1, [1.5], [[1], [1, 2], true]);
+	member.ResultBeam(undefined, [25, 26], 1, "INTEGRATE_WITHIN_CUBOID_QUADRATIC", [1.5], [[1], [1, 2], true]);
 	// Result beam with "Integrate stresses and forces within cuboid" (2), with excluded members
-	member.ResultBeam(undefined, [27, 28], 1, 2, [0, 1.1, 0, 1.2], undefined, [undefined, [1], undefined]);
+	member.ResultBeam(undefined, [27, 28], 1, "INTEGRATE_WITHIN_CUBOID_GENERAL", [0, 1.1, 0, 1.2], undefined, [undefined, [1], undefined]);
 }
 // Definable stiffness member (set via member definable stiffness object)
 var member2 = new Member(undefined, [29, 30]);
@@ -149,13 +149,13 @@ if (RFEM) {
 	line2.Ellipse(undefined, [88, 100], [nodes[98].coordinate_1, nodes[98].coordinate_2, nodes[98].coordinate_3]);
 	line2.Parabola(undefined, [81, 93], [nodes[101].coordinate_1, nodes[101].coordinate_2, nodes[101].coordinate_3]);
 	line2.Spline(undefined, [103, 94, 105, 95, 106]);
-	line2.NURBS(undefined, [107, 119], [[nodes[109].coordinate_1, nodes[109].coordinate_2, nodes[109].coordinate_3, undefined], [nodes[120].coordinate_1, nodes[120].coordinate_2, nodes[120].coordinate_3, undefined], [nodes[120].coordinate_1, nodes[120].coordinate_2, nodes[120].coordinate_3, undefined]], 5);
+	line2.NURBS(undefined, [107, 109], [[-7, 14, 0, undefined], [-7, 10, 0, undefined], [-4, 14, 0, undefined]], 3);
 	// Option: rotation
 	var line3 = new Line();
 	line3.Polyline(undefined, [121, 122]);
 	line3.Rotation([20]);	// type: angle
 	line3.Polyline(undefined, [123, 124]);
-	line3.Rotation([124, "x-z"], 2);	// type: help node
+	line3.Rotation([113, "x-z"], 2);	// type: help node
 	line3.Circle(undefined, [nodes[126].coordinate_1, nodes[126].coordinate_2, nodes[126].coordinate_3], 3);
 	line3.Rotation(["x-z"], 3);	// Inside (non-straight line)
 	// Option: member
@@ -197,8 +197,7 @@ if (RFEM) {
 	surface.LoadTransfer(undefined, linesForSurfaces[6][0], "With default plane geometry type");
 	// Geometry type: quadrangle
 	nodes[202].coordinate_3 = 0.5;
-	surface.Standard(undefined, linesForSurfaces[7][0], 1);
-	surface.Quadrangle();
+	surface.Quadrangle(undefined, linesForSurfaces[7][0], "Standard", 1);
 	// Geometry type NURBS
 	var coreSurface = surface.Standard(undefined, linesForSurfaces[8][0], 1);
 	for (var i = 0; i < coreSurface.boundary_lines.length; ++i) {
@@ -206,7 +205,7 @@ if (RFEM) {
 	}
 	surface.NURBS();
 	// Geometry type: rotated
-	surface.Standard(undefined, linesForSurfaces[9][0], 1);
+	surface.Rotated(undefined, linesForSurfaces[9][0], "Standard", 1, 56, 0.2, [nodes[120].coordinate_1, nodes[120].coordinate_2, nodes[120].coordinate_3], [nodes[130].coordinate_1, nodes[130].coordinate_2, nodes[130].coordinate_3]);
 	// TODO
 	// Geometry type: pipe
 	surface.Standard(undefined, linesForSurfaces[10][0], 1);
@@ -235,11 +234,11 @@ if (RFEM) {
 	var inputAxesValues = [1, [45, undefined, undefined]];
 	surface.SpecificAxes(inputAxesValues);	// Angular rotation category
 	surface.Standard(undefined, linesForSurfaces[16][0]);
-	inputAxesValues = [2, [[surface.surface.boundary_lines[0], surface.surface.boundary_lines[2]], "Axis y"]];
+	inputAxesValues = [2, [[surface.surface.boundary_lines[0], surface.surface.boundary_lines[1]], "Axis y"]];
 	surface.SpecificAxes(inputAxesValues);	// Axis parallel to lines category
 	surface.Standard(undefined, linesForSurfaces[17][0]);
 	var node1 = linesForSurfaces[17][1][0];
-	var node2 = linesForSurfaces[17][1][2];
+	var node2 = linesForSurfaces[17][1][1];
 	inputAxesValues = [3, [[node1.coordinate_1, node1.coordinate_2, node1.coordinate_3], [node2.coordinate_1, node2.coordinate_2, node2.coordinate_3], undefined]];
 	surface.SpecificAxes(inputAxesValues);	// Axis directed to point category, with default "Axis x"
 	surface.Standard(undefined, linesForSurfaces[18][0]);
@@ -250,4 +249,11 @@ if (RFEM) {
 	surface.Standard(undefined, linesForSurfaces[19][0]);
 	surface.IntegratedObjects(false, undefined, [integratedLine.line.no]);
 	/*********************************************************************************************/
+	
+	var surface2 = new Surface();
+	surface2.Standard(undefined, linesForSurfaces[20][0]);
+	var material2 = createMaterial("C16/20");
+	var thickness2 = new Thickness();
+	thickness2.Uniform(undefined, "Thickness2", material2, [0.180]);
+	surface2.SurfaceType("Membrane", undefined, thickness2.thickness);
 }

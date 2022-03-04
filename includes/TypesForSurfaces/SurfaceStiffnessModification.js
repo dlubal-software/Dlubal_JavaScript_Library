@@ -18,7 +18,7 @@ function SurfaceStiffnessModification(no,
 	params)
 {
 	if (arguments.length !== 0) {
-		return this.surface_stiffness_modification = createSurfaceStiffnessModification(no, structural_modification);
+		return this.surface_stiffness_modification = createSurfaceStiffnessModification(no, structural_modification, comment, params);
 	}
 }
 
@@ -95,16 +95,16 @@ SurfaceStiffnessModification.prototype.StiffnessMatrixElementsFactors = function
 	this.surface_stiffness_modification = createSurfaceStiffnessModification(no, structural_modification, comment, params);
 	this.surface_stiffness_modification.type = surface_stiffness_modifications.TYPE_STIFFNESS_MATRIX_ELEMENTS_FACTORS;
 	if (typeof bending_torsional_stiffness_elements !== "undefined") {
-		setStiffnexxMatrixValues(this.surface_stiffness_modification, bending_torsional_stiffness_elements, "kd11", "kd12", "kd13", "kd22", "kd23", "kd33", "kd11_note", "kd12_note", "kd13_note", "kd22_note", "kd23_note", "kd33_note");
+		setStiffnessMatrixValues(this.surface_stiffness_modification, bending_torsional_stiffness_elements, "kd11", "kd12", "kd13", "kd22", "kd23", "kd33", "kd11_note", "kd12_note", "kd13_note", "kd22_note", "kd23_note", "kd33_note");
 	}
 	if (typeof shear_stiffness_elements !== "undefined") {
-		setStiffnexxMatrixValues(this.surface_stiffness_modification, shear_stiffness_elements, "kd44", "kd45", "kd55", "kd44_note", "kd45_note", "kd55_note");
+		setStiffnessMatrixValues(this.surface_stiffness_modification, shear_stiffness_elements, "kd44", "kd45", "kd55", "kd44_note", "kd45_note", "kd55_note");
 	}
 	if (typeof membrane_stiffness_elements !== "undefined") {
-		setStiffnexxMatrixValues(this.surface_stiffness_modification, membrane_stiffness_elements, "kd66", "kd67", "kd68", "kd77", "kd78", "kd88", "kd66_note", "kd67_note", "kd68_note", "kd77_note", "kd78_note", "kd88_note");
+		setStiffnessMatrixValues(this.surface_stiffness_modification, membrane_stiffness_elements, "kd66", "kd67", "kd68", "kd77", "kd78", "kd88", "kd66_note", "kd67_note", "kd68_note", "kd77_note", "kd78_note", "kd88_note");
 	}
 	if (typeof eccentric_stiffness_elements !== "undefined") {
-		setStiffnexxMatrixValues(this.surface_stiffness_modification, eccentric_stiffness_elements, "kd16", "kd17", "kd18", "kd27", "kd28", "kd38", "kd16_note", "kd17_note", "kd18_note", "kd27_note", "kd28_note", "kd38_note");
+		setStiffnessMatrixValues(this.surface_stiffness_modification, eccentric_stiffness_elements, "kd16", "kd17", "kd18", "kd27", "kd28", "kd38", "kd16_note", "kd17_note", "kd18_note", "kd27_note", "kd28_note", "kd38_note");
 	}
 };
 
@@ -213,7 +213,7 @@ var setParameter = function (surface_stiffness_modification,
 * Set load parameters
 * @param 	{Array}	arguments		Arguments: arg[0] - surface stiffness modification, arg[1] - array of stiffness matrix values to set, arg[2, 3 ... n] - stiffness matrix parameters to be set
 */
-var setStiffnexxMatrixValues = function () {
+var setStiffnessMatrixValues = function () {
 	ASSERT(arguments.length >= 3);
 	var surface_stiffness_modification = arguments[0];
 	var stiffness_matrix_values = arguments[1];

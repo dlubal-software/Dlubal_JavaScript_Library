@@ -8,36 +8,23 @@ if (!RFEM) {
 * @constructor
 * @param	{Number}	no				Index of surface stiffness modification, can be undefined
 * @param	{Array}		surface_list	List of surface indexes
+* @param	{Number}	target_length	Target FE length, can be undefined (0.05 m by default)
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params  		Surface stiffness modification's parameters, can be undefined
 * @returns	Created surface mesh refinement
 */
 function SurfaceMeshRefinement(no,
 	surface_list,
-	comment,
-	params) {
-	if (arguments.length !== 0) {
-		return this.surface_mesh_refinement = createSurfaceMeshRefinement(no, surface_list, comment, params);
-	}
-}
-
-/**
-* Sets target length of surface mesh refinement
-* @param	{Number}	no				Index of surface stiffness modification, can be undefined
-* @param	{Array}		surface_list	List of surface indexes
-* @param	{Number}	target_length	Target FE length
-* @param	{String}	comment			Comment, can be undefined
-* @param	{Object}	params  		Surface stiffness modification's parameters, can be undefined
-* @returns	Created surface mesh refinement
-*/
-SurfaceMeshRefinement.prototype.TargetLength = function (no,
-	surface_list,
 	target_length,
 	comment,
 	params) {
+	ASSERT(arguments.length >= 2, "No/undefined and surface_list must be specified");
 	this.surface_mesh_refinement = createSurfaceMeshRefinement(no, surface_list, comment, params);
-	this.surface_mesh_refinement.target_length = target_length;
-};
+	if (typeof target_length !== "undefined") {
+		this.surface_mesh_refinement.target_length = target_length;
+	}
+	return this.surface;
+}
 
 /**
 * Creates surface mesh refinement (private)

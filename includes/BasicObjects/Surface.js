@@ -21,7 +21,7 @@ function Surface (no,
 	if (arguments.length !== 0) {
 		return this.surface = createSurfaceWithType(no, boundary_lines, undefined, thickness, comment, params);
 	}
-};
+}
 
 /**
 * Creates standard surface
@@ -108,16 +108,42 @@ Surface.prototype.WithoutMembraneTension = function (no,
 * Creates load transfer surface
 * @param	{Number}	no				Index of surface, can be undefined
 * @param	{Array}		boundary_lines	List of boundary lines indexes
+* @param	{Array}		values			Load transfer's parameters, can be undefined
+*											[load_transfer_direction, surface_weight, consider_member_eccentricity, consider_section_distribution
+*											excluded_members, excluded_parallel_to_members, excluded_lines, excluded_parallel_to_lines,
+											loaded_lines, loaded_members]
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params  		Surface's parameters, can be undefined
 * @returns	Created surface
 */
 Surface.prototype.LoadTransfer = function (no,
 	boundary_lines,
+	values,
 	comment,
 	params) {
-	return this.surface = createSurfaceWithType(no, boundary_lines, surfaces.TYPE_LOAD_TRANSFER, undefined, comment, params);
+	this.surface = createSurfaceWithType(no, boundary_lines, surfaces.TYPE_LOAD_TRANSFER, undefined, comment, params);
+	if (typeof values !== "undefined") {
+		
+	}
 };
+
+/**
+* Sets surface type with material and thickness
+* @param {String}	stiffness_type	Stiffness type
+* @param {Object}	material		Material, can be undefined
+* @param {Object}	thickness		Thickness, can be undefined
+*/
+Surface.prototype.SurfaceType = function (stiffness_type,
+	material,
+	thickness) {
+	this.surface.type = stiffness_type;
+	if (typeof material !== "undefined") {
+		this.surface.material = material;
+	}
+	if (typeof thickness !== "undefined") {
+		this.surface.thickness = thickness;
+	}
+}
 
 /**
 * Sets plane geometry type of surface
@@ -128,15 +154,28 @@ Surface.prototype.Plane = function () {
 
 /**
 * Sets quadrangle geometry type of surface
-* @param {Number}	corner_node_1	Quadrangle corner 1, can be undefined
-* @param {Number}	corner_node_2	Quadrangle corner 2, can be undefined
-* @param {Number}	corner_node_3	Quadrangle corner 3, can be undefined
-* @param {Number}	corner_node_4	Quadrangle corner 4, can be undefined
+* @param	{Number}	no				Index of surface, can be undefined
+* @param	{Array}		boundary_lines	List of boundary lines indexes
+* @param	{Number}	thickness		Thickness index, can be undefined
+* @param	{Number}	boundary_line	Index of boundary line
+* @param	{Number}	corner_node_1		Quadrangle corner 1, can be undefined
+* @param	{Number}	corner_node_2		Quadrangle corner 2, can be undefined
+* @param	{Number}	corner_node_3		Quadrangle corner 3, can be undefined
+* @param	{Number}	corner_node_4		Quadrangle corner 4, can be undefined
+* @param	{String}	comment			Comment, can be undefined
+* @param	{Object}	params  		Surface's parameters, can be undefined
 */
-Surface.prototype.Quadrangle = function (corner_node_1,
+Surface.prototype.Quadrangle = function (no,
+	boundary_lines,
+	surface_type,
+	thickness,
+	corner_node_1,
 	corner_node_2,
 	corner_node_3,
-	corner_node_4) {
+	corner_node_4,
+	comment,
+	params) {
+	this.surface = createSurfaceWithType(no, boundary_lines, surface_type, thickness, comment, params);
 	ASSERT(this.surface.type !== surfaces.TYPE_LOAD_TRANSFER, "Quadrangle geometry type cannot be used for this type of surface");
 	this.surface.geometry = surfaces.GEOMETRY_QUADRANGLE;
 	if (typeof corner_node_1 !== "undefined") {
@@ -163,32 +202,45 @@ Surface.prototype.NURBS = function () {
 
 /**
 * Sets rotated geometry type of surface
+* @param	{Number}	no					Index of surface, can be undefined
+* @param	{Array}		boundary_lines		List of boundary lines indexes
+* @param	{Number}	thickness			Thickness index, can be undefined
 * @param	{Number}	boundary_line		Index of boundary line
 * @param	{Number}	angle_of_rotation	Angle of rotation, can be undefined
 * @param	{Array}		rotation_axis_p		Rotation axis, point P ([X, Y, Z]). Can be undefined.
 * @param	{Array}		rotation_axis_r		Rotation axis, point R ([X, Y, Z]). Can be undefined.
+* @param	{String}	comment				Comment, can be undefined
+* @param	{Object}	params  			Surface's parameters, can be undefined
 */
-Surface.prototype.Rotated = function (boundary_line,
+Surface.prototype.Rotated = function (no,
+	boundary_lines,
+	surface_type,
+	thickness,
+	boundary_line,
 	angle_of_rotation,
 	rotation_axis_p,
-	rotation_axis_r) {
+	rotation_axis_r,
+	comment,
+	params) {
+	this.surface = createSurfaceWithType(no, boundary_lines, surface_type, thickness, comment, params);
 	ASSERT(this.surface.type !== surfaces.TYPE_LOAD_TRANSFER, "Quadrangle geometry type cannot be used for this type of surface");
 	ASSERT(typeof boundary_line !== "undefined", "Boundary line must be specified");
+	this.surface.geometry = surfaces.GEOMETRY_ROTATED;
 	this.surface.rotated_boundary_line = boundary_line;
 	if (typeof angle_of_rotation !== "undefined") {
 		this.surface.rotated_angle_of_rotation = angle_of_rotation;
 	}
 	if (typeof rotation_axis_p !== "undefined") {
 		ASSERT(rotation_axis_p.length === 3, "Three values are required [X, Y, Z]");
-		surface.rotated_point_p_x = rotation_axis_p[0];
-		surface.rotated_point_p_y = rotation_axis_p[1];
-		surface.rotated_point_p_z = rotation_axis_p[2];
+		this.surface.rotated_point_p_x = rotation_axis_p[0];
+		this.surface.rotated_point_p_y = rotation_axis_p[1];
+		this.surface.rotated_point_p_z = rotation_axis_p[2];
 	}
 	if (typeof rotation_axis_r !== "undefined") {
 		ASSERT(rotation_axis_r.length === 3, "Three values are required [X, Y, Z]");
-		surface.rotated_point_r_x = rotation_axis_r[0];
-		surface.rotated_point_r_y = rotation_axis_r[1];
-		surface.rotated_point_r_z = rotation_axis_r[2];
+		this.surface.rotated_point_r_x = rotation_axis_r[0];
+		this.surface.rotated_point_r_y = rotation_axis_r[1];
+		this.surface.rotated_point_r_z = rotation_axis_r[2];
 	}
 };
 
@@ -209,7 +261,7 @@ Surface.prototype.Pipe = function (center_line,
 
 /**
 * Sets surface hinges
-* @param	{Array}		hinges_values	Linge hinges values ([[line_no1, line_hinge_no1] ... [line_non, line_hinge_non]])
+* @param	{Array}		hinges_values	Line hinges values ([[line_no1, line_hinge_no1] ... [line_non, line_hinge_non]])
 */
 Surface.prototype.Hinges = function (hinges_values) {
 	ASSERT(typeof hinges_values.length !== "undefined", "At least one hinge must be specified");
@@ -336,7 +388,7 @@ Surface.prototype.SpecificAxes = function (input_axes,
 				ASSERT(false, "Unknown input axes category");
 		}
 		if (input_axes.length === 3 && input_axes[2] !== "undefined") {
-			this.surface.reversed_normal = input_axes[2]
+			this.surface.reversed_normal = input_axes[2];
 		}
 	}
 	if (typeof result_axes !== "undefined") {
@@ -348,8 +400,8 @@ Surface.prototype.SpecificAxes = function (input_axes,
 * Sets surface's grid for results values
 * @param	{Number}	grid_type					Grid type (1 - Cartesian, 2 - Polar)
 * @param	{Array}		number_of_grid_points		Number of grid points in (-) and (+), can be undefined
-*														Grid type cartesian: [nx+, nx-, ny+, ny-]
-*														Grid type polar: [nr+]
+*													Grid type cartesian: [nx+, nx-, ny+, ny-]
+*													Grid type polar: [nr+]
 * @param	{Boolean}	grid_adapt_automatically	Adapt automatically, can be undefined (true by default)
 * @param	{Array}		grid_distancies				Grid distancies ([b, h]), can be undefined
 * @param	{Array}		grid_rotation				Grid rotation ([α, β]), can be undefined
@@ -452,4 +504,4 @@ var createSurfaceWithType = function (no,
 	}
 	set_comment_and_parameters(surface, comment, params);
 	return surface;
-}
+};

@@ -11,25 +11,7 @@ Limit_stress and shear_stiffness cannot be set?? I tried it directly in RFEM con
 * Creates contact solid
 * @class
 * @constructor
-* @param	{Number}	no			Index of contact solid
-* @param	{Array}		solid_list	List of solid indexes
-* @param	{String}	comment		Comment, can be undefined
-* @param	{Object}	params  	Contact solid's parameters, can be undefined
-* @returns	Created contact solid
-*/
-function ContactSolid (no,
-	solid_list,
-	comment,
-	params) {
-	if (arguments.length !== 0) {
-		return this.contact_solid = createContactSolids(no, solid_list, comment, params);
-	}
-}
-
-/**
-* Set contact type to contact solid
 * @param	{Number}	no							Index of contact solid
-* @param	{Array}		solid_list					List of solid indexes
 * @param	{Number}	perpendicular_to_surface	Contact perpendicular to surfaces, can be undefined ("Failure force transmission" by default)
 *														1 - Full force transmission
 *														2 - Failure under compression
@@ -40,20 +22,19 @@ function ContactSolid (no,
 *														3 - Rigid friction with limit
 *														4 - Elastic friction
 *														5 - Elastic friction with limit
-*														6 - Elastic solid behaviour
+*														6 - Elastic solid behavior
 *														7 - Failure if contact perpendicular to surfaces failed (only for failure perpendicular - 2 and 3)
 * @param	{Array}		values						Values depends on contact parallel to surface type, can be undefined
-* @param	{String}	comment		Comment, can be undefined
-* @param	{Object}	params  	Contact solid's parameters, can be undefined
+* @param	{String}	comment						Comment, can be undefined
+* @param	{Object}	params  					Contact solid's parameters, can be undefined
+* @returns	Created contact solid
 */
-ContactSolid.prototype.SetContactType = function (no,
-	solid_list,
+function ContactSolid (no,
 	perpendicular_to_surface,
 	parallel_to_surface,
-	values,
 	comment,
 	params) {
-	this.contact_solid = createContactSolid(no, solid_list, comment, params);
+	this.contact_solid = createContactSolid(no, comment, params);
 	if (typeof perpendicular_to_surface != "undefined") {
 		switch (perpendicular_to_surface) {
 			case 1:	// Full force transmission
@@ -66,7 +47,7 @@ ContactSolid.prototype.SetContactType = function (no,
 				this.contact_solid.perpendicular_to_surface = solid_contacts.FAILURE_UNDER_TENSION;
 				break;
 			default:
-				ASSERT(false, "Unknown contact prpendicular to surfaces type");
+				ASSERT(false, "Unknown contact perpendicular to surfaces type");
 		}
 	}
 	if (typeof parallel_to_surface !== "undefined") {
@@ -105,7 +86,7 @@ ContactSolid.prototype.SetContactType = function (no,
 					this.contact_solid.limit_stress = values[1];
 				}
 				break;
-			case 6:	// Elastic solid behaviour
+			case 6:	// Elastic solid behavior
 				this.contact_solid.parallel_to_surface = solid_contacts.ELASTIC_SOLID;
 				if (typeof values !== "undefined") {
 					ASSERT(values.length === 1, "Shear stiffness value is required");
@@ -119,22 +100,13 @@ ContactSolid.prototype.SetContactType = function (no,
 				break;
 		}
 	}
-}
+};
 
 /**
-* Creates contact solid (private)
-* @param	{Number}	no			Index of contact solid
-* @param	{Array}		solid_list	List of solid indexes
-* @param	{String}	comment		Comment, can be undefined
-* @param	{Object}	params  	Contact solid's parameters, can be undefined
-* @returns	Created contact solid
+* Assigns solids to contact solid
+* @param	{Array}	solid_list	List of solid's indexes
 */
-var createContactSolid = function (no, 
-	solid_list,
-	comment,
-	params) {
-	var contact_solid = solid_contacts.create(no);
-	set_comment_and_parameters(contact_solid, comment, params);
+ContactSolid.prototype.AssignTo = function (solid_list) {
 	var solidList = [];
 	for (var i = 0; i < solid_list.length; ++i) {
 		if (solids.exist(solid_list[i])) {
@@ -144,6 +116,20 @@ var createContactSolid = function (no,
 			console.log("Solid no. " + solid_list[i] + " doesn't exist");
 		}
 	}
-	contact_solid.solids = solidList;
+	this.contact_solid.solids = solidList;
+};
+
+/**
+* Creates contact solid (private)
+* @param	{Number}	no			Index of contact solid
+* @param	{String}	comment		Comment, can be undefined
+* @param	{Object}	params  	Contact solid's parameters, can be undefined
+* @returns	Created contact solid
+*/
+var createContactSolid = function (no, 
+	comment,
+	params) {
+	var contact_solid = solid_contacts.create(no);
+	set_comment_and_parameters(contact_solid, comment, params);
 	return contact_solid;
 };

@@ -22,12 +22,12 @@ solidMeshRefinement.TargetLength(no++, [1], 0.15);
 /*********************************************************************************************/
 
 /******************************************Gas solid******************************************/
-var gasSolid = new GasSolid();
-gasSolid.GasSolidWithParameters(no++, [2], 1, 300);
+var gasSolid = new GasSolid(no++, 100, 300);
+gasSolid.AssignTo([2]);
 /*********************************************************************************************/
 
 /******************************************Contact solid**************************************/
-var contactSolid = new ContactSolid();
 // Failure under compression, Rigid friction
-contactSolid.SetContactType(no++, [3], 2, 2, [3.5]);
+var contactSolid = new ContactSolid(no++, 2, 2, [3.5]);
+contactSolid.AssignTo([3]);
 /*********************************************************************************************/

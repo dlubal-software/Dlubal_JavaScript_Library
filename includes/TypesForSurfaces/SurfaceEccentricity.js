@@ -18,7 +18,7 @@ function SurfaceEccentricity(no,
 	params)
 {
 	this.surface_eccentricity = createSurfaceEccentricity(no, surfaces_list, comment, params);
-};
+}
 
 /**
 * Sets offset or/and thickness alignment
@@ -116,4 +116,4 @@ var getAlignment = function (alignment) {
 		default:
 			ASSERT(false, "Unknown thickness alignment");
 	}
-}
+};
