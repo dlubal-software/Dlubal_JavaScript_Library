@@ -1,3 +1,10 @@
+const ResultBeamIntegrate = {
+	"INTEGRATE_WITHIN_CUBOID_QUADRATIC" : members.INTEGRATE_WITHIN_CUBOID_QUADRATIC,
+	"INTEGRATE_WITHIN_CUBOID_GENERAL" : members.INTEGRATE_WITHIN_CUBOID_GENERAL,
+	"INTEGRATE_WITHIN_CYLINDER" : members.INTEGRATE_WITHIN_CYLINDER,
+	"INTEGRATE_FROM_LISTED_OBJECT" : members.INTEGRATE_FROM_LISTED_OBJECT
+};
+
 /**
  * Creates member
  * @class
@@ -156,11 +163,11 @@ Member.prototype.Cable = function (no,
 * @param	{Number}		no											Index of member, can be undefined
 * @param	{Array/Number}	nodes_or_line								List of node indexes or number of line
 * @param	{Number}		section_start								Section start. Section end is same as section start by default. To set section end specify distribution type.
-* @param	{Number} 		result_beam_integrate_stresses_and_forces	Stresses and forces type, can be undefined:
-*																			1 - Integrate stresses and forces within block with square area
-*																			2 - Integrate stresses and forces within cuboid
-*																			3 - Integrate stresses and forces within cylinder
-*																			4 - Integrate stresses and forces from listed objects
+* @param	{String} 		result_beam_integrate_stresses_and_forces	Stresses and forces type, can be undefined:
+*																			INTEGRATE_WITHIN_CUBOID_QUADRATIC
+*																			INTEGRATE_WITHIN_CUBOID_GENERAL
+*																			INTEGRATE_WITHIN_CYLINDER
+*																			INTEGRATE_FROM_LISTED_OBJECT
 * @param	{Array}			result_beam_parameters						Result beam parameters, can be undefined
 *																			1 - [Yz]
 *																			2 - [Y+, Y-, Z+, Z-]
@@ -186,15 +193,15 @@ Member.prototype.ResultBeam = function (no,
 		if (typeof result_beam_integrate_stresses_and_forces !== "undefined") {
 			switch (result_beam_integrate_stresses_and_forces)
 			{
-				case 1:		// Integrate stresses and forces within block with square area
-					this.member.result_beam_integrate_stresses_and_forces = members.INTEGRATE_WITHIN_CUBOID_QUADRATIC;
+				case "INTEGRATE_WITHIN_CUBOID_QUADRATIC":	// Integrate stresses and forces within block with square base
+					this.member.result_beam_integrate_stresses_and_forces = ResultBeamIntegrate[result_beam_integrate_stresses_and_forces];
 					if (typeof result_beam_parameters !== "undefined") {
 						ASSERT(result_beam_parameters.length === 1, "Dimension parameter is required: [Yz]");
 						this.member.result_beam_y_z = result_beam_parameters[0];
 					}
 					break;
-				case 2:		// Integrate stresses and forces within cuboid
-					this.member.result_beam_integrate_stresses_and_forces = members.INTEGRATE_WITHIN_CUBOID_GENERAL;
+				case "INTEGRATE_WITHIN_CUBOID_GENERAL":		// Integrate stresses and forces within cuboid
+					this.member.result_beam_integrate_stresses_and_forces = ResultBeamIntegrate[result_beam_integrate_stresses_and_forces];
 					if (typeof result_beam_parameters !== "undefined") {
 						ASSERT(result_beam_parameters.length === 4, "Four parameters are required: [Y+, Y-, Z+, Z-]");
 						this.member.result_beam_y_plus = result_beam_parameters[0];
@@ -203,15 +210,15 @@ Member.prototype.ResultBeam = function (no,
 						this.member.result_beam_z_minus = result_beam_parameters[3];
 					}
 					break;
-				case 3:		// Integrate stresses and forces within cylinder
-					this.member.result_beam_integrate_stresses_and_forces = members.INTEGRATE_WITHIN_CYLINDER;
+				case "INTEGRATE_WITHIN_CYLINDER":		// Integrate stresses and forces within cylinder
+					this.member.result_beam_integrate_stresses_and_forces = ResultBeamIntegrate[result_beam_integrate_stresses_and_forces];
 					if (typeof result_beam_parameters !== "undefined") {
 						ASSERT(result_beam_parameters.length === 1, "Radius parameter is required: [R]");
 						this.member.result_beam_radius = result_beam_parameters[0];
 					}
 					break;
-				case 4:		// Integrate stresses and forces from listed objects
-					this.member.result_beam_integrate_stresses_and_forces = members.INTEGRATE_FROM_LISTED_OBJECT;
+				case "INTEGRATE_FROM_LISTED_OBJECT":		// Integrate stresses and forces from listed objects
+					this.member.result_beam_integrate_stresses_and_forces = ResultBeamIntegrate[result_beam_integrate_stresses_and_forces];
 					break;
 				default:
 					ASSERT(false, "Unknown stresses and forces type");
@@ -344,7 +351,7 @@ Member.prototype.Hinges = function (member_start_hinge,
 		ASSERT(member_hinges.exist(member_end_hinge), "Member hinge no. " + member_end_hinge + " doesn't exist");
 		this.member.member_hinge_end = member_hinges[member_end_hinge];
 	}
-}
+};
 
 /**
 * Sets member start and/or member end eccentricities
@@ -398,7 +405,7 @@ Member.prototype.ResultIntermediatePoints = function (member_result_intermediate
 	ASSERT(typeof member_result_intermediate_points !== "undefined");
 	ASSERT(member_result_intermediate_points.exist(member_result_intermediate_point), "Result intermediate points no. " + member_result_intermediate_points + " doesn't exist");
 	this.member.member_result_intermediate_point = member_result_intermediate_point;
-}
+};
 
 /**
 * Sets member start and/or member end extensions
@@ -429,7 +436,198 @@ Member.prototype.DeactivateForCalculation = function (deactivate) {
 		deactivate = true;
 	}
 	this.member.is_deactivated_for_calculation = deactivate;
-}
+};
+
+/**
+* Sets uniform section distribution
+*/
+Member.prototype.SectionDistributionUniform = function () {
+	this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_UNIFORM;
+};
+
+/**
+* Sets linear distribution
+* @param {String}	section_alignment	Section alignment (Top, Centric, Bottom), can be undefined (centric as default)
+*/
+Member.prototype.SectionDistributionLinear = function (section_alignment) {
+	this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_LINEAR;
+	if (typeof section_alignment !== "undefined") {
+		this.member.section_alignment = section_alignment;
+	}
+};
+
+/**
+* Sets tapered at both sides distribution
+* @param {String}	reference_type				Reference type (L, XY, XZ), can be undefined
+* @param {Array}	section_distance_from_start	Member distance ([distance, is_relative]), can be undefined
+* @param {Array}	section_distance_from_end	Member distance ([distance, is_relative]), can be undefined
+* @param {String}	section_alignment			Section alignment (Top, Centric, Bottom), can be undefined (top as default)
+*/
+Member.prototype.SectionDistributionTaperedAtBothSides = function (reference_type,
+	section_distance_from_start,
+	section_distance_from_end,
+	section_alignment) {
+	this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES;
+	if (typeof reference_type !== "undefined") {
+		this.member.reference_type = reference_type;
+	}
+	setDistributionAtStart(this.member, section_distance_from_start);
+	setDistributionAtEnd(this.member, section_distance_from_end);
+	if (typeof section_alignment !== "undefined") {
+		this.member.section_alignment = section_alignment;
+	}
+};
+
+/**
+* Sets tapered at start distribution
+* @param {String}	reference_type				Reference type (L, XY, XZ), can be undefined
+* @param {Array}	section_distance_from_start	Member distance ([distance, is_relative]), can be undefined
+* @param {String}	section_alignment			Section alignment (Top, Centric, Bottom), can be undefined (top as default)
+*/
+Member.prototype.SectionDistributionTaperedAtStart = function (reference_type,
+	section_distance_from_start,
+	section_alignment) {
+	this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER;
+	if (typeof reference_type !== "undefined") {
+		this.member.reference_type = reference_type;
+	}
+	setDistributionAtStart(this.member, section_distance_from_start);
+	if (typeof section_alignment !== "undefined") {
+		this.member.section_alignment = section_alignment;
+	}
+};
+
+/**
+* Sets tapered at end distribution
+* @param {String}	reference_type				Reference type (L, XY, XZ), can be undefined
+* @param {Array}	section_distance_from_end	Member distance ([distance, is_relative]), can be undefined
+* @param {String}	section_alignment			Section alignment (Top, Centric, Bottom), can be undefined (top as default)
+*/
+Member.prototype.SectionDistributionTaperedAtEnd = function (reference_type,
+	section_distance_from_end,
+	section_alignment) {
+	this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER;
+	if (typeof reference_type !== "undefined") {
+		this.member.reference_type = reference_type;
+	}
+	setDistributionAtEnd(this.member, section_distance_from_end);
+	if (typeof section_alignment !== "undefined") {
+		this.member.section_alignment = section_alignment;
+	}
+};
+
+/**
+* Sets saddle distribution
+* @param {String}	reference_type				Reference type (L, XY, XZ), can be undefined
+* @param {Array}	section_distance_from_start	Member distance ([distance, is_relative]), can be undefined
+* @param {String}	section_alignment			Section alignment (Top, Centric, Bottom), can be undefined (top as default)
+*/
+Member.prototype.SectionDistributionSaddle = function (reference_type,
+	section_distance_from_start,
+	section_alignment) {
+	this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_SADDLE;
+	if (typeof reference_type !== "undefined") {
+		this.member.reference_type = reference_type;
+	}
+	setDistributionAtStart(this.member, section_distance_from_start);
+	if (typeof section_alignment !== "undefined") {
+		this.member.section_alignment = section_alignment;
+	}
+};
+
+/**
+* Sets offset at both sides distribution
+* @param {String}	reference_type				Reference type (L, XY, XZ), can be undefined
+* @param {Array}	section_offset_from_start	Member offset ([distance, is_relative]), can be undefined
+* @param {Array}	section_offset_from_end		Member offset ([distance, is_relative]), can be undefined
+* @param {String}	section_alignment			Section alignment (Top, Centric, Bottom), can be undefined (top as default)
+*/
+Member.prototype.SectionDistributionOffsetAtBothSides = function (reference_type,
+	section_offset_from_start,
+	section_offset_from_end,
+	section_alignment) {
+	this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES;
+	if (typeof reference_type !== "undefined") {
+		this.member.reference_type = reference_type;
+	}
+	setDistributionAtStart(this.member, section_offset_from_start);
+	setDistributionAtEnd(this.member, section_offset_from_end);
+	if (typeof section_alignment !== "undefined") {
+		this.member.section_alignment = section_alignment;
+	}
+};
+
+/**
+* Sets offset at start distribution
+* @param {String}	reference_type				Reference type (L, XY, XZ), can be undefined
+* @param {Array}	section_offset_from_start	Member offset ([distance, is_relative]), can be undefined
+* @param {String}	section_alignment			Section alignment (Top, Centric, Bottom), can be undefined (top as default)
+*/
+Member.prototype.SectionDistributionOffsetAtStart = function (reference_type,
+	section_offset_from_start,
+	section_alignment) {
+	this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER;
+	if (typeof reference_type !== "undefined") {
+		this.member.reference_type = reference_type;
+	}
+	setDistributionAtStart(this.member, section_offset_from_start);
+	if (typeof section_alignment !== "undefined") {
+		this.member.section_alignment = section_alignment;
+	}
+};
+
+/**
+* Sets offset at end distribution
+* @param {String}	reference_type				Reference type (L, XY, XZ), can be undefined
+* @param {Array}	section_offset_from_end		Member offset ([distance, is_relative]), can be undefined
+* @param {String}	section_alignment			Section alignment (Top, Centric, Bottom), can be undefined (top as default)
+*/
+Member.prototype.SectionDistributionOffsetAtEnd = function (reference_type,
+	section_offset_from_end,
+	section_alignment) {
+	this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER;
+	if (typeof reference_type !== "undefined") {
+		this.member.reference_type = reference_type;
+	}
+	setDistributionAtEnd(this.member, section_offset_from_end);
+	if (typeof section_alignment !== "undefined") {
+		this.member.section_alignment = section_alignment;
+	}
+};
+
+/**
+* Support function for section distributions (private), more info can be find there
+*/
+var setDistributionAtStart = function (member,
+	atStartValues) {
+	if (typeof atStartValues !== "undefined") {
+		ASSERT(atStartValues.length === 2, "Section distance from start: [distance, is_relative]");
+		member.section_distance_from_start_is_defined_as_relative = atStartValues[1];
+		if (member.section_distance_from_start_is_defined_as_relative) {
+			member.section_distance_from_start_relative = atStartValues[0];
+		}
+		else {
+			member.section_distance_from_start_absolute = atStartValues[0];
+		}
+	}
+};
+
+/**
+* Support function for section distributions (private), more info can be find there
+*/
+var setDistributionAtEnd = function (member,
+	atEndValues) {
+	if (typeof atEndValues !== "undefined") {
+		ASSERT(atEndValues.length == 2, "Section distance from end: [distance, is_relative]");
+		member.section_distance_from_end_is_defined_as_relative = atEndValues[1];
+		if (member.section_distance_from_end_is_defined_as_relative) {
+			member.section_distance_from_end_relative = atEndValues[0];
+		}
+		else {
+			member.section_distance_from_end_absolute = atEndValues[0];
+		}
+	}
+};
 
 /**
 * Sets result beam objects

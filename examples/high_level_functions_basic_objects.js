@@ -134,6 +134,26 @@ else {
 member9.EndModifications([0.1, 0.2, 0.2], [0.5, 0.2, 0.3]);
 // Option: Deactivate for calculation
 member9.DeactivateForCalculation();
+// Section distribution
+var member10 = new Member();
+member10.Beam(undefined, [48, 49], 1);
+member10.SectionDistributionUniform();
+member10.Beam(undefined, [51, 52], 1);
+member10.SectionDistributionLinear("Top");
+member10.Beam(undefined, [53, 54], 1);
+member10.SectionDistributionTaperedAtBothSides("XY", [0.30, true], [1.5, false], "Bottom");
+member10.Beam(undefined, [55, 56], 1);
+member10.SectionDistributionTaperedAtStart("XY", [0.30, true], "Top");
+member10.Beam(undefined, [57, 58], 1);
+member10.SectionDistributionTaperedAtEnd(undefined, [1.5, false], "Bottom");	// With default reference type (L)
+member10.Beam(undefined, [59, 60], 1);
+member10.SectionDistributionSaddle("XY", [2, false]);
+member10.Beam(undefined, [76, 77], 1);
+member10.SectionDistributionOffsetAtBothSides("XY", [0.30, true], [1.5, false], "Bottom");
+member10.Beam(undefined, [115, 116], 1);
+member10.SectionDistributionOffsetAtStart("XY", [0.30, true]);	// With default section alignment (top)
+member10.Beam(undefined, [117, 118], 1);
+member10.SectionDistributionOffsetAtEnd("XZ", [2.5, false], "Centric");
 /*********************************************************************************************/
 
 if (RFEM) {
@@ -226,7 +246,7 @@ if (RFEM) {
 	surface.Standard(undefined, linesForSurfaces[13][0]);
 	surface.Eccentricity(1);
 	// Option: mesh refinement (free meshing type)
-	var meshRefinement = new SurfaceMeshRefinement(undefined);
+	var meshRefinement = new SurfaceMeshRefinement(undefined, undefined);
 	surface.WithoutThickness(undefined, linesForSurfaces[14][0]);
 	surface.MeshRefinement(1, 3);
 	// Option: specific axes
