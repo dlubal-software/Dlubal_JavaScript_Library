@@ -635,7 +635,7 @@ var setDistributionAtEnd = function (member,
 * @param	{String}		param1_to_set	Name of parameter for include/exclude "all" objects
 * @param	{String}		param2_to_set	Name of parameter for include/exclude object's indexes
 * @param	{Boolean/Array}	value			Value can be specified in two formats, as boolean or array with numbers
-* @return	Modified member	
+* @return	Modified member
 */
 var setResultBeamObjects = function (member,
 	param1_to_set,
@@ -670,7 +670,7 @@ var createBaseMember = function (no,
 	comment,
 	params) {
 	ASSERT(typeof nodes_or_line !== "undefined", "Nodes or line must be defined");
-	
+
 	if (Array.isArray(nodes_or_line)) {
 		// Member is defined by nodes
 		if (RFEM) {
@@ -701,13 +701,13 @@ var createBaseMember = function (no,
 		// Member is defined by two nodes
 		var member = engine.create_member(no, nodes_or_line[0], nodes_or_line[1]);
 	}
-	
+
 	member.type = type;
 	if (typeof section_start !== "undefined") {
 		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
 		member.section_start = sections[section_start];
 	}
 	set_comment_and_parameters(member, comment, params);
-	
+
 	return member;
 };

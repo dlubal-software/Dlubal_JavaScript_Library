@@ -1,3 +1,4 @@
+var t1 = new Date().getTime();
 include("../includes/Tools/high_level_functions_support.js");
 
 /*********************************************************************************************
@@ -5,7 +6,6 @@ include("../includes/Tools/high_level_functions_support.js");
 *********************************************************************************************/
 
 run("../includes/Tools/clearAll.js");
-
 var material = createMaterial("S235");
 var section = createSection(material, "IPE 80");
 var section2 = createSection(material, "IPE 100");
@@ -73,7 +73,7 @@ if (RFEM) {
 }
 member.Rigid(undefined, [3, 4], "Beam member");
 member.Truss(undefined, [5, 6], 1, "Truss member");
-member.TrussOnlyN(undefined, [7, 8], 1, "Truss only N mmeber");
+member.TrussOnlyN(undefined, [7, 8], 1, "Truss only N member");
 member.Tension(undefined, [9, 10], 1, "Tension members");
 member.Compression(undefined, [11, 12], 1, "Compression member");
 member.Buckling(undefined, [13, 14], 1, "Buckling member");
@@ -81,7 +81,7 @@ member.Cable(undefined, [15, 16], 1, "Cable member");
 member.CouplingRigidRigid(undefined, [17, 18], "Coupling rigid-rigid member");
 member.CouplingRigidHinge(undefined, [19, 20], "Coupling rigid-hinge member");
 member.CouplingHingeRigid(undefined, [21, 22], "Coupling hinge-rigid member");
-member.CouplingHingeHinge(undefined, [23, 24], "Coupling hinge-hinge memnber");
+member.CouplingHingeHinge(undefined, [23, 24], "Coupling hinge-hinge member");
 if (RFEM) {
 	// Result beam with "Integrate stresses and forces within block with square area" (1), with included objects
 	member.ResultBeam(undefined, [25, 26], 1, "INTEGRATE_WITHIN_CUBOID_QUADRATIC", [1.5], [[1], [1, 2], true]);
@@ -205,7 +205,7 @@ if (RFEM) {
 	line8.RectangularPolygon(undefined, [nodes[114].coordinate_1, nodes[114].coordinate_2, nodes[114].coordinate_3], 2, 4);
 	line8.nPolygon(undefined, [nodes[149].coordinate_1, nodes[149].coordinate_2, nodes[149].coordinate_3], 5, 2);
 	/*********************************************************************************************/
-	
+
 	/*************************************** Surfaces ********************************************/
 	// Default plane surfaces
 	var surface = new Surface();
@@ -269,7 +269,7 @@ if (RFEM) {
 	surface.Standard(undefined, linesForSurfaces[19][0]);
 	surface.IntegratedObjects(false, undefined, [integratedLine.line.no]);
 	/*********************************************************************************************/
-	
+
 	var surface2 = new Surface();
 	surface2.Standard(undefined, linesForSurfaces[20][0]);
 	var material2 = createMaterial("C16/20");
@@ -277,3 +277,6 @@ if (RFEM) {
 	thickness2.Uniform(undefined, "Thickness2", material2, [0.180]);
 	surface2.SurfaceType("Membrane", undefined, thickness2.thickness);
 }
+var t2 = new Date().getTime();
+var time = (t2 - t1) / 1000;
+console.log("Elapsed time: " + time + "s");

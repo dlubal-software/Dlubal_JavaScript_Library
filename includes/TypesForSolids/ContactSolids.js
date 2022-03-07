@@ -77,7 +77,7 @@ function ContactSolid (no,
 					this.contact_solid.shear_stiffness = values[0];
 					this.contact_solid.friction_coefficient = values[1];
 				}
-				break
+				break;
 			case 5:	// Elastic friction with limit
 				this.contact_solid.parallel_to_surface = solid_contacts.ELASTIC_FRICTION_LIMIT;
 				if (typeof values !== "undefined") {
@@ -126,7 +126,7 @@ ContactSolid.prototype.AssignTo = function (solid_list) {
 * @param	{Object}	params  	Contact solid's parameters, can be undefined
 * @returns	Created contact solid
 */
-var createContactSolid = function (no, 
+var createContactSolid = function (no,
 	comment,
 	params) {
 	var contact_solid = solid_contacts.create(no);

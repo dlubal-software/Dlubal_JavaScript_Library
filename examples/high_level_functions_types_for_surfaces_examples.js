@@ -1,3 +1,4 @@
+var t1 = new Date().getTime();
 if (!RFEM) {
     throw new Error("This script is only for RFEM, it creates types for members.");
 }
@@ -18,7 +19,7 @@ var linesForSurfaces = createSurfacesFromNodesGrid(nodesForSurfaces, [5, 5], sur
 
 /*****************************************Surface eccentricity********************************/
 var surfaceEccentricity = new SurfaceEccentricity(undefined, [1, 2, 3, 4, 5], "Surface eccentricity for surfaces no. 1 - 5");
-surfaceEccentricity.OffsetAndThicknessAssignment(20 mm, "THICKNESS_ALIGNMENT_BOTTOM", "Surface eccentricity for surfaces no. 1 - 5");
+surfaceEccentricity.OffsetAndThicknessAssignment(20mm, "THICKNESS_ALIGNMENT_BOTTOM", "Surface eccentricity for surfaces no. 1 - 5");
 var surfaceEccentricity2 = new SurfaceEccentricity(undefined, [6]);
 var member = new Member();
 member.Beam(undefined, 21, 1);
@@ -44,3 +45,6 @@ surfaceStiffnessModification.ConcreteStructuresCSA(no++, 1, 4);	// Beams compone
 /**********************************Surface mesh refinement************************************/
 var surfaceMeshRefinement = new SurfaceMeshRefinement(undefined, [16, 17, 18, 19], 0.025);
 /*********************************************************************************************/
+var t2 = new Date().getTime();
+var time = (t2 - t1) / 1000;
+console.log("Elapsed time: " + time + "s");

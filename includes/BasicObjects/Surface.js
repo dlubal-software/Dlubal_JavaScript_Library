@@ -123,7 +123,7 @@ Surface.prototype.LoadTransfer = function (no,
 	params) {
 	this.surface = createSurfaceWithType(no, boundary_lines, surfaces.TYPE_LOAD_TRANSFER, undefined, comment, params);
 	if (typeof values !== "undefined") {
-		
+
 	}
 };
 
@@ -330,7 +330,7 @@ Surface.prototype.MeshRefinement = function (mesh_refinement,
 *											reverse_local_z_axis, can be undefined
 * @param	{Array}		result_axes		Result axes values [category], can be undefined (Identical to input axes by default)
 *											1 - Identical to input axes category, by default
-*											
+*
 */
 Surface.prototype.SpecificAxes = function (input_axes,
 	result_axes) {

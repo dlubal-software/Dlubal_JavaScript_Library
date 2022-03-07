@@ -1,3 +1,4 @@
+var t1 = new Date().getTime();
 if (!RFEM) {
     throw new Error("This script is only for RFEM, it works with solids.");
 }
@@ -31,3 +32,6 @@ gasSolid.AssignTo([2]);
 var contactSolid = new ContactSolid(no++, 2, 2, [3.5]);
 contactSolid.AssignTo([3]);
 /*********************************************************************************************/
+var t2 = new Date().getTime();
+var time = (t2 - t1) / 1000;
+console.log("Elapsed time: " + time + "s");

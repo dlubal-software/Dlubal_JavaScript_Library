@@ -54,7 +54,7 @@ GasSolid.prototype.AssignTo = function (solid_list) {
 * @param	{Object}	params  	Gas solid's parameters, can be undefined
 * @returns	Created gas solid
 */
-var createGasSolid = function (no, 
+var createGasSolid = function (no,
 	comment,
 	params) {
 	var gas_solid = solid_gases.create(no);

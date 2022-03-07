@@ -46,7 +46,7 @@ SolidMeshRefinement.prototype.TargetLength = function (no,
 * @param	{Object}	params  	Solid mesh refinement's parameters, can be undefined
 * @returns	Created solid mesh refinement
 */
-var createSolidMeshRefinement = function (no, 
+var createSolidMeshRefinement = function (no,
 	solid_list,
 	comment,
 	params) {

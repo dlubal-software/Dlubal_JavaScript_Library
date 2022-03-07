@@ -142,7 +142,7 @@ function createSurfacesFromNodesGrid(nodes, surfaceGridSize, surfaceType, surfac
 	var surfacesCount = surfaceGridSize[0] * surfaceGridSize[1];
 	var moveToNode = 0;
 	var surfaceNodes = [];
-	
+
 	if (typeof createOnlyBoundaryLines === "undefined") {
 		createOnlyBoundaryLines = false;
 	}

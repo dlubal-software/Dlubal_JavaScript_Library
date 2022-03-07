@@ -41,9 +41,9 @@ Line.prototype.Polyline = function (no,
 * @param	{Number}	no							Index of line, can be undefined
 * @param	{Array}		nodes						List of node indexes
 * @param	{Array}		control_point				Control point of arc
-* @param	{Array}		arc_parameters				Arc's parameters, can be undefined (only one of three parameter can be set, when arc parameter is set, other parameters (control point) will be racalculated)
+* @param	{Array}		arc_parameters				Arc's parameters, can be undefined (only one of three parameter can be set, when arc parameter is set, other parameters (control point) will be recalculated)
 * @param	{Array}		center_of_arc				Center of arc, can be undefined (when center of is set, control point will be recalculated)
-* @param	{Number}	alpha_adjustement_target	Subsequent adjustement of α by displacing node at:
+* @param	{Number}	alpha_adjustement_target	Subsequent adjustment of α by displacing node at:
 *														1 - Beginning of arc
 *														2 - Arc control point
 *														3 - End of arc
@@ -81,7 +81,7 @@ Line.prototype.Arc = function (no,
 	}
 
 	if (typeof center_of_arc !== "undefined") {
-		ASSERT(center_of_arc.length === 3, "Center of arc: three values are requierd: [X, Y, Z]");
+		ASSERT(center_of_arc.length === 3, "Center of arc: three values are required: [X, Y, Z]");
 		this.line.arc_center_x = center_of_arc[0];
 		this.line.arc_center_y = center_of_arc[1];
 		this.line.arc_center_z = center_of_arc[2];
