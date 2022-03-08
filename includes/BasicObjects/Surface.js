@@ -500,7 +500,10 @@ var createSurfaceWithType = function (no,
 	if (typeof surface_type !== "undefined") {
 		surface.type = surface_type;
 	}
-	if (typeof thickness !== "undefined") {
+	if (typeof thickness === 'object'){
+		surface.thickness = thickness;
+	}
+	else if(typeof thickness !== "undefined") {
 		ASSERT(thicknesses.exist(thickness), "Thickness no. " + thickness + " doesn't exist");
 		surface.thickness = thicknesses[thickness];
 	}
