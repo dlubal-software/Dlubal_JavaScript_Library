@@ -258,15 +258,10 @@ StaticAnalysisSettings.prototype.LargeDeformations = function (no, name, equatio
   var self = this;
   return self;
 };
-
-
 StaticAnalysisSettings.prototype.SetComment = function (comment) {
   //  * @param   {String}          comment             Comment, empty by default
   this.settings.comment = comment;
 };
-
-
-
 function SetMaxNumberOfIterations(StaticAnalysisSettings, iterations) {
 
   if (maxNumberOfIterations === undefined) {
@@ -276,8 +271,6 @@ function SetMaxNumberOfIterations(StaticAnalysisSettings, iterations) {
     StaticAnalysisSettings.max_number_of_iterations = iterations;
   }
 }
-
-
 function SetNumberOfLoadIncrements(StaticAnalysisSettings, increments) {
   // * @param   {integer}   increments         Number of load increments
   if (numberOfLoadIncrements === undefined) {

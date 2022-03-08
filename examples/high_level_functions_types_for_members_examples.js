@@ -1,3 +1,4 @@
+var t1 = new Date().getTime();
 if (!RFEM) {
     throw new Error("This script is only for RFEM, it creates types for members.");
 }
@@ -62,8 +63,6 @@ members[39].type = members.TYPE_DEFINABLE_STIFFNESS;
 var memberDefinableStiffness = new MemberDefinableStiffness(undefined, [38, 39]);
 memberDefinableStiffness.TorsionalAndBendingStiffness(5, 10, 20);
 memberDefinableStiffness.AxialAndShearStiffness(30, 40, 50);
-memberDefinableStiffness.SelfWeight(2500,0.01);
-memberDefinableStiffness.ThermalExpansionCoefficient(0.00001,0.001,0.001);
 
 var memberResultIntermediatePoint = new MemberResultIntermediatePoint(undefined, [45, 46], "MemberResultIntermediatePoint with uniform distances");
 memberResultIntermediatePoint.UniformDistances(5, ["ord. 1", "ord. 2", "ord. 3", "ord. 4", "ord. 5"]);
@@ -74,8 +73,11 @@ memberResultIntermediatePoint2.DivisionOrdinates([0.1, 0.2, 0.3, 0.4, 0.9]);
 var structureModification = new StructureModification();
 var memberStiffnessModification = new MemberStiffnessModification(undefined, structure_modification);
 // Type: Walls cracked
-memberStiffnessModification.ConcreteStructuresAci(3);
+memberStiffnessModification.ConcreteStructuresCsa(3);
 var memberStiffnessModification2 = new MemberStiffnessModification(undefined, structure_modification);
 memberStiffnessModification2.SteelStructuresAisc(1, 2);
 var memberDefinableStiffness3 = new MemberStiffnessModification(undefined, structure_modification);
 memberDefinableStiffness3.SteelStructuresCSA(undefined, undefined, 1, 2);
+var t2 = new Date().getTime();
+var time = (t2 - t1) / 1000;
+console.log("Elapsed time: " + time + "s");
