@@ -9,6 +9,7 @@ run("../includes/Tools/clearAll.js");
 var material = createMaterial("S235");
 var section = createSection(material, "IPE 80");
 var section2 = createSection(material, "IPE 100");
+var section3 = createSection(material, "IPE 120");
 var nodesForMembers = createNodesGrid(-28, -28, [10, 6], [3, 4]);
 if (RFEM) {
 	var nodeForLines = createNodesGrid(-28, -6, [10, 10], [3, 4]);
@@ -138,22 +139,30 @@ member9.DeactivateForCalculation();
 var member10 = new Member();
 member10.Beam(undefined, [48, 49], 1);
 member10.SectionDistributionUniform();
-member10.Beam(undefined, [51, 52], 1);
-member10.SectionDistributionLinear("Top");
-member10.Beam(undefined, [53, 54], 1);
-member10.SectionDistributionTaperedAtBothSides("XY", [0.30, true], [1.5, false], "Bottom");
-member10.Beam(undefined, [55, 56], 1);
-member10.SectionDistributionTaperedAtStart("XY", [0.30, true], "Top");
-member10.Beam(undefined, [57, 58], 1);
-member10.SectionDistributionTaperedAtEnd(undefined, [1.5, false], "Bottom");	// With default reference type (L)
-member10.Beam(undefined, [59, 60], 1);
-member10.SectionDistributionSaddle("XY", [2, false]);
-member10.Beam(undefined, [76, 77], 1);
-member10.SectionDistributionOffsetAtBothSides("XY", [0.30, true], [1.5, false], "Bottom");
-member10.Beam(undefined, [115, 116], 1);
-member10.SectionDistributionOffsetAtStart("XY", [0.30, true]);	// With default section alignment (top)
-member10.Beam(undefined, [117, 118], 1);
-member10.SectionDistributionOffsetAtEnd("XZ", [2.5, false], "Centric");
+var member12 = new Member();
+member12.Beam(undefined, [51, 52],2);
+member12.SectionDistributionLinear(section.no,section2.no,"Top");
+var member13 = new Member();
+member13.Beam(undefined, [53, 54], 1);
+member13.SectionDistributionTaperedAtBothSides(section.no,section2.no,section3.no,"XY", [0.30, true], [1.5, false], "Bottom");//add sections
+var member14 = new Member();
+member14.Beam(undefined, [55, 56], 1);
+member14.SectionDistributionTaperedAtStart(section3.no,section2.no,"XY", [0.30, true], "Top");
+var member15 = new Member();
+member15.Beam(undefined, [57, 58], 1);
+member15.SectionDistributionTaperedAtEnd(section.no,section2.no,undefined, [1.5, false], "Bottom");	// With default reference type (L)
+var member16 = new Member();
+member16.Beam(undefined, [59, 60], 1);
+member16.SectionDistributionSaddle(section.no,section3.no,section2.no,"XY", [2, false]);
+var member17 = new Member();
+member17.Beam(undefined, [76, 77], 1);
+member17.SectionDistributionOffsetAtBothSides(section.no,section3.no,section2.no,"XY", [0.30, true], [1.5, false], "Bottom");
+var member18 = new Member();
+member18.Beam(undefined, [115, 116], 1);
+member18.SectionDistributionOffsetAtStart(section2.no,section.no,"XY", [0.30, true]);	// With default section alignment (top)
+var member19 = new Member();
+member19.Beam(undefined, [117, 118], 1);
+member19.SectionDistributionOffsetAtEnd(section.no,section2.no,"XZ", [2.5, false], "Centric");
 /*********************************************************************************************/
 
 if (RFEM) {

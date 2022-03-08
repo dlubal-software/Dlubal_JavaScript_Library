@@ -1,5 +1,5 @@
 if (!RFEM) {
-    throw new Error("This script is only for RFEM, it creates surfaces.");
+	throw new Error("This script is only for RFEM, it creates surfaces.");
 }
 
 /**
@@ -13,13 +13,13 @@ if (!RFEM) {
 * @param	{Object}	params  		Surface's parameters, can be undefined
 * @returns	Created surface
 */
-function Surface (no,
+function Surface(no,
 	boundary_lines,
 	thickness,
 	comment,
 	params) {
 	if (arguments.length !== 0) {
-		return this.surface = createSurfaceWithType(no, boundary_lines, undefined, thickness, comment, params);
+		return this.surface = createSurfaceWithType(no, boundary_lines, surfaces.TYPE_STANDARD, thickness, comment, params);
 	}
 }
 
@@ -459,7 +459,7 @@ Surface.prototype.GridForResults = function (grid_type,
 * @param	{Array}		integrated_lines						List of integrated lines indexes, can be undefined
 * @param	{Array}		integrated_openings						List of integrated openings indexes, can be undefined;
 */
-Surface.prototype.IntegratedObjects = function(auto_detection_of_integrated_objects,
+Surface.prototype.IntegratedObjects = function (auto_detection_of_integrated_objects,
 	integrated_nodes,
 	integrated_lines,
 	integrated_openings) {
@@ -497,7 +497,9 @@ var createSurfaceWithType = function (no,
 	comment,
 	params) {
 	var surface = engine.create_surface(no, boundary_lines);
-	surface.type = surface_type;
+	if (typeof surface_type !== "undefined") {
+		surface.type = surface_type;
+	}
 	if (typeof thickness !== "undefined") {
 		ASSERT(thicknesses.exist(thickness), "Thickness no. " + thickness + " doesn't exist");
 		surface.thickness = thicknesses[thickness];

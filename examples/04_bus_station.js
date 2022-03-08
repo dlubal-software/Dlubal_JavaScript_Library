@@ -84,9 +84,7 @@ var line_mesh_refinment = LineMeshRefinement();
 line_mesh_refinment.lines = 4;
 line_mesh_refinment.target_length = 0.1m;
 
-var surface_mesh_refinment = SurfaceMeshRefinement();
-surface_mesh_refinment.surfaces = 3;
-surface_mesh_refinment.target_length = 0.8m;
+var surface_mesh_refinment = SurfaceMeshRefinement(undefined,[3], 0.8m);
 
 // create load cases with loads and combinations
 if (!load_cases.exist(1)) {

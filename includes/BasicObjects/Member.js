@@ -1,8 +1,8 @@
 const ResultBeamIntegrate = {
-	"INTEGRATE_WITHIN_CUBOID_QUADRATIC" : members.INTEGRATE_WITHIN_CUBOID_QUADRATIC,
-	"INTEGRATE_WITHIN_CUBOID_GENERAL" : members.INTEGRATE_WITHIN_CUBOID_GENERAL,
-	"INTEGRATE_WITHIN_CYLINDER" : members.INTEGRATE_WITHIN_CYLINDER,
-	"INTEGRATE_FROM_LISTED_OBJECT" : members.INTEGRATE_FROM_LISTED_OBJECT
+	"INTEGRATE_WITHIN_CUBOID_QUADRATIC": members.INTEGRATE_WITHIN_CUBOID_QUADRATIC,
+	"INTEGRATE_WITHIN_CUBOID_GENERAL": members.INTEGRATE_WITHIN_CUBOID_GENERAL,
+	"INTEGRATE_WITHIN_CYLINDER": members.INTEGRATE_WITHIN_CYLINDER,
+	"INTEGRATE_FROM_LISTED_OBJECT": members.INTEGRATE_FROM_LISTED_OBJECT
 };
 
 /**
@@ -15,14 +15,27 @@ const ResultBeamIntegrate = {
  * @param	{Object}		params  		Member's parameters, can be undefined
  * @returns	Created member
  */
-function Member (no,
-    nodes_or_line,
+ function Member(no,
+    node_ids,
     comment,
     params) {
+
     if (arguments.length !== 0) {
-		return this.member = createBaseMember(no, nodes_or_line, members.TYPE_BEAM, undefined, comment, params);
+        node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
+        ASSERT(node_ids.length > 1, "Minimum two nodes must be set to Member");
+        this.member = "undefined";
+        if (RFEM) {
+            var line = engine.create_line(no, node_ids);
+            this.member = engine.create_member(no, line);
+        }
+        else {
+            this.member = engine.create_member(no, node_ids[0], node_ids[1]);
+        }
+        set_comment_and_parameters(this.member, comment, params);
+        return this.member;
     }
 }
+
 
 /**
  * Creates beam member
@@ -191,8 +204,7 @@ Member.prototype.ResultBeam = function (no,
 	if (RFEM) {
 		this.member = createBaseMember(no, nodes_or_line, members.TYPE_RESULT_BEAM, section_start, comment, params);
 		if (typeof result_beam_integrate_stresses_and_forces !== "undefined") {
-			switch (result_beam_integrate_stresses_and_forces)
-			{
+			switch (result_beam_integrate_stresses_and_forces) {
 				case "INTEGRATE_WITHIN_CUBOID_QUADRATIC":	// Integrate stresses and forces within block with square base
 					this.member.result_beam_integrate_stresses_and_forces = ResultBeamIntegrate[result_beam_integrate_stresses_and_forces];
 					if (typeof result_beam_parameters !== "undefined") {
@@ -446,24 +458,37 @@ Member.prototype.SectionDistributionUniform = function () {
 };
 
 /**
-* Sets linear distribution
-* @param {String}	section_alignment	Section alignment (Top, Centric, Bottom), can be undefined (centric as default)
-*/
-Member.prototype.SectionDistributionLinear = function (section_alignment) {
+ * Sets linear distribution
+ * @param {Number} section_start Number of section at start of member
+ * @param {Number} section_end Number of section at end of member
+ * @param {String} section_alignment section_alignment	Section alignment (Top, Centric, Bottom), can be undefined (centric as default)
+ */
+Member.prototype.SectionDistributionLinear = function (section_start, section_end, section_alignment) {
 	this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_LINEAR;
 	if (typeof section_alignment !== "undefined") {
 		this.member.section_alignment = section_alignment;
+	}
+	if (typeof section_start !== "undefined") {
+		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
+		this.member.section_start = sections[section_start];
+	}
+	if (typeof section_end !== "undefined") {
+		ASSERT(sections.exist(section_end), "Section no. " + section_end + " doesn't exist");
+		this.member.section_end = sections[section_end];
 	}
 };
 
 /**
 * Sets tapered at both sides distribution
+* @param {Number} 	section_start Number of section at start of member
+* @param {Number} 	section_internal Number of section at internal point of member (between start and end)
+* @param {Number} 	section_end Number of section at end of member
 * @param {String}	reference_type				Reference type (L, XY, XZ), can be undefined
 * @param {Array}	section_distance_from_start	Member distance ([distance, is_relative]), can be undefined
 * @param {Array}	section_distance_from_end	Member distance ([distance, is_relative]), can be undefined
 * @param {String}	section_alignment			Section alignment (Top, Centric, Bottom), can be undefined (top as default)
 */
-Member.prototype.SectionDistributionTaperedAtBothSides = function (reference_type,
+Member.prototype.SectionDistributionTaperedAtBothSides = function (section_start, section_internal, section_end, reference_type,
 	section_distance_from_start,
 	section_distance_from_end,
 	section_alignment) {
@@ -476,15 +501,30 @@ Member.prototype.SectionDistributionTaperedAtBothSides = function (reference_typ
 	if (typeof section_alignment !== "undefined") {
 		this.member.section_alignment = section_alignment;
 	}
+	if (typeof section_start !== "undefined") {
+		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
+		this.member.section_start = sections[section_start];
+	}
+	if (typeof section_internal !== "undefined") {
+		ASSERT(sections.exist(section_internal), "Section no. " + section_internal + " doesn't exist");
+		this.member.section_internal = sections[section_internal];
+	}
+	if (typeof section_end !== "undefined") {
+		ASSERT(sections.exist(section_end), "Section no. " + section_end + " doesn't exist");
+		this.member.section_end = sections[section_end];
+	}
+
 };
 
 /**
 * Sets tapered at start distribution
+* @param {Number} section_start Number of section at start of member
+* @param {Number} section_end Number of section at end of member
 * @param {String}	reference_type				Reference type (L, XY, XZ), can be undefined
 * @param {Array}	section_distance_from_start	Member distance ([distance, is_relative]), can be undefined
 * @param {String}	section_alignment			Section alignment (Top, Centric, Bottom), can be undefined (top as default)
 */
-Member.prototype.SectionDistributionTaperedAtStart = function (reference_type,
+Member.prototype.SectionDistributionTaperedAtStart = function (section_start, section_end, reference_type,
 	section_distance_from_start,
 	section_alignment) {
 	this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER;
@@ -495,15 +535,25 @@ Member.prototype.SectionDistributionTaperedAtStart = function (reference_type,
 	if (typeof section_alignment !== "undefined") {
 		this.member.section_alignment = section_alignment;
 	}
+	if (typeof section_start !== "undefined") {
+		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
+		this.member.section_start = sections[section_start];
+	}
+	if (typeof section_end !== "undefined") {
+		ASSERT(sections.exist(section_end), "Section no. " + section_end + " doesn't exist");
+		this.member.section_end = sections[section_end];
+	}
 };
 
 /**
 * Sets tapered at end distribution
+* @param {Number} section_start Number of section at start of member
+* @param {Number} section_end Number of section at end of member
 * @param {String}	reference_type				Reference type (L, XY, XZ), can be undefined
 * @param {Array}	section_distance_from_end	Member distance ([distance, is_relative]), can be undefined
 * @param {String}	section_alignment			Section alignment (Top, Centric, Bottom), can be undefined (top as default)
 */
-Member.prototype.SectionDistributionTaperedAtEnd = function (reference_type,
+Member.prototype.SectionDistributionTaperedAtEnd = function (section_start, section_end, reference_type,
 	section_distance_from_end,
 	section_alignment) {
 	this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER;
@@ -514,15 +564,26 @@ Member.prototype.SectionDistributionTaperedAtEnd = function (reference_type,
 	if (typeof section_alignment !== "undefined") {
 		this.member.section_alignment = section_alignment;
 	}
+	if (typeof section_start !== "undefined") {
+		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
+		this.member.section_start = sections[section_start];
+	}
+	if (typeof section_end !== "undefined") {
+		ASSERT(sections.exist(section_end), "Section no. " + section_end + " doesn't exist");
+		this.member.section_end = sections[section_end];
+	}
 };
 
 /**
 * Sets saddle distribution
+* @param {Number} 	section_start Number of section at start of member
+* @param {Number} 	section_internal Number of section at internal point of member (between start and end)
+* @param {Number} 	section_end Number of section at end of member
 * @param {String}	reference_type				Reference type (L, XY, XZ), can be undefined
 * @param {Array}	section_distance_from_start	Member distance ([distance, is_relative]), can be undefined
 * @param {String}	section_alignment			Section alignment (Top, Centric, Bottom), can be undefined (top as default)
 */
-Member.prototype.SectionDistributionSaddle = function (reference_type,
+Member.prototype.SectionDistributionSaddle = function (section_start, section_internal, section_end, reference_type,
 	section_distance_from_start,
 	section_alignment) {
 	this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_SADDLE;
@@ -533,16 +594,31 @@ Member.prototype.SectionDistributionSaddle = function (reference_type,
 	if (typeof section_alignment !== "undefined") {
 		this.member.section_alignment = section_alignment;
 	}
+	if (typeof section_start !== "undefined") {
+		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
+		this.member.section_start = sections[section_start];
+	}
+	if (typeof section_internal !== "undefined") {
+		ASSERT(sections.exist(section_internal), "Section no. " + section_internal + " doesn't exist");
+		this.member.section_internal = sections[section_internal];
+	}
+	if (typeof section_end !== "undefined") {
+		ASSERT(sections.exist(section_end), "Section no. " + section_end + " doesn't exist");
+		this.member.section_end = sections[section_end];
+	}
 };
 
 /**
 * Sets offset at both sides distribution
+* @param {Number} 	section_start Number of section at start of member
+* @param {Number} 	section_internal Number of section at internal point of member (between start and end)
+* @param {Number} 	section_end Number of section at end of member
 * @param {String}	reference_type				Reference type (L, XY, XZ), can be undefined
 * @param {Array}	section_offset_from_start	Member offset ([distance, is_relative]), can be undefined
 * @param {Array}	section_offset_from_end		Member offset ([distance, is_relative]), can be undefined
 * @param {String}	section_alignment			Section alignment (Top, Centric, Bottom), can be undefined (top as default)
 */
-Member.prototype.SectionDistributionOffsetAtBothSides = function (reference_type,
+Member.prototype.SectionDistributionOffsetAtBothSides = function (section_start, section_internal, section_end, reference_type,
 	section_offset_from_start,
 	section_offset_from_end,
 	section_alignment) {
@@ -555,15 +631,38 @@ Member.prototype.SectionDistributionOffsetAtBothSides = function (reference_type
 	if (typeof section_alignment !== "undefined") {
 		this.member.section_alignment = section_alignment;
 	}
+	if (typeof section_start !== "undefined") {
+		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
+		this.member.section_start = sections[section_start];
+	}
+	if (typeof section_internal !== "undefined") {
+		ASSERT(sections.exist(section_internal), "Section no. " + section_internal + " doesn't exist");
+		this.member.section_internal = sections[section_internal];
+	}
+	if (typeof section_end !== "undefined") {
+		ASSERT(sections.exist(section_end), "Section no. " + section_end + " doesn't exist");
+		this.member.section_end = sections[section_end];
+	}
 };
 
 /**
 * Sets offset at start distribution
+* @param {Number} section_start Number of section at start of member
+* @param {Number} section_end Number of section at end of member
 * @param {String}	reference_type				Reference type (L, XY, XZ), can be undefined
 * @param {Array}	section_offset_from_start	Member offset ([distance, is_relative]), can be undefined
 * @param {String}	section_alignment			Section alignment (Top, Centric, Bottom), can be undefined (top as default)
 */
-Member.prototype.SectionDistributionOffsetAtStart = function (reference_type,
+
+/**
+* Sets offset at start distribution
+* @param {Number} section_start Number of section at start of member
+* @param {Number} section_end Number of section at end of member
+* @param {String}	reference_type				Reference type (L, XY, XZ), can be undefined
+* @param {Array}	section_offset_from_start	Member offset ([distance, is_relative]), can be undefined
+ss* @param {String}	section_alignment			Section alignment (Top, Centric, Bottom), can be undefined (top as default)
+ */
+Member.prototype.SectionDistributionOffsetAtStart = function (section_start, section_end, reference_type,
 	section_offset_from_start,
 	section_alignment) {
 	this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER;
@@ -574,6 +673,14 @@ Member.prototype.SectionDistributionOffsetAtStart = function (reference_type,
 	if (typeof section_alignment !== "undefined") {
 		this.member.section_alignment = section_alignment;
 	}
+	if (typeof section_start !== "undefined") {
+		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
+		this.member.section_start = sections[section_start];
+	}
+	if (typeof section_end !== "undefined") {
+		ASSERT(sections.exist(section_end), "Section no. " + section_end + " doesn't exist");
+		this.member.section_end = sections[section_end];
+	}
 };
 
 /**
@@ -582,7 +689,7 @@ Member.prototype.SectionDistributionOffsetAtStart = function (reference_type,
 * @param {Array}	section_offset_from_end		Member offset ([distance, is_relative]), can be undefined
 * @param {String}	section_alignment			Section alignment (Top, Centric, Bottom), can be undefined (top as default)
 */
-Member.prototype.SectionDistributionOffsetAtEnd = function (reference_type,
+Member.prototype.SectionDistributionOffsetAtEnd = function (section_start, section_end, reference_type,
 	section_offset_from_end,
 	section_alignment) {
 	this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER;
@@ -592,6 +699,14 @@ Member.prototype.SectionDistributionOffsetAtEnd = function (reference_type,
 	setDistributionAtEnd(this.member, section_offset_from_end);
 	if (typeof section_alignment !== "undefined") {
 		this.member.section_alignment = section_alignment;
+	}
+	if (typeof section_start !== "undefined") {
+		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
+		this.member.section_start = sections[section_start];
+	}
+	if (typeof section_end !== "undefined") {
+		ASSERT(sections.exist(section_end), "Section no. " + section_end + " doesn't exist");
+		this.member.section_end = sections[section_end];
 	}
 };
 

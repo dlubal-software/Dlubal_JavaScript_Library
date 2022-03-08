@@ -45,7 +45,7 @@ SurfaceStiffnessModification.prototype.TotalStiffnessFactor = function (no,
 * Creates partial stiffnesses factors type of surface stiffness modification
 * @param	{Number}	no							Index of surface stiffness modification
 * @param	{Number}	structural_modification		Structural modification index
-* @param	{Number}	bending_stiffness_factor	Bending and torsional factors, can be udefined (1.00 by default)
+* @param	{Number}	bending_stiffness_factor	Bending and torsional factors, can be undefined (1.00 by default)
 * @param	{Number}	shear_stiffness				Shear stiffness, can be undefined (1.00 by default)
 * @param	{Number}	membrane_stiffness			Membrane stiffness, can be undefined (1.00 by default)
 * @param	{Number}	eccentric_effects			Eccentric stiffness, can be undefined (1.00 by default)

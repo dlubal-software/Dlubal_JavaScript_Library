@@ -100,7 +100,7 @@ function ContactSolid (no,
 				break;
 		}
 	}
-};
+}
 
 /**
 * Assigns solids to contact solid

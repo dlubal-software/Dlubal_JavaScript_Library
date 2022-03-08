@@ -6,7 +6,7 @@ if (!RFEM) {
 * Creates surface mesh refinement
 * @class
 * @constructor
-* @param	{Number}	no				Index of surface stiffness modification, can be undefined
+* @param	{Number}	no				Index of surface mesh refinement, can be undefined
 * @param	{Array}		surface_list	List of surface indexes, can be undefined
 * @param	{Number}	target_length	Target FE length, can be undefined (0.05 m by default)
 * @param	{String}	comment			Comment, can be undefined
@@ -23,7 +23,7 @@ function SurfaceMeshRefinement(no,
 	if (typeof target_length !== "undefined") {
 		this.surface_mesh_refinement.target_length = target_length;
 	}
-	return this.surface;
+	return this.surface_mesh_refinement;
 }
 
 /**
