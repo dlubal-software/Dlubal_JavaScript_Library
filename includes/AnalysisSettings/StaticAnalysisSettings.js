@@ -326,20 +326,25 @@ function SetActiveMass(StaticAnalysisSettings, activeMass) {
 }
 
 function SetPlateBendingTheory(StaticAnalysisSettings, plateBendingTheory) {
-  if (plateBendingTheory !== undefined) {
-    StaticAnalysisSettings.plate_bending_theory = static_analysis_settings[plateBendingTheoryType(plateBendingTheory)];
-  } else {
-    StaticAnalysisSettings.plate_bending_theory = static_analysis_settings[plateBendingTheoryType("PLATE_BENDING_THEORY_MINDLIN")];
+  if (RFEM) {
+    if (plateBendingTheory !== undefined) {
+      StaticAnalysisSettings.plate_bending_theory = static_analysis_settings[plateBendingTheoryType(plateBendingTheory)];
+    } else {
+      StaticAnalysisSettings.plate_bending_theory = static_analysis_settings[plateBendingTheoryType("PLATE_BENDING_THEORY_MINDLIN")];
+    }
   }
 }
 
 function SetEquationSolver(StaticAnalysisSettings, equationSolver) {
 
-  if (equationSolver !== undefined) {
-    StaticAnalysisSettings.method_of_equation_system = static_analysis_settings[EquationSolverType(equationSolver)];
-  }
-  else {
-    StaticAnalysisSettings.method_of_equation_system = static_analysis_settings[EquationSolverType("METHOD_OF_EQUATION_SYSTEM_DIRECT")];
+  if (RFEM) {
+    if (equationSolver !== undefined) {
+      StaticAnalysisSettings.method_of_equation_system = static_analysis_settings[EquationSolverType(equationSolver)];
+    }
+    else {
+      StaticAnalysisSettings.method_of_equation_system = static_analysis_settings[EquationSolverType("METHOD_OF_EQUATION_SYSTEM_DIRECT")];
+    }
+
   }
 }
 

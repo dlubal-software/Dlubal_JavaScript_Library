@@ -29,7 +29,9 @@ function ModalAnalysisSettings(no,
     console.log("New modal analysis settings no. " + MAS.no + " was created");
 
     if (solverMethod != undefined) {
-      MAS.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
+      if (RFEM) {
+        MAS.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
+      }
     }
 
     if (beyondFrequency != undefined) {
@@ -78,7 +80,9 @@ ModalAnalysisSettings.prototype.UserDefinedNumberOfModes = function (no, name, n
     this.Settings.number_of_modes = 4;
   }
 
-  this.Settings.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
+  if (RFEM) {
+    this.Settings.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
+  }
 
   this.Settings.mass_matrix_type = modal_analysis_settings[MassMatrixType(typeOfMassMatrix)];
 
@@ -116,9 +120,9 @@ ModalAnalysisSettings.prototype.AutomaticNumberOfModesToReachEffMass = function 
   } else {
     this.Settings.effective_modal_mass_factor = 0.9;
   }
-
-  this.Settings.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
-
+  if (RFEM) {
+    this.Settings.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
+  }
   this.Settings.mass_matrix_type = modal_analysis_settings[MassMatrixType(typeOfMassMatrix)];
 
   this.Settings.mass_conversion_type = modal_analysis_settings[MassConversionType(massConversion)];
@@ -155,8 +159,9 @@ ModalAnalysisSettings.prototype.AutomaticNumberOfModesToReachMaxFreq = function 
   } else {
     this.Settings.maxmimum_natural_frequency = 1600;
   }
-  this.Settings.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
-
+  if (RFEM) {
+    this.Settings.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
+  }
   this.Settings.mass_matrix_type = modal_analysis_settings[MassMatrixType(typeOfMassMatrix)];
 
   this.Settings.mass_conversion_type = modal_analysis_settings[MassConversionType(massConversion)];

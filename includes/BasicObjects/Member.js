@@ -15,25 +15,25 @@ const ResultBeamIntegrate = {
  * @param	{Object}		params  		Member's parameters, can be undefined
  * @returns	Created member
  */
- function Member(no,
-    node_ids,
-    comment,
-    params) {
+function Member(no,
+	node_ids,
+	comment,
+	params) {
 
-    if (arguments.length !== 0) {
-        node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
-        ASSERT(node_ids.length > 1, "Minimum two nodes must be set to Member");
-        this.member = "undefined";
-        if (RFEM) {
-            var line = engine.create_line(no, node_ids);
-            this.member = engine.create_member(no, line);
-        }
-        else {
-            this.member = engine.create_member(no, node_ids[0], node_ids[1]);
-        }
-        set_comment_and_parameters(this.member, comment, params);
-        return this.member;
-    }
+	if (arguments.length !== 0) {
+		node_ids = typeof node_ids !== 'undefined' ? node_ids : [];
+		ASSERT(node_ids.length > 1, "Minimum two nodes must be set to Member");
+		this.member = "undefined";
+		if (RFEM) {
+			var line = engine.create_line(no, node_ids);
+			this.member = engine.create_member(no, line);
+		}
+		else {
+			this.member = engine.create_member(no, node_ids[0], node_ids[1]);
+		}
+		set_comment_and_parameters(this.member, comment, params);
+		return this.member;
+	}
 }
 
 
@@ -800,24 +800,25 @@ var createBaseMember = function (no,
 	else {
 		ASSERT(RFEM, "Member can be defined by line only with RFEM");
 	}
-
+	var member = undefined;
 	if (RFEM) {
 		if (Array.isArray(nodes_or_line)) {
 			// Member is defined by line created from defined nodes
 			var line = engine.create_line(no, nodes_or_line);
-			var member = engine.create_member(no, line);
+			member = engine.create_member(no, line);
 		}
 		else {
 			// Member is defined by line
-			var member = engine.create_member(no, nodes_or_line);
+			member = engine.create_member(no, nodes_or_line);
 		}
 	}
 	else {
 		// Member is defined by two nodes
-		var member = engine.create_member(no, nodes_or_line[0], nodes_or_line[1]);
+		member = engine.create_member(no, nodes_or_line[0], nodes_or_line[1]);
 	}
-
-	member.type = type;
+	if (typeof type !== "undefined") {
+		member.type = type;
+	}
 	if (typeof section_start !== "undefined") {
 		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
 		member.section_start = sections[section_start];
