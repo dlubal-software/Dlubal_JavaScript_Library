@@ -83,12 +83,12 @@ member.CouplingRigidRigid(undefined, [17, 18], "Coupling rigid-rigid member");
 member.CouplingRigidHinge(undefined, [19, 20], "Coupling rigid-hinge member");
 member.CouplingHingeRigid(undefined, [21, 22], "Coupling hinge-rigid member");
 member.CouplingHingeHinge(undefined, [23, 24], "Coupling hinge-hinge member");
-if (RFEM) {
-	// Result beam with "Integrate stresses and forces within block with square area" (1), with included objects
-	member.ResultBeam(undefined, [25, 26], 1, "INTEGRATE_WITHIN_CUBOID_QUADRATIC", [1.5], [[1], [1, 2], true]);
-	// Result beam with "Integrate stresses and forces within cuboid" (2), with excluded members
-	member.ResultBeam(undefined, [27, 28], 1, "INTEGRATE_WITHIN_CUBOID_GENERAL", [0, 1.1, 0, 1.2], undefined, [undefined, [1], undefined]);
-}
+// if (RFEM) {
+// 	// Result beam with "Integrate stresses and forces within block with square area" (1), with included objects
+// 	member.ResultBeam(undefined, [25, 26], 1, "INTEGRATE_WITHIN_CUBOID_QUADRATIC", [1.5], [[1], [1, 2], true]);
+// 	// Result beam with "Integrate stresses and forces within cuboid" (2), with excluded members
+// 	member.ResultBeam(undefined, [27, 28], 1, "INTEGRATE_WITHIN_CUBOID_GENERAL", [0, 1.1, 0, 1.2], undefined, [undefined, [1], undefined]);
+// }
 // Definable stiffness member (set via member definable stiffness object)
 var member2 = new Member(undefined, [29, 30]);
 member2.type = members.TYPE_DEFINABLE_STIFFNESS;
