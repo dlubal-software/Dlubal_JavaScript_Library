@@ -3,5 +3,5 @@
 ###############
 node_modules/
 docfx_project/api/
-docfx_project/material
+docfx_project/templates
 testingTool/

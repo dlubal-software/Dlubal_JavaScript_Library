@@ -1,15 +1,16 @@
 /**
+ * Creates modal analysis settings high level function
  * @class
  * @constructor
- * @param {*} no
- * @param {*} solverMethod
- * @param {*} beyondFrequency
- * @param {*} maximalFrequency
- * @param {*} comment
- * @param {*} params
- * @returns
+ * @param {Number} no unique ID of modal analysis settings
+ * @param {String} solverMethod solver method()
+ * @param {String} beyondFrequency Setting of eigenvectors beyond frequency
+ * @param {String} maximalFrequency Setting of eigenvectors maximal frequency
+ * @param {String} comment  Comment, empty by default
+ * @param {Object} params Modal analysis settings parameters, empty by default
+ * @returns Object ModalAnalysisSettings
  */
-function ModalAnalysisSettings(no,
+ function ModalAnalysisSettings(no,
   solverMethod,
   beyondFrequency,
   maximalFrequency,
