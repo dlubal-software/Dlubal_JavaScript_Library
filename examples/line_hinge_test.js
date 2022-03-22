@@ -50,9 +50,9 @@ Member(undefined, [12,16], "", { "section_start": section_IPE180 });
 var LH1 = new LineHinge();
 LH1.Translation(true,true,true);
 LH1.Rotation(false);
-LH1.AssignTo(1, 1, 1)
-LH1.AssignTo(2, 2, 1)
-LH1.AssignTo(3, 3, 1)
+LH1.AssignTo(1, 1, 1);
+LH1.AssignTo(2, 2, 1);
+LH1.AssignTo(3, 3, 1);
 
 var LH2 = new LineHinge();
 LH2.Translation(false,false,false);
@@ -75,9 +75,9 @@ LH5.TranslationZ(320);
 var params = {
 	user_defined_name_enabled : true,
 	name : " user name from parameters "
-}
+};
 
-new LineHinge(undefined, "comment", params)
+new LineHinge(undefined, "comment", params);
 
 //   ################# Line Mesh Refinements
 //   ##### Constructors:
@@ -98,11 +98,11 @@ var NR1 = new LineMeshRefinement();
 NR1.Gradual();
 NR1.SetLines([10,13,17]);
 
-var NR2 = new LineMeshRefinement()
+var NR2 = new LineMeshRefinement();
 NR2.Gradual(7,4);
 
-var NR3 = new LineMeshRefinement()
+var NR3 = new LineMeshRefinement();
 NR3.NumberFiniteElements(16,6);
 
-var NR4 = new LineMeshRefinement(undefined, "Target length")
+var NR4 = new LineMeshRefinement(undefined, "Target length");
 NR4.TargetFELenght(5,4);
