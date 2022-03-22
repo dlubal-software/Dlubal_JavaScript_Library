@@ -42,7 +42,9 @@ if (RFEM) {
 Member(undefined, [12,3], "", { "section_start": section_IPE240 });
 Member(undefined, [4,12], "", { "section_start": section_IPE240 });
 Member(undefined, [12,16], "", { "section_start": section_IPE180 });
-//   ################# Nodal supports
+
+
+//   ################# Line Hinges
 //   ##### Constructors:
 // Empty
 var LH1 = new LineHinge();
@@ -72,16 +74,23 @@ LH5.TranslationZ(320);
 
 var params = {
 	user_defined_name_enabled : true,
-	name : " user name "
+	name : " user name from parameters "
 }
 
 new LineHinge(undefined, "comment", params)
 
+//   ################# Line Mesh Refinements
+//   ##### Constructors:
+// Empty
+
 var NR = new LineMeshRefinement();
 
-new LineMeshRefinement(undefined, 4, 8, [7, 12], "comment", params);
+new LineMeshRefinement(undefined, "Mesh Refinement 1", [7, 12]);
+new LineMeshRefinement(undefined, "Mesh Refinement 2", [8, 18], 8, 4, "comment1");
+new LineMeshRefinement(5, undefined, 4, 8, 6, "comment2");
+new LineMeshRefinement(undefined, "", [5, 20], 0.9, 2, "comment3", params);
 
-NR.Elements();
+NR.NumberFiniteElements();
 NR.settings.elements_finite_elements = 15;
 NR.settings.lines = [1,2,3,6];
 
@@ -93,4 +102,7 @@ var NR2 = new LineMeshRefinement()
 NR2.Gradual(7,4);
 
 var NR3 = new LineMeshRefinement()
-NR3.Elements(16,6);
+NR3.NumberFiniteElements(16,6);
+
+var NR4 = new LineMeshRefinement(undefined, "Target length")
+NR4.TargetFELenght(5,4);
