@@ -27,7 +27,7 @@ function SurfaceStiffnessModification(no,
 * @param	{Number}	no							Index of surface stiffness modification
 * @param	{Number}	structural_modification		Structural modification index
 * @param	{Number}	total_stiffness				Total stiffness
-* @param	{String}	comment						Comment, can be undefined
+* @param	{String}	comment						Comment, can be undefined, can be undefined
 * @param	{Object}	params  					Surface stiffness modification's parameters, can be undefined
 * @returns	Created surface stiffness modification
 */
@@ -44,7 +44,7 @@ SurfaceStiffnessModification.prototype.TotalStiffnessFactor = function (no,
 /**
 * Creates partial stiffnesses factors type of surface stiffness modification
 * @param	{Number}	no							Index of surface stiffness modification
-* @param	{Number}	structural_modification		Structural modification index
+* @param	{Number}	structural_modification		Structural modification index, can be undefined
 * @param	{Number}	bending_stiffness_factor	Bending and torsional factors, can be undefined (1.00 by default)
 * @param	{Number}	shear_stiffness				Shear stiffness, can be undefined (1.00 by default)
 * @param	{Number}	membrane_stiffness			Membrane stiffness, can be undefined (1.00 by default)
@@ -75,7 +75,7 @@ SurfaceStiffnessModification.prototype.PartialStiffnessesFactors = function (no,
 /**
 * Creates stiffness matrix elements factors type of surface stiffness modification
 * @param	{Number}	no										Index of surface stiffness modification
-* @param	{Number}	structural_modification					Structural modification index
+* @param	{Number}	structural_modification					Structural modification index, can be undefined
 * @param	{Array}		bending_torsional_stiffness_elements	Bending torsional stiffness elements values ([kD11, kD12, kD13, kD22, kD23, kD33, kD11 note, kD12 note, kD13 note, kD22 note, kD23 note, kD33 note]), can be undefined (all values 1.0 by default)
 * @param	{Array}		shear_stiffness_elements				Shear stiffness elements values ([kD44, kD45, kD55, kD44  note, kD45 note, kD55 note]), can be undefined (all values 1.0 by default)
 * @param	{Array}		membrane_stiffness_elements				Membrane stiffness elements values ([kD66, kD67, kD68, kD77, kD78, kD88, kD66 note, kD67 note, kD68 note, kD77 note, kD78 note, kD88 note]), can be undefined (all values 1.0 by default)
@@ -111,7 +111,7 @@ SurfaceStiffnessModification.prototype.StiffnessMatrixElementsFactors = function
 /**
 * Creates concrete structure ACI type of surface stiffness modification
 * @param	{Number}	no							Index of surface stiffness modification
-* @param	{Number}	structural_modification		Structural modification index
+* @param	{Number}	structural_modification		Structural modification index, can be undefined
 * @param	{Number}	component_type				Component type (1 - Columns, 2 - Walls uncracked, 3 - Walls cracked, 4 - Beams, 5 - Flat plates and flat slabs), can be undefined (Columns type as default)
 * @param	{String}	comment						Comment, can be undefined
 * @param	{Object}	params  					Surface stiffness modification's parameters, can be undefined
@@ -129,7 +129,7 @@ SurfaceStiffnessModification.prototype.ConcreteStructuresACI = function (no,
 /**
 * Creates concrete structure CSA type of surface stiffness modification
 * @param	{Number}	no							Index of surface stiffness modification
-* @param	{Number}	structural_modification		Structural modification index
+* @param	{Number}	structural_modification		Structural modification index, can be undefined
 * @param	{Number}	component_type				Component type (1 - Columns, 2 - Walls uncracked, 3 - Walls cracked, 4 - Beams, 5 - Flat plates and flat slabs), can be undefined (Columns type as default)
 * @param	{String}	comment						Comment, can be undefined
 * @param	{Object}	params  					Surface stiffness modification's parameters, can be undefined
@@ -181,7 +181,7 @@ var setConcreteStructures = function (surface_stiffness_modification,
 /**
 * Creates surface stiffness modification
 * @param	{Number}	no							Index of surface stiffness modification
-* @param	{Number}	structural_modification		Structural modification index
+* @param	{Number}	structural_modification		Structural modification index, can be undefined
 * @param	{String}	comment						Comment, can be undefined
 * @param	{Object}	params  					Surface stiffness modification's parameters, can be undefined
 * @returns	Created surface stiffness modification

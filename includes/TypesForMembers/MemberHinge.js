@@ -19,7 +19,7 @@ function MemberHinge(no,
 	comment,
 	params) {
 	if (arguments.length !== 0) {
-		return this.memberHinge = createHinge(no, members_start_list, members_end_list, comment, params);
+		return this.memberHinge = createMemberHinge(no, members_start_list, members_end_list, comment, params);
 	}
 }
 
@@ -43,7 +43,7 @@ MemberHinge.prototype.Translational = function (no,
 	axial_release_vz,
 	comment,
 	params) {
-	this.memberHinge = createHinge(no, members_start_list, members_end_list, comment, params);
+	this.memberHinge = createMemberHinge(no, members_start_list, members_end_list, comment, params);
 
 	if (typeof axial_release_n !== "undefined") {
 		ASSERT(axial_release_n.length > 0, "ux: at least two values has to be set");
@@ -81,7 +81,7 @@ MemberHinge.prototype.Rotational = function (no,
 	moment_release_mz,
 	comment,
 	params) {
-	this.memberHinge = createHinge(no, members_start_list, members_end_list, comment, params);
+	this.memberHinge = createMemberHinge(no, members_start_list, members_end_list, comment, params);
 
 	if (typeof moment_release_mt !== "undefined") {
 		ASSERT(moment_release_mt.length > 0, "φx: at least two values has to be set");
@@ -548,7 +548,7 @@ var getNonlinearityString = function (nonlinearity) {
 * @param	{Object}	params				Member hinge parameters, can be undefined
 * @return	{Object}	Created member hinge
 */
-var createHinge = function (no,
+var createMemberHinge = function (no,
     members_start_list,
 	members_end_list,
 	comment,
@@ -569,7 +569,7 @@ var createHinge = function (no,
 	if (typeof members_end_list !== "undefined") {
 		for (var i = 0; i < members_end_list.length; ++i) {
 			if (members.exist(members_end_list[i])) {
-				members[members_end_list[i]].member_hinge_start = memberHinge;
+				members[members_end_list[i]].member_hinge_end = memberHinge;
 			}
 			else {
 				console.log("Member no." + members_end_list[i] + " does not exist");
