@@ -3,7 +3,7 @@
 
 /**
 * Creates line hinge
-* @functiom
+* @function
 * @constructor
 * @param	{Number}	no				Index of line hinge, can be undefined
 * @param	{String}	comment			Comment, can be undefined
