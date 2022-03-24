@@ -61,8 +61,6 @@ StabilityAnalysisSettings.prototype.EigenValueMethod = function (no, name, numbe
 };
 
 StabilityAnalysisSettings.prototype.IncrementalMethodWithEigenValueAnalysis = function (no, name, eigenValueMethodSettings, incrementalMethodSettings, comment, params) {
-
-
   eigenValueMethodSettings = typeof Array !== 'undefined' ? eigenValueMethodSettings : [];
   evmSettingsLengths = eigenValueMethodSettings.length;
   var numberOfLowestEigenvalues = undefined; var eigenValueMethod = undefined; matrixType = undefined; eigenValueBeyondCriticalFactor = undefined;
@@ -131,8 +129,6 @@ StabilityAnalysisSettings.prototype.IncrementalMethodWithoutEigenValueAnalysis =
   this.Settings.analysis_type = stability_analysis_settings["INCREMENTALY_METHOD_WITHOUT_EIGENVALUE"];
 
   SetPropertiesForIncrementalMethod(this.Settings, initialLoadFactor, loadFactorIncrement, maximumNumberLoadIncrements, refinementLastLoadIncrement);
-
-
   set_comment_and_parameters(this.Settings, comment, params);
   var self = this;
   return self;
@@ -218,7 +214,7 @@ function SetEigenValueMethod(method) {
     "EIGENVALUE_METHOD_LANCZOS": "EIGENVALUE_METHOD_LANCZOS",
     "EIGENVALUE_METHOD_ROOTS_OF_CHARACTERISTIC_POLYNOMIAL": "EIGENVALUE_METHOD_ROOTS_OF_CHARACTERISTIC_POLYNOMIAL",
     "EIGENVALUE_METHOD_SUBSPACE_ITERATION": "EIGENVALUE_METHOD_SUBSPACE_ITERATION",
-    "EIGENVALUE_METHOD_ICG_ITERATION": "EIGENVALUE_METHOD_ICG_ITERATION"
+    "EIGENVALUE_METHOD_ICG_ITERATION": "EIGENVALUE_METHOD_ICG_ITERATION",
   };
 
   if (method !== undefined) {

@@ -1,11 +1,11 @@
 // ToDo create prototypes for load case types
 /**
- * 
- * @param {*} no 
- * @param {*} name 
- * @param {*} comment 
- * @param {*} params 
- * @returns 
+ *
+ * @param {*} no
+ * @param {*} name
+ * @param {*} comment
+ * @param {*} params
+ * @returns
  */
 function LoadCase(no,
   name,
@@ -20,16 +20,16 @@ function LoadCase(no,
 }
 
 /**
- * 
- * @param {*} no 
- * @param {*} name 
- * @param {*} staticAnalysisSettingsNo 
- * @param {*} ActionCategory 
- * @param {*} selfWeighParams 
- * @param {*} stabilityAnalysisSettingsNo 
- * @param {*} comment 
- * @param {*} params 
- * @returns 
+ *
+ * @param {*} no
+ * @param {*} name
+ * @param {*} staticAnalysisSettingsNo
+ * @param {*} ActionCategory
+ * @param {*} selfWeighParams
+ * @param {*} stabilityAnalysisSettingsNo
+ * @param {*} comment
+ * @param {*} params
+ * @returns
  */
 LoadCase.prototype.StaticAnalysis = function (no, name, staticAnalysisSettingsNo, ActionCategory, selfWeighParams, stabilityAnalysisSettingsNo, comment, params) {
 
@@ -45,15 +45,15 @@ LoadCase.prototype.StaticAnalysis = function (no, name, staticAnalysisSettingsNo
 };
 
 /**
- * 
- * @param {*} no 
- * @param {*} name 
- * @param {*} modalAnalysisSettingsNo 
- * @param {*} importMassesFrom 
- * @param {*} selfWeighParams 
- * @param {*} comment 
- * @param {*} params 
- * @returns 
+ *
+ * @param {*} no
+ * @param {*} name
+ * @param {*} modalAnalysisSettingsNo
+ * @param {*} importMassesFrom
+ * @param {*} selfWeighParams
+ * @param {*} comment
+ * @param {*} params
+ * @returns
  */
 LoadCase.prototype.ModalAnalysis = function (no, name, modalAnalysisSettingsNo, importMassesFrom, comment, params) {
 
@@ -67,15 +67,15 @@ LoadCase.prototype.ModalAnalysis = function (no, name, modalAnalysisSettingsNo, 
   return self;
 };
 /**
- * 
- * @param {*} no 
- * @param {*} name 
- * @param {*} responseSpectrumAnalysisSettingsNo 
- * @param {*} importModalAnalysisFrom 
- * @param {*} responseSpectrums 
- * @param {*} comment 
- * @param {*} params 
- * @returns 
+ *
+ * @param {*} no
+ * @param {*} name
+ * @param {*} responseSpectrumAnalysisSettingsNo
+ * @param {*} importModalAnalysisFrom
+ * @param {*} responseSpectrums
+ * @param {*} comment
+ * @param {*} params
+ * @returns
  */
 LoadCase.prototype.ResponseSpectrumAnalysis = function (no, name, responseSpectrumAnalysisSettingsNo, importModalAnalysisFrom, responseSpectrums, comment, params) {
 
@@ -88,8 +88,6 @@ LoadCase.prototype.ResponseSpectrumAnalysis = function (no, name, responseSpectr
   var self = this;
   return self;
 };
-
-
 LoadCase.prototype.WindSimulation = function (no, name, staticAnalysisSettingsNo, windAnalysisSettingsNo, windProfileNo, windDirection, terrainOffset, stabilityAnalysisSettingsNo, comment, params) {
 
   this.LoadCase = CreateLoadCase(no, name);
@@ -107,8 +105,8 @@ LoadCase.prototype.WindSimulation = function (no, name, staticAnalysisSettingsNo
 };
 
 /**
- * 
- * @param {*} imperfectionCaseNo 
+ *
+ * @param {*} imperfectionCaseNo
  */
 LoadCase.prototype.ConsiderImperfection = function (imperfectionCaseNo) {
   if (this.LC !== undefined) {
@@ -129,8 +127,8 @@ LoadCase.prototype.ConsiderImperfection = function (imperfectionCaseNo) {
 };
 
 /**
- * 
- * @param {*} structureModificationNo 
+ *
+ * @param {*} structureModificationNo
  */
 LoadCase.prototype.SetStructureModification = function (structureModificationNo) {
   if (this.LC !== undefined) {
@@ -150,7 +148,7 @@ LoadCase.prototype.SetStructureModification = function (structureModificationNo)
 };
 
 /**
- * 
+ *
  * @returns List of action categories
  */
 LoadCase.prototype.GetActionCategoryList = function () {

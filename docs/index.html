@@ -5,22 +5,22 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>This is the HOMEPAGE. </title>
+    <title>RFEM/RSTAB/RSECTION  High Level Function Library | Dlubal JavaScript High Level Functions Library </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="This is the HOMEPAGE. ">
+    <meta name="title" content="RFEM/RSTAB/RSECTION  High Level Function Library | Dlubal JavaScript High Level Functions Library ">
     <meta name="generator" content="docfx 2.57.2.0">
     
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="images/favicon.ico">
     <link rel="stylesheet" href="styles/docfx.vendor.css">
     <link rel="stylesheet" href="styles/docfx.css">
     <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
     <meta property="docfx:navrel" content="toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     
+    <meta property="docfx:rel" content="">
     
-    
-  </head>
-  <body data-spy="scroll" data-target="#affix" data-offset="120">
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
         
@@ -35,7 +35,7 @@
               </button>
               
               <a class="navbar-brand" href="index.html">
-                <img id="logo" class="svg" src="logo.svg" alt="">
+                <img id="logo" class="svg" src="images/logo.png" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -56,17 +56,69 @@
           </div>
         </div>
       </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
       <div role="main" class="container body-content hide-when-search">
         <div class="article row grid">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="this-is-the-homepage">This is the <strong>HOMEPAGE</strong>.</h1>
+<h1 id="rfemrstabrsection--high-level-function-library">RFEM/RSTAB/RSECTION  High Level Function Library</h1>
 
-<p>Refer to <a href="http://daringfireball.net/projects/markdown/">Markdown</a> for how to write markdown files.</p>
-<h2 id="quick-start-notes">Quick Start Notes:</h2>
-<ol>
-<li>Add images to the <em>images</em> folder if the file is referencing an image.</li>
-</ol>
+<p><img src="https://img.shields.io/badge/COMPATIBILITY-RFEM%206.00-yellow" alt="image">
+<img src="https://img.shields.io/badge/COMPATIBILITY-RSTAB%209.00-yellow" alt="image">
+<img src="https://img.shields.io/badge/COMPATIBILITY-RSECTION%201.00-yellow" alt="image">
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+<a href="https://www.codefactor.io/repository/github/dlubal-software/dlubal_javascript_library"><img src="https://www.codefactor.io/repository/github/dlubal-software/dlubal_javascript_library/badge" alt="CodeFactor"></a></p>
+<h2 id="description">Description</h2>
+<p>This JavaScript project is focused on opening of possibility of scripting inside <a href="https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem"><strong>RFEM 6</strong></a> <a href="https://www.dlubal.com/en/products/rstab-beam-structures/what-is-rstab"><strong>RSTAB 9</strong></a> and <a href="https://www.dlubal.com/en/products/cross-section-properties-software/rsection"><strong>RSECTION</strong></a> to all our customers. Library enables them possibility to create models and interact with our applications on much higher level. The goal is to create easily expandable JavaScript library for scripting inside RFEM / RSTAB /RSECTION.</p>
+<h2 id="getting-started">Getting started</h2>
+<p>You can download <a href="">actual release</a> of our JavaScript library and the use it for your project or you can fork our repository.</p>
+<h3 id="steps-for-downloaded-release">Steps for downloaded release</h3>
+<ul>
+<li>Go to <a href="https://github.com/Dlubal-Software/Dlubal_JavaScript_Library/releases/latest">release location</a></li>
+<li>Download zip file called <strong>Source code.zip</strong></li>
+<li>Unzip it</li>
+<li>Use PowerShell script <a href="PowerShellScripts/CopyFilesToRFEMLocation.ps1">CopyFilesToRFEMLocation</a> to copy content of library into you installation folder (you may need to have admin rights)</li>
+</ul>
+<h3 id="steps-for-visual-studio-code">Steps for Visual Studio Code</h3>
+<ul>
+<li>Download <a href="https://code.visualstudio.com/">Visual Studio Code</a> and install it</li>
+<li>Open Visual Studio Code and install following extensions
+<ul>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp">C#</a> - extension for working with C# in VS Code</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker">Code Spell Checker</a> - useful extension for spell checking</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github">GitHub Pull Requests and Issues</a> - extension for easy access to the GitHub pull request</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.github-issues-prs">GitHub Issues</a> - extension for easy access to the GitHub issues</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens">Git Lens</a> - extension for better work with Source management</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint">ESLint</a> - Linter for JavaScript</li>
+</ul>
+</li>
+<li>Download <a href="https://git-scm.com/downloads">Git</a> and install it (needed for better functionality of Git Lens)</li>
+<li>Download <a href="https://desktop.github.com/">GitHub Desktop</a></li>
+<li>Fork this repositor</li>
+<li>Clone repository from GitHub</li>
+<li>Open Visual Studio Code</li>
+<li>Made your own project or use one from <a href="/examples">examples</a></li>
+<li>Copy your project to User Scripts/Example folder</li>
+</ul>
+<h2 id="dependencies">Dependencies</h2>
+<ul>
+<li>RFEM 6 or RSTAB9 or RSECTION application</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<p>Examples can be found under <a href="/examples">Examples</a> folder.</p>
+<h2 id="license">License</h2>
+<p><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a></p>
+<h2 id="contribute">Contribute</h2>
+<p>Contributions are always welcome! Please ensure your pull request adheres to the following guidelines <a href="/CONTRIBUTING.md">Contributing</a></p>
 </article>
           </div>
           
@@ -75,7 +127,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Dlubal-Software/Dlubal_JavaScript_Library/blob/liska_loads/docfx_project/index.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Dlubal-Software/Dlubal_JavaScript_Library/blob/main/docfx_project/index.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
@@ -95,8 +147,8 @@
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
+            Copyright © 2022 <a href="https://www.dlubal.com/en-US">Dlubal Software</a><br>Generated by <strong>DocFX</strong>
             
-            <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>

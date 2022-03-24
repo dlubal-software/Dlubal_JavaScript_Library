@@ -29,7 +29,7 @@ function MemberEccentricity(no,
 	comment,
 	params) {
     if (arguments.length !== 0) {
-		this.memberEccentricity = createEccentricity(no, members_start_list, members_end_list, comment, params);
+		this.memberEccentricity = createMemberEccentricity(no, members_start_list, members_end_list, comment, params);
 		return this.memberEccentricity;
 	}
 }
@@ -50,7 +50,7 @@ MemberEccentricity.prototype.RelativeToSection = function (no,
 	alignment,
 	comment,
 	params) {
-	this.memberEccentricity = createEccentricity(no, members_start_list, members_end_list, comment, params);
+	this.memberEccentricity = createMemberEccentricity(no, members_start_list, members_end_list, comment, params);
 	this.memberEccentricity.specification_type = member_eccentricities.TYPE_RELATIVE;
 	setRelativeValues(this.memberEccentricity, alignment);
 };
@@ -77,7 +77,7 @@ MemberEccentricity.prototype.Absolute = function (no,
 	coordinate_system,
 	comment,
 	params) {
-	this.memberEccentricity = createEccentricity(no, members_start_list, members_end_list, comment, params);
+	this.memberEccentricity = createMemberEccentricity(no, members_start_list, members_end_list, comment, params);
 	this.memberEccentricity.specification_type = member_eccentricities.TYPE_ABSOLUTE;
 	setAbsoluteValues(this.memberEccentricity, offset_x, offset_y, offset_z, coordinate_system);
 };
@@ -106,7 +106,7 @@ MemberEccentricity.prototype.RelativeAndAbsolute = function (no,
 	coordinate_system,
 	comment,
 	params) {
-	this.memberEccentricity = createEccentricity(no, members_start_list, members_end_list, comment, params);
+	this.memberEccentricity = createMemberEccentricity(no, members_start_list, members_end_list, comment, params);
 	this.memberEccentricity.specification_type = member_eccentricities.TYPE_RELATIVE_AND_ABSOLUTE;
 	setRelativeValues(this.memberEccentricity, alignment);
 	setAbsoluteValues(this.memberEccentricity, offset_x, offset_y, offset_z, coordinate_system);
@@ -215,13 +215,12 @@ var setTransverseOffset = function (member_eccentricity,
 * @param	{Object}	params				Member eccentricity parameters, can be undefined
 * @return	{Object}	Created member eccentricity
 */
-var createEccentricity = function (no,
+var createMemberEccentricity = function (no,
 	members_start_list,
 	members_end_list,
 	comment,
 	params) {
 	var member_eccentricity = engine.create_member_eccentricity(no);
-
 	if (typeof members_start_list !== "undefined") {
 		for (var i = 0; i < members_start_list.length; ++i) {
 			if (members.exist(members_start_list[i])) {

@@ -102,9 +102,9 @@ function SetZeroPeriodAccelerationType(type) {
 }
 
 /**
- * 
- * @param {*} dampingRule 
- * @param {*} dampingConstantForEachMode 
+ *
+ * @param {*} dampingRule
+ * @param {*} dampingConstantForEachMode
  */
 SpectralAnalysisSettings.prototype.SetDampingRuleForCQC = function (dampingRule, dampingConstantForEachMode) {
   if (this.Settings !== undefined) {
@@ -121,10 +121,10 @@ SpectralAnalysisSettings.prototype.SetDampingRuleForCQC = function (dampingRule,
 };
 
 /**
- * 
- * @param {*} ruleForMasses 
- * @param {*} zeroPeriodicAccelerationType 
- * @param {*} userDefinedValue 
+ *
+ * @param {*} ruleForMasses
+ * @param {*} zeroPeriodicAccelerationType
+ * @param {*} userDefinedValue
  */
 SpectralAnalysisSettings.prototype.IncludeMissingMasses = function (ruleForMasses, zeroPeriodicAccelerationType, userDefinedValue) {
 
@@ -144,18 +144,18 @@ SpectralAnalysisSettings.prototype.IncludeMissingMasses = function (ruleForMasse
 };
 
 /**
- * 
- * @param {*} no 
- * @param {*} name 
- * @param {*} combinationRulePeriodic 
- * @param {*} combinationRuleDirectional 
- * @param {*} scaledSumDirectionalComponentValue 
- * @param {*} useEquivalentLinearCombination 
- * @param {*} signedResultsUsingDominantMode 
- * @param {*} saveResultsOfAllSelectedModes 
- * @param {*} comment 
- * @param {*} params 
- * @returns 
+ *
+ * @param {*} no
+ * @param {*} name
+ * @param {*} combinationRulePeriodic
+ * @param {*} combinationRuleDirectional
+ * @param {*} scaledSumDirectionalComponentValue
+ * @param {*} useEquivalentLinearCombination
+ * @param {*} signedResultsUsingDominantMode
+ * @param {*} saveResultsOfAllSelectedModes
+ * @param {*} comment
+ * @param {*} params
+ * @returns
  */
 function SpectralAnalysisSettings(no,
   name,
@@ -167,8 +167,6 @@ function SpectralAnalysisSettings(no,
   saveResultsOfAllSelectedModes,
   comment,
   params) {
-
-
   if (arguments.length !== 0) {
     ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
     ASSERT(typeof type != undefined || typeof name != "string", "Name must be assigned as a string.");
@@ -195,13 +193,10 @@ function SpectralAnalysisSettings(no,
       if (scaledSumDirectionalComponentValue !== undefined) {
        this.Settings.combination_rule_for_directional_components_value = scaledSumDirectionalComponentValue;
       }
-      else { 
+      else {
        this.Settings.combination_rule_for_directional_components_value = 0.3;
       }
     }
-
-
-
     if (useEquivalentLinearCombination === true) {
      this.Settings.use_equivalent_linear_combination = true;
     }
@@ -224,11 +219,11 @@ function SpectralAnalysisSettings(no,
 }
 
 /**
- * 
- * @returns 
+ *
+ * @returns
  */
 SpectralAnalysisSettings.prototype.GetNo = function () {
- 
+
   return this.Settings.no;
 };
 

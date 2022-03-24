@@ -30,14 +30,15 @@ MASUserDefined.Settings.comment = "Access via .settings";
 MASMaxFrequency.SetBeyondFrequency(100);
 
 // Stability
-STRUCTURE_STABILITY.setActive(true);
-stability_analysis_settings.erase(1);
-stability_analysis_settings.erase(2);
-stability_analysis_settings.erase(3);
-var StASEigenValue = new StabilityAnalysisSettings().EigenValueMethod(1, "EigenValueMethod name", 5, "EIGENVALUE_METHOD_LANCZOS", "MATRIX_TYPE_STANDARD");
-var StASIncremental = new StabilityAnalysisSettings().IncrementalMethodWithoutEigenValueAnalysis(2, "Incremental without EV", 1, 0.1, 100, 10);
-var StASIncrementalWithEigenValue = new StabilityAnalysisSettings().IncrementalMethodWithEigenValueAnalysis(3, "Incremental with EV", [5, "EIGENVALUE_METHOD_LANCZOS", "MATRIX_TYPE_STANDARD"], [1, 0.1, 100, 10]);
-
+if (RFEM) {
+  STRUCTURE_STABILITY.setActive(true);
+  stability_analysis_settings.erase(1);
+  stability_analysis_settings.erase(2);
+  stability_analysis_settings.erase(3);
+  var StASEigenValue = new StabilityAnalysisSettings().EigenValueMethod(1, "EigenValueMethod name", 5, "EIGENVALUE_METHOD_LANCZOS", "MATRIX_TYPE_STANDARD");
+  var StASIncremental = new StabilityAnalysisSettings().IncrementalMethodWithoutEigenValueAnalysis(2, "Incremental without EV", 1, 0.1, 100, 10);
+  var StASIncrementalWithEigenValue = new StabilityAnalysisSettings().IncrementalMethodWithEigenValueAnalysis(3, "Incremental with EV", [5, "EIGENVALUE_METHOD_LANCZOS", "MATRIX_TYPE_STANDARD"], [1, 0.1, 100, 10]);
+}
 // StAS.settings.comment = "Access via .settings";
 // StAS.settings.matrix_type = stability_analysis_settings.MATRIX_TYPE_UNIT;
 

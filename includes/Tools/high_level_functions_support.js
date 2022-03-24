@@ -82,7 +82,9 @@ function createMember(nodes, section, memberType, line)
     }
 
 	member.type = memberType;
-	member.section_start = section;
+	if (typeof section !== "undefined") {
+		member.section_start = section;
+	}
 
     return member;
 }
@@ -102,13 +104,19 @@ function createNodesGrid(x, y, gridSize, gridSpace)
 
 /*
 Returns array (dictionary):
-	key = surface no
-	value =
-		[0] - surfaces object
-		[1] - list of surface nodes
-	surfaceGridSize = [3, 2]
-	surfaceGridSpace = [5, 5] (this value is same for surface weight and height)
-	surfaceNodes (nodes in picture)
+	createOnlyBoundaryLines == false:
+		key = surface no
+		value =
+			[0] - surfaces object
+			[1] - list of surface nodes
+		surfaceGridSize = [3, 2]
+		surfaceGridSpace = [5, 5] (this value is same for surface weight and height)
+		surfaceNodes (nodes in picture)
+	createOnlyBoundaryLines == true
+		key = index
+		value =
+			[0] - boundary_lines
+			[1] - list of surface nodes
 
 	 nodes[1]	nodes[0]	nodes[5]	nodes[4]	nodes[9]	nodes[8]
 		x-----------x			x-----------x			x-----------x
@@ -128,12 +136,16 @@ Returns array (dictionary):
 		|			|			|			|			|			|
 		x-----------x			x-----------x			x-----------x
 */
-function createSurfacesFromNodesGrid(nodes, surfaceGridSize, surfaceType, surfaceThickness)
+function createSurfacesFromNodesGrid(nodes, surfaceGridSize, surfaceType, surfaceThickness, createOnlyBoundaryLines)
 {
 	var boundaryLines = [];
 	var surfacesCount = surfaceGridSize[0] * surfaceGridSize[1];
 	var moveToNode = 0;
 	var surfaceNodes = [];
+
+	if (typeof createOnlyBoundaryLines === "undefined") {
+		createOnlyBoundaryLines = false;
+	}
 
 	for (var i = 0; i < surfacesCount; ++i)
 	{
@@ -158,8 +170,13 @@ function createSurfacesFromNodesGrid(nodes, surfaceGridSize, surfaceType, surfac
 	for (var i = 0; i < surfacesCount; ++i)
 	{
 		var lines = boundaryLines.slice(i * 4, i * 4 + 4);
-		var surface = createSurface([lines[0].no, lines[1].no, lines[2].no, lines[3].no], surfaceType, surfaceThickness);
-		surfaceList[surface.no] = [surface, surfaceNodes.slice(i * 4, i * 4 + 4)];
+		if (!createOnlyBoundaryLines) {
+			var surface = createSurface([lines[0].no, lines[1].no, lines[2].no, lines[3].no], surfaceType, surfaceThickness);
+			surfaceList[surface.no] = [surface, surfaceNodes.slice(i * 4, i * 4 + 4)];
+		}
+		else {
+			surfaceList[i + 1] = [lines, surfaceNodes.slice(i * 4, i * 4 + 4)];
+		}
 	}
 
 	return surfaceList;
@@ -205,9 +222,12 @@ function modifyNodesToZCoord(nodes, nodeIndexes, z)
 	}
 }
 
-function makeSolid(boundaryNodes)
+function makeSolid(boundaryNodes, type, materialName)
 {
-	var material = createMaterial("S235");
+	if (typeof materialName === "undefined") {
+		materialName = "S235";
+	}
+	var material = createMaterial(materialName);
 	var thickness = createThickness("0.250", material, thicknesses.TYPE_UNIFORM);
 
 	var node1 = createNode2(boundaryNodes[0]);
@@ -248,8 +268,14 @@ function makeSolid(boundaryNodes)
 
 	var solid = solids.create();
 	solid.boundary_surfaces = solidSurfaces;
-	solid.type = solids.TYPE_STANDARD;
-	solid.material = createMaterial("C25/30");
+	if (typeof type !== "undefined") {
+		solid.type = type;
+	}
+	else
+	{
+		solid.type = solids.TYPE_STANDARD;
+	}
+	solid.material = material;
 
 	return solid;
 }
