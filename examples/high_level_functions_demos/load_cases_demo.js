@@ -21,13 +21,15 @@ MASUserDefined.Settings.comment = "Access via .settings";
 MASMaxFrequency.SetBeyondFrequency(100);
 
 // Stability
-STRUCTURE_STABILITY.setActive(true);
-stability_analysis_settings.erase(1);
-stability_analysis_settings.erase(2);
-stability_analysis_settings.erase(3);
-var StASEigenValue = new StabilityAnalysisSettings().EigenValueMethod(1, "EigenValueMethod name", 5, "EIGENVALUE_METHOD_LANCZOS", "MATRIX_TYPE_STANDARD");
-var StASIncremental = new StabilityAnalysisSettings().IncrementalMethodWithoutEigenValueAnalysis(2, "Incremental without EV", 1, 0.1, 100, 10);
-var StASIncrementalWithEigenValue = new StabilityAnalysisSettings().IncrementalMethodWithEigenValueAnalysis(3, "Incremental with EV", [5, "EIGENVALUE_METHOD_LANCZOS", "MATRIX_TYPE_STANDARD"], [1, 0.1, 100, 10]);
+if (RFEM) {
+    STRUCTURE_STABILITY.setActive(true);
+    stability_analysis_settings.erase(1);
+    stability_analysis_settings.erase(2);
+    stability_analysis_settings.erase(3);
+    var StASEigenValue = new StabilityAnalysisSettings().EigenValueMethod(1, "EigenValueMethod name", 5, "EIGENVALUE_METHOD_LANCZOS", "MATRIX_TYPE_STANDARD");
+    var StASIncremental = new StabilityAnalysisSettings().IncrementalMethodWithoutEigenValueAnalysis(2, "Incremental without EV", 1, 0.1, 100, 10);
+    var StASIncrementalWithEigenValue = new StabilityAnalysisSettings().IncrementalMethodWithEigenValueAnalysis(3, "Incremental with EV", [5, "EIGENVALUE_METHOD_LANCZOS", "MATRIX_TYPE_STANDARD"], [1, 0.1, 100, 10]);
+}
 DYNAMIC_ANALYSIS.SPECTRAL.setActive(true);
 spectral_analysis_settings.erase(1);
 var SpAS = new SpectralAnalysisSettings(1, "Spectral analysis", "CQC", "SCALED_SUM", 0.3, true, true, true);
@@ -43,46 +45,3 @@ var LCSW = new LoadCase().StaticAnalysis(1, "Static analysis", SASGeometricallyL
 var LCModalLoad = new LoadCase().ModalAnalysis(2, "Modal analysis", MASUserDefined.Settings.no, LCSW.LoadCase.no);
 var LCSpectralAnalysis = new LoadCase().ResponseSpectrumAnalysis(3, "Spectral analysis", SpAS.Settings.no, LCModalLoad.LoadCase.no, [[0, 0], [0, 0], [1, 1]]);
 var LCWind = new LoadCase().WindSimulation(4, "Wind simulation", SASGeometricallyLinear.Settings.no, WSAS.Settings.no, 1);
-
-// var LC = new LoadCase();
-// LC.SetStabilityAnalysis(2);
-// var LC0 = new LoadCase(undefined,"modal");
-// var LC1 = new LoadCase(undefined,"spectral");
-// LC1.settings.response_spectrum_is_enabled_in_direction_x = true;
-
-// var LC2 = new LoadCase(undefined,"wind");
-// LC2.settings.wind_simulation_analysis_settings = WSAS.settings;
-// var WP = wind_profiles.create();
-// //wind_profiles.ACCORDING_TO_STANDARD
-// LC2.settings.wind_simulation_wind_profile = wind_profiles[1];
-
-// LC2.SetStabilityAnalysis(StASEigenValue.GetNo());
-// // var LC3 = new LoadCase(undefined,"DTA");
-// // LC3.SetStabilityAnalysis(StASEigenValue.Settings.no);
-// // LC3.settings.time_being_investigated = 20e5; // in sec. converted to days in RFEM (23.1)
-// // LC3.settings.loading_start = 3e5;
-// // console.log(Object.keys(LC3.Settings));
-// var LC4 = new LoadCase(undefined,"static");
-// LC4.settings.static_analysis_settings = SASSecondOrder.Settings;
-// LC4.settings.calculate_critical_load = true;
-// LC4.settings.stability_analysis_settings = StASEigenValue.settings;
-// var LC5 = new LoadCase(undefined,"DTA");
-// LC5.SetTime(1e5, 5e6);
-
-// var LC6 = new LoadCase(undefined,"modal", 2);
-// var LC7 = new LoadCase(undefined,"spectral", 2);
-// LC7.SetSpectralAnalysis(1,"all");
-// var LC8 = new LoadCase(undefined,"DTA",2);
-// var LC9 = new LoadCase(undefined,"wind",2);
-// LC9.SetWindSimulationAnalysis(3,2);
-
-// var LC11 = new LoadCase(undefined,"wind",2,2);
-// var LC12 = new LoadCase(undefined,"modal", 2,6);
-// var LC13 = new LoadCase(undefined,"spectral", 2,4);
-// var LC14 = new LoadCase(undefined,"DTA",2,5);
-
-// var someParams = {
-// 	action_category    : load_cases.ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_D_SHOPPING_AREAS_QI_D,
-// 	self_weight_active : true,
-// }
-// var LC15 = new LoadCase(undefined,"tt",undefined,undefined,"with params", someParams);
