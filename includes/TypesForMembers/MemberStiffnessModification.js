@@ -71,28 +71,26 @@ MemberStiffnessModification.prototype.PartialStiffnessFactors = function (axial_
 
 /**
 * Sets concrete structure ACI
-* @param	{Number}	component_type			Component type: Columns (1), Walls uncracked (2), Walls cracked (3), Beams (4), Flat plates and flat stabs (5). Can be undefined
+* @param	{Number}	component_type	Component type: Columns (1), Walls uncracked (2), Walls cracked (3), Beams (4), Flat plates and flat stabs (5). Can be undefined
 */
-MemberStiffnessModification.prototype.ConcreteStructuresAci = function(component_type) {
+MemberStiffnessModification.prototype.ConcreteStructuresAci = function (component_type) {
 	this.memberStiffnessModification.type = member_stiffness_modifications.TYPE_CONCRETE_STRUCTURES_ACI;
-	// The parameters bending_stiffness_y, bending_stiffness_z, axial_stiffness cannot be set, they are disabled
-	setConcreteStructures(this.memberStiffnessModification, component_type);
+	setConcreteStructuresComponentType(this.memberStiffnessModification, component_type);
 };
 
 /**
 * Sets concrete structure CSA
-* @param	{Number}	component_type			Component type: Columns (1), Walls uncracked (2), Walls cracked (3), Beams (4), Flat plates and flat stabs (5). Can be undefined
+* @param	{Number}	component_type	Component type: Columns (1), Walls uncracked (2), Walls cracked (3), Beams (4), Flat plates and flat stabs (5). Can be undefined
 */
 MemberStiffnessModification.prototype.ConcreteStructuresCsa = function(component_type) {
 	this.memberStiffnessModification.type = member_stiffness_modifications.TYPE_CONCRETE_STRUCTURES_CSA;
-	// The parameters bending_stiffness_y, bending_stiffness_z, axial_stiffness cannot be set, they are disabled
-	setConcreteStructures(this.memberStiffnessModification, component_type);
+	setConcreteStructuresComponentType(this.memberStiffnessModification, component_type);
 };
 
 /**
 * Sets steel structures AISC
-* @param 	{Number}	determine_tau_b			Determine τb: Iterative (1), Set to 1 (2). Can be undefined.
-* @param	{Number}	design_method			Design method: LRFD (1), ASD (2). Can be undefined. If determine τb has "Set to 1" value, must be undefined.
+* @param 	{Number}	determine_tau_b		Determine τb: Iterative (1), Set to 1 (2). Can be undefined.
+* @param	{Number}	design_method		Design method: LRFD (1), ASD (2). Can be undefined. If determine τb has "Set to 1" value, must be undefined.
 */
 MemberStiffnessModification.prototype.SteelStructuresAisc = function (determine_tau_b,
 	design_method) {
@@ -109,13 +107,13 @@ MemberStiffnessModification.prototype.SteelStructuresAisc = function (determine_
 
 /**,
 * Sets steel structures CSA
-* @param	{Number}	determine_tau_b						Determine τb: Iterative (1), Set to 1 (2). Can be undefined.
-* @param	{Number}	axial_stiffness						Axial stiffness multiplier factor, can be undefined. If defined, apply τb is set to true.
-* @param	{Number}	bending_stiffness_y					Bending stiffness multiplier factors Z, can be undefined. If defined, apply τb is set to true.
-* @param	{Number}	bending_stiffness_z					Bending stiffness multiplier factors Y, can be undefined. If defined, apply τb is set to true.
-* @param	{Number}	shear_stiffness_y					Shear stiffness Y, can be undefined. If defined, apply τb is set to true.
-* @param	{Number}	shear_stiffness_z					Shear stiffness Z, can be undefined. If defined, apply τb is set to true.
-* @param	{Number}	torsional_stiffness					Torsional stiffness, can be undefined. If defined, apply τb is set to true.
+* @param	{Number}	determine_tau_b			Determine τb: Iterative (1), Set to 1 (2). Can be undefined.
+* @param	{Number}	axial_stiffness			Axial stiffness multiplier factor, can be undefined. If defined, apply τb is set to true.
+* @param	{Number}	bending_stiffness_y		Bending stiffness multiplier factors Z, can be undefined. If defined, apply τb is set to true.
+* @param	{Number}	bending_stiffness_z		Bending stiffness multiplier factors Y, can be undefined. If defined, apply τb is set to true.
+* @param	{Number}	shear_stiffness_y		Shear stiffness Y, can be undefined. If defined, apply τb is set to true.
+* @param	{Number}	shear_stiffness_z		Shear stiffness Z, can be undefined. If defined, apply τb is set to true.
+* @param	{Number}	torsional_stiffness		Torsional stiffness, can be undefined. If defined, apply τb is set to true.
 */
 MemberStiffnessModification.prototype.SteelStructuresCSA = function (determine_tau_b,
 	axial_stiffness,
@@ -158,15 +156,9 @@ MemberStiffnessModification.prototype.SteelStructuresCSA = function (determine_t
 * Sets concrete structures parameters (private)
 * @param	{Object}	member_stiffness_modification	Member stiffness modification to set
 * @param	{Number}	component_type					Component type: Columns (1), Walls uncracked (2), Walls cracked (3), Beams (4), Flat plates and flat stabs (5). Can be undefined
-* @param	{Number}	bending_stiffness_y				Bending stiffness multiplier factors Z, can be undefined.
-* @param	{Number}	bending_stiffness_z				Bending stiffness multiplier factors Y, can be undefined.
-* @param	{Number}	axial_stiffness					Axial stiffness multiplier factor, can be undefined.
 */
-var setConcreteStructures = function(member_stiffness_modification,
-	component_type,
-	bending_stiffness_y,
-	bending_stiffness_z,
-	axial_stiffness) {
+var setConcreteStructuresComponentType = function(member_stiffness_modification,
+	component_type) {
 	if (typeof component_type !== "undefined") {
 		switch (component_type)	{
 			case 1:
@@ -187,15 +179,6 @@ var setConcreteStructures = function(member_stiffness_modification,
 			default:
 				ASSERT(false, "Unknown component type");
 		}
-	}
-	if (typeof bending_stiffness_y !== "undefined") {
-		member_stiffness_modification.factor_of_bending_y_stiffness = bending_stiffness_y;
-	}
-	if (typeof bending_stiffness_z !== "undefined") {
-		member_stiffness_modification.factor_of_bending_z_stiffness = bending_stiffness_z;
-	}
-	if (typeof axial_stiffness !== "undefined") {
-		member_stiffness_modification.factor_of_axial_stiffness = axial_stiffness;
 	}
 };
 

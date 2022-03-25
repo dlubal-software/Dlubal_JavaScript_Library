@@ -1,15 +1,16 @@
 /**
+ * Creates modal analysis settings high level function
  * @class
  * @constructor
- * @param {*} no 
- * @param {*} solverMethod 
- * @param {*} beyondFrequency 
- * @param {*} maximalFrequency 
- * @param {*} comment 
- * @param {*} params 
- * @returns 
+ * @param {Number} no unique ID of modal analysis settings
+ * @param {String} solverMethod solver method()
+ * @param {String} beyondFrequency Setting of eigenvectors beyond frequency
+ * @param {String} maximalFrequency Setting of eigenvectors maximal frequency
+ * @param {String} comment  Comment, empty by default
+ * @param {Object} params Modal analysis settings parameters, empty by default
+ * @returns Object ModalAnalysisSettings
  */
-function ModalAnalysisSettings(no,
+ function ModalAnalysisSettings(no,
   solverMethod,
   beyondFrequency,
   maximalFrequency,
@@ -29,7 +30,9 @@ function ModalAnalysisSettings(no,
     console.log("New modal analysis settings no. " + MAS.no + " was created");
 
     if (solverMethod != undefined) {
-      MAS.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
+      if (RFEM) {
+        MAS.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
+      }
     }
 
     if (beyondFrequency != undefined) {
@@ -54,15 +57,15 @@ function ModalAnalysisSettings(no,
 
 /**
  * Creates modal analysis settings
- * @param {int} no 
- * @param {string} name 
- * @param {int} numberOfModes 
- * @param {string} solverMethod 
- * @param {string} typeOfMassMatrix 
- * @param {string} massConversion 
- * @param {array} actingMasses 
- * @param {string} comment 
- * @param {dictionary} params 
+ * @param {int} no
+ * @param {string} name
+ * @param {int} numberOfModes
+ * @param {string} solverMethod
+ * @param {string} typeOfMassMatrix
+ * @param {string} massConversion
+ * @param {array} actingMasses
+ * @param {string} comment
+ * @param {dictionary} params
  * @returns Object ModalAnalysisSettings
  */
 
@@ -78,7 +81,9 @@ ModalAnalysisSettings.prototype.UserDefinedNumberOfModes = function (no, name, n
     this.Settings.number_of_modes = 4;
   }
 
-  this.Settings.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
+  if (RFEM) {
+    this.Settings.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
+  }
 
   this.Settings.mass_matrix_type = modal_analysis_settings[MassMatrixType(typeOfMassMatrix)];
 
@@ -94,17 +99,17 @@ ModalAnalysisSettings.prototype.UserDefinedNumberOfModes = function (no, name, n
 };
 
 /**
- * 
- * @param {*} no 
- * @param {*} name 
- * @param {*} effectiveModalMassFactor 
- * @param {*} solverMethod 
- * @param {*} typeOfMassMatrix 
- * @param {*} massConversion 
- * @param {*} actingMasses 
- * @param {*} comment 
- * @param {*} params 
- * @returns 
+ *
+ * @param {*} no
+ * @param {*} name
+ * @param {*} effectiveModalMassFactor
+ * @param {*} solverMethod
+ * @param {*} typeOfMassMatrix
+ * @param {*} massConversion
+ * @param {*} actingMasses
+ * @param {*} comment
+ * @param {*} params
+ * @returns
  */
 ModalAnalysisSettings.prototype.AutomaticNumberOfModesToReachEffMass = function (no, name, effectiveModalMassFactor, solverMethod, typeOfMassMatrix, massConversion, actingMasses, comment, params) {
 
@@ -116,9 +121,9 @@ ModalAnalysisSettings.prototype.AutomaticNumberOfModesToReachEffMass = function 
   } else {
     this.Settings.effective_modal_mass_factor = 0.9;
   }
-
-  this.Settings.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
-
+  if (RFEM) {
+    this.Settings.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
+  }
   this.Settings.mass_matrix_type = modal_analysis_settings[MassMatrixType(typeOfMassMatrix)];
 
   this.Settings.mass_conversion_type = modal_analysis_settings[MassConversionType(massConversion)];
@@ -133,17 +138,17 @@ ModalAnalysisSettings.prototype.AutomaticNumberOfModesToReachEffMass = function 
 };
 
 /**
- * 
- * @param {*} no 
- * @param {*} name 
- * @param {*} maxNaturalFrequency 
- * @param {*} solverMethod 
- * @param {*} typeOfMassMatrix 
- * @param {*} massConversion 
- * @param {*} actingMasses 
- * @param {*} comment 
- * @param {*} params 
- * @returns 
+ *
+ * @param {*} no
+ * @param {*} name
+ * @param {*} maxNaturalFrequency
+ * @param {*} solverMethod
+ * @param {*} typeOfMassMatrix
+ * @param {*} massConversion
+ * @param {*} actingMasses
+ * @param {*} comment
+ * @param {*} params
+ * @returns
  */
 ModalAnalysisSettings.prototype.AutomaticNumberOfModesToReachMaxFreq = function (no, name, maxNaturalFrequency, solverMethod, typeOfMassMatrix, massConversion, actingMasses, comment, params) {
 
@@ -155,10 +160,9 @@ ModalAnalysisSettings.prototype.AutomaticNumberOfModesToReachMaxFreq = function 
   } else {
     this.Settings.maxmimum_natural_frequency = 1600;
   }
-
-
-  this.Settings.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
-
+  if (RFEM) {
+    this.Settings.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
+  }
   this.Settings.mass_matrix_type = modal_analysis_settings[MassMatrixType(typeOfMassMatrix)];
 
   this.Settings.mass_conversion_type = modal_analysis_settings[MassConversionType(massConversion)];
@@ -280,8 +284,6 @@ function SetActingMasses(MAS, actingMasses) {
     MAS.acting_masses_in_direction_z_enabled = true;
   }
 };
-
-
 function CreateModalAnalysisSettings(no, name) {
   var ModalAnalysisSettings = undefined;
   if (no === undefined) {

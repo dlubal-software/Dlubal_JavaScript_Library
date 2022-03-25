@@ -41,17 +41,17 @@ function SetMemberLoadDistribution(type) {
 }
 
 /**
- * 
- * @param {*} no 
- * @param {*} name 
- * @param {*} density 
- * @param {*} kinematicViscosity 
- * @param {*} consider_turbulence 
- * @param {*} turbulenceModel 
- * @param {*} memberLoadDistribution 
- * @param {*} comment 
- * @param {*} params 
- * @returns 
+ *
+ * @param {*} no
+ * @param {*} name
+ * @param {*} density
+ * @param {*} kinematicViscosity
+ * @param {*} consider_turbulence
+ * @param {*} turbulenceModel
+ * @param {*} memberLoadDistribution
+ * @param {*} comment
+ * @param {*} params
+ * @returns
  */
 function WindSimulationSettings(no,
   name,
@@ -77,8 +77,6 @@ function WindSimulationSettings(no,
     this.Settings.name = name;
   }
   console.log("New wind simulation analysis settings no. " + this.Settings.no + " was created");
-
-  
   if (density !== undefined) {
     this.Settings.density = density;
   }
@@ -101,7 +99,7 @@ function WindSimulationSettings(no,
   this.Settings.member_load_distribution = wind_simulation_analysis_settings[SetMemberLoadDistribution(memberLoadDistribution)];
 
   // Wind simulation analysis settings
-  
+
   set_comment_and_parameters(this.Settings, comment, params);
   console.log("-- Done. Wind simulation analysis settings no. " + this.Settings.no + " all initial params set.");
   // object for creation new WSAS with callback link to instance
