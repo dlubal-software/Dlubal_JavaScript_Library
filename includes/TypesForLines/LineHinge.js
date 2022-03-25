@@ -74,7 +74,12 @@ function CreateHingeVector(x, y, z) {
 function LineHinge(no,
                    comment,
                    params) {
-	this.lineHinge = createLineHinge(no, comment, params);
+	lineHinge = createLineHinge(no, comment, params);
+	this.lineHinge = lineHinge
+	this.NonlinearX = new LineHingeNonlinearity(lineHinge, "X");
+	this.NonlinearY = new LineHingeNonlinearity(lineHinge, "Y");
+	this.NonlinearZ = new LineHingeNonlinearity(lineHinge, "Z");
+	this.NonlinearPhiX = new LineHingeNonlinearity(lineHinge, "phiX");
 	var self = this;
 	return self;
 }
@@ -158,3 +163,75 @@ LineHinge.prototype.AssignTo = function(table_id, line, surface) {
 	table.line_number = line;
 };
 
+
+
+function LineHingeNonlinearity(hinge, dirrection) {
+	dirrection_switcher = {
+		"X"		: "translational_release_u_x_nonlinearity",
+		"Y"		: "translational_release_u_y_nonlinearity",
+		"Z"		: "translational_release_u_z_nonlinearity",
+		"phiX"	: "rotational_release_phi_x_nonlinearity",
+	}
+
+	table_switcher = {
+		"X"		: "diagram_along_x_table",
+		"Y"		: "diagram_along_y_table",
+		"Z"		: "diagram_along_z_table",
+		"phiX"	: "diagram_around_x_table",
+	}
+
+	table_keys_switcher = {
+		"X"		: ["displacement", "force"],
+		"Y"		: ["displacement", "force"],
+		"Z"		: ["displacement", "force"],
+		"phiX"	: ["rotation", "moment"],
+	}
+
+	this.dirrection = dirrection_switcher[dirrection];
+	this.table = table_switcher[dirrection];
+	this.table_keys = table_keys_switcher[dirrection];
+	this.hinge = hinge;
+	applyChanges();
+	var self = this;
+	return self;
+};
+
+
+LineHingeNonlinearity.prototype.FixedIfNegative = function() {
+	this.hinge[this.dirrection] = line_hinges.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE;
+};
+
+
+LineHingeNonlinearity.prototype.FixedIfPositive = function() {
+	this.hinge[this.dirrection] = line_hinges.NONLINEARITY_TYPE_FAILURE_IF_POSITIVE;
+};
+
+
+LineHingeNonlinearity.prototype.Diagram = function(displacement, force) {
+	this.hinge[this.dirrection] = line_hinges.NONLINEARITY_TYPE_DIAGRAM;
+	applyChanges();
+	createNonlinearityTableX(this.hinge, this.table, this.table_keys, displacement, force)
+
+};
+
+
+function createNonlinearityTableX(lineHinge, table, table_keys, displacement, force) {
+	if (displacement === undefined) {
+		displacement = [1];
+	}
+	if (force === undefined) {
+		force = [10];
+	}
+	const hingeTable = lineHinge[table];
+	const key_1 = table_keys[0];
+	const key_2 = table_keys[1];
+	if (displacement.length === force.length) {
+		for (var i = 0; i < displacement.length; ++i) {
+			var row = hingeTable.row_count();
+			console.log(row);
+			console.log(hingeTable);
+			hingeTable[row][key_1]= displacement[i];
+			hingeTable[row][key_2]= force[i];
+		}
+	}
+}

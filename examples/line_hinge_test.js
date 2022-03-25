@@ -42,46 +42,50 @@ if (RFEM) {
 Member(undefined, [12,3], "", { "section_start": section_IPE240 });
 Member(undefined, [4,12], "", { "section_start": section_IPE240 });
 Member(undefined, [12,16], "", { "section_start": section_IPE180 });
-
-
 //   ################# Line Hinges
 //   ##### Constructors:
 // Empty
 var LH1 = new LineHinge();
 LH1.Translation(true,true,true);
 LH1.Rotation(false);
-LH1.AssignTo(1, 1, 1);
-LH1.AssignTo(2, 2, 1);
-LH1.AssignTo(3, 3, 1);
+LH1.AssignTo(1, 1, 1)
+LH1.AssignTo(2, 2, 1)
+LH1.AssignTo(3, 3, 1)
+LH1.NonlinearX.Diagram([0.2, 0.4], [4, 15]);
 
 var LH2 = new LineHinge();
 LH2.Translation(false,false,false);
 LH2.Rotation(true);
 LH2.AssignTo(1, 5, 2);
 LH2.AssignTo(2, 7, 2);
+LH2.NonlinearY.Diagram([0.2, 0.4], [4, 15]);
 
 var LH3 = new LineHinge();
-LH3.Translation(100,200,300);
+LH3.Translation(100, 200, 300);
 LH3.Rotation(400);
+LH3.NonlinearPhiX.Diagram([0.5, 4], [10, 15]);
 
 var LH4 = new LineHinge();
 LH4.TranslationX(true);
+LH4.NonlinearX.FixedIfNegative();
+LH4.NonlinearY.FixedIfPositive();
+LH4.NonlinearZ.FixedIfNegative();
+LH4.NonlinearPhiX.FixedIfNegative();
 
 var LH5 = new LineHinge();
 LH5.TranslationX(450);
 LH5.TranslationY(false);
 LH5.TranslationZ(320);
 
+LH5.lineHinge.translational_release_u_x_nonlinearity = line_hinges.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE;
+LH5.NonlinearZ.Diagram([0.2, 0.4], [4, 15]);
+
 var params = {
 	user_defined_name_enabled : true,
 	name : " user name from parameters "
-};
+}
 
-new LineHinge(undefined, "comment", params);
-
-//   ################# Line Mesh Refinements
-//   ##### Constructors:
-// Empty
+new LineHinge(undefined, "comment", params)
 
 var NR = new LineMeshRefinement();
 
@@ -98,11 +102,11 @@ var NR1 = new LineMeshRefinement();
 NR1.Gradual();
 NR1.SetLines([10,13,17]);
 
-var NR2 = new LineMeshRefinement();
+var NR2 = new LineMeshRefinement()
 NR2.Gradual(7,4);
 
-var NR3 = new LineMeshRefinement();
+var NR3 = new LineMeshRefinement()
 NR3.NumberFiniteElements(16,6);
 
-var NR4 = new LineMeshRefinement(undefined, "Target length");
+var NR4 = new LineMeshRefinement(undefined, "Target length")
 NR4.TargetFELenght(5,4);
