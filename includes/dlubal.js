@@ -28,6 +28,10 @@ include("BasicObjects/MemberSet.js");
 include("BasicObjects/Member.js");
 include("BasicObjects/Node.js");
 include("BasicObjects/Section.js");
+// Load wizards
+include("LoadWizards/MemberLoadFromAreaLoadWizard.js");
+// Special objects
+include("SpecialObjects/StructureModification.js");
 // Supports
 include("Supports/Functions.js");
 include("Supports/Nonlinearities/Nonlinearities.js");
