@@ -88,18 +88,21 @@ new LineMeshRefinement(5, undefined, 4, 8, 6, "comment2");
 new LineMeshRefinement(undefined, "", [5, 20], 0.9, 2, "comment3", params);
 
 NR.NumberFiniteElements();
+NR.settings.type = line_mesh_refinements.TYPE_ELEMENTS;
 NR.settings.elements_finite_elements = 15;
-NR.settings.lines = [1,2,3,6];
+NR.settings.lines = [1, 2, 3, 6];
 
 var NR1 = new LineMeshRefinement();
 NR1.Gradual();
-NR1.SetLines([10,13,17]);
+NR1.SetLines([10, 13, 17]);
 
-var NR2 = new LineMeshRefinement()
-NR2.Gradual(7,4);
+var NR2 = new LineMeshRefinement();
+NR2.Gradual(7, 4, 27);
 
 var NR3 = new LineMeshRefinement()
-NR3.NumberFiniteElements(16,6);
+NR3.NumberFiniteElements(18, 6, 20);
 
-var NR4 = new LineMeshRefinement(undefined, "Target length")
-NR4.TargetFELenght(5,4);
+var NR4 = new LineMeshRefinement(undefined, "Target length");
+NR4.TargetFELenght(5, 2, 25);
+
+var NR5 = new LineMeshRefinement(8, "NR5", 24, 1, 3);

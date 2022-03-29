@@ -10,22 +10,35 @@
 * @param	{Object}			params					line mesh refinement parameters, can be undefined
 * @return	{Object}			Created line mesh refinement
 */
-var createLineMeshRefinement = function (no,
-										 name,
-										 lines,
-										 tagretFELenght,											
-										 numberOflayers,
-										 comment,
-										 params) {
+var createLineMeshRefinement = function (no) {
 
-
- 
 	if (no != undefined) {
 		var lineMeshRefinement = line_mesh_refinements.create(no);
 	}
 	else {
 	 	var lineMeshRefinement = line_mesh_refinements.create();
 	}
+	return lineMeshRefinement;
+};
+
+
+var setParemetersLineMeshRefinement = function (
+										 lineMeshRefinement,
+										 name,
+										 lines,
+										 tagretFELenght,
+										 numberOfFiniteElements,											
+										 numberOflayers,
+										 gradual_rows,
+										 comment,
+										 params) {
+
+	const default_tagretFELenght = 0.01;
+	const default_numberOflayers = 4;
+	const default_numberOfFiniteElements = 6;
+	const default_gradual_rows = 3;
+
+	const numberOflayers_options = [2, 4, 6, 8]
 
 	if (name != undefined) {
 		lineMeshRefinement.user_defined_name_enabled = true;
@@ -39,16 +52,46 @@ var createLineMeshRefinement = function (no,
 		lineMeshRefinement.lines = lines;
 	}
 
-	if (tagretFELenght != undefined) {
+	if (tagretFELenght === undefined) {
+		tagretFELenght = default_tagretFELenght; 
+	}
+
+	if (numberOfFiniteElements === undefined) {
+		numberOfFiniteElements = default_numberOfFiniteElements; 
+	}
+
+	if (numberOflayers === undefined) {
+		numberOflayers = default_numberOflayers;
+	}
+
+	if (gradual_rows === undefined) {
+		gradual_rows = default_gradual_rows;
+	}
+
+	if (tagretFELenght != false) {
+		lineMeshRefinement.type = line_mesh_refinements.TYPE_LENGTH;
 		lineMeshRefinement.target_length = tagretFELenght;
 	}
 
-	if (numberOflayers != undefined) {
-		lineMeshRefinement.number_of_layers = numberOflayers;
+	if (numberOflayers_options.indexOf(numberOflayers) === -1) {
+		console.log("Allowed values for layers number are: " + numberOflayers_options)
+		console.log("Number of layers for Line Mesh Refinement no. " + lineMeshRefinement.no + "  will be se to: " + default_numberOflayers + ".")		
+		numberOflayers = default_numberOflayers;
+	}
+
+	lineMeshRefinement.number_of_layers = numberOflayers;
+
+	if (numberOfFiniteElements != false) {
+		lineMeshRefinement.type = line_mesh_refinements.TYPE_ELEMENTS;
+		lineMeshRefinement.elements_finite_elements = numberOfFiniteElements; 
+	}
+
+	if (gradual_rows != false) {
+		lineMeshRefinement.type = line_mesh_refinements.TYPE_GRADUAL;
+		lineMeshRefinement.gradual_rows = gradual_rows;
 	}
 
 	set_comment_and_parameters(lineMeshRefinement, comment, params);
-
 
 	return lineMeshRefinement;
 };
@@ -73,8 +116,9 @@ function LineMeshRefinement(no,
                             comment,
                             params)
 {
-    this.settings = createLineMeshRefinement(no, name, lines, tagretFELenght, numberOflayers, comment, params);
+    this.settings = createLineMeshRefinement()
     var self = this;
+    this.settings = setParemetersLineMeshRefinement(self.settings, name, lines, tagretFELenght, false, numberOflayers, false, comment, params);
     return self;
 }
 
@@ -87,20 +131,7 @@ function LineMeshRefinement(no,
 * @return	{Object}			Created line mesh refinement
 */
 LineMeshRefinement.prototype.TargetFELenght = function(tagretFELenght, numberOflayers, lines) {
-	
-	this.settings.type = line_mesh_refinements.TYPE_LENGTH;
-	if (tagretFELenght != undefined) {
-		this.settings.target_length = tagretFELenght;
-	}
-
-	if (numberOflayers != undefined) {
-		this.settings.number_of_layers = numberOflayers;
-	}
-
-	if (lines != undefined) {
-		this.settings.lines = lines;
-	}
-
+	this.settings = setParemetersLineMeshRefinement(this.settings, undefined, lines, tagretFELenght, false, numberOflayers, false, undefined, undefined);
 	return this.settings;
 }
 
@@ -113,19 +144,7 @@ LineMeshRefinement.prototype.TargetFELenght = function(tagretFELenght, numberOfl
 * @return	{Object}			Created line mesh refinement
 */
 LineMeshRefinement.prototype.NumberFiniteElements = function(numberOfFiniteElements, numberOfLayers, lines) {
-
-	this.settings.type = line_mesh_refinements.TYPE_ELEMENTS;
-	if (elements != undefined) {
-		this.settings.elements_finite_elements = numberOfFiniteElements;
-	}
-
-	if (numberOflayers != undefined) {
-		this.settings.number_of_layers = numberOflayers;
-	}
-
-	if (lines != undefined) {
-		this.settings.lines = lines;
-	}
+	this.settings = setParemetersLineMeshRefinement(this.settings, undefined, lines, false, numberOfFiniteElements, numberOflayers, false, undefined, undefined);
 	return this.settings;
 }
 
@@ -138,20 +157,8 @@ LineMeshRefinement.prototype.NumberFiniteElements = function(numberOfFiniteEleme
 * @return	{Object}			Created line mesh refinement
 */
 LineMeshRefinement.prototype.Gradual = function(gradual_rows, numberOflayers, lines) {
-	this.settings.type = line_mesh_refinements.TYPE_GRADUAL;
-	if (gradual_rows != undefined) {
-		this.settings.gradual_rows = gradual_rows;
-	}
-
-	if (numberOflayers != undefined) {
-		this.settings.number_of_layers = numberOflayers;
-	}
-
-	if (lines != undefined) {
-		this.settings.lines = lines;
-	}
+	this.settings = setParemetersLineMeshRefinement(this.settings, undefined, lines, false, false, numberOflayers, gradual_rows, undefined, undefined);	
 	return this.settings;
-
 }
 
 
