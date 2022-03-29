@@ -1,6 +1,3 @@
-// nonlinearity nefungují
-
-
 /**
 * Creates line hinge
 * @function
@@ -52,26 +49,20 @@ function CreateHinge(hinge) {
 }
 
 
-function CreateHingeVector(x, y, z) {
-  var hinge_vector = [x, y, z];
-  var hinge_vector_new = [0, 0, 0];
-  hinge_vector.forEach(function (hinge, index) {
-    hinge_vector_new[index] = CreateHinge(hinge);
-  });
-  return $V(hinge_vector_new[0], hinge_vector_new[1], hinge_vector_new[2]);
-}
-
-
 /**
 * Creates line hinge
 * @class
 * @constructor
-* @param	{Number}	no				Index of line hinge, can be undefined
-* @param	{String}	comment			Comment, can be undefined
-* @param	{Object}	params			line hinge parameters, can be undefined
+* @param	{Number}				no				Index of line hinge, can be undefined
+* @param	{Integer}				surface			Surface id (lines must lie on this surface)
+* @param	{Integer} or {Array}	lines			One or more lines id for line hinge assign
+* @param	{String}				comment			Comment, can be undefined
+* @param	{Object}				params			line hinge parameters, can be undefined
 * @return	{Object}	Created line hinge
 */
 function LineHinge(no,
+				   surface,
+				   lines,
                    comment,
                    params) {
 	lineHinge = createLineHinge(no, comment, params);
@@ -81,6 +72,7 @@ function LineHinge(no,
 	this.NonlinearZ = new LineHingeNonlinearity(lineHinge, "Z");
 	this.NonlinearPhiX = new LineHingeNonlinearity(lineHinge, "phiX");
 	var self = this;
+	self.AssignTo(surface, lines);
 	return self;
 }
 
@@ -153,14 +145,26 @@ LineHinge.prototype.GetNo = function() {
 /**
 * Assign line hinge to line and surface (line must be involved in the surface)
 * @functiom
-* @param	{Integer}	table_id		Index of line_hinges_table (the range is the same as the amount of lines involved in the surface)
-* @param	{Integer}	line			line id for line hinge assign
-* @param	{Integer}	surface			surface id (line must lie on this surface)
+* @param	{Integer}				surface			surface id (lines must lie on this surface)
+* @param	{Integer} or {Array}	lines			one or more lines id for line hinge assign
 */
-LineHinge.prototype.AssignTo = function(table_id, line, surface) {
-	var table = surfaces[surface].line_hinges_table[table_id];
-	table.line_hinge = this.lineHinge.no;
-	table.line_number = line;
+LineHinge.prototype.AssignTo = function(surface, lines) {
+	if (surface != undefined){
+		var row = surfaces[surface].line_hinges_table.row_count();
+		var table = surfaces[surface].line_hinges_table[row];
+		table.line_hinge = this.lineHinge.no;
+		if (typeof lines === "number") {
+			table.line_number = lines;
+		}
+		else {
+			for (var i = 0; i < lines.length; ++i)
+            {
+            	table = surfaces[surface].line_hinges_table[row + i]
+                table.line_number = lines[i];
+                table.line_hinge = this.lineHinge.no;
+            }
+		}
+	}
 };
 
 
@@ -228,8 +232,6 @@ function createNonlinearityTableX(lineHinge, table, table_keys, displacement, fo
 	if (displacement.length === force.length) {
 		for (var i = 0; i < displacement.length; ++i) {
 			var row = hingeTable.row_count();
-			console.log(row);
-			console.log(hingeTable);
 			hingeTable[row][key_1]= displacement[i];
 			hingeTable[row][key_2]= force[i];
 		}

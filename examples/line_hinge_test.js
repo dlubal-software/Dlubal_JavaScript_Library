@@ -3,14 +3,12 @@ run("clearAll.js");
 var material_steel = Material(undefined, "S235 | EN 1993-1-1:2005-05");
 var material_concrete = Material(undefined, "C12/15 | EN 1992-1-1:2004/A1:2014");
 
-var section_params = { "shear_stiffness_deactivated": true };
-var section_IPE240 = Section(undefined, "IPE 240", material_steel, "", section_params);
-var section_IPE180 = Section(undefined, "IPE 180", material_steel, "", section_params);
-
 if (RFEM) {
 	var thickness = Thickness(undefined, "", material_concrete, 120mm);
-};
-for (var i = 0; i < 20; ++i) {
+	const number_of_surfaces = 10;
+}
+
+for (var i = 0; i < number_of_surfaces; ++i) {
 	Node("undefined", 0, 0, i);
 	Node("undefined", 1, 0, i);
 	Node("undefined", 1, 1, i);
@@ -18,7 +16,7 @@ for (var i = 0; i < 20; ++i) {
 }
 
 if (RFEM) {
-	for (var i = 1; i < 80; ++i) {
+	for (var i = 1; i < 4*number_of_surfaces; ++i) {
 		for (var j = 0; j < 3; ++j) {
 			Line(undefined, [i + j, i + j + 1]);
 		}
@@ -26,43 +24,34 @@ if (RFEM) {
 		i = i + 3;
 	}
 
-	for (var i = 1; i <= 80; ++i) {
+	for (var i = 1; i <= 4*number_of_surfaces; ++i) {
 		Surface(undefined, [i, i + 1, i + 2, i + 3], thickness);
 		i = i + 3;
 	};
-	Line(undefined, "2,3");
-	Line(undefined, "6,7");
-	Line(undefined, "7,8");
-	Line(undefined, "8,9");
-	Line(undefined, "9,6");
-	Line(undefined, "4,10");
-	Line(undefined, "1,2");
-};
+}
 
-Member(undefined, [12,3], "", { "section_start": section_IPE240 });
-Member(undefined, [4,12], "", { "section_start": section_IPE240 });
-Member(undefined, [12,16], "", { "section_start": section_IPE180 });
 //   ################# Line Hinges
 //   ##### Constructors:
 // Empty
 var LH1 = new LineHinge();
 LH1.Translation(true,true,true);
 LH1.Rotation(false);
-LH1.AssignTo(1, 1, 1)
-LH1.AssignTo(2, 2, 1)
-LH1.AssignTo(3, 3, 1)
+LH1.AssignTo(1, 1)
+LH1.AssignTo(2, 5)
+LH1.AssignTo(3, 9)
 LH1.NonlinearX.Diagram([0.2, 0.4], [4, 15]);
 
 var LH2 = new LineHinge();
 LH2.Translation(false,false,false);
 LH2.Rotation(true);
-LH2.AssignTo(1, 5, 2);
-LH2.AssignTo(2, 7, 2);
+LH2.AssignTo(1, [2, 3, 4]);
+LH2.AssignTo(4, [15,16]);
 LH2.NonlinearY.Diagram([0.2, 0.4], [4, 15]);
 
 var LH3 = new LineHinge();
 LH3.Translation(100, 200, 300);
 LH3.Rotation(400);
+LH3.AssignTo(5, [17, 18, 19])
 LH3.NonlinearPhiX.Diagram([0.5, 4], [10, 15]);
 
 var LH4 = new LineHinge();
@@ -83,9 +72,10 @@ LH5.NonlinearZ.Diagram([0.2, 0.4], [4, 15]);
 var params = {
 	user_defined_name_enabled : true,
 	name : " user name from parameters "
-}
+};
 
-new LineHinge(undefined, "comment", params)
+new LineHinge(undefined, 5, 20, "comment", params)
+new LineHinge(undefined, 6, [22, 24], "comment", params)
 
 var NR = new LineMeshRefinement();
 
