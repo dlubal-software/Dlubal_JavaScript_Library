@@ -138,7 +138,7 @@ LineHinge.prototype.Rotation = function (rx) {
 
 
 LineHinge.prototype.GetNo = function() {
-	return this.settings.no;
+	return this.lineHinge.no;
 }
 
 
@@ -167,6 +167,28 @@ LineHinge.prototype.AssignTo = function(surface, lines) {
 	}
 };
 
+
+/**
+* Assign wall-slab connection to line hinge
+* @functiom
+* @param	{Integer}				surface			surface id (lines must lie on this surface)
+* @param	{Integer} or {Array}	lines			one or more lines id for line hinge assign
+*/
+LineHinge.prototype.WallSlabConnection = function(offset, blockWidth) {
+	this.lineHinge.slab_wall_connection = true;
+	this.lineHinge.slab_wall_connection_offset = offset;
+	if (blockWidth != undefined) {
+		if (offset >= blockWidth) {
+			this.lineHinge.slab_wall_with_slab_edge_block;
+			this.lineHinge.slab_edge_block_width = blockWidth;
+		}
+		else {
+			console.log("The width of the slab-edge line hinge no." + this.lineHinge.no + " was not set.")
+			console.log("The width of the slab-edge block must be less than the slab offset.")
+		}
+	}	
+	return this.lineHinge.no;
+}
 
 
 function LineHingeNonlinearity(hinge, dirrection) {
@@ -214,12 +236,12 @@ LineHingeNonlinearity.prototype.FixedIfPositive = function() {
 LineHingeNonlinearity.prototype.Diagram = function(displacement, force) {
 	this.hinge[this.dirrection] = line_hinges.NONLINEARITY_TYPE_DIAGRAM;
 	applyChanges();
-	createNonlinearityTableX(this.hinge, this.table, this.table_keys, displacement, force)
+	createNonlinearityTable(this.hinge, this.table, this.table_keys, displacement, force)
 
 };
 
 
-function createNonlinearityTableX(lineHinge, table, table_keys, displacement, force) {
+function createNonlinearityTable(lineHinge, table, table_keys, displacement, force) {
 	if (displacement === undefined) {
 		displacement = [1];
 	}

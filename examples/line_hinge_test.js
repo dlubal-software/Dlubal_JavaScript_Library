@@ -40,6 +40,7 @@ LH1.AssignTo(1, 1)
 LH1.AssignTo(2, 5)
 LH1.AssignTo(3, 9)
 LH1.NonlinearX.Diagram([0.2, 0.4], [4, 15]);
+LH1.WallSlabConnection(0.03, 0.1);
 
 var LH2 = new LineHinge();
 LH2.Translation(false,false,false);
@@ -47,12 +48,14 @@ LH2.Rotation(true);
 LH2.AssignTo(1, [2, 3, 4]);
 LH2.AssignTo(4, [15,16]);
 LH2.NonlinearY.Diagram([0.2, 0.4], [4, 15]);
+LH2.WallSlabConnection(0.04);
 
 var LH3 = new LineHinge();
 LH3.Translation(100, 200, 300);
 LH3.Rotation(400);
 LH3.AssignTo(5, [17, 18, 19])
 LH3.NonlinearPhiX.Diagram([0.5, 4], [10, 15]);
+LH3.WallSlabConnection(0.03, 0.01);
 
 var LH4 = new LineHinge();
 LH4.TranslationX(true);
