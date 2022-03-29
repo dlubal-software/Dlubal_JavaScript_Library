@@ -279,7 +279,7 @@ function SetNumberOfLoadIncrements(StaticAnalysisSettings, increments) {
   if (AvoidWrongAssignment(StaticAnalysisSettings, "number_of_load_increments") === true) {
     StaticAnalysisSettings.number_of_load_increments = increments;
   }
-};
+}
 
 function SetNonlinearMethod(StaticAnalysisSettings, staticAnalysisType, nonlinearMethod) {
   if (nonlinearMethod !== undefined) {

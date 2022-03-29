@@ -283,7 +283,7 @@ function SetActingMasses(MAS, actingMasses) {
     MAS.acting_masses_in_direction_y_enabled = true;
     MAS.acting_masses_in_direction_z_enabled = true;
   }
-};
+}
 function CreateModalAnalysisSettings(no, name) {
   var ModalAnalysisSettings = undefined;
   if (no === undefined) {

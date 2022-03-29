@@ -220,7 +220,7 @@ function LineHingeNonlinearity(hinge, dirrection) {
 	applyChanges();
 	var self = this;
 	return self;
-};
+}
 
 
 LineHingeNonlinearity.prototype.FixedIfNegative = function() {
