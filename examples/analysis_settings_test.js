@@ -1,7 +1,7 @@
 
 run("/clearAll.js");
 
-var SASGeometricallyLinear = new StaticAnalysisSettings().GeometricallyLinear(1, "MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "PLATE_BENDING_THEORY_KIRCHHOFF", [true, 2.0, 3.0, 4.0], [true, 5, true]);
+new StaticAnalysisSettings().GeometricallyLinear(1, "MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "PLATE_BENDING_THEORY_KIRCHHOFF", [true, 2.0, 3.0, 4.0], [true, 5, true]);
 // var DiagramParams = {
 // 	//calculation_diagrams_enabled				: true,
 // 	//mass_conversion_enabled						: true,
@@ -12,7 +12,7 @@ var SASGeometricallyLinear = new StaticAnalysisSettings().GeometricallyLinear(1,
 // 	//maximum_number_of_reactivations				:20
 // };
 new StaticAnalysisSettings().SecondOrder(2, "MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON", 100, 1, "PLATE_BENDING_THEORY_KIRCHHOFF", [true, 2.0, 3.0, 4.0], [true, 5, true]);
-var SASLargeDeformation = new StaticAnalysisSettings().LargeDeformations(3, "MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON", 100, 1, undefined, "PLATE_BENDING_THEORY_KIRCHHOFF", [true, 2.0, 3.0, 4.0], [true, 5, true]);
+new StaticAnalysisSettings().LargeDeformations(3, "MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON", 100, 1, undefined, "PLATE_BENDING_THEORY_KIRCHHOFF", [true, 2.0, 3.0, 4.0], [true, 5, true]);
 // Modal
 DYNAMIC_ANALYSIS.MODAL.setActive(true);
 modal_analysis_settings.erase(1);
@@ -21,7 +21,7 @@ modal_analysis_settings.erase(3);
 var MASUserDefined = new ModalAnalysisSettings().UserDefinedNumberOfModes(1, "UserDefinedNumberOfModes", 10, "METHOD_LANCZOS");
 var MASMaxFrequency = new ModalAnalysisSettings().AutomaticNumberOfModesToReachMaxFreq(2, "AutomaticMaxFreq", 1200, "METHOD_LANCZOS");
 if (PRERELEASE_MODE) {
-  var MASMass = new ModalAnalysisSettings().AutomaticNumberOfModesToReachEffMass(3, "AutomaticMass", 0.8, "METHOD_LANCZOS");
+  new ModalAnalysisSettings().AutomaticNumberOfModesToReachEffMass(3, "AutomaticMass", 0.8, "METHOD_LANCZOS");
 }
 
 // direct access to  static analysis settings
