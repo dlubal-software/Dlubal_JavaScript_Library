@@ -1,3 +1,7 @@
+/*
+IMPORTANT: there is bug/crash (when RelativeToleranceForMembersOnPlane is set to memberLoadFromFreeLineLoadWizard)
+*/
+
 include("../includes/Tools/high_level_functions_support.js");
 
 var t1 = new Date().getTime();
@@ -8,7 +12,7 @@ run("../includes/Tools/clearAll.js");
 var material = createMaterial("S235");
 var section = createSection(material, "IPE 80");
 var nodesForMembers = createNodesGrid(-28, -24, [10, 5], [3, 4]);
-var lc = createLoadCase();
+var lc = LoadCase(undefined);
 var member = new Member();
 for (var i = 0; i < nodesForMembers.length; i+=2) {
 	member.Beam(undefined, [nodesForMembers[i].no, nodesForMembers[i + 1].no], section.no);
@@ -27,10 +31,20 @@ memberLoadFromAreaLoadWizard.VaryingInY(undefined, lc, [1.5, 1.5, 2000, 4, 2.5, 
 memberLoadFromAreaLoadWizard.SetGeometry(["1, 2, 11", "23, 24, 34, 33"], [11], [12]);
 memberLoadFromAreaLoadWizard.RelativeToleranceForMembersOnPlane(0.008);
 memberLoadFromAreaLoadWizard.AbsoluteToleranceForNodesOnLine(0.01);
-memberLoadFromAreaLoadWizard.LockForNewMember();
+memberLoadFromAreaLoadWizard.LockForNewMembers();
 memberLoadFromAreaLoadWizard.SmoothConcentratedLoad();
 memberLoadFromAreaLoadWizard.ConsiderMemberEccentricity();
 memberLoadFromAreaLoadWizard.ConsiderSectionDistribution();
+
+var memberLoadFromFreeLineLoadWizard = new MemberLoadFromFreeLineLoadWizard(undefined, lc, "Empty member load from area load wizard", { "magnitude_uniform" : 1500 , "node_1" : 31, "node_2" : 32});
+memberLoadFromFreeLineLoadWizard.Uniform(undefined, lc, 1000, 33, 34, undefined, "X_P (U_P )");
+memberLoadFromFreeLineLoadWizard.Linear(undefined, lc, 1000, 35, 1500, 36, undefined, "Z_P (W_P )");
+//memberLoadFromFreeLineLoadWizard.RelativeToleranceForMembersOnPlane(0.008);	// BUG/CRASH!!
+memberLoadFromFreeLineLoadWizard.AbsoluteToleranceForNodesOnLine(0.01);
+memberLoadFromFreeLineLoadWizard.ExcludedMembers([20, 21], [22, 23]);
+memberLoadFromFreeLineLoadWizard.LockForNewMembers();
+memberLoadFromFreeLineLoadWizard.ConsiderMemberEccentricity();
+memberLoadFromFreeLineLoadWizard.ConsiderSectionDistribution();
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;

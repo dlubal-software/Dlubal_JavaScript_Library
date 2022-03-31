@@ -48,11 +48,11 @@ function MemberLoadFromAreaLoadWizard (no,
  * @param {Number}  no                  Member load wizard index, can be undefined
  * @param {Object}  load_case           Load case
  * @param {Number}  magnitude_1         First area load magnitude
- * @param {Number}  node_1              Index of first node   
+ * @param {Number}  node_1              Index of first node
  * @param {Number}  magnitude_2         Second area load magnitude
  * @param {Number}  node_2              Index of second node
  * @param {Number}  magnitude_3         Third area load magnitude
- * @param {Number}  node_3              Indexof third node
+ * @param {Number}  node_3              Index of third node
  * @param {Number}  coordinate_system   Index of coordinate system, can be undefined (Global XYZ as default)
  * @param {String}  load_direction      Load direction, can be undefined (ZA as default)
  * @param {String}  comment             Comment, can be undefined
@@ -186,7 +186,7 @@ MemberLoadFromAreaLoadWizard.prototype.SetGeometry = function (corner_nodes,
  * Sets lock for new members
  * @param {Boolean} lock_for_new_members    Lock for new members, can be undefined (true as defeault)
  */
-MemberLoadFromAreaLoadWizard.prototype.LockForNewMember = function (lock_for_new_members) {
+MemberLoadFromAreaLoadWizard.prototype.LockForNewMembers = function (lock_for_new_members) {
     if (typeof lock_for_new_members === "undefined") {
         lock_for_new_members = true;
     }
