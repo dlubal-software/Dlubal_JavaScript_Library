@@ -1,7 +1,6 @@
 /**
 * Creates line hinge
 * @function
-* @constructor
 * @param	{Number}	no				Index of line hinge, can be undefined
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			line hinge parameters, can be undefined
@@ -25,7 +24,7 @@ var createLineHinge = function (no,
 
 /**
 * Creates line hinge constant
-* @functiom
+* @function
 * @param	{Boolean or Float}	hinge		hinge input (true, false, number(stiffness))
 * @return	{Object}	Created hinge constant
 */
@@ -38,7 +37,11 @@ function CreateHingeConstant(hinge) {
   return hinge_constant;
 }
 
-
+/**
+ * Creates Hinge
+ * @param {Object} hinge 
+ * @returns Hinge object
+ */
 function CreateHinge(hinge) {
   if (hinge === true || hinge === false) {
     return CreateHingeConstant(hinge);
@@ -55,7 +58,7 @@ function CreateHinge(hinge) {
 * @constructor
 * @param	{Number}				no				Index of line hinge, can be undefined
 * @param	{Integer}				surface			Surface id (lines must lie on this surface)
-* @param	{Integer} or {Array}	lines			One or more lines id for line hinge assign
+* @param	{Integer or Array} 		lines			One or more lines id for line hinge assign
 * @param	{String}				comment			Comment, can be undefined
 * @param	{Object}				params			line hinge parameters, can be undefined
 * @return	{Object}	Created line hinge
@@ -66,13 +69,16 @@ function LineHinge(no,
                    comment,
                    params) {
 	lineHinge = createLineHinge(no, comment, params);
-	this.lineHinge = lineHinge
+	this.lineHinge = lineHinge;
 	this.NonlinearX = new LineHingeNonlinearity(lineHinge, "X");
 	this.NonlinearY = new LineHingeNonlinearity(lineHinge, "Y");
 	this.NonlinearZ = new LineHingeNonlinearity(lineHinge, "Z");
 	this.NonlinearPhiX = new LineHingeNonlinearity(lineHinge, "phiX");
 	var self = this;
-	self.AssignTo(surface, lines);
+	if ((surface !== undefined && surface === typeof(Number)) && lines !== undefined) {
+		self.AssignTo(surface, lines);
+	}
+	
 	return self;
 }
 
@@ -146,7 +152,7 @@ LineHinge.prototype.GetNo = function() {
 * Assign line hinge to line and surface (line must be involved in the surface)
 * @functiom
 * @param	{Integer}				surface			surface id (lines must lie on this surface)
-* @param	{Integer} or {Array}	lines			one or more lines id for line hinge assign
+* @param	{Integer or Array}  	lines			one or more lines id for line hinge assign
 */
 LineHinge.prototype.AssignTo = function(surface, lines) {
 	if (surface != undefined){
@@ -191,8 +197,8 @@ LineHinge.prototype.WallSlabConnection = function(offset, blockWidth) {
 }
 
 
-function LineHingeNonlinearity(hinge, dirrection) {
-	dirrection_switcher = {
+function LineHingeNonlinearity(hinge, direction) {
+	direction_switcher = {
 		"X"		: "translational_release_u_x_nonlinearity",
 		"Y"		: "translational_release_u_y_nonlinearity",
 		"Z"		: "translational_release_u_z_nonlinearity",
@@ -213,9 +219,9 @@ function LineHingeNonlinearity(hinge, dirrection) {
 		"phiX"	: ["rotation", "moment"],
 	}
 
-	this.dirrection = dirrection_switcher[dirrection];
-	this.table = table_switcher[dirrection];
-	this.table_keys = table_keys_switcher[dirrection];
+	this.direction = direction_switcher[direction];
+	this.table = table_switcher[direction];
+	this.table_keys = table_keys_switcher[direction];
 	this.hinge = hinge;
 	applyChanges();
 	var self = this;
@@ -224,17 +230,17 @@ function LineHingeNonlinearity(hinge, dirrection) {
 
 
 LineHingeNonlinearity.prototype.FixedIfNegative = function() {
-	this.hinge[this.dirrection] = line_hinges.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE;
+	this.hinge[this.direction] = line_hinges.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE;
 };
 
 
 LineHingeNonlinearity.prototype.FixedIfPositive = function() {
-	this.hinge[this.dirrection] = line_hinges.NONLINEARITY_TYPE_FAILURE_IF_POSITIVE;
+	this.hinge[this.direction] = line_hinges.NONLINEARITY_TYPE_FAILURE_IF_POSITIVE;
 };
 
 
 LineHingeNonlinearity.prototype.Diagram = function(displacement, force) {
-	this.hinge[this.dirrection] = line_hinges.NONLINEARITY_TYPE_DIAGRAM;
+	this.hinge[this.direction] = line_hinges.NONLINEARITY_TYPE_DIAGRAM;
 	applyChanges();
 	createNonlinearityTable(this.hinge, this.table, this.table_keys, displacement, force)
 

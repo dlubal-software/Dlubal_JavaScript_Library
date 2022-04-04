@@ -27,7 +27,7 @@ if (RFEM) {
 	for (var i = 1; i <= 4*number_of_surfaces; ++i) {
 		Surface(undefined, [i, i + 1, i + 2, i + 3], thickness);
 		i = i + 3;
-	};
+	}
 }
 
 //   ################# Line Hinges
@@ -36,26 +36,25 @@ if (RFEM) {
 var LH1 = new LineHinge();
 LH1.Translation(true,true,true);
 LH1.Rotation(false);
-LH1.AssignTo(1, 1)
-LH1.AssignTo(2, 5)
-LH1.AssignTo(3, 9)
-LH1.NonlinearX.Diagram([0.2, 0.4], [4, 15]);
-LH1.WallSlabConnection(0.03, 0.1);
+LH1.AssignTo(1, 1);
+LH1.AssignTo(2, 5);
+LH1.AssignTo(3, 9);
 
 var LH2 = new LineHinge();
-LH2.Translation(false,false,false);
-LH2.Rotation(true);
 LH2.AssignTo(1, [2, 3, 4]);
 LH2.AssignTo(4, [15,16]);
-LH2.NonlinearY.Diagram([0.2, 0.4], [4, 15]);
 LH2.WallSlabConnection(0.04);
+
+
 
 var LH3 = new LineHinge();
 LH3.Translation(100, 200, 300);
 LH3.Rotation(400);
 LH3.AssignTo(5, [17, 18, 19])
+LH3.NonlinearX.Diagram([0.2, 0.4], [4, 15]);
+LH3.NonlinearY.Diagram([0.2, 0.4], [4, 15]);
 LH3.NonlinearPhiX.Diagram([0.5, 4], [10, 15]);
-LH3.WallSlabConnection(0.03, 0.01);
+
 
 var LH4 = new LineHinge();
 LH4.TranslationX(true);
@@ -77,8 +76,8 @@ var params = {
 	name : " user name from parameters "
 };
 
-new LineHinge(undefined, 5, 20, "comment", params)
-new LineHinge(undefined, 6, [22, 24], "comment", params)
+new LineHinge(undefined, 5, 20, "comment", params);
+new LineHinge(undefined, 6, [22, 24], "comment", params);
 
 var NR = new LineMeshRefinement();
 
@@ -99,10 +98,10 @@ NR1.SetLines([10, 13, 17]);
 var NR2 = new LineMeshRefinement();
 NR2.Gradual(7, 4, 27);
 
-var NR3 = new LineMeshRefinement()
+var NR3 = new LineMeshRefinement();
 NR3.NumberFiniteElements(18, 6, 20);
 
 var NR4 = new LineMeshRefinement(undefined, "Target length");
-NR4.TargetFELenght(5, 2, 25);
+NR4.TargetFELength(5, 2, 25);
 
 var NR5 = new LineMeshRefinement(8, "NR5", 24, 1, 3);
