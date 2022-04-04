@@ -75,7 +75,7 @@ function LineHinge(no,
 	this.NonlinearZ = new LineHingeNonlinearity(lineHinge, "Z");
 	this.NonlinearPhiX = new LineHingeNonlinearity(lineHinge, "phiX");
 	var self = this;
-	if ((surface !== undefined && surface === typeof(Number)) && lines !== undefined) {
+	if (surface !== undefined && lines !== undefined) {
 		self.AssignTo(surface, lines);
 	}
 	
@@ -145,12 +145,12 @@ LineHinge.prototype.Rotation = function (rx) {
 
 LineHinge.prototype.GetNo = function() {
 	return this.lineHinge.no;
-}
+};
 
 
 /**
 * Assign line hinge to line and surface (line must be involved in the surface)
-* @functiom
+* @function
 * @param	{Integer}				surface			surface id (lines must lie on this surface)
 * @param	{Integer or Array}  	lines			one or more lines id for line hinge assign
 */
@@ -165,7 +165,7 @@ LineHinge.prototype.AssignTo = function(surface, lines) {
 		else {
 			for (var i = 0; i < lines.length; ++i)
             {
-            	table = surfaces[surface].line_hinges_table[row + i]
+            	table = surfaces[surface].line_hinges_table[row + i];
                 table.line_number = lines[i];
                 table.line_hinge = this.lineHinge.no;
             }
@@ -176,7 +176,7 @@ LineHinge.prototype.AssignTo = function(surface, lines) {
 
 /**
 * Assign wall-slab connection to line hinge
-* @functiom
+* @function
 * @param	{Integer}				surface			surface id (lines must lie on this surface)
 * @param	{Integer} or {Array}	lines			one or more lines id for line hinge assign
 */
@@ -189,12 +189,12 @@ LineHinge.prototype.WallSlabConnection = function(offset, blockWidth) {
 			this.lineHinge.slab_edge_block_width = blockWidth;
 		}
 		else {
-			console.log("The width of the slab-edge line hinge no." + this.lineHinge.no + " was not set.")
-			console.log("The width of the slab-edge block must be less than the slab offset.")
+			console.log("The width of the slab-edge line hinge no." + this.lineHinge.no + " was not set.");
+			console.log("The width of the slab-edge block must be less than the slab offset.");
 		}
 	}	
 	return this.lineHinge.no;
-}
+};
 
 
 function LineHingeNonlinearity(hinge, direction) {
@@ -203,21 +203,21 @@ function LineHingeNonlinearity(hinge, direction) {
 		"Y"		: "translational_release_u_y_nonlinearity",
 		"Z"		: "translational_release_u_z_nonlinearity",
 		"phiX"	: "rotational_release_phi_x_nonlinearity",
-	}
+	};
 
 	table_switcher = {
 		"X"		: "diagram_along_x_table",
 		"Y"		: "diagram_along_y_table",
 		"Z"		: "diagram_along_z_table",
 		"phiX"	: "diagram_around_x_table",
-	}
+	};
 
 	table_keys_switcher = {
 		"X"		: ["displacement", "force"],
 		"Y"		: ["displacement", "force"],
 		"Z"		: ["displacement", "force"],
 		"phiX"	: ["rotation", "moment"],
-	}
+	};
 
 	this.direction = direction_switcher[direction];
 	this.table = table_switcher[direction];
@@ -242,7 +242,7 @@ LineHingeNonlinearity.prototype.FixedIfPositive = function() {
 LineHingeNonlinearity.prototype.Diagram = function(displacement, force) {
 	this.hinge[this.direction] = line_hinges.NONLINEARITY_TYPE_DIAGRAM;
 	applyChanges();
-	createNonlinearityTable(this.hinge, this.table, this.table_keys, displacement, force)
+	createNonlinearityTable(this.hinge, this.table, this.table_keys, displacement, force);
 
 };
 

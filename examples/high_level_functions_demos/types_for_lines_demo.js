@@ -41,43 +41,47 @@ LH1.AssignTo(2, 5);
 LH1.AssignTo(3, 9);
 
 var LH2 = new LineHinge();
+LH2.Translation(true,false,true);
 LH2.AssignTo(1, [2, 3, 4]);
-LH2.AssignTo(4, [15,16]);
+LH2.AssignTo(2, [8,6]);
 LH2.WallSlabConnection(0.04);
-
-
 
 var LH3 = new LineHinge();
 LH3.Translation(100, 200, 300);
 LH3.Rotation(400);
-LH3.AssignTo(5, [17, 18, 19])
+LH3.AssignTo(3, [10,11,12]);
 LH3.NonlinearX.Diagram([0.2, 0.4], [4, 15]);
 LH3.NonlinearY.Diagram([0.2, 0.4], [4, 15]);
+LH3.NonlinearZ.Diagram([0.2, 0.4], [4, 15]);
 LH3.NonlinearPhiX.Diagram([0.5, 4], [10, 15]);
 
 
-var LH4 = new LineHinge();
+var LH4 = new LineHinge(undefined,4,[13,16]);
 LH4.TranslationX(true);
 LH4.NonlinearX.FixedIfNegative();
-LH4.NonlinearY.FixedIfPositive();
+LH4.NonlinearY.FixedIfNegative();
 LH4.NonlinearZ.FixedIfNegative();
 LH4.NonlinearPhiX.FixedIfNegative();
 
-var LH5 = new LineHinge();
+var LH5 = new LineHinge(undefined,6,[21,23]);
 LH5.TranslationX(450);
 LH5.TranslationY(false);
 LH5.TranslationZ(320);
 
-LH5.lineHinge.translational_release_u_x_nonlinearity = line_hinges.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE;
-LH5.NonlinearZ.Diagram([0.2, 0.4], [4, 15]);
+var LH6 = new LineHinge(undefined,5,[17,18]);
+LH6.TranslationX(true);
+LH6.NonlinearX.FixedIfPositive();
+LH6.NonlinearY.FixedIfPositive();
+LH6.NonlinearZ.FixedIfPositive();
+LH6.NonlinearPhiX.FixedIfPositive();
 
 var params = {
 	user_defined_name_enabled : true,
-	name : " user name from parameters "
+	name : "user name from parameters"
 };
 
 new LineHinge(undefined, 5, 20, "comment", params);
-new LineHinge(undefined, 6, [22, 24], "comment", params);
+new LineHinge(undefined, 6, [22,24], "comment", params);
 
 var NR = new LineMeshRefinement();
 
