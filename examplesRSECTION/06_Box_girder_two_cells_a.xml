@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<script>
+    <arguments>
+	<argument argument-name="l_1" default-value="16.260" label-name="Total width" />
+	<argument argument-name="l_3" default-value="6.080" label-name="Length of bottom slab" />
+	<argument argument-name="h" default-value="2.6" label-name="Total height" />
+	<argument argument-name="d_1" default-value="0.260" label-name="Cantilever wing thickness" />
+	<argument argument-name="d_2" default-value="0.400" label-name="Web thickness" />
+	<argument argument-name="d_3" default-value="0.250" label-name="Bottom slab thickness" />
+	<argument argument-name="d_4" default-value="0.500" label-name="Interior web thickness" />
+	<argument argument-name="corner_1" default-value="[0.60, 0.30]" label-name="Chamfer for top internal corners [y, z]" />
+	<argument argument-name="corner_2" default-value="[0.25, 0.25]" label-name="Chamfer for bottom internal corners [y, z]" />
+	<argument argument-name="r_1" default-value="0.500" label-name="Top fillet radius" />
+	<argument argument-name="r_2" default-value="0.400" label-name="Bottom fillet radius" />
+	<argument argument-name="alpha" default-value="65" label-name="Web inclination (degree)" />
+    </arguments>
+</script>
