@@ -6,10 +6,7 @@
  * @param {String}  comment     Comment, can be undefined
  * @param {Object}  params      Additional parameters, can be undefined
  */
-function SnowLoadWizard (no,
-    comment,
-    params) {
-    this.snowLoadWizard = createSnowLoadWizard(no, comment, params);
+function SnowLoadWizard () {
 }
 
 /**
@@ -38,7 +35,7 @@ SnowLoadWizard.prototype.MonopitchRoofType = function (no,
  * Creates duopitch snow load wizard
  * @param {Number}  no                  Snow load wizard index, can be undefined
  * @param {Array}   roof_corner_nodes   Roofs corner nodes indexes
- * @param {Object} load_case_1          Load case (Case i)
+ * @param {Object}  load_case_1         Load case (Case i)
  * @param {Object}  load_case_2         Load case (Case ii)
  * @param {Object}  load_case_3         Load case (Case iii)
  * @param {String}  comment             Comment, can be undefined
@@ -64,13 +61,13 @@ SnowLoadWizard.prototype.Duopitch = function (no,
 
 /**
  * Sets loaded roofs
- * @param {Array}   loaded_planes   Enable or disable loaded roofs (array of booleans)
+ * @param {Array}   loaded_planes_accessibility   Enable or disable loaded roofs (array of booleans [roof1 | roof1, roof2])
  */
-SnowLoadWizard.prototype.SetLoadedRoofes = function(loaded_planes) {
+SnowLoadWizard.prototype.SetLoadedRoofes = function(loaded_planes_accessibility) {
     console.log(this.snowLoadWizard.loaded_planes.row_count());
-    ASSERT(loaded_planes.length === this.snowLoadWizard.loaded_planes.row_count(), "Number of specified planes has to be equal to number of roofs");
+    ASSERT(loaded_planes_accessibility.length === this.snowLoadWizard.loaded_planes.row_count(), "Number of specified planes has to be equal to number of roofs");
     for (var i = 1; i <= this.snowLoadWizard.loaded_planes.row_count(); ++i) {
-        this.snowLoadWizard.loaded_planes[i].checked = loaded_planes[i - 1];
+        this.snowLoadWizard.loaded_planes[i].checked = loaded_planes_accessibility[i - 1];
     }
 };
 
