@@ -19,7 +19,7 @@
  * @param {Object} params Modal analysis settings parameters, empty by default
  * @example
  * // returns 2
- * globalNS.method1(5, 10); 
+ * globalNS.method1(5, 10);
  * @returns Object ModalAnalysisSettings
 */
  function ModalAnalysisSettings(no,
@@ -298,8 +298,8 @@ function SetActingMasses(MAS, actingMasses) {
 }
 /**
  * @memberof AnalysisSettings
- * @param {*} no 
- * @param {*} name 
+ * @param {*} no
+ * @param {*} name
  * @returns {Object} ModalAnalysisSettings
  */
 function CreateModalAnalysisSettings(no, name) {

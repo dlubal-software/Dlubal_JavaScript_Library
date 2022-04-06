@@ -116,7 +116,7 @@ StructureModification.prototype.Members = function (member_stiffness_modificatio
 /**
  * Modification of surfaces
  * @param {Object} 	surface_stiffness_modification 	Surface stiffness modification
- * @param {Array}	surfaces						List of surfaces indexes 
+ * @param {Array}	surfaces						List of surfaces indexes
  * @param {String}	comment 						Comment, can be undefined
  */
 StructureModification.prototype.Surfaces = function (surface_stiffness_modification,
@@ -157,7 +157,7 @@ StructureModification.prototype.MemberHinges = function (member_no,
 	this.structure_modification.modify_stiffnesses_member_hinges = true;
 	var membersWithHinges = getMembersWithHinges();
 	ASSERT(membersWithHinges.length === this.structure_modification.modify_stiffnesses_member_hinges_table.row_count(), "StructureModification.prototype.MemberHinges");
-	
+
 	var row = -1;
 	for (var i = 0; i < membersWithHinges.length; ++i) {
 		if (member_no === membersWithHinges[i][0] && member_side.toLowerCase() === membersWithHinges[i][1].toLowerCase()) {
@@ -183,7 +183,7 @@ StructureModification.prototype.MemberHinges = function (member_no,
 /**
  * MOdification for line hinges
  * @param {Number}	surface_no					Surface index
- * @param {Number}	line_no						Line index 
+ * @param {Number}	line_no						Line index
  * @param {Number}	translational_factor_u_x 	Translational factor Cu,x, can be undefined (1.00 by default)
  * @param {Number}	translational_factor_u_y 	Translational factor Cu,y, can be undefined (1.00 by default)
  * @param {Number}	translational_factor_u_z 	Translational factor Cu,z, can be undefined (1.00 by default)
@@ -200,7 +200,7 @@ StructureModification.prototype.LineHinges = function (surface_no,
 	this.structure_modification.modify_stiffnesses_line_hinges = true;
 	var lineWithHinges = getLinesWithHinges();
 	ASSERT(lineWithHinges.length === this.structure_modification.modify_stiffnesses_line_hinges_table.row_count(), "StructureModification.prototype.LineHinges");
-	
+
 	var row = -1;
 	for (var i = 0; i < lineWithHinges.length; ++i) {
 		if (lineWithHinges[i][0] === surface_no && lineWithHinges[i][1] === line_no) {
@@ -239,7 +239,7 @@ StructureModification.prototype.NodalSupports = function (node_no,
 	restraint_factor_phi_y,
 	restraint_factor_phi_z) {
 	ASSERT(typeof node_no !== "undefined", "Node index must be specified");
-	
+
 	var row = -1;
 	this.structure_modification.modify_stiffnesses_nodal_supports = true;
 	var nodesWithSupport = getObjectsWithSupport(nodes);

@@ -1,6 +1,6 @@
 // Problems:
 // displacement / rotation - does not work?
-// symetric - there is no support in API?
+// symmetric - there is no support in API?
 
 /**
 * Creates member hinge
