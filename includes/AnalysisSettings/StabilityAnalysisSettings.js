@@ -1,4 +1,16 @@
-// Main function
+/**
+ * Constructor creates a new object of type StabilityAnalysisSettings
+ * @class
+ * @classdesc StabilityAnalysisSettings is a class that represents a stability analysis settings.
+ * @param {*} no 
+ * @param {*} isEigenvalueSolver 
+ * @param {*} isIncremental 
+ * @param {*} eigenvalueMethod 
+ * @param {*} numberOfLowestEigenvalues 
+ * @param {*} comment 
+ * @param {*} params 
+ * @returns object Stability Analysis Settings
+ */
 function StabilityAnalysisSettings(no,
   isEigenvalueSolver,
   isIncremental,
@@ -210,7 +222,7 @@ function StabilityAnalysisType(eigenValue, incremental) {
 
 function SetEigenValueMethod(method) {
 
-  const eigenValueMethods_dict = {
+  var eigenValueMethods_dict = {
     "EIGENVALUE_METHOD_LANCZOS": "EIGENVALUE_METHOD_LANCZOS",
     "EIGENVALUE_METHOD_ROOTS_OF_CHARACTERISTIC_POLYNOMIAL": "EIGENVALUE_METHOD_ROOTS_OF_CHARACTERISTIC_POLYNOMIAL",
     "EIGENVALUE_METHOD_SUBSPACE_ITERATION": "EIGENVALUE_METHOD_SUBSPACE_ITERATION",
@@ -218,7 +230,7 @@ function SetEigenValueMethod(method) {
   };
 
   if (method !== undefined) {
-    const eigenValueMethod = eigenValueMethods_dict[method];
+    var eigenValueMethod = eigenValueMethods_dict[method];
     if (eigenValueMethod === undefined) {
       eigenValueMethod = "EIGENVALUE_METHOD_LANCZOS";
       console.log("Wrong eigenvalue solver method input. Value was: " + method);
@@ -233,13 +245,13 @@ function SetEigenValueMethod(method) {
 
 function SetMatrixType(matrixType) {
 
-  const eigenValueMethods_dict = {
+  var eigenValueMethods_dict = {
     "MATRIX_TYPE_STANDARD": "MATRIX_TYPE_STANDARD",
     "MATRIX_TYPE_UNIT": "MATRIX_TYPE_UNIT"
   };
 
   if (matrixType !== undefined) {
-    const matrix = eigenValueMethods_dict[matrixType];
+    var matrix = eigenValueMethods_dict[matrixType];
     if (matrix === undefined) {
       matrix = "MATRIX_TYPE_STANDARD";
       console.log("Wrong eigenvalue solver method input. Value was: " + matrixType);

@@ -1,0 +1,17 @@
+{
+    "name": "Dlubal",
+    "version": "1.0.0",
+    "description": "High function library for Dlubal in-application scripting",
+    "author": "Dlubal Software",
+    "license": "MIT",
+    "repository": "https://github.com/Dlubal-Software/Dlubal_JavaScript_Library",
+    "bugs": "https://github.com/Dlubal-Software/Dlubal_JavaScript_Library/issues",
+    "keywords": [
+      "javascript",
+      "dlubal",
+      "rfem",
+      "rstab",
+      "rsection",
+      "structural engineering"
+    ]
+  }

@@ -144,7 +144,10 @@ SpectralAnalysisSettings.prototype.IncludeMissingMasses = function (ruleForMasse
 };
 
 /**
- *
+ * Constructor creates basic spectral analysis settings
+ * @class
+ * @classdesc Class for setting up the spectral analysis settings.
+ * @constructor
  * @param {*} no
  * @param {*} name
  * @param {*} combinationRulePeriodic
@@ -155,7 +158,7 @@ SpectralAnalysisSettings.prototype.IncludeMissingMasses = function (ruleForMasse
  * @param {*} saveResultsOfAllSelectedModes
  * @param {*} comment
  * @param {*} params
- * @returns
+ * @@returns Object SpectralAnalysisSettings
  */
 function SpectralAnalysisSettings(no,
   name,
@@ -220,7 +223,7 @@ function SpectralAnalysisSettings(no,
 
 /**
  *
- * @returns
+ * @returns No
  */
 SpectralAnalysisSettings.prototype.GetNo = function () {
 

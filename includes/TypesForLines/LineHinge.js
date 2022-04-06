@@ -1,164 +1,264 @@
 /**
 * Creates line hinge
-* @class
-* @constructor
-* @param	{Number}	no					Index of line hinge, can be undefined
-* @param	{Number}	surface_no      	Surface index
-* @param	{Array} 	lines_no        	List of lines indexes, can be undefined (all surface's boundary lines will be used)
-* @param	{String}	comment				Comment, can be undefined
-* @param	{Object}	params				Line hinge parameters, can be undefined
-* @return	{Object}	Created line hinge
-*/
-function LineHinge (no,
-    surface_no,
-    lines_no,
-    comment,
-    params) {
-    if (arguments.length > 0) {
-        return this.line_hinge = createLineHinge(no, surface_no, lines_no, comment, params);
-    }
-}
-
-/**
- * Creates line hinge with specified translational spring constant
- * @param   {Number}	no					        Index of line hinge, can be undefined
- * @param	{Number}	surface_no      	        Surface index
- * @param	{Array} 	lines_no        	        List of lines indexes, can be undefined (all surface's boundary lines will be used)
- * @param   {Number}	translational_release_u_x	Translational spring constant Cu,x, can be undefined (0.0 by default)
- * @param   {Number}	translational_release_u_y 	Translational spring constant Cu,y, can be undefined (0.0 by default)
- * @param   {Number}	translational_release_u_z 	Translational spring constant Cu,z, can be undefined (0.0 by default)
- * @param	{String}	comment				        Comment, can be undefined
- * @param	{Object}	params				        Line hinge parameters, can be undefined
- */
-LineHinge.prototype.Translational = function (no,
-    surface_no,
-    lines_no,
-    translational_release_u_x,
-	translational_release_u_y,
-	translational_release_u_z,
-    comment,
-    params) {
-    ASSERT(typeof surface_no !== "undefined", "Surface index must be specified");
-    this.line_hinge = createLineHinge(no, surface_no, lines_no, comment, params);
-    if (typeof translational_release_u_x !== "undefined") {
-        this.line_hinge.translational_release_u_x = translational_release_u_x;
-    }
-    if (typeof translational_release_u_y !== "undefined") {
-        this.line_hinge.translational_release_u_y = translational_release_u_y;
-    }
-    if (typeof translational_release_u_z !== "undefined") {
-        this.line_hinge.translational_release_u_z = translational_release_u_z;
-    }
-}
-
-/**
- * Creates line hinge with specified rotational spring constant
- * @param   {Number}	no				                Index of line hinge, can be undefined
- * @param	{Number}	surface_no                      Surface index
- * @param	{Array} 	lines_no                        List of lines indexes, can be undefined (all surface's boundary lines will be used)
- * @param   {Number}    rotational_release_phi_x        Rotational spring constant Cφ,x, can be undefined (0.00 by default)
- * @param   {Array}     force_moment_values             Force/moment diagram values [force1, max_moment1, min_moment1, note1, ... forcen, max_momentn, min_momentn, noten]
- * @param   {String}    force_moment_diagram_dependency Moment dependent on (n, vy, vz), can be undefined (dependens on "n" by default)
- * @param   {Boolean}   symetric                        Symetric, can be undefined (true by default)
- * @param	{String}	comment				            Comment, can be undefined
- * @param	{Object}	params				            Line hinge parameters, can be undefined
- */
-LineHinge.prototype.Rotational = function (no,
-    surface_no,
-    lines_no,
-    rotational_release_phi_x,
-    force_moment_values,
-    force_moment_diagram_dependency,
-    symetric,
-    comment,
-    params) {
-    ASSERT(typeof surface_no !== "undefined", "Surface index must be specified");
-    this.line_hinge = createLineHinge(no, surface_no, lines_no, comment, params);
-    if (typeof rotational_release_phi_x !== "undefined") {
-        this.line_hinge.rotational_release_phi_x = rotational_release_phi_x;
-    }
-    if (typeof force_moment_values !== "undefined") {
-        ASSERT(force_moment_values.length % 3 === 0, "Values must be specified as array like this: [force1, max_moment1, note1, ... forcen, max_momentn, noten]")
-        this.line_hinge.rotational_release_phi_x_nonlinearity = line_hinges.NONLINEARITY_TYPE_FORCE_MOMENT_DIAGRAM;
-        for (var i = 0; i < force_moment_values.length; i+=3) {
-            this.line_hinge.force_moment_diagram_around_x_table[i / 3 + 1].force = force_moment_values[i];
-            this.line_hinge.force_moment_diagram_around_x_table[i / 3 + 1].max_moment = force_moment_values[i + 1];
-            this.line_hinge.force_moment_diagram_around_x_table[i / 3 + 1].note = force_moment_values[i + 2];
-        }
-    }
-    if (typeof force_moment_diagram_dependency !== "undefined") {
-        switch (force_moment_diagram_dependency)
-        {
-            case "n":
-                this.line_hinge.force_moment_diagram_around_x_depends_on = line_hinges.FORCE_MOMENT_DIAGRAM_DEPENDS_ON_N;
-                break;
-            case "vy":
-                this.line_hinge.force_moment_diagram_around_x_depends_on = line_hinges.FORCE_MOMENT_DIAGRAM_DEPENDS_ON_VY;
-                break;
-            case "vz":
-                this.line_hinge.force_moment_diagram_around_x_depends_on = line_hinges.FORCE_MOMENT_DIAGRAM_DEPENDS_ON_VZ;
-                break;
-            default:
-                ASSERT(false, "Unknown force moment diagram dependency");
-        }
-    }
-    if (typeof symetric !== "undefined") {
-        this.line_hinge.force_moment_diagram_around_x_symmetric = symetric;
-    }
-}
-
-/**
- * Sets Slab-Wall connection
- * @param   {Boolean}   slab_wall_connection    Slab-Wall connection, can be undefined (true by default)
- * @param   {Number}    offset                  Slab-Wall connection offset
- * @param   {Number}    block_width             Width of slab-edge block, can be undefined (0.0 by default)
- */
-LineHinge.prototype.SlabWallConnection = function(offset,
-    block_width) {
-    ASSERT(typeof offset !== "undefined", "Slab-Wall connection offset must be specified");
-    this.line_hinge.slab_wall_connection = true;
-    this.line_hinge.slab_wall_connection_offset = offset;
-    if (typeof block_width !== "undefined") {
-        ASSERT(block_width < offset, "Block width must be less then offest");
-        this.line_hinge.slab_edge_block_width = block_width;
-    }
-}
-
-/**
-* Creates line hinge (private)
-* @param	{Number}	no					Index of line hinge, can be undefined
-* @param	{Number}	surface_no      	Surface index
-* @param	{Array} 	lines_no        	List of lines indexes, can be undefined (all surface's boundary lines will be used)
-* @param	{String}	comment				Comment, can be undefined
-* @param	{Object}	params				Line hinge parameters, can be undefined
+* @param	{Number}	no				Index of line hinge, can be undefined
+* @param	{String}	comment			Comment, can be undefined
+* @param	{Object}	params			line hinge parameters, can be undefined
 * @return	{Object}	Created line hinge
 */
 var createLineHinge = function (no,
-    surface_no,
-    lines_no,
-    comment,
-    params) {
-    var line_hinge = engine.create_line_hinge(no);
-    if (typeof surface_no !== "undefined") {
-        if (surfaces.exist(surface_no)) {
-            var surface = surfaces[surface_no];
-            if (typeof lines_no === "undefined") {
-                for (var i = 0; i < surface.boundary_lines.length; ++i) {
-                    surface.line_hinges_table[i + 1].line_number = surface.boundary_lines[i];
-                    surface.line_hinges_table[i + 1].line_hinge = line_hinge;
-                }
+								comment,
+								params) {
+
+	if (no != undefined) {
+		var lineHinge = line_hinges.create(no);
+	}
+	else {
+	 var lineHinge = line_hinges.create();
+	}
+	set_comment_and_parameters(lineHinge, comment, params);
+
+	return lineHinge;
+};
+
+
+/**
+* Creates line hinge constant
+* @param	{Boolean | Float}	hinge		hinge input (true, false, number(stiffness))
+* @return	{Object}	Created hinge constant
+*/
+function CreateHingeConstant(hinge) {
+  var hinge_constant = line_hinges["SPRING_CONSTANT_NO"];
+
+  if (hinge === true) {
+    hinge_constant = line_hinges["SPRING_CONSTANT_YES"];
+  }
+  return hinge_constant;
+}
+
+/**
+ * Creates Hinge
+ * @param {Object} hinge 
+ * @returns Hinge object
+ */
+function CreateHinge(hinge) {
+  if (hinge === true || hinge === false) {
+    return CreateHingeConstant(hinge);
+  }
+  else {
+    return hinge;
+  }
+}
+
+
+/**
+ * Creates line hinge
+ * @class
+ * @constructor
+ * @param	{Number}				no				Index of line hinge, can be undefined
+ * @param	{Integer}				surface			Surface id (lines must lie on this surface)
+ * @param	{Integer | Array} 		lines			One or more lines id for line hinge assign
+ * @param	{String}				comment			Comment, can be undefined
+ * @param	{Object}				params			line hinge parameters, can be undefined
+ * @return	{Object}	Created line hinge
+*/
+function LineHinge(no,
+				   surface,
+				   lines,
+                   comment,
+                   params) {
+	lineHinge = createLineHinge(no, comment, params);
+	this.lineHinge = lineHinge;
+	this.NonlinearX = new LineHingeNonlinearity(lineHinge, "X");
+	this.NonlinearY = new LineHingeNonlinearity(lineHinge, "Y");
+	this.NonlinearZ = new LineHingeNonlinearity(lineHinge, "Z");
+	this.NonlinearPhiX = new LineHingeNonlinearity(lineHinge, "phiX");
+	var self = this;
+	if (surface !== undefined && lines !== undefined) {
+		self.AssignTo(surface, lines);
+	}
+	
+	return self;
+}
+
+
+/**
+* Set translation constants ux, uy, uz to line hinge
+* @param	{Boolean | Float}	ux				Translation ux (true, false, number(stiffness [Nm^2]))
+* @param	{Boolean | Float}	uy				Translation uy (true, false, number(stiffness [Nm^2]))
+* @param	{Boolean | Float}	uz				Translation uz (true, false, number(stiffness [Nm^2]))
+* @return	{Object}	line hinge in parent
+*/
+LineHinge.prototype.Translation = function (ux, uy, uz) {
+	this.lineHinge.translational_release_u_x = CreateHinge(ux);
+	this.lineHinge.translational_release_u_y = CreateHinge(uy);
+	this.lineHinge.translational_release_u_z = CreateHinge(uz);
+	return this.lineHinge;
+};
+
+
+/**
+* Set translation constant ux to line hinge
+* @param	{Boolean | Float}	ux				Translation ux (true, false, number(stiffness [Nm^2]))
+* @return	{Object}	line hinge in parent
+*/
+LineHinge.prototype.TranslationX = function (ux) {
+	this.lineHinge.translational_release_u_x = CreateHinge(ux);
+	return this.lineHinge;
+};
+
+
+/**
+* Set translation constant uy to line hinge
+* @param	{Boolean | Float}	uy				Translation uy (true, false, number(stiffness [Nm^2]))
+* @return	{Object}	line hinge in parent
+*/
+LineHinge.prototype.TranslationY = function (uy) {
+	this.lineHinge.translational_release_u_y = CreateHinge(uy);
+	return this.lineHinge;
+};
+
+
+/**
+* Set translation constant uz to line hinge
+* @param	{Boolean | Float}	uz				Translation uz (true, false, number(stiffness [Nm^2]))
+* @return	{Object}	line hinge in parent
+*/
+LineHinge.prototype.TranslationZ = function (uz) {
+	this.lineHinge.translational_release_u_z = CreateHinge(uz);
+
+	return this.lineHinge;
+};
+
+
+/**
+* Set rotation constant rx to line hinge
+* @param	{Boolean | Float}	rx				Rotation rx (true, false, number(stiffness [Nm^2]))
+* @return	{Object}	line hinge in parent
+*/
+LineHinge.prototype.Rotation = function (rx) {
+	this.lineHinge.rotational_release_phi_x = CreateHinge(rx);
+	return this.lineHinge;
+};
+
+
+LineHinge.prototype.GetNo = function() {
+	return this.lineHinge.no;
+};
+
+
+/**
+* Assign line hinge to line and surface (line must be involved in the surface)
+* @param	{Integer}				surface			surface id (lines must lie on this surface)
+* @param	{Integer | Array}  	lines			one or more lines id for line hinge assign
+*/
+LineHinge.prototype.AssignTo = function(surface, lines) {
+	if (surface != undefined){
+		var row = surfaces[surface].line_hinges_table.row_count();
+		var table = surfaces[surface].line_hinges_table[row];
+		table.line_hinge = this.lineHinge.no;
+		if (typeof lines === "number") {
+			table.line_number = lines;
+		}
+		else {
+			for (var i = 0; i < lines.length; ++i)
+            {
+            	table = surfaces[surface].line_hinges_table[row + i];
+                table.line_number = lines[i];
+                table.line_hinge = this.lineHinge.no;
             }
-            else {
-                for (var i = 0; i < lines_no.length; ++i) {
-                    surface.line_hinges_table[i + 1].line_number = lines_no[i];
-                    surface.line_hinges_table[i + 1].line_hinge = line_hinge;
-                }
-            }
-        }
-        else {
-            console.log("Surface no. " + surface_no + " doesn't exist");
-        }
-    }
-    set_comment_and_parameters(line_hinge, comment, params);
-    return line_hinge;
+		}
+	}
+};
+
+
+/**
+* Assign wall-slab connection to line hinge
+* @function
+* @param	{Integer}				surface			surface id (lines must lie on this surface)
+* @param	{Integer} or {Array}	lines			one or more lines id for line hinge assign
+*/
+LineHinge.prototype.WallSlabConnection = function(offset, blockWidth) {
+	this.lineHinge.slab_wall_connection = true;
+	this.lineHinge.slab_wall_connection_offset = offset;
+	if (blockWidth != undefined) {
+		if (offset >= blockWidth) {
+			this.lineHinge.slab_wall_with_slab_edge_block;
+			this.lineHinge.slab_edge_block_width = blockWidth;
+		}
+		else {
+			console.log("The width of the slab-edge line hinge no." + this.lineHinge.no + " was not set.");
+			console.log("The width of the slab-edge block must be less than the slab offset.");
+		}
+	}	
+	return this.lineHinge.no;
+};
+
+
+function LineHingeNonlinearity(hinge, direction) {
+	direction_switcher = {
+		"X"		: "translational_release_u_x_nonlinearity",
+		"Y"		: "translational_release_u_y_nonlinearity",
+		"Z"		: "translational_release_u_z_nonlinearity",
+		"phiX"	: "rotational_release_phi_x_nonlinearity",
+	};
+
+	table_switcher = {
+		"X"		: "diagram_along_x_table",
+		"Y"		: "diagram_along_y_table",
+		"Z"		: "diagram_along_z_table",
+		"phiX"	: "diagram_around_x_table",
+	};
+
+	table_keys_switcher = {
+		"X"		: ["displacement", "force"],
+		"Y"		: ["displacement", "force"],
+		"Z"		: ["displacement", "force"],
+		"phiX"	: ["rotation", "moment"],
+	};
+
+	this.direction = direction_switcher[direction];
+	this.table = table_switcher[direction];
+	this.table_keys = table_keys_switcher[direction];
+	this.hinge = hinge;
+	applyChanges();
+	var self = this;
+	return self;
+}
+
+
+LineHingeNonlinearity.prototype.FixedIfNegative = function() {
+	this.hinge[this.direction] = line_hinges.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE;
+};
+
+
+LineHingeNonlinearity.prototype.FixedIfPositive = function() {
+	this.hinge[this.direction] = line_hinges.NONLINEARITY_TYPE_FAILURE_IF_POSITIVE;
+};
+
+
+LineHingeNonlinearity.prototype.Diagram = function(displacement, force) {
+	this.hinge[this.direction] = line_hinges.NONLINEARITY_TYPE_DIAGRAM;
+	applyChanges();
+	createNonlinearityTable(this.hinge, this.table, this.table_keys, displacement, force);
+
+};
+
+
+function createNonlinearityTable(lineHinge, table, table_keys, displacement, force) {
+	if (displacement === undefined) {
+		displacement = [1];
+	}
+	if (force === undefined) {
+		force = [10];
+	}
+	const hingeTable = lineHinge[table];
+	const key_1 = table_keys[0];
+	const key_2 = table_keys[1];
+	if (displacement.length === force.length) {
+		for (var i = 0; i < displacement.length; ++i) {
+			var row = hingeTable.row_count();
+			hingeTable[row][key_1]= displacement[i];
+			hingeTable[row][key_2]= force[i];
+		}
+	}
 }

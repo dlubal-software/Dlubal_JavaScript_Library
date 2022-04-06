@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<script>
+    <arguments>
+	<argument argument-name="a" default-value="0.1" label-name="Length of sides" />
+	<argument argument-name="r" default-value="0.01" label-name="Outer fillet radius" />
+	<argument argument-name="t" default-value="0.003" label-name="Thickness" />
+    </arguments>
+</script>
