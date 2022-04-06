@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class MemberEccentricity
+    <title>Class LineHinge
    | Dlubal JavaScript High Level Functions Library </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class MemberEccentricity
+    <meta name="title" content="Class LineHinge
    | Dlubal JavaScript High Level Functions Library ">
     <meta name="generator" content="docfx 2.57.2.0">
     
@@ -78,25 +78,25 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Dlubal.MemberEccentricity">
+            <article class="content wrap" id="_content" data-uid="Dlubal.LineHinge">
   
   
-  <h1 id="Dlubal_MemberEccentricity" data-uid="Dlubal.MemberEccentricity">Class MemberEccentricity
+  <h1 id="Dlubal_LineHinge" data-uid="Dlubal.LineHinge">Class LineHinge
   </h1>
-  <div class="markdown level0 summary"><p>Creates member eccentricity</p>
+  <div class="markdown level0 summary"><p>Creates line hinge</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <h4 id="Dlubal_MemberEccentricity__ctor" data-uid="Dlubal.MemberEccentricity.#ctor">MemberEccentricity(no, members_start_list, members_end_list, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates member eccentricity</p>
+  <h4 id="Dlubal_LineHinge__ctor" data-uid="Dlubal.LineHinge.#ctor">LineHinge(no, surface, lines, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates line hinge</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">new MemberEccentricity(no, members_start_list, members_end_list, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">new LineHinge(no, surface, lines, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -112,25 +112,25 @@
         <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Index of member eccentricity, can be undefined</p>
+          <p>Index of line hinge, can be undefined</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Array</span></td>
-        <td><em>members_start_list</em></td>
+        <td><span class="xref">undefinedInteger</span></td>
+        <td><em>surface</em></td>
         <td>
-          <p>Members start, can be undefined</p>
+          <p>Surface id (lines must lie on this surface)</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Array</span></td>
-        <td><em>members_end_list</em></td>
+        <td><span class="xref">undefinedInteger</span> | <span class="xref">Array</span></td>
+        <td><em>lines</em></td>
         <td>
-          <p>Members end, can be undefined</p>
+          <p>One or more lines id for line hinge assign</p>
 
           
         </td>
@@ -148,7 +148,7 @@
         <td><span class="xref">Object</span></td>
         <td><em>params</em></td>
         <td>
-          <p>Member eccentricity parameters, can be undefined</p>
+          <p>line hinge parameters, can be undefined</p>
 
           
         </td>
@@ -166,7 +166,7 @@
     <tbody>
       <tr>
         <td><span class="xref">Object</span></td>
-        <td><p>Created member eccentricity</p>
+        <td><p>Created line hinge</p>
 </td>
       </tr>
     </tbody>
@@ -175,13 +175,13 @@
   </h3>
   
   
-  <h4 id="Dlubal_MemberEccentricity_RelativeToSection" data-uid="Dlubal.MemberEccentricity#RelativeToSection">RelativeToSection(no, members_start_list, members_end_list, alignment, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates member eccentricity relative to section</p>
+  <h4 id="Dlubal_LineHinge_Translation" data-uid="Dlubal.LineHinge#Translation">Translation(ux, uy, uz)</h4>
+  <div class="markdown level1 summary"><p>Set translation constants ux, uy, uz to line hinge</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function RelativeToSection(no, members_start_list, members_end_list, alignment, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function Translation(ux, uy, uz)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -194,55 +194,28 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>no</em></td>
+        <td><span class="xref">Boolean</span> | <span class="xref">Dlubal.Float</span></td>
+        <td><em>ux</em></td>
         <td>
-          <p>Index of member eccentricity, can be undefined</p>
+          <p>Translation ux (true, false, number(stiffness [Nm^2]))</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Array</span></td>
-        <td><em>members_start_list</em></td>
+        <td><span class="xref">Boolean</span> | <span class="xref">Dlubal.Float</span></td>
+        <td><em>uy</em></td>
         <td>
-          <p>Member start</p>
+          <p>Translation uy (true, false, number(stiffness [Nm^2]))</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Array</span></td>
-        <td><em>members_end_list</em></td>
+        <td><span class="xref">Boolean</span> | <span class="xref">Dlubal.Float</span></td>
+        <td><em>uz</em></td>
         <td>
-          <p>Member end</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>alignment</em></td>
-        <td>
-          <p>Alignment, for more info look at private function setRelativeValues</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>comment</em></td>
-        <td>
-          <p>Comment, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>params</em></td>
-        <td>
-          <p>Member eccentricity parameters, can be undefined</p>
+          <p>Translation uz (true, false, number(stiffness [Nm^2]))</p>
 
           
         </td>
@@ -260,20 +233,20 @@
     <tbody>
       <tr>
         <td><span class="xref">Object</span></td>
-        <td><p>Created member eccentricity</p>
+        <td><p>line hinge in parent</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <h4 id="Dlubal_MemberEccentricity_Absolute" data-uid="Dlubal.MemberEccentricity#Absolute">Absolute(no, members_start_list, members_end_list, offset_x, offset_y, offset_z, coordinate_system, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates absolute member eccentricity</p>
+  <h4 id="Dlubal_LineHinge_TranslationX" data-uid="Dlubal.LineHinge#TranslationX">TranslationX(ux)</h4>
+  <div class="markdown level1 summary"><p>Set translation constant ux to line hinge</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Absolute(no, members_start_list, members_end_list, offset_x, offset_y, offset_z, coordinate_system, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function TranslationX(ux)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -286,82 +259,10 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>no</em></td>
+        <td><span class="xref">Boolean</span> | <span class="xref">Dlubal.Float</span></td>
+        <td><em>ux</em></td>
         <td>
-          <p>Index of member eccentricity, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Array</span></td>
-        <td><em>members_start_list</em></td>
-        <td>
-          <p>Members start</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Array</span></td>
-        <td><em>members_end_list</em></td>
-        <td>
-          <p>Members end</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>offset_x</em></td>
-        <td>
-          <p>Eccentricity in X</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>offset_y</em></td>
-        <td>
-          <p>Eccentricity in Y</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>offset_z</em></td>
-        <td>
-          <p>Eccentricity in Z</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>coordinate_system</em></td>
-        <td>
-          <p>Coordinate system, can be undefined. Default value is &quot;Local xyz&quot;.</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>comment</em></td>
-        <td>
-          <p>Comment, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>params</em></td>
-        <td>
-          <p>Member eccentricity parameters, can be undefined</p>
+          <p>Translation ux (true, false, number(stiffness [Nm^2]))</p>
 
           
         </td>
@@ -379,20 +280,20 @@
     <tbody>
       <tr>
         <td><span class="xref">Object</span></td>
-        <td><p>Created member eccentricity</p>
+        <td><p>line hinge in parent</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <h4 id="Dlubal_MemberEccentricity_RelativeAndAbsolute" data-uid="Dlubal.MemberEccentricity#RelativeAndAbsolute">RelativeAndAbsolute(no, members_start_list, members_end_list, offset_x, offset_y, offset_z, coordinate_system, alignment, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates absolute member eccentricity</p>
+  <h4 id="Dlubal_LineHinge_TranslationY" data-uid="Dlubal.LineHinge#TranslationY">TranslationY(uy)</h4>
+  <div class="markdown level1 summary"><p>Set translation constant uy to line hinge</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function RelativeAndAbsolute(no, members_start_list, members_end_list, offset_x, offset_y, offset_z, coordinate_system, alignment, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function TranslationY(uy)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -405,91 +306,10 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>no</em></td>
+        <td><span class="xref">Boolean</span> | <span class="xref">Dlubal.Float</span></td>
+        <td><em>uy</em></td>
         <td>
-          <p>Index of member eccentricity, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Array</span></td>
-        <td><em>members_start_list</em></td>
-        <td>
-          <p>Members start</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Array</span></td>
-        <td><em>members_end_list</em></td>
-        <td>
-          <p>Members end</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>offset_x</em></td>
-        <td>
-          <p>Eccentricity in X</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>offset_y</em></td>
-        <td>
-          <p>Eccentricity in Y</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>offset_z</em></td>
-        <td>
-          <p>Eccentricity in Z</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>coordinate_system</em></td>
-        <td>
-          <p>Coordinate system, can be undefined. Default value is &quot;Local xyz&quot;.</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>alignment</em></td>
-        <td>
-          <p>Alignment, for more info look at private function setRelativeValues</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>comment</em></td>
-        <td>
-          <p>Comment, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>params</em></td>
-        <td>
-          <p>Member eccentricity parameters, can be undefined</p>
+          <p>Translation uy (true, false, number(stiffness [Nm^2]))</p>
 
           
         </td>
@@ -507,20 +327,20 @@
     <tbody>
       <tr>
         <td><span class="xref">Object</span></td>
-        <td><p>Created member eccentricity</p>
+        <td><p>line hinge in parent</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <h4 id="Dlubal_MemberEccentricity_AxialOffset" data-uid="Dlubal.MemberEccentricity#AxialOffset">AxialOffset(active)</h4>
-  <div class="markdown level1 summary"><p>Sets axial offset from adjoining member</p>
+  <h4 id="Dlubal_LineHinge_TranslationZ" data-uid="Dlubal.LineHinge#TranslationZ">TranslationZ(uz)</h4>
+  <div class="markdown level1 summary"><p>Set translation constant uz to line hinge</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function AxialOffset(active)</code></pre>
+    <pre><code class="lang-js hljs">function TranslationZ(uz)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -533,25 +353,41 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Boolean</span></td>
-        <td><em>active</em></td>
+        <td><span class="xref">Boolean</span> | <span class="xref">Dlubal.Float</span></td>
+        <td><em>uz</em></td>
         <td>
-          <p>True if undefined</p>
+          <p>Translation uz (true, false, number(stiffness [Nm^2]))</p>
 
           
         </td>
       </tr>
     </tbody>
   </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>line hinge in parent</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   
   
-  <h4 id="Dlubal_MemberEccentricity_HingeLocationAtNode" data-uid="Dlubal.MemberEccentricity#HingeLocationAtNode">HingeLocationAtNode(active)</h4>
-  <div class="markdown level1 summary"><p>Sets hinge location at node (if applied)</p>
+  <h4 id="Dlubal_LineHinge_Rotation" data-uid="Dlubal.LineHinge#Rotation">Rotation(rx)</h4>
+  <div class="markdown level1 summary"><p>Set rotation constant rx to line hinge</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function HingeLocationAtNode(active)</code></pre>
+    <pre><code class="lang-js hljs">function Rotation(rx)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -564,25 +400,41 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Boolean</span></td>
-        <td><em>active</em></td>
+        <td><span class="xref">Boolean</span> | <span class="xref">Dlubal.Float</span></td>
+        <td><em>rx</em></td>
         <td>
-          <p>True if undefined</p>
+          <p>Rotation rx (true, false, number(stiffness [Nm^2]))</p>
 
           
         </td>
       </tr>
     </tbody>
   </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><p>line hinge in parent</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   
   
-  <h4 id="Dlubal_MemberEccentricity_TransverseOffsetMember" data-uid="Dlubal.MemberEccentricity#TransverseOffsetMember">TransverseOffsetMember(reference_member, reference_node, alignment)</h4>
-  <div class="markdown level1 summary"><p>Transverse offset from section of another member</p>
+  <h4 id="Dlubal_LineHinge_AssignTo" data-uid="Dlubal.LineHinge#AssignTo">AssignTo(surface, lines)</h4>
+  <div class="markdown level1 summary"><p>Assign line hinge to line and surface (line must be involved in the surface)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function TransverseOffsetMember(reference_member, reference_node, alignment)</code></pre>
+    <pre><code class="lang-js hljs">function AssignTo(surface, lines)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -595,28 +447,19 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>reference_member</em></td>
+        <td><span class="xref">Dlubal.Integer</span></td>
+        <td><em>surface</em></td>
         <td>
-          <p>Reference member</p>
+          <p>surface id (lines must lie on this surface)</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>reference_node</em></td>
+        <td><span class="xref">Dlubal.Integer</span> | <span class="xref">Array</span></td>
+        <td><em>lines</em></td>
         <td>
-          <p>Reference member's node, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>alignment</em></td>
-        <td>
-          <p>Alignment, for more info look at private function setTransverseOffset</p>
+          <p>one or more lines id for line hinge assign</p>
 
           
         </td>
@@ -625,13 +468,13 @@
   </table>
   
   
-  <h4 id="Dlubal_MemberEccentricity_TransverseOffsetSurface" data-uid="Dlubal.MemberEccentricity#TransverseOffsetSurface">TransverseOffsetSurface(reference_surface, alignment)</h4>
-  <div class="markdown level1 summary"><p>Transverse offset from section of another thickness of other surface</p>
+  <h4 id="Dlubal_LineHinge_WallSlabConnection" data-uid="Dlubal.LineHinge#WallSlabConnection">WallSlabConnection(surface, or)</h4>
+  <div class="markdown level1 summary"><p>Assign wall-slab connection to line hinge</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function TransverseOffsetSurface(reference_surface, alignment)</code></pre>
+    <pre><code class="lang-js hljs">function WallSlabConnection(surface, or)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -644,35 +487,25 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>reference_surface</em></td>
+        <td><span class="xref">Dlubal.Integer</span></td>
+        <td><em>surface</em></td>
         <td>
-          <p>Reference surface</p>
+          <p>surface id (lines must lie on this surface)</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>alignment</em></td>
+        <td><span class="xref">Dlubal.Integer</span></td>
+        <td><em>or</em></td>
         <td>
-          <p>Alignment, for more info look at private function setTransverseOffset</p>
+          <p>{Array}	lines			one or more lines id for line hinge assign</p>
 
           
         </td>
       </tr>
     </tbody>
   </table>
-  
-  
-  <h4 id="Dlubal_MemberEccentricity_TransverseOffsetNone" data-uid="Dlubal.MemberEccentricity#TransverseOffsetNone">TransverseOffsetNone()</h4>
-  <div class="markdown level1 summary"><p>Set off transverse offset</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-js hljs">function TransverseOffsetNone()</code></pre>
-  </div>
 </article>
           </div>
           

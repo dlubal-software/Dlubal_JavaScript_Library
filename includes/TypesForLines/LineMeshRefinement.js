@@ -1,11 +1,9 @@
 /**
 * Creates line mesh refinement
-* @function
-* @constructor
 * @param	{Number}			no						Index of line mesh refinement, can be undefined
 * @param	{Number}			targetFELength			Length of FEA element side on the line, can be undefined
 * @param	{Number}			numberOfLayers					Number of layers to be affected by this refinement, can be undefined
-* @param	{Number or Array}	lines					Lines assigned to this refinement, can be undefined
+* @param	{Number | Array}	lines					Lines assigned to this refinement, can be undefined
 * @param	{String}			comment					Comment, can be undefined
 * @param	{Object}			params					line mesh refinement parameters, can be undefined
 * @return	{Object}			Created line mesh refinement
@@ -97,16 +95,16 @@ var setParameterLineMeshRefinement = function (
 };
 
 /**
-* Creates line mesh refinement
-* @class
-* @constructor
-* @param	{Number}			no						Index of line mesh refinement, can be undefined
-* @param	{Number}			targetFELength			Length of FEA element side on the line, can be undefined
-* @param	{Number}			numberOfLayers					Number of layers to be affected by this refinement, can be undefined
-* @param	{Number or Array}	lines					Lines assigned to this refinement, can be undefined
-* @param	{String}			comment					Comment, can be undefined
-* @param	{Object}			params					line mesh refinement parameters, can be undefined
-* @return	{Object}			Created line mesh refinement HLF
+ * Creates line mesh refinement
+ * @class
+ * @constructor
+ * @param	{Number}			no						Index of line mesh refinement, can be undefined
+ * @param	{Number}			targetFELength			Length of FEA element side on the line, can be undefined
+ * @param	{Number}			numberOfLayers					Number of layers to be affected by this refinement, can be undefined
+ * @param	{Number | Array}	lines					Lines assigned to this refinement, can be undefined
+ * @param	{String}			comment					Comment, can be undefined
+ * @param	{Object}			params					line mesh refinement parameters, can be undefined
+ * @return	{Object}			Created line mesh refinement HLF
 */
 function LineMeshRefinement(no,
 							name,
@@ -127,7 +125,7 @@ function LineMeshRefinement(no,
 * Change line mesh refinement to type based on element length
 * @param	{Number}			targetFELength			Length of FEA element side on the line, can be undefined
 * @param	{Number}			numberOfLayers			Number of layers to be affected by this refinement, can be undefined
-* @param	{Number or Array}	lines					Lines assigned to this refinement, can be undefined
+* @param	{Number | Array}	lines					Lines assigned to this refinement, can be undefined
 * @return	{Object}			Created line mesh refinement
 */
 LineMeshRefinement.prototype.TargetFELength = function(targetFELength, numberOfLayers, lines) {
@@ -140,7 +138,7 @@ LineMeshRefinement.prototype.TargetFELength = function(targetFELength, numberOfL
 * Change line mesh refinement to type based on number of elements on line
 * @param	{Number}			numberOfFiniteElements		Number of FEA elements on the line, can be undefined
 * @param	{Number}			numberOfLayers				Number of layers to be affected by this refinement, can be undefined
-* @param	{Number or Array}	lines						Lines assigned to this refinement, can be undefined
+* @param	{Number | Array}	lines						Lines assigned to this refinement, can be undefined
 * @return	{Object}			Created line mesh refinement
 */
 LineMeshRefinement.prototype.NumberFiniteElements = function(numberOfFiniteElements, numberOfLayers, lines) {
@@ -153,7 +151,7 @@ LineMeshRefinement.prototype.NumberFiniteElements = function(numberOfFiniteEleme
 * Change line mesh refinement to type gradually changed due to distance from the line
 * @param	{Number}			gradual_rows			Number gradual rows of FEA elements, can be undefined
 * @param	{Number}			numberOfLayers			Number of layers to be affected by this refinement, can be undefined
-* @param	{Number or Array}	lines					Lines assigned to this refinement, can be undefined
+* @param	{Number | Array}	lines					Lines assigned to this refinement, can be undefined
 * @return	{Object}			Created line mesh refinement
 */
 LineMeshRefinement.prototype.Gradual = function(gradual_rows, numberOfLayers, lines) {
@@ -171,7 +169,7 @@ LineMeshRefinement.prototype.GetNo = function() {
 /**
 * Function for assign lines to line mesh refinement
 * @param	{Number}			gradual_rows			Number gradual rows of FEA elements, can be undefined
-* @param	{Number or Array}	lines					Lines assigned to this refinement, can be undefined
+* @param	{Number | Array}	lines					Lines assigned to this refinement, can be undefined
 * @return	{Object}			Created line mesh refinement
 */
 LineMeshRefinement.prototype.SetLines = function(lines) {

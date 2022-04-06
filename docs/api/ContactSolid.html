@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class Opening
+    <title>Class ContactSolid
    | Dlubal JavaScript High Level Functions Library </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class Opening
+    <meta name="title" content="Class ContactSolid
    | Dlubal JavaScript High Level Functions Library ">
     <meta name="generator" content="docfx 2.57.2.0">
     
@@ -78,25 +78,25 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Dlubal.Opening">
+            <article class="content wrap" id="_content" data-uid="Dlubal.ContactSolid">
   
   
-  <h1 id="Dlubal_Opening" data-uid="Dlubal.Opening">Class Opening
+  <h1 id="Dlubal_ContactSolid" data-uid="Dlubal.ContactSolid">Class ContactSolid
   </h1>
-  <div class="markdown level0 summary"><p>Create Opening</p>
+  <div class="markdown level0 summary"><p>Creates contact solid</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <h4 id="Dlubal_Opening__ctor" data-uid="Dlubal.Opening.#ctor">Opening(no, boundary_lines, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Create Opening</p>
+  <h4 id="Dlubal_ContactSolid__ctor" data-uid="Dlubal.ContactSolid.#ctor">ContactSolid(no, perpendicular_to_surface, parallel_to_surface, values, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates contact solid</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">new Opening(no, boundary_lines, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">new ContactSolid(no, perpendicular_to_surface, parallel_to_surface, values, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -109,37 +109,65 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">undefinedint</span></td>
+        <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Number of Opening</p>
+          <p>Index of contact solid</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">array</span></td>
-        <td><em>boundary_lines</em></td>
+        <td><span class="xref">Number</span></td>
+        <td><em>perpendicular_to_surface</em></td>
         <td>
-          <p>Boundary lines of the Opening</p>
+          <p>Contact perpendicular to surfaces, can be undefined (&quot;Failure force transmission&quot; by default)
+1 - Full force transmission
+2 - Failure under compression
+3 - Failure under tension</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">string</span></td>
+        <td><span class="xref">Number</span></td>
+        <td><em>parallel_to_surface</em></td>
+        <td>
+          <p>Contact parallel to surfaces, can be undefined (&quot;Failure if contact perpendicular to surfaces failed&quot; by default)
+1 - Full force transmission
+2 - Rigid friction
+3 - Rigid friction with limit
+4 - Elastic friction
+5 - Elastic friction with limit
+6 - Elastic solid behavior
+7 - Failure if contact perpendicular to surfaces failed (only for failure perpendicular - 2 and 3)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>values</em></td>
+        <td>
+          <p>Values depends on contact parallel to surface type, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
         <td><em>comment</em></td>
         <td>
-          <p>Comment for the Opening</p>
+          <p>Comment, can be undefined</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">undefineddictionary</span></td>
+        <td><span class="xref">Object</span></td>
         <td><em>params</em></td>
         <td>
-          <p>Parameters of the Opening</p>
+          <p>Contact solid's parameters, can be undefined</p>
 
           
         </td>
@@ -157,8 +185,41 @@
     <tbody>
       <tr>
         <td></td>
-        <td><p>opening</p>
+        <td><p>Created contact solid</p>
 </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="functions">Functions
+  </h3>
+  
+  
+  <h4 id="Dlubal_ContactSolid_AssignTo" data-uid="Dlubal.ContactSolid#AssignTo">AssignTo(solid_list)</h4>
+  <div class="markdown level1 summary"><p>Assigns solids to contact solid</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function AssignTo(solid_list)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>solid_list</em></td>
+        <td>
+          <p>List of solid's indexes</p>
+
+          
+        </td>
       </tr>
     </tbody>
   </table>

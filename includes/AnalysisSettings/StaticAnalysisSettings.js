@@ -1,101 +1,14 @@
-function StaticAnalysisType(type) {
-  const StaticAnalysisType_dict = {
-    undefined: "GEOMETRICALLY_LINEAR",
-    "GEOMETRICALLY_LINEAR": "GEOMETRICALLY_LINEAR",
-    "SECOND_ORDER_P_DELTA": "SECOND_ORDER_P_DELTA",
-    "LARGE_DEFORMATIONS": "LARGE_DEFORMATIONS"
-  };
-
-  var SASType = StaticAnalysisType_dict[type];
-  if (SASType === undefined) {
-    SASType = "GEOMETRICALLY_LINEAR";
-    console.log("Wrong static analysis type input. Value was: " + type);
-    console.log("Correct values are: ('GEOMETRICALLY_LINEAR', 'SECOND_ORDER_P_DELTA', 'LARGE_DEFORMATIONS')");
-  }
-  console.log("Static analysis type: " + SASType);
-  return SASType;
-}
-
-function plateBendingTheoryType(type) {
-  const plateBendingTheoryType_dict = {
-    undefined: "PLATE_BENDING_THEORY_MINDLIN",
-    "PLATE_BENDING_THEORY_MINDLIN": "PLATE_BENDING_THEORY_MINDLIN",
-    "PLATE_BENDING_THEORY_KIRCHHOFF": "PLATE_BENDING_THEORY_KIRCHHOFF"
-  };
-  var PlateType = plateBendingTheoryType_dict[type];
-  if (PlateType === undefined) {
-    PlateType = "PLATE_BENDING_THEORY_MINDLIN";
-    console.log("Wrong plate bending type input. Value was: " + type);
-    console.log("Correct values are: ('PLATE_BENDING_THEORY_MINDLIN', 'PLATE_BENDING_THEORY_KIRCHHOFF')");
-  }
-  // console.log("Plate bending theory: " + PlateType);
-  return PlateType;
-}
-
-function NonlinearMethodsType(type, method) {
-
-  const nonlinearMethods_secondOrder_dict = {
-    "NEWTON_RAPHSON": "NEWTON_RAPHSON",
-    "PICARD": "PICARD",
-    "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS": "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS"
-  };
-
-  const nonlinearMethods_largeDeformations_dict = {
-    "NEWTON_RAPHSON": "NEWTON_RAPHSON",
-    "NEWTON_RAPHSON_COMBINED_WITH_PICARD": "NEWTON_RAPHSON_COMBINED_WITH_PICARD",
-    "PICARD": "PICARD",
-    "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS": "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS",
-    "NEWTON_RAPHSON_WITH_CONSTANT_STIFFNESS": "NEWTON_RAPHSON_WITH_CONSTANT_STIFFNESS",
-    "DYNAMIC_RELAXATION": "DYNAMIC_RELAXATION",
-  };
-
-  const nonlinearMethodsSwitcher = {
-    "SECOND_ORDER_P_DELTA": nonlinearMethods_secondOrder_dict,
-    "LARGE_DEFORMATIONS": nonlinearMethods_largeDeformations_dict,
-  };
-
-  const method_dict = nonlinearMethodsSwitcher[type];
-  var nonlinear_method = undefined;
-
-  if (method_dict === undefined) {
-    console.log("It is not possible to set nonlinear analysis method for analysis type: " + type);
-  }
-  else {
-    nonlinear_method = method_dict[method];
-    if (nonlinear_method === undefined) {
-      nonlinear_method = "NEWTON_RAPHSON";
-      console.log("Wrong nonlinear analysis method input. Value was: " + method);
-      console.log("Correct values are: ( " + Object.keys(method_dict) + ")");
-    }
-  }
-  return nonlinear_method;
-}
-
-function EquationSolverType(solverType) {
-
-  const EquationSolver_dict = {
-    METHOD_OF_EQUATION_SYSTEM_DIRECT: "METHOD_OF_EQUATION_SYSTEM_DIRECT",
-    METHOD_OF_EQUATION_SYSTEM_ITERATIVE: "METHOD_OF_EQUATION_SYSTEM_ITERATIVE"
-  };
-  var equationSolver = EquationSolver_dict[solverType];
-  if (equationSolver === undefined) {
-    console.log("Wrong equation solver input. Value was: " + solverType);
-    console.log("Correct values are: ( " + Object.keys(EquationSolver_dict) + ")");
-    equationSolver = "METHOD_OF_EQUATION_SYSTEM_DIRECT";
-  }
-  return equationSolver;
-}
 
 /**
  * Creates static analysis settings high level function
-  * @class
-  * @constructor
-  * @param   {Integer}         no                  unique ID of SAS
-  * @param   {String}          analysisType        Analysis setting type ("GEOMETRICALLY_LINEAR", "SECOND_ORDER_P_DELTA", "LARGE_DEFORMATIONS")
-  * @param   {String}          equationSolver      Equation solver ("METHOD_OF_EQUATION_SYSTEM_DIRECT", "METHOD_OF_EQUATION_SYSTEM_ITERATIVE")
-  * @param   {String}          nonlinearMethod     Nonlinear method ("NEWTON_RAPHSON", "NEWTON_RAPHSON_COMBINED_WITH_PICARD", "PICARD", "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS", "NEWTON_RAPHSON_WITH_CONSTANT_STIFFNESS", "DYNAMIC_RELAXATION" )
-  * @param   {String}          comment             Comment, empty by default
-  * @param   {Object}          params              Static analysis settings parameters, empty by default
+ * @class
+ * @constructor
+ * @param   {Integer}         no                  unique ID of SAS
+ * @param   {String}          analysisType        Analysis setting type ("GEOMETRICALLY_LINEAR", "SECOND_ORDER_P_DELTA", "LARGE_DEFORMATIONS")
+ * @param   {String}          equationSolver      Equation solver ("METHOD_OF_EQUATION_SYSTEM_DIRECT", "METHOD_OF_EQUATION_SYSTEM_ITERATIVE")
+ * @param   {String}          nonlinearMethod     Nonlinear method ("NEWTON_RAPHSON", "NEWTON_RAPHSON_COMBINED_WITH_PICARD", "PICARD", "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS", "NEWTON_RAPHSON_WITH_CONSTANT_STIFFNESS", "DYNAMIC_RELAXATION" )
+ * @param   {String}          comment             Comment, empty by default
+ * @param   {Object}          params              Static analysis settings parameters, empty by default
  * @returns Static Analysis object
  */
 function StaticAnalysisSettings(no,
@@ -147,7 +60,7 @@ function StaticAnalysisSettings(no,
  * @param {*} modifyLoading
  * @param {*} comment
  * @param {*} params
- * @returns
+ * @returns Object Static Analysis Settings
  */
 StaticAnalysisSettings.prototype.GeometricallyLinear = function (no, name, equationSolver, plateBendingTheory, activeMass, modifyLoading, comment, params) {
 
@@ -183,7 +96,7 @@ StaticAnalysisSettings.prototype.GeometricallyLinear = function (no, name, equat
  * @param {*} modifyLoading
  * @param {*} comment
  * @param {*} params
- * @returns
+ * @returns Object Static Analysis Settings
  */
 StaticAnalysisSettings.prototype.SecondOrder = function (no, name, equationSolver, nonlinearMethod, maxNumberOfIterations, numberOfLoadIncrements, plateBendingTheory, activeMass, modifyLoading, comment, params) {
 
@@ -226,7 +139,7 @@ StaticAnalysisSettings.prototype.SecondOrder = function (no, name, equationSolve
  * @param {*} modifyLoading
  * @param {*} comment
  * @param {*} params
- * @returns
+ * @returns Object Static Analysis Settings
  */
 StaticAnalysisSettings.prototype.LargeDeformations = function (no, name, equationSolver, nonlinearMethod, maxNumberOfIterations, numberOfLoadIncrements, percentageOfIterations, plateBendingTheory, activeMass, modifyLoading, comment, params) {
 
@@ -377,4 +290,92 @@ function AvoidWrongAssignment(SAS, param) {
     setParameter = true;
   }
   return setParameter;
+}
+
+function StaticAnalysisType(type) {
+  const StaticAnalysisType_dict = {
+    undefined: "GEOMETRICALLY_LINEAR",
+    "GEOMETRICALLY_LINEAR": "GEOMETRICALLY_LINEAR",
+    "SECOND_ORDER_P_DELTA": "SECOND_ORDER_P_DELTA",
+    "LARGE_DEFORMATIONS": "LARGE_DEFORMATIONS"
+  };
+
+  var SASType = StaticAnalysisType_dict[type];
+  if (SASType === undefined) {
+    SASType = "GEOMETRICALLY_LINEAR";
+    console.log("Wrong static analysis type input. Value was: " + type);
+    console.log("Correct values are: ('GEOMETRICALLY_LINEAR', 'SECOND_ORDER_P_DELTA', 'LARGE_DEFORMATIONS')");
+  }
+  console.log("Static analysis type: " + SASType);
+  return SASType;
+}
+
+function plateBendingTheoryType(type) {
+  const plateBendingTheoryType_dict = {
+    undefined: "PLATE_BENDING_THEORY_MINDLIN",
+    "PLATE_BENDING_THEORY_MINDLIN": "PLATE_BENDING_THEORY_MINDLIN",
+    "PLATE_BENDING_THEORY_KIRCHHOFF": "PLATE_BENDING_THEORY_KIRCHHOFF"
+  };
+  var PlateType = plateBendingTheoryType_dict[type];
+  if (PlateType === undefined) {
+    PlateType = "PLATE_BENDING_THEORY_MINDLIN";
+    console.log("Wrong plate bending type input. Value was: " + type);
+    console.log("Correct values are: ('PLATE_BENDING_THEORY_MINDLIN', 'PLATE_BENDING_THEORY_KIRCHHOFF')");
+  }
+  // console.log("Plate bending theory: " + PlateType);
+  return PlateType;
+}
+
+function NonlinearMethodsType(type, method) {
+
+  const nonlinearMethods_secondOrder_dict = {
+    "NEWTON_RAPHSON": "NEWTON_RAPHSON",
+    "PICARD": "PICARD",
+    "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS": "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS"
+  };
+
+  const nonlinearMethods_largeDeformations_dict = {
+    "NEWTON_RAPHSON": "NEWTON_RAPHSON",
+    "NEWTON_RAPHSON_COMBINED_WITH_PICARD": "NEWTON_RAPHSON_COMBINED_WITH_PICARD",
+    "PICARD": "PICARD",
+    "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS": "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS",
+    "NEWTON_RAPHSON_WITH_CONSTANT_STIFFNESS": "NEWTON_RAPHSON_WITH_CONSTANT_STIFFNESS",
+    "DYNAMIC_RELAXATION": "DYNAMIC_RELAXATION",
+  };
+
+  const nonlinearMethodsSwitcher = {
+    "SECOND_ORDER_P_DELTA": nonlinearMethods_secondOrder_dict,
+    "LARGE_DEFORMATIONS": nonlinearMethods_largeDeformations_dict,
+  };
+
+  const method_dict = nonlinearMethodsSwitcher[type];
+  var nonlinear_method = undefined;
+
+  if (method_dict === undefined) {
+    console.log("It is not possible to set nonlinear analysis method for analysis type: " + type);
+  }
+  else {
+    nonlinear_method = method_dict[method];
+    if (nonlinear_method === undefined) {
+      nonlinear_method = "NEWTON_RAPHSON";
+      console.log("Wrong nonlinear analysis method input. Value was: " + method);
+      console.log("Correct values are: ( " + Object.keys(method_dict) + ")");
+    }
+  }
+  return nonlinear_method;
+}
+
+function EquationSolverType(solverType) {
+
+  const EquationSolver_dict = {
+    METHOD_OF_EQUATION_SYSTEM_DIRECT: "METHOD_OF_EQUATION_SYSTEM_DIRECT",
+    METHOD_OF_EQUATION_SYSTEM_ITERATIVE: "METHOD_OF_EQUATION_SYSTEM_ITERATIVE"
+  };
+  var equationSolver = EquationSolver_dict[solverType];
+  if (equationSolver === undefined) {
+    console.log("Wrong equation solver input. Value was: " + solverType);
+    console.log("Correct values are: ( " + Object.keys(EquationSolver_dict) + ")");
+    equationSolver = "METHOD_OF_EQUATION_SYSTEM_DIRECT";
+  }
+  return equationSolver;
 }

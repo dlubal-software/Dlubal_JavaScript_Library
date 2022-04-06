@@ -1,6 +1,5 @@
 /**
 * Creates line hinge
-* @function
 * @param	{Number}	no				Index of line hinge, can be undefined
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params			line hinge parameters, can be undefined
@@ -24,8 +23,7 @@ var createLineHinge = function (no,
 
 /**
 * Creates line hinge constant
-* @function
-* @param	{Boolean or Float}	hinge		hinge input (true, false, number(stiffness))
+* @param	{Boolean | Float}	hinge		hinge input (true, false, number(stiffness))
 * @return	{Object}	Created hinge constant
 */
 function CreateHingeConstant(hinge) {
@@ -53,15 +51,15 @@ function CreateHinge(hinge) {
 
 
 /**
-* Creates line hinge
-* @class
-* @constructor
-* @param	{Number}				no				Index of line hinge, can be undefined
-* @param	{Integer}				surface			Surface id (lines must lie on this surface)
-* @param	{Integer or Array} 		lines			One or more lines id for line hinge assign
-* @param	{String}				comment			Comment, can be undefined
-* @param	{Object}				params			line hinge parameters, can be undefined
-* @return	{Object}	Created line hinge
+ * Creates line hinge
+ * @class
+ * @constructor
+ * @param	{Number}				no				Index of line hinge, can be undefined
+ * @param	{Integer}				surface			Surface id (lines must lie on this surface)
+ * @param	{Integer | Array} 		lines			One or more lines id for line hinge assign
+ * @param	{String}				comment			Comment, can be undefined
+ * @param	{Object}				params			line hinge parameters, can be undefined
+ * @return	{Object}	Created line hinge
 */
 function LineHinge(no,
 				   surface,
@@ -85,9 +83,9 @@ function LineHinge(no,
 
 /**
 * Set translation constants ux, uy, uz to line hinge
-* @param	{Boolean or Float}	ux				Translation ux (true, false, number(stiffness [Nm^2]))
-* @param	{Boolean or Float}	uy				Translation uy (true, false, number(stiffness [Nm^2]))
-* @param	{Boolean or Float}	uz				Translation uz (true, false, number(stiffness [Nm^2]))
+* @param	{Boolean | Float}	ux				Translation ux (true, false, number(stiffness [Nm^2]))
+* @param	{Boolean | Float}	uy				Translation uy (true, false, number(stiffness [Nm^2]))
+* @param	{Boolean | Float}	uz				Translation uz (true, false, number(stiffness [Nm^2]))
 * @return	{Object}	line hinge in parent
 */
 LineHinge.prototype.Translation = function (ux, uy, uz) {
@@ -100,7 +98,7 @@ LineHinge.prototype.Translation = function (ux, uy, uz) {
 
 /**
 * Set translation constant ux to line hinge
-* @param	{Boolean or Float}	ux				Translation ux (true, false, number(stiffness [Nm^2]))
+* @param	{Boolean | Float}	ux				Translation ux (true, false, number(stiffness [Nm^2]))
 * @return	{Object}	line hinge in parent
 */
 LineHinge.prototype.TranslationX = function (ux) {
@@ -111,7 +109,7 @@ LineHinge.prototype.TranslationX = function (ux) {
 
 /**
 * Set translation constant uy to line hinge
-* @param	{Boolean or Float}	uy				Translation uy (true, false, number(stiffness [Nm^2]))
+* @param	{Boolean | Float}	uy				Translation uy (true, false, number(stiffness [Nm^2]))
 * @return	{Object}	line hinge in parent
 */
 LineHinge.prototype.TranslationY = function (uy) {
@@ -122,7 +120,7 @@ LineHinge.prototype.TranslationY = function (uy) {
 
 /**
 * Set translation constant uz to line hinge
-* @param	{Boolean or Float}	uz				Translation uz (true, false, number(stiffness [Nm^2]))
+* @param	{Boolean | Float}	uz				Translation uz (true, false, number(stiffness [Nm^2]))
 * @return	{Object}	line hinge in parent
 */
 LineHinge.prototype.TranslationZ = function (uz) {
@@ -134,7 +132,7 @@ LineHinge.prototype.TranslationZ = function (uz) {
 
 /**
 * Set rotation constant rx to line hinge
-* @param	{Boolean or Float}	rx				Rotation rx (true, false, number(stiffness [Nm^2]))
+* @param	{Boolean | Float}	rx				Rotation rx (true, false, number(stiffness [Nm^2]))
 * @return	{Object}	line hinge in parent
 */
 LineHinge.prototype.Rotation = function (rx) {
@@ -150,9 +148,8 @@ LineHinge.prototype.GetNo = function() {
 
 /**
 * Assign line hinge to line and surface (line must be involved in the surface)
-* @function
 * @param	{Integer}				surface			surface id (lines must lie on this surface)
-* @param	{Integer or Array}  	lines			one or more lines id for line hinge assign
+* @param	{Integer | Array}  	lines			one or more lines id for line hinge assign
 */
 LineHinge.prototype.AssignTo = function(surface, lines) {
 	if (surface != undefined){
