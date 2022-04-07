@@ -56,14 +56,13 @@ if (RFEM) {
 	}
 	
 	var lineHinge = new LineHinge(1);
-	lineHinge.Translation(true,true,true);
+	lineHinge.Translation(1500,2000,2500);
 	lineHinge.Rotation(false);
 	j = 21;
-	lineHinge.AssignTo(surfacesForLineHinges[6][0].no,j);
-	// for (var i = 6; i <= 10; ++i) {
-	// 	lineHinge.AssignTo(surfacesForLineHinges[i][0].no,j);
-	// 	j += 4; 
-	// }
+	for (var i = 6; i <= 10; ++i) {
+		lineHinge.AssignTo(surfacesForLineHinges[i][0].no,j);
+		j += 4; 
+	}
 }
 
 var nodalSupport = new NodalSupport();
