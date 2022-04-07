@@ -107,7 +107,7 @@ structureModification.Surfaces(surfaceStiffnessModification.surface_stiffness_mo
 structureModification.MemberHinges(6, "End", undefined, undefined, 1.50);	// translational spring constant Cu,z
 structureModification.MemberHinges(9, "Start", undefined, undefined, undefined, undefined, 1.50, 1.60);	// rotational spring constant Cφ,y and Cφ,z
 structureModification.LineHinges(6, 21, undefined, 1.6, 2.0); // Surface no. 6, line no. 21, Cu,x parameter set
-// structureModification.LineHinges(7, 27, 1.1, 1.2); // Cu,x, Cu,y set
+structureModification.LineHinges(7, 25, 1.1, 1.2); // Cu,x, Cu,y set
 structureModification.NodalSupports(62, undefined, undefined, undefined, 1.9, 2.0); // Node no. 62, Cφ,x, Cφ,y set
 structureModification.NodalSupports(70, undefined, undefined, undefined, undefined, undefined, 2.0); // Node no. 70, Cφ,z set
 structureModification.LineSupports(77, undefined, undefined, 2.0); // Line no. 77, Cu,z set
