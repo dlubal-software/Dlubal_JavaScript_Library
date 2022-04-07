@@ -3,7 +3,7 @@ include("../includes/Tools/high_level_functions_support.js");
 
 run("../includes/Tools/clearAll.js");
 
-// Preperations of objects
+// Preparations of objects
 var material = createMaterial("S235");
 var material2 = createMaterial("S420M");
 var material3 = createMaterial("Soda-lime silicate glass");
@@ -54,11 +54,16 @@ if (RFEM) {
 			memberHinge.Rotational(undefined, [membersForHinges[i].no], undefined, [true, 5000, 2], [true, 5000, 2], [true, 5000, 2]);
 		}
 	}
-
-	var lineHinge = new LineHinge();
-	for (var i = 6; i <= 10; ++i) {
-		lineHinge.Translational(undefined, surfacesForLineHinges[i][0].no, undefined, 1500, 2000, 2500);
-	}
+	
+	var lineHinge = new LineHinge(1);
+	lineHinge.Translation(true,true,true);
+	lineHinge.Rotation(false);
+	j = 21;
+	lineHinge.AssignTo(surfacesForLineHinges[6][0].no,j);
+	// for (var i = 6; i <= 10; ++i) {
+	// 	lineHinge.AssignTo(surfacesForLineHinges[i][0].no,j);
+	// 	j += 4; 
+	// }
 }
 
 var nodalSupport = new NodalSupport();
@@ -96,14 +101,14 @@ surfaceStiffnessModification.TotalStiffnessFactor(1, undefined, 2.5);
 ****************************************** Main **********************************************
 *********************************************************************************************/
 var structureModification = new StructureModification(undefined, "First");
-structureModification.Material("Soda-lime silicate glass", undefined, 1.50, "Factor for E and G modification"); //
+structureModification.Material("Soda-lime silicate glass", undefined, 1.50, "Factor for E and G modification"); // 
 structureModification.Section("1/2 HEA 140 | 1 - S235", undefined, undefined, 1.50, undefined, 1.80); // Az and iY modification
 structureModification.Members(memberStiffnessModification.member_stiffness_modification, [6, 7], "Structure modification for members 1, 2");
 structureModification.Surfaces(surfaceStiffnessModification.surface_stiffness_modification, [1, 2, 3], "Structure modification for surfaces 1 - 3");
 structureModification.MemberHinges(6, "End", undefined, undefined, 1.50);	// translational spring constant Cu,z
 structureModification.MemberHinges(9, "Start", undefined, undefined, undefined, undefined, 1.50, 1.60);	// rotational spring constant Cφ,y and Cφ,z
 structureModification.LineHinges(6, 21, undefined, 1.6, 2.0); // Surface no. 6, line no. 21, Cu,x parameter set
-structureModification.LineHinges(7, 27, 1.1, 1.2); // Cu,x, Cu,y set
+// structureModification.LineHinges(7, 27, 1.1, 1.2); // Cu,x, Cu,y set
 structureModification.NodalSupports(62, undefined, undefined, undefined, 1.9, 2.0); // Node no. 62, Cφ,x, Cφ,y set
 structureModification.NodalSupports(70, undefined, undefined, undefined, undefined, undefined, 2.0); // Node no. 70, Cφ,z set
 structureModification.LineSupports(77, undefined, undefined, 2.0); // Line no. 77, Cu,z set

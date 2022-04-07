@@ -54,17 +54,17 @@ StructureModification.prototype.Material = function (material_name,
  * @param {Number}	sectional_areas_factor_a 	Sectional areas factor A, can be undefined (1.00 by default)
  * @param {Number}	sectional_areas_factor_a_y 	Sectional areas factor Ay, can be undefined (1.00 by default)
  * @param {Number} 	sectional_areas_factor_a_z	Sectional areas factor Az, can be undefined (1.00 by default)
- * @param {Number}	moment_of_inertia_fator_j	Moment of inertia factor J, can be undefined (1.00 by default)
- * @param {Number}	moment_of_inertia_fator_i_y	Moment of inertia factor Iy, can be undefined (1.00 by default)
- * @param {Number}	moment_of_inertia_fator_i_z	Moment of inertia factor Iz, can be undefined (1.00 by default)
+ * @param {Number}	moment_of_inertia_factor_j	Moment of inertia factor J, can be undefined (1.00 by default)
+ * @param {Number}	moment_of_inertia_favor_i_y	Moment of inertia factor Iy, can be undefined (1.00 by default)
+ * @param {Number}	moment_of_inertia_favor_i_z	Moment of inertia factor Iz, can be undefined (1.00 by default)
  */
 StructureModification.prototype.Section = function (section_name,
 	sectional_areas_factor_a,
 	sectional_areas_factor_a_y,
 	sectional_areas_factor_a_z,
-	moment_of_inertia_fator_j,
-	moment_of_inertia_fator_i_y,
-	moment_of_inertia_fator_i_z) {
+	moment_of_inertia_factor_j,
+	moment_of_inertia_favor_i_y,
+	moment_of_inertia_favor_i_z) {
 	this.structure_modification.modify_stiffnesses_sections = true;
 	var table = this.structure_modification.modify_stiffnesses_section_table;
 	for (var row = 1; row <= table.row_count(); ++row) {
@@ -78,14 +78,14 @@ StructureModification.prototype.Section = function (section_name,
 			if (typeof sectional_areas_factor_a_z !== "undefined") {
 				table[row].A_z = sectional_areas_factor_a_z;
 			}
-			if (typeof moment_of_inertia_fator_j !== "undefined") {
-				table[row].J = moment_of_inertia_fator_j;
+			if (typeof moment_of_inertia_factor_j !== "undefined") {
+				table[row].J = moment_of_inertia_factor_j;
 			}
-			if (typeof moment_of_inertia_fator_i_y !== "undefined") {
-				table[row].I_y = moment_of_inertia_fator_i_y;
+			if (typeof moment_of_inertia_favor_i_y !== "undefined") {
+				table[row].I_y = moment_of_inertia_favor_i_y;
 			}
-			if (typeof moment_of_inertia_fator_i_z !== "undefined") {
-				table[row].I_z = moment_of_inertia_fator_i_z;
+			if (typeof moment_of_inertia_favor_i_z !== "undefined") {
+				table[row].I_z = moment_of_inertia_favor_i_z;
 			}
 			return;
 		};
