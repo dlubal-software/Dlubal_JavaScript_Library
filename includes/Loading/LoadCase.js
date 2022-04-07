@@ -5,7 +5,7 @@
  * @param {*} name
  * @param {*} comment
  * @param {*} params
- * @returns
+ * @returns Object of LoadCase
  */
 function LoadCase(no,
   name,
@@ -29,7 +29,7 @@ function LoadCase(no,
  * @param {*} stabilityAnalysisSettingsNo
  * @param {*} comment
  * @param {*} params
- * @returns
+ * @returns Object of LoadCase
  */
 LoadCase.prototype.StaticAnalysis = function (no, name, staticAnalysisSettingsNo, ActionCategory, selfWeighParams, stabilityAnalysisSettingsNo, comment, params) {
 
@@ -53,7 +53,7 @@ LoadCase.prototype.StaticAnalysis = function (no, name, staticAnalysisSettingsNo
  * @param {*} selfWeighParams
  * @param {*} comment
  * @param {*} params
- * @returns
+ * @returns Object of LoadCase
  */
 LoadCase.prototype.ModalAnalysis = function (no, name, modalAnalysisSettingsNo, importMassesFrom, comment, params) {
 
@@ -75,7 +75,7 @@ LoadCase.prototype.ModalAnalysis = function (no, name, modalAnalysisSettingsNo, 
  * @param {*} responseSpectrums
  * @param {*} comment
  * @param {*} params
- * @returns
+ * @returns Object of LoadCase
  */
 LoadCase.prototype.ResponseSpectrumAnalysis = function (no, name, responseSpectrumAnalysisSettingsNo, importModalAnalysisFrom, responseSpectrums, comment, params) {
 

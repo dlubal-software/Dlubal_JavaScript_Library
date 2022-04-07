@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Class StaticAnalysisSettings
-   </title>
+   | Dlubal JavaScript High Level Functions Library </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class StaticAnalysisSettings
-   ">
+   | Dlubal JavaScript High Level Functions Library ">
     <meta name="generator" content="docfx 2.57.2.0">
     
-    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     
+    <meta property="docfx:rel" content="../">
     
-    
-  </head>
-  <body data-spy="scroll" data-target="#affix" data-offset="120">
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
         
@@ -37,7 +37,7 @@
               </button>
               
               <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" src="../logo.svg" alt="">
+                <img id="logo" class="svg" src="../images/logo.png" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -58,6 +58,16 @@
           </div>
         </div>
       </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
       <div role="main" class="container body-content hide-when-search">
         
         <div class="sidenav hide-when-search">
@@ -68,20 +78,20 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="StaticAnalysisSettings">
+            <article class="content wrap" id="_content" data-uid="Dlubal.StaticAnalysisSettings">
   
   
-  <h1 id="StaticAnalysisSettings" data-uid="StaticAnalysisSettings">Class StaticAnalysisSettings
+  <h1 id="Dlubal_StaticAnalysisSettings" data-uid="Dlubal.StaticAnalysisSettings">Class StaticAnalysisSettings
   </h1>
-  <div class="markdown level0 summary"><p>Creates static analysis settings hight level function</p>
+  <div class="markdown level0 summary"><p>Creates static analysis settings high level function</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <h4 id="StaticAnalysisSettings__ctor" data-uid="StaticAnalysisSettings.#ctor">StaticAnalysisSettings(no, analysisType, equationSolver, nonlinearMethod, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates static analysis settings hight level function</p>
+  <h4 id="Dlubal_StaticAnalysisSettings__ctor" data-uid="Dlubal.StaticAnalysisSettings.#ctor">StaticAnalysisSettings(no, analysisType, equationSolver, nonlinearMethod, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates static analysis settings high level function</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -111,7 +121,7 @@
         <td><span class="xref">String</span></td>
         <td><em>analysisType</em></td>
         <td>
-          <p>Analysis setting type (&quot;linear&quot;, &quot;second order&quot;, &quot;large deformations&quot;)</p>
+          <p>Analysis setting type (&quot;GEOMETRICALLY_LINEAR&quot;, &quot;SECOND_ORDER_P_DELTA&quot;, &quot;LARGE_DEFORMATIONS&quot;)</p>
 
           
         </td>
@@ -120,7 +130,7 @@
         <td><span class="xref">String</span></td>
         <td><em>equationSolver</em></td>
         <td>
-          <p>Equation solver (&quot;direct&quot;, &quot;iterative&quot;)</p>
+          <p>Equation solver (&quot;METHOD_OF_EQUATION_SYSTEM_DIRECT&quot;, &quot;METHOD_OF_EQUATION_SYSTEM_ITERATIVE&quot;)</p>
 
           
         </td>
@@ -129,7 +139,7 @@
         <td><span class="xref">String</span></td>
         <td><em>nonlinearMethod</em></td>
         <td>
-          <p>Nonlinear method (&quot;Picard&quot;, &quot;Combined&quot;, &quot;Postcritical&quot;, &quot;Newton&quot;, &quot;Constant stiffness&quot;, &quot;Dynamic&quot; )</p>
+          <p>Nonlinear method (&quot;NEWTON_RAPHSON&quot;, &quot;NEWTON_RAPHSON_COMBINED_WITH_PICARD&quot;, &quot;PICARD&quot;, &quot;NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS&quot;, &quot;NEWTON_RAPHSON_WITH_CONSTANT_STIFFNESS&quot;, &quot;DYNAMIC_RELAXATION&quot; )</p>
 
           
         </td>
@@ -174,25 +184,12 @@
   </h3>
   
   
-  <h4 id="StaticAnalysisSettings_Linear" data-uid="StaticAnalysisSettings#Linear">Linear()</h4>
-  <div class="markdown level1 summary"><p>Creates linear static analysis settings</p>
-<ul>
-<li>@param   {String}          equationSolver      Equation solver (&quot;direct&quot;, &quot;iterative&quot;)</li>
-</ul>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Linear()</code></pre>
-  </div>
-  
-  
-  <h4 id="StaticAnalysisSettings_SecondOrder" data-uid="StaticAnalysisSettings#SecondOrder">SecondOrder(equationSolver, nonlinearMethod)</h4>
+  <h4 id="Dlubal_StaticAnalysisSettings_GeometricallyLinear" data-uid="Dlubal.StaticAnalysisSettings#GeometricallyLinear">GeometricallyLinear(no, name, equationSolver, plateBendingTheory, activeMass, modifyLoading, comment, params)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function SecondOrder(equationSolver, nonlinearMethod)</code></pre>
+    <pre><code class="lang-js hljs">function GeometricallyLinear(no, name, equationSolver, plateBendingTheory, activeMass, modifyLoading, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -205,33 +202,95 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>equationSolver</em></td>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>no</em></td>
         <td>
-          <p>Equation solver (&quot;direct&quot;, &quot;iterative&quot;)</p>
-
+          
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>nonlinearMethod</em></td>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>name</em></td>
         <td>
-          <p>Nonlinear method (&quot;Picard&quot;, &quot;Postcritical&quot;, &quot;Newton&quot;)</p>
-
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>equationSolver</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>plateBendingTheory</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>activeMass</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>modifyLoading</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>comment</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>params</em></td>
+        <td>
+          
           
         </td>
       </tr>
     </tbody>
   </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Object Static Analysis Settings</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   
   
-  <h4 id="StaticAnalysisSettings_LargeDeformations" data-uid="StaticAnalysisSettings#LargeDeformations">LargeDeformations(equationSolver, nonlinearMethod)</h4>
+  <h4 id="Dlubal_StaticAnalysisSettings_SecondOrder" data-uid="Dlubal.StaticAnalysisSettings#SecondOrder">SecondOrder(no, name, equationSolver, nonlinearMethod, maxNumberOfIterations, numberOfLoadIncrements, plateBendingTheory, activeMass, modifyLoading, comment, params)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function LargeDeformations(equationSolver, nonlinearMethod)</code></pre>
+    <pre><code class="lang-js hljs">function SecondOrder(no, name, equationSolver, nonlinearMethod, maxNumberOfIterations, numberOfLoadIncrements, plateBendingTheory, activeMass, modifyLoading, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -244,22 +303,241 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>equationSolver</em></td>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>no</em></td>
         <td>
-          <p>Equation solver (&quot;direct&quot;, &quot;iterative&quot;)</p>
-
+          
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>nonlinearMethod</em></td>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>name</em></td>
         <td>
-          <p>Nonlinear method (&quot;Picard&quot;, &quot;Combined&quot;, &quot;Postcritical&quot;, &quot;Newton&quot;, &quot;Constant stiffness&quot;, &quot;Dynamic&quot; )</p>
-
+          
           
         </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>equationSolver</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>nonlinearMethod</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>maxNumberOfIterations</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>numberOfLoadIncrements</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>plateBendingTheory</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>activeMass</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>modifyLoading</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>comment</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>params</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Object Static Analysis Settings</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StaticAnalysisSettings_LargeDeformations" data-uid="Dlubal.StaticAnalysisSettings#LargeDeformations">LargeDeformations(no, name, equationSolver, nonlinearMethod, maxNumberOfIterations, numberOfLoadIncrements, percentageOfIterations, plateBendingTheory, activeMass, modifyLoading, comment, params)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function LargeDeformations(no, name, equationSolver, nonlinearMethod, maxNumberOfIterations, numberOfLoadIncrements, percentageOfIterations, plateBendingTheory, activeMass, modifyLoading, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>no</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>name</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>equationSolver</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>nonlinearMethod</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>maxNumberOfIterations</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>numberOfLoadIncrements</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>percentageOfIterations</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>plateBendingTheory</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>activeMass</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>modifyLoading</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>comment</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.*</span></td>
+        <td><em>params</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Object Static Analysis Settings</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -288,8 +566,8 @@
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
+            Copyright © 2022 <a href="https://www.dlubal.com/en-US">Dlubal Software</a><br>Generated by <strong>DocFX</strong>
             
-            <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>

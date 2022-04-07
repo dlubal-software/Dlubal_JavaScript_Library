@@ -41,7 +41,9 @@ function SetMemberLoadDistribution(type) {
 }
 
 /**
- *
+ * @class WindSimulationSettings
+ * @description Basic constuctor
+ * @classdesc Class creates WindSimulationSettings object
  * @param {*} no
  * @param {*} name
  * @param {*} density
@@ -51,7 +53,7 @@ function SetMemberLoadDistribution(type) {
  * @param {*} memberLoadDistribution
  * @param {*} comment
  * @param {*} params
- * @returns
+ * @returns Object WindSimulationSettings
  */
 function WindSimulationSettings(no,
   name,

@@ -1,15 +1,27 @@
+
+/**
+ * AnalysisSettings namespace
+ * @namespace AnalysisSettings
+ */
+
 /**
  * Creates modal analysis settings high level function
  * @class
  * @constructor
+ * @memberof AnalysisSettings
+ * @classdesc Modal analysis settings high level function
+ * @customTag Tohle je custom tag
  * @param {Number} no unique ID of modal analysis settings
  * @param {String} solverMethod solver method()
  * @param {String} beyondFrequency Setting of eigenvectors beyond frequency
  * @param {String} maximalFrequency Setting of eigenvectors maximal frequency
  * @param {String} comment  Comment, empty by default
  * @param {Object} params Modal analysis settings parameters, empty by default
+ * @example
+ * // returns 2
+ * globalNS.method1(5, 10); 
  * @returns Object ModalAnalysisSettings
- */
+*/
  function ModalAnalysisSettings(no,
   solverMethod,
   beyondFrequency,
@@ -109,7 +121,7 @@ ModalAnalysisSettings.prototype.UserDefinedNumberOfModes = function (no, name, n
  * @param {*} actingMasses
  * @param {*} comment
  * @param {*} params
- * @returns
+ * @returns Object ModalAnalysisSettings
  */
 ModalAnalysisSettings.prototype.AutomaticNumberOfModesToReachEffMass = function (no, name, effectiveModalMassFactor, solverMethod, typeOfMassMatrix, massConversion, actingMasses, comment, params) {
 
@@ -148,7 +160,7 @@ ModalAnalysisSettings.prototype.AutomaticNumberOfModesToReachEffMass = function 
  * @param {*} actingMasses
  * @param {*} comment
  * @param {*} params
- * @returns
+ * @returns Object ModalAnalysisSettings
  */
 ModalAnalysisSettings.prototype.AutomaticNumberOfModesToReachMaxFreq = function (no, name, maxNaturalFrequency, solverMethod, typeOfMassMatrix, massConversion, actingMasses, comment, params) {
 
@@ -283,7 +295,13 @@ function SetActingMasses(MAS, actingMasses) {
     MAS.acting_masses_in_direction_y_enabled = true;
     MAS.acting_masses_in_direction_z_enabled = true;
   }
-};
+}
+/**
+ * @memberof AnalysisSettings
+ * @param {*} no 
+ * @param {*} name 
+ * @returns {Object} ModalAnalysisSettings
+ */
 function CreateModalAnalysisSettings(no, name) {
   var ModalAnalysisSettings = undefined;
   if (no === undefined) {
