@@ -7,7 +7,7 @@
  * @param {String}  comment     Comment, can be undefined
  * @param {Object}  params      Additional parameters, can be undefined
  */
-function MemberLoadFromFreeLineLoadWizard (no,
+function MemberLoadFromFreeLineLoadWizard(no,
     load_case,
     comment,
     params) {
@@ -28,7 +28,7 @@ function MemberLoadFromFreeLineLoadWizard (no,
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Additional parameters, can be undefined
  */
- MemberLoadFromFreeLineLoadWizard.prototype.Uniform = function (no,
+MemberLoadFromFreeLineLoadWizard.prototype.Uniform = function (no,
     load_case,
     uniform_magnitude,
     node_1,
@@ -84,7 +84,7 @@ MemberLoadFromFreeLineLoadWizard.prototype.Linear = function (no,
  * Sets absolute tolerance for member on plane
  * @param {Number}  absolute_tolerance  Absolute tolerance by distance, can be undefined (0.0005 as default)
  */
- MemberLoadFromFreeLineLoadWizard.prototype.AbsoluteToleranceForMembersOnPlane = function (absolute_tolerance) {
+MemberLoadFromFreeLineLoadWizard.prototype.AbsoluteToleranceForMembersOnPlane = function (absolute_tolerance) {
     this.memberWizard.tolerance_type_for_member_on_plane = member_loads_from_free_line_load.ABSOLUTE_TOLERANCE_BY_DISTANCE;
     if (typeof absolute_tolerance != "undefined") {
         this.memberWizard.absolute_tolerance_for_member_on_plane = absolute_tolerance;
@@ -95,7 +95,7 @@ MemberLoadFromFreeLineLoadWizard.prototype.Linear = function (no,
  * Sets relative tolerance for member on plane
  * @param {Number}  relative_tolerance  Relative tolerance by angle, can be undefined (1.0 by default)
  */
- MemberLoadFromFreeLineLoadWizard.prototype.RelativeToleranceForMembersOnPlane = function (relative_tolerance) {
+MemberLoadFromFreeLineLoadWizard.prototype.RelativeToleranceForMembersOnPlane = function (relative_tolerance) {
     this.memberWizard.tolerance_type_for_member_on_plane = member_loads_from_free_line_load.RELATIVE_TOLERANCE_BY_ANGLE;
     if (typeof relative_tolerance !== "undefined") {
         this.memberWizard.relative_tolerance_for_member_on_plane = relative_tolerance;
@@ -106,7 +106,7 @@ MemberLoadFromFreeLineLoadWizard.prototype.Linear = function (no,
  * Sets absolute tolerance for nodes on line
  * @param {Number}  absolute_tolerance  Absolute tolerance by distance, can be undefined (0.0005 as default)
  */
- MemberLoadFromFreeLineLoadWizard.prototype.AbsoluteToleranceForNodesOnLine = function (absolute_tolerance) {
+MemberLoadFromFreeLineLoadWizard.prototype.AbsoluteToleranceForNodesOnLine = function (absolute_tolerance) {
     this.memberWizard.tolerance_type_for_node_on_line = member_loads_from_free_line_load.ABSOLUTE_TOLERANCE_BY_DISTANCE;
     if (typeof absolute_tolerance !== "undefined") {
         this.memberWizard.absolute_tolerance_for_node_on_line = absolute_tolerance;
@@ -117,7 +117,7 @@ MemberLoadFromFreeLineLoadWizard.prototype.Linear = function (no,
  * Sets relative tolerance for nodes on line
  * @param {Number}  relative_tolerance  Relative tolerance by angle, can be undefined (1.0 by default)
  */
- MemberLoadFromFreeLineLoadWizard.prototype.RelativeToleranceForNodesOnLine = function (relative_tolerance) {
+MemberLoadFromFreeLineLoadWizard.prototype.RelativeToleranceForNodesOnLine = function (relative_tolerance) {
     this.memberWizard.tolerance_type_for_node_on_line = member_loads_from_free_line_load.RELATIVE_TOLERANCE_BY_ANGLE;
     if (typeof relative_tolerance !== "undefined") {
         this.memberWizard.relative_tolerance_for_node_on_line = relative_tolerance;
@@ -134,6 +134,7 @@ MemberLoadFromFreeLineLoadWizard.prototype.ExcludedMembers = function (excluded_
     if (typeof excluded_members !== "undefined") {
         this.memberWizard.excluded_members = excluded_members;
     }
+
     if (typeof excluded_parallel_members !== "undefined") {
         this.memberWizard.excluded_parallel_members = excluded_parallel_members;
     }
@@ -143,7 +144,7 @@ MemberLoadFromFreeLineLoadWizard.prototype.ExcludedMembers = function (excluded_
  * Sets lock for new members
  * @param {Boolean} lock_for_new_members    Lock for new members, can be undefined (true as defeault)
  */
- MemberLoadFromFreeLineLoadWizard.prototype.LockForNewMembers = function (lock_for_new_members) {
+MemberLoadFromFreeLineLoadWizard.prototype.LockForNewMembers = function (lock_for_new_members) {
     if (typeof lock_for_new_members === "undefined") {
         lock_for_new_members = true;
     }
@@ -154,7 +155,7 @@ MemberLoadFromFreeLineLoadWizard.prototype.ExcludedMembers = function (excluded_
  * Sets consider member eccentricity
  * @param {Boolean} consider_member_eccentricity    Consider member eccentricity, can be undefined (true as defeault)
  */
- MemberLoadFromFreeLineLoadWizard.prototype.ConsiderMemberEccentricity = function (consider_member_eccentricity) {
+MemberLoadFromFreeLineLoadWizard.prototype.ConsiderMemberEccentricity = function (consider_member_eccentricity) {
     if (typeof consider_member_eccentricity === "undefined") {
         consider_member_eccentricity = true;
     }
@@ -165,7 +166,7 @@ MemberLoadFromFreeLineLoadWizard.prototype.ExcludedMembers = function (excluded_
  * Sets consider section distribution
  * @param {Boolean} consider_section_distribution   Consider section distribution, can be undefined (true as defeault)
  */
- MemberLoadFromFreeLineLoadWizard.prototype.ConsiderSectionDistribution = function (consider_section_distribution) {
+MemberLoadFromFreeLineLoadWizard.prototype.ConsiderSectionDistribution = function (consider_section_distribution) {
     if (typeof consider_section_distribution === "undefined") {
         consider_section_distribution = true;
     }
@@ -180,7 +181,7 @@ MemberLoadFromFreeLineLoadWizard.prototype.ExcludedMembers = function (excluded_
  * @param {Object}  params      Additional parameters, can be undefined
  * @returns Created member load wizard
  */
- function createBaseMemberLoadFromFreeLineLoadWizard (no,
+function createBaseMemberLoadFromFreeLineLoadWizard(no,
     load_case,
     comment,
     params) {
@@ -201,7 +202,7 @@ MemberLoadFromFreeLineLoadWizard.prototype.ExcludedMembers = function (excluded_
  * @param {Array}   load_distribution_values    Load distribution values
  * @returns Modified member load wizard
  */
- function setMemberLoadFromFreeLineLoadWizardDistribution (member_wizard,
+function setMemberLoadFromFreeLineLoadWizardDistribution(member_wizard,
     load_distribution,
     load_distribution_values) {
     member_wizard.load_distribution = load_distribution;

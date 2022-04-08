@@ -14,37 +14,46 @@ var section = createSection(material, "IPE 80");
 var nodesForMembers = createNodesGrid(-28, -24, [10, 5], [3, 4]);
 var lc = LoadCase(undefined);
 var member = new Member();
-for (var i = 0; i < nodesForMembers.length; i+=2) {
+for (var i = 0; i < nodesForMembers.length; i += 2) {
 	member.Beam(undefined, [nodesForMembers[i].no, nodesForMembers[i + 1].no], section.no);
 }
 
 /*********************************************************************************************
 ****************************************** Main **********************************************
 *********************************************************************************************/
-var memberLoadFromAreaLoadWizard = new MemberLoadFromAreaLoadWizard(undefined, lc, "Empty member load from area load wizard", { "uniform_magnitude" : 1500 });
-memberLoadFromAreaLoadWizard.Uniform(undefined, lc, 1000, undefined, "X_P (U_P )")
-memberLoadFromAreaLoadWizard.Linear(undefined, lc, 1000, 5, 1500, 17, 2000, 27, undefined, "Z_P (W_P )");
-memberLoadFromAreaLoadWizard.VaryingInX(undefined, lc, [1, 1, 1000, 3, 2, 1500]);
-memberLoadFromAreaLoadWizard.VaryingInY(undefined, lc, [0.5, 0.5, 500, 2.5, 2, 1500]);
+var memberLoadFromAreaLoadWizard = new MemberLoadFromAreaLoadWizard(undefined, lc, "Empty member load from area load wizard", { "uniform_magnitude": 1500 });
+var memberLoadFromAreaLoadWizardUni = new MemberLoadFromAreaLoadWizard();
+memberLoadFromAreaLoadWizardUni.Uniform(undefined, lc, 1000, undefined, "Z_P (W_P )");
+memberLoadFromAreaLoadWizardUni.SetGeometry(["7,27,30,10"]);
+var memberLoadFromAreaLoadWizardLin = new MemberLoadFromAreaLoadWizard();
+memberLoadFromAreaLoadWizardLin.Linear(undefined, lc, 1000, 21, 1500, 41, 2000, 44, undefined, "Z_P (W_P )");
+memberLoadFromAreaLoadWizardLin.SetGeometry(["21,41,44"]);
+var memberLoadFromAreaLoadWizardVarX = new MemberLoadFromAreaLoadWizard();
+memberLoadFromAreaLoadWizardVarX.VaryingInX(undefined, lc, [1, 1, 1000, 3, 2, 1500]);
+memberLoadFromAreaLoadWizardVarX.SetGeometry(["24,44,47"]);
+var memberLoadFromAreaLoadWizardVarY = new MemberLoadFromAreaLoadWizard();
+// memberLoadFromAreaLoadWizardVarY.VaryingInY(undefined, lc, [0.5, 0.5, 500, 2.5, 2, 1500]);
 // Varying in Y member load wizard with all options set and geometry and tolerances specified
-memberLoadFromAreaLoadWizard.VaryingInY(undefined, lc, [1.5, 1.5, 2000, 4, 2.5, 2500], undefined, "Y_P (V_P )");
-memberLoadFromAreaLoadWizard.SetGeometry(["1, 2, 11", "23, 24, 34, 33"], [11], [12]);
-memberLoadFromAreaLoadWizard.RelativeToleranceForMembersOnPlane(0.008);
-memberLoadFromAreaLoadWizard.AbsoluteToleranceForNodesOnLine(0.01);
-memberLoadFromAreaLoadWizard.LockForNewMembers();
-memberLoadFromAreaLoadWizard.SmoothConcentratedLoad();
-memberLoadFromAreaLoadWizard.ConsiderMemberEccentricity();
-memberLoadFromAreaLoadWizard.ConsiderSectionDistribution();
+memberLoadFromAreaLoadWizardVarY.VaryingInY(undefined, lc, [1.5, 1.5, 2000, 4, 2.5, 2500], undefined, "Y_P (V_P )");
+memberLoadFromAreaLoadWizardVarY.SetGeometry(["1, 4, 34"]);
+memberLoadFromAreaLoadWizardVarY.RelativeToleranceForMembersOnPlane(0.008);
+memberLoadFromAreaLoadWizardVarY.AbsoluteToleranceForNodesOnLine(0.01);
+// memberLoadFromAreaLoadWizardVarY.LockForNewMembers();
+memberLoadFromAreaLoadWizardVarY.SmoothConcentratedLoad();
+memberLoadFromAreaLoadWizardVarY.ConsiderMemberEccentricity();
+memberLoadFromAreaLoadWizardVarY.ConsiderSectionDistribution();
 
-var memberLoadFromFreeLineLoadWizard = new MemberLoadFromFreeLineLoadWizard(undefined, lc, "Empty member load from area load wizard", { "magnitude_uniform" : 1500 , "node_1" : 31, "node_2" : 32});
-memberLoadFromFreeLineLoadWizard.Uniform(undefined, lc, 1000, 33, 34, undefined, "X_P (U_P )");
-memberLoadFromFreeLineLoadWizard.Linear(undefined, lc, 1000, 35, 1500, 36, undefined, "Z_P (W_P )");
-//memberLoadFromFreeLineLoadWizard.RelativeToleranceForMembersOnPlane(0.008);	// BUG/CRASH!!
-memberLoadFromFreeLineLoadWizard.AbsoluteToleranceForNodesOnLine(0.01);
-memberLoadFromFreeLineLoadWizard.ExcludedMembers([20, 21], [22, 23]);
-memberLoadFromFreeLineLoadWizard.LockForNewMembers();
-memberLoadFromFreeLineLoadWizard.ConsiderMemberEccentricity();
-memberLoadFromFreeLineLoadWizard.ConsiderSectionDistribution();
+var memberLoadFromFreeLineLoadWizard = new MemberLoadFromFreeLineLoadWizard(undefined, lc, "Empty member load from area load wizard", { "magnitude_uniform": 1500, "node_1": 1, "node_2": 8 });
+var memberLoadFromFreeLineLoadWizardUni = new MemberLoadFromFreeLineLoadWizard();
+memberLoadFromFreeLineLoadWizardUni.Uniform(undefined, lc, 1000, 11, 46, undefined, "Y_P (V_P )");
+var memberLoadFromFreeLineLoadWizardLin = new MemberLoadFromFreeLineLoadWizard();
+memberLoadFromFreeLineLoadWizardLin.Linear(undefined, lc, 1000, 1, 1500,50, undefined, "Z_P (W_P )");
+// memberLoadFromFreeLineLoadWizardLin.RelativeToleranceForMembersOnPlane(0.008);	// BUG/CRASH!!
+memberLoadFromFreeLineLoadWizardLin.AbsoluteToleranceForNodesOnLine(0.01);
+// memberLoadFromFreeLineLoadWizardLin.ExcludedMembers([7]); // BUG/CRASH!!
+// memberLoadFromFreeLineLoadWizardLin.LockForNewMembers();
+memberLoadFromFreeLineLoadWizardLin.ConsiderMemberEccentricity();
+memberLoadFromFreeLineLoadWizardLin.ConsiderSectionDistribution();
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;
