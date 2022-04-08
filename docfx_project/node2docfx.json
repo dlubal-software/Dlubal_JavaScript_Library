@@ -1,7 +1,15 @@
 {
   "source": {
-    "include": ["../includes"]
+    "include": ["../includes/"],
+    "includePattern": ".js$",
+    "excludePattern": "(node_modules/|docs)"
   },
-  "readme": "../README.md",
-  "destination": "api"
+  "sourceType": "module",
+  "package": "package.json",
+  "readme": "/README.md",
+  "destination": "api",
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc"]
+  }
 }
