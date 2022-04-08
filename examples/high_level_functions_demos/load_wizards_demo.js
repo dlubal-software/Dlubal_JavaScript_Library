@@ -112,7 +112,7 @@ for (var copy = 0; copy < 2; ++copy) {
 		var modelSurfaces2 = [
 			createSurface([modelLines2[0], modelLines2[1], modelLines2[2], modelLines2[3]], surfaces.TYPE_STANDARD, thickness),
 			createSurface([modelLines2[4], modelLines2[8], modelLines2[9], modelLines2[5], modelLines2[0]], surfaces.TYPE_STANDARD, thickness),
-			createSurface([modelLines2[1], modelLines2[6], modelLines2[0], modelLines2[5]], surfaces.TYPE_STANDARD, thickness),
+			createSurface([modelLines2[1], modelLines2[6], modelLines2[10], modelLines2[5]], surfaces.TYPE_STANDARD, thickness),
 			createSurface([modelLines2[2], modelLines2[7], modelLines2[12], modelLines2[11], modelLines2[6]], surfaces.TYPE_STANDARD, thickness),
 			createSurface([modelLines2[13], modelLines2[8], modelLines2[14], modelLines2[12]], surfaces.TYPE_STANDARD, thickness),
 			createSurface([modelLines2[14], modelLines2[9], modelLines2[10], modelLines2[11]], surfaces.TYPE_STANDARD, thickness)
