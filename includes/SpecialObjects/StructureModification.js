@@ -95,7 +95,7 @@ StructureModification.prototype.Section = function (section_name,
 
 /**
  * Modification of members
- * @param {Object} 	member_stiffness_modification 	Member stiffness modification
+ * @param {Object} 	member_stiffness_modification 	Member stiffness modification index
  * @param {Array} 	members 						List of members indexes
  * @param {String} 	comment 						Comment, can be undefined, can be undefined
  */
@@ -105,17 +105,22 @@ StructureModification.prototype.Members = function (member_stiffness_modificatio
 	ASSERT(typeof member_stiffness_modification !== "undefined", "Member stiffness modification must be specified");
 	ASSERT(typeof members !== "undefined", "Member(s) must be specified");
 	this.structure_modification.modify_stiffnesses_members = true;
-	var row = this.structure_modification.modify_stiffnesses_member_table.row_count();
-	this.structure_modification.modify_stiffnesses_member_table[row].member_modification = member_stiffness_modification;
-	this.structure_modification.modify_stiffnesses_member_table[row].members = members.join();
-	if (typeof comment !== "undefined") {
-		this.structure_modification.modify_stiffnesses_member_table[row].comment = comment;
+	if (member_stiffness_modifications.exist(member_stiffness_modification)) {
+		var row = this.structure_modification.modify_stiffnesses_member_table.row_count();
+		this.structure_modification.modify_stiffnesses_member_table[row].member_modification = member_stiffness_modifications[member_stiffness_modification];
+		this.structure_modification.modify_stiffnesses_member_table[row].members = members.join();
+		if (typeof comment !== "undefined") {
+			this.structure_modification.modify_stiffnesses_member_table[row].comment = comment;
+		}
+	}
+	else {
+		console.log("Member stiffness modification no. " + member_stiffness_modification + " doesn't exist");
 	}
 };
 
 /**
  * Modification of surfaces
- * @param {Object} 	surface_stiffness_modification 	Surface stiffness modification
+ * @param {Object} 	surface_stiffness_modification 	Surface stiffness modification index
  * @param {Array}	surfaces						List of surfaces indexes
  * @param {String}	comment 						Comment, can be undefined
  */
@@ -124,12 +129,17 @@ StructureModification.prototype.Surfaces = function (surface_stiffness_modificat
 	comment) {
 	ASSERT(typeof surface_stiffness_modification !== "undefined", "Surface stiffness modification must be defined");
 	ASSERT(typeof surfaces !== "undefined", "Surface(s) must  be defined");
-	this.structure_modification.modify_stiffnesses_surfaces = true;
-	var row = this.structure_modification.modify_stiffnesses_surface_table.row_count();
-	this.structure_modification.modify_stiffnesses_surface_table[row].surface_modification = surface_stiffness_modification;
-	this.structure_modification.modify_stiffnesses_surface_table[row].surfaces = surfaces.join();
-	if (typeof comment !== "undefined") {
-		this.structure_modification.modify_stiffnesses_surface_table[row].comment = comment;
+	if (surface_stiffness_modifications.exist(surface_stiffness_modification)) {
+		this.structure_modification.modify_stiffnesses_surfaces = true;
+		var row = this.structure_modification.modify_stiffnesses_surface_table.row_count();
+		this.structure_modification.modify_stiffnesses_surface_table[row].surface_modification = surface_stiffness_modifications[surface_stiffness_modification];
+		this.structure_modification.modify_stiffnesses_surface_table[row].surfaces = surfaces.join();
+		if (typeof comment !== "undefined") {
+			this.structure_modification.modify_stiffnesses_surface_table[row].comment = comment;
+		}
+	}
+	else {
+		console.log("Surface stiffness modification no. " + surface_stiffness_modification + " doesn't exist");
 	}
 };
 
@@ -390,7 +400,7 @@ StructureModification.prototype.SurfaceSupports = function (surface_no,
 };
 
 /**
- * Deactiovation of objects
+ * Deactivation of objects
  * @param {Object}	members_object_selection 				Object selection with deactivated members, can be undefined  (1.00 by default)
  * @param {Object}	surfaces_object_selection 				Object selection with deactivated surfaces, can be undefined  (1.00 by default)
  * @param {Object}	solids_object_selection 				Object selection with deactivated solids, can be undefined  (1.00 by default)
@@ -433,7 +443,7 @@ StructureModification.prototype.DeactivateObjects = function (members_object_sel
  * Sets member concrete reinforcement
  * @param {Boolean}	enabled 	Enabled, true if undefined
  */
-StructureModification.prototype.ModifyMemberReiforcement = function (enabled) {
+StructureModification.prototype.ModifyMemberReinforcement = function (enabled) {
 	if (typeof enabled === "undefined") {
 		enabled = true;
 	}
@@ -444,7 +454,7 @@ StructureModification.prototype.ModifyMemberReiforcement = function (enabled) {
  * Sets surface concrete reinforcement
  * @param {Boolean}	enabled 	Enabled, true if undefined
  */
-StructureModification.prototype.ModifySurfaceReiforcement = function (enabled) {
+StructureModification.prototype.ModifySurfaceReinforcement = function (enabled) {
 	if (typeof enabled === "undefined") {
 		enabled = true;
 	}

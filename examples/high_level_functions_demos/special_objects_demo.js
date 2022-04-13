@@ -102,8 +102,8 @@ surfaceStiffnessModification.TotalStiffnessFactor(1, undefined, 2.5);
 var structureModification = new StructureModification(undefined, "First");
 structureModification.Material("Soda-lime silicate glass", undefined, 1.50, "Factor for E and G modification"); // 
 structureModification.Section("1/2 HEA 140 | 1 - S235", undefined, undefined, 1.50, undefined, 1.80); // Az and iY modification
-structureModification.Members(memberStiffnessModification.member_stiffness_modification, [6, 7], "Structure modification for members 1, 2");
-structureModification.Surfaces(surfaceStiffnessModification.surface_stiffness_modification, [1, 2, 3], "Structure modification for surfaces 1 - 3");
+structureModification.Members(memberStiffnessModification.member_stiffness_modification.no, [6, 7], "Structure modification for members 1, 2");
+structureModification.Surfaces(surfaceStiffnessModification.surface_stiffness_modification.no, [1, 2, 3], "Structure modification for surfaces 1 - 3");
 structureModification.MemberHinges(6, "End", undefined, undefined, 1.50);	// translational spring constant Cu,z
 structureModification.MemberHinges(9, "Start", undefined, undefined, undefined, undefined, 1.50, 1.60);	// rotational spring constant Cφ,y and Cφ,z
 structureModification.LineHinges(6, 21, undefined, 1.6, 2.0); // Surface no. 6, line no. 21, Cu,x parameter set
