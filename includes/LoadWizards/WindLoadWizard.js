@@ -19,8 +19,8 @@ function WindLoadWizard () {
  * @param {Number}  no                  Wind load wizard index, can be undefined
  * @param {Array}   base_corner_nodes   Base corner nodes indexes
  * @param {Array}   roof_corner_nodes   Roof corner nodes indexes
- * @param {Object}  load_case_1         Load case 1
- * @param {Object}  load_case_2         Load case 2
+ * @param {Array}   load_cases          Load case 1, load case 2
+ * @param {Array}   wind_directions     Wind directions (roof sides accesibility), can be undefined, for info setWindDirections function
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Additional parameters, can be undefined
  */
@@ -28,6 +28,7 @@ WindLoadWizard.prototype.WallsRoofMonopitch = function (no,
     base_corner_nodes,
     roof_corner_nodes,
     load_cases,
+    wind_directions,
     comment,
     params) {
     ASSERT(typeof base_corner_nodes !== "undefined" && base_corner_nodes.length === 4, "Four base corner nodes must be specified");
@@ -39,6 +40,9 @@ WindLoadWizard.prototype.WallsRoofMonopitch = function (no,
     this.windLoadWizard.roof_corner_nodes = roof_corner_nodes;
     this.windLoadWizard.generate_into_load_cases[1].load_case = load_cases[0];
     this.windLoadWizard.generate_into_load_cases[4].load_case = load_cases[1];
+    if (typeof wind_directions !== "undefined") {
+        setWindDirections(this.windLoadWizard, wind_directions);
+    }
 };
 
 /**
@@ -47,13 +51,15 @@ WindLoadWizard.prototype.WallsRoofMonopitch = function (no,
  * @param {Array}   base_corner_nodes   Base corner nodes indexes
  * @param {Array}   roof_corner_nodes   Roof corner nodes indexes
  * @param {Array}   load_cases          Load cases
+ * @param {Array}   wind_directions     Wind directions (roof sides accesibility), can be undefined, for info setWindDirections function
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Additional parameters, can be undefined
  */
-WindLoadWizard.prototype.WallsRoofDuopitch = function (no,
+WindLoadWizard.prototype.WallsRoofDuoPitch = function (no,
     base_corner_nodes,
     roof_corner_nodes,
     load_cases,
+    wind_directions,
     comment,
     params) {
     ASSERT(typeof base_corner_nodes !== "undefined" && base_corner_nodes.length === 4, "Four base corner nodes must be specified");
@@ -66,6 +72,9 @@ WindLoadWizard.prototype.WallsRoofDuopitch = function (no,
     for (var i = 0; i < load_cases.length; ++i) {
         this.windLoadWizard.generate_into_load_cases[i + 1].load_case = load_cases[i];
     }
+    if (typeof wind_directions !== "undefined") {
+        setWindDirections(this.windLoadWizard, wind_directions);
+    }
 };
 
 /**
@@ -73,12 +82,14 @@ WindLoadWizard.prototype.WallsRoofDuopitch = function (no,
  * @param {Number}  no                  Wind load wizard index, can be undefined
  * @param {Array}   roof_corner_nodes   Roof corner nodes indexes
  * @param {Array}   load_cases          Load cases
+ * @param {Array}   wind_directions     Wind directions (roof sides accesibility), can be undefined, for info setWindDirections function
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Additional parameters, can be undefined
  */
-WindLoadWizard.prototype.RoofMonopitch = function (no,
+WindLoadWizard.prototype.RoofMonoPitch = function (no,
     roof_corner_nodes,
     load_cases,
+    wind_directions,
     comment,
     params) {
     ASSERT(typeof roof_corner_nodes !== "undefined" && roof_corner_nodes.length === 4, "Four roof corner nodes must be specified");
@@ -89,6 +100,9 @@ WindLoadWizard.prototype.RoofMonopitch = function (no,
     for (var i = 0; i < load_cases.length; ++i) {
         this.windLoadWizard.generate_into_load_cases[i + 1].load_case = load_cases[i];
     }
+    if (typeof wind_directions !== "undefined") {
+        setWindDirections(this.windLoadWizard, wind_directions);
+    }
 };
 
 /**
@@ -96,12 +110,14 @@ WindLoadWizard.prototype.RoofMonopitch = function (no,
  * @param {Number}  no                  Wind load wizard index, can be undefined
  * @param {Array}   roof_corner_nodes   Roof corner nodes indexes
  * @param {Array}   load_cases          Load cases
+ * @param {Array}   wind_directions     Wind directions (roof sides accesibility), can be undefined, for info setWindDirections function
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Additional parameters, can be undefined
  */
 WindLoadWizard.prototype.RoofDuopitch = function (no,
     roof_corner_nodes,
     load_cases,
+    wind_directions,
     comment,
     params) {
     ASSERT(typeof roof_corner_nodes !== "undefined" && roof_corner_nodes.length === 6, "Six roof corner nodes must be specified");
@@ -112,19 +128,24 @@ WindLoadWizard.prototype.RoofDuopitch = function (no,
     for (var i = 0; i < load_cases.length; ++i) {
         this.windLoadWizard.generate_into_load_cases[i + 1].load_case = load_cases[i];
     }
+    if (typeof wind_directions !== "undefined") {
+        setWindDirections(this.windLoadWizard, wind_directions);
+    }
 };
 
 /**
- * Sets wind perpendicular to roofs
+ * Sets wind perpendicular to roofs (private)
+ * @param {Object}  wind_load_wizard           Wind load wizard to set
  * @param {Array}   roof_sides_accessibility   Roof sides accessibility
  *                                             [Wall 1, Wall 2, Wall 3, Wall 4] (Vertical walls with flat/monopitch roof, Vertical walls with duopitch roof)
  *                                             [Direction 1, Direction 2, Direction 3, Direction 4] (Flat monopitch roof, Duopitch roof)
  */
-WindLoadWizard.prototype.Direction = function (roof_sides_accessibility) {
+function setWindDirections (wind_load_wizard,
+    roof_sides_accessibility) {
     ASSERT(typeof roof_sides_accessibility !== "undefined", "Roof sides accessibility must be specified");
-    ASSERT(roof_sides_accessibility.length === this.windLoadWizard.directions.row_count(), "Number of specified roofs has to be equal to number of roofs");
-    for (var i = 1; i <= this.windLoadWizard.directions.row_count(); ++i) {
-        this.windLoadWizard.directions[i].enabled = roof_sides_accessibility[i - 1];
+    ASSERT(roof_sides_accessibility.length === wind_load_wizard.directions.row_count(), "Number of specified roofs has to be equal to number of roofs");
+    for (var i = 1; i <= wind_load_wizard.directions.row_count(); ++i) {
+        wind_load_wizard.directions[i].enabled = roof_sides_accessibility[i - 1];
     }
 };
 

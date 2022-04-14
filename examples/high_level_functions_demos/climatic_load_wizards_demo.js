@@ -1,27 +1,18 @@
-/*
-IMPORTANT: there is bug/crash (when RelativeToleranceForMembersOnPlane is set to memberLoadFromFreeLineLoadWizard)
-*/
-
 include("../includes/Tools/high_level_functions_support.js");
 
 var t1 = new Date().getTime();
 
 run("../includes/Tools/clearAll.js");
 
-// Preperations of objects
+// Preparation of objects
 var material = createMaterial("S235");
 var section = createSection(material, "IPE 80");
 if (RFEM) {
 	var thickness = createThickness(0.250, material, thicknesses.TYPE_UNIFORM);
 }
-var nodesForMembers = createNodesGrid(-28, -24, [10, 4], [3, 4]);
 var lc = new LoadCase();
 var staticAnalysisSettings = static_analysis_settings.create();
 lc.StaticAnalysis(undefined, "Test lc 1", staticAnalysisSettings.no);
-var member = new Member();
-for (var i = 0; i < nodesForMembers.length; i+=2) {
-	member.Beam(undefined, [nodesForMembers[i].no, nodesForMembers[i + 1].no], section.no);
-}
 
 for (var copy = 0; copy < 2; ++copy) {
 	var modelNodes = [
@@ -140,31 +131,6 @@ for (var copy = 0; copy < 2; ++copy) {
 /*********************************************************************************************
 ****************************************** Main **********************************************
 *********************************************************************************************/
-var memberLoadFromAreaLoadWizard = new MemberLoadFromAreaLoadWizard(undefined, lc.LoadCase, "Empty member load from area load wizard", { "uniform_magnitude" : 1500 });
-memberLoadFromAreaLoadWizard.Uniform(undefined, lc.LoadCase, 1000, undefined, "X_P (U_P )")
-memberLoadFromAreaLoadWizard.Linear(undefined, lc.LoadCase, 1000, 5, 1500, 17, 2000, 27, undefined, "Z_P (W_P )");
-memberLoadFromAreaLoadWizard.VaryingInX(undefined, lc.LoadCase, [1, 1, 1000, 3, 2, 1500]);
-memberLoadFromAreaLoadWizard.VaryingInY(undefined, lc.LoadCase, [0.5, 0.5, 500, 2.5, 2, 1500]);
-// Varying in Y member load wizard with all options set and geometry and tolerances specified
-memberLoadFromAreaLoadWizard.VaryingInY(undefined, lc.LoadCase, [1.5, 1.5, 2000, 4, 2.5, 2500], undefined, "Y_P (V_P )");
-memberLoadFromAreaLoadWizard.SetGeometry(["1, 2, 11", "23, 24, 34, 33"], [11], [12]);
-memberLoadFromAreaLoadWizard.RelativeToleranceForMembersOnPlane(0.008);
-memberLoadFromAreaLoadWizard.AbsoluteToleranceForNodesOnLine(0.01);
-memberLoadFromAreaLoadWizard.LockForNewMembers();
-memberLoadFromAreaLoadWizard.SmoothConcentratedLoad();
-memberLoadFromAreaLoadWizard.ConsiderMemberEccentricity();
-memberLoadFromAreaLoadWizard.ConsiderSectionDistribution();
-
-var memberLoadFromFreeLineLoadWizard = new MemberLoadFromFreeLineLoadWizard(undefined, lc.LoadCase, "Empty member load from area load wizard", { "magnitude_uniform" : 1500 , "node_1" : 31, "node_2" : 32});
-memberLoadFromFreeLineLoadWizard.Uniform(undefined, lc.LoadCase, 1000, 33, 34, undefined, "X_P (U_P )");
-memberLoadFromFreeLineLoadWizard.Linear(undefined, lc.LoadCase, 1000, 35, 1500, 36, undefined, "Z_P (W_P )");
-//memberLoadFromFreeLineLoadWizard.RelativeToleranceForMembersOnPlane(0.008);	// BUG/CRASH!!
-memberLoadFromFreeLineLoadWizard.AbsoluteToleranceForNodesOnLine(0.01);
-memberLoadFromFreeLineLoadWizard.ExcludedMembers([20, 21], [22, 23]);
-memberLoadFromFreeLineLoadWizard.LockForNewMembers();
-memberLoadFromFreeLineLoadWizard.ConsiderMemberEccentricity();
-memberLoadFromFreeLineLoadWizard.ConsiderSectionDistribution();
-
 var snowLoadWizard = new SnowLoadWizard();
 var lc2 = new LoadCase();
 lc2.StaticAnalysis(undefined, "Test lc 2", staticAnalysisSettings.no, "ACTION_CATEGORY_SNOW_ICE_LOADS_FINLAND_ICELAND_QS");
@@ -174,10 +140,10 @@ var lc4 = new LoadCase();
 lc4.StaticAnalysis(undefined, "Test lc 4", staticAnalysisSettings.no, "ACTION_CATEGORY_SNOW_ICE_LOADS_FINLAND_ICELAND_QS");
 var lc5 = new LoadCase();
 lc5.StaticAnalysis(undefined, "Test lc 5", staticAnalysisSettings.no, "ACTION_CATEGORY_SNOW_ICE_LOADS_FINLAND_ICELAND_QS");
-snowLoadWizard.MonopitchRoofType(undefined, [45, 46, 47, 48], lc2.LoadCase);
-snowLoadWizard.Duopitch(undefined, [56, 53, 57, 54, 55, 58], lc3.LoadCase,  lc4.LoadCase,  lc5.LoadCase);
-snowLoadWizard.SetLoadedRoofes([true, false]);	// Disable second loaded roof
-snowLoadWizard.WithoutLoadsOnMembers([43, 46], [45]);
+snowLoadWizard.SetMonoPitchRoofType(undefined, [5, 6, 7, 8], lc2.LoadCase);
+snowLoadWizard.SetDuopitch(undefined, [16, 13, 17, 14, 15, 18], lc3.LoadCase,  lc4.LoadCase,  lc5.LoadCase);
+snowLoadWizard.SetLoadedRoofs([true, false]);	// Disable second loaded roof
+snowLoadWizard.WithoutLoadsOnMembers([10, 12], [45]);
 if (RFEM) {
 	snowLoadWizard.WithoutLoadsOnSurfaces([11], [10]);
 	snowLoadWizard.WithoutLoadsOnLines(undefined, [44, 45]);
@@ -193,23 +159,21 @@ for (var i = 0; i < 26; ++i) {
 }
 
 // Vertical walls with flat/monopitch roof with all available settings
-windLoadWizard.WallsRoofMonopitch(undefined, [59, 60, 61, 62], [63, 64, 65, 66], [loadCases[0].LoadCase, loadCases[1].LoadCase]);
-windLoadWizard.Direction([true, false, false, true]);	// Wind perpendicular
+windLoadWizard.WallsRoofMonopitch(undefined, [19, 20, 21, 22], [23, 24, 25, 26], [loadCases[0].LoadCase, loadCases[1].LoadCase], [true, false, false, true]);	// Wind perpendicular
 windLoadWizard.SetLoadedWallsAndRoofs([true, false, false, false]);
-windLoadWizard.WithoutLoadsOnMembers([57, 59], [49]);
+windLoadWizard.WithoutLoadsOnMembers([10, 12], [9]);
 if (RFEM) {
 	windLoadWizard.WithoutLoadsOnSurfaces([14], [16]);
-	windLoadWizard.WithoutLoadsOnLines([50, 58], [50, 54]);
+	windLoadWizard.WithoutLoadsOnLines([10, 11], [12, 13]);
 }
 windLoadWizard.LockForNewObjects();
 windLoadWizard.ConsiderMemberEccentricity();
 windLoadWizard.ConsiderSectionDistribution();
 // Other types of wind wizards
-windLoadWizard.WallsRoofDuopitch(undefined, [70, 67, 68, 69], [74, 71, 75, 72, 73, 76], [loadCases[2].LoadCase, loadCases[3].LoadCase, loadCases[4].LoadCase, loadCases[5].LoadCase]);
-windLoadWizard.Direction([false, false, true, true]);
+windLoadWizard.WallsRoofDuoPitch(undefined, [30, 27, 28, 29], [34, 31, 35, 32, 33, 36], [loadCases[2].LoadCase, loadCases[3].LoadCase, loadCases[4].LoadCase, loadCases[5].LoadCase], [false, false, true, true]);
 windLoadWizard.SetLoadedWallsAndRoofs([true, true, false, false]);
-windLoadWizard.RoofMonopitch(undefined, [66, 63, 64, 65], [loadCases[6].LoadCase, loadCases[7].LoadCase, loadCases[8].LoadCase, loadCases[9].LoadCase, loadCases[10].LoadCase, loadCases[11].LoadCase, loadCases[12].LoadCase, loadCases[13].LoadCase]);
-windLoadWizard.RoofDuopitch(undefined, [74, 71, 75, 72, 73, 76], [loadCases[14].LoadCase, loadCases[15].LoadCase, loadCases[16].LoadCase, loadCases[17].LoadCase, loadCases[18].LoadCase, loadCases[19].LoadCase, loadCases[20].LoadCase, loadCases[21].LoadCase, loadCases[22].LoadCase, loadCases[23].LoadCase, loadCases[24].LoadCase, loadCases[25].LoadCase])
+windLoadWizard.RoofMonoPitch(undefined, [26, 23, 24, 25], [loadCases[6].LoadCase, loadCases[7].LoadCase, loadCases[8].LoadCase, loadCases[9].LoadCase, loadCases[10].LoadCase, loadCases[11].LoadCase, loadCases[12].LoadCase, loadCases[13].LoadCase]);
+windLoadWizard.RoofDuopitch(undefined, [34, 31, 35, 32, 33, 36], [loadCases[14].LoadCase, loadCases[15].LoadCase, loadCases[16].LoadCase, loadCases[17].LoadCase, loadCases[18].LoadCase, loadCases[19].LoadCase, loadCases[20].LoadCase, loadCases[21].LoadCase, loadCases[22].LoadCase, loadCases[23].LoadCase, loadCases[24].LoadCase, loadCases[25].LoadCase])
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;

@@ -17,7 +17,7 @@ function SnowLoadWizard () {
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Additional parameters, can be undefined
  */
-SnowLoadWizard.prototype.MonopitchRoofType = function (no,
+SnowLoadWizard.prototype.SetMonoPitchRoofType = function (no,
     roof_corner_nodes,
     load_case,
     comment,
@@ -41,7 +41,7 @@ SnowLoadWizard.prototype.MonopitchRoofType = function (no,
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Additional parameters, can be undefined
  */
-SnowLoadWizard.prototype.Duopitch = function (no,
+SnowLoadWizard.prototype.SetDuopitch = function (no,
     roof_corner_nodes,
     load_case_1,
     load_case_2,
@@ -63,7 +63,7 @@ SnowLoadWizard.prototype.Duopitch = function (no,
  * Sets loaded roofs
  * @param {Array}   loaded_planes_accessibility   Enable or disable loaded roofs (array of booleans [roof1 | roof1, roof2])
  */
-SnowLoadWizard.prototype.SetLoadedRoofes = function(loaded_planes_accessibility) {
+SnowLoadWizard.prototype.SetLoadedRoofs = function(loaded_planes_accessibility) {
     console.log(this.snowLoadWizard.loaded_planes.row_count());
     ASSERT(loaded_planes_accessibility.length === this.snowLoadWizard.loaded_planes.row_count(), "Number of specified planes has to be equal to number of roofs");
     for (var i = 1; i <= this.snowLoadWizard.loaded_planes.row_count(); ++i) {
@@ -73,7 +73,7 @@ SnowLoadWizard.prototype.SetLoadedRoofes = function(loaded_planes_accessibility)
 
 /**
  * Generated on members
- * @param {Array}   objects_without_loads               Withoud load on members, can be undefined
+ * @param {Array}   objects_without_loads               Without load on members, can be undefined
  * @param {Array}   objects_without_loads_parallel_to   Without load parallel to members, can be undefined
  */
 SnowLoadWizard.prototype.WithoutLoadsOnMembers = function(objects_without_loads,
@@ -83,7 +83,7 @@ SnowLoadWizard.prototype.WithoutLoadsOnMembers = function(objects_without_loads,
 
 /**
  * Generated on surfaces
- * @param {Array}   objects_without_loads               Withoud load on surfaces, can be undefined
+ * @param {Array}   objects_without_loads               Without load on surfaces, can be undefined
  * @param {Array}   objects_without_loads_parallel_to   Without load parallel to surfaces, can be undefined
  */
 SnowLoadWizard.prototype.WithoutLoadsOnSurfaces = function(objects_without_loads,
@@ -93,7 +93,7 @@ SnowLoadWizard.prototype.WithoutLoadsOnSurfaces = function(objects_without_loads
 
 /**
  * Generated on lines
- * @param {Array}   objects_without_loads               Withoud load on lines, can be undefined
+ * @param {Array}   objects_without_loads               Without load on lines, can be undefined
  * @param {Array}   objects_without_loads_parallel_to   Without load parallel to lines, can be undefined
  */
 SnowLoadWizard.prototype.WithoutLoadsOnLines = function(objects_without_loads,
@@ -157,7 +157,7 @@ SnowLoadWizard.prototype.ConsiderSectionDistribution = function (enabled) {
 };
 
 /**
- * Sets objects withoud load (private)
+ * Sets objects without load (private)
  * @param {Object}  snow_load_wizard                    Snow load wizard
  * @param {Number}  table_row                           Table row to which values hes to be set
  * @param {Array}   objects_without_loads               Object's indexes without loads
@@ -173,7 +173,7 @@ function withoutLoadsOn (snow_load_wizard,
     if (typeof objects_without_loads_parallel_to !== "undefined") {
         snow_load_wizard.generated_on[table_row].objects_without_loads_parallel_to = objects_without_loads_parallel_to;
     }
-};
+}
 
 /**
  * Creates empty snow load wizard (private)
@@ -190,4 +190,4 @@ function createSnowLoadWizard (no,
     var snowLoadWizard = snow_loads.create(no);
     set_comment_and_parameters(snowLoadWizard, comment, params);
     return snowLoadWizard;
-};
+}
