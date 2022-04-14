@@ -88,7 +88,7 @@ StructureModification.prototype.Section = function (section_name,
 				table[row].I_z = moment_of_inertia_favor_i_z;
 			}
 			return;
-		};
+		}
 	}
 	console.log("Section " + section_name + " doesn't exist in model");
 };
