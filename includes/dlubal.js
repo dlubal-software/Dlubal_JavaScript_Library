@@ -31,6 +31,8 @@ include("BasicObjects/Section.js");
 // Load wizards
 include("LoadWizards/MemberLoadFromAreaLoadWizard.js");
 include("LoadWizards/MemberLoadFromFreeLineLoadWizard.js");
+include("LoadWizards/SnowLoadWizard.js");
+include("LoadWizards/WindLoadWizard.js");
 // Special objects
 include("SpecialObjects/StructureModification.js");
 // Supports
