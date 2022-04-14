@@ -2,13 +2,13 @@
  * Constructor creates a new object of type StabilityAnalysisSettings
  * @class
  * @classdesc StabilityAnalysisSettings is a class that represents a stability analysis settings.
- * @param {*} no 
- * @param {*} isEigenvalueSolver 
- * @param {*} isIncremental 
- * @param {*} eigenvalueMethod 
- * @param {*} numberOfLowestEigenvalues 
- * @param {*} comment 
- * @param {*} params 
+ * @param {*} no
+ * @param {*} isEigenvalueSolver
+ * @param {*} isIncremental
+ * @param {*} eigenvalueMethod
+ * @param {*} numberOfLowestEigenvalues
+ * @param {*} comment
+ * @param {*} params
  * @returns object Stability Analysis Settings
  */
 function StabilityAnalysisSettings(no,

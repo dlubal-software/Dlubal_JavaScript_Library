@@ -19,8 +19,6 @@ var createLineHinge = function (no,
 
 	return lineHinge;
 };
-
-
 /**
 * Creates line hinge constant
 * @param	{Boolean | Float}	hinge		hinge input (true, false, number(stiffness))
@@ -37,7 +35,7 @@ function CreateHingeConstant(hinge) {
 
 /**
  * Creates Hinge
- * @param {Object} hinge 
+ * @param {Object} hinge
  * @returns Hinge object
  */
 function CreateHinge(hinge) {
@@ -48,8 +46,6 @@ function CreateHinge(hinge) {
     return hinge;
   }
 }
-
-
 /**
  * Creates line hinge
  * @class
@@ -76,11 +72,9 @@ function LineHinge(no,
 	if (surface !== undefined && lines !== undefined) {
 		self.AssignTo(surface, lines);
 	}
-	
+
 	return self;
 }
-
-
 /**
 * Set translation constants ux, uy, uz to line hinge
 * @param	{Boolean | Float}	ux				Translation ux (true, false, number(stiffness [Nm^2]))
@@ -94,8 +88,6 @@ LineHinge.prototype.Translation = function (ux, uy, uz) {
 	this.lineHinge.translational_release_u_z = CreateHinge(uz);
 	return this.lineHinge;
 };
-
-
 /**
 * Set translation constant ux to line hinge
 * @param	{Boolean | Float}	ux				Translation ux (true, false, number(stiffness [Nm^2]))
@@ -105,8 +97,6 @@ LineHinge.prototype.TranslationX = function (ux) {
 	this.lineHinge.translational_release_u_x = CreateHinge(ux);
 	return this.lineHinge;
 };
-
-
 /**
 * Set translation constant uy to line hinge
 * @param	{Boolean | Float}	uy				Translation uy (true, false, number(stiffness [Nm^2]))
@@ -116,8 +106,6 @@ LineHinge.prototype.TranslationY = function (uy) {
 	this.lineHinge.translational_release_u_y = CreateHinge(uy);
 	return this.lineHinge;
 };
-
-
 /**
 * Set translation constant uz to line hinge
 * @param	{Boolean | Float}	uz				Translation uz (true, false, number(stiffness [Nm^2]))
@@ -128,8 +116,6 @@ LineHinge.prototype.TranslationZ = function (uz) {
 
 	return this.lineHinge;
 };
-
-
 /**
 * Set rotation constant rx to line hinge
 * @param	{Boolean | Float}	rx				Rotation rx (true, false, number(stiffness [Nm^2]))
@@ -139,13 +125,9 @@ LineHinge.prototype.Rotation = function (rx) {
 	this.lineHinge.rotational_release_phi_x = CreateHinge(rx);
 	return this.lineHinge;
 };
-
-
 LineHinge.prototype.GetNo = function() {
 	return this.lineHinge.no;
 };
-
-
 /**
 * Assign line hinge to line and surface (line must be involved in the surface)
 * @param	{Integer}				surface			surface id (lines must lie on this surface)
@@ -169,8 +151,6 @@ LineHinge.prototype.AssignTo = function(surface, lines) {
 		}
 	}
 };
-
-
 /**
 * Assign wall-slab connection to line hinge
 * @function
@@ -189,11 +169,9 @@ LineHinge.prototype.WallSlabConnection = function(offset, blockWidth) {
 			console.log("The width of the slab-edge line hinge no." + this.lineHinge.no + " was not set.");
 			console.log("The width of the slab-edge block must be less than the slab offset.");
 		}
-	}	
+	}
 	return this.lineHinge.no;
 };
-
-
 function LineHingeNonlinearity(hinge, direction) {
 	direction_switcher = {
 		"X"		: "translational_release_u_x_nonlinearity",
@@ -224,26 +202,18 @@ function LineHingeNonlinearity(hinge, direction) {
 	var self = this;
 	return self;
 }
-
-
 LineHingeNonlinearity.prototype.FixedIfNegative = function() {
 	this.hinge[this.direction] = line_hinges.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE;
 };
-
-
 LineHingeNonlinearity.prototype.FixedIfPositive = function() {
 	this.hinge[this.direction] = line_hinges.NONLINEARITY_TYPE_FAILURE_IF_POSITIVE;
 };
-
-
 LineHingeNonlinearity.prototype.Diagram = function(displacement, force) {
 	this.hinge[this.direction] = line_hinges.NONLINEARITY_TYPE_DIAGRAM;
 	applyChanges();
 	createNonlinearityTable(this.hinge, this.table, this.table_keys, displacement, force);
 
 };
-
-
 function createNonlinearityTable(lineHinge, table, table_keys, displacement, force) {
 	if (displacement === undefined) {
 		displacement = [1];
