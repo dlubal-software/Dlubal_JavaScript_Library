@@ -20,7 +20,7 @@ function WindLoadWizard () {
  * @param {Array}   base_corner_nodes   Base corner nodes indexes
  * @param {Array}   roof_corner_nodes   Roof corner nodes indexes
  * @param {Array}   load_cases          Load case 1, load case 2
- * @param {Array}   wind_directions     Wind directions (roof sides accesibility), can be undefined, for info setWindDirections function
+ * @param {Array}   wind_directions     Wind directions (roof sides accessibility), can be undefined, for info setWindDirections function
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Additional parameters, can be undefined
  */
@@ -51,7 +51,7 @@ WindLoadWizard.prototype.WallsRoofMonopitch = function (no,
  * @param {Array}   base_corner_nodes   Base corner nodes indexes
  * @param {Array}   roof_corner_nodes   Roof corner nodes indexes
  * @param {Array}   load_cases          Load cases
- * @param {Array}   wind_directions     Wind directions (roof sides accesibility), can be undefined, for info setWindDirections function
+ * @param {Array}   wind_directions     Wind directions (roof sides accessibility), can be undefined, for info setWindDirections function
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Additional parameters, can be undefined
  */
@@ -82,7 +82,7 @@ WindLoadWizard.prototype.WallsRoofDuoPitch = function (no,
  * @param {Number}  no                  Wind load wizard index, can be undefined
  * @param {Array}   roof_corner_nodes   Roof corner nodes indexes
  * @param {Array}   load_cases          Load cases
- * @param {Array}   wind_directions     Wind directions (roof sides accesibility), can be undefined, for info setWindDirections function
+ * @param {Array}   wind_directions     Wind directions (roof sides accessibility), can be undefined, for info setWindDirections function
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Additional parameters, can be undefined
  */
@@ -110,7 +110,7 @@ WindLoadWizard.prototype.RoofMonoPitch = function (no,
  * @param {Number}  no                  Wind load wizard index, can be undefined
  * @param {Array}   roof_corner_nodes   Roof corner nodes indexes
  * @param {Array}   load_cases          Load cases
- * @param {Array}   wind_directions     Wind directions (roof sides accesibility), can be undefined, for info setWindDirections function
+ * @param {Array}   wind_directions     Wind directions (roof sides accessibility), can be undefined, for info setWindDirections function
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Additional parameters, can be undefined
  */
@@ -227,7 +227,7 @@ WindLoadWizard.prototype.WithoutLoadsOnLines = function(objects_without_loads,
 };
 
 /**
- * Sets objects withoud load (private)
+ * Sets objects without load (private)
  * @param {Object}  wind_load_wizard                    Wind load wizard
  * @param {Number}  table_row                           Table row to which values hes to be set
  * @param {Array}   objects_without_loads               Object's indexes without loads

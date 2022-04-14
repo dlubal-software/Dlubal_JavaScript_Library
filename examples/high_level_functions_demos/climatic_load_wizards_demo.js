@@ -173,7 +173,7 @@ windLoadWizard.ConsiderSectionDistribution();
 windLoadWizard.WallsRoofDuoPitch(undefined, [30, 27, 28, 29], [34, 31, 35, 32, 33, 36], [loadCases[2].LoadCase, loadCases[3].LoadCase, loadCases[4].LoadCase, loadCases[5].LoadCase], [false, false, true, true]);
 windLoadWizard.SetLoadedWallsAndRoofs([true, true, false, false]);
 windLoadWizard.RoofMonoPitch(undefined, [26, 23, 24, 25], [loadCases[6].LoadCase, loadCases[7].LoadCase, loadCases[8].LoadCase, loadCases[9].LoadCase, loadCases[10].LoadCase, loadCases[11].LoadCase, loadCases[12].LoadCase, loadCases[13].LoadCase]);
-windLoadWizard.RoofDuopitch(undefined, [34, 31, 35, 32, 33, 36], [loadCases[14].LoadCase, loadCases[15].LoadCase, loadCases[16].LoadCase, loadCases[17].LoadCase, loadCases[18].LoadCase, loadCases[19].LoadCase, loadCases[20].LoadCase, loadCases[21].LoadCase, loadCases[22].LoadCase, loadCases[23].LoadCase, loadCases[24].LoadCase, loadCases[25].LoadCase])
+windLoadWizard.RoofDuopitch(undefined, [34, 31, 35, 32, 33, 36], [loadCases[14].LoadCase, loadCases[15].LoadCase, loadCases[16].LoadCase, loadCases[17].LoadCase, loadCases[18].LoadCase, loadCases[19].LoadCase, loadCases[20].LoadCase, loadCases[21].LoadCase, loadCases[22].LoadCase, loadCases[23].LoadCase, loadCases[24].LoadCase, loadCases[25].LoadCase]);
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;
