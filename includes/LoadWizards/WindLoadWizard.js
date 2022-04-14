@@ -147,7 +147,7 @@ function setWindDirections (wind_load_wizard,
     for (var i = 1; i <= wind_load_wizard.directions.row_count(); ++i) {
         wind_load_wizard.directions[i].enabled = roof_sides_accessibility[i - 1];
     }
-};
+}
 
 /**
  * Sets loaded walls/roofs
@@ -243,7 +243,7 @@ WindLoadWizard.prototype.WithoutLoadsOnLines = function(objects_without_loads,
     if (typeof objects_without_loads_parallel_to !== "undefined") {
         wind_load_wizard.generated_on[table_row].objects_without_loads_parallel_to = objects_without_loads_parallel_to;
     }
-};
+}
 
 /**
  * Creates empty wind load wizard (private)
@@ -260,4 +260,4 @@ function createWindLoadWizard (no,
     var windLoadWizard = wind_loads.create(no);
     set_comment_and_parameters(windLoadWizard, comment, params);
     return windLoadWizard;
-};
+}
