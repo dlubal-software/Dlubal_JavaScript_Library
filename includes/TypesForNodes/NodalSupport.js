@@ -27,7 +27,6 @@ function NodalSupport(no, nodes, comment, params) {
   this.support.nodes = nodes;
   this.Nonlinear = new SupportNonlinearities(support);
   set_comment_and_parameters(this.support, comment, params);
-  console.log("NodalSupport " + support.no + " was created");
   // object for creation new supports with callback link to instance
   var self = this;
   return self;
@@ -49,8 +48,6 @@ NodalSupport.prototype.Status = function () {
 NodalSupport.prototype.SetNodes = function (nodes) {
   //  * @param   {Array}   nodes       List of nodes
   this.support.nodes = nodes;
-  console.log("NodalSupport " + this.support.no + " was assigned to nodes: " + this.support.nodes);
-  console.log("NodalSupport " + this.support.no + " was edited");
   return this.support;
 };
 
@@ -67,7 +64,6 @@ NodalSupport.prototype.SetNo = function (no) {
   else {
     this.support = nodal_supports[no];
   }
-  console.log("current support is nodal_support[" + this.support.no + "].");
 };
 
 NodalSupport.prototype.GetNo = function () {
@@ -125,9 +121,6 @@ NodalSupport.prototype.Free = function () {
 NodalSupport.prototype.Translation = function (x, y, z) {
   this.support.spring = CreateSpringVector(false, false, false);
   this.support.spring = CreateSpringVector(x, y, z);
-  console.log("Spring vector changed");
-  console.log("CuX: " + this.support.spring_x + "; CuY: " + this.support.spring_y + "; CuZ: " + this.support.spring_z);
-  console.log("NodalSupport " + this.support.no + " was edited");
   return self;
 };
 
@@ -152,9 +145,6 @@ NodalSupport.prototype.TranslationZ = function (z) {
 NodalSupport.prototype.Rotation = function (x, y, z) {
   this.support.rotational_restraint = CreateSpringVector(false, false, false);
   this.support.rotational_restraint = CreateSpringVector(x, y, z);
-  console.log("Rotational restrain vector changed");
-  console.log("CrX: " + this.support.rotational_restraint_x + "; CrY: " + this.support.rotational_restraint_y + "; CrZ: " + this.support.rotational_restraint_z);
-  console.log("NodalSupport " + this.support.no + " was edited");
   return self;
 };
 

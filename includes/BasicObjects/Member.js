@@ -35,8 +35,6 @@ function Member(no,
 		return this.member;
 	}
 }
-
-
 /**
  * Creates beam member
  * @param	{Number}		no				Index of member, can be undefined

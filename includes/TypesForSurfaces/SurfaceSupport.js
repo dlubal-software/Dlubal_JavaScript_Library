@@ -30,7 +30,6 @@ function SurfaceSupport(no,
   // Create functions for support conditions
   this.Nonlinear = new SurfaceSupportNonlinearities(support);
   set_comment_and_parameters(this.support, comment, params);
-  console.log("SurfaceSupport " + support.no + " was created");
   // object for creation new supports with callback link to instance
   var self = this;
   return self;
@@ -52,19 +51,16 @@ SurfaceSupport.prototype.SetComment = function (intent) {
 
 SurfaceSupport.prototype.Fixed = function () {
   this.support.translation = CreateSpringVector(true, true, true);
-  console.log("SurfaceSupport " + this.support.no + " was edited. Base type 'Fixed'");
   return self;
 };
 
 SurfaceSupport.prototype.SlidingXY = function () {
   this.support.translation = CreateSpringVector(false, false, true);
-  console.log("SurfaceSupport " + this.support.no + " was created. Base type 'SlidingXY'");
   return self;
 };
 
 SurfaceSupport.prototype.SlidingX = function () {
   this.support.translation = CreateSpringVector(false, true, true);
-  console.log("SurfaceSupport " + this.support.no + " was created. Base type 'SlidingX'");
   return self;
 };
 

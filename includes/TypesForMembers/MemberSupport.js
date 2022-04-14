@@ -29,7 +29,6 @@ function MemberSupport(no,
   // Create functions for support conditions
   this.Nonlinear = new MemberSupportNonlinearities(support);
   set_comment_and_parameters(this.support, comment, params);
-  console.log("MemberSupport " + support.no + " was created");
   // object for creation new supports with callback link to instance
   var self = this;
   return self;

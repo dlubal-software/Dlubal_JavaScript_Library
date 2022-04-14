@@ -30,7 +30,6 @@ function LineSupport(no,
   this.support.lines = lines;
   this.Nonlinear = new SupportNonlinearities(support);
   set_comment_and_parameters(this.support, comment, params);
-  console.log("LineSupport " + support.no + " was created");
   var self = this;
   return self;
 }
@@ -58,13 +57,11 @@ LineSupport.prototype.SetComment = function (intent) {
 
 LineSupport.prototype.SetLocalCoordinateSystem = function () {
   this.support.coordinate_system = line_supports.COORDINATE_SYSTEM_LOCAL;
-  console.log("LineSupport " + this.support.no + " coords changed to LCS");
   return self;
 };
 
 LineSupport.prototype.SetGlobalCoordinateSystem = function () {
   this.support.coordinate_system = line_supports.COORDINATE_SYSTEM_GLOBAL;
-  console.log("LineSupport " + this.support.no + " coords changed to GCS");
   return self;
 };
 
@@ -74,14 +71,12 @@ LineSupport.prototype.SetGlobalCoordinateSystem = function () {
 LineSupport.prototype.Fixed = function () {
   this.support.spring = CreateSpringVector(true, true, true);
   this.support.rotational_restraint = CreateSpringVector(true, true, true);
-  console.log("LineSupport " + this.support.no + " was changed to base type 'Fixed'");
   return this.support;
 };
 
 LineSupport.prototype.Hinged = function () {
   this.support.spring = CreateSpringVector(true, true, true);
   this.support.rotational_restraint = CreateSpringVector(false, false, false);
-  console.log("LineSupport " + this.support.no + " was changed to base type 'Hinged'");
   return self;
 };
 
@@ -121,9 +116,6 @@ LineSupport.prototype.Free = function () {
 LineSupport.prototype.Translation = function (x, y, z) {
   this.support.spring = CreateSpringVector(false, false, false);
   this.support.spring = CreateSpringVector(x, y, z);
-  console.log("Spring vector changed");
-  console.log("CuX: " + this.support.spring_x + "; CuY: " + this.support.spring_y + "; CuZ: " + this.support.spring_z);
-  console.log("LineSupport " + this.support.no + " was edited");
   return self;
 };
 
@@ -148,9 +140,6 @@ LineSupport.prototype.TranslationZ = function (z) {
 LineSupport.prototype.Rotation = function (x, y, z) {
   this.support.rotational_restraint = CreateSpringVector(false, false, false);
   this.support.rotational_restraint = CreateSpringVector(x, y, z);
-  console.log("Rotational restrain vector changed");
-  console.log("CrX: " + this.support.rotational_restraint_x + "; CrY: " + this.support.rotational_restraint_y + "; CrZ: " + this.support.rotational_restraint_z);
-  console.log("LineSupport " + this.support.no + " was edited");
   return self;
 };
 
