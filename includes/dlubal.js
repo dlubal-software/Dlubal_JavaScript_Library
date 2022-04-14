@@ -28,6 +28,9 @@ include("BasicObjects/MemberSet.js");
 include("BasicObjects/Member.js");
 include("BasicObjects/Node.js");
 include("BasicObjects/Section.js");
+// Load wizards
+include("LoadWizards/MemberLoadFromAreaLoadWizard.js");
+include("LoadWizards/MemberLoadFromFreeLineLoadWizard.js");
 // Special objects
 include("SpecialObjects/StructureModification.js");
 // Supports
