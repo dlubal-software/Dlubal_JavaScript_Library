@@ -1,7 +1,7 @@
 // var l_1 = 20.260;
 // //var l_2 = 4.500;
 // var l_3 = 4.300;
-// var l_4 = 3.500; 
+// var l_4 = 3.500;
 // var h = 2.900;
 // var d_1 = 0.260;
 // var d_2 = 0.400;
@@ -87,8 +87,6 @@ setPointBetweenTwoLocation(37, [[ l_1/2 - l_2 - x - s_2,        h - r_2], [ l_1/
 setPointBetweenTwoLocation(38, [[ l_1/2 - l_2,                      d_1], [ l_1/2,                            d_1]], s_1);
 setPointBetweenTwoLocation(39, [[ l_1/2 - l_2,                      d_1], [ l_1/2 - l_2 - x,                    h]], s_1);
 setPointBetweenTwoLocation(40, [[ l_1/2 - l_2 + s_1,          d_1 + r_1], [ l_1/2 - l_2,                      d_1]], r_1);
-
-
 // Create lines
 for (var i = 0; i < 40; i++)
 {

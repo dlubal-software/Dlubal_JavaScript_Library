@@ -18,14 +18,12 @@ var createLineMeshRefinement = function (no) {
 	}
 	return lineMeshRefinement;
 };
-
-
 var setParameterLineMeshRefinement = function (
 										 lineMeshRefinement,
 										 name,
 										 lines,
 										 targetFELength,
-										 numberOfFiniteElements,											
+										 numberOfFiniteElements,
 										 numberOfLayers,
 										 gradual_rows,
 										 comment,
@@ -51,11 +49,11 @@ var setParameterLineMeshRefinement = function (
 	}
 
 	if (targetFELength === undefined) {
-		targetFELength = default_targetFELength; 
+		targetFELength = default_targetFELength;
 	}
 
 	if (numberOfFiniteElements === undefined) {
-		numberOfFiniteElements = default_numberOfFiniteElements; 
+		numberOfFiniteElements = default_numberOfFiniteElements;
 	}
 
 	if (numberOfLayers === undefined) {
@@ -73,7 +71,7 @@ var setParameterLineMeshRefinement = function (
 
 	if (numberOfLayers_options.indexOf(numberOfLayers) === -1) {
 		console.log("Allowed values for layers number are: " + numberOfLayers_options)
-		console.log("Number of layers for Line Mesh Refinement no. " + lineMeshRefinement.no + "  will be se to: " + default_numberOfLayers + ".")		
+		console.log("Number of layers for Line Mesh Refinement no. " + lineMeshRefinement.no + "  will be se to: " + default_numberOfLayers + ".")
 		numberOfLayers = default_numberOfLayers;
 	}
 
@@ -81,7 +79,7 @@ var setParameterLineMeshRefinement = function (
 
 	if (numberOfFiniteElements != false) {
 		lineMeshRefinement.type = line_mesh_refinements.TYPE_ELEMENTS;
-		lineMeshRefinement.elements_finite_elements = numberOfFiniteElements; 
+		lineMeshRefinement.elements_finite_elements = numberOfFiniteElements;
 	}
 
 	if (gradual_rows != false) {
@@ -119,8 +117,6 @@ function LineMeshRefinement(no,
     this.settings = setParameterLineMeshRefinement(self.settings, name, lines, targetFELength, false, numberOfLayers, false, comment, params);
     return self;
 }
-
-
 /**
 * Change line mesh refinement to type based on element length
 * @param	{Number}			targetFELength			Length of FEA element side on the line, can be undefined
@@ -132,8 +128,6 @@ LineMeshRefinement.prototype.TargetFELength = function(targetFELength, numberOfL
 	this.settings = setParameterLineMeshRefinement(this.settings, undefined, lines, targetFELength, false, numberOfLayers, false, undefined, undefined);
 	return this.settings;
 }
-
-
 /**
 * Change line mesh refinement to type based on number of elements on line
 * @param	{Number}			numberOfFiniteElements		Number of FEA elements on the line, can be undefined
@@ -145,8 +139,6 @@ LineMeshRefinement.prototype.NumberFiniteElements = function(numberOfFiniteEleme
 	this.settings = setParameterLineMeshRefinement(this.settings, undefined, lines, false, numberOfFiniteElements, numberOfLayers, false, undefined, undefined);
 	return this.settings;
 }
-
-
 /**
 * Change line mesh refinement to type gradually changed due to distance from the line
 * @param	{Number}			gradual_rows			Number gradual rows of FEA elements, can be undefined
@@ -155,17 +147,12 @@ LineMeshRefinement.prototype.NumberFiniteElements = function(numberOfFiniteEleme
 * @return	{Object}			Created line mesh refinement
 */
 LineMeshRefinement.prototype.Gradual = function(gradual_rows, numberOfLayers, lines) {
-	this.settings = setParameterLineMeshRefinement(this.settings, undefined, lines, false, false, numberOfLayers, gradual_rows, undefined, undefined);	
+	this.settings = setParameterLineMeshRefinement(this.settings, undefined, lines, false, false, numberOfLayers, gradual_rows, undefined, undefined);
 	return this.settings;
 }
-
-
 LineMeshRefinement.prototype.GetNo = function() {
 	return this.settings.no;
 }
-
-
-
 /**
 * Function for assign lines to line mesh refinement
 * @param	{Number}			gradual_rows			Number gradual rows of FEA elements, can be undefined
@@ -176,4 +163,4 @@ LineMeshRefinement.prototype.SetLines = function(lines) {
 	this.settings.lines = lines;
 	return this.settings;
 }
-	
+
