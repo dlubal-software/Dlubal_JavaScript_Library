@@ -1,12 +1,3 @@
-const MemberLoadFromAreaLoadWizardLoadDirection = {
-    "LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE" : member_loads_from_area_load.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE,
-    "LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE" : member_loads_from_area_load.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,
-    "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE" : member_loads_from_area_load.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
-    "LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED" : member_loads_from_area_load.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED,
-    "LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED" : member_loads_from_area_load.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED,
-    "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED" : member_loads_from_area_load.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED
-};
-
 /**
  * Creates member load wizard
  * @class
@@ -16,7 +7,7 @@ const MemberLoadFromAreaLoadWizardLoadDirection = {
  * @param {String}  comment     Comment, can be undefined
  * @param {Object}  params      Additional parameters, can be undefined
  */
-function MemberLoadFromAreaLoadWizard (no,
+function MemberLoadFromAreaLoadWizard(no,
     load_case,
     comment,
     params) {
@@ -35,7 +26,7 @@ function MemberLoadFromAreaLoadWizard (no,
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Additional parameters
  */
- MemberLoadFromAreaLoadWizard.prototype.Uniform = function (no,
+MemberLoadFromAreaLoadWizard.prototype.Uniform = function (no,
     load_case,
     uniform_magnitude,
     coordinate_system,
@@ -48,7 +39,7 @@ function MemberLoadFromAreaLoadWizard (no,
         this.memberWizard.coordinate_system = coordinate_system;
     }
     if (typeof load_direction !== "undefined") {
-        this.memberWizard.load_direction = MemberLoadFromAreaLoadWizardLoadDirection[load_direction];
+        this.memberWizard.load_direction = member_loads_from_area_load[GetDirectionOfMemberLoad(load_direction)];
     }
 };
 
@@ -85,7 +76,7 @@ MemberLoadFromAreaLoadWizard.prototype.Linear = function (no,
         this.memberWizard.coordinate_system = coordinate_system;
     }
     if (typeof load_direction !== "undefined") {
-        this.memberWizard.load_direction = MemberLoadFromAreaLoadWizardLoadDirection[load_direction];
+        this.memberWizard.load_direction = member_loads_from_area_load[GetDirectionOfMemberLoad(load_direction)];
     }
 };
 
@@ -112,7 +103,7 @@ MemberLoadFromAreaLoadWizard.prototype.VaryingInX = function (no,
         this.memberWizard.coordinate_system = coordinate_system;
     }
     if (typeof load_direction !== "undefined") {
-        this.memberWizard.load_direction = MemberLoadFromAreaLoadWizardLoadDirection[load_direction];
+        this.memberWizard.load_direction = member_loads_from_area_load[GetDirectionOfMemberLoad(load_direction)];
     }
 };
 
@@ -139,7 +130,7 @@ MemberLoadFromAreaLoadWizard.prototype.VaryingInY = function (no,
         this.memberWizard.coordinate_system = coordinate_system;
     }
     if (typeof load_direction !== "undefined") {
-        this.memberWizard.load_direction = MemberLoadFromAreaLoadWizardLoadDirection[load_direction];
+        this.memberWizard.load_direction = member_loads_from_area_load[GetDirectionOfMemberLoad(load_direction)];
     }
 };
 
@@ -166,7 +157,7 @@ MemberLoadFromAreaLoadWizard.prototype.VaryingInZ = function (no,
         this.memberWizard.coordinate_system = coordinate_system;
     }
     if (typeof load_direction !== "undefined") {
-        this.memberWizard.load_direction = MemberLoadFromAreaLoadWizardLoadDirection[load_direction];
+        this.memberWizard.load_direction = member_loads_from_area_load[GetDirectionOfMemberLoad(load_direction)];
     }
 };
 
@@ -176,7 +167,7 @@ MemberLoadFromAreaLoadWizard.prototype.VaryingInZ = function (no,
  */
 MemberLoadFromAreaLoadWizard.prototype.SetCornerNodes = function (corner_nodes) {
     ASSERT(corner_nodes.length > 0, "At least three corner nodes must be specified");
-    for (var i = 0 ; i < corner_nodes.length; ++i) {
+    for (var i = 0; i < corner_nodes.length; ++i) {
         this.memberWizard.corner_nodes[i + 1] = corner_nodes[i];
     }
 };
@@ -186,7 +177,7 @@ MemberLoadFromAreaLoadWizard.prototype.SetCornerNodes = function (corner_nodes) 
  * @param {Array}   excluded_members            Single members
  * @param {Array}   excluded_parallel_members   Members parallel to member
  */
- MemberLoadFromAreaLoadWizard.prototype.SetExcludedMembers = function (excluded_members,
+MemberLoadFromAreaLoadWizard.prototype.SetExcludedMembers = function (excluded_members,
     excluded_parallel_members) {
     if (typeof excluded_members !== "undefined") {
         this.memberWizard.excluded_members = excluded_members;
@@ -292,7 +283,7 @@ MemberLoadFromAreaLoadWizard.prototype.RelativeToleranceForNodesOnLine = functio
  * @param {Object}  params      Additional parameters
  * @returns Created member load wizard
  */
-function createBaseMemberLoadFromAreaLoadWizard (no,
+function createBaseMemberLoadFromAreaLoadWizard(no,
     load_case,
     comment,
     params) {
@@ -313,7 +304,7 @@ function createBaseMemberLoadFromAreaLoadWizard (no,
  * @param {Array}   load_distribution_values    Load distribution values
  * @returns Modified member load wizard
  */
-function setMemberLoadFromAreaLoadWizardDistribution (member_wizard,
+function setMemberLoadFromAreaLoadWizardDistribution(member_wizard,
     load_distribution,
     load_distribution_values) {
     member_wizard.load_distribution = load_distribution;
@@ -335,7 +326,7 @@ function setMemberLoadFromAreaLoadWizardDistribution (member_wizard,
         case member_loads_from_area_load.LOAD_DISTRIBUTION_VARYING_IN_Y:
         case member_loads_from_area_load.LOAD_DISTRIBUTION_VARYING_IN_Z:
             ASSERT(load_distribution_values.length === 6, "At least two area loads parameters are required [distance1, delta_distance1, magnitude1, distance2, delta_distance2, magnitude2])");
-            for (var i = 0; i < load_distribution_values.length; i+=3) {
+            for (var i = 0; i < load_distribution_values.length; i += 3) {
                 member_wizard.varying_load_parameters[i / 3 + 1].distance = load_distribution_values[i];
                 member_wizard.varying_load_parameters[i / 3 + 1].delta_distance = load_distribution_values[i + 1];
                 member_wizard.varying_load_parameters[i / 3 + 1].magnitude = load_distribution_values[i + 2];
@@ -345,4 +336,30 @@ function setMemberLoadFromAreaLoadWizardDistribution (member_wizard,
             ASSERT("Unknown load distribution");
     }
     return member_wizard;
+}
+
+
+function GetDirectionOfMemberLoad(direction) {
+
+    const direction_dict = {
+        "LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE": "LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE",
+        "LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE": "LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE",
+        "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE": "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE",
+        "LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED": "LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED",
+        "LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED": "LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED",
+        "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED": "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED",
+    };
+
+    if (direction !== undefined) {
+        var loadDirection = direction_dict[direction];
+        if (loadDirection === undefined) {
+            console.log("Wrong direction. Value was: " + direction);
+            console.log("Correct values are: ( " + Object.keys(direction_dict) + ")");
+            direction = "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED";
+        }
+        return loadDirection;
+    }
+    else {
+        return "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED";
+    }
 }

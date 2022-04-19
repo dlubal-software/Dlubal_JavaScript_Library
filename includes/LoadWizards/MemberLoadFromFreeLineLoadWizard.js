@@ -52,7 +52,7 @@ function MemberLoadFromFreeLineLoadWizard (no,
         this.memberWizard.coordinate_system = coordinate_system;
     }
     if (typeof load_direction !== "undefined") {
-        this.memberWizard.load_direction = MemberLoadFromFreeLineLoadWizardLoadDirection[load_direction];
+        this.memberWizard.load_direction = member_loads_from_free_line_load[GetDirectionOfMemberLoad(load_direction)];
     }
 };
 
@@ -85,7 +85,7 @@ MemberLoadFromFreeLineLoadWizard.prototype.Linear = function (no,
         this.memberWizard.coordinate_system = coordinate_system;
     }
     if (typeof load_direction !== "undefined") {
-        this.memberWizard.load_direction = MemberLoadFromFreeLineLoadWizardLoadDirection[load_direction];
+        this.memberWizard.load_direction = member_loads_from_free_line_load[GetDirectionOfMemberLoad(load_direction)];
     }
 };
 
@@ -232,4 +232,28 @@ MemberLoadFromFreeLineLoadWizard.prototype.ExcludedMembers = function (excluded_
             ASSERT("Unknown load distribution");
     }
     return member_wizard;
+}
+function GetDirectionOfMemberLoad(direction) {
+
+    const direction_dict = {
+        "LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE": "LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE",
+        "LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE": "LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE",
+        "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE": "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE",
+        "LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED": "LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED",
+        "LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED": "LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED",
+        "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED": "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED",
+    };
+
+    if (direction !== undefined) {
+        var loadDirection = direction_dict[direction];
+        if (loadDirection === undefined) {
+            console.log("Wrong direction. Value was: " + direction);
+            console.log("Correct values are: ( " + Object.keys(direction_dict) + ")");
+            direction = "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED";
+        }
+        return loadDirection;
+    }
+    else {
+        return "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED";
+    }
 }
