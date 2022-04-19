@@ -39,7 +39,7 @@ surfaceStiffnessModification.StiffnessMatrixElementsFactors(no++, 1, undefined, 
 surfaceStiffnessModification.StiffnessMatrixElementsFactors(no++, 1, undefined, undefined, undefined, [1.01, 1.02, 1.03, 1.04, 1.1, 1.12]);	// Eccentric stiffness elements
 surfaceStiffnessModification.ConcreteStructuresACI(no++, 1, undefined);	// With default column component type
 surfaceStiffnessModification.ConcreteStructuresACI(no++, 1, 3);	// Walls cracked component type
-surfaceStiffnessModification.ConcreteStructuresCSA(no++, 1, 4);	// Beams component type
+surfaceStiffnessModification.ConcreteStructuresCSA(no++, 1, 3);	// Beams component type
 /*********************************************************************************************/
 
 /**********************************Surface mesh refinement************************************/

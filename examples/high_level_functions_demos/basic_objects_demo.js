@@ -18,26 +18,26 @@ if (RFEM) {
 	var nodesForSurfaces = createNodesGrid(1, 10, [10, 10], [3, 2]);
 	var linesForSurfaces = createSurfacesFromNodesGrid(nodesForSurfaces, [5, 5], undefined, undefined, true);
 
-	 /*For line welded joints
-					line1			line2
-				+-------------+-------------+node3
-			   /node1		 /|	node2	   /
-			  /				/ |			  /
-			 /			   /  |			 /line3
-	  line6	/		line7 /	  |	line9   /
-		   /			 /	  |		   /
-		  /	node6		/node5|		  /
-		 +----line5----+-----line4---+node4
-					   |	  |
-							  +node8
-					   |	  /
-				line8  |	 /
-					   |	/line10
-					   |   /
-					   |  /
-					   | /
-					   +node7
-	*/
+	/*For line welded joints
+				   line1			line2
+			   +-------------+-------------+node3
+			  /node1		 /|	node2	   /
+			 /				/ |			  /
+			/			   /  |			 /line3
+	 line6	/		line7 /	  |	line9   /
+		  /			 /	  |		   /
+		 /	node6		/node5|		  /
+		+----line5----+-----line4---+node4
+					  |	  |
+							 +node8
+					  |	  /
+			   line8  |	 /
+					  |	/line10
+					  |   /
+					  |  /
+					  | /
+					  +node7
+   */
 	var node1 = createNode(8, -5, 0);
 	var node2 = createNode(13, -5, 0);
 	var node3 = createNode(18, -5, 0);
@@ -83,12 +83,12 @@ member.CouplingRigidRigid(undefined, [17, 18], "Coupling rigid-rigid member");
 member.CouplingRigidHinge(undefined, [19, 20], "Coupling rigid-hinge member");
 member.CouplingHingeRigid(undefined, [21, 22], "Coupling hinge-rigid member");
 member.CouplingHingeHinge(undefined, [23, 24], "Coupling hinge-hinge member");
-// if (RFEM) {
-// 	// Result beam with "Integrate stresses and forces within block with square area" (1), with included objects
-// 	member.ResultBeam(undefined, [25, 26], 1, "INTEGRATE_WITHIN_CUBOID_QUADRATIC", [1.5], [[1], [1, 2], true]);
-// 	// Result beam with "Integrate stresses and forces within cuboid" (2), with excluded members
-// 	member.ResultBeam(undefined, [27, 28], 1, "INTEGRATE_WITHIN_CUBOID_GENERAL", [0, 1.1, 0, 1.2], undefined, [undefined, [1], undefined]);
-// }
+// Result beam with "Integrate stresses and forces within block with square area" (1), with included objects
+if (RFEM) {
+	member.ResultBeam(undefined, [25, 26], 1, "INTEGRATE_WITHIN_CUBOID_QUADRATIC", [1.5], [[1], [1, 2], true]);
+	// Result beam with "Integrate stresses and forces within cuboid" (2), with excluded members
+	member.ResultBeam(undefined, [27, 28], 1, "INTEGRATE_WITHIN_CUBOID_GENERAL", [0, 1.1, 0, 1.2], undefined, [undefined, [1], undefined]);
+}
 // Definable stiffness member (set via member definable stiffness object)
 var member2 = new Member(undefined, [29, 30]);
 member2.type = members.TYPE_DEFINABLE_STIFFNESS;
@@ -140,29 +140,29 @@ var member10 = new Member();
 member10.Beam(undefined, [48, 49], 1);
 member10.SectionDistributionUniform();
 var member12 = new Member();
-member12.Beam(undefined, [51, 52],2);
-member12.SectionDistributionLinear(section.no,section2.no,"Top");
+member12.Beam(undefined, [51, 52], 2);
+member12.SectionDistributionLinear(section.no, section2.no, "Top");
 var member13 = new Member();
 member13.Beam(undefined, [53, 54], 1);
-member13.SectionDistributionTaperedAtBothSides(section.no,section2.no,section3.no,"XY", [0.30, true], [1.5, false], "Bottom");//add sections
+member13.SectionDistributionTaperedAtBothSides(section.no, section2.no, section3.no, "XY", [0.30, true], [1.5, false], "Bottom");//add sections
 var member14 = new Member();
 member14.Beam(undefined, [55, 56], 1);
-member14.SectionDistributionTaperedAtStart(section3.no,section2.no,"XY", [0.30, true], "Top");
+member14.SectionDistributionTaperedAtStart(section3.no, section2.no, "XY", [0.30, true], "Top");
 var member15 = new Member();
 member15.Beam(undefined, [57, 58], 1);
-member15.SectionDistributionTaperedAtEnd(section.no,section2.no,undefined, [1.5, false], "Bottom");	// With default reference type (L)
+member15.SectionDistributionTaperedAtEnd(section.no, section2.no, undefined, [1.5, false], "Bottom");	// With default reference type (L)
 var member16 = new Member();
 member16.Beam(undefined, [59, 60], 1);
-member16.SectionDistributionSaddle(section.no,section3.no,section2.no,"XY", [2, false]);
+member16.SectionDistributionSaddle(section.no, section3.no, section2.no, "XY", [2, false]);
 var member17 = new Member();
 member17.Beam(undefined, [76, 77], 1);
-member17.SectionDistributionOffsetAtBothSides(section.no,section3.no,section2.no,"XY", [0.30, true], [1.5, false], "Bottom");
+member17.SectionDistributionOffsetAtBothSides(section.no, section3.no, section2.no, "XY", [0.30, true], [1.5, false], "Bottom");
 var member18 = new Member();
 member18.Beam(undefined, [115, 116], 1);
-member18.SectionDistributionOffsetAtStart(section2.no,section.no,"XY", [0.30, true]);	// With default section alignment (top)
+member18.SectionDistributionOffsetAtStart(section2.no, section.no, "XY", [0.30, true]);	// With default section alignment (top)
 var member19 = new Member();
 member19.Beam(undefined, [117, 118], 1);
-member19.SectionDistributionOffsetAtEnd(section.no,section2.no,"XZ", [2.5, false], "Centric");
+member19.SectionDistributionOffsetAtEnd(section.no, section2.no, "XZ", [2.5, false], "Centric");
 /*********************************************************************************************/
 
 if (RFEM) {
@@ -205,7 +205,7 @@ if (RFEM) {
 	var lineMeshRefinement = new LineMeshRefinement();
 	var line7 = new Line();
 	line7.Polyline(undefined, [146, 147]);
-	line7.MeshRefinement(lineMeshRefinement.no);
+	line7.MeshRefinement(lineMeshRefinement.settings.no);
 	// Option: welded joints
 	var lineWeldedJoint = line_welded_joints.create();
 	lineForWeldedJoint.WeldedJoints([[lineWeldedJoint.no, surfaceForWeldedJoint.no, surface2ForWeldedJoint.no, undefined]]);
@@ -244,7 +244,7 @@ if (RFEM) {
 	// Option: hinges
 	surfaceWithHingesNo = surface.Standard(undefined, linesForSurfaces[11][0], 1).no;
 	var lineHinge = new LineHinge(undefined, undefined);
-	surface.Hinges([[surfaces[surfaceWithHingesNo].boundary_lines[1], lineHinge.no]]);
+	surface.Hinges([[surfaces[surfaceWithHingesNo].boundary_lines[1], lineHinge.lineHinge.no]]);
 	// Option: support
 	var surfaceSupport = new SurfaceSupport();
 	surfaceSupport.Fixed();

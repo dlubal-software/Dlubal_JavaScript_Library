@@ -14,20 +14,20 @@ var createLineMeshRefinement = function (no) {
 		var lineMeshRefinement = line_mesh_refinements.create(no);
 	}
 	else {
-	 	var lineMeshRefinement = line_mesh_refinements.create();
+		var lineMeshRefinement = line_mesh_refinements.create();
 	}
 	return lineMeshRefinement;
 };
 var setParameterLineMeshRefinement = function (
-										 lineMeshRefinement,
-										 name,
-										 lines,
-										 targetFELength,
-										 numberOfFiniteElements,
-										 numberOfLayers,
-										 gradual_rows,
-										 comment,
-										 params) {
+	lineMeshRefinement,
+	name,
+	lines,
+	targetFELength,
+	numberOfFiniteElements,
+	numberOfLayers,
+	gradual_rows,
+	comment,
+	params) {
 
 	const default_targetFELength = 0.01;
 	const default_numberOfLayers = 4;
@@ -41,7 +41,7 @@ var setParameterLineMeshRefinement = function (
 		lineMeshRefinement.name = name;
 	}
 	else {
-	 	lineMeshRefinement.user_defined_name_enabled = false;
+		lineMeshRefinement.user_defined_name_enabled = false;
 	}
 
 	if (lines != undefined) {
@@ -105,17 +105,18 @@ var setParameterLineMeshRefinement = function (
  * @return	{Object}			Created line mesh refinement HLF
 */
 function LineMeshRefinement(no,
-							name,
-							lines,
-							targetFELength,
-							numberOfLayers,
-                            comment,
-                            params)
-{
-    this.settings = createLineMeshRefinement();
-    var self = this;
-    this.settings = setParameterLineMeshRefinement(self.settings, name, lines, targetFELength, false, numberOfLayers, false, comment, params);
-    return self;
+	name,
+	lines,
+	targetFELength,
+	numberOfLayers,
+	comment,
+	params) {
+	
+		this.settings = createLineMeshRefinement(no);
+		var self = this;
+		this.settings = setParameterLineMeshRefinement(self.settings, name, lines, targetFELength, false, numberOfLayers, false, comment, params);
+		return self;
+	
 }
 /**
 * Change line mesh refinement to type based on element length
@@ -124,7 +125,7 @@ function LineMeshRefinement(no,
 * @param	{Number | Array}	lines					Lines assigned to this refinement, can be undefined
 * @return	{Object}			Created line mesh refinement
 */
-LineMeshRefinement.prototype.TargetFELength = function(targetFELength, numberOfLayers, lines) {
+LineMeshRefinement.prototype.TargetFELength = function (targetFELength, numberOfLayers, lines) {
 	this.settings = setParameterLineMeshRefinement(this.settings, undefined, lines, targetFELength, false, numberOfLayers, false, undefined, undefined);
 	return this.settings;
 }
@@ -135,7 +136,7 @@ LineMeshRefinement.prototype.TargetFELength = function(targetFELength, numberOfL
 * @param	{Number | Array}	lines						Lines assigned to this refinement, can be undefined
 * @return	{Object}			Created line mesh refinement
 */
-LineMeshRefinement.prototype.NumberFiniteElements = function(numberOfFiniteElements, numberOfLayers, lines) {
+LineMeshRefinement.prototype.NumberFiniteElements = function (numberOfFiniteElements, numberOfLayers, lines) {
 	this.settings = setParameterLineMeshRefinement(this.settings, undefined, lines, false, numberOfFiniteElements, numberOfLayers, false, undefined, undefined);
 	return this.settings;
 }
@@ -146,11 +147,11 @@ LineMeshRefinement.prototype.NumberFiniteElements = function(numberOfFiniteEleme
 * @param	{Number | Array}	lines					Lines assigned to this refinement, can be undefined
 * @return	{Object}			Created line mesh refinement
 */
-LineMeshRefinement.prototype.Gradual = function(gradual_rows, numberOfLayers, lines) {
+LineMeshRefinement.prototype.Gradual = function (gradual_rows, numberOfLayers, lines) {
 	this.settings = setParameterLineMeshRefinement(this.settings, undefined, lines, false, false, numberOfLayers, gradual_rows, undefined, undefined);
 	return this.settings;
 }
-LineMeshRefinement.prototype.GetNo = function() {
+LineMeshRefinement.prototype.GetNo = function () {
 	return this.settings.no;
 }
 /**
@@ -159,7 +160,7 @@ LineMeshRefinement.prototype.GetNo = function() {
 * @param	{Number | Array}	lines					Lines assigned to this refinement, can be undefined
 * @return	{Object}			Created line mesh refinement
 */
-LineMeshRefinement.prototype.SetLines = function(lines) {
+LineMeshRefinement.prototype.SetLines = function (lines) {
 	this.settings.lines = lines;
 	return this.settings;
 }

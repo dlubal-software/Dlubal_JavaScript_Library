@@ -108,4 +108,4 @@ NR3.NumberFiniteElements(18, 6, 20);
 var NR4 = new LineMeshRefinement(undefined, "Target length");
 NR4.TargetFELength(5, 2, 25);
 
-var NR5 = new LineMeshRefinement(8, "NR5", 24, 1, 3);
+var NR5 = new LineMeshRefinement(11, "NR5", 24, 1, 3);

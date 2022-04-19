@@ -73,7 +73,7 @@ memberResultIntermediatePoint2.DivisionOrdinates([0.1, 0.2, 0.3, 0.4, 0.9]);
 var structureModification = new StructureModification();
 var memberStiffnessModification = new MemberStiffnessModification(undefined, structure_modification);
 // Type: Walls cracked
-memberStiffnessModification.ConcreteStructuresCsa(3);
+memberStiffnessModification.ConcreteStructuresCsa(1);
 var memberStiffnessModification2 = new MemberStiffnessModification(undefined, structure_modification);
 memberStiffnessModification2.SteelStructuresAisc(1, 2);
 var memberDefinableStiffness3 = new MemberStiffnessModification(undefined, structure_modification);

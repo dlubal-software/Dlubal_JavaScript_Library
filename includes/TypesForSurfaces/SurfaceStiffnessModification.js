@@ -155,7 +155,7 @@ var setConcreteStructures = function (surface_stiffness_modification,
 	component_type) {
 	surface_stiffness_modification.type = stiffness_modification_type;
 	if (typeof component_type === "undefined") {
-		component_type = 1;
+		component_type = 2;
 	}
 	switch (component_type) {
 		case 1:
