@@ -260,6 +260,7 @@ Member.prototype.DefinableStiffness = function (no,
 	this.member = createBaseMember(no, nodes_or_line, members.TYPE_DEFINABLE_STIFFNESS, undefined, comment, params);
 	ASSERT(member_definable_stiffnesses.exist(definable_stiffness), "Member definable stiffness no. " + definable_stiffness + " doesn't exist");
 	this.member.member_type_definable_stiffness = member_definable_stiffnesses[definable_stiffness];
+	return this.member;
 };
 
 /**
@@ -274,7 +275,7 @@ Member.prototype.CouplingRigidRigid = function (no,
 	nodes_or_line,
 	comment,
 	params) {
-	this.member = createBaseMember(no, nodes_or_line, members.TYPE_COUPLING_RIGID_RIGID, undefined, comment, params);
+	return this.member = createBaseMember(no, nodes_or_line, members.TYPE_COUPLING_RIGID_RIGID, undefined, comment, params);
 };
 
 /**
@@ -289,7 +290,7 @@ Member.prototype.CouplingRigidHinge = function (no,
 	nodes_or_line,
 	comment,
 	params) {
-	this.member = createBaseMember(no, nodes_or_line, members.TYPE_COUPLING_RIGID_HINGE, undefined, comment, params);
+	return this.member = createBaseMember(no, nodes_or_line, members.TYPE_COUPLING_RIGID_HINGE, undefined, comment, params);
 };
 
 /**
@@ -304,7 +305,7 @@ Member.prototype.CouplingHingeRigid = function (no,
 	nodes_or_line,
 	comment,
 	params) {
-	this.member = createBaseMember(no, nodes_or_line, members.TYPE_COUPLING_HINGE_RIGID, undefined, comment, params);
+	return this.member = createBaseMember(no, nodes_or_line, members.TYPE_COUPLING_HINGE_RIGID, undefined, comment, params);
 };
 
 /**
@@ -319,8 +320,52 @@ Member.prototype.CouplingHingeHinge = function (no,
 	nodes_or_line,
 	comment,
 	params) {
-	this.member = createBaseMember(no, nodes_or_line, members.TYPE_COUPLING_HINGE_HINGE, undefined, comment, params);
+	return this.member = createBaseMember(no, nodes_or_line, members.TYPE_COUPLING_HINGE_HINGE, undefined, comment, params);
 };
+
+/**
+ * 
+ * @param {Array/Number} nodes_or_line	List of node indexes or number of line
+ * @param {Number} no	Index of member, can be undefined
+ * @param {Number} section_start Section start. Section end is same as section start by default. To set section end specify distribution type.
+ * @param {String} rib_alignment Alignment of rib - "ALIGNMENT_ON_Z_SIDE_NEGATIVE","ALIGNMENT_CENTRIC","ALIGNMENT_ON_Z_SIDE_POSITIVE","ALIGNMENT_USER_DEFINED_VIA_MEMBER_ECCENTRICITY"
+ * @param {Boolean} surface_assignment_autodetect 
+ * @param {Boolean} align_axes 
+ * @param {Array} flange_dimensions - two dimensional array each row could have form [end_ordinate,reference_length_definition_type,reference_length_width,width_minus_y_maximal,width_plus_y_maximal,reference_length,width_minus_y_integrative,width_plus_y_integrative] 
+ * @param {Array} surfaces 
+ * @param {String} comment 
+ * @param {Object} params 
+ * @returns 
+ */
+Member.prototype.Rib = function (no,
+	nodes_or_line,
+	section_start,
+	rib_alignment,
+	surface_assignment_autodetect,
+	align_axes,
+	flange_dimensions,
+	surfaces,
+	comment,
+	params) {
+	this.member = createBaseMember(no, nodes_or_line, members.TYPE_RIB, section_start, comment, params);
+
+	this.member.member_type_rib_alignment = members[GetRibAlignmentType(rib_alignment)];
+	this.member.member_rib_surface_assignment_autodetect = surface_assignment_autodetect;
+	this.member.align_local_z_axis_to_local_z_axis_of_surface = align_axes;
+
+	SetFlangeDimensions(this.member, flange_dimensions);
+
+	if (surfaces !== undefined) {
+		if (surfaces[0] !== undefined && typeof surfaces[1] === 'number') {
+			this.member.member_rib_first_surface = surfaces[0];
+		}
+		if (surfaces[1] !== undefined && typeof surfaces[1] === 'number') {
+			this.member.member_rib_second_surface = surfaces[1];
+		}
+	}
+	return this.member;
+};
+
 
 /**
 * Sets nodes on member
@@ -822,23 +867,131 @@ var createBaseMember = function (no,
 function GetResultBeamIntegrationType(direction) {
 
 
-    const ResultBeamIntegrate_dict = {
-        "INTEGRATE_WITHIN_CUBOID_QUADRATIC":"INTEGRATE_WITHIN_CUBOID_QUADRATIC",
-        "INTEGRATE_WITHIN_CUBOID_GENERAL":"INTEGRATE_WITHIN_CUBOID_GENERAL", 
-        "INTEGRATE_WITHIN_CYLINDER": "INTEGRATE_WITHIN_CYLINDER",
-        "INTEGRATE_FROM_LISTED_OBJECT":"INTEGRATE_FROM_LISTED_OBJECT",
-    };
-   
-    if (direction !== undefined) {
-        var ResultBeamIntegrate = ResultBeamIntegrate_dict[direction];
-        if (ResultBeamIntegrate === undefined) {
-            console.log("Wrong type of integration. Value was: " + direction);
-            console.log("Correct values are: ( " + Object.keys(direction_dict) + ")");
-            direction = "INTEGRATE_WITHIN_CUBOID_QUADRATIC";
-        }
-        return ResultBeamIntegrate;
-    }
-    else {
-        return "INTEGRATE_WITHIN_CUBOID_QUADRATIC";
-    }
+	const ResultBeamIntegrate_dict = {
+		"INTEGRATE_WITHIN_CUBOID_QUADRATIC": "INTEGRATE_WITHIN_CUBOID_QUADRATIC",
+		"INTEGRATE_WITHIN_CUBOID_GENERAL": "INTEGRATE_WITHIN_CUBOID_GENERAL",
+		"INTEGRATE_WITHIN_CYLINDER": "INTEGRATE_WITHIN_CYLINDER",
+		"INTEGRATE_FROM_LISTED_OBJECT": "INTEGRATE_FROM_LISTED_OBJECT",
+	};
+
+	if (direction !== undefined) {
+		var ResultBeamIntegrate = ResultBeamIntegrate_dict[direction];
+		if (ResultBeamIntegrate === undefined) {
+			console.log("Wrong type of integration. Value was: " + direction);
+			console.log("Correct values are: ( " + Object.keys(direction_dict) + ")");
+			direction = "INTEGRATE_WITHIN_CUBOID_QUADRATIC";
+		}
+		return ResultBeamIntegrate;
+	}
+	else {
+		return "INTEGRATE_WITHIN_CUBOID_QUADRATIC";
+	}
+}
+
+
+function GetRibAlignmentType(alignment) {
+
+
+	const Alignment_dict = {
+		"ALIGNMENT_ON_Z_SIDE_NEGATIVE": "ALIGNMENT_ON_Z_SIDE_NEGATIVE",
+		"ALIGNMENT_CENTRIC": "ALIGNMENT_CENTRIC",
+		"ALIGNMENT_ON_Z_SIDE_POSITIVE": "ALIGNMENT_ON_Z_SIDE_POSITIVE",
+		"ALIGNMENT_USER_DEFINED_VIA_MEMBER_ECCENTRICITY": "ALIGNMENT_USER_DEFINED_VIA_MEMBER_ECCENTRICITY",
+	};
+
+	if (alignment !== undefined) {
+		var RibAlignment = Alignment_dict[alignment];
+		if (RibAlignment === undefined) {
+			console.log("Wrong type of alignment. Value was: " + alignment);
+			console.log("Correct values are: ( " + Object.keys(Alignment_dict) + ")");
+			direction = "ALIGNMENT_ON_Z_SIDE_POSITIVE";
+		}
+		return RibAlignment;
+	}
+	else {
+		return "ALIGNMENT_ON_Z_SIDE_POSITIVE";
+	}
+}
+
+function GetReferenceLengthType(referenceLength) {
+
+
+	const referenceLength_dict = {
+		"REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH": "REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH",
+		"REFERENCE_LENGTH_TYPE_MEMBER_LENGTH": "REFERENCE_LENGTH_TYPE_MEMBER_LENGTH",
+		"REFERENCE_LENGTH_TYPE_USER_DEFINED": "REFERENCE_LENGTH_TYPE_USER_DEFINED",
+	};
+
+	if (referenceLength !== undefined) {
+		var ReferenceLength = referenceLength_dict[referenceLength];
+		if (ReferenceLength === undefined) {
+			console.log("Wrong type of reference length type. Value was: " + referenceLength);
+			console.log("Correct values are: ( " + Object.keys(referenceLength_dict) + ")");
+			direction = "REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH";
+		}
+		return ReferenceLength;
+	}
+	else {
+		return "REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH";
+	}
+}
+
+function GetReferenceWidthType(width) {
+
+
+	const widthType_dict = {
+		"REFERENCE_LENGTH_WIDTH_NONE": "REFERENCE_LENGTH_WIDTH_NONE",
+		"REFERENCE_LENGTH_WIDTH_SIXTH": "REFERENCE_LENGTH_WIDTH_SIXTH",
+		"REFERENCE_LENGTH_WIDTH_EIGHTH": "REFERENCE_LENGTH_WIDTH_EIGHTH",
+		"REFERENCE_LENGTH_WIDTH_EC2": "REFERENCE_LENGTH_WIDTH_EC2",
+	};
+
+	if (width !== undefined) {
+		var WidthType = widthType_dict[width];
+		if (WidthType === undefined) {
+			console.log("Wrong type of width. Value was: " + width);
+			console.log("Correct values are: ( " + Object.keys(widthType_dict) + ")");
+			direction = "REFERENCE_LENGTH_WIDTH_SIXTH";
+		}
+		return WidthType;
+	}
+	else {
+		return "REFERENCE_LENGTH_WIDTH_SIXTH";
+	}
+}
+
+function SetFlangeDimensions(member, flange_dimensions) {
+
+	if (flange_dimensions !== undefined) {
+
+		for (var index = 0; index < flange_dimensions.length; index++) {
+			const row = flange_dimensions[index];
+			member.flange_dimensions[index + 1].end_ordinate = row[0];
+			member.flange_dimensions[index + 1].reference_length_width = members[GetReferenceWidthType(row[2])];
+			member.flange_dimensions[index + 1].width_minus_y_maximal = row[3];
+			member.flange_dimensions[index + 1].width_plus_y_maximal = row[4];
+			if (member.flange_dimensions[index + 1].reference_length_width !== "REFERENCE_LENGTH_WIDTH_NONE") {
+				member.flange_dimensions[index + 1].reference_length_definition_type = members[GetReferenceLengthType(row[1])];
+				if (member.flange_dimensions[index + 1].reference_length_definition_type === "REFERENCE_LENGTH_TYPE_USER_DEFINED") {
+					if (row[5] !== undefined && typeof row[5] === 'number') {
+						member.flange_dimensions[index + 1].reference_length = row[5];
+					}
+				}
+			} else {
+				if (row[6] !== undefined && typeof row[6] === 'number') {
+					member.flange_dimensions[index + 1].width_minus_y_integrative = row[6];
+				}
+				if (row[7] !== undefined && typeof row[7] === 'number') {
+					member.flange_dimensions[index + 1].width_plus_y_integrative = row[7];
+				}
+			}
+		}
+	}
+	else {
+		member.flange_dimensions[1].end_ordinate = 1.0;
+		member.flange_dimensions[1].reference_length_definition_type = members[GetReferenceLengthType("REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH")];
+		member.flange_dimensions[1].reference_length_width = members[GetReferenceWidthType("REFERENCE_LENGTH_WIDTH_SIXTH")];
+		member.flange_dimensions[1].width_minus_y_maximal = 3.0;
+		member.flange_dimensions[1].width_plus_y_maximal = 3.0;
+	}
 }

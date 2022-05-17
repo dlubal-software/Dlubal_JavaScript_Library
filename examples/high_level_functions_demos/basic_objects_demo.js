@@ -7,9 +7,11 @@ include("../includes/Tools/high_level_functions_support.js");
 
 run("../includes/Tools/clearAll.js");
 var material = createMaterial("S235");
+var materialConcrete = createMaterial("C25/30");
 var section = createSection(material, "IPE 80");
 var section2 = createSection(material, "IPE 100");
 var section3 = createSection(material, "IPE 120");
+var section4 = createSection(materialConcrete, "R_M1 0.5/1.0");
 var nodesForMembers = createNodesGrid(-28, -28, [10, 6], [3, 4]);
 if (RFEM) {
 	var nodeForLines = createNodesGrid(-28, -6, [10, 10], [3, 4]);
@@ -285,6 +287,8 @@ if (RFEM) {
 	var thickness2 = new Thickness();
 	thickness2.Uniform(undefined, "Thickness2", material2, [0.180]);
 	surface2.SurfaceType("Membrane", undefined, thickness2.thickness);
+
+	member.Rib(undefined,[239,240],4,"ALIGNMENT_ON_Z_SIDE_NEGATIVE",true,true,[[1.0,"REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH","REFERENCE_LENGTH_WIDTH_SIXTH",3.0,3.0]]);
 }
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;
