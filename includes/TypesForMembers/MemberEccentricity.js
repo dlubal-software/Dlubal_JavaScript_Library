@@ -235,7 +235,7 @@ var createMemberEccentricity = function (no,
 	if (typeof members_end_list !== "undefined") {
 		for (var i = 0; i < members_end_list.length; ++i) {
 			if (members.exist(members_end_list[i])) {
-				members[members_end_list[i]].member_eccentricity_start = member_eccentricity;
+				members[members_end_list[i]].member_eccentricity_end = member_eccentricity;
 			}
 			else {
 				console.log("Member no." + members_end_list[i] + " does not exist");

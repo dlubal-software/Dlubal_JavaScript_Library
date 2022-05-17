@@ -8,9 +8,8 @@ function LineSupport(no,
   params) {
   /**
    * Creates nodal support hight level function
-
-   * @param   {Array}   lines         List of lines
    * @param   {Number}  no            Index of line support, empty by default
+   * @param   {Array}   lines         List of lines
    * @param   {String}  comment       Comment, empty by default
    * @param   {Object}  params        Nodal support parameters, empty by default
   */

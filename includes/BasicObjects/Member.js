@@ -690,14 +690,6 @@ Member.prototype.SectionDistributionOffsetAtBothSides = function (section_start,
 * @param {String}	section_alignment			Section alignment (Top, Centric, Bottom), can be undefined (top as default)
 */
 
-/**
-* Sets offset at start distribution
-* @param {Number} section_start Number of section at start of member
-* @param {Number} section_end Number of section at end of member
-* @param {String}	reference_type				Reference type (L, XY, XZ), can be undefined
-* @param {Array}	section_offset_from_start	Member offset ([distance, is_relative]), can be undefined
-ss* @param {String}	section_alignment			Section alignment (Top, Centric, Bottom), can be undefined (top as default)
- */
 Member.prototype.SectionDistributionOffsetAtStart = function (section_start, section_end, reference_type,
 	section_offset_from_start,
 	section_alignment) {
