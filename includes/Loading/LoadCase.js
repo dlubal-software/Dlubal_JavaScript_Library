@@ -109,18 +109,18 @@ LoadCase.prototype.WindSimulation = function (no, name, staticAnalysisSettingsNo
  * @param {*} imperfectionCaseNo
  */
 LoadCase.prototype.ConsiderImperfection = function (imperfectionCaseNo) {
-  if (this.LC !== undefined) {
+  if (this.LoadCase !== undefined) {
     if (imperfectionCaseNo !== undefined) {
       if (imperfection_cases.exist(imperfectionCaseNo)) {
-        this.LC.consider_imperfection = true;
-        this.LC.imperfection_case = imperfection_cases[imperfectionCaseNo];
+        this.LoadCase.consider_imperfection = true;
+        this.LoadCase.imperfection_case = imperfection_cases[imperfectionCaseNo];
       } else {
-        this.LC.consider_imperfection = false;
+        this.LoadCase.consider_imperfection = false;
       }
 
     }
     else {
-      this.LC.consider_imperfection = false;
+      this.LoadCase.consider_imperfection = false;
     }
 
   }
@@ -131,18 +131,18 @@ LoadCase.prototype.ConsiderImperfection = function (imperfectionCaseNo) {
  * @param {*} structureModificationNo
  */
 LoadCase.prototype.SetStructureModification = function (structureModificationNo) {
-  if (this.LC !== undefined) {
+  if (this.LoadCase !== undefined) {
     if (imperfectionCaseNo !== undefined) {
       if (structure_modifications.exist(structureModificationNo)) {
-        this.LC.structure_modification_enabled = true;
-        this.LC.structure_modification = structure_modifications[structureModificationNo];
+        this.LoadCase.structure_modification_enabled = true;
+        this.LoadCase.structure_modification = structure_modifications[structureModificationNo];
       } else {
-        this.LC.structure_modification_enabled = false;
+        this.LLoadCaseC.structure_modification_enabled = false;
       }
 
     }
     else {
-      this.LC.structure_modification_enabled = false;
+      this.LoadCase.structure_modification_enabled = false;
     }
   }
 };
@@ -154,6 +154,16 @@ LoadCase.prototype.SetStructureModification = function (structureModificationNo)
 LoadCase.prototype.GetActionCategoryList = function () {
   return actionCategory_dict;
 };
+
+
+LoadCase.prototype.GetLoadCase = function(){
+  return this.LoadCase;
+}
+
+LoadCase.prototype.GetLoadCaseNo = function(){
+  return this.LoadCase.no;
+}
+
 
 // private methods
 function CreateLoadCase(no, name) {

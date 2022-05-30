@@ -17,32 +17,19 @@ var console_length = 0.3;
 var frame_length = 5.0;
 
 // setup load cases
-function createLoadCase(id, static_analysis_settings, action_category, name) {
-    var load_case = LoadCase(id);
-    load_case.name = name;
-    load_case.static_analysis_settings = static_analysis_settings;
-    load_case.action_category = action_category;
-    return load_case;
-}
+var SASGeometricallyLinear = new StaticAnalysisSettings().GeometricallyLinear(1);
+//var StASEigenValue = new StabilityAnalysisSettings().EigenValueMethod(1, "EigenValueMethod name", 5, "EIGENVALUE_METHOD_LANCZOS", "MATRIX_TYPE_STANDARD");
 
-if (!load_cases.exist(1)) {
-    var lc1 = createLoadCase(undefined, 1, load_cases.ACTION_CATEGORY_PERMANENT_G, "Self weight");
-}
-var lc2 = createLoadCase(undefined, 2, load_cases.ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H, "Live load");
-var lc3 = createLoadCase(undefined, 2, load_cases.ACTION_CATEGORY_WIND_QW, "Wind load");
-var lc4 = createLoadCase(undefined, 2, load_cases.ACTION_CATEGORY_WIND_QW, "Wind load 2");
-var lc5 = createLoadCase(undefined, 1, load_cases.ACTION_CATEGORY_PERMANENT_IMPOSED_GQ, "Stability - linear");
-var lc6 = createLoadCase(undefined, 2, load_cases.ACTION_CATEGORY_PERMANENT_IMPOSED_GQ, "Imperfections");
-var lc7 = createLoadCase(undefined, 2, load_cases.ACTION_CATEGORY_PERMANENT_G, "Other permanent load");
+var lc1 = new LoadCase().StaticAnalysis(1, "Self weight", SASGeometricallyLinear.Settings.no, "ACTION_CATEGORY_PERMANENT_G", [true, 0, 0, 1.0]);
+var lc2 = new LoadCase().StaticAnalysis(2, "Live load", SASGeometricallyLinear.Settings.no, "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H", [false, 0, 0, 1.0]);
+var lc3 = new LoadCase().StaticAnalysis(3, "Wind load", SASGeometricallyLinear.Settings.no, "ACTION_CATEGORY_WIND_QW", [false, 0, 0, 1.0]);
+var lc4 = new LoadCase().StaticAnalysis(4, "Wind load 2", SASGeometricallyLinear.Settings.no, "ACTION_CATEGORY_WIND_QW", [false, 0, 0, 1.0]);
+var lc5 = new LoadCase().StaticAnalysis(5, "Stability - linear", SASGeometricallyLinear.Settings.no, "ACTION_CATEGORY_PERMANENT_IMPOSED_GQ", [true, 0, 0, 1.0],1);
+var lc6 = new LoadCase().StaticAnalysis(6, "Imperfections", SASGeometricallyLinear.Settings.no, "ACTION_CATEGORY_PERMANENT_IMPOSED_GQ", [false, 0, 0, 1.0]);
+var lc7 = new LoadCase().StaticAnalysis(7, "Other permanent load", SASGeometricallyLinear.Settings.no, "ACTION_CATEGORY_PERMANENT_G", [false, 0, 0, 1.0]);
+var ImperfectionCase = ImperfectionCase(1, "Local Imperfections Only");
+lc6.ConsiderImperfection(1);
 
-// assign stability to LC5
-var stabilitySettings = stability_analysis_settings.create();
-lc5.calculate_critical_load = true;
-lc5.self_weight_active = true;
-
-// assign imperfections to LC6
-lc6.consider_imperfection = true;
-lc6.imperfection_case = ImperfectionCase(undefined, "Local Imperfections Only");
 
 // prepare materials and sections
 var material = Material(undefined, 'S235 | EN 1993-1-1:2005-05');
@@ -139,31 +126,31 @@ function getMembersByOffset(offsets) {
 };
 
 // LC2: live load, create member loads and nodal loads
-var live_load = MemberLoad(undefined, lc2, getMembersByOffset([3, 4]));
+var live_load = MemberLoad(undefined, lc2.GetLoadCase(), getMembersByOffset([3, 4]));
 live_load.magnitude = f_q * frame_length;
 
 var node_ids = [];
 for (var i = 0; i < number_of_frames; i++) {
     node_ids = node_ids.concat([8 + i * 9, 9 + i * 9]);
 }
-var nodal_load = NodalLoad(undefined, lc2, node_ids.toString());
+var nodal_load = NodalLoad(undefined, lc2.GetLoadCase(), node_ids.toString());
 nodal_load.load_type = nodal_loads.LOAD_TYPE_COMPONENTS;
 nodal_load.components_force = $V(0, 0, 10000);
 
 // LC3: wind load
-var wind_load = MemberLoad(undefined, lc3, getMembersByOffset([1, 2, 5, 8]));
+var wind_load = MemberLoad(undefined, lc3.GetLoadCase(), getMembersByOffset([1, 2, 5, 8]));
 wind_load.load_direction = member_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE;
 wind_load.magnitude = f_w * frame_length;
 
 // LC4: wind load
-wind_load = MemberLoad(undefined, lc4, "3,4");
+wind_load = MemberLoad(undefined, lc4.GetLoadCase(), "3,4");
 wind_load.load_direction = member_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE;
 wind_load.magnitude = f_w * width / 2;
 
-wind_load = MemberLoad(undefined, lc4, getMembersByOffset([1, 2, 3, 4, 5, 8]));
+wind_load = MemberLoad(undefined, lc4.GetLoadCase(), getMembersByOffset([1, 2, 3, 4, 5, 8]));
 wind_load.load_direction = member_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE;
 wind_load.magnitude = f_w * 0.015;
 
 // LC7: other permanent load
-var member_load = MemberLoad(undefined, lc7, getMembersByOffset([3, 4]));
+var member_load = MemberLoad(undefined, lc7.GetLoadCase(), getMembersByOffset([3, 4]));
 member_load.magnitude = f_g * frame_length;
