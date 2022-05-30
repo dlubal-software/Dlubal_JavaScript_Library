@@ -18,15 +18,15 @@ var frame_length = 5.0;
 
 // setup load cases
 var SASGeometricallyLinear = new StaticAnalysisSettings().GeometricallyLinear(1);
-//var StASEigenValue = new StabilityAnalysisSettings().EigenValueMethod(1, "EigenValueMethod name", 5, "EIGENVALUE_METHOD_LANCZOS", "MATRIX_TYPE_STANDARD");
+var SASSecondOrder = new StaticAnalysisSettings().SecondOrder(2,"MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON");
 
-var lc1 = new LoadCase().StaticAnalysis(1, "Self weight", SASGeometricallyLinear.Settings.no, "ACTION_CATEGORY_PERMANENT_G", [true, 0, 0, 1.0]);
-var lc2 = new LoadCase().StaticAnalysis(2, "Live load", SASGeometricallyLinear.Settings.no, "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H", [false, 0, 0, 1.0]);
-var lc3 = new LoadCase().StaticAnalysis(3, "Wind load", SASGeometricallyLinear.Settings.no, "ACTION_CATEGORY_WIND_QW", [false, 0, 0, 1.0]);
-var lc4 = new LoadCase().StaticAnalysis(4, "Wind load 2", SASGeometricallyLinear.Settings.no, "ACTION_CATEGORY_WIND_QW", [false, 0, 0, 1.0]);
-var lc5 = new LoadCase().StaticAnalysis(5, "Stability - linear", SASGeometricallyLinear.Settings.no, "ACTION_CATEGORY_PERMANENT_IMPOSED_GQ", [true, 0, 0, 1.0],1);
-var lc6 = new LoadCase().StaticAnalysis(6, "Imperfections", SASGeometricallyLinear.Settings.no, "ACTION_CATEGORY_PERMANENT_IMPOSED_GQ", [false, 0, 0, 1.0]);
-var lc7 = new LoadCase().StaticAnalysis(7, "Other permanent load", SASGeometricallyLinear.Settings.no, "ACTION_CATEGORY_PERMANENT_G", [false, 0, 0, 1.0]);
+var lc1 = new LoadCase().StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_PERMANENT_G", [true, 0, 0, 1.0]);
+var lc2 = new LoadCase().StaticAnalysis(2, "Live load", SASSecondOrder.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H", [false, 0, 0, 1.0]);
+var lc3 = new LoadCase().StaticAnalysis(3, "Wind load", SASSecondOrder.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_WIND_QW", [false, 0, 0, 1.0]);
+var lc4 = new LoadCase().StaticAnalysis(4, "Wind load 2", SASSecondOrder.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_WIND_QW", [false, 0, 0, 1.0]);
+var lc5 = new LoadCase().StaticAnalysis(5, "Stability - linear", SASGeometricallyLinear.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_PERMANENT_IMPOSED_GQ", [true, 0, 0, 1.0],1);
+var lc6 = new LoadCase().StaticAnalysis(6, "Imperfections", SASSecondOrder.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_PERMANENT_IMPOSED_GQ", [false, 0, 0, 1.0]);
+var lc7 = new LoadCase().StaticAnalysis(7, "Other permanent load", SASSecondOrder.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_PERMANENT_G", [false, 0, 0, 1.0]);
 var ImperfectionCase = ImperfectionCase(1, "Local Imperfections Only");
 lc6.ConsiderImperfection(1);
 

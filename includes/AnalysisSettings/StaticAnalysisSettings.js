@@ -171,27 +171,43 @@ StaticAnalysisSettings.prototype.LargeDeformations = function (no, name, equatio
   var self = this;
   return self;
 };
+
 StaticAnalysisSettings.prototype.SetComment = function (comment) {
   //  * @param   {String}          comment             Comment, empty by default
-  this.settings.comment = comment;
+  this.Settings.comment = comment;
 };
-function SetMaxNumberOfIterations(StaticAnalysisSettings, iterations) {
 
-  if (maxNumberOfIterations === undefined) {
+StaticAnalysisSettings.prototype.GetStaticAnalysisSettings = function () {
+  return this.Settings;
+}
+
+StaticAnalysisSettings.prototype.GetStaticAnalysisSettingsNo = function () {
+  return this.Settings.no;
+}
+
+
+function SetMaxNumberOfIterations(StaticAnalysisSettings, maxNumberOfIterations) {
+
+  if (maxNumberOfIterations !== undefined) {
+    if (AvoidWrongAssignment(StaticAnalysisSettings, "max_number_of_iterations") === true) {
+      StaticAnalysisSettings.max_number_of_iterations = maxNumberOfIterations;
+    }
+  }
+  else {
     StaticAnalysisSettings.max_number_of_iterations = 100;
   }
-  if (AvoidWrongAssignment(StaticAnalysisSettings, "max_number_of_iterations") === true) {
-    StaticAnalysisSettings.max_number_of_iterations = iterations;
-  }
 }
-function SetNumberOfLoadIncrements(StaticAnalysisSettings, increments) {
+function SetNumberOfLoadIncrements(StaticAnalysisSettings, numberOfLoadIncrements) {
   // * @param   {integer}   increments         Number of load increments
-  if (numberOfLoadIncrements === undefined) {
+  if (numberOfLoadIncrements !== undefined) {
+    if (AvoidWrongAssignment(StaticAnalysisSettings, "number_of_load_increments") === true) {
+      StaticAnalysisSettings.number_of_load_increments = numberOfLoadIncrements;
+    }
+  }
+  else {
     StaticAnalysisSettings.number_of_load_increments = 1;
   }
-  if (AvoidWrongAssignment(StaticAnalysisSettings, "number_of_load_increments") === true) {
-    StaticAnalysisSettings.number_of_load_increments = increments;
-  }
+
 }
 
 function SetNonlinearMethod(StaticAnalysisSettings, staticAnalysisType, nonlinearMethod) {
