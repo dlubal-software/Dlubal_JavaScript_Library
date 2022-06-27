@@ -23,6 +23,14 @@ if (RFEM) {
     include("BasicObjects/Opening.js");
     include("BasicObjects/Thickness.js");
 }
+if (RSECTION) {
+    include("BasicObjects/rsection_point.js");
+    include("BasicObjects/rsection_line.js");
+    include("BasicObjects/rsection_part.js");
+    include("BasicObjects/rsection_opening.js");
+    include("BasicObjects/rsection_element.js");
+    include("BasicObjects/rsection_stress_point.js");
+}
 include("BasicObjects/Material.js");
 include("BasicObjects/MemberSet.js");
 include("BasicObjects/Member.js");
@@ -96,6 +104,10 @@ include("Loads/ImposedNodalDeformation.js");
 include("Loads/MemberLoad.js");
 include("Loads/MemberSetLoad.js");
 include("Loads/NodalLoad.js");
+// Load Cases And Combinations
+include("LoadCasesAndCombinations/DesignSituation.js")
+// Guide objects
+include("GuideObjects/CoordinateSystem.js");
 // Dimensions
 include("Dimensions/AngularDimension.js");
 include("Dimensions/ArcLengthDimension.js");
@@ -103,5 +115,3 @@ include("Dimensions/DiameterDimension.js");
 include("Dimensions/LinearDimension.js");
 include("Dimensions/RadiusDimension.js");
 include("Dimensions/SlopeDimension.js");
-// Guide objects
-include("GuideObjects/CoordinateSystem.js");
