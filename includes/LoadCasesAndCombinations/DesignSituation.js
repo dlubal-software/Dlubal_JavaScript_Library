@@ -217,7 +217,7 @@ DesignSituation.prototype.CombinationWizard = function (combination_wizard) {
 
 /**
  * Sets relationship between load cases
- * @param {*} relationship_between_load_cases  
+ * @param {Object} relationship_between_load_cases
  */
 DesignSituation.prototype.ConsiderInclusiveExclusiveLoadCases = function (relationship_between_load_cases) {
     this.design_situation.relationship_between_load_cases = relationship_between_load_cases;
