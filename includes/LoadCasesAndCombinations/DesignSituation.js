@@ -85,7 +85,7 @@ DesignSituation.prototype.EQU_Seismic = function (no,
  * @param {String}  comment     Comment, can be undefined
  * @returns     Created design situation object
  */
-DesignSituation.prototype.PermanentAndTransient_6_10 = function (no,
+DesignSituation.prototype.PermanentAndTransient_STR_6_10 = function (no,
     params,
     comment) {
     this.design_situation = createBaseDesignSituation(no, comment, params);
@@ -101,7 +101,7 @@ DesignSituation.prototype.PermanentAndTransient_6_10 = function (no,
  * @param {String}  comment     Comment, can be undefined
  * @returns     Created design situation object
  */
-DesignSituation.prototype.PermanentAndTransient6_10A_6_10B = function (no,
+DesignSituation.prototype.PermanentAndTransient_STR_6_10A_6_10B = function (no,
     params,
     comment) {
     this.design_situation = createBaseDesignSituation(no, comment, params);
@@ -165,7 +165,7 @@ DesignSituation.prototype.Seismic_STR = function (no,
  * @param {String}  comment     Comment, can be undefined
  * @returns     Created design situation object
  */
-DesignSituation.prototype.Characteristic_STR = function (no,
+DesignSituation.prototype.Characteristic_SLS = function (no,
     params,
     comment) {
     this.design_situation = createBaseDesignSituation(no, comment, params);
@@ -197,7 +197,7 @@ DesignSituation.prototype.Frequent_SLS = function (no,
  * @param {String}  comment     Comment, can be undefined
  * @returns     Created design situation object
  */
-DesignSituation.prototype.Quasi_Permanent = function (no,
+DesignSituation.prototype.Quasi_Permanent_SLS = function (no,
     params,
     comment) {
     this.design_situation = createBaseDesignSituation(no, comment, params);
@@ -217,7 +217,7 @@ DesignSituation.prototype.CombinationWizard = function (combination_wizard) {
 
 /**
  * Sets relationship between load cases
- * @param {Object} relationship_between_load_cases
+ * @param {Object} relationship_between_load_cases  
  */
 DesignSituation.prototype.ConsiderInclusiveExclusiveLoadCases = function (relationship_between_load_cases) {
     this.design_situation.relationship_between_load_cases = relationship_between_load_cases;
