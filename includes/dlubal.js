@@ -84,6 +84,7 @@ if (RFEM) {
 // Loading
 include("Loading/LoadCombination.js");
 include("Loading/LoadCase.js");
+include("Loading/DesignSituation.js")
 // Loads
 if (RFEM) {
     include("Loads/FreeCircularLoad.js");
@@ -104,8 +105,6 @@ include("Loads/ImposedNodalDeformation.js");
 include("Loads/MemberLoad.js");
 include("Loads/MemberSetLoad.js");
 include("Loads/NodalLoad.js");
-// Load Cases And Combinations
-include("LoadCasesAndCombinations/DesignSituation.js")
 // Guide objects
 include("GuideObjects/CoordinateSystem.js");
 // Dimensions
