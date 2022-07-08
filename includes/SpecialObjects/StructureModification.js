@@ -14,6 +14,9 @@ Support for object deactivation (with object selection) is prepared, but for now
 function StructureModification (no,
 	comment,
 	params) {
+	if (typeof no === "undefined") {
+		no = structure_modifications.count() + 1;
+	}
 	this.structure_modification = structure_modifications.create();
 	set_comment_and_parameters(this.structure_modification, comment, params);
 }
