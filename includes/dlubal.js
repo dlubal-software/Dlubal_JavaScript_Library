@@ -96,6 +96,8 @@ include("Loads/ImposedNodalDeformation.js");
 include("Loads/MemberLoad.js");
 include("Loads/MemberSetLoad.js");
 include("Loads/NodalLoad.js");
+// Guide objects
+include("GuideObjects/CoordinateSystem.js");
 // Dimensions
 include("Dimensions/AngularDimension.js");
 include("Dimensions/ArcLengthDimension.js");
@@ -103,5 +105,3 @@ include("Dimensions/DiameterDimension.js");
 include("Dimensions/LinearDimension.js");
 include("Dimensions/RadiusDimension.js");
 include("Dimensions/SlopeDimension.js");
-// Guide objects
-include("GuideObjects/CoordinateSystem.js");
