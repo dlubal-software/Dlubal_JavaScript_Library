@@ -20,30 +20,75 @@
 
 
 /**
- * Sets combination wizard
- * @param {Object}  combination_wizard  Combination wizard
+ * Returns internal Design Situation object
+ * @returns Internal Design Situation object
  */
-DesignSituation.prototype.CombinationWizard = function (combination_wizard) {
-    this.design_situation.combination_wizard = combination_wizard;
+DesignSituation.prototype.DesignSituation = function() {
+    return this.design_situation;
+};
+
+
+/**
+ * Returns number of Design Situation
+ * @returns Number of Design Situation
+ */
+DesignSituation.prototype.No = function() {
+    return this.design_situation.no;
+};
+
+
+/**
+ * Sets combination wizard
+ * @param {Object}  combination_wizard_no  Combination wizard number
+ */
+DesignSituation.prototype.SetCombinationWizard = function (combination_wizard_no) {
+    if (combination_wizards.exist(combination_wizard_no)) {
+        this.design_situation.combination_wizard = combination_wizards[combination_wizard_no];
+    }
+    else {
+        ASSERT(false, "Combination wizard no. " + combination_wizard_no + " doesn't exist");
+    }
 };
 
 
 /**
  * Sets relationship between load cases
- * @param {Object} relationship_between_load_cases
+ * @param {Object} relationship_between_load_cases_no   Relationship between load cases number
  */
-DesignSituation.prototype.ConsiderInclusiveExclusiveLoadCases = function (relationship_between_load_cases) {
-    this.design_situation.relationship_between_load_cases = relationship_between_load_cases;
+DesignSituation.prototype.SetConsiderInclusiveExclusiveLoadCases = function (relationship_between_load_cases_no,
+    enable) {
+    if (relationship_between_load_cases.exist(relationship_between_load_cases_no)) {
+        this.design_situation.consider_inclusive_exclusive_load_cases = true;
+        this.design_situation.relationship_between_load_cases = relationship_between_load_cases[relationship_between_load_cases_no];
+    }
+    else {
+        ASSERT(false, "Relationship between load cases no. " + relationship_between_load_cases_no + " doesn't exist");
+    }
 };
 
 
+/**
+ * Enables/disables design situation
+ * @param {Boolean} active  Design situation is enabled or disabled, can be undefined (true as default)
+ */
+DesignSituation.prototype.SetActive = function(active) {
+    if (typeof active === "undefined") {
+        active = true;
+    }
+    this.design_situation.active = active;
+};
+
+
+/**
+ * Shows list of all available design situation types
+ */
 function get_design_situation_types () {
     console.log(Object.keys(design_situation_types));
 };
 
 
 /**
- * Create base desing situation (private)
+ * Creates base design situation (private)
  * @param {Number}  no          Number of design situation, can be undefined
  * @param {Object}  params      Additional parameters, can be undefined
  * @param {String}  comment     Comment, can be undefined
