@@ -72,7 +72,7 @@ CoordinateSystem.prototype.ThreePoints = function(no,
  * @param {Number}	no 							Index of coordinate system, can be undefined
  * @param {Array} 	original_point 				Coordinates of original point
  * @param {Array}	uw_plane_point_coordinate	Coordinates of uw plane point
- * @param {Array}	uw_plane_angle				Rotation of UW-plane
+ * @param {Number}	uw_plane_angle				Rotation of UW-plane in radians
  * @param {String} 	comment 					Comment, can be undefined
  * @param {Object} 	params 						Additional parameters, can be undefined
  * @returns 									Created coordinate system
@@ -103,9 +103,9 @@ CoordinateSystem.prototype.TwoPointsAndAngle = function (no,
  * Create  coordinate system with "Points and Three Angles" type
  * @param {Number}	no 							Index of coordinate system, can be undefined
  * @param {Array} 	original_point 				Coordinates of original point
- * @param {Number}	rotation_angle_1			Rotational angle, can be undefined
- * @param {Number}	rotation_angle_2			Rotational angle, can be undefined
- * @param {Number}	rotation_angle_3			Rotational angle, can be undefined
+ * @param {Number}	rotation_angle_1			Rotational angle in radians, can be undefined
+ * @param {Number}	rotation_angle_2			Rotational angle in radians, can be undefined
+ * @param {Number}	rotation_angle_3			Rotational angle in radians, can be undefined
  * @param {String}	rotation_angles_sequence	Rotational angle sequence, can be undefined
  * @param {String} 	comment 					Comment, can be undefined
  * @param {Object} 	params 						Additional parameters, can be undefined
@@ -119,8 +119,9 @@ CoordinateSystem.prototype.PointAndThreeAngels = function (no,
 	rotation_angles_sequence) {
 	ASSERT(original_point.length === 3, "Original point has must be in form [X, Y, Z] defined");
 	if (rotation_angles_sequence != "undefined") {
-		if (rotation_angles_sequence !== "X'Y'Z'" && rotation_angles_sequence !== "X'Z'Y'" && rotation_angles_sequence !== "Y'X'Z'" && rotation_angles_sequence !== "Y'Z'X'" && rotation_angles_sequence !== "Z'X'Y'" && rotation_angles_sequence !== "Z'Y'X'") {
-			ASSERT(false, "Rotation angles sequence must be in range [X'Y'Z', X'Z'Y', Y'X'Z', Y'Z'X', Z'X'Y', Z'Y'X']");
+		if (!(rotation_angles_sequence in rotation_angles_sequences)) {
+			console.log("Rotation angle sequence " + rotation_angles_sequence + " does not exist");
+			getRotationAnglesSequences();
 		}
 	}
 	this.coordinate_system = createBaseCoordinateSystem(no, comment, params);
@@ -138,7 +139,7 @@ CoordinateSystem.prototype.PointAndThreeAngels = function (no,
 		this.coordinate_system.rotation_angle_3 = rotation_angle_3;
 	}
 	if (rotation_angles_sequence != "undefined") {
-		this.coordinate_system.rotation_angles_sequence = rotation_angles_sequence;
+		this.coordinate_system.rotation_angles_sequence = rotation_angles_sequences[rotation_angles_sequence];
 	}
 	return this.coordinate_system;
 };
@@ -156,4 +157,17 @@ function createBaseCoordinateSystem (no,
     coordinate_system = engine.create_coordinate_system(no);
     set_comment_and_parameters(coordinate_system, comment, params);
     return coordinate_system;
+};
+
+function getRotationAnglesSequences () {
+	console.log(Object.keys(rotation_angles_sequences));
+};
+
+const rotation_angles_sequences = {
+	"SEQUENCE_XYZ" : "X'Y'Z'",
+	"SEQUENCE_XZY" : "X'Z'Y'",
+	"SEQUENCE_YXZ" : "Y'X'Z'",
+	"SEQUENCE_YZX" : "Y'Z'X'",
+	"SEQUENCE_ZXY" : "Z'X'Y'",
+	"SEQUENCE_ZYX" : "Z'Y'X'"
 };
