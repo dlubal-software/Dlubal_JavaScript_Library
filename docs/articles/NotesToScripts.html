@@ -83,9 +83,9 @@
 <p>This article describes how to write scripts and formulas in RFEM 6. The vast majority of the rules apply to scripts and formulas at the same time (and also to commands in the console), so we will only talk about scripts.</p>
 <h2 id="syntax">Syntax</h2>
 <p>RFEM 6 scripts are written in JavaScript (ECMA-262 standard). However, we've modified the syntax a bit to better meet the needs of RFEM customers:</p>
-<h3 id="operátor-umocnění">Operátor umocnění</h3>
+<h3 id="operator-power">Operator Power</h3>
 <p>The ^ operator is a power, not a bit xor. Expressions of type a^b are equivalent to Math.pow(a, b).</p>
-<h3 id="jednotky">Jednotky</h3>
+<h3 id="units">Units</h3>
 <p>In script code, you can use units for entering numeric values:</p>
 <pre><code class="lang-javascript">var a = 10mm;
 var b = 10 kN/m;
