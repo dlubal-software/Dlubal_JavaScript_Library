@@ -15,7 +15,7 @@ function StructureModification (no,
 	comment,
 	params) {
 	if (typeof no === "undefined") {
-		no = structure_modifications.count() + 1;
+		no = structure_modifications.lastId() + 1;
 	}
 	this.structure_modification = structure_modifications.create();
 	set_comment_and_parameters(this.structure_modification, comment, params);
