@@ -36,6 +36,30 @@ references:
   name: ContactSolid(no, perpendicular_to_surface, parallel_to_surface, values, comment, params)
   href: api/ContactSolid.html#Dlubal_ContactSolid__ctor
   fullName: Dlubal.ContactSolid.ContactSolid(no, perpendicular_to_surface, parallel_to_surface, values, comment, params)
+- uid: Dlubal.CoordinateSystem
+  name: CoordinateSystem
+  href: api/CoordinateSystem.html#Dlubal_CoordinateSystem
+  fullName: Dlubal.CoordinateSystem
+- uid: Dlubal.CoordinateSystem#Offset
+  name: Offset(no, original_point, comment, params)
+  href: api/CoordinateSystem.html#Dlubal_CoordinateSystem_Offset
+  fullName: Dlubal.CoordinateSystem.Offset(no, original_point, comment, params)
+- uid: Dlubal.CoordinateSystem#PointAndThreeAngels
+  name: PointAndThreeAngels(no, original_point, rotation_angle_1, rotation_angle_2, rotation_angle_3, rotation_angles_sequence, comment, params)
+  href: api/CoordinateSystem.html#Dlubal_CoordinateSystem_PointAndThreeAngels
+  fullName: Dlubal.CoordinateSystem.PointAndThreeAngels(no, original_point, rotation_angle_1, rotation_angle_2, rotation_angle_3, rotation_angles_sequence, comment, params)
+- uid: Dlubal.CoordinateSystem#ThreePoints
+  name: ThreePoints(no, original_point, u_axis_point_coordinate, uw_plane_point_coordinate, comment, params)
+  href: api/CoordinateSystem.html#Dlubal_CoordinateSystem_ThreePoints
+  fullName: Dlubal.CoordinateSystem.ThreePoints(no, original_point, u_axis_point_coordinate, uw_plane_point_coordinate, comment, params)
+- uid: Dlubal.CoordinateSystem#TwoPointsAndAngle
+  name: TwoPointsAndAngle(no, original_point, uw_plane_point_coordinate, uw_plane_angle, comment, params)
+  href: api/CoordinateSystem.html#Dlubal_CoordinateSystem_TwoPointsAndAngle
+  fullName: Dlubal.CoordinateSystem.TwoPointsAndAngle(no, original_point, uw_plane_point_coordinate, uw_plane_angle, comment, params)
+- uid: Dlubal.CoordinateSystem.#ctor
+  name: CoordinateSystem(no, comment, params)
+  href: api/CoordinateSystem.html#Dlubal_CoordinateSystem__ctor
+  fullName: Dlubal.CoordinateSystem.CoordinateSystem(no, comment, params)
 - uid: Dlubal.FreeCircularLoad
   name: FreeCircularLoad
   href: api/FreeCircularLoad.html#Dlubal_FreeCircularLoad
@@ -460,10 +484,18 @@ references:
   name: Nonlinearity(member_nonlinearity)
   href: api/Member.html#Dlubal_Member_Nonlinearity
   fullName: Dlubal.Member.Nonlinearity(member_nonlinearity)
+- uid: Dlubal.Member#ResultBeam
+  name: ResultBeam(no, nodes_or_line, section_start, result_beam_integrate_stresses_and_forces, result_beam_parameters, included_objects, excluded_objects, comment, params)
+  href: api/Member.html#Dlubal_Member_ResultBeam
+  fullName: Dlubal.Member.ResultBeam(no, nodes_or_line, section_start, result_beam_integrate_stresses_and_forces, result_beam_parameters, included_objects, excluded_objects, comment, params)
 - uid: Dlubal.Member#ResultIntermediatePoints
   name: ResultIntermediatePoints(member_result_intermediate_point)
   href: api/Member.html#Dlubal_Member_ResultIntermediatePoints
   fullName: Dlubal.Member.ResultIntermediatePoints(member_result_intermediate_point)
+- uid: Dlubal.Member#Rib
+  name: Rib(nodes_or_line, no, section_start, rib_alignment, surface_assignment_autodetect, align_axes, flange_dimensions, surfaces, comment, params)
+  href: api/Member.html#Dlubal_Member_Rib
+  fullName: Dlubal.Member.Rib(nodes_or_line, no, section_start, rib_alignment, surface_assignment_autodetect, align_axes, flange_dimensions, surfaces, comment, params)
 - uid: Dlubal.Member#Rigid
   name: Rigid(no, nodes_or_line, comment, params)
   href: api/Member.html#Dlubal_Member_Rigid
@@ -481,9 +513,9 @@ references:
   href: api/Member.html#Dlubal_Member_SectionDistributionOffsetAtEnd
   fullName: Dlubal.Member.SectionDistributionOffsetAtEnd(reference_type, section_offset_from_end, section_alignment)
 - uid: Dlubal.Member#SectionDistributionOffsetAtStart
-  name: SectionDistributionOffsetAtStart(section_start, section_end, reference_type, section_offset_from_start)
+  name: SectionDistributionOffsetAtStart(section_start, section_end, reference_type, section_offset_from_start, section_alignment)
   href: api/Member.html#Dlubal_Member_SectionDistributionOffsetAtStart
-  fullName: Dlubal.Member.SectionDistributionOffsetAtStart(section_start, section_end, reference_type, section_offset_from_start)
+  fullName: Dlubal.Member.SectionDistributionOffsetAtStart(section_start, section_end, reference_type, section_offset_from_start, section_alignment)
 - uid: Dlubal.Member#SectionDistributionSaddle
   name: SectionDistributionSaddle(section_start, section_internal, section_end, reference_type, section_distance_from_start, section_alignment)
   href: api/Member.html#Dlubal_Member_SectionDistributionSaddle
@@ -792,6 +824,122 @@ references:
   name: MemberLoad(no, load_case, members, comment, params)
   href: api/MemberLoad.html#Dlubal_MemberLoad__ctor
   fullName: Dlubal.MemberLoad.MemberLoad(no, load_case, members, comment, params)
+- uid: Dlubal.MemberLoadFromAreaLoadWizard
+  name: MemberLoadFromAreaLoadWizard
+  href: api/MemberLoadFromAreaLoadWizard.html#Dlubal_MemberLoadFromAreaLoadWizard
+  fullName: Dlubal.MemberLoadFromAreaLoadWizard
+- uid: Dlubal.MemberLoadFromAreaLoadWizard#AbsoluteToleranceForMembersOnPlane
+  name: AbsoluteToleranceForMembersOnPlane(absolute_tolerance)
+  href: api/MemberLoadFromAreaLoadWizard.html#Dlubal_MemberLoadFromAreaLoadWizard_AbsoluteToleranceForMembersOnPlane
+  fullName: Dlubal.MemberLoadFromAreaLoadWizard.AbsoluteToleranceForMembersOnPlane(absolute_tolerance)
+- uid: Dlubal.MemberLoadFromAreaLoadWizard#AbsoluteToleranceForNodesOnLine
+  name: AbsoluteToleranceForNodesOnLine(absolute_tolerance)
+  href: api/MemberLoadFromAreaLoadWizard.html#Dlubal_MemberLoadFromAreaLoadWizard_AbsoluteToleranceForNodesOnLine
+  fullName: Dlubal.MemberLoadFromAreaLoadWizard.AbsoluteToleranceForNodesOnLine(absolute_tolerance)
+- uid: Dlubal.MemberLoadFromAreaLoadWizard#ConsiderMemberEccentricity
+  name: ConsiderMemberEccentricity(consider_member_eccentricity)
+  href: api/MemberLoadFromAreaLoadWizard.html#Dlubal_MemberLoadFromAreaLoadWizard_ConsiderMemberEccentricity
+  fullName: Dlubal.MemberLoadFromAreaLoadWizard.ConsiderMemberEccentricity(consider_member_eccentricity)
+- uid: Dlubal.MemberLoadFromAreaLoadWizard#ConsiderSectionDistribution
+  name: ConsiderSectionDistribution(consider_section_distribution)
+  href: api/MemberLoadFromAreaLoadWizard.html#Dlubal_MemberLoadFromAreaLoadWizard_ConsiderSectionDistribution
+  fullName: Dlubal.MemberLoadFromAreaLoadWizard.ConsiderSectionDistribution(consider_section_distribution)
+- uid: Dlubal.MemberLoadFromAreaLoadWizard#Linear
+  name: Linear(no, load_case, magnitude_1, node_1, magnitude_2, node_2, magnitude_3, node_3, coordinate_system, load_direction, comment, params)
+  href: api/MemberLoadFromAreaLoadWizard.html#Dlubal_MemberLoadFromAreaLoadWizard_Linear
+  fullName: Dlubal.MemberLoadFromAreaLoadWizard.Linear(no, load_case, magnitude_1, node_1, magnitude_2, node_2, magnitude_3, node_3, coordinate_system, load_direction, comment, params)
+- uid: Dlubal.MemberLoadFromAreaLoadWizard#LockForNewMembers
+  name: LockForNewMembers(lock_for_new_members)
+  href: api/MemberLoadFromAreaLoadWizard.html#Dlubal_MemberLoadFromAreaLoadWizard_LockForNewMembers
+  fullName: Dlubal.MemberLoadFromAreaLoadWizard.LockForNewMembers(lock_for_new_members)
+- uid: Dlubal.MemberLoadFromAreaLoadWizard#RelativeToleranceForMembersOnPlane
+  name: RelativeToleranceForMembersOnPlane(relative_tolerance)
+  href: api/MemberLoadFromAreaLoadWizard.html#Dlubal_MemberLoadFromAreaLoadWizard_RelativeToleranceForMembersOnPlane
+  fullName: Dlubal.MemberLoadFromAreaLoadWizard.RelativeToleranceForMembersOnPlane(relative_tolerance)
+- uid: Dlubal.MemberLoadFromAreaLoadWizard#RelativeToleranceForNodesOnLine
+  name: RelativeToleranceForNodesOnLine(relative_tolerance)
+  href: api/MemberLoadFromAreaLoadWizard.html#Dlubal_MemberLoadFromAreaLoadWizard_RelativeToleranceForNodesOnLine
+  fullName: Dlubal.MemberLoadFromAreaLoadWizard.RelativeToleranceForNodesOnLine(relative_tolerance)
+- uid: Dlubal.MemberLoadFromAreaLoadWizard#SetCornerNodes
+  name: SetCornerNodes(corner_nodes)
+  href: api/MemberLoadFromAreaLoadWizard.html#Dlubal_MemberLoadFromAreaLoadWizard_SetCornerNodes
+  fullName: Dlubal.MemberLoadFromAreaLoadWizard.SetCornerNodes(corner_nodes)
+- uid: Dlubal.MemberLoadFromAreaLoadWizard#SetExcludedMembers
+  name: SetExcludedMembers(excluded_members, excluded_parallel_members)
+  href: api/MemberLoadFromAreaLoadWizard.html#Dlubal_MemberLoadFromAreaLoadWizard_SetExcludedMembers
+  fullName: Dlubal.MemberLoadFromAreaLoadWizard.SetExcludedMembers(excluded_members, excluded_parallel_members)
+- uid: Dlubal.MemberLoadFromAreaLoadWizard#SmoothConcentratedLoad
+  name: SmoothConcentratedLoad(smooth_punctual_load_enabled)
+  href: api/MemberLoadFromAreaLoadWizard.html#Dlubal_MemberLoadFromAreaLoadWizard_SmoothConcentratedLoad
+  fullName: Dlubal.MemberLoadFromAreaLoadWizard.SmoothConcentratedLoad(smooth_punctual_load_enabled)
+- uid: Dlubal.MemberLoadFromAreaLoadWizard#Uniform
+  name: Uniform(no, load_case, uniform_magnitude, coordinate_system, load_direction, comment, params)
+  href: api/MemberLoadFromAreaLoadWizard.html#Dlubal_MemberLoadFromAreaLoadWizard_Uniform
+  fullName: Dlubal.MemberLoadFromAreaLoadWizard.Uniform(no, load_case, uniform_magnitude, coordinate_system, load_direction, comment, params)
+- uid: Dlubal.MemberLoadFromAreaLoadWizard#VaryingInX
+  name: VaryingInX(no, load_case, load_distribution_values, coordinate_system, load_direction, comment, params)
+  href: api/MemberLoadFromAreaLoadWizard.html#Dlubal_MemberLoadFromAreaLoadWizard_VaryingInX
+  fullName: Dlubal.MemberLoadFromAreaLoadWizard.VaryingInX(no, load_case, load_distribution_values, coordinate_system, load_direction, comment, params)
+- uid: Dlubal.MemberLoadFromAreaLoadWizard#VaryingInY
+  name: VaryingInY(no, load_case, load_distribution_values, coordinate_system, load_direction, comment, params)
+  href: api/MemberLoadFromAreaLoadWizard.html#Dlubal_MemberLoadFromAreaLoadWizard_VaryingInY
+  fullName: Dlubal.MemberLoadFromAreaLoadWizard.VaryingInY(no, load_case, load_distribution_values, coordinate_system, load_direction, comment, params)
+- uid: Dlubal.MemberLoadFromAreaLoadWizard#VaryingInZ
+  name: VaryingInZ(no, load_case, load_distribution_values, coordinate_system, load_direction, comment, params)
+  href: api/MemberLoadFromAreaLoadWizard.html#Dlubal_MemberLoadFromAreaLoadWizard_VaryingInZ
+  fullName: Dlubal.MemberLoadFromAreaLoadWizard.VaryingInZ(no, load_case, load_distribution_values, coordinate_system, load_direction, comment, params)
+- uid: Dlubal.MemberLoadFromAreaLoadWizard.#ctor
+  name: MemberLoadFromAreaLoadWizard(no, load_case, comment, params)
+  href: api/MemberLoadFromAreaLoadWizard.html#Dlubal_MemberLoadFromAreaLoadWizard__ctor
+  fullName: Dlubal.MemberLoadFromAreaLoadWizard.MemberLoadFromAreaLoadWizard(no, load_case, comment, params)
+- uid: Dlubal.MemberLoadFromFreeLineLoadWizard
+  name: MemberLoadFromFreeLineLoadWizard
+  href: api/MemberLoadFromFreeLineLoadWizard.html#Dlubal_MemberLoadFromFreeLineLoadWizard
+  fullName: Dlubal.MemberLoadFromFreeLineLoadWizard
+- uid: Dlubal.MemberLoadFromFreeLineLoadWizard#AbsoluteToleranceForMembersOnPlane
+  name: AbsoluteToleranceForMembersOnPlane(absolute_tolerance)
+  href: api/MemberLoadFromFreeLineLoadWizard.html#Dlubal_MemberLoadFromFreeLineLoadWizard_AbsoluteToleranceForMembersOnPlane
+  fullName: Dlubal.MemberLoadFromFreeLineLoadWizard.AbsoluteToleranceForMembersOnPlane(absolute_tolerance)
+- uid: Dlubal.MemberLoadFromFreeLineLoadWizard#AbsoluteToleranceForNodesOnLine
+  name: AbsoluteToleranceForNodesOnLine(absolute_tolerance)
+  href: api/MemberLoadFromFreeLineLoadWizard.html#Dlubal_MemberLoadFromFreeLineLoadWizard_AbsoluteToleranceForNodesOnLine
+  fullName: Dlubal.MemberLoadFromFreeLineLoadWizard.AbsoluteToleranceForNodesOnLine(absolute_tolerance)
+- uid: Dlubal.MemberLoadFromFreeLineLoadWizard#ConsiderMemberEccentricity
+  name: ConsiderMemberEccentricity(consider_member_eccentricity)
+  href: api/MemberLoadFromFreeLineLoadWizard.html#Dlubal_MemberLoadFromFreeLineLoadWizard_ConsiderMemberEccentricity
+  fullName: Dlubal.MemberLoadFromFreeLineLoadWizard.ConsiderMemberEccentricity(consider_member_eccentricity)
+- uid: Dlubal.MemberLoadFromFreeLineLoadWizard#ConsiderSectionDistribution
+  name: ConsiderSectionDistribution(consider_section_distribution)
+  href: api/MemberLoadFromFreeLineLoadWizard.html#Dlubal_MemberLoadFromFreeLineLoadWizard_ConsiderSectionDistribution
+  fullName: Dlubal.MemberLoadFromFreeLineLoadWizard.ConsiderSectionDistribution(consider_section_distribution)
+- uid: Dlubal.MemberLoadFromFreeLineLoadWizard#ExcludedMembers
+  name: ExcludedMembers(excluded_members, excluded_parallel_members)
+  href: api/MemberLoadFromFreeLineLoadWizard.html#Dlubal_MemberLoadFromFreeLineLoadWizard_ExcludedMembers
+  fullName: Dlubal.MemberLoadFromFreeLineLoadWizard.ExcludedMembers(excluded_members, excluded_parallel_members)
+- uid: Dlubal.MemberLoadFromFreeLineLoadWizard#Linear
+  name: Linear(no, load_case, magnitude_1, node_1, magnitude_2, node_2, coordinate_system, load_direction, comment, params)
+  href: api/MemberLoadFromFreeLineLoadWizard.html#Dlubal_MemberLoadFromFreeLineLoadWizard_Linear
+  fullName: Dlubal.MemberLoadFromFreeLineLoadWizard.Linear(no, load_case, magnitude_1, node_1, magnitude_2, node_2, coordinate_system, load_direction, comment, params)
+- uid: Dlubal.MemberLoadFromFreeLineLoadWizard#LockForNewMembers
+  name: LockForNewMembers(lock_for_new_members)
+  href: api/MemberLoadFromFreeLineLoadWizard.html#Dlubal_MemberLoadFromFreeLineLoadWizard_LockForNewMembers
+  fullName: Dlubal.MemberLoadFromFreeLineLoadWizard.LockForNewMembers(lock_for_new_members)
+- uid: Dlubal.MemberLoadFromFreeLineLoadWizard#RelativeToleranceForMembersOnPlane
+  name: RelativeToleranceForMembersOnPlane(relative_tolerance)
+  href: api/MemberLoadFromFreeLineLoadWizard.html#Dlubal_MemberLoadFromFreeLineLoadWizard_RelativeToleranceForMembersOnPlane
+  fullName: Dlubal.MemberLoadFromFreeLineLoadWizard.RelativeToleranceForMembersOnPlane(relative_tolerance)
+- uid: Dlubal.MemberLoadFromFreeLineLoadWizard#RelativeToleranceForNodesOnLine
+  name: RelativeToleranceForNodesOnLine(relative_tolerance)
+  href: api/MemberLoadFromFreeLineLoadWizard.html#Dlubal_MemberLoadFromFreeLineLoadWizard_RelativeToleranceForNodesOnLine
+  fullName: Dlubal.MemberLoadFromFreeLineLoadWizard.RelativeToleranceForNodesOnLine(relative_tolerance)
+- uid: Dlubal.MemberLoadFromFreeLineLoadWizard#Uniform
+  name: Uniform(no, load_case, uniform_magnitude, node_1, node_2, coordinate_system, load_direction, comment, params)
+  href: api/MemberLoadFromFreeLineLoadWizard.html#Dlubal_MemberLoadFromFreeLineLoadWizard_Uniform
+  fullName: Dlubal.MemberLoadFromFreeLineLoadWizard.Uniform(no, load_case, uniform_magnitude, node_1, node_2, coordinate_system, load_direction, comment, params)
+- uid: Dlubal.MemberLoadFromFreeLineLoadWizard.#ctor
+  name: MemberLoadFromFreeLineLoadWizard(no, load_case, comment, params)
+  href: api/MemberLoadFromFreeLineLoadWizard.html#Dlubal_MemberLoadFromFreeLineLoadWizard__ctor
+  fullName: Dlubal.MemberLoadFromFreeLineLoadWizard.MemberLoadFromFreeLineLoadWizard(no, load_case, comment, params)
 - uid: Dlubal.MemberNonlinearity
   name: MemberNonlinearity
   href: api/MemberNonlinearity.html#Dlubal_MemberNonlinearity
@@ -1092,6 +1240,58 @@ references:
   name: Section(no, name, material, comment, params)
   href: api/Section.html#Dlubal_Section__ctor
   fullName: Dlubal.Section.Section(no, name, material, comment, params)
+- uid: Dlubal.SnowLoadWizard
+  name: SnowLoadWizard
+  href: api/SnowLoadWizard.html#Dlubal_SnowLoadWizard
+  fullName: Dlubal.SnowLoadWizard
+- uid: Dlubal.SnowLoadWizard#ConsiderMemberEccentricity
+  name: ConsiderMemberEccentricity(enabled)
+  href: api/SnowLoadWizard.html#Dlubal_SnowLoadWizard_ConsiderMemberEccentricity
+  fullName: Dlubal.SnowLoadWizard.ConsiderMemberEccentricity(enabled)
+- uid: Dlubal.SnowLoadWizard#ConsiderSectionDistribution
+  name: ConsiderSectionDistribution(enabled)
+  href: api/SnowLoadWizard.html#Dlubal_SnowLoadWizard_ConsiderSectionDistribution
+  fullName: Dlubal.SnowLoadWizard.ConsiderSectionDistribution(enabled)
+- uid: Dlubal.SnowLoadWizard#LockForNewObjects
+  name: LockForNewObjects(enabled)
+  href: api/SnowLoadWizard.html#Dlubal_SnowLoadWizard_LockForNewObjects
+  fullName: Dlubal.SnowLoadWizard.LockForNewObjects(enabled)
+- uid: Dlubal.SnowLoadWizard#SetDuopitch
+  name: SetDuopitch(no, roof_corner_nodes, load_case_1, load_case_2, load_case_3, comment, params)
+  href: api/SnowLoadWizard.html#Dlubal_SnowLoadWizard_SetDuopitch
+  fullName: Dlubal.SnowLoadWizard.SetDuopitch(no, roof_corner_nodes, load_case_1, load_case_2, load_case_3, comment, params)
+- uid: Dlubal.SnowLoadWizard#SetLoadedRoofs
+  name: SetLoadedRoofs(loaded_planes_accessibility)
+  href: api/SnowLoadWizard.html#Dlubal_SnowLoadWizard_SetLoadedRoofs
+  fullName: Dlubal.SnowLoadWizard.SetLoadedRoofs(loaded_planes_accessibility)
+- uid: Dlubal.SnowLoadWizard#SetMonoPitchRoofType
+  name: SetMonoPitchRoofType(no, roof_corner_nodes, load_case, comment, params)
+  href: api/SnowLoadWizard.html#Dlubal_SnowLoadWizard_SetMonoPitchRoofType
+  fullName: Dlubal.SnowLoadWizard.SetMonoPitchRoofType(no, roof_corner_nodes, load_case, comment, params)
+- uid: Dlubal.SnowLoadWizard#SnowGuard
+  name: SnowGuard(enabled)
+  href: api/SnowLoadWizard.html#Dlubal_SnowLoadWizard_SnowGuard
+  fullName: Dlubal.SnowLoadWizard.SnowGuard(enabled)
+- uid: Dlubal.SnowLoadWizard#SnowOverhang
+  name: SnowOverhang(enabled)
+  href: api/SnowLoadWizard.html#Dlubal_SnowLoadWizard_SnowOverhang
+  fullName: Dlubal.SnowLoadWizard.SnowOverhang(enabled)
+- uid: Dlubal.SnowLoadWizard#WithoutLoadsOnLines
+  name: WithoutLoadsOnLines(objects_without_loads, objects_without_loads_parallel_to)
+  href: api/SnowLoadWizard.html#Dlubal_SnowLoadWizard_WithoutLoadsOnLines
+  fullName: Dlubal.SnowLoadWizard.WithoutLoadsOnLines(objects_without_loads, objects_without_loads_parallel_to)
+- uid: Dlubal.SnowLoadWizard#WithoutLoadsOnMembers
+  name: WithoutLoadsOnMembers(objects_without_loads, objects_without_loads_parallel_to)
+  href: api/SnowLoadWizard.html#Dlubal_SnowLoadWizard_WithoutLoadsOnMembers
+  fullName: Dlubal.SnowLoadWizard.WithoutLoadsOnMembers(objects_without_loads, objects_without_loads_parallel_to)
+- uid: Dlubal.SnowLoadWizard#WithoutLoadsOnSurfaces
+  name: WithoutLoadsOnSurfaces(objects_without_loads, objects_without_loads_parallel_to)
+  href: api/SnowLoadWizard.html#Dlubal_SnowLoadWizard_WithoutLoadsOnSurfaces
+  fullName: Dlubal.SnowLoadWizard.WithoutLoadsOnSurfaces(objects_without_loads, objects_without_loads_parallel_to)
+- uid: Dlubal.SnowLoadWizard.#ctor
+  name: SnowLoadWizard(no, comment, params)
+  href: api/SnowLoadWizard.html#Dlubal_SnowLoadWizard__ctor
+  fullName: Dlubal.SnowLoadWizard.SnowLoadWizard(no, comment, params)
 - uid: Dlubal.Solid
   name: Solid
   href: api/Solid.html#Dlubal_Solid
@@ -1244,6 +1444,114 @@ references:
   name: StaticAnalysisSettings(no, analysisType, equationSolver, nonlinearMethod, comment, params)
   href: api/StaticAnalysisSettings.html#Dlubal_StaticAnalysisSettings__ctor
   fullName: Dlubal.StaticAnalysisSettings.StaticAnalysisSettings(no, analysisType, equationSolver, nonlinearMethod, comment, params)
+- uid: Dlubal.StructureModification
+  name: StructureModification
+  href: api/StructureModification.html#Dlubal_StructureModification
+  fullName: Dlubal.StructureModification
+- uid: Dlubal.StructureModification#DeactivateObjects
+  name: DeactivateObjects(members_object_selection, surfaces_object_selection, solids_object_selection, support_on_nodes_object_selection, support_on_lines_object_selection, support_on_members_object_selection, support_on_surfaces_object_selection)
+  href: api/StructureModification.html#Dlubal_StructureModification_DeactivateObjects
+  fullName: Dlubal.StructureModification.DeactivateObjects(members_object_selection, surfaces_object_selection, solids_object_selection, support_on_nodes_object_selection, support_on_lines_object_selection, support_on_members_object_selection, support_on_surfaces_object_selection)
+- uid: Dlubal.StructureModification#DisableMaterialNonlinearityModels
+  name: DisableMaterialNonlinearityModels(disabled)
+  href: api/StructureModification.html#Dlubal_StructureModification_DisableMaterialNonlinearityModels
+  fullName: Dlubal.StructureModification.DisableMaterialNonlinearityModels(disabled)
+- uid: Dlubal.StructureModification#DisableMemberNonlinearities
+  name: DisableMemberNonlinearities(disabled)
+  href: api/StructureModification.html#Dlubal_StructureModification_DisableMemberNonlinearities
+  fullName: Dlubal.StructureModification.DisableMemberNonlinearities(disabled)
+- uid: Dlubal.StructureModification#DisableNonlinearitiesLineHinges
+  name: DisableNonlinearitiesLineHinges(disabled)
+  href: api/StructureModification.html#Dlubal_StructureModification_DisableNonlinearitiesLineHinges
+  fullName: Dlubal.StructureModification.DisableNonlinearitiesLineHinges(disabled)
+- uid: Dlubal.StructureModification#DisableNonlinearitiesLineSupports
+  name: DisableNonlinearitiesLineSupports(disabled)
+  href: api/StructureModification.html#Dlubal_StructureModification_DisableNonlinearitiesLineSupports
+  fullName: Dlubal.StructureModification.DisableNonlinearitiesLineSupports(disabled)
+- uid: Dlubal.StructureModification#DisableNonlinearitiesMemberHinges
+  name: DisableNonlinearitiesMemberHinges(disabled)
+  href: api/StructureModification.html#Dlubal_StructureModification_DisableNonlinearitiesMemberHinges
+  fullName: Dlubal.StructureModification.DisableNonlinearitiesMemberHinges(disabled)
+- uid: Dlubal.StructureModification#DisableNonlinearitiesMemberSupports
+  name: DisableNonlinearitiesMemberSupports(disabled)
+  href: api/StructureModification.html#Dlubal_StructureModification_DisableNonlinearitiesMemberSupports
+  fullName: Dlubal.StructureModification.DisableNonlinearitiesMemberSupports(disabled)
+- uid: Dlubal.StructureModification#DisableNonlinearitiesMemberTypes
+  name: DisableNonlinearitiesMemberTypes(disabled)
+  href: api/StructureModification.html#Dlubal_StructureModification_DisableNonlinearitiesMemberTypes
+  fullName: Dlubal.StructureModification.DisableNonlinearitiesMemberTypes(disabled)
+- uid: Dlubal.StructureModification#DisableNonlinearitiesNodalSupports
+  name: DisableNonlinearitiesNodalSupports(disabled)
+  href: api/StructureModification.html#Dlubal_StructureModification_DisableNonlinearitiesNodalSupports
+  fullName: Dlubal.StructureModification.DisableNonlinearitiesNodalSupports(disabled)
+- uid: Dlubal.StructureModification#DisableNonlinearitiesSurfaceOrSolidContact
+  name: DisableNonlinearitiesSurfaceOrSolidContact(disabled)
+  href: api/StructureModification.html#Dlubal_StructureModification_DisableNonlinearitiesSurfaceOrSolidContact
+  fullName: Dlubal.StructureModification.DisableNonlinearitiesSurfaceOrSolidContact(disabled)
+- uid: Dlubal.StructureModification#DisableNonlinearitiesSurfaceSupports
+  name: DisableNonlinearitiesSurfaceSupports(disabled)
+  href: api/StructureModification.html#Dlubal_StructureModification_DisableNonlinearitiesSurfaceSupports
+  fullName: Dlubal.StructureModification.DisableNonlinearitiesSurfaceSupports(disabled)
+- uid: Dlubal.StructureModification#DisableTemperatureDependencies
+  name: DisableTemperatureDependencies(disabled)
+  href: api/StructureModification.html#Dlubal_StructureModification_DisableTemperatureDependencies
+  fullName: Dlubal.StructureModification.DisableTemperatureDependencies(disabled)
+- uid: Dlubal.StructureModification#LineHinges
+  name: LineHinges(surface_no, line_no, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, rotational_factor_phi_x)
+  href: api/StructureModification.html#Dlubal_StructureModification_LineHinges
+  fullName: Dlubal.StructureModification.LineHinges(surface_no, line_no, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, rotational_factor_phi_x)
+- uid: Dlubal.StructureModification#LineSupports
+  name: LineSupports(line_no, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, rotational_factor_phi_x, rotational_factor_phi_y, rotational_factor_phi_z)
+  href: api/StructureModification.html#Dlubal_StructureModification_LineSupports
+  fullName: Dlubal.StructureModification.LineSupports(line_no, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, rotational_factor_phi_x, rotational_factor_phi_y, rotational_factor_phi_z)
+- uid: Dlubal.StructureModification#Material
+  name: Material(material_name, modification_type, factor_for_e_and_g, comment)
+  href: api/StructureModification.html#Dlubal_StructureModification_Material
+  fullName: Dlubal.StructureModification.Material(material_name, modification_type, factor_for_e_and_g, comment)
+- uid: Dlubal.StructureModification#MemberHinges
+  name: MemberHinges(member_no, member_side, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, rotational_factor_phi_x, rotational_factor_phi_y, rotational_factor_phi_z)
+  href: api/StructureModification.html#Dlubal_StructureModification_MemberHinges
+  fullName: Dlubal.StructureModification.MemberHinges(member_no, member_side, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, rotational_factor_phi_x, rotational_factor_phi_y, rotational_factor_phi_z)
+- uid: Dlubal.StructureModification#Members
+  name: Members(member_stiffness_modification, members, comment)
+  href: api/StructureModification.html#Dlubal_StructureModification_Members
+  fullName: Dlubal.StructureModification.Members(member_stiffness_modification, members, comment)
+- uid: Dlubal.StructureModification#MemberSupports
+  name: MemberSupports(member_no, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, shear_factor_s_x, shear_factor_s_y, shear_factor_s_z, rotational_factor_phi_x)
+  href: api/StructureModification.html#Dlubal_StructureModification_MemberSupports
+  fullName: Dlubal.StructureModification.MemberSupports(member_no, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, shear_factor_s_x, shear_factor_s_y, shear_factor_s_z, rotational_factor_phi_x)
+- uid: Dlubal.StructureModification#ModifyMemberReinforcement
+  name: ModifyMemberReinforcement(enabled)
+  href: api/StructureModification.html#Dlubal_StructureModification_ModifyMemberReinforcement
+  fullName: Dlubal.StructureModification.ModifyMemberReinforcement(enabled)
+- uid: Dlubal.StructureModification#ModifySurfaceReinforcement
+  name: ModifySurfaceReinforcement(enabled)
+  href: api/StructureModification.html#Dlubal_StructureModification_ModifySurfaceReinforcement
+  fullName: Dlubal.StructureModification.ModifySurfaceReinforcement(enabled)
+- uid: Dlubal.StructureModification#ModifyTimberMember
+  name: ModifyTimberMember(enabled)
+  href: api/StructureModification.html#Dlubal_StructureModification_ModifyTimberMember
+  fullName: Dlubal.StructureModification.ModifyTimberMember(enabled)
+- uid: Dlubal.StructureModification#NodalSupports
+  name: NodalSupports(node_no, support_factor_ux, support_factor_uy, support_factor_uz, restraint_factor_phi_x, restraint_factor_phi_y, restraint_factor_phi_z)
+  href: api/StructureModification.html#Dlubal_StructureModification_NodalSupports
+  fullName: Dlubal.StructureModification.NodalSupports(node_no, support_factor_ux, support_factor_uy, support_factor_uz, restraint_factor_phi_x, restraint_factor_phi_y, restraint_factor_phi_z)
+- uid: Dlubal.StructureModification#Section
+  name: Section(section_name, sectional_areas_factor_a, sectional_areas_factor_a_y, sectional_areas_factor_a_z, moment_of_inertia_factor_j, moment_of_inertia_favor_i_y, moment_of_inertia_favor_i_z)
+  href: api/StructureModification.html#Dlubal_StructureModification_Section
+  fullName: Dlubal.StructureModification.Section(section_name, sectional_areas_factor_a, sectional_areas_factor_a_y, sectional_areas_factor_a_z, moment_of_inertia_factor_j, moment_of_inertia_favor_i_y, moment_of_inertia_favor_i_z)
+- uid: Dlubal.StructureModification#Surfaces
+  name: Surfaces(surface_stiffness_modification, surfaces, comment)
+  href: api/StructureModification.html#Dlubal_StructureModification_Surfaces
+  fullName: Dlubal.StructureModification.Surfaces(surface_stiffness_modification, surfaces, comment)
+- uid: Dlubal.StructureModification#SurfaceSupports
+  name: SurfaceSupports(surface_no, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, shear_factor_v_xz, shear_factor_v_yz)
+  href: api/StructureModification.html#Dlubal_StructureModification_SurfaceSupports
+  fullName: Dlubal.StructureModification.SurfaceSupports(surface_no, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, shear_factor_v_xz, shear_factor_v_yz)
+- uid: Dlubal.StructureModification.#ctor
+  name: StructureModification(no, comment, params)
+  href: api/StructureModification.html#Dlubal_StructureModification__ctor
+  fullName: Dlubal.StructureModification.StructureModification(no, comment, params)
 - uid: Dlubal.Surface
   name: Surface
   href: api/Surface.html#Dlubal_Surface
@@ -1508,6 +1816,58 @@ references:
   name: Thickness(no, name, material, uniform_thickness_d, comment, params)
   href: api/Thickness.html#Dlubal_Thickness__ctor
   fullName: Dlubal.Thickness.Thickness(no, name, material, uniform_thickness_d, comment, params)
+- uid: Dlubal.WindLoadWizard
+  name: WindLoadWizard
+  href: api/WindLoadWizard.html#Dlubal_WindLoadWizard
+  fullName: Dlubal.WindLoadWizard
+- uid: Dlubal.WindLoadWizard#ConsiderMemberEccentricity
+  name: ConsiderMemberEccentricity(enabled)
+  href: api/WindLoadWizard.html#Dlubal_WindLoadWizard_ConsiderMemberEccentricity
+  fullName: Dlubal.WindLoadWizard.ConsiderMemberEccentricity(enabled)
+- uid: Dlubal.WindLoadWizard#ConsiderSectionDistribution
+  name: ConsiderSectionDistribution(enabled)
+  href: api/WindLoadWizard.html#Dlubal_WindLoadWizard_ConsiderSectionDistribution
+  fullName: Dlubal.WindLoadWizard.ConsiderSectionDistribution(enabled)
+- uid: Dlubal.WindLoadWizard#LockForNewObjects
+  name: LockForNewObjects(enabled)
+  href: api/WindLoadWizard.html#Dlubal_WindLoadWizard_LockForNewObjects
+  fullName: Dlubal.WindLoadWizard.LockForNewObjects(enabled)
+- uid: Dlubal.WindLoadWizard#RoofDuopitch
+  name: RoofDuopitch(no, roof_corner_nodes, load_cases, wind_directions, comment, params)
+  href: api/WindLoadWizard.html#Dlubal_WindLoadWizard_RoofDuopitch
+  fullName: Dlubal.WindLoadWizard.RoofDuopitch(no, roof_corner_nodes, load_cases, wind_directions, comment, params)
+- uid: Dlubal.WindLoadWizard#RoofMonoPitch
+  name: RoofMonoPitch(no, roof_corner_nodes, load_cases, wind_directions, comment, params)
+  href: api/WindLoadWizard.html#Dlubal_WindLoadWizard_RoofMonoPitch
+  fullName: Dlubal.WindLoadWizard.RoofMonoPitch(no, roof_corner_nodes, load_cases, wind_directions, comment, params)
+- uid: Dlubal.WindLoadWizard#SetLoadedWallsAndRoofs
+  name: SetLoadedWallsAndRoofs(roofs_accessibility)
+  href: api/WindLoadWizard.html#Dlubal_WindLoadWizard_SetLoadedWallsAndRoofs
+  fullName: Dlubal.WindLoadWizard.SetLoadedWallsAndRoofs(roofs_accessibility)
+- uid: Dlubal.WindLoadWizard#WallsRoofDuoPitch
+  name: WallsRoofDuoPitch(no, base_corner_nodes, roof_corner_nodes, load_cases, wind_directions, comment, params)
+  href: api/WindLoadWizard.html#Dlubal_WindLoadWizard_WallsRoofDuoPitch
+  fullName: Dlubal.WindLoadWizard.WallsRoofDuoPitch(no, base_corner_nodes, roof_corner_nodes, load_cases, wind_directions, comment, params)
+- uid: Dlubal.WindLoadWizard#WallsRoofMonopitch
+  name: WallsRoofMonopitch(no, base_corner_nodes, roof_corner_nodes, load_cases, wind_directions, comment, params)
+  href: api/WindLoadWizard.html#Dlubal_WindLoadWizard_WallsRoofMonopitch
+  fullName: Dlubal.WindLoadWizard.WallsRoofMonopitch(no, base_corner_nodes, roof_corner_nodes, load_cases, wind_directions, comment, params)
+- uid: Dlubal.WindLoadWizard#WithoutLoadsOnLines
+  name: WithoutLoadsOnLines(objects_without_loads, objects_without_loads_parallel_to)
+  href: api/WindLoadWizard.html#Dlubal_WindLoadWizard_WithoutLoadsOnLines
+  fullName: Dlubal.WindLoadWizard.WithoutLoadsOnLines(objects_without_loads, objects_without_loads_parallel_to)
+- uid: Dlubal.WindLoadWizard#WithoutLoadsOnMembers
+  name: WithoutLoadsOnMembers(objects_without_loads, objects_without_loads_parallel_to)
+  href: api/WindLoadWizard.html#Dlubal_WindLoadWizard_WithoutLoadsOnMembers
+  fullName: Dlubal.WindLoadWizard.WithoutLoadsOnMembers(objects_without_loads, objects_without_loads_parallel_to)
+- uid: Dlubal.WindLoadWizard#WithoutLoadsOnSurfaces
+  name: WithoutLoadsOnSurfaces(objects_without_loads, objects_without_loads_parallel_to)
+  href: api/WindLoadWizard.html#Dlubal_WindLoadWizard_WithoutLoadsOnSurfaces
+  fullName: Dlubal.WindLoadWizard.WithoutLoadsOnSurfaces(objects_without_loads, objects_without_loads_parallel_to)
+- uid: Dlubal.WindLoadWizard.#ctor
+  name: WindLoadWizard(no, comment, params)
+  href: api/WindLoadWizard.html#Dlubal_WindLoadWizard__ctor
+  fullName: Dlubal.WindLoadWizard.WindLoadWizard(no, comment, params)
 - uid: Dlubal.WindSimulationSettings
   name: WindSimulationSettings
   href: api/WindSimulationSettings.html#Dlubal_WindSimulationSettings

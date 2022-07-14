@@ -1,5 +1,7 @@
 /**
  * Creates coordinate system
+ * @class
+ * @constructor
  * @param  {Number}  no          Index of coordinate system, can be undefined
  * @param  {String}  comment     Comment, can be undefined
  * @param  {Object}  params      Additional coordinate system parameters, can be undefined
