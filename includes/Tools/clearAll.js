@@ -4,18 +4,19 @@ if (RFEM) {
     CONSTRUCTION_STAGES.setActive(false);
     TIME_DEPENDENT.setActive(false);
     FORM_FINDING.setActive(false);
-    WIND_SIMULATION.setActive(false);
     MASONRY_DESIGN.setActive(false);
     BUILDING_MODEL.setActive(false);
     GEOTECHNICAL_ANALYSIS.setActive(false);
-    if (PRERELEASE_MODE)
+    WIND_SIMULATION.setActive(false);
+	if (PRERELEASE_MODE)
     {
         CUTTING_PATTERNS.setActive(false);
     }
+    MULTILAYER_SURFACES_DESIGN.setActive(false);
 }
 
 if (RFEM || RSTAB) {
-    STRESS_ANALYSIS.setActive(false);
+	STRESS_ANALYSIS.setActive(false);
     CONCRETE_DESIGN.setActive(false);
     STEEL_DESIGN.setActive(false);
     if (typeof STEEL_JOINTS == "object")
@@ -33,6 +34,7 @@ if (RFEM || RSTAB) {
     if (PRERELEASE_MODE)
     {
         DYNAMIC_ANALYSIS.TIME_HISTORY.setActive(false);
+        WIND_SIMULATION.setActive(false);
     }
     STRUCTURE_STABILITY.setActive(false);
     TORSIONAL_WARPING.setActive(false);
@@ -138,7 +140,8 @@ if (RFEM)
         concrete_durabilities,
         blocks,
         global_parameters,
-        boreholes
+        boreholes//,
+        // relationship_between_load_cases
     ];
     if (PRERELEASE_MODE)
     {
@@ -194,7 +197,8 @@ if (RSTAB) {
         notes,
         concrete_durabilities,
         blocks,
-        global_parameters
+        global_parameters,
+        relationship_between_load_cases
     ];
     if (PRERELEASE_MODE)
     {
@@ -202,15 +206,29 @@ if (RSTAB) {
     }
 }
 
+if (RSECTION)
+{
+    if (PRERELEASE_MODE)
+    {
+        general.has_material_definition_active = true;
+        general.has_concerete_reinforcement = false;
+    }
+    general.solver_model = general.MASSIVE;
+    general.has_effective_section_properties_active = false;
+}
+
 if (RSECTION) {
     var containers = [
         materials,
+        sections,
         points,
         lines,
         parts,
         openings,
         elements,
         stress_points,
+        blocks,
+        dimensions,
         load_cases,
         load_combinations
     ];

@@ -23,6 +23,14 @@ if (RFEM) {
     include("BasicObjects/Opening.js");
     include("BasicObjects/Thickness.js");
 }
+if (RSECTION) {
+    include("BasicObjects/rsection_point.js");
+    include("BasicObjects/rsection_line.js");
+    include("BasicObjects/rsection_part.js");
+    include("BasicObjects/rsection_opening.js");
+    include("BasicObjects/rsection_element.js");
+    include("BasicObjects/rsection_stress_point.js");
+}
 include("BasicObjects/Material.js");
 include("BasicObjects/MemberSet.js");
 include("BasicObjects/Member.js");
@@ -76,6 +84,7 @@ if (RFEM) {
 // Loading
 include("Loading/LoadCombination.js");
 include("Loading/LoadCase.js");
+include("Loading/DesignSituation.js")
 // Loads
 if (RFEM) {
     include("Loads/FreeCircularLoad.js");
