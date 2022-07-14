@@ -1287,3 +1287,11 @@ function createFormulaParameterTypeFormula(index, name, unitGroup, formula) {
 
     return formulas;
 }
+
+function radians2Degrees(value) {
+    return 180 * value / Math.PI;
+}
+
+function degrees2Radians(value) {
+    return value * Math.PI / 180;
+}
