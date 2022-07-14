@@ -1,6 +1,8 @@
 // ToDo create prototypes for load case types
 /**
- *
+ * Creates load case
+ * @class
+ * @constructor
  * @param {*} no
  * @param {*} name
  * @param {*} comment
@@ -383,7 +385,9 @@ function SetResponseSpectrums(LC, responseSpectrums) {
     console.log("LoadCase is undefined " + arguments.callee.name);
   }
 }
-
+/**
+ * Dictionary
+ */
 const actionCategory_dict = {
 
   "ACTION_CATEGORY_PERMANENT_G": "ACTION_CATEGORY_PERMANENT_G",

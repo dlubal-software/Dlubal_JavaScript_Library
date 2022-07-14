@@ -2,6 +2,7 @@
 /**
  * AnalysisSettings namespace
  * @namespace AnalysisSettings
+ * @module AnalysisSettings
  */
 
 /**

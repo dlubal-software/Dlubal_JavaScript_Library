@@ -1,5 +1,7 @@
 /**
  * Creates design situation object
+ * @class
+ * @constructor
  * @param {Number}  no                      Number of design situation, can be undefined
  * @param {String}  design_situation_type   Design situation type
  * @param {Object}  params                  Additional parameters, can be undefined

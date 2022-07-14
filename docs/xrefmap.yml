@@ -60,6 +60,34 @@ references:
   name: CoordinateSystem(no, comment, params)
   href: api/CoordinateSystem.html#Dlubal_CoordinateSystem__ctor
   fullName: Dlubal.CoordinateSystem.CoordinateSystem(no, comment, params)
+- uid: Dlubal.DesignSituation
+  name: DesignSituation
+  href: api/DesignSituation.html#Dlubal_DesignSituation
+  fullName: Dlubal.DesignSituation
+- uid: Dlubal.DesignSituation#DesignSituation
+  name: DesignSituation()
+  href: api/DesignSituation.html#Dlubal_DesignSituation_DesignSituation
+  fullName: Dlubal.DesignSituation.DesignSituation()
+- uid: Dlubal.DesignSituation#No
+  name: No()
+  href: api/DesignSituation.html#Dlubal_DesignSituation_No
+  fullName: Dlubal.DesignSituation.No()
+- uid: Dlubal.DesignSituation#SetActive
+  name: SetActive(active)
+  href: api/DesignSituation.html#Dlubal_DesignSituation_SetActive
+  fullName: Dlubal.DesignSituation.SetActive(active)
+- uid: Dlubal.DesignSituation#SetCombinationWizard
+  name: SetCombinationWizard(combination_wizard_no)
+  href: api/DesignSituation.html#Dlubal_DesignSituation_SetCombinationWizard
+  fullName: Dlubal.DesignSituation.SetCombinationWizard(combination_wizard_no)
+- uid: Dlubal.DesignSituation#SetConsiderInclusiveExclusiveLoadCases
+  name: SetConsiderInclusiveExclusiveLoadCases(relationship_between_load_cases_no)
+  href: api/DesignSituation.html#Dlubal_DesignSituation_SetConsiderInclusiveExclusiveLoadCases
+  fullName: Dlubal.DesignSituation.SetConsiderInclusiveExclusiveLoadCases(relationship_between_load_cases_no)
+- uid: Dlubal.DesignSituation.#ctor
+  name: DesignSituation(no, design_situation_type, params, comment)
+  href: api/DesignSituation.html#Dlubal_DesignSituation__ctor
+  fullName: Dlubal.DesignSituation.DesignSituation(no, design_situation_type, params, comment)
 - uid: Dlubal.FreeCircularLoad
   name: FreeCircularLoad
   href: api/FreeCircularLoad.html#Dlubal_FreeCircularLoad
@@ -416,6 +444,38 @@ references:
   name: LineSetLoad(no, load_case, line_sets, comment, params)
   href: api/LineSetLoad.html#Dlubal_LineSetLoad__ctor
   fullName: Dlubal.LineSetLoad.LineSetLoad(no, load_case, line_sets, comment, params)
+- uid: Dlubal.LoadCase
+  name: LoadCase
+  href: api/LoadCase.html#Dlubal_LoadCase
+  fullName: Dlubal.LoadCase
+- uid: Dlubal.LoadCase#ConsiderImperfection
+  name: ConsiderImperfection(imperfectionCaseNo)
+  href: api/LoadCase.html#Dlubal_LoadCase_ConsiderImperfection
+  fullName: Dlubal.LoadCase.ConsiderImperfection(imperfectionCaseNo)
+- uid: Dlubal.LoadCase#GetActionCategoryList
+  name: GetActionCategoryList()
+  href: api/LoadCase.html#Dlubal_LoadCase_GetActionCategoryList
+  fullName: Dlubal.LoadCase.GetActionCategoryList()
+- uid: Dlubal.LoadCase#ModalAnalysis
+  name: ModalAnalysis(no, name, modalAnalysisSettingsNo, importMassesFrom, selfWeighParams, comment, params)
+  href: api/LoadCase.html#Dlubal_LoadCase_ModalAnalysis
+  fullName: Dlubal.LoadCase.ModalAnalysis(no, name, modalAnalysisSettingsNo, importMassesFrom, selfWeighParams, comment, params)
+- uid: Dlubal.LoadCase#ResponseSpectrumAnalysis
+  name: ResponseSpectrumAnalysis(no, name, responseSpectrumAnalysisSettingsNo, importModalAnalysisFrom, responseSpectrums, comment, params)
+  href: api/LoadCase.html#Dlubal_LoadCase_ResponseSpectrumAnalysis
+  fullName: Dlubal.LoadCase.ResponseSpectrumAnalysis(no, name, responseSpectrumAnalysisSettingsNo, importModalAnalysisFrom, responseSpectrums, comment, params)
+- uid: Dlubal.LoadCase#SetStructureModification
+  name: SetStructureModification(structureModificationNo)
+  href: api/LoadCase.html#Dlubal_LoadCase_SetStructureModification
+  fullName: Dlubal.LoadCase.SetStructureModification(structureModificationNo)
+- uid: Dlubal.LoadCase#StaticAnalysis
+  name: StaticAnalysis(no, name, staticAnalysisSettingsNo, ActionCategory, selfWeighParams, stabilityAnalysisSettingsNo, comment, params)
+  href: api/LoadCase.html#Dlubal_LoadCase_StaticAnalysis
+  fullName: Dlubal.LoadCase.StaticAnalysis(no, name, staticAnalysisSettingsNo, ActionCategory, selfWeighParams, stabilityAnalysisSettingsNo, comment, params)
+- uid: Dlubal.LoadCase.#ctor
+  name: LoadCase(no, name, comment, params)
+  href: api/LoadCase.html#Dlubal_LoadCase__ctor
+  fullName: Dlubal.LoadCase.LoadCase(no, name, comment, params)
 - uid: Dlubal.Material
   name: Material
   href: api/Material.html#Dlubal_Material
