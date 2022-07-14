@@ -138,7 +138,7 @@ if (RFEM)
         concrete_durabilities,
         blocks,
         global_parameters,
-        soil_samples
+        boreholes
     ];
     if (PRERELEASE_MODE)
     {
