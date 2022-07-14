@@ -1,0 +1,1464 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class StructureModification
+   | Dlubal JavaScript High Level Functions Library </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class StructureModification
+   | Dlubal JavaScript High Level Functions Library ">
+    <meta name="generator" content="docfx 2.57.2.0">
+    
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Dlubal.StructureModification">
+  
+  
+  <h1 id="Dlubal_StructureModification" data-uid="Dlubal.StructureModification">Class StructureModification
+  </h1>
+  <div class="markdown level0 summary"><p>Creates member</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <h4 id="Dlubal_StructureModification__ctor" data-uid="Dlubal.StructureModification.#ctor">StructureModification(no, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates member</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">new StructureModification(no, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of structure modification, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Structure modification's parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Created structure modification</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="functions">Functions
+  </h3>
+  
+  
+  <h4 id="Dlubal_StructureModification_Material" data-uid="Dlubal.StructureModification#Material">Material(material_name, modification_type, factor_for_e_and_g, comment)</h4>
+  <div class="markdown level1 summary"><p>Modification of material</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Material(material_name, modification_type, factor_for_e_and_g, comment)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>material_name</em></td>
+        <td>
+          <p>Name of material</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>modification_type</em></td>
+        <td>
+          <p>Type of modification (&quot;Multiplier factor&quot;, &quot;Division factor&quot;), can be undefined (Multiplier factor as default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>factor_for_e_and_g</em></td>
+        <td>
+          <p>Factor for E and G, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_Section" data-uid="Dlubal.StructureModification#Section">Section(section_name, sectional_areas_factor_a, sectional_areas_factor_a_y, sectional_areas_factor_a_z, moment_of_inertia_factor_j, moment_of_inertia_favor_i_y, moment_of_inertia_favor_i_z)</h4>
+  <div class="markdown level1 summary"><p>Modification of section</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Section(section_name, sectional_areas_factor_a, sectional_areas_factor_a_y, sectional_areas_factor_a_z, moment_of_inertia_factor_j, moment_of_inertia_favor_i_y, moment_of_inertia_favor_i_z)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>section_name</em></td>
+        <td>
+          <p>Name of section</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>sectional_areas_factor_a</em></td>
+        <td>
+          <p>Sectional areas factor A, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>sectional_areas_factor_a_y</em></td>
+        <td>
+          <p>Sectional areas factor Ay, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>sectional_areas_factor_a_z</em></td>
+        <td>
+          <p>Sectional areas factor Az, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>moment_of_inertia_factor_j</em></td>
+        <td>
+          <p>Moment of inertia factor J, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>moment_of_inertia_favor_i_y</em></td>
+        <td>
+          <p>Moment of inertia factor Iy, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>moment_of_inertia_favor_i_z</em></td>
+        <td>
+          <p>Moment of inertia factor Iz, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_Members" data-uid="Dlubal.StructureModification#Members">Members(member_stiffness_modification, members, comment)</h4>
+  <div class="markdown level1 summary"><p>Modification of members</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Members(member_stiffness_modification, members, comment)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>member_stiffness_modification</em></td>
+        <td>
+          <p>Member stiffness modification index</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>members</em></td>
+        <td>
+          <p>List of members indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_Surfaces" data-uid="Dlubal.StructureModification#Surfaces">Surfaces(surface_stiffness_modification, surfaces, comment)</h4>
+  <div class="markdown level1 summary"><p>Modification of surfaces</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Surfaces(surface_stiffness_modification, surfaces, comment)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>surface_stiffness_modification</em></td>
+        <td>
+          <p>Surface stiffness modification index</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>surfaces</em></td>
+        <td>
+          <p>List of surfaces indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_MemberHinges" data-uid="Dlubal.StructureModification#MemberHinges">MemberHinges(member_no, member_side, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, rotational_factor_phi_x, rotational_factor_phi_y, rotational_factor_phi_z)</h4>
+  <div class="markdown level1 summary"><p>Modification of member hinges</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function MemberHinges(member_no, member_side, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, rotational_factor_phi_x, rotational_factor_phi_y, rotational_factor_phi_z)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>member_no</em></td>
+        <td>
+          <p>Member index</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>member_side</em></td>
+        <td>
+          <p>Member hinge side (start, end)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>translational_factor_u_x</em></td>
+        <td>
+          <p>Translational spring constant Cu,x, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>translational_factor_u_y</em></td>
+        <td>
+          <p>Translational spring constant Cu,y, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>translational_factor_u_z</em></td>
+        <td>
+          <p>Translational spring constant Cu,z, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>rotational_factor_phi_x</em></td>
+        <td>
+          <p>Rotational spring constant Cφ,x, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>rotational_factor_phi_y</em></td>
+        <td>
+          <p>Rotational spring constant Cφ,y, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>rotational_factor_phi_z</em></td>
+        <td>
+          <p>Rotational spring constant Cφ,z, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_LineHinges" data-uid="Dlubal.StructureModification#LineHinges">LineHinges(surface_no, line_no, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, rotational_factor_phi_x)</h4>
+  <div class="markdown level1 summary"><p>MOdification for line hinges</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function LineHinges(surface_no, line_no, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, rotational_factor_phi_x)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>surface_no</em></td>
+        <td>
+          <p>Surface index</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>line_no</em></td>
+        <td>
+          <p>Line index</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>translational_factor_u_x</em></td>
+        <td>
+          <p>Translational factor Cu,x, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>translational_factor_u_y</em></td>
+        <td>
+          <p>Translational factor Cu,y, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>translational_factor_u_z</em></td>
+        <td>
+          <p>Translational factor Cu,z, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>rotational_factor_phi_x</em></td>
+        <td>
+          <p>Rotational factor Cφ,x, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_NodalSupports" data-uid="Dlubal.StructureModification#NodalSupports">NodalSupports(node_no, support_factor_ux, support_factor_uy, support_factor_uz, restraint_factor_phi_x, restraint_factor_phi_y, restraint_factor_phi_z)</h4>
+  <div class="markdown level1 summary"><p>Modification of nodal supports</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function NodalSupports(node_no, support_factor_ux, support_factor_uy, support_factor_uz, restraint_factor_phi_x, restraint_factor_phi_y, restraint_factor_phi_z)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>node_no</em></td>
+        <td>
+          <p>Node index</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>support_factor_ux</em></td>
+        <td>
+          <p>Support factor Cu,x, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>support_factor_uy</em></td>
+        <td>
+          <p>Support factor Cu,y, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>support_factor_uz</em></td>
+        <td>
+          <p>Support factor Cu,z, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>restraint_factor_phi_x</em></td>
+        <td>
+          <p>Restraint factor Cφ,x, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>restraint_factor_phi_y</em></td>
+        <td>
+          <p>Restraint factor Cφ,y, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>restraint_factor_phi_z</em></td>
+        <td>
+          <p>Restraint factor Cφ,z, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_LineSupports" data-uid="Dlubal.StructureModification#LineSupports">LineSupports(line_no, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, rotational_factor_phi_x, rotational_factor_phi_y, rotational_factor_phi_z)</h4>
+  <div class="markdown level1 summary"><p>Mofification of line supports</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function LineSupports(line_no, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, rotational_factor_phi_x, rotational_factor_phi_y, rotational_factor_phi_z)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>line_no</em></td>
+        <td>
+          <p>Line index</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>translational_factor_u_x</em></td>
+        <td>
+          <p>Translational factor Cu,x, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>translational_factor_u_y</em></td>
+        <td>
+          <p>Translational factor Cu,y, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>translational_factor_u_z</em></td>
+        <td>
+          <p>Transational factor Cu,z, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>rotational_factor_phi_x</em></td>
+        <td>
+          <p>Rotational factor Cφ,x, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>rotational_factor_phi_y</em></td>
+        <td>
+          <p>Rotational factor Cφ,z, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>rotational_factor_phi_z</em></td>
+        <td>
+          <p>Rotational factor Cφ,z, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_MemberSupports" data-uid="Dlubal.StructureModification#MemberSupports">MemberSupports(member_no, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, shear_factor_s_x, shear_factor_s_y, shear_factor_s_z, rotational_factor_phi_x)</h4>
+  <div class="markdown level1 summary"><p>Modification of member supports</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function MemberSupports(member_no, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, shear_factor_s_x, shear_factor_s_y, shear_factor_s_z, rotational_factor_phi_x)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>member_no</em></td>
+        <td>
+          <p>Member index</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>translational_factor_u_x</em></td>
+        <td>
+          <p>Translational factor Cu,x, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>translational_factor_u_y</em></td>
+        <td>
+          <p>Translational factor Cu,y, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>translational_factor_u_z</em></td>
+        <td>
+          <p>Translational factor Cu,z, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>shear_factor_s_x</em></td>
+        <td>
+          <p>Shear factor Cs,x, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>shear_factor_s_y</em></td>
+        <td>
+          <p>Shear factor Cs,y, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>shear_factor_s_z</em></td>
+        <td>
+          <p>Shear factor Cs,z, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>rotational_factor_phi_x</em></td>
+        <td>
+          <p>Rotational factor Cφ,x, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_SurfaceSupports" data-uid="Dlubal.StructureModification#SurfaceSupports">SurfaceSupports(surface_no, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, shear_factor_v_xz, shear_factor_v_yz)</h4>
+  <div class="markdown level1 summary"><p>Modification of surface supports</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function SurfaceSupports(surface_no, translational_factor_u_x, translational_factor_u_y, translational_factor_u_z, shear_factor_v_xz, shear_factor_v_yz)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>surface_no</em></td>
+        <td>
+          <p>Surface index</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>translational_factor_u_x</em></td>
+        <td>
+          <p>Translational factor Cu,x, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>translational_factor_u_y</em></td>
+        <td>
+          <p>Translational factor Cu,y, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>translational_factor_u_z</em></td>
+        <td>
+          <p>Translational factor Cu,z, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>shear_factor_v_xz</em></td>
+        <td>
+          <p>Shear factor Cv,xz, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>shear_factor_v_yz</em></td>
+        <td>
+          <p>Shear factor Cv,yz, can be undefined (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_DeactivateObjects" data-uid="Dlubal.StructureModification#DeactivateObjects">DeactivateObjects(members_object_selection, surfaces_object_selection, solids_object_selection, support_on_nodes_object_selection, support_on_lines_object_selection, support_on_members_object_selection, support_on_surfaces_object_selection)</h4>
+  <div class="markdown level1 summary"><p>Deactivation of objects</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function DeactivateObjects(members_object_selection, surfaces_object_selection, solids_object_selection, support_on_nodes_object_selection, support_on_lines_object_selection, support_on_members_object_selection, support_on_surfaces_object_selection)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>members_object_selection</em></td>
+        <td>
+          <p>Object selection with deactivated members, can be undefined  (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>surfaces_object_selection</em></td>
+        <td>
+          <p>Object selection with deactivated surfaces, can be undefined  (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>solids_object_selection</em></td>
+        <td>
+          <p>Object selection with deactivated solids, can be undefined  (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>support_on_nodes_object_selection</em></td>
+        <td>
+          <p>Object selection with deactivated nodal's supports, can be undefined  (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>support_on_lines_object_selection</em></td>
+        <td>
+          <p>Object selection with deactivated line's supports, can be undefined  (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>support_on_members_object_selection</em></td>
+        <td>
+          <p>Object selection with deactivated member's supports, can be undefined  (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>support_on_surfaces_object_selection</em></td>
+        <td>
+          <p>Object selection with deactivated surfaces's supports, can be undefined  (1.00 by default)</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_ModifyMemberReinforcement" data-uid="Dlubal.StructureModification#ModifyMemberReinforcement">ModifyMemberReinforcement(enabled)</h4>
+  <div class="markdown level1 summary"><p>Sets member concrete reinforcement</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function ModifyMemberReinforcement(enabled)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>enabled</em></td>
+        <td>
+          <p>Enabled, true if undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_ModifySurfaceReinforcement" data-uid="Dlubal.StructureModification#ModifySurfaceReinforcement">ModifySurfaceReinforcement(enabled)</h4>
+  <div class="markdown level1 summary"><p>Sets surface concrete reinforcement</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function ModifySurfaceReinforcement(enabled)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>enabled</em></td>
+        <td>
+          <p>Enabled, true if undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_ModifyTimberMember" data-uid="Dlubal.StructureModification#ModifyTimberMember">ModifyTimberMember(enabled)</h4>
+  <div class="markdown level1 summary"><p>Sets timber members due to moisture class</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function ModifyTimberMember(enabled)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>enabled</em></td>
+        <td>
+          <p>Enabled, true if undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_DisableMaterialNonlinearityModels" data-uid="Dlubal.StructureModification#DisableMaterialNonlinearityModels">DisableMaterialNonlinearityModels(disabled)</h4>
+  <div class="markdown level1 summary"><p>Deactivates material nonlinearity models</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function DisableMaterialNonlinearityModels(disabled)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>disabled</em></td>
+        <td>
+          <p>Disabled, true if undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_DisableTemperatureDependencies" data-uid="Dlubal.StructureModification#DisableTemperatureDependencies">DisableTemperatureDependencies(disabled)</h4>
+  <div class="markdown level1 summary"><p>Deactivates temperature dependencies</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function DisableTemperatureDependencies(disabled)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>disabled</em></td>
+        <td>
+          <p>Disabled, true if undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_DisableNonlinearitiesLineHinges" data-uid="Dlubal.StructureModification#DisableNonlinearitiesLineHinges">DisableNonlinearitiesLineHinges(disabled)</h4>
+  <div class="markdown level1 summary"><p>Deactivates line nonlinearities - line hinges</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function DisableNonlinearitiesLineHinges(disabled)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>disabled</em></td>
+        <td>
+          <p>Disabled, true if undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_DisableNonlinearitiesMemberTypes" data-uid="Dlubal.StructureModification#DisableNonlinearitiesMemberTypes">DisableNonlinearitiesMemberTypes(disabled)</h4>
+  <div class="markdown level1 summary"><p>Deactivates member nonlinearities - member types</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function DisableNonlinearitiesMemberTypes(disabled)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>disabled</em></td>
+        <td>
+          <p>Disabled, true if undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_DisableNonlinearitiesMemberHinges" data-uid="Dlubal.StructureModification#DisableNonlinearitiesMemberHinges">DisableNonlinearitiesMemberHinges(disabled)</h4>
+  <div class="markdown level1 summary"><p>Deactivates member nonlinearities - member hinges</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function DisableNonlinearitiesMemberHinges(disabled)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>disabled</em></td>
+        <td>
+          <p>Disabled, true if undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_DisableMemberNonlinearities" data-uid="Dlubal.StructureModification#DisableMemberNonlinearities">DisableMemberNonlinearities(disabled)</h4>
+  <div class="markdown level1 summary"><p>Deactivates member nonlinearities</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function DisableMemberNonlinearities(disabled)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>disabled</em></td>
+        <td>
+          <p>Disabled, true if undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_DisableNonlinearitiesSurfaceOrSolidContact" data-uid="Dlubal.StructureModification#DisableNonlinearitiesSurfaceOrSolidContact">DisableNonlinearitiesSurfaceOrSolidContact(disabled)</h4>
+  <div class="markdown level1 summary"><p>Deactivates contact nonlinearities - surface contact, solid types &quot;Contact&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function DisableNonlinearitiesSurfaceOrSolidContact(disabled)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>disabled</em></td>
+        <td>
+          <p>Disabled, true if undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_DisableNonlinearitiesNodalSupports" data-uid="Dlubal.StructureModification#DisableNonlinearitiesNodalSupports">DisableNonlinearitiesNodalSupports(disabled)</h4>
+  <div class="markdown level1 summary"><p>Deactivates support nonlinearities - nodal supports</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function DisableNonlinearitiesNodalSupports(disabled)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>disabled</em></td>
+        <td>
+          <p>Disabled, true if undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_DisableNonlinearitiesLineSupports" data-uid="Dlubal.StructureModification#DisableNonlinearitiesLineSupports">DisableNonlinearitiesLineSupports(disabled)</h4>
+  <div class="markdown level1 summary"><p>Deactivates support nonlinearities - line supports</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function DisableNonlinearitiesLineSupports(disabled)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>disabled</em></td>
+        <td>
+          <p>Disabled, true if undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_DisableNonlinearitiesMemberSupports" data-uid="Dlubal.StructureModification#DisableNonlinearitiesMemberSupports">DisableNonlinearitiesMemberSupports(disabled)</h4>
+  <div class="markdown level1 summary"><p>Deactivates support nonlinearities - member supports</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function DisableNonlinearitiesMemberSupports(disabled)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>disabled</em></td>
+        <td>
+          <p>Disabled, true if undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_StructureModification_DisableNonlinearitiesSurfaceSupports" data-uid="Dlubal.StructureModification#DisableNonlinearitiesSurfaceSupports">DisableNonlinearitiesSurfaceSupports(disabled)</h4>
+  <div class="markdown level1 summary"><p>Deactivates support nonlinearities - surface supports</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function DisableNonlinearitiesSurfaceSupports(disabled)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>disabled</em></td>
+        <td>
+          <p>Disabled, true if undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright © 2022 <a href="https://www.dlubal.com/en-US">Dlubal Software</a><br>Generated by <strong>DocFX</strong>
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

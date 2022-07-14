@@ -335,7 +335,7 @@ Member.prototype.CouplingHingeHinge = function (no,
  * @param {Array} surfaces 
  * @param {String} comment 
  * @param {Object} params 
- * @returns 
+ * @returns object Rib
  */
 Member.prototype.Rib = function (no,
 	nodes_or_line,
