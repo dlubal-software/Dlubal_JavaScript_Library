@@ -111,12 +111,12 @@ function LineMeshRefinement(no,
 	numberOfLayers,
 	comment,
 	params) {
-	
+
 		this.settings = createLineMeshRefinement(no);
 		var self = this;
 		this.settings = setParameterLineMeshRefinement(self.settings, name, lines, targetFELength, false, numberOfLayers, false, comment, params);
 		return self;
-	
+
 }
 /**
 * Change line mesh refinement to type based on element length

@@ -151,7 +151,7 @@ function setWindDirections (wind_load_wizard,
 
 /**
  * Sets loaded walls/roofs
- * @param {Array} roofs_accessibility   Roofs/walls accessibility 
+ * @param {Array} roofs_accessibility   Roofs/walls accessibility
  *                                      [Wall 1, Wall 2, Wall 3, Wall4] (Vertical walls with flat/monopitch roof, Vertical walls with duopitch roof)
  *                                      [Roof 1] (Flat/monopitch roof)
  *                                      [Roof 1, Roof 2] (Duopitch roof)
