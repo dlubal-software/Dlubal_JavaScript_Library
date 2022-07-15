@@ -10,6 +10,11 @@
   "destination": "api",
   "tags": {
     "allowUnknownTags": true,
-    "dictionaries": ["jsdoc"]
+    "dictionaries": ["jsdoc","closure"]
+  },
+  "plugins": ["plugins/markdown"],
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false
   }
 }

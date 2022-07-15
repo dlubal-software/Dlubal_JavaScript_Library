@@ -1,0 +1,2867 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Creating Blocks via JavaScript | Dlubal JavaScript High Level Functions Library </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Creating Blocks via JavaScript | Dlubal JavaScript High Level Functions Library ">
+    <meta name="generator" content="docfx 2.57.2.0">
+    
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="creating-blocks-via-javascript">Creating Blocks via JavaScript</h1>
+
+<h2 id="sections">Sections</h2>
+<ol>
+<li><a href="#global_parameters">global_parameters()</a></li>
+<li><a href="#input_data">input_data()</a></li>
+<li><a href="#generate">generate()</a></li>
+<li><a href="#model-variable">model variable in block scripts</a></li>
+<li><a href="#unit">UNIT variables</a></li>
+<li><a href="#multiplicity-examples">Multiplicity examples</a></li>
+<li><a href="#constants">Constants</a></li>
+</ol>
+<p>Defining of block contains two main two function:</p>
+<ul>
+<li>global_parameters() - function for creating global parameters, which are required for block.</li>
+<li>input_data() - create input table in block dialog with input parameters</li>
+<li>generate() - function of generation blocks, in this functions user can use input variables, which was added in input_data() function</li>
+</ul>
+<h2 id="global_parameters">global_parameters()</h2>
+<p>In this function can used following functions:</p>
+<ul>
+<li><a href="#function-valueglobalparametername-symbol-unit_group-value-comment">function ValueGlobalParameter(name, symbol, unit_group, value, comment)</a></li>
+<li><a href="#function-formulaglobalparametername-symbol-unit_group-formula-comment">function FormulaGlobalParameter(name, symbol, unit_group, formula, comment)</a></li>
+<li><a href="#function-optimizationglobalparametername-symbol-unit_group-value-min-max-increment-steps-comment">function OptimizationGlobalParameter(name, symbol, unit_group, value, min, max, increment, steps, comment)</a></li>
+<li><a href="#function-optimizationascendingglobalparametername-symbol-unit_group-value-min-max-increment-steps-comment">function OptimizationAscendingGlobalParameter(name, symbol, unit_group, value, min, max, increment, steps, comment)</a></li>
+<li><a href="#function-optimizationdescendingglobalparametername-symbol-unit_group-value-min-max-increment-steps-comment">function OptimizationDescendingGlobalParameter(name, symbol, unit_group, value, min, max, increment, steps, comment)</a></li>
+</ul>
+<p>This function creates global parameters and bind its to block and input fields in parameters table.
+If global parameters exists, RFEM try bind input fields to existing parameters if unit group is equal to required unit group, otherwise default values will be used.</p>
+<h3 id="function-valueglobalparametername-symbol-unit_group-value-comment">function ValueGlobalParameter(name, symbol, unit_group, value, comment)</h3>
+<p>Function creates global parameter of value definition type.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>name - name of global parameter</li>
+<li>symbol - symbol of global parameter, name will be used, if symbol not set.</li>
+<li>unit_group - unit group of global parameter, Lengths is default.</li>
+<li>value - default value, float type.</li>
+<li>comment - comment of global parameter.</li>
+</ul>
+<h3 id="function-formulaglobalparametername-symbol-unit_group-formula-comment">function FormulaGlobalParameter(name, symbol, unit_group, formula, comment)</h3>
+<p>Function creates global parameter of formula definition type.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>name - name of global parameter</li>
+<li>symbol - symbol of global parameter, name will be used, if symbol not set.</li>
+<li>unit_group - unit group of global parameter, Lengths is default.</li>
+<li>formula - formula, string type.</li>
+<li>comment - comment of global parameter.</li>
+</ul>
+<h3 id="function-optimizationglobalparametername-symbol-unit_group-value-min-max-increment-steps-comment">function OptimizationGlobalParameter(name, symbol, unit_group, value, min, max, increment, steps, comment)</h3>
+<p>Function creates global parameter of optimization definition type.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>name - name of global parameter</li>
+<li>symbol - symbol of global parameter, name will be used, if symbol not set.</li>
+<li>unit_group - unit group of global parameter, Lengths is default.</li>
+<li>value - default value, float type.</li>
+<li>min - minimum allowed value, float type.</li>
+<li>max - maximum allowed value, float type.</li>
+<li>increment - increment value, float type.</li>
+<li>steps - value of step, integer type, set this parameter, if increment is undefined.</li>
+<li>comment - comment of global parameter.</li>
+</ul>
+<h3 id="function-optimizationascendingglobalparametername-symbol-unit_group-value-min-max-increment-steps-comment">function OptimizationAscendingGlobalParameter(name, symbol, unit_group, value, min, max, increment, steps, comment)</h3>
+<p>Same like OptimizationGlobalParameter, but is ascending type.</p>
+<h3 id="function-optimizationdescendingglobalparametername-symbol-unit_group-value-min-max-increment-steps-comment">function OptimizationDescendingGlobalParameter(name, symbol, unit_group, value, min, max, increment, steps, comment)</h3>
+<p>Same like OptimizationGlobalParameter, but is descending type.</p>
+<h4 id="example">Example</h4>
+<pre><code class="lang-JavaScript">function global_parameters()
+{
+    FormulaGlobalParameter(&quot;offset&quot;, undefined, UNIT.LENGTH, &quot;1.5+1&quot;, &quot;Formula global parameter&quot;);
+    ValueGlobalParameter(&quot;offset_1&quot;, &quot;&quot;, UNIT.LENGTH, 1.0, &quot;Value global parameter&quot;);
+    OptimizationGlobalParameter(&quot;offset_2&quot;, &quot;offset_2&quot;, UNIT.LENGTH, 3.0, 1.0, 10.0, 1.0, undefined, &quot;Optimization global parameter&quot;);
+    OptimizationAscendingGlobalParameter(&quot;offset_3&quot;, &quot;offset_3&quot;, UNIT.LENGTH, 3.0, 1.0, 10.0, 1.0, undefined, &quot;Optimization ascending global parameter&quot;);
+    OptimizationDescendingGlobalParameter(&quot;offset_4&quot;, &quot;offset_4&quot;, UNIT.LENGTH, 3.0, 1.0, 10.0, 1.0, undefined, &quot;Optimization descending global parameter&quot;);
+}
+</code></pre>
+<h2 id="input_data">input_data()</h2>
+<p>In this function can used following functions:</p>
+<ul>
+<li><a href="#function-categoryname-multiplicity_counter_key-parent">function category(name, multiplicity_counter_key, parent)</a></li>
+<li><a href="#function-loading_categoryname">function loading_category(name)</a></li>
+<li><a href="#function-parameter_intname-key-symbol-value-unit-minimum-step-maximum-minimum_inclusive-maximum_inclusive-multiplicity_counter_key">function parameter_int(name, key, symbol, value, unit, minimum,step, maximum, minimum_inclusive, maximum_inclusive, multiplicity_counter_key)</a></li>
+<li><a href="#function-parameter_floatname-key-symbol-value-unit-minimum-step-maximum-minimum_inclusive-maximum_inclusive-multiplicity_counter_key">function parameter_float(name, key, symbol, value, unit, minimum, step, maximum, minimum_inclusive, maximum_inclusive, multiplicity_counter_key)</a></li>
+<li><a href="#function-materialno-name-multiplicity_counter_key">function material(no, name, multiplicity_counter_key)</a></li>
+<li><a href="#function-sectionno-name-multiplicity_counter_key-category">function section(no, name, multiplicity_counter_key, category)</a></li>
+<li><a href="#function-thicknessno-name-multiplicity_counter_key">function thickness(no, name, multiplicity_counter_key)</a></li>
+<li><a href="#function-nodal_supportno-name-multiplicity_counter_key">function nodal_support(no, name, multiplicity_counter_key)</a></li>
+<li><a href="#function-line_supportno-name-multiplicity_counter_key">function line_support(no, name, multiplicity_counter_key)</a></li>
+<li><a href="#function-member_supportno-name-multiplicity_counter_key">function member_support(no, name, multiplicity_counter_key)</a></li>
+<li><a href="#function-surface_supportno-name-multiplicity_counter_key">function surface_support(no, name, multiplicity_counter_key)</a></li>
+<li><a href="#function-load_caseno-name-multiplicity_counter_key">function load_case(no, name, multiplicity_counter_key)</a></li>
+<li><a href="#function-parameter_checkname-key-value">function parameter_check(description, key, value)</a></li>
+<li><a href="#function-conditionvalue">function condition(value)</a></li>
+<li><a href="#function-editable_conditionvalue">function editable_condition(value)</a></li>
+<li><a href="#function-editablevalue">function editable(value)</a></li>
+<li><a href="#function-comboboxdescription-key">function combobox(description, key)</a></li>
+<li><a href="#function-comboboxvaluename-key-is_default">function combobox_value(description, value, is_default)</a></li>
+<li><a href="#function-set_global_parametervalue">function set_global_parameter(value)</a></li>
+</ul>
+<h3 id="important-behavior-of-input-and-generated-objects">Important behavior of input and generated objects</h3>
+<p>You can create object in <a href="#generate">generate()</a> and get objects like input objects.
+In this case need to control script id, because of generated objects and input objects will be add to same map.
+It means, if You have input materials with id 1 and 3, then generated objects cannot be created with ids 1 and 3. You can create material with id 2, 4, and so on.</p>
+<pre><code class="lang-javascript">function generate()
+{
+    Material(2); // Create material 2
+    Material(4); // Create material 4
+
+    materials[1]; // input material
+    materials[2]; // generated material
+    materials[3]; // input material
+    materials[4]; // generated material
+}
+</code></pre>
+<h3 id="function-categoryname-multiplicity_counter_key-parent">function category(name, multiplicity_counter_key, parent)</h3>
+<p>Function create a category in the block input table.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>name - title of category</li>
+<li>multiplicity_counter_key - key of counter, which was created by function * parameter_int() function.</li>
+<li>parent - set this parent, if need to create category inside another category. Call this function without this argument will create category in the root of input tree table.</li>
+</ul>
+<h4 id="examples">Examples</h4>
+<h5 id="common-example">Common example</h5>
+<pre><code class="lang-JavaScript">function input_data()
+{
+    category(&quot;Parameters&quot;); // create category on first level
+    category(&quot;Nodal Support&quot;); // create category on first level
+
+    var SECTIONS_CATEGORY = category(&quot;Sections&quot;); // create category on first level
+        category(&quot;Section 1&quot;, false, SECTIONS_CATEGORY ); // create category on second level inside category &quot;Sections&quot;
+        category(&quot;Section 1&quot;, false, SECTIONS_CATEGORY ); // create category on second level inside category &quot;Sections&quot;
+}
+</code></pre>
+<h5 id="multiplicity-example">Multiplicity example</h5>
+<p>In this case we will create counter with key &quot;n&quot;, after that we will create template multiplicity category, which will create categories by counter.
+It means, if counter has value 5, then 5 categories will be created in the input table.</p>
+<p>Also we can write special title of category with {{number}} placeholder, which will be changed on number of this category in the input table.</p>
+<pre><code class="lang-javascript">function input_data()
+{
+    category(&quot;Multiplicity Counter &quot;);  // create category on first level
+        parameter_int(&quot;Multiplicity Counter&quot;, &quot;n&quot;, &quot;&quot;, 2, UNIT.NONE, 1, 1, 10, true, true); // create multiplicity counter
+
+    var MEMBER_SETTINGS_CATEGORY = category(&quot;Members settings&quot;); // create category on first level
+        category(&quot;Multiplicity Group {{number}}&quot;, &quot;n&quot;, MEMBER_SETTINGS_CATEGORY); // create multiplicity category on second level inside category Members settings&quot;
+}
+</code></pre>
+<h3 id="function-loading_categoryname">function loading_category(name)</h3>
+<p>Function loading_category creates special category, which can be managed by check box Loading on the main tab of Block  Dialog.
+This category may exist like single instance and should contain all load cases input parameters.</p>
+<p>This category can not be used like multiplicity category, but can contains multiplicity parameters and categories.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>name - title of category</li>
+</ul>
+<h4 id="example-1">Example</h4>
+<pre><code class="lang-JavaScript">function input_data()
+{
+    var LOADING_CATEGORY = loading_category(&quot;Loading&quot;); // Create loading category on first level
+        category(&quot;Loads&quot;, false, LOADING_CATEGORY); // Create category on second level inside &quot;Loading&quot; category.
+}
+</code></pre>
+<h3 id="function-parameter_intname-key-symbol-value-unit-minimum-step-maximum-minimum_inclusive-maximum_inclusive-multiplicity_counter_key">function parameter_int(name, key, symbol, value, unit, minimum, step, maximum, minimum_inclusive, maximum_inclusive, multiplicity_counter_key)</h3>
+<p>Function creates integer input parameter. This parameter can be used for multiplicity parameters and categories like counter.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>name - name of parameter in input table</li>
+<li>key - key name, by this name we can use parameter in generate() function. Key will shown in input table, if symbol is empty.</li>
+<li>symbol - symbol with html tags in input table. Can be shown instead of key.</li>
+<li>value - default value of parameter</li>
+<li>unit - unit of parameter.</li>
+<li>minimum - minimal limit of parameter</li>
+<li>step - step of changing parameter by spin box</li>
+<li>maximum - maximal limit of parameter</li>
+<li>minimum_inclusive - include minimal limit if true</li>
+<li>maximum_inclusive - include maximal limit if true</li>
+<li>multiplicity_counter_key - key of counter, which was created by parameter_int() function. It can be used like multiplicity parameter, which managed by another integer parameter.</li>
+</ul>
+<h4 id="examples-1">Examples</h4>
+<h5 id="common-example-1">Common example</h5>
+<pre><code class="lang-javascript">function input_data()
+{
+    category(&quot;Category&quot;);
+        parameter_int(&quot;Counter&quot;, &quot;n&quot;, &quot;&quot;, 2, UNIT.NONE, 1, 1, 10, true, true);
+}
+</code></pre>
+<h4 id="multiplicity-examples">Multiplicity examples</h4>
+<p>Multiplicity example, when counter manages multiplicity parameters</p>
+<pre><code class="lang-javascript">function input_data()
+{
+    category(&quot;Category&quot;);  // create category on first level
+        parameter_int(&quot;Multiplicity Counter&quot;, &quot;n&quot;, &quot;&quot;, 2, UNIT.NONE, 1, 1, 10, true, true); // create multiplicity counter
+
+    var MEMBER_SETTINGS_CATEGORY = category(&quot;Members settings&quot;); // create category on first level
+        category(&quot;Multiplicity Group {{number}}&quot;, &quot;n&quot;, MEMBER_SETTINGS_CATEGORY); // create multiplicity category on second level inside category Members settings&quot;
+}
+</code></pre>
+<p>Multiplicity example, when multiplicity counter managed by another counter</p>
+<pre><code class="lang-javascript">function input_data()
+{
+    category(&quot;Category&quot;);  // create category on first level
+        parameter_int(&quot;Counter&quot;, &quot;n&quot;, &quot;&quot;, 2, UNIT.NONE, 1, 1, 10, true, true); // create multiplicity counter
+
+    var MEMBER_SETTINGS_CATEGORY = category(&quot;Members settings&quot;); // create category on first level
+        parameter_int(&quot;Multiplicity Counter&quot;, &quot;managed&quot;, &quot;&quot;, 2, UNIT.NONE, 1, 1, 10, true, true, &quot;n&quot;); // create multiplicity &quot;managed&quot; counter on second level, which managed by &quot;n&quot; counter
+}
+</code></pre>
+<h3 id="function-parameter_floatname-key-symbol-value-unit-minimum-step-maximum-minimum_inclusive-maximum_inclusive-multiplicity_counter_key">function parameter_float(name, key, symbol, value, unit, minimum, step, maximum, minimum_inclusive, maximum_inclusive, multiplicity_counter_key)</h3>
+<p>Function creates float input parameter.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>name - name of parameter in input table</li>
+<li>key - key name, by this name we can use parameter in generate() function. Key will shown in input table, if symbol is empty.</li>
+<li>symbol - symbol with html tags in input table. Can be shown instead of key.</li>
+<li>value - default value of parameter</li>
+<li>unit - unit of parameter.</li>
+<li>minimum - minimal limit of parameter</li>
+<li>step - step of changing parameter by spin box</li>
+<li>maximum - maximal limit of parameter</li>
+<li>minimum_inclusive - include minimal limit if true</li>
+<li>maximum_inclusive - include maximal limit if true</li>
+<li>multiplicity_counter_key - key of counter, which was created by
+<a href="#function-parameter_intname-key-symbol-value-unit-minimum-step-maximum-minimum_inclusive-maximum_inclusive-multiplicity_counter_key">function parameter_int()</a> function.</li>
+</ul>
+<h3 id="function-materialno-name-multiplicity_counter_key">function material(no, name, multiplicity_counter_key)</h3>
+<p>Function creates input field for material object, which exists in model.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - script id of material objects. Material will be added to materials map. We can get material by this id, from this map like this materials[4], if material input field was created with script id 4.</li>
+<li>name - name of parameter in input table</li>
+<li>multiplicity_counter_key - key of counter, which was created by function parameter_int() function.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p><a href="#important-behavior-of-input-and-generated-objects">Read about important behavior.</a></p>
+</div>
+<h3 id="function-sectionno-name-multiplicity_counter_key-category">function section(no, name, multiplicity_counter_key, category)</h3>
+<p>Function creates input field for section object, which exists in model.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - script id of section objects. Section will be added to sections map. We can get section by this id, from this map like this sections[4], if section input field was created with script id 4.</li>
+<li>name - name of parameter in input table</li>
+<li>multiplicity_counter_key - key of counter, which was created by function parameter_int() function.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p><a href="#important-behavior-of-input-and-generated-objects">Read about important behavior.</a></p>
+</div>
+<h3 id="function-thicknessno-name-multiplicity_counter_key">function thickness(no, name, multiplicity_counter_key)</h3>
+<p>Function creates input field for thickness object, which exists in model.</p>
+<p><em>Arguments:</em></p>
+<p>no - script id of thickness objects. Thickness will be added to thicknesses map. We can get thickness by this id, from this map like this thicknesses[4], if thickness input field was created with script id 4.
+name - name of parameter in input table
+multiplicity_counter_key - key of counter, which was created by function parameter_int() function.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p><a href="#important-behavior-of-input-and-generated-objects">Read about important behavior.</a></p>
+</div>
+<h3 id="function-nodal_supportno-name-multiplicity_counter_key">function nodal_support(no, name, multiplicity_counter_key)</h3>
+<p>Function creates input field for Nodal Support object, which exists in model.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - script id of nodal support object. Nodal Support will be added to nodal_supports map. We can get nodal support by this id, from this map like this nodal_supports[4], if nodal support input field was created with script id 4.</li>
+<li>name - name of parameter in input table</li>
+<li>multiplicity_counter_key - key of counter, which was created by function parameter_int() function.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Nodal supports exists like input objects only.</p>
+</div>
+<h3 id="function-line_supportno-name-multiplicity_counter_key">function line_support(no, name, multiplicity_counter_key)</h3>
+<p>Function creates input field for Line Support object, which exists in model.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - script id of line support objects. Line Support will be added to line_supports map. We can get line support by this id, from this map like this line_supports[4], if line support input field was created with script id 4.</li>
+<li>name - name of parameter in input table</li>
+<li>multiplicity_counter_key - key of counter, which was created by function parameter_int() function.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Line supports exists like input objects only.</p>
+</div>
+<h3 id="function-member_supportno-name-multiplicity_counter_key">function member_support(no, name, multiplicity_counter_key)</h3>
+<p>Function creates input field for Member Support object, which exists in model.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - script id of member support objects. Member Support will be added to member_supports map. We can get member support by this id, from this map like this member_supports[4], if member support input field was created with script id 4.</li>
+<li>name - name of parameter in input table</li>
+<li>multiplicity_counter_key - key of counter, which was created by function parameter_int() function.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Member supports exists like input objects only.</p>
+</div>
+<h3 id="function-surface_supportno-name-multiplicity_counter_key">function surface_support(no, name, multiplicity_counter_key)</h3>
+<p>Function creates input field for Surface Support object, which exists in model.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - script id of surface support objects. Member Support will be added to surface_supports map. We can get surface support by this id, from this map like this surface_supports[4], if surface support input field was created with script id 4.</li>
+<li>name - name of parameter in input table</li>
+<li>multiplicity_counter_key - key of counter, which was created by function parameter_int() function.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Surface supports exists like input objects only.</p>
+</div>
+<h3 id="function-load_caseno-name-multiplicity_counter_key">function load_case(no, name, multiplicity_counter_key)</h3>
+<p>Function creates input field for Load Case object, which exists in model. Load case fields should be located in loading category.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - script id of load case objects. Load Case will be added to load_cases map. We can get load case by this id, from this map like this load_cases[4], if load case input field was created with script id 4.</li>
+<li>name - name of parameter in input table</li>
+<li>multiplicity_counter_key - key of counter, which was created by function parameter_int() function.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Load cases exists like input objects only.</p>
+</div>
+<h3 id="function-parameter_checkname-key-value">function parameter_check(name, key, value)</h3>
+<p>Function creates input field for checkbox, which can have true or false value.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>name - name of parameter in input table</li>
+<li>key - key of parameter for using in visibility conditions in input table. It means, checkbox value can show or hide some input fields in the input table.</li>
+<li>value - default value.</li>
+</ul>
+<h3 id="function-conditionvalue">function condition(value)</h3>
+<p>Function set visibility condition to parameter or category, which was added to input table in input_data() function. It affects on parameter or category, after which this function was called.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>value - string with condition</li>
+</ul>
+<h3 id="function-editable_conditionvalue">function editable_condition(value)</h3>
+<p>Function set editable condition to parameter, which was added to input table in input_data() function.  It affects on parameter or category, after which this function was called.
+It means, when condition is true, then user can edit parameter, otherwise parameter is read only for user.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>value - string with condition</li>
+</ul>
+<h3 id="function-editablevalue">function editable(value)</h3>
+<p>Function set editable condition to parameter, which was added to input table in input_data() function.  It affects on parameter or category, after which this function was called.
+It means, that parameter will be read only if value is false.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>value - boolean value</li>
+</ul>
+<h3 id="function-comboboxname-key">function combobox(name, key)</h3>
+<p>Function creates combobox input field.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>name - Name of field</li>
+<li>key - key used like variable name of combobox in conditions and generate() functions. It need for equal operations with possible combobox values.</li>
+</ul>
+<h3 id="function-combobox_valuename-key-is_default">function combobox_value(name, key, is_default)</h3>
+<p>Function add popup combobox value to combobox, which was added to input table in input_data() function.  It affects on combobox, after which this ### function was called.
+Can be used for comboboxes only.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>name - name of value</li>
+<li>key - string value for using in script and conditions</li>
+<li>is_default - if true, then this value will be set like default value in combobox.</li>
+</ul>
+<h3 id="function-set_global_parametervalue">function set_global_parameter(value)</h3>
+<p>Set binding to global parameter to last created input parameter. These function should be used for float and integer input fields.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>value - name of global parameter</li>
+</ul>
+<h4 id="example-2">Example</h4>
+<pre><code class="lang-javascript">function input_data()
+{
+    category(&quot;Geometry&quot;);
+        parameter_float(&quot;Offset&quot;, &quot;offset&quot;, &quot;&quot;, 1.0, UNIT.LENGTH, 0.0, 1, NAN, false, false);
+        set_global_parameter(&quot;offset&quot;);
+}
+</code></pre>
+<h2 id="generate">generate()</h2>
+<p>In the generate function user can use variable <strong>axesUp</strong> for getting information of global axes orientation.</p>
+<p>In this function can used following functions:</p>
+<ul>
+<li>function ASSERT(result, message)</li>
+<li>Basic objects
+<ul>
+<li>function Material(no, name, comment, params)</li>
+<li>function Thickness(no, name, material/, uniform_thickness_d, comment, params)</li>
+<li>function Section(no, name, material, comment, params)</li>
+<li>function Node(no, coordiate_X, coordinate_Y, coordinate_Z, comment, params)</li>
+<li>function Line(no, nodes, comment, params)</li>
+<li>function Member(no, nodes, comment, params)</li>
+<li>function Surface(no, boundary_lines, thickness, comment, params)</li>
+<li>function Solid(no, boundary_surfaces, material, comment, params)</li>
+<li>function Opening(no, boundary_lines, comment, params)</li>
+<li>function LineSet(no, lines, comment, params)</li>
+<li>function MemberSet(no, members, comment, params)</li>
+<li>function SurfaceSet(no, surfaces, comment, params)</li>
+<li>function SolidSet(no, solids, comment, params)</li>
+</ul>
+</li>
+<li>Loads
+<ul>
+<li>function NodalLoad(no, load_case, nodes, comment/, params)</li>
+<li>function LineLoad(no, load_case, lines, comment, params/)</li>
+<li>function MemberLoad(no, load_case, members, comment, params)</li>
+<li>function SurfaceLoad(no, load_case, surfaces, comment/, params)</li>
+<li>function SolidLoad(no, load_case, solids, comment, params)</li>
+<li>function OpeningLoad(no, load_case, openings, comment, params)</li>
+<li>function LineSetLoad(no, load_case, line_sets, comment, params)</li>
+<li>function MemberSetLoad(no, load_case, member_sets, comment, params)</li>
+<li>function SurfaceSetLoad(no, load_case, surface_sets, comment, params)</li>
+<li>function SolidSetLoad(no, load_case, solid_sets, comment, params)</li>
+<li>function FreeConcentratedLoad(no, load_case, surfaces, comment, params)</li>
+<li>function FreeLineLoad(no, load_case, surfaces, comment, params)</li>
+<li>function FreeRectangularLoad(no, load_case, surfaces, comment, params)</li>
+<li>function FreeCircularLoad(no, load_case, surfaces, comment, params)</li>
+<li>function FreePolygonLoad(no, load_case, surfaces, comment, params)</li>
+<li>function ImposedLineDeformation(no, load_case, lines, comment, params)</li>
+<li>function ImposedNodalDeformation(no, load_case, nodes, comment, params)</li>
+</ul>
+</li>
+<li>Dimensions
+<ul>
+<li>function AngularDimension(no, object_1, object_2, reference_object_type, symbol, offset, quadrant, comment, params)</li>
+<li>function ArcLengthDimension(no, line, symbol, offset, comment, params)</li>
+<li>function DiameterDimension(no, line, symbol, position, comment, params)</li>
+<li>function LinearDimension(no, object_1, object_2, reference, symbol, offset, comment, params)</li>
+<li>function RadiusDimension(no, line, symbol, offset, position, comment, params)</li>
+<li>function SlopeDimension(no, object, symbol, offset, position, direction, plane, comment, params)</li>
+</ul>
+</li>
+<li>Types For Lines
+<ul>
+<li>function LineHinge(no, surface, lines, comment, params)</li>
+<li>function LineMeshRefinement(no, comment, params)</li>
+</ul>
+</li>
+<li>Types For Members
+<ul>
+<li>function MemberDefinableStiffness(no, comment, params)</li>
+<li>function MemberEccentricity(no, member_start, member_end, comment, params)</li>
+<li>function MemberHinge(no, member_start, member_end, comment, params)</li>
+<li>function MemberNonlinearity(no, comment, params)</li>
+<li>function MemberResultIntermediatePoint(no, comment, params)</li>
+<li>function MemberStiffnessModification(no, comment, params)</li>
+<li>function MemberTransverseStiffener(no, comment, params)</li>
+</ul>
+</li>
+<li>Types For Nodes
+<ul>
+<li>function NodalMeshRefinement(no, comment, params)</li>
+</ul>
+</li>
+<li>Types For Surfaces
+<ul>
+<li>function SurfaceEccentricity(no, surface, comment, params)</li>
+<li>function SurfaceMeshRefinement(no, comment, params)</li>
+</ul>
+</li>
+<li>Guide Objects
+<ul>
+<li>function CoordinateSystem(no, coordinate_system_type, comment, params)</li>
+</ul>
+</li>
+</ul>
+<h3 id="return-value-from-generate-function">Return value from generate function</h3>
+<p>If some values should be calculated during the generate function, these values can be set to input parameters via return dictionary from generate function.</p>
+<p>For example</p>
+<pre><code class="lang-javascript">function generate()
+{
+    // If block calculate some parameters, we should create dictionary variable
+    // For example: var calculated_parameters = {};
+    // Set calculated variable after calculation: calculated_parameters['alpha_info'] = alpha;
+    // And return it on the end point of script: return calculated_parameters;
+    var calculated_parameters = {};
+
+    // 'inclination_via' has three options
+
+    if (inclination_via ==  &quot;define_height&quot;) // input by inclination_via = &quot;Define height&quot;
+    {
+        alpha = atan(2*H/a);
+        s = 2*H/a;
+    }
+
+    if (inclination_via == &quot;define_angle&quot;) // input by inclination_via = &quot;Define angle&quot;
+    {
+        H = 0.5*a*tan(alpha);
+        s = tan(alpha);
+    }
+
+    if (inclination_via == &quot;define_slope&quot;) // input by inclination_via = &quot;Define slope&quot;
+    {
+        H = 0.5*s*a;
+        alpha = atan(s);
+    }
+
+    // 'stiffener_via' has three options
+
+    if (stiffener_via == &quot;define_plan_projection&quot;) // input by stiffener_via = &quot;Plan projection&quot;
+    {
+        H_1 = 2*H*a_1/a;
+        l_1 = sqrt(sqr(a_1) + sqr(2*H*a_1/a));
+    }
+
+    if (stiffener_via == &quot;define_vertical_projection&quot;) // input by stiffener_via = &quot;Vertical projection&quot;
+    {
+        a_1 = 0.5*a*H_1/H;
+        l_1 = sqrt(sqr(H_1) + sqr(0.5*a*H_1/H));
+    }
+
+    if (stiffener_via == &quot;define_length&quot;) // input by stiffener_via = &quot;Length&quot;
+    {
+        a_1 = a*l_1/sqrt(sqr(a) + 4*sqr(H));
+        H_1 = H*l_1/sqrt(sqr(H) + 0.25*sqr(a));
+    }
+
+    // Set calculated variables to dictionary after calculation
+    calculated_parameters['H'] = H;
+    calculated_parameters['alpha'] = alpha;
+    calculated_parameters['s'] = s;
+    calculated_parameters['a_1'] = a_1;
+    calculated_parameters['H_1'] = H_1;
+    calculated_parameters['l_1'] = l_1;
+
+    return calculated_parameters;
+}
+</code></pre>
+<p>In this case calculated_parameters contains several input parameters, which was calculated during the generation. It needs in case, when one input parameter can be set, but several other parameters are read only, depends on first parameter and should be set to input table like as actual state of block. Block 001337 has example of behavior.</p>
+<h3 id="important-behavior-of-loads">Important behavior of loads</h3>
+<p>All loads (such as line loads, nodal loads etc.) from different load cases will be add to same map. Therefore all loads should get different script id.</p>
+<p>For example nodal load from load case 1 get script id 1, nodal load from load case 3 get script id 2 and etc.
+After creating we can get nodal loads:</p>
+<ul>
+<li>nodal_loads[1] - nodal loads from load case 1</li>
+<li>nodal_loads[2] - nodal loads from load case 3</li>
+</ul>
+<h3 id="code-example">Code example</h3>
+<pre><code class="lang-javascript">function generate()
+{
+    var live_load_case = load_cases[1];
+    if (live_load_case) // Check if load case exists in map, if no, it means live load category or loading category are disabled.
+    {
+        var live_load = NodalLoad(1, live_load_case);
+        live_load.comment = &quot;Live Load&quot;;
+    }
+
+    var snow_load_case = load_cases[2];
+    if (snow_load_case) // Check if load case exists in map, if no, it means snow load category or loading category are disabled.
+    {
+        var snow_load = NodalLoad(2, snow_load_case); // It is not possible to set up id 1, because of id 1 will be set for load from live load case
+        snow_load .comment = &quot;SnowLoad&quot;;
+    }
+}
+</code></pre>
+<h3 id="function-assertresult-message">function ASSERT(result, message)</h3>
+<p>Function for send assert message from generate() function. If result is false, then script engine send message to gui and stop script evaluation.
+ASSERT can be used for control complex conditions of input parameters, which can not be control by standard logic.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>result - boolean value</li>
+<li>message - string value, with message for user.</li>
+</ul>
+<h4 id="example-3">Example</h4>
+<pre><code class="lang-javascript">function input_data()
+{
+    category(&quot;Parameters&quot;);
+        parameter_int(&quot;Frame count&quot;, &quot;n&quot;, &quot;&quot;, 4, UNIT.NONE, 1, 1, 100, false, false); // Create input field with &quot;n&quot; counter
+}
+
+function generate()
+{
+    // Check &quot;n&quot; counter with ASSERT
+    ASSERT(n &gt; 1, &quot;Number of frames must be positive&quot;);
+}
+</code></pre>
+<h3 id="function-materialno-name-comment-params">function Material(no, name, comment, params)</h3>
+<p>Create material with selected script id inside the blok. User id will be selected from available ideces in model. But in the script we can use selected id.
+Objects will be added to materials map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>name - the name of object, (undefined if not set)</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<pre><code class="lang-javascript">var params = {
+    &quot;comment&quot;: &quot;Comment via parameters&quot;
+};
+</code></pre>
+<h4 id="example-4">Example</h4>
+<pre><code class="lang-javascript">function generate()
+{
+    var params = {
+        &quot;comment&quot;: &quot;Comment via parameters&quot;
+    };
+    Material(4, undefined, &quot;Material 4&quot;, params);
+
+    // or
+    var material = Material(10);
+    material.comment = &quot;Material&quot;;
+    materials[10].comment = &quot;Material 10&quot;;
+}
+</code></pre>
+<h3 id="function-thicknessno-name-material-uniform_thickness_d-comment-params">function Thickness(no, name, material, uniform_thickness_d, comment, params)</h3>
+<p>Create thickness with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to thicknesses map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>name - the name of object, (undefined if not set)</li>
+<li>material - material object, which should be set to thickness, (undefined if not set)</li>
+<li>uniform_thickness_d - uniform float value, (0.2 if undefined)</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<p>var params = {
+&quot;comment&quot;: &quot;Comment via parameters&quot;
+};</p>
+<h4 id="example-5">Example</h4>
+<pre><code class="lang-javascript">function generate()
+{
+    var params = {
+        &quot;comment&quot;: &quot;Comment via parameters&quot;
+    };
+    Thickness(4, &quot;Thickness name&quot;, materials[2], undefined, &quot;Thickness 4&quot;, params);
+
+    // or
+    var thickness = Thickness(10);
+    thickness .comment = &quot;Thickness &quot;;
+    thicknesses[10].comment = &quot;Thickness 10&quot;;
+}
+</code></pre>
+<h3 id="function-sectionno-name-material-comment-params">function Section(no, name, material, comment, params)</h3>
+<p>Create section with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to sections map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>name - the name of object, (undefined if not set)</li>
+<li>material - material object, (undefined if not set)</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<p>var params = {
+&quot;comment&quot;: &quot;Comment via parameters&quot;
+};</p>
+<h4 id="example-6">Example</h4>
+<pre><code class="lang-javascript">function generate()
+{
+    var params = {
+        &quot;comment&quot;: &quot;Comment via parameters&quot;
+    };
+
+    Material(1);
+    Section(1, &quot;Section 1&quot;, materials[1], &quot;Section 1&quot;, params);
+}
+</code></pre>
+<h3 id="function-nodeno-coordinate_x-coordinate_y-coordinate_z-comment-params">function Node(no, coordinate_X, coordinate_Y, coordinate_Z, comment, params)</h3>
+<p>Create node with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to nodes map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>coordinate_X - x coordinate (0.0 if not set)</li>
+<li>coordinate_Y - y coordinate (0.0 if not set)</li>
+<li>coordinate_Z - z coordinate (0.0 if not set)</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<p>var params = {
+&quot;comment&quot;: &quot;Comment via parameters&quot;
+};</p>
+<h4 id="example-7">Example</h4>
+<pre><code class="lang-javascript">function generate()
+{
+    var params = {
+        &quot;comment&quot;: &quot;Comment via parameters&quot;
+    };
+    Node(1, 0.5, 0.6, 0.7, &quot;Node 1&quot;, params);
+}
+</code></pre>
+<h3 id="function-lineno-nodes-comment-params">function Line(no, nodes, comment, params)</h3>
+<p>Create line with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to lines map.</p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>nodes - object or object id in block script</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<pre><code class="lang-javascript">var params = {
+    &quot;comment&quot;: &quot;Comment via parameters&quot;
+};
+</code></pre>
+<h4 id="example-8">Example</h4>
+<pre><code class="lang-javascript">function generate()
+{
+    var params = {
+        &quot;comment&quot;: &quot;Comment via parameters&quot;
+    };
+
+    Node(1);
+    Node(2);
+    Line(1, [1, 2], &quot;Comment&quot;, params);
+
+    // or
+    Node(3);
+    Node(4);
+    Line(2, [nodes[3], nodes[4]], undefined, params);
+    lines[2].comment = &quot;Line 2&quot;;
+}
+</code></pre>
+<h3 id="function-memberno-nodes-comment-params">function Member(no, nodes, comment, params)</h3>
+<p>Create member with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to members map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>nodes - list of nodes or numbers of node sin block script</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-9">Example</h4>
+<pre><code class="lang-javascript">function generate()
+{
+    var params = {
+        &quot;comment&quot;: &quot;Comment via parameters&quot;
+    };
+
+    Node(1);
+    Node(2);
+    Member(1, [1, 2], &quot;Member 1&quot;, params);
+}
+</code></pre>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>If Member created in RFEM, with Member will be created Line with same id. It means when we create member number 3, in same time will be created line number 3.</p>
+</div>
+<h3 id="function-surfaceno-boundary_lines-thickness-comment-params">function Surface(no, boundary_lines, thickness, comment, params)</h3>
+<p>Create surface with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to surfaces map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>boundary_lines - list of boundary lines or numbers of lines in block script</li>
+<li>thickness - thickness object</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-10">Example</h4>
+<pre><code class="lang-javascript">function generate()
+{
+    for (var i = 1; i &lt;= 4; ++i)
+    {
+        Node(i);
+    }
+
+    Line(1, [1, 2]);
+    Line(2, [2, 3]);
+    Line(3, [3, 4]);
+    Line(4, [5, 6]);
+
+    var params = {
+        &quot;comment&quot;: &quot;Comment via parameters&quot;
+    };
+
+    Surface(1, [1, 2, 3, 4], thicknesses[1], &quot;Surface 1&quot;, params);
+}
+</code></pre>
+<h3 id="function-solidno-boundary_surfaces-material-comment-params">function Solid(no, boundary_surfaces, material, comment, params)</h3>
+<p>Create solid with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to solids map.</p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>boundary_surfaces - list of surfaces or numbers of surfaces in block script</li>
+<li>material - material object</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-11">Example</h4>
+<pre><code class="lang-javascript">function generate()
+{
+    for (var i = 1; i &lt;= 8; ++i)
+    {
+        Node(i);
+    }
+    
+    Line(1, [1, 2]);
+    Line(2, [2, 3]);
+    Line(3, [3, 4]);
+    Line(4, [4, 1]);
+    Line(5, [1, 5]);
+    Line(6, [2, 6]);
+    Line(7, [3, 7]);
+    Line(8, [4, 8]);
+    Line(9, [5, 6]);
+    Line(10, [6, 7]);
+    Line(11, [7, 8]);
+    Line(12, [8, 5]);
+
+    Surface(1, [1, 2, 3, 4]);
+    Surface(2, [1, 5, 6, 9]);
+    Surface(3, [2, 6, 7, 10]);
+    Surface(4, [3, 7, 8, 11]);
+    Surface(5, [4, 8, 5, 12]);
+    Surface(6, [9, 10, 11, 12]);
+
+    var params = {
+        &quot;comment&quot;: &quot;Comment via parameters&quot;
+    };
+
+    Solid(1, [1, 2, 3, 4, 5, 6], materials[1], &quot;Solid 1&quot;, params);
+}
+</code></pre>
+<h3 id="function-openingno-boundary_lines-comment-params">function Opening(no, boundary_lines, comment, params)</h3>
+<p>Create opening with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to openings map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>boundary_lines - list of boundary lines or numbers of lines in block script</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-12">Example</h4>
+<pre><code class="lang-javascript">function generate()
+{
+    for (var i = 1; i &lt;= 8; ++i)
+    {
+        Node(i);
+    }
+    
+    Line(1, [1, 2]);
+    Line(2, [2, 3]);
+    Line(3, [3, 4]);
+    Line(4, [4, 1]);
+    Line(5, [5, 6]);
+    Line(6, [6, 7]);
+    Line(7, [7, 8]);
+    Line(8, [8, 5]);
+
+    Surface(1, [1, 2, 3, 4]);
+
+    var params = {
+        &quot;comment&quot;: &quot;Comment via parameters&quot;
+    };
+
+    Opening(2, [5, 6, 7, 8], &quot;&quot;Opening 1&quot;, params);
+}
+</code></pre>
+<h3 id="function-linesetno-lines-comment-params">function LineSet(no, lines, comment, params)</h3>
+<p>Create line set with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to line_sets map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>lines - list of lines or numbers of lines in block script</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-13">Example</h4>
+<pre><code class="lang-javascript">function generate()
+{
+    for (var i = 1; i &lt;= 4; ++i)
+    {
+        Node(i);
+    }
+    
+    Line(1, [1, 2]);
+    Line(2, [2, 3]);
+    Line(3, [3, 4]);
+
+    var params = {
+        &quot;comment&quot;: &quot;Comment via parameters&quot;
+    };
+
+    LineSet(1, [1, 2, 3], &quot;Line Set 1&quot;, params);
+}
+</code></pre>
+<h3 id="function-membersetno-members-comment-params">function MemberSet(no, members, comment, params)</h3>
+<p>Create member set with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to member_sets map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>lines - list of members or numbers of members in block script</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-14">Example</h4>
+<pre><code class="lang-javascript">function generate()
+{
+    for (var i = 1; i &lt;= 4; ++i)
+    {
+        Node(i);
+    }
+    
+    Member(1, [1, 2]);
+    Member(2, [2, 3]);
+    Member(3, [3, 4]);
+
+    var params = {
+        &quot;comment&quot;: &quot;Comment via parameters&quot;
+    };
+
+    MemberSet(1, [1, 2, 3], &quot;Member Set 1&quot;, params);
+}
+</code></pre>
+<h3 id="function-surfacesetno-surfaces-comment-params">function SurfaceSet(no, surfaces, comment, params)</h3>
+<p>Create surface set with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to surface_sets map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>lines - list of surfaces or numbers of surfaces in block script</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-15">Example</h4>
+<pre><code class="lang-javascript">function generate()
+{
+    for (var i = 1; i &lt;= 6; ++i)
+    {
+        Node(i);
+    }
+    
+    Line(1, [1, 2]);
+    Line(2, [2, 3]);
+    Line(3, [3, 4]);
+    Line(4, [4, 1]);
+    Line(5, [3, 6]);
+    Line(6, [5, 6]);
+    Line(7, [4, 5]);
+
+    Surface(1, [1, 2, 3, 4]);
+    Surface(2, [3, 5, 6, 7]);
+
+    var params = {
+        &quot;comment&quot;: &quot;Comment via parameters&quot;
+    };
+
+    SurfaceSet(1, [1, 2], &quot;Surface Set 1&quot;, params);
+}
+</code></pre>
+<h3 id="function-solidsetno-solids-comment-params">function SolidSet(no, solids, comment, params)</h3>
+<p>Create solid set with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to solid_sets map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>solids - list of solids sor numbers of solids in block script</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-16">Example</h4>
+<pre><code class="lang-javascript">function generate()
+{
+    // code of solids generating
+
+    var params = {
+        &quot;comment&quot;: &quot;Comment via parameters&quot;
+    };
+
+    SolidSet(1, [1, 2], &quot;Solid Set 1&quot;, params);
+}
+</code></pre>
+<h3 id="function-nodalloadno-load_case-nodes-comment-params">function NodalLoad(no, load_case, nodes, comment, params)</h3>
+<p>Create nodal load with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to nodal_loads map. For creating load should be used load case. Load cases can be selected from load_cases map, in which its added from input parameters only.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>load_case - load case in which will be created load</li>
+<li>nodes - nodes with loads</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-17">Example</h4>
+<pre><code class="lang-javascript">function input_data()
+{
+    var LOADING_CATEGORY = loading_category(&quot;Loading&quot;); // Add loading category to block on first level
+        parameter_check(&quot;Live Load&quot;, &quot;live_load_checkbox&quot;, true); // Add checkbox for enabling of live load case
+
+        category(&quot;Live Load&quot;, false, LOADING_CATEGORY); // Add category Live Load, which contains load case input field
+            condition(&quot;live_load_checkbox == true&quot;); // Set condition for enabling of Live Load Category
+            load_case(1, &quot;Load Case&quot;); // Add load case input field to Live Load category
+}
+
+function generate()
+{
+    for (var i = 1; i &lt;= 10; i++)
+    {
+        Node(i);
+        nodes[i].coordinates = $V(i, 0, 0);
+    }
+
+    var live_load_case = load_cases[1];
+    if (live_load_case) // Check if load case exists in map, if no, it means live load category or loading category are disabled.
+    {
+        var nodes_to_load = [];
+        for (var i = 1; i &lt; 10; ++i)
+        {
+            nodes_to_load.push(nodes[i]);
+        }
+
+        var params = {
+            &quot;load_type&quot;: model.nodal_loads.LOAD_TYPE_COMPONENTS,
+            &quot;components_force_x&quot;: 1.0,
+            &quot;components_force_y&quot;: 2.0,
+            &quot;components_force_z&quot;: 3
+        }
+        NodalLoad(1, live_load_case, nodes_to_load, &quot;Live Load&quot;, params);
+    }
+}
+</code></pre>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>All nodal loads from different load cases will be add to same map. Therefore all loads should get different script id.
+Read more about important behavior of loads.</p>
+</div>
+<h3 id="function-lineloadno-load_case-lines-comment-params">function LineLoad(no, load_case, lines, comment, params)</h3>
+<p>Create line load with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to line_loads map. For creating load should be used load case. Load cases can be selected from load_cases map, in which its added from input parameters only.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>load_case - load case in which will be created load</li>
+<li>lines - lines with loads</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-18">Example</h4>
+<pre><code class="lang-javascript">function input_data()
+{
+    var LOADING_CATEGORY = loading_category(&quot;Loading&quot;); // Add loading category to block on first level
+        parameter_check(&quot;Live Load&quot;, &quot;live_load_checkbox&quot;, true); // Add checkbox for enabling of live load case
+
+        category(&quot;Live Load&quot;, false, LOADING_CATEGORY); // Add category Live Load, which contains load case input field
+            condition(&quot;live_load_checkbox == true&quot;); // Set condition for enabling of Live Load Category
+            load_case(1, &quot;Load Case&quot;); // Add load case input field to Live Load category
+}
+
+function generate()
+{
+    Node(1);
+    Node(2);
+    Node(3);
+    Line(1, [1, 2]);
+    Line(2, [2, 3]);
+
+
+    var live_load_case = load_cases[1];
+    if (live_load_case) // Check if load case exists in map, if no, it means live load category or loading category are disabled.
+    {
+        var live_load = LineLoad(1, live_load_case);
+        live_load.comment = &quot;Live Load&quot;;
+        live_load.lines = [1, 2];        
+    }
+}
+</code></pre>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>All line loads from different load cases will be add to same map. Therefore all loads should get different script id.
+Read more about important behavior of loads.</p>
+</div>
+<h3 id="function-memberloadno-load_case-members-comment-params">function MemberLoad(no, load_case, members, comment, params)</h3>
+<p>Create member load with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to member_loads map. For creating load should be used load case. Load cases can be selected from load_cases map, in which its added from input parameters only.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>load_case - load case in which will be created load</li>
+<li>members - members with loads</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-19">Example</h4>
+<pre><code class="lang-javascript">function input_data()
+{
+    var LOADING_CATEGORY = loading_category(&quot;Loading&quot;); // Add loading category to block on first level
+        parameter_check(&quot;Live Load&quot;, &quot;live_load_checkbox&quot;, true); // Add checkbox for enabling of live load case
+
+        category(&quot;Live Load&quot;, false, LOADING_CATEGORY); // Add category Live Load, which contains load case input field
+            condition(&quot;live_load_checkbox == true&quot;); // Set condition for enabling of Live Load Category
+            load_case(1, &quot;Load Case&quot;); // Add load case input field to Live Load category
+}
+
+function generate()
+{
+    Node(1);
+    Node(2);
+    Node(3);
+    Member(1, [1, 2]);
+    Member(2, [2, 3]);
+
+    var live_load_case = load_cases[1];
+    if (live_load_case) // Check if load case exists in map, if no, it means live load category or loading category are disabled.
+    {
+        var live_load = MemberLoad(1, live_load_case);
+        live_load.comment = &quot;Live Load&quot;;
+
+        live_load.members = [1, 2];
+    }
+}
+</code></pre>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>All member loads from different load cases will be add to same map. Therefore all loads should get different script id.
+Read more about important behavior of loads.</p>
+</div>
+<h3 id="function-surfaceloadno-load_case-surfaces-comment-params">function SurfaceLoad(no, load_case, surfaces, comment, params)</h3>
+<p>Create surface load with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to surface_loads map. For creating load should be used load case. Load cases can be selected from load_cases map, in which its added from input parameters only.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>load_case - load case in which will be created load</li>
+<li>surfaces - surfaces with loads</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-20">Example</h4>
+<pre><code class="lang-javascript">function input_data()
+{
+    var LOADING_CATEGORY = loading_category(&quot;Loading&quot;); // Add loading category to block on first level
+        parameter_check(&quot;Live Load&quot;, &quot;live_load_checkbox&quot;, true); // Add checkbox for enabling of live load case
+
+        category(&quot;Live Load&quot;, false, LOADING_CATEGORY); // Add category Live Load, which contains load case input field
+            condition(&quot;live_load_checkbox == true&quot;); // Set condition for enabling of Live Load Category
+            load_case(1, &quot;Load Case&quot;); // Add load case input field to Live Load category
+}
+
+function generate()
+{
+    for (var i = 1; i &lt;= 4; ++i)
+    {
+        Node(i);
+    }
+
+    Line(1, [1, 2]);
+    Line(2, [2, 3]);
+    Line(3, [3, 4]);
+    Line(4, [5, 6]);
+
+    Surface(1, [1, 2, 3, 4]);
+
+    var live_load_case = load_cases[1];
+    if (live_load_case) // Check if load case exists in map, if no, it means live load category or loading category are disabled.
+    {
+        var live_load = SurfaceLoad(1, live_load_case);
+        live_load.comment = &quot;Live Load&quot;;
+
+        live_load.surfaces = [1];
+    }
+}
+</code></pre>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>All surface loads from different load cases will be add to same map. Therefore all loads should get different script id.
+Read more about important behavior of loads.</p>
+</div>
+<h3 id="function-solidloadno-load_case-solids-comment-params">function SolidLoad(no, load_case, solids, comment, params)</h3>
+<p>Create solid load with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to solid_loads map. For creating load should be used load case. Load cases can be selected from load_cases map, in which its added from input parameters only.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>load_case - load case in which will be created load</li>
+<li>solids - solids with loads</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-21">Example</h4>
+<pre><code class="lang-javascript">function input_data()
+{
+    var LOADING_CATEGORY = loading_category(&quot;Loading&quot;); // Add loading category to block on first level
+        parameter_check(&quot;Live Load&quot;, &quot;live_load_checkbox&quot;, true); // Add checkbox for enabling of live load case
+
+        category(&quot;Live Load&quot;, false, LOADING_CATEGORY); // Add category Live Load, which contains load case input field
+            condition(&quot;live_load_checkbox == true&quot;); // Set condition for enabling of Live Load Category
+            load_case(1, &quot;Load Case&quot;); // Add load case input field to Live Load category
+}
+
+function generate()
+{
+    for (var i = 1; i &lt;= 8; ++i)
+    {
+        Node(i);
+    }
+    
+    Line(1, [1, 2]);
+    Line(2, [2, 3]);
+    Line(3, [3, 4]);
+    Line(4, [4, 1]);
+    Line(5, [1, 5]);
+    Line(6, [2, 6]);
+    Line(7, [3, 7]);
+    Line(8, [4, 8]);
+    Line(9, [5, 6]);
+    Line(10, [6, 7]);
+    Line(11, [7, 8]);
+    Line(12, [8, 5]);
+
+    Surface(1, [1, 2, 3, 4]);
+    Surface(2, [1, 5, 6, 9]);
+    Surface(3, [2, 6, 7, 10]);
+    Surface(4, [3, 7, 8, 11]);
+    Surface(5, [4, 8, 5, 12]);
+    Surface(6, [9, 10, 11, 12]);
+
+    Solid(1, [1, 2, 3, 4, 5, 6]);
+
+    var live_load_case = load_cases[1];
+    if (live_load_case) // Check if load case exists in map, if no, it means live load category or loading category are disabled.
+    {
+        var live_load = SolidLoad(1, live_load_case);
+        live_load.comment = &quot;Live Load&quot;;
+
+        live_load.solids = [1];
+    }
+}
+</code></pre>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>All solid loads from different load cases will be add to same map. Therefore all loads should get different script id.
+Read more about important behavior of loads.</p>
+</div>
+<h3 id="function-openingloadno-load_case-openings-comment-params">function OpeningLoad(no, load_case, openings, comment, params)</h3>
+<p>Create opening load with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to opening_loads map. For creating load should be used load case. Load cases can be selected from load_cases map, in which its added from input parameters only.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>load_case - load case in which will be created load</li>
+<li>openings - openings with loads</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-22">Example</h4>
+<pre><code class="lang-javascript">function input_data()
+{
+    var LOADING_CATEGORY = loading_category(&quot;Loading&quot;); // Add loading category to block on first level
+        parameter_check(&quot;Live Load&quot;, &quot;live_load_checkbox&quot;, true); // Add checkbox for enabling of live load case
+
+        category(&quot;Live Load&quot;, false, LOADING_CATEGORY); // Add category Live Load, which contains load case input field
+            condition(&quot;live_load_checkbox == true&quot;); // Set condition for enabling of Live Load Category
+            load_case(1, &quot;Load Case&quot;); // Add load case input field to Live Load category
+}
+
+function generate()
+{
+    for (var i = 1; i &lt;= 8; ++i)
+    {
+        Node(i);
+    }
+    
+    Line(1, [1, 2]);
+    Line(2, [2, 3]);
+    Line(3, [3, 4]);
+    Line(4, [4, 1]);
+    Line(5, [5, 6]);
+    Line(6, [6, 7]);
+    Line(7, [7, 8]);
+    Line(8, [8, 5]);
+
+    Surface(1, [1, 2, 3, 4]);
+
+    Opening(2, [5, 6, 7, 8]);
+
+    var live_load_case = load_cases[1];
+    if (live_load_case) // Check if load case exists in map, if no, it means live load category or loading category are disabled.
+    {
+        var live_load = OpeningLoad(1, live_load_case);
+        live_load.comment = &quot;Live Load&quot;;
+
+        live_load.openings = [2];
+    }
+}
+</code></pre>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>All opening loads from different load cases will be add to same map. Therefore all loads should get different script id.
+Read more about important behavior of loads.</p>
+</div>
+<h3 id="function-linesetloadno-load_case-line_sets-comment-params">function LineSetLoad(no, load_case, line_sets, comment, params)</h3>
+<p>Create line set load with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to line_set_loads map. For creating load should be used load case. Load cases can be selected from load_cases map, in which its added from input parameters only.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>load_case - load case in which will be created load</li>
+<li>line_sets - line sets with loads</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-23">Example</h4>
+<pre><code class="lang-javascript">function input_data()
+{
+    var LOADING_CATEGORY = loading_category(&quot;Loading&quot;); // Add loading category to block on first level
+        parameter_check(&quot;Live Load&quot;, &quot;live_load_checkbox&quot;, true); // Add checkbox for enabling of live load case
+
+        category(&quot;Live Load&quot;, false, LOADING_CATEGORY); // Add category Live Load, which contains load case input field
+            condition(&quot;live_load_checkbox == true&quot;); // Set condition for enabling of Live Load Category
+            load_case(1, &quot;Load Case&quot;); // Add load case input field to Live Load category
+}
+
+function generate()
+{
+    for (var i = 1; i &lt;= 4; ++i)
+    {
+        Node(i);
+    }
+    
+    Line(1, [1, 2]);
+    Line(2, [2, 3]);
+    Line(3, [3, 4]);
+
+    LineSet(1, [1, 2, 3]);
+
+    var live_load_case = load_cases[1];
+    if (live_load_case) // Check if load case exists in map, if no, it means live load category or loading category are disabled.
+    {
+        var live_load = LineSetLoad(1, live_load_case);
+        live_load.comment = &quot;Live Load&quot;;
+
+        live_load.line_sets = [1];
+    }
+}
+</code></pre>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>All line set loads from different load cases will be add to same map. Therefore all loads should get different script id.
+Read more about important behavior of loads.</p>
+</div>
+<h3 id="function-membersetloadno-load_case-member_sets-comment-params">function MemberSetLoad(no, load_case, member_sets, comment, params)</h3>
+<p>Create member set load with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to member_set_loads map. For creating load should be used load case. Load cases can be selected from load_cases map, in which its added from input parameters only.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>load_case - load case in which will be created load</li>
+<li>member_sets - member sets with loads</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-24">Example</h4>
+<pre><code class="lang-javascript">function input_data()
+{
+    var LOADING_CATEGORY = loading_category(&quot;Loading&quot;); // Add loading category to block on first level
+        parameter_check(&quot;Live Load&quot;, &quot;live_load_checkbox&quot;, true); // Add checkbox for enabling of live load case
+
+        category(&quot;Live Load&quot;, false, LOADING_CATEGORY); // Add category Live Load, which contains load case input field
+            condition(&quot;live_load_checkbox == true&quot;); // Set condition for enabling of Live Load Category
+            load_case(1, &quot;Load Case&quot;); // Add load case input field to Live Load category
+}
+
+function generate()
+{
+    for (var i = 1; i &lt;= 4; ++i)
+    {
+        Node(i);
+    }
+    
+    Member(1, [1, 2]);
+    Member(2, [2, 3]);
+    Member(3, [3, 4]);
+
+    MemberSet(1, [1, 2, 3]);
+
+    var live_load_case = load_cases[1];
+    if (live_load_case) // Check if load case exists in map, if no, it means live load category or loading category are disabled.
+    {
+        var live_load = MemberSetLoad(1, live_load_case);
+        live_load.comment = &quot;Live Load&quot;;
+
+        live_load.member_sets = [1];
+    }
+}
+</code></pre>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>All member set loads from different load cases will be add to same map. Therefore all loads should get different script id.
+Read more about important behavior of loads.</p>
+</div>
+<h3 id="function-surfacesetloadno-load_case-surface_sets-comment-params">function SurfaceSetLoad(no, load_case, surface_sets, comment, params)</h3>
+<p>Create surface set load with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to surface_set_loads map. For creating load should be used load case. Load cases can be selected from load_cases map, in which its added from input parameters only.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>load_case - load case in which will be created load</li>
+<li>surface_sets - surface sets with loads</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-25">Example</h4>
+<pre><code class="lang-javascript">function input_data()
+{
+    var LOADING_CATEGORY = loading_category(&quot;Loading&quot;); // Add loading category to block on first level
+        parameter_check(&quot;Live Load&quot;, &quot;live_load_checkbox&quot;, true); // Add checkbox for enabling of live load case
+
+        category(&quot;Live Load&quot;, false, LOADING_CATEGORY); // Add category Live Load, which contains load case input field
+            condition(&quot;live_load_checkbox == true&quot;); // Set condition for enabling of Live Load Category
+            load_case(1, &quot;Load Case&quot;); // Add load case input field to Live Load category
+}
+
+function generate()
+{
+    for (var i = 1; i &lt;= 6; ++i)
+    {
+        Node(i);
+    }
+    
+    Line(1, [1, 2]);
+    Line(2, [2, 3]);
+    Line(3, [3, 4]);
+    Line(4, [4, 1]);
+    Line(5, [3, 6]);
+    Line(6, [5, 6]);
+    Line(7, [4, 5]);
+
+    Surface(1, [1, 2, 3, 4]);
+    Surface(2, [3, 5, 6, 7]);
+
+    SurfaceSet(1, [1, 2]);
+
+    var live_load_case = load_cases[1];
+    if (live_load_case) // Check if load case exists in map, if no, it means live load category or loading category are disabled.
+    {
+        var live_load = SurfaceSetLoad(1, live_load_case);
+        live_load.comment = &quot;Live Load&quot;;
+  
+        live_load.surface_sets = [1];
+    }
+}
+</code></pre>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>All surface set loads from different load cases will be add to same map. Therefore all loads should get different script id.
+Read more about important behavior of loads.</p>
+</div>
+<h3 id="function-solidsetloadno-load_case-solid_sets-comment-params">function SolidSetLoad(no, load_case, solid_sets, comment, params)</h3>
+<p>Create solid set load with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to solid_set_loads map. For creating load should be used load case. Load cases can be selected from load_cases map, in which its added from input parameters only.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>load_case - load case in which will be created load</li>
+<li>solid_sets - solid sets with loads</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-26">Example</h4>
+<pre><code class="lang-javascript">function input_data()
+{
+    var LOADING_CATEGORY = loading_category(&quot;Loading&quot;); // Add loading category to block on first level
+        parameter_check(&quot;Live Load&quot;, &quot;live_load_checkbox&quot;, true); // Add checkbox for enabling of live load case
+
+        category(&quot;Live Load&quot;, false, LOADING_CATEGORY); // Add category Live Load, which contains load case input field
+            condition(&quot;live_load_checkbox == true&quot;); // Set condition for enabling of Live Load Category
+            load_case(1, &quot;Load Case&quot;); // Add load case input field to Live Load category
+}
+
+function generate()
+{
+    var live_load_case = load_cases[1];
+    if (live_load_case) // Check if load case exists in map, if no, it means live load category or loading category are disabled.
+    {
+        var live_load = SolidSetLoad(1, live_load_case);
+        live_load.comment = &quot;Live Load&quot;;
+    }
+}
+</code></pre>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>All solid set loads from different load cases will be add to same map. Therefore all loads should get different script id.
+Read more about important behavior of loads.</p>
+</div>
+<h3 id="function-freeconcentratedloadno-load_case-surfaces-comment-params">function FreeConcentratedLoad(no, load_case, surfaces, comment, params)</h3>
+<p>Create free concentrated load with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to free_concentrated_loads map. For creating load should be used load case. Load cases can be selected from load_cases map, in which its added from input parameters only.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>load_case - load case in which will be created load</li>
+<li>surfaces - surfaces with loads</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-27">Example</h4>
+<pre><code class="lang-javascript">function input_data()
+{
+    var LOADING_CATEGORY = loading_category(&quot;Loading&quot;); // Add loading category to block on first level
+        parameter_check(&quot;Live Load&quot;, &quot;live_load_checkbox&quot;, true); // Add checkbox for enabling of live load case
+
+        category(&quot;Live Load&quot;, false, LOADING_CATEGORY); // Add category Live Load, which contains load case input field
+            condition(&quot;live_load_checkbox == true&quot;); // Set condition for enabling of Live Load Category
+            load_case(1, &quot;Load Case&quot;); // Add load case input field to Live Load category
+}
+
+function generate()
+{
+    for (var i = 1; i &lt;= 4; ++i)
+    {
+        Node(i);
+    }
+
+    Line(1, [1, 2]);
+    Line(2, [2, 3]);
+    Line(3, [3, 4]);
+    Line(4, [5, 6]);
+
+    Surface(1, [1, 2, 3, 4]);
+
+    var live_load_case = load_cases[1];
+    if (live_load_case) // Check if load case exists in map, if no, it means live load category or loading category are disabled.
+    {
+        var live_load = FreeConcentratedLoad(1, live_load_case);
+        live_load.comment = &quot;Live Load&quot;;
+
+        live_load.surfaces = [1];
+    }
+}
+</code></pre>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>All free concentrated loads from different load cases will be add to same map. Therefore all loads should get different script id.
+Read more about important behavior of loads.</p>
+</div>
+<h3 id="function-freelineloadno-load_case-surfaces-comment-params">function FreeLineLoad(no, load_case, surfaces, comment, params)</h3>
+<p>Create free line load with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to free_line_loads map. For creating load should be used load case. Load cases can be selected from load_cases map, in which its added from input parameters only.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>load_case - load case in which will be created load</li>
+<li>surfaces - surfaces with loads</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-28">Example</h4>
+<pre><code class="lang-javascript">function input_data()
+{
+    var LOADING_CATEGORY = loading_category(&quot;Loading&quot;); // Add loading category to block on first level
+        parameter_check(&quot;Live Load&quot;, &quot;live_load_checkbox&quot;, true); // Add checkbox for enabling of live load case
+
+        category(&quot;Live Load&quot;, false, LOADING_CATEGORY); // Add category Live Load, which contains load case input field
+            condition(&quot;live_load_checkbox == true&quot;); // Set condition for enabling of Live Load Category
+            load_case(1, &quot;Load Case&quot;); // Add load case input field to Live Load category
+}
+
+function generate()
+{
+    var live_load_case = load_cases[1];
+    if (live_load_case) // Check if load case exists in map, if no, it means live load category or loading category are disabled.
+    {
+        var live_load = FreeLineLoad(1, live_load_case);
+        live_load.comment = &quot;Live Load&quot;;
+    }
+}
+</code></pre>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>All free line loads from different load cases will be add to same map. Therefore all loads should get different script id.
+Read more about important behavior of loads.</p>
+</div>
+<h3 id="function-freerectangularloadno-load_case-surfaces-comment-params">function FreeRectangularLoad(no, load_case, surfaces, comment, params)</h3>
+<p>Create free rectangular load with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to free_rectangular_loads map. For creating load should be used load case. Load cases can be selected from load_cases map, in which its added from input parameters only.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>load_case - load case in which will be created load</li>
+<li>surfaces - surfaces with loads</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-29">Example</h4>
+<pre><code class="lang-javascript">function input_data()
+{
+    var LOADING_CATEGORY = loading_category(&quot;Loading&quot;); // Add loading category to block on first level
+        parameter_check(&quot;Live Load&quot;, &quot;live_load_checkbox&quot;, true); // Add checkbox for enabling of live load case
+
+        category(&quot;Live Load&quot;, false, LOADING_CATEGORY); // Add category Live Load, which contains load case input field
+            condition(&quot;live_load_checkbox == true&quot;); // Set condition for enabling of Live Load Category
+            load_case(1, &quot;Load Case&quot;); // Add load case input field to Live Load category
+}
+
+function generate()
+{
+    var live_load_case = load_cases[1];
+    if (live_load_case) // Check if load case exists in map, if no, it means live load category or loading category are disabled.
+    {
+        var live_load = FreeRectangularLoad(1, live_load_case);
+        live_load.comment = &quot;Live Load&quot;;
+    }
+}
+</code></pre>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>All free rectangular loads from different load cases will be add to same map. Therefore all loads should get different script id.
+Read more about important behavior of loads.</p>
+</div>
+<h3 id="function-freecircularloadno-load_case-surfaces-comment-params">function FreeCircularLoad(no, load_case, surfaces, comment, params)</h3>
+<p>Create free circular load with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to free_circular_loads map. For creating load should be used load case. Load cases can be selected from load_cases map, in which its added from input parameters only.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>load_case - load case in which will be created load</li>
+<li>surfaces - surfaces with loads</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-30">Example</h4>
+<pre><code class="lang-javascript">function input_data()
+{
+    var LOADING_CATEGORY = loading_category(&quot;Loading&quot;); // Add loading category to block on first level
+        parameter_check(&quot;Live Load&quot;, &quot;live_load_checkbox&quot;, true); // Add checkbox for enabling of live load case
+
+        category(&quot;Live Load&quot;, false, LOADING_CATEGORY); // Add category Live Load, which contains load case input field
+            condition(&quot;live_load_checkbox == true&quot;); // Set condition for enabling of Live Load Category
+            load_case(1, &quot;Load Case&quot;); // Add load case input field to Live Load category
+}
+
+function generate()
+{
+    var live_load_case = load_cases[1];
+    if (live_load_case) // Check if load case exists in map, if no, it means live load category or loading category are disabled.
+    {
+        var live_load = FreeCircularLoad(1, live_load_case);
+        live_load.comment = &quot;Live Load&quot;;
+    }
+}
+</code></pre>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>All free circular loads from different load cases will be add to same map. Therefore all loads should get different script id.
+Read more about important behavior of loads.</p>
+</div>
+<h3 id="function-freepolygonloadno-load_case-surfaces-comment-params">function FreePolygonLoad(no, load_case, surfaces, comment, params)</h3>
+<p>Create free polygon load with selected script id inside the block. User id will be selected from available indexes in model. But in the script we can use selected id.
+Objects will be added to free_polygon_loads map. For creating load should be used load case. Load cases can be selected from load_cases map, in which its added from input parameters only.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>load_case - load case in which will be created load</li>
+<li>surfaces - surfaces with loads</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h4 id="example-31">Example</h4>
+<pre><code class="lang-javascript">function input_data()
+{
+    var LOADING_CATEGORY = loading_category(&quot;Loading&quot;); // Add loading category to block on first level
+        parameter_check(&quot;Live Load&quot;, &quot;live_load_checkbox&quot;, true); // Add checkbox for enabling of live load case
+
+        category(&quot;Live Load&quot;, false, LOADING_CATEGORY); // Add category Live Load, which contains load case input field
+            condition(&quot;live_load_checkbox == true&quot;); // Set condition for enabling of Live Load Category
+            load_case(1, &quot;Load Case&quot;); // Add load case input field to Live Load category
+}
+
+function generate()
+{
+    var live_load_case = load_cases[1];
+    if (live_load_case) // Check if load case exists in map, if no, it means live load category or loading category are disabled.
+    {
+        var live_load = FreePolygonLoad(1, live_load_case);
+        live_load.comment = &quot;Live Load&quot;;
+    }
+}
+</code></pre>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>All free polygon loads from different load cases will be add to same map. Therefore all loads should get different script id.
+Read more about important behavior of loads.</p>
+</div>
+<h3 id="function-imposedlinedeformationno-load_case-lines-comment-params">function ImposedLineDeformation(no, load_case, lines, comment, params)</h3>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>load_case - load case in which will be created load</li>
+<li>lines - lines with loads</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h3 id="function-imposednodaldeformationno-load_case-nodes-comment-params">function ImposedNodalDeformation(no, load_case, nodes, comment, params)</h3>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - the number of object in block script</li>
+<li>load_case - load case in which will be created load</li>
+<li>nodes - nodes with loads</li>
+<li>comment - the comment for object, (undefined if not set)</li>
+<li>params - the dictionary of optional parameters. Name of parameter should be equal to property name of current object, (undefined if not set)</li>
+</ul>
+<h3 id="function-angulardimensionno-object_1-object_2-reference_object_type-symbol-offset-quadrant-comment-params">function AngularDimension(no, object_1, object_2, reference_object_type, symbol, offset, quadrant, comment, params)</h3>
+<p>Function creates angular dimension and add it do dimensions map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - script id</li>
+<li>object_1 - first reference object, like Node for example</li>
+<li>object_2 - second reference object, like Node for example</li>
+<li>reference_object_type - object type, possible values(right values you will find in RFEM, able to change in future):
+<ul>
+<li>model.dimensions.REFERENCE_TYPE_NODE</li>
+<li>model.dimensions.REFERENCE_TYPE_POINT</li>
+<li>model.dimensions.REFERENCE_TYPE_POINT_ON_LINE</li>
+<li>model.dimensions.REFERENCE_TYPE_LINE</li>
+<li>model.dimensions.REFERENCE_TYPE_MEMBER</li>
+<li>model.dimensions.REFERENCE_TYPE_SURFACE</li>
+</ul>
+</li>
+<li>symbol - string value</li>
+<li>offset - float value</li>
+<li>quadrant - possible values(right values you will find in RFEM, able to change in future):
+<ul>
+<li>model.dimensions.ANGULAR_QUADRANT_POSITIVE</li>
+<li>model.dimensions.ANGULAR_QUADRANT_NEGATIVE</li>
+<li>model.dimensions.ANGULAR_QUADRANT_LEFT</li>
+<li>model.dimensions.ANGULAR_QUADRANT_RIGHT</li>
+</ul>
+</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h4 id="examples-2">Examples</h4>
+<h5 id="example-1-1">Example 1</h5>
+<p>Creating angular dimension with objects with same reference type via positional parameters.</p>
+<pre><code class="lang-javascript">AngularDimension(18, members[3], members[4], model.dimensions.REFERENCE_TYPE_MEMBER, &quot;A&quot;, offset, model.dimensions.ANGULAR_QUADRANT_POSITIVE);
+</code></pre>
+<h5 id="example-2-1">Example 2</h5>
+<p>Creating angular dimension with the objects via optional parameter reference_table.</p>
+<pre><code class="lang-javascript">var reference_table = [
+    [members[1], model.dimensions.REFERENCE_TYPE_MEMBER],
+    [members[2], model.dimensions.REFERENCE_TYPE_MEMBER],
+];
+AngularDimension(16, undefined, undefined, undefined, &quot;A&quot;, offset, model.dimensions.ANGULAR_QUADRANT_POSITIVE, &quot;&quot;, {'reference_table': reference_table});
+</code></pre>
+<h5 id="example-3-1">Example 3</h5>
+<p>Creating angular dimension with object with positional parameter and optional parameter reference_table.</p>
+<pre><code class="lang-javascript">var reference_table = [
+    [members[3], model.dimensions.REFERENCE_TYPE_MEMBER],
+];
+AngularDimension(17, members[2], undefined, model.dimensions.REFERENCE_TYPE_MEMBER, &quot;A&quot;, offset, model.dimensions.ANGULAR_QUADRANT_POSITIVE, &quot;&quot;, {'reference_table': reference_table});
+</code></pre>
+<h5 id="example-4-1">Example 4</h5>
+<p>Creating angular dimension with coordinates and some object via positional parameters.</p>
+<p>Creating angular dimension with objects with same reference type via positional parameters.</p>
+<pre><code class="lang-javascript">AngularDimension(18, [3, 5, 2], members[4], model.dimensions.REFERENCE_TYPE_MEMBER, &quot;A&quot;, offset, model.dimensions.ANGULAR_QUADRANT_POSITIVE);
+</code></pre>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>If you use positional parameters, you can't use reference object with different types.</p>
+</div>
+<p>The following example is bad. Because of second positional parameter is a Node, but function wait Member, by positional parameter 4 (model.dimensions.REFERENCE_TYPE_MEMBER).</p>
+<pre><code class="lang-javascript">AngularDimension(18, nodes[2], members[4], model.dimensions.REFERENCE_TYPE_MEMBER, &quot;A&quot;, offset, model.dimensions.ANGULAR_QUADRANT_POSITIVE);
+</code></pre>
+<h3 id="function-arclengthdimensionid-line-symbol-offset-comment-params">function ArcLengthDimension(id, line, symbol, offset, comment, params)</h3>
+<p>Function creates arc length dimension and add it to dimensions map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - object id in script</li>
+<li>line - line object, or line id in block script</li>
+<li>symbol - string value</li>
+<li>offset - float value</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h3 id="function-diameterdimensionno-line-symbol-position-comment-params">function DiameterDimension(no, line, symbol, position, comment, params)</h3>
+<p>Function creates diameter dimension and add it to dimensions map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - object id in block script, which used in block generation</li>
+<li>line - line object, or line id in block script (different from user id in model)</li>
+<li>symbol - string value</li>
+<li>position - float value</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h3 id="function-lineardimensionno-object_1-object_2-reference-symbol-offset-comment-params">function LinearDimension(no, object_1, object_2, reference, symbol, offset, comment, params)</h3>
+<p>Function creates linear dimension and add it to dimensions map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - object id in block script, which used in block generation</li>
+<li>object_1 - first reference object</li>
+<li>object_2 - second reference object</li>
+<li>reference - String, possible values:
+<ul>
+<li>&quot;x&quot;</li>
+<li>&quot;y&quot;</li>
+<li>&quot;z&quot;</li>
+<li>&quot;xy&quot;</li>
+<li>&quot;xz&quot;</li>
+<li>&quot;yx&quot;</li>
+<li>&quot;yz&quot;</li>
+<li>&quot;zx&quot;</li>
+<li>&quot;zy&quot;</li>
+</ul>
+</li>
+<li>symbol - string value</li>
+<li>offset - float value</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h5 id="examples-3">Examples</h5>
+<pre><code class="lang-javascript">
+// linear dimension via points
+LinearDimension(1, [1, 2, 3], [3, 4, 5]);
+
+// linear dimension via nodes
+LinearDimension(2, nodes[1], nodes[2]);
+
+// linear dimension via node and control point
+// Control points had not separate map of objects, but can be get from object properties of another objects, in which was created.
+LinearDimension(3, nodes[1], lines[1].arc_control_point_object);
+
+// And you can combine points, nodes and control points in these *Arguments:* object_1, object_2
+</code></pre>
+<h3 id="function-radiusdimensionno-line-symbol-offset-position-comment-params">function RadiusDimension(no, line, symbol, offset, position, comment, params)</h3>
+<p>Function creates radius dimension and add it to dimensions map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - object id in block script</li>
+<li>line - line object</li>
+<li>symbol - string value</li>
+<li>offset - float value</li>
+<li>position - float value</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h3 id="function-slopedimensionno-object-symbol-offset-position-direction-plane-comment-params">function SlopeDimension(no, object, symbol, offset, position, direction, plane, comment, params)</h3>
+<p>Function creates slope dimension and add it to dimensions map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - object id in block's script</li>
+<li>object - line or member object, depends on program type. line for RFEM and member for RSTAB</li>
+<li>symbol - String</li>
+<li>offset - Float</li>
+<li>position - Float</li>
+<li>direction - String, possible values:
+<ul>
+<li>&quot;up&quot;</li>
+<li>&quot;upward&quot;</li>
+<li>&quot;down&quot;</li>
+<li>&quot;downward&quot;</li>
+</ul>
+</li>
+<li>plane - String, possible values:
+<ul>
+<li>&quot;xy&quot;</li>
+<li>&quot;yz&quot;</li>
+<li>&quot;xz&quot;</li>
+</ul>
+</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h3 id="function-linehingeno-surface-lines-comment-params">function LineHinge(no, surface, lines, comment, params)</h3>
+<p>Function creates line hinge and add it to line_hinges map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - object id in block's script</li>
+<li>surface - surface with lines, which should get this hinge</li>
+<li>lines - lines, which should get this hinge</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h4 id="example-32">Example</h4>
+<pre><code class="lang-javascript">Node(1);
+Node(2);
+Line(1, [1, 2]);
+LineHinge(1, lines[1], lines[2]);
+</code></pre>
+<h3 id="function-linemeshrefinementno-comment-params">function LineMeshRefinement(no, comment, params)</h3>
+<p>Function creates line mesh refinement and add it to line_mesh_refinements map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - object id in block's script</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h3 id="function-memberdefinablestiffnessno-comment-params">function MemberDefinableStiffness(no, comment, params)</h3>
+<p>Function creates member definable stiffness and add it to member_definable_stiffnesses map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - object id in block's script</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h3 id="function-membereccentricityno-member_start-member_end-comment-params">function MemberEccentricity(no, member_start, member_end, comment, params)</h3>
+<p>Function creates member eccentricity and add it to member_eccentricities map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - object id in block's script</li>
+<li>member_start - member, which should get this member eccentricity, like start member eccentricity</li>
+<li>member_end - member, which should get this member eccentricity, like end member eccentricity</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h4 id="example-33">Example</h4>
+<pre><code class="lang-javascript">Node(1);
+Node(2);
+Member(1, [1, 2], &quot;Member 1&quot;, params);
+MemberEccentricity(1, members[1], members[1]);
+</code></pre>
+<h3 id="function-memberhingeno-member_start-member_end-comment-params">function MemberHinge(no, member_start, member_end, comment, params)</h3>
+<p>Function creates member hinge and add it to member_hinges map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - object id in block's script</li>
+<li>member_start - member, which should get this member hinge , like start member hinge</li>
+<li>member_end - member, which should get this member hinge , like end member hinge</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h4 id="examples-4">Examples</h4>
+<h5 id="example-1-2">Example 1</h5>
+<pre><code class="lang-javascript">Node(1);
+Node(2);
+Member(1, [1, 2], &quot;Member 1&quot;, params);
+MemberHinge(1, members[1], members[1]);
+</code></pre>
+<h4 id="example-2-2">Example 2</h4>
+<p>Add member hinge to several members.</p>
+<pre><code class="lang-javascript">MemberHinge(1);
+
+members[1].member_hinge_start = member_hinges[1];
+members[1].member_hinge_end= member_hinges[1];
+members[2].member_hinge_start = member_hinges[1];
+members[2].member_hinge_end= member_hinges[1];
+members[3].member_hinge_start = member_hinges[1];
+members[3].member_hinge_end= member_hinges[1];
+
+var member_hinge = MemberHinge(2);
+
+members[4].member_hinge_start = member_hinge;
+members[4].member_hinge_end= member_hinge;
+members[5].member_hinge_start = member_hinge;
+members[5].member_hinge_end= member_hinge;
+members[6].member_hinge_start = member_hinge;
+members[6].member_hinge_end= member_hinge;
+</code></pre>
+<h3 id="function-membernonlinearityno-comment-params">function MemberNonlinearity(no, comment, params)</h3>
+<p>Function creates member nonlinearities and add it to member_nonlinearities map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - object id in block's script</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h3 id="function-memberresultintermediatepointno-comment-params">function MemberResultIntermediatePoint(no, comment, params)</h3>
+<p>Function creates member result intermediate point and add it to member_result_intermediate_points map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - object id in block's script</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h3 id="function-memberstiffnessmodificationno-comment-params">function MemberStiffnessModification(no, comment, params)</h3>
+<p>Function creates member sitffness modification and add it to member_stiffness_modifications map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - object id in block's script</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h3 id="function-membertransversestiffenerno-comment-params">function MemberTransverseStiffener(no, comment, params)</h3>
+<p>Function creates member transverse stiffener and add it to member_transverse_stiffeners map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - object id in block's script</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h3 id="function-nodalmeshrefinementno-comment-params">function NodalMeshRefinement(no, comment, params)</h3>
+<p>Function creates nodal mesh refinement and add it to nodal_mesh _refinements map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - object id in block's script</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h3 id="function-surfaceeccentricityno-surface-comment-params">function SurfaceEccentricity(no, surface, comment, params)</h3>
+<p>Function creates surface eccentricity and add it to surface_eccentricities map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - object id in block's script</li>
+<li>surface - surface, which should get this eccentricity</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h4 id="example-34">Example</h4>
+<pre><code class="lang-javascript">for (var i = 1; i &lt;= 4; ++i)
+{
+    Node(i);
+}
+
+Line(1, [1, 2]);
+Line(2, [2, 3]);
+Line(3, [3, 4]);
+Line(4, [5, 6]);
+
+var params = {
+    &quot;comment&quot;: &quot;Comment via parameters&quot;
+};
+
+Surface(1, [1, 2, 3, 4], thicknesses[1], &quot;Surface 1&quot;, params);
+SurfaceEccentricity(1, surfaces[1]);
+</code></pre>
+<h3 id="function-surfacemeshrefinementno-comment-params">function SurfaceMeshRefinement(no, comment, params)</h3>
+<p>Function creates surface mesh refinement and add it to surface_mesh _refinement s map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - object id in block's script</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h3 id="function-coordinatesystemno-coordinate_system_type-comment-params">function CoordinateSystem(no, coordinate_system_type, comment, params)</h3>
+<p>Function creates coordinate system and add it to *coordinate_systems map.</p>
+<p><em>Arguments:</em></p>
+<ul>
+<li>no - object id in block's script</li>
+<li>coordinate_system_type - set type of coordinate system. Possible values
+<ul>
+<li>model.coordinate_systems.TYPE_OFFSET_XYZ</li>
+<li>model.coordinate_systems.TYPE_3_POINTS</li>
+<li>model.coordinate_systems.TYPE_2_POINTS_AND_ANGLE</li>
+<li>model.coordinate_systems.TYPE_POINT_AND_3_ANGLES</li>
+</ul>
+</li>
+<li>comment - comment</li>
+<li>params - dictionary with property names and values</li>
+</ul>
+<h4 id="example-35">Example</h4>
+<pre><code class="lang-javascript">Node(1, 0.5, 0, 0);
+Node(2, 0.5, 1, 0);
+
+var coordinate_system_params =
+{
+    &quot;origin_coordinates&quot;: [0, 0, 0],
+    &quot;u_axis_point_coordinates&quot;: [1, 0, 0],
+    &quot;uw_plane_point_coordinates&quot;: [0, 0, 1]
+}
+CoordinateSystem(1, model.coordinate_systems.TYPE_3_POINTS, undefined, coordinate_system_params);
+
+var linear_dimension_params =
+{
+    &quot;linear_coordinate_system&quot;: coordinate_systems[1],
+};
+LinearDimension(1, nodes[1], nodes[2], &quot;zx&quot;, &quot;&quot;, 1, undefined, linear_dimension_params);
+</code></pre>
+<h2 id="model-variable">model variable</h2>
+<p>In script of block user can use variable model for getting constants, which exists in RFEM/RSTAB.</p>
+<p>For example:</p>
+<pre><code class="lang-javascript">function generated()
+{
+    var live_load = NodalLoad(1, live_load_case);
+    live_load.load_type = model.nodal_loads.LOAD_TYPE_COMPONENTS; // Get constant from RFEM via model
+}
+</code></pre>
+<h2 id="unit">UNIT</h2>
+<p>Units, which can be used in integer and floats parameters.</p>
+<ul>
+<li>list of units</li>
+<li>Example</li>
+</ul>
+<h3 id="list-of-units">List of units</h3>
+<pre><code class="lang-javascript">UNIT.NONE
+UNIT.EG_MODULE
+UNIT.STRESSES
+UNIT.MATERIAL_SPECIFIC_WEIGHT
+UNIT.THERMAL_EXPANSION_COEFFICIENT
+UNIT.DENSITY
+UNIT.POISSONS_RATIO
+UNIT.HARDENING_FACTOR
+UNIT.REFERENCE_ELEMENT_SIZE
+UNIT.MATERIAL_FACTOR
+UNIT.MATERIAL_THICKNESS
+UNIT.MATERIAL_DEFORMATION
+UNIT.STRAIN
+UNIT.GRAVITATIONAL_ACCELERATION
+UNIT.FRACTURE_ENERGY
+UNIT.MATERIAL_QUANTITY_INTEGER
+UNIT.MATERIAL_ANGLE
+
+// SUBCATEGORY_MATERIALS_GAS
+UNIT.THERMAL_CONDUCTIVIY
+UNIT.GAS_DENSITY
+UNIT.MATERIAL_TEMPERATURE
+UNIT.GAS_PRESSURE
+UNIT.MOLAR_MASS
+UNIT.HEAT_CAPACITY
+UNIT.DYNAMIC_VISCOSITY
+UNIT.DYNAMIC_INCREASE_FACTOR
+UNIT.STRAIN_RATE
+
+// CATEGORY_SECTIONS
+// SUBCATEGORY_SECTIONS_GENERAL
+UNIT.SECTION_DIMENSION
+UNIT.SECTION_PERIMETER
+UNIT.SECTION_COMPLIANCE
+UNIT.SECTION_AREA
+UNIT.SECTION_ANGLE
+UNIT.SECTION_MOMENT_OF_INERTIA
+UNIT.SECTION_SECTION_FACTOR
+UNIT.SECTION_SECTION_MODULUS
+UNIT.SECTION_EFFECTIVE_SECOND_MOMENT_OF_AREA
+UNIT.SECTION_STATICAL_MOMENT_OF_AREA
+UNIT.SECTION_TENSION_FIELD_COEFFICIENT_1
+UNIT.SECTION_TENSION_FIELD_COEFFICIENT_2
+UNIT.SECTION_WARPING_CONSTANT
+UNIT.SECTION_NORMALIZED_WARPING_CONSTANT
+UNIT.SECTION_WARPING_STATICAL_MOMENT
+UNIT.SECTION_BIMOMENT
+UNIT.SECTION_FORCE
+UNIT.SECTION_MOMENT
+UNIT.SECTION_UNIT_STRESSES
+UNIT.SECTION_UNIT_WARPING_FUNCTION
+UNIT.SECTION_QUANTITY
+
+// SUBCATEGORY_SECTIONS_UNIT_PARAMETERS
+UNIT.SECTION_VOLUME
+UNIT.SECTION_SURFACE
+UNIT.SECTION_WEIGHT
+
+// SUBCATEGORY_SECTIONS_ADDON_CONCRETE
+UNIT.MATERIAL_HUMIDITY
+UNIT.SECTION_COEFFICIENT
+UNIT.MATERIAL_TIME
+UNIT.MATERIAL_COEFFICIENT
+UNIT.SECTION_STRAIN
+
+// CATEGORY_MODEL
+// SUBCATEGORY_MODEL_GENERAL
+UNIT.LENGTH
+UNIT.RSECTION_LENGTH
+UNIT.AREA
+UNIT.RSECTION_AREA
+UNIT.VOLUME
+UNIT.ANGLE
+UNIT.GEOGRAPHIC_COORDINATES
+UNIT.MASS
+UNIT.THICKNESS
+UNIT.TIME
+
+// SUBCATEGORY_MODEL_DIMENSIONLESS
+UNIT.DIMENSIONLESS
+UNIT.RELATIVE_LENGTH
+UNIT.PARTIAL_FACTOR
+UNIT.WEIGHT_AND_KNOT
+UNIT.RATIO
+UNIT.PRECISION_FACTOR
+UNIT.FRICTION_COEFFICIENT
+UNIT.STIFFNESS_MULTIPLICATION_FACTOR
+UNIT.QUANTITY
+UNIT.QUANTITY_WITH_FIXED_PRECISION
+
+// SUBCATEGORY_MODEL_SUPPORTS_ELASTIC_FOUNDATION_ORTHOTROPY
+UNIT.SPRING_STIFFNESS
+UNIT.SPRING_ROTATIONAL_STIFFNESS
+UNIT.LINE_SPRING_CONSTANT
+UNIT.LINE_SPRING_ROTATIONAL_STIFFNESS
+UNIT.SURFACE_SPRING_CONSTANT
+UNIT.SHEAR_SPRING_CONSTANT
+UNIT.ORTHOTROPY_BENDING_MOMENT
+UNIT.ORTHOTROPY_LINE_MOMENT
+UNIT.MASS_PER_UNIT_AREA
+UNIT.MASS_MOMENT_PER_UNIT_AREA
+UNIT.SURFACES_CONTACT_TYPE_SHEAR_STIFFNESS
+UNIT.SOLID_SHEAR_STIFFNESS
+
+// SUBCATEGORY_MODEL_MEMBER_TRANSVERSE_STIFFENERS
+UNIT.MEMBER_TRANSVERSE_STIFFENERS_WELD_SIZE
+
+// SUBCATEGORY_MODEL_MEMBER_MATRIX_STIFFNESS_ELEMENTS
+UNIT.MEMBER_BENDING_TORSION_STIFFNESS_ELEMENT
+UNIT.MEMBER_SHEAR_STIFFNESS_ELEMENT
+UNIT.MEMBER_ECCENTRIC_STIFFNESS_ELEMENT
+UNIT.MEMBER_DEVIATORIC_STIFFNESS_ELEMENT
+
+// SUBCATEGORY_MODEL_SURFACE_MATRIX_STIFFNESS_ELEMENTS
+UNIT.SURFACE_BENDING_TORSION_STIFFNESS_ELEMENT
+UNIT.SURFACE_SHEAR_STIFFNESS_ELEMENT
+UNIT.SURFACE_MEMBRANE_STIFFNESS_ELEMENT
+UNIT.SURFACE_ECCENTRIC_STIFFNESS_ELEMENT
+
+//SUBCATEGORY_MODEL_SURFACE_THICKNESS_LAYERS
+UNIT.SURFACE_SPECIFIC_WEIGHT
+UNIT.SURFACE_WEIGHT
+
+// CATEGORY_CONSTRUCTION_STAGES
+// SUBCATEGORY_CONSTRUCTION_STAGES_GENERAL
+UNIT.CONSTRUCTION_STAGES_TIME
+
+// CATEGORY_BUILDING_MODEL
+// SUBCATEGORY_BUILDING_MODEL_BUILDING_STORIES
+UNIT.BUILDING_STORIES_LENGTH
+UNIT.BUILDING_STORIES_AREA
+UNIT.BUILDING_STORIES_VOLUME
+UNIT.BUILDING_STORIES_MASS
+
+// SUBCATEGORY_BUILDING_MODEL_TIMBER_FRAME_WALL
+UNIT.TIMBER_FRAME_WALL_LENGTH
+UNIT.TIMBER_FRAME_WALL_THICKNESS
+UNIT.TIMBER_FRAME_WALL_CONNECTOR_DIMENSION
+UNIT.TIMBER_FRAME_WALL_CONNECTOR_SPACING
+
+// CATEGORY_LOADS
+// SUBCATEGORY_LOADS_LOADS
+UNIT.LOADS_FORCE
+UNIT.LOADS_MOMENT
+UNIT.LOADS_MASS
+UNIT.LOADS_DISPLACEMENT
+UNIT.LOADS_ROTATION
+UNIT.LOADS_LENGTH
+UNIT.LOADS_RELATIVE_LENGTH
+UNIT.LOADS_TEMPERATURE
+UNIT.LOADS_TEMPERATURE_CHANGE
+UNIT.LOADS_AXIAL_STRAIN
+UNIT.LOADS_FORCE_PER_UNIT_LENGTH
+UNIT.LOADS_MOMENT_PER_UNIT_LENGTH
+UNIT.LOADS_DISPLACEMENT_PER_UNIT_LENGTH
+UNIT.LOADS_ROTATION_PER_UNIT_LENGTH
+UNIT.LOADS_SURFACE_TYPE_LOAD
+UNIT.LOADS_SOLID_TYPE_LOAD
+UNIT.LOADS_DENSITY
+UNIT.LOADS_PRESSURE
+UNIT.SELF_WEIGHT_FACTOR
+UNIT.LOADS_PRECAMBER
+UNIT.LOADS_AREA_MASS
+UNIT.LOADS_IMPOSED_DISPLACEMENT
+UNIT.LOADS_IMPOSED_ROTATION
+UNIT.LOADS_ANGULAR_VELOCITY
+UNIT.LOADS_ANGULAR_ACCELERATION
+UNIT.LOADS_VELOCITY
+UNIT.LOADS_KINEMATIC_VISCOSITY
+UNIT.LOADS_KINETIC_ENERGY
+UNIT.LOADS_SPECIFIC_ENERGY
+
+// SUBCATEGORY_LOADS_LOAD_COMBINATIONS
+UNIT.LOADING_FACTOR
+
+// CATEGORY_IMPERFECTIONS
+// SUBCATEGORY_IMPERFECTIONS_GENERAL
+UNIT.IMPERFECTIONS_MAGNITUDE
+UNIT.IMPERFECTIONS_RELATIVE_LENGTH
+UNIT.IMPERFECTIONS_RATIO
+UNIT.IMPERFECTIONS_FORCE
+
+// CATEGORY_RESULTS
+// SUBCATEGORY_RESULTS_GENERAL
+UNIT.RESULTS_DISPLAY_FACTOR
+
+// SUBCATEGORY_RESULTS_RESULT_DIAGRAMS
+UNIT.RESULTS_RESULT_DIAGRAMS_SMOOTHING_FORCES
+UNIT.RESULTS_RESULT_DIAGRAMS_SMOOTHING_MOMENTS
+
+// SUBCATEGORY_RESULTS_DESIGN_OVERVIEW
+UNIT.RESULTS_DESIGN_OVERVIEW_DESIGN_RATIO
+
+// CATEGORY_DIMENSIONS
+// SUBCATEGORY_DIMENSIONS_GENERAL
+UNIT.DIMENSIONS_LENGTH
+UNIT.DIMENSIONS_ANGLE
+UNIT.DIMENSIONS_SLOPE
+UNIT.DIMENSIONS_ALTITUDE
+
+// CATEGORY_CONCRETE_REINFORCEMENT
+// SUBCATEGORY_CONCRETE_REFINFORCEMENT_GENERAL
+UNIT.CONCRETE_REINFORCEMENT_AREA
+UNIT.CONCRETE_REINFORCEMENT_DIAMETER
+UNIT.CONCRETE_REINFORCEMENT_CONCRETE_COVER
+UNIT.CONCRETE_REINFORCEMENT_LENGTH
+UNIT.CONCRETE_REINFORCEMENT_AREA_PER_UNIT_LENGTH
+UNIT.CONCRETE_REINFORCEMENT_AREA_PER_SQUARE_METER
+UNIT.CONCRETE_REINFORCEMENT_RATIO
+UNIT.CONCRETE_REINFORCEMENT_WEIGHT
+
+// SUBCATEGORY_CONCRETE_EFFECTIVE_LENGTHS
+UNIT.CONCRETE_EFFECTIVE_LENGTHS_FACTOR
+UNIT.CONCRETE_EFFECTIVE_LENGTHS_ECCENTRICITY
+
+// SUBCATEGORY_CONCRETE_DESIGN_GENERAL
+UNIT.CONCRETE_DESIGN_CRACK_WIDTHS
+UNIT.CONCRETE_DESIGN_DIMENSIONLESS
+UNIT.CONCRETE_TEMPERATURE
+UNIT.CONCRETE_DESIGN_PUNCHING_LENGTH
+UNIT.CONCRETE_DESIGN_RATIOS
+UNIT.CONCRETE_DURATION_OF_LONG_TERM_LOAD
+UNIT.CONCRETE_DURATION_OF_LOAD
+UNIT.CONCRETE_LIMIT_OF_ALLOWABLE_DEFLECTION
+
+// CATEGORY_STATIC_ANALYSIS
+// SUBCATEGORY_STATIC_ANALYSIS_GENERAL
+UNIT.STATIC_ANALYSIS_LOAD_INCREMENT_FACTORS
+UNIT.STATIC_ANALYSIS_DESIGN_RATIO
+
+// SUBCATEGORY_STATIC_ANALYSIS_DEFORMATIONS_AND_STRAINS
+UNIT.STATIC_ANALYSIS_DISPLACEMENT
+UNIT.STATIC_ANALYSIS_ROTATION
+UNIT.STATIC_ANALYSIS_WARPING
+UNIT.STATIC_ANALYSIS_AXIAL_AND_SHEAR_STRAIN
+UNIT.STATIC_ANALYSIS_TORSIONAL_AND_BENDING_STRAIN
+UNIT.STATIC_ANALYSIS_STRAIN_ANGLES
+
+// SUBCATEGORY_STATIC_ANALYSIS_SUPPORT_AND_INTERNAL_FORCES
+UNIT.STATIC_ANALYSIS_MEMBER_FORCE
+UNIT.STATIC_ANALYSIS_MEMBER_MOMENT
+UNIT.STATIC_ANALYSIS_MEMBER_BIMOMENT
+UNIT.STATIC_ANALYSIS_MEMBER_PRESSURE
+UNIT.STATIC_ANALYSIS_RIB_FORCE
+UNIT.STATIC_ANALYSIS_SURFACE_FORCE
+UNIT.STATIC_ANALYSIS_SURFACE_MOMENT
+UNIT.STATIC_ANALYSIS_ANGLES
+UNIT.STATIC_ANALYSIS_RESULTANT_FORCE
+UNIT.STATIC_ANALYSIS_RESULTANT_MOMENT
+
+// SUBCATEGORY_STATIC_ANALYSIS_STRESSES
+UNIT.STATIC_ANALYSIS_STRESSES_ON_SURFACES
+UNIT.STATIC_ANALYSIS_STRESSES_ON_SOLIDS
+
+// SUBCATEGORY_STATIC_ANALYSIS_ELASTIC_FOUNDATION
+UNIT.STATIC_ANALYSIS_MEMBER_CONTACT_FORCE
+UNIT.STATIC_ANALYSIS_MEMBER_CONTACT_MOMENT
+UNIT.STATIC_ANALYSIS_SURFACE_CONTACT_STRESS
+
+// SUBCATEGORY_STATIC_ANALYSIS_ADDON_CONCRETE
+UNIT.STATIC_ANALYSIS_TIME
+
+// SUBCATEGORY_STATIC_ANALYSIS_GAS,
+UNIT.STATIC_ANALYSIS_GAS_PRESSURE
+UNIT.STATIC_ANALYSIS_GAS_TEMPERATURE
+UNIT.STATIC_ANALYSIS_GAS_VOLUME
+
+// SUBCATEGORY_STATIC_ANALYSIS_CALCULATION_STATISTIC
+UNIT.STATIC_ANALYSIS_VALUES_OF_STIFFNESS_MATRIX_DIAGONAL_ELEMENTS
+UNIT.STATIC_ANALYSIS_STIFFNESS_MATRIX_DETERMINANT
+UNIT.STATIC_ANALYSIS_INFINITY_NORM
+
+// SUBCATEGORY_STATIC_ANALYSIS_OTHER,
+UNIT.STATIC_ANALYSIS_CRITERIA_RATIO
+
+// CATEGORY_STRESS_ANALYSIS
+// SUBCATEGORY_STRESS_ANALYSIS_GENERAL
+UNIT.STRESS_ANALYSIS_STRESSES
+UNIT.STRESS_ANALYSIS_STRAINS
+UNIT.STRESS_ANALYSIS_BENDING_STRAIN
+UNIT.STRESS_ANALYSIS_RATIOS
+
+//CATEGORY_RSECTION_RESULTS
+//SUBCATEGORY_RSECTION_RESULT_STRESSES
+UNIT.RSECTION_RESULT_LOCATIONS
+UNIT.RSECTION_RESULT_STRESSES
+UNIT.RSECTION_RESULT_RATIOS
+
+// CATEGORY_ALUMINUM_DESIGN
+// SUBCATEGORY_ALUMINUM_DESIGN_GENERAL
+UNIT.ALUMINUM_DESIGN_AXIAL_AND_SHEAR_STRAIN
+UNIT.ALUMINUM_DESIGN_TORSIONAL_AND_BENDING_STRAIN
+UNIT.ALUMINUM_DESIGN_STRESSES
+UNIT.ALUMINUM_DESIGN_RATIOS
+UNIT.ALUMINUM_DESIGN_GLOBAL_BUCKLING_SLENDERNESS_RATIOS
+
+// CATEGORY_STEEL_DESIGN
+// SUBCATEGORY_STEEL_DESIGN_GENERAL
+UNIT.STEEL_DESIGN_AXIAL_AND_SHEAR_STRAIN
+UNIT.STEEL_DESIGN_TORSIONAL_AND_BENDING_STRAIN
+UNIT.STEEL_DESIGN_STRESSES
+UNIT.STEEL_DESIGN_RATIOS
+UNIT.STEEL_DESIGN_GLOBAL_BUCKLING_SLENDERNESS_RATIOS
+UNIT.STEEL_DESIGN_LOCAL_BUCKLING_SLENDERNESS_RATIOS
+UNIT.STEEL_DESIGN_GENERAL_FACTORS
+UNIT.STEEL_DESIGN_PERCENTAGE
+
+// SUBCATEGORY_STEEL_DESIGN_RESULTS
+UNIT.STEEL_DESIGN_RESULTS_FACTORS
+UNIT.STEEL_DESIGN_RESULTS_MOMENT_RATIO
+
+// SUBCATEGORY_STEEL_DESIGN_FIRE_PROTECTION
+UNIT.STEEL_DESIGN_FP_TEMPERATURE
+UNIT.STEEL_DESIGN_FP_TIME
+UNIT.STEEL_DESIGN_FP_TIME_INTERVAL
+UNIT.STEEL_DESIGN_FP_UNIT_MASS
+UNIT.STEEL_DESIGN_FP_THERMAL_CONDUCTIVITY
+UNIT.STEEL_DESIGN_FP_SPECIFIC_HEAT
+UNIT.STEEL_DESIGN_FP_THICKNESS
+UNIT.STEEL_DESIGN_FP_COEF_OF_HEAT_TRANSFER
+UNIT.STEEL_DESIGN_FP_STEFAN_BOLTZMANN_CONSTANT
+
+// CATEGORY_STEEL_JOINTS
+// SUBCATEGORY_STEEL_JOINTS_GENERAL
+UNIT.STEEL_JOINTS_RATIOS
+UNIT.STEEL_JOINTS_PERCENTAGE
+UNIT.STEEL_JOINTS_PARTIAL_FACTORS
+
+// SUBCATEGORY_STEEL_JOINTS_GEOMETRY
+UNIT.STEEL_JOINTS_GEOMETRY_LENGTHS
+UNIT.STEEL_JOINTS_GEOMETRY_THICKNESSES
+UNIT.STEEL_JOINTS_GEOMETRY_ANGLES
+UNIT.STEEL_JOINTS_GEOMETRY_COORDINATES
+
+// SUBCATEGORY_STEEL_JOINTS_WELDS
+UNIT.STEEL_JOINTS_WELD_SIZES
+
+// SUBCATEGORY_STEEL_JOINTS_BOLTS
+UNIT.STEEL_JOINTS_BOLT_SECTION_AREAS
+UNIT.STEEL_JOINTS_BOLT_DIAMETER
+
+// SUBCATEGORY_STEEL_JOINTS_MISCELLANEOUS
+UNIT.STEEL_JOINTS_MISCELLANEOUS_VECTORS
+
+// CATEGORY_STEEL_OBJECTS
+// SUBCATEGORY_STEEL_OBJECTS_ROTATIONAL_RESTRAINTS
+UNIT.STEEL_OBJECTS_ROTATIONAL_RESTRAINTS_SPRING_STIFFNESS
+UNIT.STEEL_OBJECTS_ROTATIONAL_RESTRAINTS_ROTATIONAL_STIFFNESS
+
+// SUBCATEGORY_STEEL_OBJECTS_SHEAR_PANELS
+UNIT.STEEL_OBJECTS_SHEAR_PANELS_COEFFICIENT_K1
+UNIT.STEEL_OBJECTS_SHEAR_PANELS_COEFFICIENT_K2
+UNIT.STEEL_OBJECTS_SHEAR_PANELS_STIFFNESS
+
+// SUBCATEGORY_STEEL_OBJECTS_WELDS
+UNIT.STEEL_OBJECTS_WELD_SIZE
+
+// SUBCATEGORY_STEEL_OBJECTS_EFFECTIVE_LENGTHS
+UNIT.STEEL_OBJECTS_EFFECTIVE_LENGTHS_FACTORS
+UNIT.STEEL_OBJECTS_EFFECTIVE_LENGTHS_CRITICAL_MOMENT
+UNIT.STEEL_OBJECTS_EFFECTIVE_LENGTHS_TOLERANCE
+UNIT.STEEL_OBJECTS_EFFECTIVE_LENGTHS_SPRING
+UNIT.STEEL_OBJECTS_EFFECTIVE_LENGTHS_ROTATIONAL_STIFFNESS
+UNIT.STEEL_OBJECTS_EFFECTIVE_LENGTHS_WARPING
+UNIT.STEEL_OBJECTS_EFFECTIVE_LENGTHS_ECCENTRICITY
+
+// SUBCATEGORY_STEEL_OBJECTS_BOUNDARY_CONDITIONS
+UNIT.STEEL_OBJECTS_BOUNDARY_CONDITIONS_ECCENTRICITY
+UNIT.STEEL_OBJECTS_BOUNDARY_CONDITIONS_ROTATION
+UNIT.STEEL_OBJECTS_BOUNDARY_CONDITIONS_STIFFNESS
+UNIT.STEEL_OBJECTS_BOUNDARY_CONDITIONS_ROTATIONAL_STIFFNESS
+UNIT.STEEL_OBJECTS_BOUNDARY_CONDITIONS_WARPING
+
+// CATEGORY_TIMBER_DESIGN
+// SUBCATEGORY_TIMBER_DESIGN_GENERAL
+UNIT.TIMBER_DESIGN_AXIAL_AND_SHEAR_STRAIN
+UNIT.TIMBER_DESIGN_TORSIONAL_AND_BENDING_STRAIN
+UNIT.TIMBER_DESIGN_STRESSES
+UNIT.TIMBER_DESIGN_RATIOS
+UNIT.TIMBER_DESIGN_FACTORS
+UNIT.TIMBER_DESIGN_FP_TIME
+UNIT.TIMBER_DESIGN_FP_TIME_HOUR
+UNIT.TIMBER_DESIGN_LIFETIME
+UNIT.TIMBER_DESIGN_CHARRING_RATE
+
+// SUBCATEGORY_TIMBER_OBJECTS_EFFECTIVE_LENGTHS
+UNIT.TIMBER_OBJECTS_EFFECTIVE_LENGTHS_FACTORS
+UNIT.TIMBER_OBJECTS_EFFECTIVE_LENGTHS_CRITICAL_MOMENT
+UNIT.TIMBER_OBJECTS_EFFECTIVE_LENGTHS_SPRING
+UNIT.TIMBER_OBJECTS_EFFECTIVE_LENGTHS_ROTATIONAL_STIFFNESS
+UNIT.TIMBER_OBJECTS_EFFECTIVE_LENGTHS_WARPING
+UNIT.TIMBER_OBJECTS_EFFECTIVE_LENGTHS_ECCENTRICITY
+
+// SUBCATEGORY_TIMBER_OBJECTS_SHEAR_PANELS
+UNIT.TIMBER_OBJECTS_SHEAR_PANELS_COEFFICIENT_K1
+UNIT.TIMBER_OBJECTS_SHEAR_PANELS_COEFFICIENT_K2
+UNIT.TIMBER_OBJECTS_SHEAR_PANELS_STIFFNESS
+
+// SUBCATEGORY_TIMBER_OBJECTS_ROTATIONAL_RESTRAINTS
+UNIT.TIMBER_OBJECTS_ROTATIONAL_RESTRAINTS_SPRING_STIFFNESS
+UNIT.TIMBER_OBJECTS_ROTATIONAL_RESTRAINTS_ROTATIONAL_STIFFNESS
+
+// CATEGORY_ALUMINUM_OBJECTS
+// SUBCATEGORY_ALUMINUM_OBJECTS_EFFECTIVE_LENGTHS
+UNIT.ALUMINUM_OBJECTS_EFFECTIVE_LENGTHS_FACTORS
+UNIT.ALUMINUM_OBJECTS_EFFECTIVE_LENGTHS_CRITICAL_MOMENT
+UNIT.ALUMINUM_OBJECTS_EFFECTIVE_LENGTHS_LATERAL_TORSIONAL_BUCKLING_MOMENT
+UNIT.ALUMINUM_OBJECTS_EFFECTIVE_LENGTHS_TOLERANCE
+UNIT.ALUMINUM_OBJECTS_EFFECTIVE_LENGTHS_SPRING
+UNIT.ALUMINUM_OBJECTS_EFFECTIVE_LENGTHS_ROTATIONAL_STIFFNESS
+UNIT.ALUMINUM_OBJECTS_EFFECTIVE_LENGTHS_WARPING
+UNIT.ALUMINUM_OBJECTS_EFFECTIVE_LENGTHS_ECCENTRICITY
+
+// SUBCATEGORY_ALUMINUM_OBJECTS_BOUNDARY_CONDITIONS
+UNIT.ALUMINUM_OBJECTS_BOUNDARY_CONDITIONS_ECCENTRICITY
+UNIT.ALUMINUM_OBJECTS_BOUNDARY_CONDITIONS_ROTATION
+UNIT.ALUMINUM_OBJECTS_BOUNDARY_CONDITIONS_STIFFNESS
+UNIT.ALUMINUM_OBJECTS_BOUNDARY_CONDITIONS_ROTATIONAL_STIFFNESS
+UNIT.ALUMINUM_OBJECTS_BOUNDARY_CONDITIONS_WARPING
+
+// SUBCATEGORY_ALUMINUM_OBJECTS_SHEAR_PANELS
+UNIT.ALUMINUM_OBJECTS_SHEAR_PANELS_COEFFICIENT_K1
+UNIT.ALUMINUM_OBJECTS_SHEAR_PANELS_COEFFICIENT_K2
+UNIT.ALUMINUM_OBJECTS_SHEAR_PANELS_STIFFNESS
+
+// SUBCATEGORY_ALUMINUM_OBJECTS_ROTATIONAL_RESTRAINTS
+UNIT.ALUMINUM_OBJECTS_ROTATIONAL_RESTRAINTS_SPRING_STIFFNESS
+UNIT.ALUMINUM_OBJECTS_ROTATIONAL_RESTRAINTS_ROTATIONAL_STIFFNESS
+
+// SUBCATEGORY_ALUMINUM_OBJECTS_WELDS
+UNIT.ALUMINUM_OBJECTS_WELD_SIZE
+
+// SUBCATEGORY_STABILITY_ANALYSIS_STABILITY_ANALYSIS
+UNIT.STABILITY_ANALYSIS_FACTORS
+UNIT.STABILITY_ANALYSIS_EIGENVECTORS
+UNIT.STABILITY_ANALYSIS_INITIAL_STRAIN
+
+//CATEGORY_DYNAMIC_ANALYSIS
+//SUBCATEGORY_DYNAMIC_ANALYSIS_GENERAL
+UNIT.DYNAMIC_ANALYSIS_GENERAL_ACCELERATIONS
+UNIT.DYNAMIC_ANALYSIS_GENERAL_ANGULAR_ACCELERATIONS
+UNIT.DYNAMIC_ANALYSIS_GENERAL_VELOCITIES
+UNIT.DYNAMIC_ANALYSIS_GENERAL_ANGULAR_VELOCITIES
+UNIT.DYNAMIC_ANALYSIS_GENERAL_MULTIPLIERS
+UNIT.DYNAMIC_ANALYSIS_GENERAL_FREQUENCIES
+UNIT.DYNAMIC_ANALYSIS_GENERAL_ROTATIONS
+UNIT.DYNAMIC_ANALYSIS_GENERAL_FACTORS
+UNIT.DYNAMIC_ANALYSIS_GENERAL_TIME
+UNIT.DYNAMIC_ANALYSIS_GENERAL_EIGENVECTORS
+UNIT.DYNAMIC_ANALYSIS_GENERAL_EIGENVALUES
+UNIT.DYNAMIC_ANALYSIS_GENERAL_ANGULAR_FREQUENCIES
+UNIT.DYNAMIC_ANALYSIS_GENERAL_DAMPING
+UNIT.DYNAMIC_ANALYSIS_GENERAL_COMBINATION_PERCENTAGE
+UNIT.DYNAMIC_ANALYSIS_GENERAL_G_FACTOR
+
+//SUBCATEGORY_DYNAMIC_ANALYSIS_MASSES
+UNIT.DYNAMIC_ANALYSIS_MASSES_MODAL_MASSES
+UNIT.DYNAMIC_ANALYSIS_MASSES_TRANSLATIONAL_MASSES
+UNIT.DYNAMIC_ANALYSIS_MASSES_ROTATIONAL_MASSES
+UNIT.DYNAMIC_ANALYSIS_MASSES_PERCENTAGE_EFFECTIVE_MODAL_MASSES
+UNIT.DYNAMIC_ANALYSIS_MASSES_ROTATIONAL_PARTICIPATION_FACTORS
+UNIT.DYNAMIC_ANALYSIS_MASSES_MODAL_MASS_FACTORS
+
+//CATEGORY_CRANEWAY_DESIGN
+//SUBCATEGORY_CRANEWAY_DESIGN_GENERAL
+UNIT.CRANEWAY_LENGTH
+UNIT.CRANEWAY_DESIGN_RATIOS
+</code></pre>
+<h3 id="example-36">Example</h3>
+<pre><code class="lang-javascript">function input_data()
+{
+    category(&quot;Parameters&quot;);
+
+        // Create input integer parameter without unit
+        parameter_int(&quot;Frame count&quot;, &quot;n&quot;, &quot;&quot;, 4, UNIT.NONE, 1, 1, 100, false, false);
+
+        // Create input float parameter with Length unit
+        parameter_float(&quot;Frame spacing&quot;, &quot;d&quot; , &quot;&quot;,  4.000, UNIT.LENGTH, 0.0, 1, MAXIMUM, false, false);
+}
+</code></pre>
+<h2 id="multiplicity-examples-1">Multiplicity Examples</h2>
+<p>Multiplicity parameters and categories are rows in objects, which created by counter.
+It means, if counter has value 5, then will be created 5 categories or 5 parameters, which depends on this counter.</p>
+<h3 id="using">Using</h3>
+<p>In name of parameter or category you can write special tag {{number}}, which will be changed to current number of parameter, object or category.</p>
+<h3 id="category">category</h3>
+<pre><code class="lang-javascript">function input_data()
+{
+    category(&quot;Heights Multiplicity Category&quot;);
+        // Add counter, which manage multiplicity parameters
+        parameter_int(&quot;Multiplicity Counter&quot;, &quot;n&quot;, &quot;&quot;, 2, UNIT.NONE, 1, 1, 10, true, true);
+
+    var MEMBER_SETTINGS_CATEGORY = category(&quot;Members settings&quot;);
+        // Create multiplicity category
+        // &quot;Multiplicity Group {{number}}&quot; - title with {{number}} tag
+        // &quot;n&quot; - name of counter, last argument
+        category(&quot;Multiplicity Group {{number}}&quot;, &quot;n&quot;, MEMBER_SETTINGS_CATEGORY);
+}
+</code></pre>
+<h3 id="parameter_int">parameter_int</h3>
+<pre><code class="lang-javascript">function input_data()
+{
+    // Add counter, which manage multiplicity parameters
+    parameter_int(&quot;Multiplicity Counter&quot;, &quot;n&quot;, &quot;&quot;, 2, UNIT.NONE, 1, 1, 10, true, true);
+    // Add multiplicity integer parameter
+    // &quot;Nodal Offset {{number}}&quot; - title with {{number}} tag
+    // &quot;n&quot; - name of counter, last argument
+    // from key &quot;offset&quot; will be generated script names &quot;offset_1&quot;, &quot;offset_2&quot;, &quot;offset_3&quot; and etc.
+    parameter_int(&quot;Nodal Offset {{number}}&quot;, &quot;offset&quot;, &quot;&quot;, 2, UNIT.NONE, 1.0, 1.0, 50, false, false, &quot;n&quot;);
+}
+</code></pre>
+<h3 id="parameter_float">parameter_float</h3>
+<pre><code class="lang-javascript">function input_data()
+{
+    // Add counter, which manage multiplicity parameters
+    parameter_int(&quot;Multiplicity Counter&quot;, &quot;n&quot;, &quot;&quot;, 2, UNIT.NONE, 1, 1, 10, true, true);
+    // Add multiplicity integer parameter
+    // &quot;Nodal Offset {{number}}&quot; - title with {{number}} tag
+    // &quot;n&quot; - name of counter, last argument
+    // from key &quot;offset&quot; will be generated script names &quot;offset_1&quot;, &quot;offset_2&quot;, &quot;offset_3&quot; and etc.
+    parameter_float(&quot;Nodal Offset {{number}}&quot;, &quot;offset&quot;, &quot;&quot;, 2, UNIT.LENGTH, 1.0, 1.0, 50, false, false, &quot;n&quot;);
+}
+</code></pre>
+<h3 id="material-section-thickness-nodal_support-line_support-member_support-surface_support-load_case">material, section, thickness, nodal_support, line_support, member_support, surface_support, load_case</h3>
+<pre><code class="lang-javascript">function input_data()
+{
+    category(&quot;Heights Multiplicity Category&quot;);
+        // Add counter, which manage multiplicity parameters
+        parameter_int(&quot;Multiplicity Counter&quot;, &quot;n&quot;, &quot;&quot;, 2, UNIT.NONE, 1, 1, 10, true, true);
+
+    var MEMBER_SETTINGS_CATEGORY = category(&quot;Members settings&quot;);
+
+        // Create multiplicity category
+        // &quot;Multiplicity Group {{number}}&quot; - title with {{number}} tag
+        // &quot;n&quot; - name of counter, last argument
+        category(&quot;Multiplicity Group {{number}}&quot;, &quot;n&quot;, MEMBER_SETTINGS_CATEGORY);
+
+            // Add object input multiplicity field
+            // 1 - start script id of objects
+            // &quot;Section {{number}}&quot; - title with {{number}} tag
+            // &quot;n&quot; - name of counter, last argument
+            section(1, &quot;Section {{number}}&quot;, &quot;n&quot;);
+}
+</code></pre>
+<p>When added two multiplicity object input fields, need to control collision of maximum created objects.
+For example, if add two fields of section, need to set maximum of counter.</p>
+<pre><code class="lang-javascript">function input_data()
+{
+    category(&quot;Heights Multiplicity Category&quot;);
+        // Add counter, which manage multiplicity parameters with maximum 10
+        parameter_int(&quot;Multiplicity Counter&quot;, &quot;n&quot;, &quot;&quot;, 2, UNIT.NONE, 1, 1, 10, true, true);
+
+    var MEMBER_SETTINGS_CATEGORY = category(&quot;Members settings&quot;);
+
+        // Create multiplicity category
+        // &quot;Multiplicity Group {{number}}&quot; - title with {{number}} tag
+        // &quot;n&quot; - name of counter, last argument
+        category(&quot;Multiplicity Group {{number}}&quot;, &quot;n&quot;, MEMBER_SETTINGS_CATEGORY);
+
+            // Add first object input multiplicity field
+            // 1 - start script id of objects, maximum id will be 10
+            // &quot;Section {{number}}&quot; - title with {{number}} tag
+            // &quot;n&quot; - name of counter, last argument
+            section(1, &quot;Section {{number}}&quot;, &quot;n&quot;);
+ 
+            // Add second object input multiplicity field
+            // 15 - start script id of objects, maximum id will be 24
+            // &quot;Section {{number}}&quot; - title with {{number}} tag
+            // &quot;n&quot; - name of counter, last argument
+            section(15, &quot;Section {{number}}&quot;, &quot;n&quot;);
+}
+</code></pre>
+<h3 id="parameter_check-combobox-loading_category">parameter_check, combobox, loading_category</h3>
+<p>Not used in multiplicity</p>
+<h3 id="example-37">Example</h3>
+<pre><code class="lang-javascript">function input_data()
+{
+    // Add category with counter for multiplicity categories and parameters
+    category(&quot;Heights Multiplicity Category&quot;);
+        // Add counter parameter for multiplicity categories and parameters
+        parameter_int(&quot;Multiplicity Counter&quot;, &quot;n&quot;, &quot;&quot;, 2, UNIT.NONE, 1, 1, 10, true, true);
+        // Add multiplicity parameter, which depends on &quot;n&quot; counter (last argument)
+        parameter_float(&quot;Height {{number}}&quot;, &quot;z&quot;, &quot;&quot;, 0, UNIT.LENGTH, 0.0, 1.0, 50, true, true, &quot;n&quot;);
+
+    // Add category, which contains multiplicity categories and parameters
+    var MEMBER_SETTINGS_CATEGORY = category(&quot;Members settings&quot;);
+        // Add multiplicity category, which depends on &quot;n&quot; counter
+        category(&quot;Multiplicity Group {{number}}&quot;, &quot;n&quot;, MEMBER_SETTINGS_CATEGORY);
+            // Add multiplicity float parameter, which depends on &quot;n&quot; counter
+            parameter_float(&quot;Nodal Offset {{number}}&quot;, &quot;offset&quot;, &quot;&quot;, 2, UNIT.LENGTH, 1.0, 1.0, 50, false, false, &quot;n&quot;);
+            // Add multiplicity section, which depends on &quot;n&quot; counter
+            section(1, &quot;Section {{number}}&quot;, &quot;n&quot;);
+
+    // Add loading category
+    var LOADING_CATEGORY = loading_category(&quot;Loading&quot;);
+        // Add check for enabling loads
+        parameter_check(&quot;Loads&quot;, &quot;loads_checkbox&quot;, true);
+        // Add load category
+        category(&quot;Loads&quot;, false, LOADING_CATEGORY);
+            // which enable by condition
+            condition(&quot;loads_checkbox == true&quot;);
+            // Add counter &quot;loads_n&quot;, which manage loads multiplicity parameters
+            parameter_int(&quot;Load cases counter&quot;, &quot;loads_n&quot;, &quot;&quot;, 1, UNIT.NONE, 1, 1, 3, true, true);
+            // Add multiplicity load cases, which depends on &quot;loads_n&quot; counter
+            load_case(1, &quot;Load case {{number}}&quot;, &quot;loads_n&quot;);
+
+        // Add category, with multiplicity magnitudes
+        category(&quot;Load magnitudes&quot;, false, LOADING_CATEGORY);
+            // which enable by condition
+            condition(&quot;loads_checkbox == true&quot;);
+            Add multiplicity float parameter, which depends on &quot;loads_n&quot; counter
+            parameter_float(&quot;Magnitude {{number}}&quot;, &quot;m&quot;, &quot;&quot;, 1000, UNIT.LOADS_FORCE, 1000, 1, NAN, true, false, &quot;loads_n&quot;);
+}
+
+function generate()
+{
+    // Create nodes
+    var nodes_count = n + 1;
+
+    for (var i = 0; i &lt; nodes_count; ++i)
+    {
+        var node = Node(i);
+        if (i == 0)
+        {
+            node.coordinate_1 = 0.0;
+            node.coordinate_2 = 0.0;
+            node.coordinate_3 = 0.0;
+        }
+        else
+        {
+            // multiplicity names will be generated by following logic:
+            // from base name &quot;offset&quot; will be generated names &quot;offset_1&quot;, &quot;offset_2&quot;, &quot;offset_3&quot; and etc.
+            var x = nodes[i - 1].coordinate_1 + multiplicity[&quot;offset_&quot; + i]; // get existing object by multiplicity
+
+            // from base name &quot;z&quot; will be generated names &quot;z_1&quot;, &quot;z_2&quot;, &quot;z_3&quot; and etc.
+            var z = multiplicity[&quot;z_&quot; + i] * (-1); // get existing object by multiplicity
+
+            node.coordinate_1 = x;
+            node.coordinate_2 = 0.0;
+            node.coordinate_3 = z;
+        }
+    }
+
+    var members_count = 0;
+    for (var i = 1; i &lt; nodes_count; ++i)
+    {
+        var member = Member(i, [i - 1, i]);
+        // multiplicity sections will be generated from id, which was set in input_data function
+        member.section_start = sections[i];
+        ++members_count;
+    }
+
+    for (var i = 1; i &lt; loads_n + 1; ++i)
+    {
+        // multiplicity load cases will be generated from id, which was set in input_data function
+        var load_case = load_cases[i];
+        if (load_case)
+        {
+            var member_load = MemberLoad(i, load_case);
+
+            // from base name &quot;m&quot; will be generated names &quot;m_1&quot;, &quot;m_2&quot;, &quot;m_3&quot; and etc.
+            member_load.magnitude = multiplicity[&quot;m_&quot; + i]; // get existing object by multiplicity
+
+            var members_to_load = [];
+
+            for (var j = 1; j &lt; members_count + 1; ++j)
+            {
+                members_to_load.push(members[j]);
+            }
+
+            member_load.members = members_to_load;
+        }
+    }
+}
+</code></pre>
+<h2 id="constants">Constants</h2>
+<p>Constants, which can be used in block scripting.</p>
+<pre><code class="lang-JavaScript">USER_ID_MIN = 1;
+USER_ID_MAX = 1000000;
+MAXIMUM = 2.14748e+9;
+NAN = &quot;nan&quot;
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Dlubal-Software/Dlubal_JavaScript_Library/blob/main/Docs//#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright © 2022 <a href="https://www.dlubal.com/en-US">Dlubal Software</a><br>Generated by <strong>DocFX</strong>
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

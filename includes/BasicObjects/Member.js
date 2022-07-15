@@ -324,18 +324,18 @@ Member.prototype.CouplingHingeHinge = function (no,
 };
 
 /**
- * 
+ *
  * @param {Array/Number} nodes_or_line	List of node indexes or number of line
  * @param {Number} no	Index of member, can be undefined
  * @param {Number} section_start Section start. Section end is same as section start by default. To set section end specify distribution type.
  * @param {String} rib_alignment Alignment of rib - "ALIGNMENT_ON_Z_SIDE_NEGATIVE","ALIGNMENT_CENTRIC","ALIGNMENT_ON_Z_SIDE_POSITIVE","ALIGNMENT_USER_DEFINED_VIA_MEMBER_ECCENTRICITY"
- * @param {Boolean} surface_assignment_autodetect 
- * @param {Boolean} align_axes 
- * @param {Array} flange_dimensions - two dimensional array each row could have form [end_ordinate,reference_length_definition_type,reference_length_width,width_minus_y_maximal,width_plus_y_maximal,reference_length,width_minus_y_integrative,width_plus_y_integrative] 
- * @param {Array} surfaces 
- * @param {String} comment 
- * @param {Object} params 
- * @returns 
+ * @param {Boolean} surface_assignment_autodetect
+ * @param {Boolean} align_axes
+ * @param {Array} flange_dimensions - two dimensional array each row could have form [end_ordinate,reference_length_definition_type,reference_length_width,width_minus_y_maximal,width_plus_y_maximal,reference_length,width_minus_y_integrative,width_plus_y_integrative]
+ * @param {Array} surfaces
+ * @param {String} comment
+ * @param {Object} params
+ * @returns object Rib
  */
 Member.prototype.Rib = function (no,
 	nodes_or_line,

@@ -1,4 +1,4 @@
-# RFEM/RSTAB/RSECTION  High Level Function Library
+# RFEM_JavaScript_Library
 ![image](https://img.shields.io/badge/COMPATIBILITY-RFEM%206.00-yellow)
 ![image](https://img.shields.io/badge/COMPATIBILITY-RSTAB%209.00-yellow)
 ![image](https://img.shields.io/badge/COMPATIBILITY-RSECTION%201.00-yellow)
@@ -22,7 +22,6 @@ You can download [actual release]() of our JavaScript library and the use it for
 ### Steps for Visual Studio Code
 * Download [Visual Studio Code](https://code.visualstudio.com/) and install it
 * Open Visual Studio Code and install following extensions
-    * [C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) - extension for working with C# in VS Code
     * [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) - useful extension for spell checking
     * [GitHub Pull Requests and Issues](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github) - extension for easy access to the GitHub pull request
     * [GitHub Issues](https://marketplace.visualstudio.com/items?itemName=ms-vscode.github-issues-prs) - extension for easy access to the GitHub issues
@@ -30,11 +29,12 @@ You can download [actual release]() of our JavaScript library and the use it for
     * [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - Linter for JavaScript
 * Download [Git](https://git-scm.com/downloads) and install it (needed for better functionality of Git Lens)
 * Download [GitHub Desktop](https://desktop.github.com/)
-* Fork this repositor
-* Clone repository from GitHub
+* Fork this repository
+* Make your branch
 * Open Visual Studio Code
-* Made your own project or use one from [examples](/examples)
+* Made your own script or extend our library or use one from [examples](/examples)
 * Copy your project to User Scripts/Example folder
+* If you want to contribute - make pull request
 
 ## Dependencies
 * RFEM 6 or RSTAB9 or RSECTION application

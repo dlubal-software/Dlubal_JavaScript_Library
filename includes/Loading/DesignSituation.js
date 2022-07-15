@@ -1,5 +1,7 @@
 /**
  * Creates design situation object
+ * @class
+ * @constructor
  * @param {Number}  no                      Number of design situation, can be undefined
  * @param {String}  design_situation_type   Design situation type
  * @param {Object}  params                  Additional parameters, can be undefined
@@ -20,30 +22,75 @@
 
 
 /**
- * Sets combination wizard
- * @param {Object}  combination_wizard  Combination wizard
+ * Returns internal Design Situation object
+ * @returns Internal Design Situation object
  */
-DesignSituation.prototype.CombinationWizard = function (combination_wizard) {
-    this.design_situation.combination_wizard = combination_wizard;
+DesignSituation.prototype.DesignSituation = function() {
+    return this.design_situation;
+};
+
+
+/**
+ * Returns number of Design Situation
+ * @returns Number of Design Situation
+ */
+DesignSituation.prototype.No = function() {
+    return this.design_situation.no;
+};
+
+
+/**
+ * Sets combination wizard
+ * @param {Object}  combination_wizard_no  Combination wizard number
+ */
+DesignSituation.prototype.SetCombinationWizard = function (combination_wizard_no) {
+    if (combination_wizards.exist(combination_wizard_no)) {
+        this.design_situation.combination_wizard = combination_wizards[combination_wizard_no];
+    }
+    else {
+        ASSERT(false, "Combination wizard no. " + combination_wizard_no + " doesn't exist");
+    }
 };
 
 
 /**
  * Sets relationship between load cases
- * @param {Object} relationship_between_load_cases
+ * @param {Object} relationship_between_load_cases_no   Relationship between load cases number
  */
-DesignSituation.prototype.ConsiderInclusiveExclusiveLoadCases = function (relationship_between_load_cases) {
-    this.design_situation.relationship_between_load_cases = relationship_between_load_cases;
+DesignSituation.prototype.SetConsiderInclusiveExclusiveLoadCases = function (relationship_between_load_cases_no,
+    enable) {
+    if (relationship_between_load_cases.exist(relationship_between_load_cases_no)) {
+        this.design_situation.consider_inclusive_exclusive_load_cases = true;
+        this.design_situation.relationship_between_load_cases = relationship_between_load_cases[relationship_between_load_cases_no];
+    }
+    else {
+        ASSERT(false, "Relationship between load cases no. " + relationship_between_load_cases_no + " doesn't exist");
+    }
 };
 
 
+/**
+ * Enables/disables design situation
+ * @param {Boolean} active  Design situation is enabled or disabled, can be undefined (true as default)
+ */
+DesignSituation.prototype.SetActive = function(active) {
+    if (typeof active === "undefined") {
+        active = true;
+    }
+    this.design_situation.active = active;
+};
+
+
+/**
+ * Shows list of all available design situation types
+ */
 function get_design_situation_types () {
     console.log(Object.keys(design_situation_types));
 };
 
 
 /**
- * Create base desing situation (private)
+ * Creates base design situation (private)
  * @param {Number}  no          Number of design situation, can be undefined
  * @param {Object}  params      Additional parameters, can be undefined
  * @param {String}  comment     Comment, can be undefined
@@ -67,7 +114,7 @@ const design_situation_types = {
     "DESIGN_SITUATION_TYPE_SLS_CHARACTERISTIC" : "SLS - Characteristic (6193)",
     "DESIGN_SITUATION_TYPE_SLS_FREQUENT" : "SLS - Frequent (6194)",
     "DESIGN_SITUATION_TYPE_SLS_QUASI_PERMANENT" : "SLS - Quasi-permanent (6195)",
-    "DESIGN_SITUATION_TYPE_SLS_QUASI_PERMANENT" : "SLS - Characteristic/Quasi-permanent (6200)",
+    "DESIGN_SITUATION_TYPE_SLS_CHARACTERISTIC_QUASI_PERMANENT" : "SLS - Characteristic/Quasi-permanent (6200)",
     "DESIGN_SITUATION_TYPE_ULS_STR_GEO_PERMANENT_AND_TRANSIENT" : "ULS (STR/GEO) - Permanent and transient (6326)",
     "DESIGN_SITUATION_TYPE_SLS_CHARACTERISTIC_WITH_DIRECT_LOAD" : "SLS - Characteristic with direct load (6327)",
     "DESIGN_SITUATION_TYPE_SLS_CHARACTERISTIC_WIT" : "SLS - Characteristic with imposed deformation (6328)",
@@ -157,7 +204,7 @@ const design_situation_types = {
     "DESIGN_SITUATION_TYPE_SECTION_2_3_LRFD_7" : "Section 2.3 (LRFD), 7. (7082)",
     "DESIGN_SITUATION_TYPE_SECTION_2_4_ASD" : "Section 2.4 (ASD), (7083)",
     "DESIGN_SITUATION_TYPE_SECTION_2_4_ASD_1" : "Section 2.4 (ASD), 1. (7084)",
-    "DESIGN_SITUATION_TYPE_SECTION_2_4_ASD_8" : "Section 2.4 (ASD), 2. (7085)",
+    "DESIGN_SITUATION_TYPE_SECTION_2_4_ASD_2" : "Section 2.4 (ASD), 2. (7085)",
     "DESIGN_SITUATION_TYPE_SECTION_2_4_ASD_3" : "Section 2.4 (ASD), 3. (7086)",
     "DESIGN_SITUATION_TYPE_SECTION_2_4_ASD_4" : "Section 2.4 (ASD), 4. (7087)",
     "DESIGN_SITUATION_TYPE_SECTION_2_4_ASD_5" : "Section 2.4 (ASD), 5. (7088)",

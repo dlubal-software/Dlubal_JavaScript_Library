@@ -821,6 +821,133 @@
   </table>
   
   
+  <h4 id="Dlubal_Member_ResultBeam" data-uid="Dlubal.Member#ResultBeam">ResultBeam(no, nodes_or_line, section_start, result_beam_integrate_stresses_and_forces, result_beam_parameters, included_objects, excluded_objects, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Create result beam member</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function ResultBeam(no, nodes_or_line, section_start, result_beam_integrate_stresses_and_forces, result_beam_parameters, included_objects, excluded_objects, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of member, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Dlubal.Array/Number</span></td>
+        <td><em>nodes_or_line</em></td>
+        <td>
+          <p>List of node indexes or number of line</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>section_start</em></td>
+        <td>
+          <p>Section start. Section end is same as section start by default. To set section end specify distribution type.</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>result_beam_integrate_stresses_and_forces</em></td>
+        <td>
+          <p>Stresses and forces type, can be undefined:
+INTEGRATE_WITHIN_CUBOID_QUADRATIC
+INTEGRATE_WITHIN_CUBOID_GENERAL
+INTEGRATE_WITHIN_CYLINDER
+INTEGRATE_FROM_LISTED_OBJECT</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>result_beam_parameters</em></td>
+        <td>
+          <p>Result beam parameters, can be undefined
+1 - [Yz]
+2 - [Y+, Y-, Z+, Z-]
+3 - [R]
+4 - undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>included_objects</em></td>
+        <td>
+          <p>Included surfaces, members and solids, can be undefined ([true, [1, 2], true]: true = all objects, array of indexes = only specified objects)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>excluded_objects</em></td>
+        <td>
+          <p>Excluded surfaces, members and solids, can be undefined ([undefined, [1, 2], undefined]: array of indexes = only specified objects)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Member's parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Created member</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <h4 id="Dlubal_Member_DefinableStiffness" data-uid="Dlubal.Member#DefinableStiffness">DefinableStiffness(no, nodes_or_line, definable_stiffness, comment, params)</h4>
   <div class="markdown level1 summary"><p>Create definable stiffness member</p>
 </div>
@@ -1194,6 +1321,128 @@
       <tr>
         <td></td>
         <td><p>Created coupling hinge-hinge member</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_Member_Rib" data-uid="Dlubal.Member#Rib">Rib(nodes_or_line, no, section_start, rib_alignment, surface_assignment_autodetect, align_axes, flange_dimensions, surfaces, comment, params)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Rib(nodes_or_line, no, section_start, rib_alignment, surface_assignment_autodetect, align_axes, flange_dimensions, surfaces, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Dlubal.Array/Number</span></td>
+        <td><em>nodes_or_line</em></td>
+        <td>
+          <p>List of node indexes or number of line</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Index of member, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>section_start</em></td>
+        <td>
+          <p>Section start. Section end is same as section start by default. To set section end specify distribution type.</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>rib_alignment</em></td>
+        <td>
+          <p>Alignment of rib - &quot;ALIGNMENT_ON_Z_SIDE_NEGATIVE&quot;,&quot;ALIGNMENT_CENTRIC&quot;,&quot;ALIGNMENT_ON_Z_SIDE_POSITIVE&quot;,&quot;ALIGNMENT_USER_DEFINED_VIA_MEMBER_ECCENTRICITY&quot;</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>surface_assignment_autodetect</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>align_axes</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>flange_dimensions</em></td>
+        <td>
+          <p>two dimensional array each row could have form [end_ordinate,reference_length_definition_type,reference_length_width,width_minus_y_maximal,width_plus_y_maximal,reference_length,width_minus_y_integrative,width_plus_y_integrative]</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>surfaces</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>object Rib</p>
 </td>
       </tr>
     </tbody>
@@ -1882,13 +2131,13 @@
   </table>
   
   
-  <h4 id="Dlubal_Member_SectionDistributionOffsetAtStart" data-uid="Dlubal.Member#SectionDistributionOffsetAtStart">SectionDistributionOffsetAtStart(section_start, section_end, reference_type, section_offset_from_start)</h4>
+  <h4 id="Dlubal_Member_SectionDistributionOffsetAtStart" data-uid="Dlubal.Member#SectionDistributionOffsetAtStart">SectionDistributionOffsetAtStart(section_start, section_end, reference_type, section_offset_from_start, section_alignment)</h4>
   <div class="markdown level1 summary"><p>Sets offset at start distribution</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function SectionDistributionOffsetAtStart(section_start, section_end, reference_type, section_offset_from_start)</code></pre>
+    <pre><code class="lang-js hljs">function SectionDistributionOffsetAtStart(section_start, section_end, reference_type, section_offset_from_start, section_alignment)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1931,8 +2180,16 @@
         <td><span class="xref">Array</span></td>
         <td><em>section_offset_from_start</em></td>
         <td>
-          <p>Member offset ([distance, is_relative]), can be undefined
-ss* @param {String}	section_alignment			Section alignment (Top, Centric, Bottom), can be undefined (top as default)</p>
+          <p>Member offset ([distance, is_relative]), can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>section_alignment</em></td>
+        <td>
+          <p>Section alignment (Top, Centric, Bottom), can be undefined (top as default)</p>
 
           
         </td>
