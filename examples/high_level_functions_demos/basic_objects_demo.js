@@ -1,11 +1,9 @@
-var t1 = new Date().getTime();
 include("../includes/Tools/high_level_functions_support.js");
-
 /*********************************************************************************************
 ****************************************** Main **********************************************
 *********************************************************************************************/
-
 run("../includes/Tools/clearAll.js");
+var t1 = new Date().getTime();
 var material = createMaterial("S235");
 var materialConcrete = createMaterial("C25/30");
 var section = createSection(material, "IPE 80");

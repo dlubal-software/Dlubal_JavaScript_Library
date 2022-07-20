@@ -1,7 +1,7 @@
 if (!RFEM) {
     throw new Error("This script is only for RFEM, it creates surfaces.");
 }
-
+run("../includes/Tools/clearAll.js");
 // setup standard for combination wizard
 general.current_standard_for_combination_wizard = general.NATIONAL_ANNEX_AND_EDITION_EN_1990_DIN_2012_08;
 

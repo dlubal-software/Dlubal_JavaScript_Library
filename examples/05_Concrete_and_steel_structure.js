@@ -1,7 +1,7 @@
 if (!RFEM) {
   throw new Error("This script is only for RFEM, it creates surfaces.");
 }
-run("/clearAll.js");
+run("../includes/Tools/clearAll.js");
 var a_1 = 5;
 var a_2 = 5;
 var b_1 = 5;
