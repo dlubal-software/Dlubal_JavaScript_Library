@@ -205,7 +205,7 @@ function SpectralAnalysisSettings(no,
     }
 
     if (signedResultsUsingDominantMode === true) {
-     this.Settings.signed_results_using_dominant_mode = true;
+    //  this.Settings.signed_results_using_dominant_mode = true; //not allowed
     }
 
     if (saveResultsOfAllSelectedModes === true) {

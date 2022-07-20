@@ -10,7 +10,7 @@ var imperfection = imperfection_cases.create();
 var structure_modification = new StructureModification(undefined, "First");
 structure_modification.Material("Soda-lime silicate glass", undefined, 1.50, "Factor for E and G modification");
 
-var load_combination = new LoadCombination(undefined,design_situation.DesignSituation().no,[[load_cases[1].no,1.35], [load_cases[4].no,1.5]]);
+var load_combination = new LoadCombination(undefined,static_analysis_setting.no,design_situation.DesignSituation().no,[[load_cases[1].no,1.35], [load_cases[4].no,1.5]]);
 var load_combination2 = new LoadCombination();
 load_combination2.StaticAnalysis(undefined, static_analysis_setting.no, design_situation.DesignSituation().no);
 load_combination2.ConsiderImperfection(imperfection);

@@ -18,6 +18,7 @@ Not implemented:
  * @returns Created load combination
  */
 function LoadCombination(no,
+    analysis_settings,
     design_situation_no,
     load_combination_items,
     comment,
@@ -26,6 +27,7 @@ function LoadCombination(no,
         this.load_combination = createBaseLoadCombination(no, comment, params);
         SetDesignSituation(this.load_combination, design_situation_no);
         SetLoadCombinationItems(this.load_combination, load_combination_items);
+        this.load_combination.static_analysis_settings = analysis_settings;
         return this.load_combination;
     }
 }
