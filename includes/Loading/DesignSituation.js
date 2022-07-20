@@ -100,7 +100,7 @@ function createBaseDesignSituation (no,
     comment,
     params) {
     if (typeof no === "undefined") {
-        no = design_situations.count() + 1;
+        no = design_situations.lastId() + 1;
     }
     var design_situation = design_situations.create(no);
     set_comment_and_parameters(design_situation, comment, params);

@@ -61,7 +61,7 @@
 
     this.Settings = MAS;
     set_comment_and_parameters(this.Settings, comment, params);
-    console.log("-- Finish. Object created. --");
+    // console.log("-- Finish. Object created. --");
     // object for creation new supports with callback link to instance
     var self = this;
     return self;
@@ -105,7 +105,7 @@ ModalAnalysisSettings.prototype.UserDefinedNumberOfModes = function (no, name, n
   SetActingMasses(this.Settings, actingMasses);
 
   set_comment_and_parameters(this.Settings, comment, params);
-  console.log("-- Finish. Object created. --");
+  // console.log("-- Finish. Object created. --");
 
   var self = this;
   return self;
@@ -144,7 +144,7 @@ ModalAnalysisSettings.prototype.AutomaticNumberOfModesToReachEffMass = function 
   SetActingMasses(this.Settings, actingMasses);
 
   set_comment_and_parameters(this.Settings, comment, params);
-  console.log("-- Finish. Object created. --");
+  // console.log("-- Finish. Object created. --");
 
   var self = this;
   return self;
@@ -183,7 +183,7 @@ ModalAnalysisSettings.prototype.AutomaticNumberOfModesToReachMaxFreq = function 
   SetActingMasses(this.Settings, actingMasses);
 
   set_comment_and_parameters(this.Settings, comment, params);
-  console.log("-- Finish. Object created. --");
+  // console.log("-- Finish. Object created. --");
 
   var self = this;
   return self;
