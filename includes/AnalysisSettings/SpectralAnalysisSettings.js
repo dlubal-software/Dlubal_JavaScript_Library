@@ -186,7 +186,7 @@ function SpectralAnalysisSettings(no,
      this.Settings.name = name;
     }
 
-    console.log("New spectral analysis settings no. " +this.Settings.no + " was created");
+    // console.log("New spectral analysis settings no. " +this.Settings.no + " was created");
 
     // Spectral anlysis settings : combination rules
    this.Settings.combination_rule_for_periodic_responses = spectral_analysis_settings[SetPeriodicCombinationRule(combinationRulePeriodic)];
@@ -205,7 +205,7 @@ function SpectralAnalysisSettings(no,
     }
 
     if (signedResultsUsingDominantMode === true) {
-     this.Settings.signed_results_using_dominant_mode = true;
+    //  this.Settings.signed_results_using_dominant_mode = true; //not allowed
     }
 
     if (saveResultsOfAllSelectedModes === true) {
@@ -214,7 +214,7 @@ function SpectralAnalysisSettings(no,
 
     // Spectral analysis settings
     set_comment_and_parameters(this.Settings, comment, params);
-    console.log("-- Done. spectral analysis settings no. " +this.Settings.no + " all initial params set.");
+    // console.log("-- Done. spectral analysis settings no. " +this.Settings.no + " all initial params set.");
 
     var self = this;
     return self;

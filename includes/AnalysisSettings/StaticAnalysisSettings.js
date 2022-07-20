@@ -38,7 +38,7 @@ function StaticAnalysisSettings(no,
       var NA_method = NonlinearMethodsType(this.Settings.analysis_type, nonlinearMethod);
       if (NA_method != undefined) {
         this.Settings.iterative_method_for_nonlinear_analysis = static_analysis_settings[NA_method];
-        console.log("Nonlinear analysis method: " + this.Settings.iterative_method_for_nonlinear_analysis);
+        // console.log("Nonlinear analysis method: " + this.Settings.iterative_method_for_nonlinear_analysis);
       }
     }
 
@@ -215,7 +215,7 @@ function SetNonlinearMethod(StaticAnalysisSettings, staticAnalysisType, nonlinea
     var NA_method = NonlinearMethodsType(staticAnalysisType, nonlinearMethod);
     if (NA_method !== undefined) {
       StaticAnalysisSettings.iterative_method_for_nonlinear_analysis = static_analysis_settings[NA_method];
-      console.log("Nonlinear analysis method: " + StaticAnalysisSettings.iterative_method_for_nonlinear_analysis);
+      // console.log("Nonlinear analysis method: " + StaticAnalysisSettings.iterative_method_for_nonlinear_analysis);
     }
   }
   else {
@@ -322,7 +322,7 @@ function StaticAnalysisType(type) {
     console.log("Wrong static analysis type input. Value was: " + type);
     console.log("Correct values are: ('GEOMETRICALLY_LINEAR', 'SECOND_ORDER_P_DELTA', 'LARGE_DEFORMATIONS')");
   }
-  console.log("Static analysis type: " + SASType);
+  // console.log("Static analysis type: " + SASType);
   return SASType;
 }
 
