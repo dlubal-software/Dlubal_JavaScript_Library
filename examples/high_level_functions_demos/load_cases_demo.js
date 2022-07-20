@@ -32,7 +32,7 @@ if (RFEM) {
 }
 DYNAMIC_ANALYSIS.SPECTRAL.setActive(true);
 spectral_analysis_settings.erase(1);
-var SpAS = new SpectralAnalysisSettings(1, "Spectral analysis", "CQC", "SCALED_SUM", 0.3, true, true, true);
+var SpAS = new SpectralAnalysisSettings(1, "Spectral analysis", "CQC", "SCALED_SUM", 0.3, true, true);
 SpAS.SetDampingRuleForCQC("CONSTANT_FOR_EACH_MODE", 0.3);
 if (PRERELEASE_MODE) {
     SpAS.IncludeMissingMasses("SRSS", "USER_DEFINED", 0.05);
