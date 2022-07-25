@@ -1,4 +1,4 @@
-run("clearAll.js");
+run("../includes/Tools/clearAll.js");
 // create material and section
 var material = Material(undefined, 'S235');
 var section = Section(undefined, 'IPE 200', material);

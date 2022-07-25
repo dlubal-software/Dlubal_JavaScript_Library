@@ -1,4 +1,4 @@
-run("clearAll.js");
+run("../includes/Tools/clearAll.js");
 // prepare materials, sections and thickness for the model
 var material_steel = Material(undefined, "S235 | EN 1993-1-1:2005-05");
 var material_concrete = Material(undefined, "C12/15 | EN 1992-1-1:2004/A1:2014");
