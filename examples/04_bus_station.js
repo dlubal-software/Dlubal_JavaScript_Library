@@ -101,7 +101,7 @@ NodalLoad(undefined, lc2, "12", "", { "load_type": nodal_loads.LOAD_TYPE_COMPONE
 LineLoad(undefined, lc2, "15", "", { "magnitude": 1.25kN/m^2});
 MemberLoad(undefined, lc2, "1,2", "", { "magnitude": 1.25kN/m^2});
 
-var co1 = LoadCombination(1);
+var co1 = LoadCombination(10);
 co1.design_situation = 1;
 co1.static_analysis_settings = 2;
 co1.items[1].factor = 1.35;

@@ -27,7 +27,7 @@ var lc4 = new LoadCase().StaticAnalysis(4, "Wind load 2", SASSecondOrder.GetStat
 var lc5 = new LoadCase().StaticAnalysis(5, "Stability - linear", SASGeometricallyLinear.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_PERMANENT_IMPOSED_GQ", [true, 0, 0, 1.0],1);
 var lc6 = new LoadCase().StaticAnalysis(6, "Imperfections", SASSecondOrder.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_PERMANENT_IMPOSED_GQ", [false, 0, 0, 1.0]);
 var lc7 = new LoadCase().StaticAnalysis(7, "Other permanent load", SASSecondOrder.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_PERMANENT_G", [false, 0, 0, 1.0]);
-var ImperfectionCase = ImperfectionCase(1, "Local Imperfections Only");
+ImperfectionCase(1, "Local Imperfections Only");
 lc6.ConsiderImperfection(1);
 
 

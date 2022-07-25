@@ -196,7 +196,7 @@ LoadCombination.prototype.ConsiderConstructionStage = function (construction_sta
 
 /**
  * Assigns load cases
- * @param {Array} load_combination_items    Load combination itemns [[load case no, factor], .... ]
+ * @param {Array} load_combination_items    Load combination items [[load case no, factor], .... ]
  * @returns Modified load combination
  */
 LoadCombination.prototype.AssignLoadCases = function (load_combination_items) {
@@ -209,7 +209,7 @@ LoadCombination.prototype.AssignLoadCases = function (load_combination_items) {
 
 /**
  * Sets load combination to solve
- * @param {Boolean} to_solve    Enable/disable lopad combination to solve, can be undefined (true as default)
+ * @param {Boolean} to_solve    Enable/disable load combination to solve, can be undefined (true as default)
  * @returns Modified load combination
  */
 LoadCombination.prototype.ToSolve = function (to_solve) {
@@ -311,7 +311,7 @@ function SetDesignSituation(load_combination, design_situation_no) {
     }
 }
 function SetLoadCombinationItems(load_combination, load_combination_items) {
-    if (typeof load_cases !== "undefined") {
+    if (typeof load_combination_items !== "undefined") {
         for (var i = 0; i < load_combination_items.length; i++) {
             load_combination.items[i + 1].load_case = load_combination_items[i][0];
             if (load_combination_items[i][1] !== "undefined") {
