@@ -1,0 +1,17 @@
+run('./examples\high_level_functions_demos\analysis_settings_demo.js');
+run('./examples\high_level_functions_demos\basic_objects_demo.js');
+run('./examples\high_level_functions_demos\climatic_load_wizards_demo.js');
+run('./examples\high_level_functions_demos\coordinate_systems_demo.js');
+run('./examples\high_level_functions_demos\design_situations_demo.js');
+run('./examples\high_level_functions_demos\free_loads_demo.js');
+run('./examples\high_level_functions_demos\load_cases_demo.js');
+run('./examples\high_level_functions_demos\load_combinations_demo.js');
+run('./examples\high_level_functions_demos\load_sets_demo.js');
+run('./examples\high_level_functions_demos\loads_demo.js');
+run('./examples\high_level_functions_demos\member_load_wizards_demo.js');
+run('./examples\high_level_functions_demos\special_objects_demo.js');
+run('./examples\high_level_functions_demos\support_demo.js');
+run('./examples\high_level_functions_demos\types_for_lines_demo.js');
+run('./examples\high_level_functions_demos\types_for_members_demo.js');
+run('./examples\high_level_functions_demos\types_for_solids_demo.js');
+run('./examples\high_level_functions_demos\types_for_surfaces_demo.js');
