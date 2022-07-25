@@ -1,7 +1,7 @@
 if (!RFEM) {
     throw new Error("This script is only for RFEM, it creates lines.");
 }
-
+include("../includes/Tools/high_level_functions_support.js");
 /**
  * Creates line
  * @class
