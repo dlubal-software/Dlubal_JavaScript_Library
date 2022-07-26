@@ -1,15 +1,12 @@
-var t1 = new Date().getTime();
-if (!RFEM) {
-    throw new Error("This script is only for RFEM, it creates types for members.");
-}
-include("../includes/Tools/high_level_functions_support.js");
+// if (!RFEM) {
+//     throw new Error("This script is only for RFEM, it creates types for members.");
+// }
 
+include("../includes/Tools/high_level_functions_support.js");
+var t1 = new Date().getTime();
 /*********************************************************************************************
 ****************************************** Main **********************************************
 *********************************************************************************************/
-
-run("../includes/Tools/clearAll.js");
-
 var material = createMaterial("S235");
 var section = createSection(material, "IPE 80");
 
@@ -63,6 +60,9 @@ members[39].type = members.TYPE_DEFINABLE_STIFFNESS;
 var memberDefinableStiffness = new MemberDefinableStiffness(undefined, [38, 39]);
 memberDefinableStiffness.TorsionalAndBendingStiffness(5, 10, 20);
 memberDefinableStiffness.AxialAndShearStiffness(30, 40, 50);
+memberDefinableStiffness.SelfWeightAndSectionArea(1500,0.01);
+memberDefinableStiffness.ThermalExpansionCoefficient(0.0001,0.1,0.1);
+memberDefinableStiffness.MainAxesRotation(0.0);
 
 var memberResultIntermediatePoint = new MemberResultIntermediatePoint(undefined, [45, 46], "MemberResultIntermediatePoint with uniform distances");
 memberResultIntermediatePoint.UniformDistances(5, ["ord. 1", "ord. 2", "ord. 3", "ord. 4", "ord. 5"]);

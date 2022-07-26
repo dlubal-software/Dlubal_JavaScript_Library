@@ -64,7 +64,7 @@ MemberDefinableStiffness.prototype.AxialAndShearStiffness = function (axial_stif
 * @param	{Number}	specific_weight		Specific weight
 * @param	{Number}	section_area		Section area
 */
-MemberDefinableStiffness.prototype.SelfWeight = function (specific_weight,
+MemberDefinableStiffness.prototype.SelfWeightAndSectionArea = function (specific_weight,
 	section_area) {
 	this.memberDefinableStiffness.specific_weight = specific_weight;
 	this.memberDefinableStiffness.section_area = section_area;
