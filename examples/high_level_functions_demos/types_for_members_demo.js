@@ -1,8 +1,5 @@
-// if (!RFEM) {
-//     throw new Error("This script is only for RFEM, it creates types for members.");
-// }
-
 include("../includes/Tools/high_level_functions_support.js");
+run("../includes/Tools/clearAll.js");
 var t1 = new Date().getTime();
 /*********************************************************************************************
 ****************************************** Main **********************************************

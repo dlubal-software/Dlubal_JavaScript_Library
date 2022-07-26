@@ -143,7 +143,7 @@ Surface.prototype.SurfaceType = function (stiffness_type,
 	if (typeof thickness !== "undefined") {
 		this.surface.thickness = thickness;
 	}
-}
+};
 
 /**
 * Sets plane geometry type of surface

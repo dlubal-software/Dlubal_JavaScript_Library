@@ -286,8 +286,55 @@ if (RFEM) {
 	thickness2.Uniform(undefined, "Thickness2", material2, [0.180]);
 	surface2.SurfaceType("Membrane", undefined, thickness2.thickness);
 
-	member.Rib(undefined,[239,240],4,"ALIGNMENT_ON_Z_SIDE_NEGATIVE",true,true,[[1.0,"REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH","REFERENCE_LENGTH_WIDTH_SIXTH",3.0,3.0]]);
+	member.Rib(undefined, [239, 240], 4, "ALIGNMENT_ON_Z_SIDE_NEGATIVE", true, true, [[1.0, "REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH", "REFERENCE_LENGTH_WIDTH_SIXTH", 3.0, 3.0]]);
 }
+
+// Sets
+if (RSTAB) {
+	var member1000 = new Member();
+	member1000.Beam(1000, [25, 26], 1);
+	var member1001 = new Member();
+	member1001.Beam(1001, [26, 27], 1);
+	var member1002 = new Member();
+	member1002.Beam(1002, [45, 46], 1);
+	var member1003 = new Member();
+	member1003.Beam(1003, [46, 47], 1);
+	var memberSet = new MemberSet(1, [1000, 1001]);
+	var memberSetContinuous = new MemberSet();
+	memberSetContinuous.ContinuousMembers(2, [1003, 1002]);
+	var memberSetGroup = new MemberSet();
+	memberSetGroup.GroupOfMembers(3, [6, 8]);
+}
+
+if (RFEM) {
+	var member1000 = new Member();
+	member1000.Beam(1000, [157, 158], 1);
+	var member1001 = new Member();
+	member1001.Beam(1001, [158, 159], 1);
+	var member1002 = new Member();
+	member1002.Beam(1002, [155, 156], 1);
+	var member1003 = new Member();
+	member1003.Beam(1003, [156, 157], 1);
+	var memberSet = new MemberSet(1, [1000, 1001]);
+	var memberSetContinuous = new MemberSet();
+	memberSetContinuous.ContinuousMembers(2, [1003, 1002]);
+	var memberSetGroup = new MemberSet();
+	memberSetGroup.GroupOfMembers(3, [6, 8]);
+	var line10000 = new Line(10000, [151, 152], "First line with default type");
+	var line10001 = new Line(10001, [152, 153], "First line with default type");
+	var line10002 = new Line(10002, [153, 154], "First line with default type");
+	var line10003 = new Line(10003, [154, 155], "First line with default type");
+	var lineSet = new LineSet(1, [10000, 10001]);
+	var lineSetContinuous = new LineSet().ContinuousLines(2, [10002, 10003]);
+	var lineSetGroup = new LineSet().GroupOfLines(3, [165, 166]);
+
+	var surfaceSetContinuous = new SurfaceSet().ContinuousSurfaces(1, [7, 8]);
+	var surfaceSetGroup = new SurfaceSet().GroupOfSurfaces(2, [22, 27]);
+
+	var solidSet = new SolidSet().GroupOfSolids(1, [1]);
+}
+
+
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;
 console.log("Elapsed time: " + time + "s");
