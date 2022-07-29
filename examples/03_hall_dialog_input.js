@@ -12,17 +12,8 @@ var gable_height = 1.5;
 var console_height = 2.5;
 var console_length = 0.3;
 // setup load cases
-function createLoadCase(id, static_analysis_settings, action_category, name) {
-    var load_case = LoadCase(id);
-    load_case.name = name;
-    load_case.static_analysis_settings = static_analysis_settings;
-    load_case.action_category = action_category;
-    return load_case;
-}
-
-// setup load cases
 var SASGeometricallyLinear = new StaticAnalysisSettings().GeometricallyLinear(1);
-var SASSecondOrder = new StaticAnalysisSettings().SecondOrder(2);
+var SASSecondOrder = new StaticAnalysisSettings().SecondOrder(2,"MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON");
 
 var lc1 = new LoadCase().StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_PERMANENT_G", [true, 0, 0, 1.0]);
 var lc2 = new LoadCase().StaticAnalysis(2, "Live load", SASSecondOrder.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H", [false, 0, 0, 1.0]);
@@ -33,6 +24,7 @@ var lc6 = new LoadCase().StaticAnalysis(6, "Imperfections", SASSecondOrder.GetSt
 var lc7 = new LoadCase().StaticAnalysis(7, "Other permanent load", SASSecondOrder.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_PERMANENT_G", [false, 0, 0, 1.0]);
 ImperfectionCase(1, "Local Imperfections Only");
 lc6.ConsiderImperfection(1);
+
 
 // prepare materials and sections
 var material = Material(undefined, 'S235 | EN 1993-1-1:2005-05');
