@@ -1,7 +1,6 @@
 include("../Supports/Functions.js");
 include("../Supports/Nonlinearities/Nonlinearities.js");
 
-// Nodal support object
 /**
  * Creates nodal support hight level function 
  * @class
@@ -10,7 +9,7 @@ include("../Supports/Nonlinearities/Nonlinearities.js");
  * @param {Array}   nodes         List of nodes
  * @param {String}  comment       Comment, empty by default
  * @param {Object}  params        Nodal support parameters, empty by default
- * @returns 
+ * @returns Nodal support object
  */
 function NodalSupport(no, nodes, comment, params) {
 
