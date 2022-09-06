@@ -36,6 +36,14 @@ references:
   name: ContactSolid(no, perpendicular_to_surface, parallel_to_surface, values, comment, params)
   href: api/ContactSolid.html#Dlubal_ContactSolid__ctor
   fullName: Dlubal.ContactSolid.ContactSolid(no, perpendicular_to_surface, parallel_to_surface, values, comment, params)
+- uid: Dlubal.ControlPoint
+  name: ControlPoint
+  href: api/ControlPoint.html#Dlubal_ControlPoint
+  fullName: Dlubal.ControlPoint
+- uid: Dlubal.ControlPoint.#ctor
+  name: ControlPoint(no, comment, params)
+  href: api/ControlPoint.html#Dlubal_ControlPoint__ctor
+  fullName: Dlubal.ControlPoint.ControlPoint(no, comment, params)
 - uid: Dlubal.CoordinateSystem
   name: CoordinateSystem
   href: api/CoordinateSystem.html#Dlubal_CoordinateSystem
@@ -88,6 +96,14 @@ references:
   name: DesignSituation(no, design_situation_type, params, comment)
   href: api/DesignSituation.html#Dlubal_DesignSituation__ctor
   fullName: Dlubal.DesignSituation.DesignSituation(no, design_situation_type, params, comment)
+- uid: Dlubal.Element
+  name: Element
+  href: api/Element.html#Dlubal_Element
+  fullName: Dlubal.Element
+- uid: Dlubal.Element.#ctor
+  name: Element(no, comment, params)
+  href: api/Element.html#Dlubal_Element__ctor
+  fullName: Dlubal.Element.Element(no, comment, params)
 - uid: Dlubal.FreeCircularLoad
   name: FreeCircularLoad
   href: api/FreeCircularLoad.html#Dlubal_FreeCircularLoad
@@ -628,10 +644,10 @@ references:
   name: MainAxesRotation(rotation)
   href: api/MemberDefinableStiffness.html#Dlubal_MemberDefinableStiffness_MainAxesRotation
   fullName: Dlubal.MemberDefinableStiffness.MainAxesRotation(rotation)
-- uid: Dlubal.MemberDefinableStiffness#SelfWeight
-  name: SelfWeight(specific_weight, section_area)
-  href: api/MemberDefinableStiffness.html#Dlubal_MemberDefinableStiffness_SelfWeight
-  fullName: Dlubal.MemberDefinableStiffness.SelfWeight(specific_weight, section_area)
+- uid: Dlubal.MemberDefinableStiffness#SelfWeightAndSectionArea
+  name: SelfWeightAndSectionArea(specific_weight, section_area)
+  href: api/MemberDefinableStiffness.html#Dlubal_MemberDefinableStiffness_SelfWeightAndSectionArea
+  fullName: Dlubal.MemberDefinableStiffness.SelfWeightAndSectionArea(specific_weight, section_area)
 - uid: Dlubal.MemberDefinableStiffness#ThermalExpansionCoefficient
   name: ThermalExpansionCoefficient(thermal_expansion, width, height)
   href: api/MemberDefinableStiffness.html#Dlubal_MemberDefinableStiffness_ThermalExpansionCoefficient
@@ -1240,6 +1256,90 @@ references:
   name: NodalLoad(no, load_case, nodes, comment, params)
   href: api/NodalLoad.html#Dlubal_NodalLoad__ctor
   fullName: Dlubal.NodalLoad.NodalLoad(no, load_case, nodes, comment, params)
+- uid: Dlubal.NodalSupport
+  name: NodalSupport
+  href: api/NodalSupport.html#Dlubal_NodalSupport
+  fullName: Dlubal.NodalSupport
+- uid: Dlubal.NodalSupport#Fixed
+  name: Fixed()
+  href: api/NodalSupport.html#Dlubal_NodalSupport_Fixed
+  fullName: Dlubal.NodalSupport.Fixed()
+- uid: Dlubal.NodalSupport#Free
+  name: Free()
+  href: api/NodalSupport.html#Dlubal_NodalSupport_Free
+  fullName: Dlubal.NodalSupport.Free()
+- uid: Dlubal.NodalSupport#Hinged
+  name: Hinged()
+  href: api/NodalSupport.html#Dlubal_NodalSupport_Hinged
+  fullName: Dlubal.NodalSupport.Hinged()
+- uid: Dlubal.NodalSupport#Roller
+  name: Roller()
+  href: api/NodalSupport.html#Dlubal_NodalSupport_Roller
+  fullName: Dlubal.NodalSupport.Roller()
+- uid: Dlubal.NodalSupport#RollerX
+  name: RollerX()
+  href: api/NodalSupport.html#Dlubal_NodalSupport_RollerX
+  fullName: Dlubal.NodalSupport.RollerX()
+- uid: Dlubal.NodalSupport#RollerY
+  name: RollerY()
+  href: api/NodalSupport.html#Dlubal_NodalSupport_RollerY
+  fullName: Dlubal.NodalSupport.RollerY()
+- uid: Dlubal.NodalSupport#RollerZ
+  name: RollerZ()
+  href: api/NodalSupport.html#Dlubal_NodalSupport_RollerZ
+  fullName: Dlubal.NodalSupport.RollerZ()
+- uid: Dlubal.NodalSupport#Rotation
+  name: Rotation(x, y, z)
+  href: api/NodalSupport.html#Dlubal_NodalSupport_Rotation
+  fullName: Dlubal.NodalSupport.Rotation(x, y, z)
+- uid: Dlubal.NodalSupport#RotationX
+  name: RotationX(x)
+  href: api/NodalSupport.html#Dlubal_NodalSupport_RotationX
+  fullName: Dlubal.NodalSupport.RotationX(x)
+- uid: Dlubal.NodalSupport#RotationY
+  name: RotationY(y)
+  href: api/NodalSupport.html#Dlubal_NodalSupport_RotationY
+  fullName: Dlubal.NodalSupport.RotationY(y)
+- uid: Dlubal.NodalSupport#RotationZ
+  name: RotationZ(z)
+  href: api/NodalSupport.html#Dlubal_NodalSupport_RotationZ
+  fullName: Dlubal.NodalSupport.RotationZ(z)
+- uid: Dlubal.NodalSupport#SetComment
+  name: SetComment(comment)
+  href: api/NodalSupport.html#Dlubal_NodalSupport_SetComment
+  fullName: Dlubal.NodalSupport.SetComment(comment)
+- uid: Dlubal.NodalSupport#SetNo
+  name: SetNo(no)
+  href: api/NodalSupport.html#Dlubal_NodalSupport_SetNo
+  fullName: Dlubal.NodalSupport.SetNo(no)
+- uid: Dlubal.NodalSupport#SetNodes
+  name: SetNodes(nodes)
+  href: api/NodalSupport.html#Dlubal_NodalSupport_SetNodes
+  fullName: Dlubal.NodalSupport.SetNodes(nodes)
+- uid: Dlubal.NodalSupport#Status
+  name: Status()
+  href: api/NodalSupport.html#Dlubal_NodalSupport_Status
+  fullName: Dlubal.NodalSupport.Status()
+- uid: Dlubal.NodalSupport#Translation
+  name: Translation(x, y, z)
+  href: api/NodalSupport.html#Dlubal_NodalSupport_Translation
+  fullName: Dlubal.NodalSupport.Translation(x, y, z)
+- uid: Dlubal.NodalSupport#TranslationX
+  name: TranslationX(x)
+  href: api/NodalSupport.html#Dlubal_NodalSupport_TranslationX
+  fullName: Dlubal.NodalSupport.TranslationX(x)
+- uid: Dlubal.NodalSupport#TranslationY
+  name: TranslationY(y)
+  href: api/NodalSupport.html#Dlubal_NodalSupport_TranslationY
+  fullName: Dlubal.NodalSupport.TranslationY(y)
+- uid: Dlubal.NodalSupport#TranslationZ
+  name: TranslationZ(z)
+  href: api/NodalSupport.html#Dlubal_NodalSupport_TranslationZ
+  fullName: Dlubal.NodalSupport.TranslationZ(z)
+- uid: Dlubal.NodalSupport.#ctor
+  name: NodalSupport(no, nodes, comment, params)
+  href: api/NodalSupport.html#Dlubal_NodalSupport__ctor
+  fullName: Dlubal.NodalSupport.NodalSupport(no, nodes, comment, params)
 - uid: Dlubal.Node
   name: Node
   href: api/Node.html#Dlubal_Node
@@ -1292,6 +1392,22 @@ references:
   name: OpeningLoad(no, load_case, openings, comment, params)
   href: api/OpeningLoad.html#Dlubal_OpeningLoad__ctor
   fullName: Dlubal.OpeningLoad.OpeningLoad(no, load_case, openings, comment, params)
+- uid: Dlubal.Part
+  name: Part
+  href: api/Part.html#Dlubal_Part
+  fullName: Dlubal.Part
+- uid: Dlubal.Part.#ctor
+  name: Part(no, comment, params)
+  href: api/Part.html#Dlubal_Part__ctor
+  fullName: Dlubal.Part.Part(no, comment, params)
+- uid: Dlubal.Point
+  name: Point
+  href: api/Point.html#Dlubal_Point
+  fullName: Dlubal.Point
+- uid: Dlubal.Point.#ctor
+  name: Point(no, coordinate_Y, coordinate_Z, comment, params)
+  href: api/Point.html#Dlubal_Point__ctor
+  fullName: Dlubal.Point.Point(no, coordinate_Y, coordinate_Z, comment, params)
 - uid: Dlubal.Section
   name: Section
   href: api/Section.html#Dlubal_Section
@@ -1504,6 +1620,22 @@ references:
   name: StaticAnalysisSettings(no, analysisType, equationSolver, nonlinearMethod, comment, params)
   href: api/StaticAnalysisSettings.html#Dlubal_StaticAnalysisSettings__ctor
   fullName: Dlubal.StaticAnalysisSettings.StaticAnalysisSettings(no, analysisType, equationSolver, nonlinearMethod, comment, params)
+- uid: Dlubal.Stiffener
+  name: Stiffener
+  href: api/Stiffener.html#Dlubal_Stiffener
+  fullName: Dlubal.Stiffener
+- uid: Dlubal.Stiffener.#ctor
+  name: Stiffener(no, comment, params)
+  href: api/Stiffener.html#Dlubal_Stiffener__ctor
+  fullName: Dlubal.Stiffener.Stiffener(no, comment, params)
+- uid: Dlubal.StressPoint
+  name: StressPoint
+  href: api/StressPoint.html#Dlubal_StressPoint
+  fullName: Dlubal.StressPoint
+- uid: Dlubal.StressPoint.#ctor
+  name: StressPoint(no, comment, params)
+  href: api/StressPoint.html#Dlubal_StressPoint__ctor
+  fullName: Dlubal.StressPoint.StressPoint(no, comment, params)
 - uid: Dlubal.StructureModification
   name: StructureModification
   href: api/StructureModification.html#Dlubal_StructureModification
@@ -1612,6 +1744,14 @@ references:
   name: StructureModification(no, comment, params)
   href: api/StructureModification.html#Dlubal_StructureModification__ctor
   fullName: Dlubal.StructureModification.StructureModification(no, comment, params)
+- uid: Dlubal.Subpanel
+  name: Subpanel
+  href: api/Subpanel.html#Dlubal_Subpanel
+  fullName: Dlubal.Subpanel
+- uid: Dlubal.Subpanel.#ctor
+  name: Subpanel(no, comment, params)
+  href: api/Subpanel.html#Dlubal_Subpanel__ctor
+  fullName: Dlubal.Subpanel.Subpanel(no, comment, params)
 - uid: Dlubal.Surface
   name: Surface
   href: api/Surface.html#Dlubal_Surface

@@ -114,13 +114,13 @@ MemberNonlinearity.prototype.Slippage = function (no,
 * @param	{Object}	params			Member nonlinearity parameters, can be undefined
 * @return	{Object}	Created member nonlinearity
 */
-MemberNonlinearity.prototype.TearingUnderTension = function (no,
+MemberNonlinearity.prototype.FailureUnderTension = function (no,
 	members,
 	tension_force,
 	comment,
 	params) {
 	this.memberNonlinearity = createNonlinearity(no, members, comment, params);
-	this.memberNonlinearity.type = member_nonlinearities.TYPE_TEARING_IF_TENSION;
+	this.memberNonlinearity.type = member_nonlinearities.TYPE_FAILURE_UNDER_TENSION;
 	setParameters(this.memberNonlinearity, [tension_force], "tension_force");
 };
 
@@ -139,7 +139,7 @@ MemberNonlinearity.prototype.YieldingUnderTension = function (no,
 	comment,
 	params) {
 	this.memberNonlinearity = createNonlinearity(no, members, comment, params);
-	this.memberNonlinearity.type = member_nonlinearities.TYPE_YIELDING_IF_TENSION;
+	this.memberNonlinearity.type = member_nonlinearities.TYPE_YIELDING_UNDER_TENSION;
 	setParameters(this.memberNonlinearity, [tension_force], "tension_force");
 };
 
@@ -152,13 +152,13 @@ MemberNonlinearity.prototype.YieldingUnderTension = function (no,
 * @param	{Object}	params				Member nonlinearity parameters, can be undefined
 * @return	{Object}	Created member nonlinearity
 */
-MemberNonlinearity.prototype.TearingUnderCompression = function (no,
+MemberNonlinearity.prototype.FailureUnderCompression = function (no,
 	members,
 	compression_force,
 	comment,
 	params) {
 	this.memberNonlinearity = createNonlinearity(no, members, comment, params);
-	this.memberNonlinearity.type = member_nonlinearities.TYPE_TEARING_IF_COMPRESSION;
+	this.memberNonlinearity.type = member_nonlinearities.TYPE_FAILURE_UNDER_COMPRESSION;
 	setParameters(this.memberNonlinearity, [compression_force], "compression_force");
 };
 
@@ -177,7 +177,7 @@ MemberNonlinearity.prototype.YieldingUnderCompression = function (no,
 	comment,
 	params) {
 	this.memberNonlinearity = createNonlinearity(no, members, comment, params);
-	this.memberNonlinearity.type = member_nonlinearities.TYPE_YIELDING_IF_COMPRESSION;
+	this.memberNonlinearity.type = member_nonlinearities.TYPE_YIELDING_UNDER_COMPRESSION;
 	setParameters(this.memberNonlinearity, [compression_force], "compression_force");
 };
 
@@ -191,14 +191,14 @@ MemberNonlinearity.prototype.YieldingUnderCompression = function (no,
 * @param	{Object}	params				Member nonlinearity parameters, can be undefined
 * @return	{Object}	Created member nonlinearity
 */
-MemberNonlinearity.prototype.Tearing = function (no,
+MemberNonlinearity.prototype.Failure = function (no,
 	members,
 	compression_force,
 	tension_force,
 	comment,
 	params) {
 	this.memberNonlinearity = createNonlinearity(no, members, comment, params);
-	this.memberNonlinearity.type = member_nonlinearities.TYPE_TEARING;
+	this.memberNonlinearity.type = member_nonlinearities.TYPE_FAILURE;
 	setParameters(this.memberNonlinearity, [compression_force, tension_force], "compression_force", "tension_force");
 };
 

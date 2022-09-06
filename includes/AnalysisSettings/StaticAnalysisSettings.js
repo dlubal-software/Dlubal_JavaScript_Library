@@ -145,7 +145,7 @@ StaticAnalysisSettings.prototype.LargeDeformations = function (no, name, equatio
 
   this.Settings = CreateStaticAnalysisSettings(no, name);
 
-  this.Settings.analysis_type = static_analysis_settings[StaticAnalysisType("SECOND_ORDER_P_DELTA")];
+  this.Settings.analysis_type = static_analysis_settings[StaticAnalysisType("LARGE_DEFORMATIONS")];
 
   if (nonlinearMethod === "DYNAMIC_RELAXATION" && equationSolver !== "METHOD_OF_EQUATION_SYSTEM_DIRECT") {
     equationSolver = "METHOD_OF_EQUATION_SYSTEM_DIRECT";

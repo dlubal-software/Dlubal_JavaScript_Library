@@ -439,8 +439,7 @@ var setPartialActivityZoneValues = function (member_hinge,
 	param_force_name) {
 	ASSERT(zone_values.length > 0, "Zone: at least type of zone is required");
 
-	switch (zone_values[0])
-	{
+	switch (zone_values[0]) {
 		case 0:		// Complete
 			ASSERT(zone_values.length === 2, "Zone type complete: two values are required (zone type, slippage)");
 			member_hinge[param_type_name] = member_hinges.PARTIAL_ACTIVITY_TYPE_COMPLETE;
@@ -456,10 +455,23 @@ var setPartialActivityZoneValues = function (member_hinge,
 		case 3:		// Yielding
 			ASSERT(zone_values.length === 3, "Zone type tearing/yielding: three values are required (zone type, release force, slippage)");
 			if (zone_values[0] === 2) {
-				member_hinge[param_type_name] = member_hinges.PARTIAL_ACTIVITY_TYPE_TEARING;
+				if (param_type_name.indexOf("partial_activity_along") !== -1) {
+					member_hinge[param_type_name] = member_hinges.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE;
+				}
+				else if (param_type_name.indexOf("partial_activity_around")!== -1) {
+					member_hinge[param_type_name] = member_hinges.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT;
+				}
+
 			}
 			else {
-				member_hinge[param_type_name] = member_hinges.PARTIAL_ACTIVITY_TYPE_YIELDING;
+				member_hinge[param_type_name] = member_hinges.PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE;
+				if (param_type_name.indexOf("partial_activity_along") !== -1) {
+					member_hinge[param_type_name] = member_hinges.PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE;
+				}
+				else if (param_type_name.indexOf("partial_activity_around")!== -1) {
+					member_hinge[param_type_name] = member_hinges.PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT;
+				}
+
 			}
 			member_hinge[param_force_name] = zone_values[1];
 			member_hinge[param_slippage_name] = zone_values[2];
@@ -508,8 +520,7 @@ var setMainHingeValues = function (member_hinge,
 };
 
 var getNonlinearityString = function (nonlinearity) {
-	switch (nonlinearity)
-	{
+	switch (nonlinearity) {
 		case 0:
 			return member_hinges.NONLINEARITY_TYPE_NONE;
 		case 1:
@@ -549,7 +560,7 @@ var getNonlinearityString = function (nonlinearity) {
 * @return	{Object}	Created member hinge
 */
 var createMemberHinge = function (no,
-    members_start_list,
+	members_start_list,
 	members_end_list,
 	comment,
 	params) {
