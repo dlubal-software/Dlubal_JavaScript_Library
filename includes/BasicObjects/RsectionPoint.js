@@ -3,7 +3,7 @@ if (!RSECTION) {
 }
 
 /**
- * Create RSection Point
+ * Creates RSection Point
  * @class
  * @constructor
  * @param {Number}      no              Number of Point
@@ -18,15 +18,13 @@ function RSectionPoint(no,
     coordinate_z,
     comment,
     params) {
-
     if (arguments.length !== 0) {
-        this.point = createBasePoint(no, coordinate_y, coordinate_z, comment, params);
-        return this.point;
+        return this.point = createBasePoint(no, coordinate_y, coordinate_z, comment, params);
     }
 }
 
 /**
- * Create standard RSection Point
+ * Creates standard RSection Point
  * @param {Number}      no                      Number of Point
  * @param {Number}      coordinate_y            Coordinate Y
  * @param {Number}      coordinate_z            Coordinate Z
@@ -43,20 +41,20 @@ RSectionPoint.prototype.Standard = function (no,
     coordinate_system_type,
     comment,
     params) {
-        this.point = createBasePoint(no, coordinate_y, coordinate_z, comment, params);
-        this.type = points.TYPE_STANDARD;
-        if (typeof reference_point !== "undefined") {
-            this.point.reference_point = reference_point;
-        }
-        if (typeof coordinate_system_type === "undefined") {
-            coordinate_system_type = points.COORDINATE_SYSTEM_CARTESIAN;
-        }
-        this.point.coordinate_system_type = coordinate_system_type;
-        return this.point; 
+    this.point = createBasePoint(no, coordinate_y, coordinate_z, comment, params);
+    this.type = points.TYPE_STANDARD;
+    if (typeof reference_point !== "undefined") {
+        this.point.reference_point = reference_point;
+    }
+    if (typeof coordinate_system_type === "undefined") {
+        coordinate_system_type = points.COORDINATE_SYSTEM_CARTESIAN;
+    }
+    this.point.coordinate_system_type = coordinate_system_type;
+    return this.point; 
 };
 
  /**
- * Create Between two locations RSection Point
+ * Creates Between two locations RSection Point
  * @param {Number}      no                              Number of Point
  * @param {Array}       start_location                  Coordinates for start location
  * @param {Array}       end_location                    Coordinates for end location
@@ -112,7 +110,7 @@ RSectionPoint.prototype.Standard = function (no,
 };
 
  /**
- * Create Between two points RSection Point
+ * Creates Between two points RSection Point
  * @param {Number}      no                              Number of Point
  * @param {Array}       start_point                     Start point
  * @param {Array}       end_point                       End point
@@ -166,7 +164,7 @@ RSectionPoint.prototype.Standard = function (no,
 };
 
 /**
- * Create On lines RSection Point
+ * Creates On lines RSection Point
  * @param {Number}      no                              Number of Point
  * @param {Number}      line                            Line number
  * @param {Number}      distance_from_start             Distance from start
@@ -206,7 +204,7 @@ RSectionPoint.prototype.OnLine = function (no,
 };
 
     /**
- * Create base RSection Point (private)
+ * Creates base RSection Point (private)
  * @param {Number}      no              Number of Point
  * @param {Number}      coordinate_y    Coordinate Y
  * @param {Number}      coordinate_z    Coordinate Z
@@ -221,9 +219,9 @@ function createBasePoint (no,
     params) {
     ASSERT(typeof coordinate_y !== "undefined", "coordinate_y must be defined");
     ASSERT(typeof coordinate_z !== "undefined", "coordinate_z must be defined");
-    this.point = engine.create_rsection_point(no);
-    this.point.coordinate_1 = typeof coordinate_y !== 'undefined' ? coordinate_y : 0.0;
-    this.point.coordinate_2 = typeof coordinate_z !== 'undefined' ? coordinate_z : 0.0;
-    set_comment_and_parameters(this.point, comment, params);
-    return this.point;
+    var point = engine.create_rsection_point(no);
+    point.coordinate_1 = typeof coordinate_y !== 'undefined' ? coordinate_y : 0.0;
+    point.coordinate_2 = typeof coordinate_z !== 'undefined' ? coordinate_z : 0.0;
+    set_comment_and_parameters(point, comment, params);
+    return point;
 };

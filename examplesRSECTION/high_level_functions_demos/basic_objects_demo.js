@@ -32,13 +32,14 @@ var arclineList = [
 
 var rsPoint = new RSectionPoint();
 var rsLine = new RSectionLine();
+var linesForPart = [];
 
 for (var i = 0; i < pointsList.length; ++i) {
     rsPoint.Standard(undefined, pointsList[i][0], pointsList[i][1]);
 }
 
 for (var i = 0; i < polylinesList.length; ++i) {
-    rsLine.Polyline(undefined, polylinesList[i]);
+    linesForPart.push(rsLine.Polyline(undefined, polylinesList[i]));
 }
 
 for (var i = 0; i < arclineList.length; ++i) {
@@ -46,11 +47,18 @@ for (var i = 0; i < arclineList.length; ++i) {
         continue;
     }
     var point = points[arclineList[i][2]];
-    rsLine.Arc(undefined, [arclineList[i][0], arclineList[i][1]], [point.coordinate_1, point.coordinate_2]);
+    linesForPart.push(rsLine.Arc(undefined, [arclineList[i][0], arclineList[i][1]], [point.coordinate_1, point.coordinate_2]));
 }
 
-rsLine.Parabola(undefined, [25, 27], [-0.092, -0.143]);
-rsLine.Parabola(undefined, [2, 4], [0.092, -0.143]);
+linesForPart.push(rsLine.Parabola(undefined, [25, 27], [-0.092, -0.143]));
+linesForPart.push(rsLine.Parabola(undefined, [2, 4], [0.092, -0.143]));
+var circleLine1 = rsLine.Circle(undefined, [0, -0.140], 0.005);
+var circleLine2 = rsLine.Circle(undefined, [0, 0.140], 0.005);
+// var opening = 
+
+var rsPart = new RSectionPart();
+rsPart.WithBoundaryLines(undefined, linesForPart, material);
+//rsPart.IntegratedObjects(true, false, [opening]);
 
 /*************************************************** Other ************************************/
 pointCoordinates = [
@@ -62,7 +70,6 @@ for (var i = 0; i < pointCoordinates.length; ++i) {
     otherPoints.push(rsPoint.Standard(undefined, pointCoordinates[i][0], pointCoordinates[i][1]));
 }
 
-rsLine.Circle(undefined, [otherPoints[0].coordinate_1, otherPoints[0].coordinate_2], 0.050);
 rsLine.Ellipse(undefined, otherPoints[1], otherPoints[3], [otherPoints[2].coordinate_1, otherPoints[2].coordinate_2]);
 
 var NURBSline = new RSectionLine();

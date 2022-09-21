@@ -15,8 +15,7 @@ function RSectionLine(no,
     comment,
     params) {
     if (arguments.length !== 0) {
-        this.line = createBaseRSectionLine(no, comment, params);
-        return this.line;
+        return this.line = createBaseRSectionLine(no, comment, params);
     }
 }
 
@@ -232,7 +231,6 @@ RSectionLine.prototype.PointsOnLine = function (points_on_line) {
     for (var i = 0; i < points_on_line.length; ++i) {
         ASSERT(points_on_line.length >= 2, "At least distance and from_start must be defined");
         var row = i + 1;
-        console.log(points_on_line[i][0]);
         if (points_on_line[i][1]) {
             this.line.points_on_line_assignment[row].fromStart = points_on_line[i][0];
         }
