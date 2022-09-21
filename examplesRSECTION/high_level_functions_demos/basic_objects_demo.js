@@ -52,13 +52,14 @@ for (var i = 0; i < arclineList.length; ++i) {
 
 linesForPart.push(rsLine.Parabola(undefined, [25, 27], [-0.092, -0.143]));
 linesForPart.push(rsLine.Parabola(undefined, [2, 4], [0.092, -0.143]));
-var circleLine1 = rsLine.Circle(undefined, [0, -0.140], 0.005);
+var circleLine = rsLine.Circle(undefined, [0, -0.140], 0.005);
 var circleLine2 = rsLine.Circle(undefined, [0, 0.140], 0.005);
-// var opening = 
+var opening = new RSectionOpening(undefined, [circleLine]);
+var opening2 = new RSectionOpening(undefined, [circleLine2]);
 
 var rsPart = new RSectionPart();
 rsPart.WithBoundaryLines(undefined, linesForPart, material);
-//rsPart.IntegratedObjects(true, false, [opening]);
+rsPart.IntegratedObjects(true, false, [opening, opening2]);
 
 /*************************************************** Other ************************************/
 pointCoordinates = [

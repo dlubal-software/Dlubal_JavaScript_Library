@@ -3,22 +3,38 @@ if (!RSECTION) {
 }
 
 /**
- * Create RSection Opening
+ * Creates RSection Opening
  * @class
  * @constructor
- * @param {int} no - Number of Opening
- * @param {string} comment - Comment for the Opening
- * @param {dictionary} params - Parameters of the Opening
+ * @param {int}     no              Number of opening, can be undefined
+ * @param {Array}   boundary_lines  Numbers of boundary lines
+ * @param {string}  comment         Comment, can be undefined
+ * @param {Object}  params          Parameters, can be undefined
  * @returns opening
  */
-function Opening(no,
+function RSectionOpening(no,
+    boundary_lines,
     comment,
     params) {
-
     if (arguments.length !== 0) {
-        this.opening = engine.create_rsection_opening(no);
-
-        set_comment_and_parameters(this.opening, comment, params);
-        return this.opening;
+        return this.opening = createBaseOpening(no, boundary_lines, comment, params);
     }
+}
+
+/**
+ * @param {int}     no              Number of opening, can be undefined
+ * @param {Array}   boundary_lines  Numbers of boundary lines
+ * @param {string}  comment         Comment, can be undefined
+ * @param {Object}  params          Parameters, can be undefined
+ * @returns opening
+ */
+function createBaseOpening (no,
+    boundary_lines,
+    comment,
+    params) {
+    ASSERT(typeof boundary_lines !== "undefined", "Boundary lines musrt be specified");
+    var opening = engine.create_rsection_opening(no);
+    opening.boundary_lines = boundary_lines;
+    set_comment_and_parameters(opening, comment, params);
+    return opening;
 }
