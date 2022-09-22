@@ -6,16 +6,24 @@ if (!RSECTION) {
  * Creates RSection Line
  * @class
  * @constructor
- * @param {Number} no       Number of Line
- * @param {String} comment  Comment for the Line
- * @param {Object} params   Parameters of the Line
+ * @param {Number} no       Number of Line, cyn be undefined
+ * @param {String} type     Type of line
+ * @param {String} comment  Comment for the Line, can be undefined
+ * @param {Object} params   Parameters of the Line, can be undefined
  * @returns line
  */
 function RSectionLine(no,
+    type,
     comment,
     params) {
     if (arguments.length !== 0) {
-        return this.line = createBaseRSectionLine(no, comment, params);
+        if (typeof type !== "undefined") {
+            type = lines.TYPE_POLYLINE;
+        }
+        else {
+            console.log("Type of line not specified, POLYLINE set as default");
+        }
+        return this.line = createBaseRSectionLine(no, type, comment, params);
     }
 }
 
@@ -32,8 +40,7 @@ RSectionLine.prototype.Polyline = function (no,
     comment, 
     params) {
     ASSERT(typeof definition_points !== "undefined", "Definition points must be specified");
-    this.line = createBaseRSectionLine(no, comment, params);
-    this.line.type = lines.TYPE_POLYLINE;
+    this.line = createBaseRSectionLine(no, lines.TYPE_POLYLINE, comment, params);
     this.line.definition_points = definition_points;
     return this.line;
 };
@@ -61,8 +68,7 @@ RSectionLine.prototype.Arc = function (no,
     ASSERT(typeof points_of_arc !== "undefined", "Two points of arc must be defined");
     ASSERT(points_of_arc.length === 2, "Only two points of arc can be specified");
     ASSERT(typeof control_point !== "undefined", "Control point must be defined");
-    this.line = createBaseRSectionLine(no, comment, params);
-    this.line.type  =lines.TYPE_ARC;
+    this.line = createBaseRSectionLine(no, lines.TYPE_ARC, comment, params);
     this.line.definition_points = points_of_arc;
     this.line.arc_control_point_y = control_point[0];
     this.line.arc_control_point_z = control_point[1];
@@ -105,8 +111,7 @@ RSectionLine.prototype.Circle = function (no,
     ASSERT(typeof circle_center !== "undefined", "Circle center must be defined");
     ASSERT(circle_center.length === 2, "Two parameters must be specified: y, z");
     ASSERT(typeof circle_radius !== "undefined", "Circle radius must be defined");
-    this.line = createBaseRSectionLine(no, comment, params);
-    this.line.type = lines.TYPE_CIRCLE;
+    this.line = createBaseRSectionLine(no, lines.TYPE_CIRCLE, comment, params);
     this.line.circle_center_coordinate_y = circle_center[0];
     this.line.circle_center_coordinate_z = circle_center[1];
     this.line.circle_radius = circle_radius;
@@ -133,8 +138,7 @@ RSectionLine.prototype.Ellipse = function (no,
     ASSERT(typeof second_point !== "undefined", "Second point must be defined");
     ASSERT(typeof control_point !== "undefined", "Control point must be defined");
     ASSERT(control_point.length === 2, "Two parameters must be specified: y, z");
-    this.line = createBaseRSectionLine(no, comment, params);
-    this.line.type = lines.TYPE_ELLIPSE;
+    this.line = createBaseRSectionLine(no, lines.TYPE_ELLIPSE, comment, params);
     this.line.ellipse_first_point = first_point;
     this.line.ellipse_second_point = second_point;
     this.line.ellipse_control_point_y = control_point[0];
@@ -162,8 +166,7 @@ RSectionLine.prototype.Parabola = function (no,
     ASSERT(points_of_parabola.length === 2, "Two points must be specified");
     ASSERT(typeof control_point !== "undefined", "Center point must be deined");
     ASSERT(control_point.length === 2, "Two parameter must be spocified: y, z");
-    this.line = createBaseRSectionLine(no, comment, params);
-    this.line.type = lines.TYPE_PARABOLA;
+    this.line = createBaseRSectionLine(no, lines.TYPE_PARABOLA, comment, params);
     this.line.definition_points = points_of_parabola;
     this.line.parabola_control_point_y = control_point[0];
     this.line.parabola_control_point_z = control_point[1];
@@ -192,8 +195,7 @@ RSectionLine.prototype.NURBS = function (no,
     params) {
     ASSERT(typeof definition_points !== "undefined", "Define points must be defined");
     ASSERT(typeof control_points !== "undefined", "Control points must be defined");
-    this.line = createBaseRSectionLine(no, comment, params);
-    this.line.type = lines.TYPE_NURBS;
+    this.line = createBaseRSectionLine(no, lines.TYPE_NURBS, comment, params);
     this.line.definition_points = definition_points;
     for (var i = 0; i < control_points.length; ++i) {
         this.line.nurbs_control_points_by_components.insert_row(i + 2);
@@ -258,14 +260,17 @@ RSectionLine.prototype.PointsOnLine = function (points_on_line) {
 /**
  * Creates RSection base line
  * @param {Number} no       Number of line, can be undefined
+ * @param {String} type     Type of line  
  * @param {String} comment  Comment, can be undefined
  * @param {Object} params   Parameters, can be undefined
  * @returns line
  */
 function createBaseRSectionLine (no,
+    type,
     comment,
     params) {
     var line = engine.create_rsection_line(no);
+    line.type = type;
     set_comment_and_parameters(line, comment, params);
     return line;
 };

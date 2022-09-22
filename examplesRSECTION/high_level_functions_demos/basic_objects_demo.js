@@ -61,7 +61,20 @@ var rsPart = new RSectionPart();
 rsPart.WithBoundaryLines(undefined, linesForPart, material);
 rsPart.IntegratedObjects(true, false, [opening, opening2]);
 
-/*************************************************** Other ************************************/
+/***********************************************Elements** ************************************/
+var element = new RSectionElement();
+element.SingleLine(undefined, [28, 1]);
+element.Thickness(0.005, 0.005);
+element.Arc(undefined, [16, 18], [points[17].coordinate_1, points[17].coordinate_2]);
+element.Thickness(0.005, 0.005);
+element.Arc(undefined, [11, 13], [points[12].coordinate_1, points[12].coordinate_2]);
+element.Thickness(0.005, 0.005);
+element.Circle(undefined, [0, -0.140], 0.005);
+element.Thickness(0.005, 0.005);
+element.Parabola(undefined, [25, 27], [-0.092, -0.143]);
+element.Parabola(undefined, [2, 4], [0.092, -0.143]);
+
+/********************************************* lines + elements *******************************/
 pointCoordinates = [
     [0.240, -0.140], [0.180, -0.040], [0.200, -0.060], [0.220, -0.060], [0.080, -0.080], [0.100, -0.100], [0.120, -0.080],
     [0.140, -0.100], [0.160, -0.080]
@@ -72,11 +85,16 @@ for (var i = 0; i < pointCoordinates.length; ++i) {
 }
 
 rsLine.Ellipse(undefined, otherPoints[1], otherPoints[3], [otherPoints[2].coordinate_1, otherPoints[2].coordinate_2]);
+//rsLine.Parabola(undefined, )
 
 var NURBSline = new RSectionLine();
 NURBSline.NURBS(undefined, [otherPoints[4], otherPoints[8]], [[otherPoints[5].coordinate_1, otherPoints[5].coordinate_2], [otherPoints[6].coordinate_1, otherPoints[6].coordinate_2],
     [otherPoints[7].coordinate_1, otherPoints[7].coordinate_2]], 3);
 NURBSline.PointsOnLine([[0.1, true], [0.3, true], [0.1, false]]);
+
+element.Ellipse(undefined, otherPoints[1], otherPoints[3], [otherPoints[2].coordinate_1, otherPoints[2].coordinate_2]);
+element.NURBS(undefined, [otherPoints[4], otherPoints[8]], [[otherPoints[5].coordinate_1, otherPoints[5].coordinate_2], [otherPoints[6].coordinate_1, otherPoints[6].coordinate_2],
+    [otherPoints[7].coordinate_1, otherPoints[7].coordinate_2]], 3);
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;
