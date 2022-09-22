@@ -6,11 +6,11 @@ if (!RSECTION) {
  * Creates RSection Opening
  * @class
  * @constructor
- * @param {int}     no              Number of opening, can be undefined
+ * @param {int}     no              Number of Ppening, can be undefined
  * @param {Array}   boundary_lines  Boundary lines
  * @param {string}  comment         Comment, can be undefined
  * @param {Object}  params          Parameters, can be undefined
- * @returns opening
+ * @returns Opening
  */
 function RSectionOpening(no,
     boundary_lines,
@@ -22,11 +22,11 @@ function RSectionOpening(no,
 }
 
 /**
- * @param {int}     no              Number of opening, can be undefined
+ * @param {int}     no              Number of Ppening, can be undefined
  * @param {Array}   boundary_lines  Boundary lines
  * @param {string}  comment         Comment, can be undefined
  * @param {Object}  params          Parameters, can be undefined
- * @returns opening
+ * @returns Opening
  */
 function createBaseOpening (no,
     boundary_lines,

@@ -6,12 +6,12 @@ if (!RSECTION) {
  * Creates RSection Point
  * @class
  * @constructor
- * @param {Number}      no              Number of Point
+ * @param {Number}      no              Number of Point, can be undefined
  * @param {Number}      coordinate_y    Coordinate Y
  * @param {Number}      coordinate_z    Coordinate Z
- * @param {String}      comment         Comment for the Point
- * @param {Object}      params          Parameters of the Point
- * @returns point
+ * @param {String}      comment         Comment, can be undefined
+ * @param {Object}      params          Parameters, can be undefined
+ * @returns Point
  */
 function RSectionPoint(no,
     coordinate_y,
@@ -25,14 +25,14 @@ function RSectionPoint(no,
 
 /**
  * Creates standard RSection Point
- * @param {Number}      no                      Number of Point
+ * @param {Number}      no                      Number of Point, can be undefined
  * @param {Number}      coordinate_y            Coordinate Y
  * @param {Number}      coordinate_z            Coordinate Z
  * @param {Number}      reference_point         Reference point number, can be undefined
  * @param {String}      coordinate_system_type  Coordinate type, can be undefined (Cartesian as default)
  * @param {String}      comment                 Comment, can be undefined
  * @param {Object}      params                  Parameters, can be undefined
- * @returns point
+ * @returns Point
  */
 RSectionPoint.prototype.Standard = function (no,
     coordinate_y,
@@ -55,7 +55,7 @@ RSectionPoint.prototype.Standard = function (no,
 
  /**
  * Creates Between two locations RSection Point
- * @param {Number}      no                              Number of Point
+ * @param {Number}      no                              Number of Point, can be undefined
  * @param {Array}       start_location                  Coordinates for start location
  * @param {Array}       end_location                    Coordinates for end location
  * @param {Number}      distance_from_start             Distance from start
@@ -65,7 +65,7 @@ RSectionPoint.prototype.Standard = function (no,
  * @param {Number}      offset_in_local_direction       Offset in local direction, can be undefined (0 as default)
  * @param {String}      comment                         Comment, can be undefined
  * @param {Object}      params                          Parameters, can be undefined
- * @returns point
+ * @returns Point
  */
   RSectionPoint.prototype.BetweenTwoLocations = function (no,
     start_location,
@@ -111,7 +111,7 @@ RSectionPoint.prototype.Standard = function (no,
 
  /**
  * Creates Between two points RSection Point
- * @param {Number}      no                              Number of Point
+ * @param {Number}      no                              Number of Point, can be undefined
  * @param {Array}       start_point                     Start point
  * @param {Array}       end_point                       End point
  * @param {Number}      distance_from_start             Distance from start
@@ -121,7 +121,7 @@ RSectionPoint.prototype.Standard = function (no,
  * @param {Number}      offset_in_local_direction       Offset in local direction, can be undefined (0 as default)
  * @param {String}      comment                         Comment, can be undefined
  * @param {Object}      params                          Parameters, can be undefined
- * @returns point
+ * @returns Point
  */
   RSectionPoint.prototype.BetweenTwoPoints = function (no,
     start_point,
@@ -165,7 +165,7 @@ RSectionPoint.prototype.Standard = function (no,
 
 /**
  * Creates On lines RSection Point
- * @param {Number}      no                              Number of Point
+ * @param {Number}      no                              Number of Point, can be undefined
  * @param {Number}      line                            Line number
  * @param {Number}      distance_from_start             Distance from start
  * @param {Number}      distance_from_end               Distance from end
@@ -173,7 +173,7 @@ RSectionPoint.prototype.Standard = function (no,
  * @param {String}      reference_type                  Reference type, can be undefined ("L" by default)
  * @param {String}      comment                         Comment, can be undefined
  * @param {Object}      params                          Parameters, can be undefined
- * @returns point
+ * @returns Point
  */
 RSectionPoint.prototype.OnLine = function (no,
     line,
@@ -205,12 +205,12 @@ RSectionPoint.prototype.OnLine = function (no,
 
     /**
  * Creates base RSection Point (private)
- * @param {Number}      no              Number of Point
+ * @param {Number}      no              Number of Point, can be undefined
  * @param {Number}      coordinate_y    Coordinate Y
  * @param {Number}      coordinate_z    Coordinate Z
  * @param {String}      comment         Comment, can be undefined
  * @param {Object}      params          Parameters, can be undefined
- * @returns point
+ * @returns Point
  */
 function createBasePoint (no,
     coordinate_y,

@@ -9,7 +9,7 @@ if (!RSECTION) {
  * @param {int}     no              Number of Part, can be undefined
  * @param {string}  comment         Comment, can be undefined
  * @param {Object}  params          Parameters, can be undefined
- * @returns part
+ * @returns Part
  */
 function RSectionPart(no,
     comment,
@@ -22,13 +22,13 @@ function RSectionPart(no,
 }
 
 /**
- * Creates part with boundary line
- * @param {Number}  no              Number of part, can be undefined
+ * Creates Part with boundary line
+ * @param {Number}  no              Number of Part, can be undefined
  * @param {Array}   boundary_lines  Boundary lines
  * @param {Object}  material        Material
  * @param {String}  comment         Comment, cabn be undefined
  * @param {Object}  params          Parameters, can be undefined
- * @returns part
+ * @returns Part
  */
 RSectionPart.prototype.WithBoundaryLines = function (no,
     boundary_lines,
@@ -43,11 +43,11 @@ RSectionPart.prototype.WithBoundaryLines = function (no,
 }
 
 /**
- * Integrates objects to part
+ * Integrates objects to Part
  * @param {Boolean} enable                      Objects are integrated, can be undefined (true as default)
  * @param {Boolean} automatic_object_detection  Objects are integrated automatically, can be undefined (true as default)
  * @param {Array}   integrated_openings         Integrated openings
- * @returns Modified part
+ * @returns Modified Part
  */
 RSectionPart.prototype.IntegratedObjects = function (enable,
     automatic_object_detection,
@@ -73,7 +73,7 @@ RSectionPart.prototype.IntegratedObjects = function (enable,
  * @param {int}     no              Number of Part, can be undefined
  * @param {string}  comment         Comment, can be undefined
  * @param {Object}  params          Parameters, can be undefined
- * @returns part
+ * @returns Part
  */
  function createBaseRSectionPart(no,
     comment,

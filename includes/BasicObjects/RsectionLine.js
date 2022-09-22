@@ -6,11 +6,11 @@ if (!RSECTION) {
  * Creates RSection Line
  * @class
  * @constructor
- * @param {Number} no       Number of Line, cyn be undefined
+ * @param {Number} no       Number of Line, can be undefined
  * @param {String} type     Type of line
  * @param {String} comment  Comment for the Line, can be undefined
  * @param {Object} params   Parameters of the Line, can be undefined
- * @returns line
+ * @returns Line
  */
 function RSectionLine(no,
     type,
@@ -29,11 +29,11 @@ function RSectionLine(no,
 
 /**
  * Creates RSection polyline
- * @param {Number}  no                  Number of line, can be undefined
+ * @param {Number}  no                  Number of Line, can be undefined
  * @param {Array}   definition_points   Definition point numbers
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Parameters, can be undefined
- * @returns line
+ * @returns Line
  */
 RSectionLine.prototype.Polyline = function (no,
     definition_points,
@@ -46,16 +46,16 @@ RSectionLine.prototype.Polyline = function (no,
 };
 
 /**
- * Creates RSection arc line
- * @param {Number}  no                      Number of line, can be undefined
- * @param {Array}   points_of_arc           Points numbers of arc line
+ * Creates RSection arc Line
+ * @param {Number}  no                      Number of Line, can be undefined
+ * @param {Array}   points_of_arc           Points numbers of arc lLne
  * @param {Array}   control_point           Coordinates of control point
  * @param {Array}   arc_parameters          Arc parameters, can be undefined
  * @param {Array}   arc_center              Coordinates of arc center, can be undefined
  * @param {String}  alpha_adjustment_target Subsequent adjustement of alpha by displaycing point at, can be undefined (Begining of arc by default)
  * @param {String}  comment                 Comment, can be undefined
  * @param {Object}  params                  Parameters, can be undefined
- * @returns line
+ * @returns Line
  */
 RSectionLine.prototype.Arc = function (no,
     points_of_arc,
@@ -94,13 +94,13 @@ RSectionLine.prototype.Arc = function (no,
 };
 
 /**
- * Creates RSection circle
- * @param {Number}  no              Number of line, can be undefined
+ * Creates RSection circle Line
+ * @param {Number}  no              Number of Line, can be undefined
  * @param {Array}   circle_center   Coordinates of circle center
  * @param {Number}  circle_radius   Circle radius
  * @param {String}  comment         Comment, can be undefined
  * @param {Object}  params          Parameters, can be undefined
- * @returns Circle
+ * @returns Line
  */
 RSectionLine.prototype.Circle = function (no,
     circle_center,
@@ -119,14 +119,14 @@ RSectionLine.prototype.Circle = function (no,
 };
 
 /**
- * Creates RSection ellipse
- * @param {Number}  no                  Number of line, can be undefined
+ * Creates RSection ellipse Line
+ * @param {Number}  no                  Number of Line, can be undefined
  * @param {Number}  first_point         Number of first point
  * @param {Number}  second_point        Number of second point
  * @param {Array}   control_point       Control point coordinates
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Parameters, can be undefined
- * @returns ellipse
+ * @returns Line
  */
 RSectionLine.prototype.Ellipse = function (no,
     first_point,
@@ -147,14 +147,14 @@ RSectionLine.prototype.Ellipse = function (no,
 };
 
 /**
- * Creates RSection parabola
- * @param {Number}  no                      Number of line, can be undefined
+ * Creates RSection parabola Line
+ * @param {Number}  no                      Number of Line, can be undefined
  * @param {Array}   points_of_parabola      Points numbers of parabola
  * @param {Array}   control_point           Control point
  * @param {Number}  parabola_alpha          Angle of the parabola, can be undefined (0 as default)
  * @param {String}  comment                 Comment, can be undefined
  * @param {Object}  params                  Parameters, can be undefined
- * @return parabola
+ * @return Line
  */
 RSectionLine.prototype.Parabola = function (no,
     points_of_parabola,
@@ -177,14 +177,14 @@ RSectionLine.prototype.Parabola = function (no,
 };
 
 /**
- * Creates RSection NURBS
- * @param {Number}  no                  Number of line, can be undefined
+ * Creates RSection NURBS Line
+ * @param {Number}  no                  Number of Line, can be undefined
  * @param {Array}   control_points      Control points ([[y1, z1 (, weight1)], [y2, z2, weight2], ...])
  * @param {Number}  nurbs_order         Nurbs order, can be undefine (2 as default)
  * @param {Array}   nurbs_knots         Nurbs knots, can be undefined
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Parameters, can be undefined
- * @returns NURBS
+ * @returns Line
  */
 RSectionLine.prototype.NURBS = function (no,
     definition_points,
@@ -258,12 +258,12 @@ RSectionLine.prototype.PointsOnLine = function (points_on_line) {
 }
 
 /**
- * Creates RSection base line
- * @param {Number} no       Number of line, can be undefined
- * @param {String} type     Type of line  
+ * Creates RSection base Line
+ * @param {Number} no       Number of Line, can be undefined
+ * @param {String} type     Type of Line  
  * @param {String} comment  Comment, can be undefined
  * @param {Object} params   Parameters, can be undefined
- * @returns line
+ * @returns Line
  */
 function createBaseRSectionLine (no,
     type,

@@ -7,10 +7,10 @@ if (!RSECTION) {
  * @class
  * @constructor
  * @param {Number}  no      Number of Element, can be undefined
- * @param {String}  type    Type of element
+ * @param {String}  type    Type of Element
  * @param {String}  comment Comment, can be undefined
  * @param {Object}  params  Parameters, can be undefined
- * @returns element
+ * @returns Element
  */
 function RSectionElement(no,
     type,
@@ -21,21 +21,21 @@ function RSectionElement(no,
             type = elements.TYPE_SINGLELINE;
         }
         else {
-            console.log("Type of element not specified, SINGLELINE set as default");
+            console.log("Type of Element not specified, SINGLELINE set as default");
         }
         return this.element = createBaseRSectionElement(no, comment, params);
     }
 }
 
 /**
- * Creates single line element
- * @param {Number}  no              Number of element, can be undefined
+ * Creates single line Element
+ * @param {Number}  no              Number of Element, can be undefined
  * @param {Array}   boundary_lines  Boundary lines
  * @param {Number}  thickness       Thickness, can be undefined (10 mm by default)
  * @param {Number}  shear_thickness Shear thickness, can be undefined (not specified by default)
  * @param {String}  comment         Comment, can be undefined
  * @param {Object}  params          Parameters, can be undefined
- * @returns element
+ * @returns Element
  */
 RSectionElement.prototype.SingleLine = function (no,
     definition_points,
@@ -50,16 +50,16 @@ RSectionElement.prototype.SingleLine = function (no,
 };
 
 /**
- * Creates RSection arc element
- * @param {Number}  no                      Number of element, can be undefined
- * @param {Array}   points_of_arc           Points numbers of arc element
+ * Creates RSection arc Element
+ * @param {Number}  no                      Number of Element, can be undefined
+ * @param {Array}   points_of_arc           Points numbers of arc Element
  * @param {Array}   control_point           Coordinates of control point
  * @param {Array}   arc_parameters          Arc parameters, can be undefined
  * @param {Array}   arc_center              Coordinates of arc center, can be undefined
  * @param {String}  alpha_adjustment_target Subsequent adjustement of alpha by displaycing point at, can be undefined (Begining of arc by default)
  * @param {String}  comment                 Comment, can be undefined
  * @param {Object}  params                  Parameters, can be undefined
- * @returns element
+ * @returns Element
  */
 RSectionElement.prototype.Arc = function (no,
     points_of_arc,
@@ -98,13 +98,13 @@ RSectionElement.prototype.Arc = function (no,
 };
 
 /**
- * Creates RSection circle element
- * @param {Number}  no              Number of element, can be undefined
+ * Creates RSection circle Element
+ * @param {Number}  no              Number of Element, can be undefined
  * @param {Array}   circle_center   Coordinates of circle center
  * @param {Number}  circle_radius   Circle radius
  * @param {String}  comment         Comment, can be undefined
  * @param {Object}  params          Parameters, can be undefined
- * @returns elementř
+ * @returns Elementř
  */
 RSectionElement.prototype.Circle = function (no,
     circle_center,
@@ -123,14 +123,14 @@ RSectionElement.prototype.Circle = function (no,
 };
 
 /**
- * Creates RSection ellipse element
- * @param {Number}  no                  Number of element, can be undefined
+ * Creates RSection ellipse Element
+ * @param {Number}  no                  Number of Element, can be undefined
  * @param {Number}  first_point         Number of first point
  * @param {Number}  second_point        Number of second point
  * @param {Array}   control_point       Control point coordinates
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Parameters, can be undefined
- * @returns element
+ * @returns Element
  */
 RSectionElement.prototype.Ellipse = function (no,
     first_point,
@@ -151,14 +151,14 @@ RSectionElement.prototype.Ellipse = function (no,
 };
 
 /**
- * Creates RSection parabola element
- * @param {Number}  no                      Number of element, can be undefined
+ * Creates RSection parabola Element
+ * @param {Number}  no                      Number of Element, can be undefined
  * @param {Array}   points_of_parabola      Points numbers of parabola
  * @param {Array}   control_point           Control point
  * @param {Number}  parabola_alpha          Angle of the parabola, can be undefined (0 as default)
  * @param {String}  comment                 Comment, can be undefined
  * @param {Object}  params                  Parameters, can be undefined
- * @return element
+ * @return Element
  */
 RSectionElement.prototype.Parabola = function (no,
     points_of_parabola,
@@ -181,14 +181,14 @@ RSectionElement.prototype.Parabola = function (no,
 };
 
 /**
- * Creates RSection NURBS element
- * @param {Number}  no                  Number of element, can be undefined
+ * Creates RSection NURBS Element
+ * @param {Number}  no                  Number of Element, can be undefined
  * @param {Array}   control_points      Control points ([[y1, z1 (, weight1)], [y2, z2, weight2], ...])
  * @param {Number}  nurbs_order         Nurbs order, can be undefine (2 as default)
  * @param {Array}   nurbs_knots         Nurbs knots, can be undefined
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Parameters, can be undefined
- * @returns element
+ * @returns Element
  */
 RSectionElement.prototype.NURBS = function (no,
     definition_points,
@@ -197,7 +197,7 @@ RSectionElement.prototype.NURBS = function (no,
     nurbs_knots,
     comment,
     params) {
-    ASSERT(typeof definition_points !== "undefined", "Define points must be defined");
+    ASSERT(typeof definition_points !== "undefined", "Definition points must be defined");
     ASSERT(typeof control_points !== "undefined", "Control points must be defined");
     this.element = createBaseRSectionElement(no, elements.TYPE_NURBS, comment, params);
     this.element.definition_points = definition_points;
@@ -228,11 +228,11 @@ RSectionElement.prototype.NURBS = function (no,
 
 /**
  * Create base RSection Element
- * @param {Number}  no      Number of element, can be undefined
- * @param {String}  type    Type of element
+ * @param {Number}  no      Number of Element, can be undefined
+ * @param {String}  type    Type of Element
  * @param {String}  comment Comment, can be undefined
  * @param {Object}  params  Parameters, can be undefined
- * @returns element
+ * @returns Element
  */
  function createBaseRSectionElement(no,
     type,
@@ -248,7 +248,7 @@ RSectionElement.prototype.NURBS = function (no,
  * Sets thickness and/or shear thickness
  * @param {Number} thickness        Thickness
  * @param {Number} shear_thickness  Effective thickness for shear transfer, can be undefined
- * @return Modified element
+ * @return Modified Element
  */
 RSectionElement.prototype.Thickness = function (thickness,
     shear_thickness) {
