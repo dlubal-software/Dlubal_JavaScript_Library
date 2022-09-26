@@ -303,7 +303,7 @@ const initial_state_definition_types = {
 function SetDesignSituation(load_combination, design_situation_no) {
     if (typeof design_situation_no !== "undefined") {
         if (design_situations.exist(design_situation_no)) {
-            load_combination.design_situation = design_situation[design_situation_no];
+            load_combination.design_situation = design_situations[design_situation_no];
         }
         else {
             console.log("Design situation " + design_situation_no + " does not exist");
