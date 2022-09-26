@@ -2,24 +2,72 @@ if (!RSECTION) {
     throw new Error("This script is only for RSECTION, it creates RSection Elements.");
 }
 
-function createBaseLoadCase (no,
+/**
+ * Create RSection Load case
+ * @class
+ * @constructor
+ * @param {Number}  no                  Number of Load case, can be undefined
+ * @param {String}  action_category     Action category
+ * @param {String}  name                Name of Load case, can be undefined
+ * @param {Boolean} to_solve            To solve, can be undefined (true as default)
+ * @param {String}  comment             Comment, can be undefined
+ * @param {Object}  params              Parameters, can be undefined
+ * @returns Load case
+ */
+function RSectionLoadCase (no,
+    action_category,
     name,
+    to_solve,
     comment,
     params) {
     if (arguments.length !== 0) {
-        return this.load_case = createBaseLoadCase(no, name, comment, params);
+        return this.load_case = createBaseLoadCase(no, action_category, name, to_solve, comment, params);
     }
 }
 
+/**
+ * @param {Number}  no                  Number of Load case, can be undefined
+ * @param {String}  action_category     Action category
+ * @param {String}  name                Name of Load case, can be undefined
+ * @param {Boolean} to_solve            To solve, can be undefined (true as default)
+ * @param {String}  comment             Comment, can be undefined
+ * @param {Object}  params              Parameters, can be undefined
+ * @returns Load case
+ */
 function createBaseLoadCase (no,
+    action_category,
     name,
+    to_solve,
     comment,
     params) {
-    var load_case = load_cases.create(no);
+    if (typeof no !== "undefined") {
+        var load_case = load_cases.create(no);
+    }
+    else {
+        var load_case = load_cases.create();
+    }
+    ASSERT(typeof action_category !== "undefined", "Action category must be defined");
+    if (!(action_category in actionCategories)) {
+        console.log("Action category " + action_category + " doesn't match");
+        get_action_categories_types();
+    }
+    else {
+        load_case.action_category = actionCategories[action_category];
+    }
+    if (typeof to_solve !== "undefined") {
+        load_case.to_solve = to_solve;
+    }
     load_case.name = name;
     set_comment_and_parameters(load_case, comment, params);
     return load_case;
 }
+
+/**
+ * Shows list of all available design situation types
+ */
+ function get_action_categories_types () {
+    console.log(Object.keys(actionCategories));
+};
 
 const actionCategories = {
     "PERMANENT_G" : "Permanent | G",
