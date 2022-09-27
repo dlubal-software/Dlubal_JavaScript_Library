@@ -8,7 +8,7 @@ if (!RSECTION) {
  * @constructor
  * @param {Number}  no                  Number of Load case, can be undefined
  * @param {String}  action_category     Action category
- * @param {String}  name                Name of Load case, can be undefined
+ * @param {String}  name                Name, can be undefined
  * @param {Boolean} to_solve            To solve, can be undefined (true as default)
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Parameters, can be undefined
@@ -28,7 +28,7 @@ function RSectionLoadCase (no,
 /**
  * @param {Number}  no                  Number of Load case, can be undefined
  * @param {String}  action_category     Action category
- * @param {String}  name                Name of Load case, can be undefined
+ * @param {String}  name                Name, can be undefined
  * @param {Boolean} to_solve            To solve, can be undefined (true as default)
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Parameters, can be undefined
