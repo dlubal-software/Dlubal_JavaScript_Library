@@ -1,5 +1,5 @@
 if (!RSECTION) {
-    throw new Error("This script is only for RSECTION, it creates RSection Elements.");
+    throw new Error("This script is only for RSECTION, it creates RSection Load cases.");
 }
 
 /**
