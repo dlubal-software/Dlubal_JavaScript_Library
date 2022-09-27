@@ -112,8 +112,8 @@ RSectionPoint.prototype.Standard = function (no,
  /**
  * Creates Between two points RSection Point
  * @param {Number}      no                              Number of Point, can be undefined
- * @param {Array}       start_point                     Start point
- * @param {Array}       end_point                       End point
+ * @param {Object}      start_point                     Start point
+ * @param {Object}      end_point                       End point
  * @param {Number}      distance_from_start             Distance from start
  * @param {Number}      distance_from_end               Distance from end
  * @param {Boolean}     distance_from_start_relative    Distance from start point, can be undefined (True asy default)
