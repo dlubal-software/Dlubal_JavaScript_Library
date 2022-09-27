@@ -2,7 +2,18 @@ if (!RSECTION) {
     throw new Error("This script is only for RSECTION, it creates RSection Load combinations.");
 }
 
-function RSectionLoadCombinations (no,
+/**
+ * Create RSection Load combination
+ * @class
+ * @constructor
+ * @param {Number}  no                  Number of Load case, can be undefined
+ * @param {String}  name                Name, can be undefined
+ * @param {Boolean} to_solve            To solve, can be undefined (true as default)
+ * @param {String}  comment             Comment, can be undefined
+ * @param {Object}  params              Parameters, can be undefined
+ * @returns Load combination
+ */
+function RSectionLoadCombination (no,
     name,
     to_solve,
     comment,
@@ -10,13 +21,39 @@ function RSectionLoadCombinations (no,
     this.load_combination = createBaseLoadCombinations(no, name, to_solve, comment, params);
 }
 
-RSectionLoadCombinations.prototype.SetLoadCases = function (loadCases) {
+/**
+ * Sets load cases
+ * @param {Array} loadCases     Load cases
+ * @param {Array} factors       Factors, can be undefined
+ */
+RSectionLoadCombination.prototype.SetLoadCases = function (loadCases,
+    factors) {
     ASSERT(typeof loadCases != "undefined", "At least one load caes must be defined");
-    for (var i = 0; i < loadCases.length; ++i) {
-        if (!load_cases.exist)
+    if (typeof factors !== "undefined") {
+        ASSERT(factors.length === loadCases.length, "Factor array must contains " + loadCases.length + " factor(s)");
     }
-}
+    for (var i = 0; i < loadCases.length; ++i) {
+        if (!load_cases.exist(loadCases[i].no)) {
+            console.log("Load case " + loadCases[i] + " doesn't exist");
+        }
+        else {
+            this.load_combination.items[i + 1].load_case = loadCases[i];
+            if (typeof factors !== "undefined") {
+                this.load_combination.items[i + 1].factor = factors[i];
+            }
+        }
+    }
+};
 
+/**
+ * Create RSection Load combination
+ * @param {Number}  no                  Number of Load case, can be undefined
+ * @param {String}  name                Name, can be undefined
+ * @param {Boolean} to_solve            To solve, can be undefined (true as default)
+ * @param {String}  comment             Comment, can be undefined
+ * @param {Object}  params              Parameters, can be undefined
+ * @returns Load combination
+ */
 function createBaseLoadCombinations (no,
     name,
     to_solve,
@@ -37,4 +74,4 @@ function createBaseLoadCombinations (no,
     }
     set_comment_and_parameters(load_combination, comment, params);
     return load_combination;
-}
+};
