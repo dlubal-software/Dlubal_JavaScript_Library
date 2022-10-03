@@ -21,6 +21,7 @@ $PathToRFEM = Get-Folder
 Write-Output "You have selected: $PathToRFEM"
 $PathToRFEMScriptsInclude = $PathToRFEM + "\\scripts\\includes\"
 $PathToRFEMExamples = $PathToRFEM + "\\scripts\\examples\"
+$PathToRSECTIONExamples = $PathToRFEM + "\\scripts\\examplesRSection\"
 # try
 # {
 #    Remove-Item PathToRFEMScriptsInclude+"*.*" -Force -Recurse -ErrorAction
@@ -56,12 +57,24 @@ catch
 {
     Write-Host "Coping"  $PathToRFEMScriptsInclude "Failure"
 }
+try
+{
+    Copy-Item -Path .\examplesRSection\* -Recurse  -Destination $PathToRSECTIONExamples -PassThru -Force -errorAction stop
+    Write-Host  "Coping" $PathToRSECTIONExamples "done"
+}
+catch
+{
+    Write-Host "Coping"  $PathToRSECTIONExamples "Failure"
+}
+
+
 
 Write-Output "Copying done"
 
 $PathToRFEMExe = $PathToRFEM + "\\bin\\"
 # $AppExe = ".\RFEM6.exe"
-$AppExe = ".\RSTAB9.exe"
+# $AppExe = ".\RSTAB9.exe"
+$AppExe = ".\RSECTION.exe"
 $ArgumentsList = "--prerelease-mode --dev-mode --dbg-solver --DEV-branch-name-in-title"
 Write-Output $PathToRFEMExe
 Start-Process -WorkingDirectory $PathToRFEMExe $AppExe -ArgumentList $ArgumentsList
