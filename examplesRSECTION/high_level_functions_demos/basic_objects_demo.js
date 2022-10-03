@@ -99,3 +99,7 @@ element.NURBS(undefined, [otherPoints[4], otherPoints[8]], [[otherPoints[5].coor
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;
 console.log("Elapsed time: " + time + "s");
+
+/**************************************** stress points *************************************/
+var stress_point = new RSectionStressPoint();
+stress_point.Standard(undefined, rsPart.part.no, 40);
