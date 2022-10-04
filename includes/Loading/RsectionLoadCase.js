@@ -26,6 +26,20 @@ function RSectionLoadCase (no,
 }
 
 /**
+ * Returns load case object
+ */
+RSectionLoadCase.prototype.GetLoadcase = function () {
+    return this.load_case;
+}
+
+/**
+ * Returns load case number
+ */
+RSectionLoadCase.prototype.GetNo = function () {
+    return this.load_case.no;
+}
+
+/**
  * @param {Number}  no                  Number of Load case, can be undefined
  * @param {String}  action_category     Action category
  * @param {String}  name                Name, can be undefined

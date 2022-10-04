@@ -14,9 +14,9 @@ load_cases.E_INTERNAL_FORCES_SYSTEM_AXES_X_Y
  * @constructor
  * @param {Number} no                       Number of internal forces, can be undefined
  * @param {Object} load_case_no             Number of Load case
- * @param {String} internal_forces_system   Internal forces relative to, can be undefined ("y,z" as default)
- * @param {Number} location_x               Location, can be undefined (0 as default)
+ * @param {String} internal_forces_system   Internal forces relative to, can be undefined ("Y_Z" as default)
  * @param {Number} member_no                Number of member, can be undefined
+ * @param {Number} location_x               Location, can be undefined (0 as default)
  * @param {String} comment                  Comment, can be undefined
  * @param {Object} params                   Parameters, can be undefined
  * @returns Created Internal forces
@@ -24,16 +24,16 @@ load_cases.E_INTERNAL_FORCES_SYSTEM_AXES_X_Y
 function RSectionInternalForces (no,
     load_case_no,
     internal_forces_system,
-    location_x,
     member_no,
+    location_x,
     comment,
     params) {
     ASSERT(typeof load_case_no !== "undefined", "Load case must be specified");
     if (load_cases.exist(load_case_no)) {
         var row = load_cases[load_case_no].internal_forces.count();
+        this.internal_forces = load_cases[load_case_no].internal_forces.create();
         if (typeof internal_forces_system !== "undefined") {
             if (internal_forces_system in internal_forces_system_types) {
-                this.internal_forces = load_cases[load_case_no].internal_forces.create();
                 load_cases[load_case_no].internal_forces[row + 1].internal_forces_system = internal_forces_system_types[internal_forces_system];
             }
             else {
@@ -67,7 +67,7 @@ RSectionInternalForces.prototype.AxialForce = function (axial_force) {
 
 /**
  * Sets shear forces
- * @param {Number} shear_force_1    Shear force Vu|Vy (in condition of intrenal forces system), can be undefined (0 by default)
+ * @param {Number} shear_force_1    Shear force Vu|Vy (in condition of internal forces system), can be undefined (0 by default)
  * @param {Number} shear_force_2    Shear force Vv|Vz (in condition of internal forces system), can be undefined (0 by default)
  * @returns Modified Internal forces
  */
@@ -138,11 +138,49 @@ RSectionInternalForces.prototype.BendingMoments = function (bending_moment_1,
     return this.internal_forces;
 };
 
+/**
+ * Sets bimoment
+ * @param {Number} bimoment_m_omega     Bimoment
+ * @returns Modified Internal forces
+ */
 RSectionInternalForces.prototype.Bimoment = function (bimoment_m_omega) {
     ASSERT(typeof bimoment_m_omega !== "undefined", "Bimoment must be defined");
     this.internal_forces.bimoment_m_omega = bimoment_m_omega;
     return this.internal_forces;
 };
+
+/**
+ * Assigns all internal forces
+ * @param {Number} axial_force          Axial force
+ * @param {Array} shear_forces          Sher forces (Vy, Vz | Vu, Vv)
+ * @param {Array} torsional_moments     Torsional moments (Mxp, Mxs)
+ * @param {Array} bending_moments       Bending moments (My, Mz | Mu, Mv)
+ * @param {Number} bimoment             Bimoment
+ */
+RSectionInternalForces.prototype.AssignInternalForces = function (axial_force,
+    shear_forces,
+    torsional_moments,
+    bending_moments,
+    bimoment) {
+    if (typeof axial_force !== "undefined") {
+        this.AxialForce(axial_force);
+    }
+    if (typeof shear_forces != "undefined") {
+        ASSERT(Array.isArray(shear_forces) && shear_forces.length >= 1, "At least one value is required");
+        this.ShearForces(shear_forces[0], shear_forces.length == 2 ? shear_forces[1] : undefined);
+    }
+    if (typeof torsional_moments !== "undefined") {
+        ASSERT(Array.isArray(torsional_moments) && torsional_moments.length >= 1, "At least one value is required");
+        this.TorsionalMoments(torsional_moments[0], torsional_moments.length === 2 ? torsional_moments[1] : undefined);
+    }
+    if (typeof bending_moments !== "undefined") {
+        ASSERT(Array.isArray(bending_moments) && bending_moments.length >= 1, "At least one value is required");
+        this.BendingMoments(bending_moments[0], bending_moments.length === 2 ? bending_moments[1] : undefined);
+    }
+    if (typeof bimoment !== "undefined") {
+        this.Bimoment(bimoment);
+    }
+}
 
 /**
  * Shows list of all available internal forces system types
