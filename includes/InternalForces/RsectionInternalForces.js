@@ -112,7 +112,7 @@ RSectionInternalForces.prototype.TorsionalMoments = function (torsional_moment_m
 
 /**
  * Sets bending moments
- * @param {Number} bending_moment_1    Bending moment Mu|My (in condition of intrenal forces system), can be undefined (0 by default)
+ * @param {Number} bending_moment_1    Bending moment Mu|My (in condition of internal forces system), can be undefined (0 by default)
  * @param {Number} bending_moment_2    Bending moment Mv|Mz (in condition of internal forces system), can be undefined (0 by default)
  * @returns Modified Internal forces
  */
