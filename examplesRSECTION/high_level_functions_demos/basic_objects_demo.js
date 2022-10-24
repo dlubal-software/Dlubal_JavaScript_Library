@@ -12,7 +12,7 @@ var t1 = new Date().getTime();
 
 run("../includes/Tools/clearAll.js");
 
-var material = createMaterial("S235");
+var material = new Material(undefined, "S235");
 
 var pointsList = [
     [0.1, -0.15], [0.1, -0.144], [0.097656854249492, -0.138343145750508], [0.092, -0.136], [0.015, -0.136], [0.007928932188135, -0.133071067811865], [0.005, -0.126],
@@ -58,8 +58,19 @@ var opening = new RSectionOpening(undefined, [circleLine]);
 var opening2 = new RSectionOpening(undefined, [circleLine2]);
 
 var rsPart = new RSectionPart();
-rsPart.WithBoundaryLines(undefined, linesForPart, material);
+rsPart.WithBoundaryLines(undefined, linesForPart, material.No());
 rsPart.IntegratedObjects(true, false, [opening, opening2]);
+
+rsPart.Rectangle(undefined, [0.08, -0.04], 0.06, 0.04, material.No(), "Rectangle Part");
+rsPart.Triangle(undefined, [0.1, 0.02], [0.06, 0.06], [0.14, 0.06], material.No(), "Triangle Part");
+rsPart.Circle(undefined, [0.2, 0.04], 0.05, material.No());
+rsPart.Polygon(undefined, [[0.3, 0], [0.36, -0.02], [0.4, 0], [0.4, 0.04], [0.36, 0.08], [0.3, 0.06]], material.No());
+
+var rsOpening = new RSectionOpening();
+rsOpening.Rectangle(undefined, [0.180, 0], 0.02, 0.02);
+rsOpening.Triangle(undefined, [0.16, 0.04], [0.18, 0.04], [0.18, 0.06]);
+rsOpening.Circle(undefined, [0.22, 0.02], 0.01);
+rsOpening.Polygon(undefined, [[0.24, 0.04], [0.22, 0.04], [0.2, 0.06], [0.22, 0.08], [0.24, 0.06]]);
 
 /***********************************************Elements** ************************************/
 var element = new RSectionElement();
@@ -70,11 +81,12 @@ element.Thickness(0.005, 0.005);
 element.Arc(undefined, [11, 13], [points[12].coordinate_1, points[12].coordinate_2]);
 element.Thickness(0.005, 0.005);
 element.Circle(undefined, [0, -0.140], 0.005);
+element.Circle(undefined, [0.197, 0.04], 0.005);
 element.Thickness(0.005, 0.005);
 element.Parabola(undefined, [25, 27], [-0.092, -0.143]);
 element.Parabola(undefined, [2, 4], [0.092, -0.143]);
 
-/********************************************* lines + elements *******************************/
+/******************************** lines + elements + stress point ****************************/
 pointCoordinates = [
     [0.240, -0.140], [0.180, -0.040], [0.200, -0.060], [0.220, -0.060], [0.080, -0.080], [0.100, -0.100], [0.120, -0.080],
     [0.140, -0.100], [0.160, -0.080]
@@ -90,11 +102,17 @@ rsLine.Ellipse(undefined, otherPoints[1], otherPoints[3], [otherPoints[2].coordi
 var NURBSline = new RSectionLine();
 NURBSline.NURBS(undefined, [otherPoints[4], otherPoints[8]], [[otherPoints[5].coordinate_1, otherPoints[5].coordinate_2], [otherPoints[6].coordinate_1, otherPoints[6].coordinate_2],
     [otherPoints[7].coordinate_1, otherPoints[7].coordinate_2]], 3);
-NURBSline.PointsOnLine([[0.1, true], [0.3, true], [0.1, false]]);
+NURBSline.PointsOnLine([[0.1, true, "L"], [0.3, true], [0.1, false]]);
 
 element.Ellipse(undefined, otherPoints[1], otherPoints[3], [otherPoints[2].coordinate_1, otherPoints[2].coordinate_2]);
 element.NURBS(undefined, [otherPoints[4], otherPoints[8]], [[otherPoints[5].coordinate_1, otherPoints[5].coordinate_2], [otherPoints[6].coordinate_1, otherPoints[6].coordinate_2],
     [otherPoints[7].coordinate_1, otherPoints[7].coordinate_2]], 3);
+
+var stressPoint = new RSectionStressPoint;
+stressPoint.Standard(undefined, 1, undefined, [0, 0.1]);
+stressPoint.OnLine(undefined, 6, [0.75, undefined]);
+stressPoint.OnLine(undefined, 6, [undefined, 0.15, false]);     // absolute distances
+stressPoint.OnElement(undefined, 5, [0.10, undefined]);   // relative distances
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;

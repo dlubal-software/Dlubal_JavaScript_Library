@@ -56,7 +56,7 @@ RSectionElement.prototype.SingleLine = function (no,
  * @param {Array}   control_point           Coordinates of control point
  * @param {Array}   arc_parameters          Arc parameters, can be undefined
  * @param {Array}   arc_center              Coordinates of arc center, can be undefined
- * @param {String}  alpha_adjustment_target Subsequent adjustement of alpha by displaycing point at, can be undefined (Begining of arc by default)
+ * @param {String}  alpha_adjustment_target Subsequent adjustment of alpha by displacing point at, can be undefined (Beginning of arc by default)
  * @param {String}  comment                 Comment, can be undefined
  * @param {Object}  params                  Parameters, can be undefined
  * @returns Element
@@ -88,11 +88,7 @@ RSectionElement.prototype.Arc = function (no,
         this.element.arc_center_z = arc_center[1];
     }
     if (typeof alpha_adjustment_target !== "undefined") {
-        if (!(alpha_adjustement_target in alpha_adjustement_target_types)) {
-            console.log("Alpha adjustement tagret " + alpha_adjustement_target + "doesn't exist");
-            get_alpha_adjustement_types();
-        }
-        this.element.arc_alpha_adjustment_target = alpha_adjustement_target_types[alpha_adjustement_target];
+        this.element.arc_alpha_adjustment_target = GetAlphaAdjustmentTargetType(alpha_adjustment_target);
     }
     return this.element
 };
@@ -104,7 +100,7 @@ RSectionElement.prototype.Arc = function (no,
  * @param {Number}  circle_radius   Circle radius
  * @param {String}  comment         Comment, can be undefined
  * @param {Object}  params          Parameters, can be undefined
- * @returns Elementř
+ * @returns Element
  */
 RSectionElement.prototype.Circle = function (no,
     circle_center,
@@ -168,8 +164,8 @@ RSectionElement.prototype.Parabola = function (no,
     params) {
     ASSERT(typeof points_of_parabola !== "undefine", "Two points of parabola must be defined");
     ASSERT(points_of_parabola.length === 2, "Two points must be specified");
-    ASSERT(typeof control_point !== "undefined", "Center point must be deined");
-    ASSERT(control_point.length === 2, "Two parameter must be spocified: y, z");
+    ASSERT(typeof control_point !== "undefined", "Center point must be denied");
+    ASSERT(control_point.length === 2, "Two parameter must be specified: y, z");
     this.element = createBaseRSectionElement(no, elements.TYPE_PARABOLA, comment, params);
     this.element.definition_points = points_of_parabola;
     this.element.parabola_control_point_y = control_point[0];
@@ -261,15 +257,21 @@ RSectionElement.prototype.Thickness = function (thickness,
     return this.element;
 }
 
-/**
- * Shows list of all available alpha adjustement types
- */
- function get_alpha_adjustement_types () {
-    console.log(Object.keys(alpha_adjustement_target_types));
-};
-
-const alpha_adjustement_target_types = {
-    "BEGINING_OF_ARC" : lines.ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC,
-    "CONTROL_POINT" : lines.ALPHA_ADJUSTMENT_TARGET_ARC_CONTROL_POINT,
-    "END_OF_ARC" : lines.ALPHA_ADJUSTMENT_TARGET_END_OF_ARC
-};
+function GetAlphaAdjustmentTargetType (target_type) {
+    const alpha_adjustment_target_types = {
+        "BEGINNING_OF_ARC" : lines.ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC,
+        "CONTROL_POINT" : lines.ALPHA_ADJUSTMENT_TARGET_ARC_CONTROL_POINT,
+        "END_OF_ARC" : lines.ALPHA_ADJUSTMENT_TARGET_END_OF_ARC
+    };
+    if (target_type !== "undefined") {
+		if (!(target_type in alpha_adjustment_target_types)) {
+            console.log("Wrong alpha adjustment target type. Value was: " + target_type);
+			console.log("Correct values are: ( " + Object.keys(alpha_adjustment_target_types) + ")");
+			target_type = "BEGINNING_OF_ARC";
+        }
+        return alpha_adjustment_target_types[target_type];
+	}
+	else {
+		return lines.ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC;
+	}
+}

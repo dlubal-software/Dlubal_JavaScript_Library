@@ -24,12 +24,25 @@ function RSectionPoint(no,
 }
 
 /**
+ * Returns y coordinate
+ */
+RSectionPoint.prototype.y = function() {
+    return this.point.coordinate_1;
+};
+
+/**
+ * Returns z coordinate
+ */
+RSectionPoint.prototype.z = function () {
+    return this.point.coordinate_2;
+};
+
+/**
  * Creates standard RSection Point
  * @param {Number}      no                      Number of Point, can be undefined
  * @param {Number}      coordinate_y            Coordinate Y
  * @param {Number}      coordinate_z            Coordinate Z
  * @param {Number}      reference_point         Reference point number, can be undefined
- * @param {String}      coordinate_system_type  Coordinate type, can be undefined (Cartesian as default)
  * @param {String}      comment                 Comment, can be undefined
  * @param {Object}      params                  Parameters, can be undefined
  * @returns Point
@@ -38,7 +51,6 @@ RSectionPoint.prototype.Standard = function (no,
     coordinate_y,
     coordinate_z,
     reference_point,
-    coordinate_system_type,
     comment,
     params) {
     this.point = createBasePoint(no, coordinate_y, coordinate_z, comment, params);
@@ -46,22 +58,19 @@ RSectionPoint.prototype.Standard = function (no,
     if (typeof reference_point !== "undefined") {
         this.point.reference_point = reference_point;
     }
-    if (typeof coordinate_system_type === "undefined") {
-        coordinate_system_type = points.COORDINATE_SYSTEM_CARTESIAN;
-    }
-    this.point.coordinate_system_type = coordinate_system_type;
+    this.point.coordinate_system_type = points.COORDINATE_SYSTEM_CARTESIAN;
     return this.point; 
 };
 
  /**
  * Creates Between two locations RSection Point
  * @param {Number}      no                              Number of Point, can be undefined
- * @param {Array}       start_location                  Coordinates for start location
- * @param {Array}       end_location                    Coordinates for end location
+ * @param {Array}       start_location                  Coordinates for start location [y, z]
+ * @param {Array}       end_location                    Coordinates for end location [y, z]
  * @param {Number}      distance_from_start             Distance from start
  * @param {Number}      distance_from_end               Distance from end
- * @param {Boolean}     distance_from_start_relative    Distance from start point, can be undefined (True asy default)
- * @param {String}      reference_type                  Reference type, can be undefined ("L" by default)
+ * @param {Boolean}     distance_from_start_relative    Distance from start point, can be undefined (True as default)
+ * @param {String}      reference_type                  Reference type, distance of start and end location along the length, in Y or Z coordination, can be undefined ("L" by default)
  * @param {Number}      offset_in_local_direction       Offset in local direction, can be undefined (0 as default)
  * @param {String}      comment                         Comment, can be undefined
  * @param {Object}      params                          Parameters, can be undefined
@@ -112,12 +121,12 @@ RSectionPoint.prototype.Standard = function (no,
  /**
  * Creates Between two points RSection Point
  * @param {Number}      no                              Number of Point, can be undefined
- * @param {Object}      start_point                     Start point
- * @param {Object}      end_point                       End point
+ * @param {Object}      start_point                     Number of start point
+ * @param {Object}      end_point                       Number of end point
  * @param {Number}      distance_from_start             Distance from start
  * @param {Number}      distance_from_end               Distance from end
  * @param {Boolean}     distance_from_start_relative    Distance from start point, can be undefined (True asy default)
- * @param {String}      reference_type                  Reference type, can be undefined ("L" by default)
+ * @param {String}      reference_type                  Reference type, distance of start and end location along the length, in Y or Z coordination, can be undefined ("L" by default)
  * @param {Number}      offset_in_local_direction       Offset in local direction, can be undefined (0 as default)
  * @param {String}      comment                         Comment, can be undefined
  * @param {Object}      params                          Parameters, can be undefined
@@ -224,4 +233,4 @@ function createBasePoint (no,
     point.coordinate_2 = typeof coordinate_z !== 'undefined' ? coordinate_z : 0.0;
     set_comment_and_parameters(point, comment, params);
     return point;
-};
+}

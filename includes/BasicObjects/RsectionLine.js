@@ -39,7 +39,7 @@ RSectionLine.prototype.Polyline = function (no,
     definition_points,
     comment, 
     params) {
-    ASSERT(typeof definition_points !== "undefined", "Definition points must be specified");
+    ASSERT(typeof definition_points !== "undefined" && Array.isArray(definition_points) && definition_points.length >= 2, "Definition points must be specified");
     this.line = createBaseRSectionLine(no, lines.TYPE_POLYLINE, comment, params);
     this.line.definition_points = definition_points;
     return this.line;
@@ -50,9 +50,9 @@ RSectionLine.prototype.Polyline = function (no,
  * @param {Number}  no                      Number of Line, can be undefined
  * @param {Array}   points_of_arc           Points numbers of arc lLne
  * @param {Array}   control_point           Coordinates of control point
- * @param {Array}   arc_parameters          Arc parameters, can be undefined
+ * @param {Array}   arc_parameters          Arc parameters [height, radius, alpha], can be undefined
  * @param {Array}   arc_center              Coordinates of arc center, can be undefined
- * @param {String}  alpha_adjustment_target Subsequent adjustement of alpha by displaycing point at, can be undefined (Begining of arc by default)
+ * @param {String}  alpha_adjustment_target Subsequent adjustment of alpha by displaycing point at, can be undefined (beginning of arc by default)
  * @param {String}  comment                 Comment, can be undefined
  * @param {Object}  params                  Parameters, can be undefined
  * @returns Line
@@ -65,15 +65,14 @@ RSectionLine.prototype.Arc = function (no,
     alpha_adjustment_target,
     comment,
     params) {
-    ASSERT(typeof points_of_arc !== "undefined", "Two points of arc must be defined");
-    ASSERT(points_of_arc.length === 2, "Only two points of arc can be specified");
-    ASSERT(typeof control_point !== "undefined", "Control point must be defined");
+    ASSERT(typeof points_of_arc !== "undefined" && Array.isArray(points_of_arc) && points_of_arc.length === 2, "Two points of arc must be defined");
+    ASSERT(typeof control_point !== "undefined" && Array.isArray(control_point) && control_point.length === 2, "Control point must be defined");
     this.line = createBaseRSectionLine(no, lines.TYPE_ARC, comment, params);
     this.line.definition_points = points_of_arc;
     this.line.arc_control_point_y = control_point[0];
     this.line.arc_control_point_z = control_point[1];
     if (typeof arc_parameters !== "undefined") {
-        ASSERT(arc_parameters.length === 3, "Three parameters must be specified: height, radius, alpha");
+        ASSERT(Array.isArray(arc_parameters) && arc_parameters.length === 3, "Three parameters must be specified: height, radius, alpha");
         this.line.arc_height = arc_parameters[0];
         this.line.arc_radius = arc_parameters[1];
         this.line.arc_alpha = arc_parameters[2];
@@ -84,19 +83,15 @@ RSectionLine.prototype.Arc = function (no,
         this.line.arc_center_z = arc_center[1];
     }
     if (typeof alpha_adjustment_target !== "undefined") {
-        if (!(alpha_adjustement_target in alpha_adjustement_target_types)) {
-            console.log("Alpha adjustement tagret " + alpha_adjustement_target + "doesn't exist");
-            get_alpha_adjustement_types();
-        }
-        this.line.arc_alpha_adjustment_target = alpha_adjustement_target_types[alpha_adjustement_target];
+        this.line.arc_alpha_adjustment_target = GetAlphaAdjustmentTargetType(alpha_adjustment_target);
     }
-    return this.line
+    return this.line;
 };
 
 /**
  * Creates RSection circle Line
  * @param {Number}  no              Number of Line, can be undefined
- * @param {Array}   circle_center   Coordinates of circle center
+ * @param {Array}   circle_center   Coordinates of circle center [y, z]
  * @param {Number}  circle_radius   Circle radius
  * @param {String}  comment         Comment, can be undefined
  * @param {Object}  params          Parameters, can be undefined
@@ -108,7 +103,7 @@ RSectionLine.prototype.Circle = function (no,
     /*rotation of circle??*/
     comment,
     params) {
-    ASSERT(typeof circle_center !== "undefined", "Circle center must be defined");
+    ASSERT(typeof circle_center !== "undefined" && Array.isArray(circle_center) && circle_center.length === 2, "Circle center must be defined");
     ASSERT(circle_center.length === 2, "Two parameters must be specified: y, z");
     ASSERT(typeof circle_radius !== "undefined", "Circle radius must be defined");
     this.line = createBaseRSectionLine(no, lines.TYPE_CIRCLE, comment, params);
@@ -136,7 +131,7 @@ RSectionLine.prototype.Ellipse = function (no,
     params) {
     ASSERT(typeof first_point !== "undefined", "First point must be defined");
     ASSERT(typeof second_point !== "undefined", "Second point must be defined");
-    ASSERT(typeof control_point !== "undefined", "Control point must be defined");
+    ASSERT(typeof control_point !== "undefined" && Array.isArray(control_point) && control_point.length === 2, "Control point must be defined");
     ASSERT(control_point.length === 2, "Two parameters must be specified: y, z");
     this.line = createBaseRSectionLine(no, lines.TYPE_ELLIPSE, comment, params);
     this.line.ellipse_first_point = first_point;
@@ -162,10 +157,10 @@ RSectionLine.prototype.Parabola = function (no,
     parabola_alpha,
     comment,
     params) {
-    ASSERT(typeof points_of_parabola !== "undefine", "Two points of parabola must be defined");
+    ASSERT(typeof points_of_parabola !== "undefined", "Two points of parabola must be defined");
     ASSERT(points_of_parabola.length === 2, "Two points must be specified");
-    ASSERT(typeof control_point !== "undefined", "Center point must be deined");
-    ASSERT(control_point.length === 2, "Two parameter must be spocified: y, z");
+    ASSERT(typeof control_point !== "undefined", "Center point must be defined");
+    ASSERT(Array.isArray(control_point) && control_point.length === 2, "Two parameter must be specified: y, z");
     this.line = createBaseRSectionLine(no, lines.TYPE_PARABOLA, comment, params);
     this.line.definition_points = points_of_parabola;
     this.line.parabola_control_point_y = control_point[0];
@@ -177,9 +172,10 @@ RSectionLine.prototype.Parabola = function (no,
 };
 
 /**
- * Creates RSection NURBS Line
+ * Creates RSection NURBS
  * @param {Number}  no                  Number of Line, can be undefined
- * @param {Array}   control_points      Control points ([[y1, z1 (, weight1)], [y2, z2, weight2], ...])
+ * @param {Array}   definition_points   Definition points
+ * @param {Array}   control_points      Control points [[y1, z1 (, weight1)], [y2, z2, weight2], ...]
  * @param {Number}  nurbs_order         Nurbs order, can be undefine (2 as default)
  * @param {Array}   nurbs_knots         Nurbs knots, can be undefined
  * @param {String}  comment             Comment, can be undefined
@@ -193,14 +189,14 @@ RSectionLine.prototype.NURBS = function (no,
     nurbs_knots,
     comment,
     params) {
-    ASSERT(typeof definition_points !== "undefined", "Define points must be defined");
-    ASSERT(typeof control_points !== "undefined", "Control points must be defined");
+    ASSERT(typeof definition_points !== "undefined" && Array.isArray(definition_points), "Definition points must be defined");
+    ASSERT(typeof control_points !== "undefined" && Array.isArray(control_points), "Control points must be defined");
     this.line = createBaseRSectionLine(no, lines.TYPE_NURBS, comment, params);
     this.line.definition_points = definition_points;
     for (var i = 0; i < control_points.length; ++i) {
         this.line.nurbs_control_points_by_components.insert_row(i + 2);
         for (var j = 0; j < control_points[i].length; ++j) {
-            ASSERT(control_points[i].length >= 2, "Control points must be in format: [[y1, z1 (, weight1)], [y2, z2, weight2], ...]");
+            ASSERT(Array.isArray(control_points[i]) && control_points[i].length >= 2, "Control points must be in format: [[y1, z1 (, weight1)], [y2, z2, weight2], ...]");
             this.line.nurbs_control_points_by_components[i + 2].global_coordinate_y = control_points[i][0];
             this.line.nurbs_control_points_by_components[i + 2].global_coordinate_z = control_points[i][1];
             if (control_points[i].length > 2) {
@@ -230,8 +226,9 @@ RSectionLine.prototype.NURBS = function (no,
  *                                  point_no - empty by default
  */
 RSectionLine.prototype.PointsOnLine = function (points_on_line) {
+    ASSERT(typeof points_on_line !== "undefined" && Array.isArray(points_on_line), "Points on line must be defined");
     for (var i = 0; i < points_on_line.length; ++i) {
-        ASSERT(points_on_line.length >= 2, "At least distance and from_start must be defined");
+        ASSERT(Array.isArray(points_on_line[i]) && points_on_line[i].length >= 2, "At least distance and from_start must be defined");
         var row = i + 1;
         if (points_on_line[i][1]) {
             this.line.points_on_line_assignment[row].fromStart = points_on_line[i][0];
@@ -241,11 +238,7 @@ RSectionLine.prototype.PointsOnLine = function (points_on_line) {
         }
         if (points_on_line[i].length > 2) {
             var assignment_reference = points_on_line[i][2];
-            if (!(assignment_reference in point_on_line_assignment_reference)) {
-                console.log("Reference " + assignment_reference + "doesn't exist");
-                get_point_on_line_assignemtn_reference_types();
-            }
-            this.line.points_on_line_assignment[row].reference = point_on_line_assignment_reference[assignment_reference];
+            this.line.points_on_line_assignment[row].reference = GetPointOfLineAssignmentReference(assignment_reference);
         }
         if (points_on_line[i].length > 3) {
             var point_no = points_on_line[i][3];
@@ -255,7 +248,7 @@ RSectionLine.prototype.PointsOnLine = function (points_on_line) {
             this.line.points_on_line_assignment[row].node = point_no;
         }
     }
-}
+};
 
 /**
  * Creates RSection base Line
@@ -275,25 +268,40 @@ function createBaseRSectionLine (no,
     return line;
 };
 
-/**
- * Shows list of all available alpha adjustement types
- */
- function get_alpha_adjustement_types () {
-    console.log(Object.keys(alpha_adjustement_target_types));
-};
+function GetAlphaAdjustmentTargetType(target) {
+	const alpha_adjustment_target_types = {
+        "BEGINNING_OF_ARC" : lines.ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC,
+        "CONTROL_POINT" : lines.ALPHA_ADJUSTMENT_TARGET_ARC_CONTROL_POINT,
+        "END_OF_ARC" : lines.ALPHA_ADJUSTMENT_TARGET_END_OF_ARC
+    };
+	if (target !== "undefined") {
+		if (!(target in alpha_adjustment_target_types)) {
+            console.log("Wrong type of alpha adjustment target. Value was: " + target);
+			console.log("Correct values are: ( " + Object.keys(alpha_adjustment_target_types) + ")");
+			target = "BEGINNING_OF_ARC";
+        }
+        return alpha_adjustment_target_types[target];
+	}
+	else {
+		return lines.ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC;
+	}
+}
 
-function get_point_on_line_assignemtn_reference_types () {
-    console.log(Object.keys(point_on_line_assignment_reference));
-};
-
-const alpha_adjustement_target_types = {
-    "BEGINING_OF_ARC" : lines.ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC,
-    "CONTROL_POINT" : lines.ALPHA_ADJUSTMENT_TARGET_ARC_CONTROL_POINT,
-    "END_OF_ARC" : lines.ALPHA_ADJUSTMENT_TARGET_END_OF_ARC
-};
-
-const point_on_line_assignment_reference = {
-    "L" : lines.REFERENCE_TYPE_L,
-    "Y" : lines.REFERENCE_TYPE_Y,
-    "Z" : lines.REFERENCE_TYPE_Z
-};
+function GetPointOfLineAssignmentReference(assignment_reference) {
+    const point_on_line_assignment_reference = {
+        "L" : lines.REFERENCE_TYPE_L,
+        "Y" : lines.REFERENCE_TYPE_Y,
+        "Z" : lines.REFERENCE_TYPE_Z
+    };
+    if (assignment_reference !== "undefined") {
+		if (!(assignment_reference in point_on_line_assignment_reference)) {
+            console.log("Wrong type of line assignment reference. Value was: " + assignment_reference);
+			console.log("Correct values are: ( " + Object.keys(point_on_line_assignment_reference) + ")");
+			assignment_reference = "L";
+        }
+        return point_on_line_assignment_reference[assignment_reference];
+	}
+	else {
+		return lines.REFERENCE_TYPE_L;
+	}
+}
