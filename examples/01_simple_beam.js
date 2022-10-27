@@ -1,7 +1,7 @@
 run("../includes/Tools/clearAll.js");
 // create material and section
 var material = Material(undefined, 'S235');
-var section = Section(undefined, 'IPE 200', material);
+var section = Section(undefined, 'IPE 200', material.No());
 
 // create topology of the member
 var first = Node(undefined, 0, 0, 0);

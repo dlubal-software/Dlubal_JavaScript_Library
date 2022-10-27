@@ -21,10 +21,10 @@ th.Uniform(1, "Roof", 1, [thickness_1]);
 th.Uniform(2, "Wall", 1, [thickness_2]);
 
 // Create section
-var concreteColumn = new Section(1, 'CIRCLE_M1 0.300', materialConcrete);
-var concreteRib = new Section(2, 'R_M1 0.3/0.400', materialConcrete);
-var steelFrame = new Section(3, 'HE 200 A', materialSteel);
-var steelBeams = new Section(4, 'IPE 200', materialSteel);
+var concreteColumn = new Section(1, 'CIRCLE_M1 0.300', materialConcrete.No());
+var concreteRib = new Section(2, 'R_M1 0.3/0.400', materialConcrete.No());
+var steelFrame = new Section(3, 'HE 200 A', materialSteel.No());
+var steelBeams = new Section(4, 'IPE 200', materialSteel.No());
 // Create Nodes
 Node(1, 0, 0, 0);
 Node(2, a_1, 0, 0);

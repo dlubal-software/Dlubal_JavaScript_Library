@@ -6,12 +6,11 @@ run("../includes/Tools/clearAll.js");
 general.current_standard_for_combination_wizard = general.NATIONAL_ANNEX_AND_EDITION_EN_1990_DIN_2012_08;
 
 // prepare materials, sections and thickness for the model
-var material_steel = Material(undefined, "S235 | EN 1993-1-1:2005-05");
-var material_concrete = Material(undefined, "C12/15 | EN 1992-1-1:2004/A1:2014");
+var material_steel = Material(undefined, "S235");
 
 var section_params = { "shear_stiffness_deactivated": true };
-var section_IPE240 = Section(undefined, "IPE 240", material_steel, "", section_params);
-var section_IPE180 = Section(undefined, "IPE 180", material_steel, "", section_params);
+var section_IPE240 = Section(undefined, "IPE 240", material_steel.No(), "", section_params);
+var section_IPE180 = Section(undefined, "IPE 180", material_steel.No(), "", section_params);
 
 var th = new Thickness();
 th.Uniform(1, "test 01", 1, [0.120]);
@@ -101,7 +100,7 @@ NodalLoad(undefined, lc2, "12", "", { "load_type": nodal_loads.LOAD_TYPE_COMPONE
 LineLoad(undefined, lc2, "15", "", { "magnitude": 1.25kN/m^2});
 MemberLoad(undefined, lc2, "1,2", "", { "magnitude": 1.25kN/m^2});
 
-var co1 = LoadCombination(10);
+var co1 = LoadCombination(undefined, undefined, undefined, [[lc1, 0]]);
 co1.design_situation = 1;
 co1.static_analysis_settings = 2;
 co1.items[1].factor = 1.35;

@@ -27,11 +27,11 @@ lc6.ConsiderImperfection(1);
 
 
 // prepare materials and sections
-var material = Material(undefined, 'S235 | EN 1993-1-1:2005-05');
-var section_HEB = Section(undefined, 'HEB 220', material);
-var section_IPE240 = Section(undefined, 'IPE 240', material);
-var section_IPE100 = Section(undefined, 'IPE 100', material);
-var section_L = Section(undefined, 'L 20x20x3', material);
+var material = Material(undefined, 'S235');
+var section_HEB = Section(undefined, 'HEB 220', material.No());
+var section_IPE240 = Section(undefined, 'IPE 240', material.No());
+var section_IPE100 = Section(undefined, 'IPE 100', material.No());
+var section_L = Section(undefined, 'L 20x20x3', material.No());
 
 // create topology, first we generate all nodes
 for (var i = 0; i < number_of_frames; i++) {
