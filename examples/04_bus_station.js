@@ -1,16 +1,18 @@
 if (!RFEM) {
     throw new Error("This script is only for RFEM, it creates surfaces.");
 }
-run("../includes/Tools/clearAll.js");
+
+run("../includes/tools/clearAll.js");
+
 // setup standard for combination wizard
 general.current_standard_for_combination_wizard = general.NATIONAL_ANNEX_AND_EDITION_EN_1990_DIN_2012_08;
 
 // prepare materials, sections and thickness for the model
-var material_steel = Material(undefined, "S235");
+var material_steel = new Material(undefined, "S235");
 
 var section_params = { "shear_stiffness_deactivated": true };
-var section_IPE240 = Section(undefined, "IPE 240", material_steel.No(), "", section_params);
-var section_IPE180 = Section(undefined, "IPE 180", material_steel.No(), "", section_params);
+var section_IPE240 = new Section(undefined, "IPE 240", material_steel.No(), "", section_params);
+var section_IPE180 = new Section(undefined, "IPE 180", material_steel.No(), "", section_params);
 
 var th = new Thickness();
 th.Uniform(1, "test 01", 1, [0.120]);
@@ -50,7 +52,7 @@ Node(21, 0, 0.588, 0);
 
 Line(undefined, "1,2");
 Line(undefined, "11,13", "", { "support": line_support_1.GetNo() });
-Member(undefined, "12,3", "", { "section_start": section_IPE240, "member_eccentricity_start": 1, "member_eccentricity_end": 1 });
+Member(undefined, "12,3", "", { "section_start": section_IPE240.No(), "member_eccentricity_start": 1, "member_eccentricity_end": 1 });
 Line(undefined, "4,1");
 Line(undefined, "17,20");
 Line(undefined, "2,3");
@@ -65,8 +67,8 @@ Line(undefined, "2,13");
 Line(undefined, "17,19", "", { "type": lines.TYPE_ARC, "arc_control_point": $V(0, 3, -3.520) });
 Line(undefined, "13,14", "", { "support": 1 });
 Line(undefined, "3,14");
-Member(undefined, "4,12", "", { "section_start": section_IPE240, "member_eccentricity_start": 1, "member_eccentricity_end": 1 });
-Member(undefined, "12,16", "", { "section_start": section_IPE180 });
+Member(undefined, "4,12", "", { "section_start": section_IPE240.No(), "member_eccentricity_start": 1, "member_eccentricity_end": 1 });
+Member(undefined, "12,16", "", { "section_start": section_IPE180.No() });
 Line(undefined, "20,21");
 Line(undefined, "21,11", "", { "support": 1 });
 Line(undefined, "21,19");

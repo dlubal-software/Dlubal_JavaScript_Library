@@ -1,14 +1,14 @@
-run("../includes/Tools/clearAll.js");
+run("../includes/tools/clearAll.js");
 // create material and section
-var material = Material(undefined, 'S235');
-var section = Section(undefined, 'IPE 200', material.No());
+var material = new Material(undefined, 'S235');
+var section = new Section(undefined, 'IPE 200', material.No());
 
 // create topology of the member
 var first = Node(undefined, 0, 0, 0);
 var second = Node(undefined, 10, 0, 0);
 
 var member = new Member(undefined, [first, second]);
-member.section_start = section;
+member.section_start = section.No();
 
 // assign one of pre-defined nodal supports to new nodes
 var nodal_support_1 = new NodalSupport(1, [1]);

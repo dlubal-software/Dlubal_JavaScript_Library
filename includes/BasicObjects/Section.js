@@ -25,6 +25,14 @@ function Section(no,
 }
 
 /**
+ * 
+ * @returns Number of Section
+ */
+Section.prototype.No = function() {
+    return this.section.no;
+};
+
+/**
  * Sets section type
  * @param {String} section_type     Section type
  * @returns Modified Section
