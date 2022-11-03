@@ -10,11 +10,11 @@ Not implemented:
 
 /**
  * Creates load combination
- * @param {Number}  no                  Load combination index, can be undefined
- * @param {Object}  design_situation_no Index of design situation, can be undefined
- * @param {Array}   load_combination_items Items of load combination - load case index and factor [[LC1no,factor],[LC2no,factor]] -
- * @param {String}  comment             Comment, can be undefined
- * @param {Object}  params              Additional parameters, can be undefined
+ * @param {Number}  no                      Load combination index, can be undefined
+ * @param {Object}  design_situation_no     Index of design situation, can be undefined
+ * @param {Array}   load_combination_items  Items of load combination - load case index and factor [[LC1no,factor],[LC2no,factor]]
+ * @param {String}  comment                 Comment, can be undefined
+ * @param {Object}  params                  Additional parameters, can be undefined
  * @returns Created load combination
  */
 function LoadCombination(no,
@@ -59,7 +59,7 @@ LoadCombination.prototype.StaticAnalysis = function (no,
 /**
  * Sets imperfection case
  * @param {Object}  imperfection_case   Imperfection case, can be undefined (in case of disabling )
- * @param {Boolean} enabled             Enable/disable imperfection case, can be undefined (true as default)          
+ * @param {Boolean} enabled             Enable/disable imperfection case, can be undefined (true as default)
  * @returns Modified load combination
  */
 LoadCombination.prototype.ConsiderImperfection = function (imperfection_case,
@@ -196,7 +196,7 @@ LoadCombination.prototype.ConsiderConstructionStage = function (construction_sta
 
 /**
  * Assigns load cases
- * @param {Array} load_combination_items    Load combination items [[load case no, factor], .... ]
+ * @param {Array} load_combination_items    Load combination itemns [[load case no, factor], .... ]
  * @returns Modified load combination
  */
 LoadCombination.prototype.AssignLoadCases = function (load_combination_items) {
@@ -251,7 +251,6 @@ LoadCombination.prototype.SetAnalysisTypeAndSettings = function (analysis_type, 
 };
 
 
-
 /**
  * Creates load combination (private)
  * @param {Number}  no      Load combination index, can be undefined
@@ -303,23 +302,22 @@ const initial_state_definition_types = {
 function SetDesignSituation(load_combination, design_situation_no) {
     if (typeof design_situation_no !== "undefined") {
         if (design_situations.exist(design_situation_no)) {
-            load_combination.design_situation = design_situation[design_situation_no];
+            load_combination.design_situation = design_situations[design_situation_no];
         }
         else {
             console.log("Design situation " + design_situation_no + " does not exist");
         }
     }
 }
-function SetLoadCombinationItems(load_combination, load_combination_items) {
-    if (typeof load_combination_items !== "undefined") {
-        for (var i = 0; i < load_combination_items.length; i++) {
-            load_combination.items[i + 1].load_case = load_combination_items[i][0];
-            if (load_combination_items[i][1] !== "undefined") {
-                load_combination.items[i + 1].factor = load_combination_items[i][1];
-            }
-            else {
-                load_combination.items[i + 1].factor = 1.0;
-            }
+function SetLoadCombinationItems(load_combination, 
+    load_combination_items) {
+    ASSERT(typeof load_combination !== "undefined", "Load combination number must be specified");
+    ASSERT(typeof load_combination_items !== "undefined" && Array.isArray(load_combination_items), "At least one load case must be specified [[load_case_no, factor], [load_case_no, factor]]");
+    var count = load_combination.items.row_count();
+    for (var i = 0; i < load_combination_items.length; i++) {
+        load_combination.items[count + i].load_case = load_combination_items[i][0];
+        if (load_combination_items[i][1] !== "undefined") {
+            load_combination.items[count + i].factor = load_combination_items[i][1];
         }
     }
 }
