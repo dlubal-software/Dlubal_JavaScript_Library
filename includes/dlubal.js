@@ -81,6 +81,12 @@ if (RFEM) {
 	include("TypesForSolids/GasSolids.js");
 	include("TypesForSolids/SolidMeshRefinement.js");
 }
+// Imperfections
+include("Imperfections/ImperfectionCase.js");
+include("Imperfections/MemberImperfection.js");
+include("Imperfections/MemberSetImperfection.js");
+include("Imperfections/SurfaceImperfection.js");
+include("Imperfections/SurfaceSetImperfection.js");
 // Loading
 include("Loading/LoadCombination.js");
 include("Loading/LoadCase.js");
