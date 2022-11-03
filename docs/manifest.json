@@ -74,18 +74,6 @@
     },
     {
       "type": "UniversalReference",
-      "source_relative_path": "api/Element.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Element.html",
-          "hash": "nelsTzgia3CYDGeqrxr5vbNmJ9+agYQbDDvk1JREyZ8="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "UniversalReference",
       "source_relative_path": "api/FreeCircularLoad.yml",
       "output": {
         ".html": {
@@ -270,7 +258,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Material.html",
-          "hash": "LRlqXcOTwtKrfTg4rvroeMSWyJf0frXvUVYPF0Sra+M="
+          "hash": "rPkh4jQNT8e0fm1fYl3F75Q4Y7ComHrOC1L376A+1CU="
         }
       },
       "is_incremental": false,
@@ -482,23 +470,11 @@
     },
     {
       "type": "UniversalReference",
-      "source_relative_path": "api/Part.yml",
+      "source_relative_path": "api/RSectionElement.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Part.html",
-          "hash": "tXVfNm9mKu+R7m7oQQOb30Y1tq9t4+ep12gWy4IUqu8="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "UniversalReference",
-      "source_relative_path": "api/Point.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Point.html",
-          "hash": "lLrPPjh9cRtM8Ykiln353j2XGmuvPsx1HpeRoE4krqo="
+          "relative_path": "api/RSectionElement.html",
+          "hash": "mAPS9E579sJ4MgRC1IpqxaJRtzat+uvjt+9jYOlQj9A="
         }
       },
       "is_incremental": false,
@@ -511,6 +487,18 @@
         ".html": {
           "relative_path": "api/RSectionInternalForces.html",
           "hash": "gq3NZWxqzlgP+Y6GM0XvRIbw010aUOV2ZAtYsXDSn7o="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "UniversalReference",
+      "source_relative_path": "api/RSectionLine.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RSectionLine.html",
+          "hash": "DaOgFg7rjL3W3ZH3xzVfwLXN6mYzvDNT88YEbE9X/HI="
         }
       },
       "is_incremental": false,
@@ -542,11 +530,59 @@
     },
     {
       "type": "UniversalReference",
+      "source_relative_path": "api/RSectionOpening.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RSectionOpening.html",
+          "hash": "32o+GsIO2jFJfavIzKMkS9kRvRA+S1bJF9D9Lp8MuDI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "UniversalReference",
+      "source_relative_path": "api/RSectionPart.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RSectionPart.html",
+          "hash": "H/0kER27Fx5MqMCHCBamszfySLWQ7YGQROnoC5f+8Kc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "UniversalReference",
+      "source_relative_path": "api/RSectionPoint.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RSectionPoint.html",
+          "hash": "mEhIA44dBpyPAxrDKDwJubNgIeb1slxYwcnm3oziFB8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "UniversalReference",
+      "source_relative_path": "api/RSectionStressPoint.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RSectionStressPoint.html",
+          "hash": "lV/xKgQYTNX+/P+JQ17zF3x4qFohW91rLYEMVZ/4fH0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "UniversalReference",
       "source_relative_path": "api/Section.yml",
       "output": {
         ".html": {
           "relative_path": "api/Section.html",
-          "hash": "gxCQS08WkBWNR063IG85wWrFGAWj7KWPpPso/U8Dd7Y="
+          "hash": "Y44uYubahP6T0x6rOyvdjMxAzyEaaa4JDXDowQ+f7vk="
         }
       },
       "is_incremental": false,
@@ -667,18 +703,6 @@
         ".html": {
           "relative_path": "api/Stiffener.html",
           "hash": "89dCJyhGnaO3wrA/EzeX+dF9v5HrFeigL7+YPs6Eeyk="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "UniversalReference",
-      "source_relative_path": "api/StressPoint.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/StressPoint.html",
-          "hash": "LXECpFnabJCI4bmNi3PO48q3S6KVBrMFskgQuunIzJg="
         }
       },
       "is_incremental": false,
@@ -834,7 +858,7 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "4HyMEkyBV71ecWCop6/yLV7LTCSa6wepYS4yk8mwXF4="
+          "hash": "lVPpODlcj/rcD4dQIZgzI8lcgb8nwvuUQIdes/DvI+U="
         }
       },
       "is_incremental": false,
@@ -846,7 +870,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "OL1wZX+6L+tvaKE7ETxu0WbMMXO7ZgvmFYLmEW9hooE="
+          "hash": "L30VEp3FlWC5J8SX8lHAIX+RmpyYYdNtNGAXh58qaxU="
         }
       },
       "is_incremental": false,

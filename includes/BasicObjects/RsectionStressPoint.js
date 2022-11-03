@@ -207,7 +207,7 @@ function GetElementSide(element_side) {
         "LEFT" : stress_points.ELEMENT_SIDE_LEFT,
         "RIGHT" : stress_points.ELEMENT_SIDE_RIGHT
     };
-    if (element_side !== "undefined") {
+    if (typeof element_side !== "undefined") {
 		if (!(element_side in element_sides)) {
             console.log("Wrong element side. Value was: " + element_side);
 			console.log("Correct values are: ( " + Object.keys(element_sides) + ")");
