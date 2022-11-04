@@ -1,14 +1,14 @@
 run("../includes/Tools/clearAll.js");
 // prepare materials, sections and thickness for the model
-var material_steel = Material(undefined, "S235 | EN 1993-1-1:2005-05");
-var material_concrete = Material(undefined, "C12/15 | EN 1992-1-1:2004/A1:2014");
+var material_steel = new Material(undefined, "S235");
+var material_concrete = new Material(undefined, "C12/15");
 
 var section_params = { "shear_stiffness_deactivated": true };
-var section_IPE240 = Section(undefined, "IPE 240", material_steel, "", section_params);
-var section_IPE180 = Section(undefined, "IPE 180", material_steel, "", section_params);
+var section_IPE240 = Section(undefined, "IPE 240", material_steel.No(), "", section_params);
+var section_IPE180 = Section(undefined, "IPE 180", material_steel.No(), "", section_params);
 
 if (RFEM) {
-	var thickness = Thickness(undefined, "", material_concrete, 120mm);
+	var thickness = Thickness(undefined, "", material_concrete.No(), 120mm);
 };
 for (var i = 0; i < 20; ++i) {
 	Node("undefined", 0, 0, i);

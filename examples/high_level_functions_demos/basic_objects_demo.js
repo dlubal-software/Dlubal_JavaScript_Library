@@ -2,18 +2,32 @@ include("../includes/Tools/high_level_functions_support.js");
 /*********************************************************************************************
 ****************************************** Main **********************************************
 *********************************************************************************************/
+//!!! There are two bugs (random generation of nodes on line/member)!!!
 run("../includes/Tools/clearAll.js");
 var t1 = new Date().getTime();
-var material = createMaterial("S235");
-var materialConcrete = createMaterial("C25/30");
-var section = createSection(material, "IPE 80");
-var section2 = createSection(material, "IPE 100");
-var section3 = createSection(material, "IPE 120");
-var section4 = createSection(materialConcrete, "R_M1 0.5/1.0");
+
+var material = new Material(undefined, "S235");
+var materialConcrete = new Material(undefined, "C25/30", true);
+
+var section = new Section(undefined, "IPE 80", material.No());
+section.SectionType("STANDARDIZED_TIMBER");
+var section2 = new Section(undefined, "IPE 100", material.No());
+section2.SectionType("PARAMETRIC_THIN_WALLED");
+section2.ManufacturingType("WELDED");
+section2.Rotation(Math.PI / 4);
+var section3 = new Section(undefined, "IPE 120", material.No());
+TORSIONAL_WARPING.setActive(true);
+section3.DeactivateWarpingStiffness(false);	// Warping property is enable to set
+section3.SectionProperties(undefined, undefined, 10-E4, 0.065, 0.121);
+var section4 = new Section(undefined, "UPE 200", materialConcrete.No());
+COST_ESTIMATION.setActive(true);
+section4.EmissionEstimationValues(1, 2, 3, 4);
+
 var nodesForMembers = createNodesGrid(-28, -28, [10, 6], [3, 4]);
+
 if (RFEM) {
 	var nodeForLines = createNodesGrid(-28, -6, [10, 10], [3, 4]);
-	var thickness = createThickness("0.250", material, thicknesses.TYPE_UNIFORM);
+	var thickness = createThickness("0.250", material.No(), thicknesses.TYPE_UNIFORM);
 	var solid = makeSolid([[8, -16, 0], [20, -16, 0], [20, -8, 0], [8, -8, 0], [8, -16, -5], [20, -16, -5], [20, -8, -5], [8, -8, -5]]);
 	var nodesForSurfaces = createNodesGrid(1, 10, [10, 10], [3, 2]);
 	var linesForSurfaces = createSurfacesFromNodesGrid(nodesForSurfaces, [5, 5], undefined, undefined, true);
@@ -25,14 +39,14 @@ if (RFEM) {
 			 /				/ |			  /
 			/			   /  |			 /line3
 	 line6	/		line7 /	  |	line9   /
-		  /			 /	  |		   /
+		  /			     /	  |		   /
 		 /	node6		/node5|		  /
 		+----line5----+-----line4---+node4
-					  |	  |
-							 +node8
-					  |	  /
-			   line8  |	 /
-					  |	/line10
+					  |	      |
+							  +node8
+					  |	     /
+			   line8  |	    /
+					  |	   /line10
 					  |   /
 					  |  /
 					  | /
@@ -98,7 +112,10 @@ var memberDefinableStiffness = new MemberDefinableStiffness(undefined, [member2.
 // Option: nodes on member
 var member4 = new Member();
 member4.Beam(undefined, [33, 34], 1);
-member4.NodesOnMember([[undefined, "XY", 0.1, 0.9], [undefined, "XY", 0.2, 0.8]]);
+//var nodeOnMember = new Node();
+//nodeOnMember.OnMember(undefined, member4.member.no, "XY", [true, 10, true, 90]);
+//nodeOnMember.OnMember(undefined, member4.member.no, "XY", [true, 20, true, 80]);
+//member4.NodesOnMember([[undefined, "XY", 0.1, 0.9], [undefined, "XY", 0.2, 0.8]]);	// Bug?
 // Option: member hinges
 var member5 = new Member();
 member5.Beam(undefined, [35, 36], 1);
@@ -194,7 +211,7 @@ if (RFEM) {
 	// Option: nodes on line
 	var line5 = new Line();
 	line5.Polyline(undefined, [131, 132]);
-	line5.NodesOnLine([[undefined, "XY", 0.1, 0.9], [undefined, "XZ", 0.2, 0.8]]);
+	//line5.NodesOnLine([[undefined, "XY", 0.1, 0.9], [undefined, "XZ", 0.2, 0.8]]); // Bug?
 	// Option: Supports
 	var lineSupport = new LineSupport();
 	lineSupport.Hinged();
@@ -334,6 +351,23 @@ if (RFEM) {
 	var solidSet = new SolidSet().GroupOfSolids(1, [1]);
 }
 
+if (RFEM) {
+	/*************************************** Openings ********************************************/
+	var nodesForOpening = [
+		createNode(linesForSurfaces[4][1][0].coordinate_1 - 0.5, linesForSurfaces[4][1][0].coordinate_2 + 0.5, linesForSurfaces[4][1][0].coordinate_3),
+		createNode(linesForSurfaces[4][1][1].coordinate_1 + 0.5, linesForSurfaces[4][1][1].coordinate_2 + 0.5, linesForSurfaces[4][1][1].coordinate_3),
+		createNode(linesForSurfaces[4][1][2].coordinate_1 + 0.5, linesForSurfaces[4][1][2].coordinate_2 - 0.5, linesForSurfaces[4][1][1].coordinate_3),
+		createNode(linesForSurfaces[4][1][3].coordinate_1 - 0.5, linesForSurfaces[4][1][3].coordinate_2 - 0.5, linesForSurfaces[4][1][3].coordinate_3)
+	]
+	var linesForOpenings = [
+		createLine(nodesForOpening[0], nodesForOpening[1]),
+		createLine(nodesForOpening[1], nodesForOpening[2]),
+		createLine(nodesForOpening[2], nodesForOpening[3]),
+		createLine(nodesForOpening[3], nodesForOpening[0])
+	]
+	var opening = new Opening(undefined, linesForOpenings);
+
+}
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;

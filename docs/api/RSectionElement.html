@@ -1,0 +1,820 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class RSectionElement
+   | Dlubal JavaScript High Level Functions Library </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class RSectionElement
+   | Dlubal JavaScript High Level Functions Library ">
+    <meta name="generator" content="docfx 2.57.2.0">
+    
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Dlubal.RSectionElement">
+  
+  
+  <h1 id="Dlubal_RSectionElement" data-uid="Dlubal.RSectionElement">Class RSectionElement
+  </h1>
+  <div class="markdown level0 summary"><p>Create RSection Element</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <h4 id="Dlubal_RSectionElement__ctor" data-uid="Dlubal.RSectionElement.#ctor">RSectionElement(no, type, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Create RSection Element</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">new RSectionElement(no, type, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Number of Element, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>type</em></td>
+        <td>
+          <p>Type of Element</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Element</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="functions">Functions
+  </h3>
+  
+  
+  <h4 id="Dlubal_RSectionElement_SingleLine" data-uid="Dlubal.RSectionElement#SingleLine">SingleLine(no, boundary_lines, thickness, shear_thickness, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates single line Element</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function SingleLine(no, boundary_lines, thickness, shear_thickness, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Number of Element, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>boundary_lines</em></td>
+        <td>
+          <p>Boundary lines</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>thickness</em></td>
+        <td>
+          <p>Thickness, can be undefined (10 mm by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>shear_thickness</em></td>
+        <td>
+          <p>Shear thickness, can be undefined (not specified by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Element</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_RSectionElement_Arc" data-uid="Dlubal.RSectionElement#Arc">Arc(no, points_of_arc, control_point, arc_parameters, arc_center, alpha_adjustment_target, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates RSection arc Element</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Arc(no, points_of_arc, control_point, arc_parameters, arc_center, alpha_adjustment_target, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Number of Element, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>points_of_arc</em></td>
+        <td>
+          <p>Points numbers of arc Element</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>control_point</em></td>
+        <td>
+          <p>Coordinates of control point</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>arc_parameters</em></td>
+        <td>
+          <p>Arc parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>arc_center</em></td>
+        <td>
+          <p>Coordinates of arc center, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>alpha_adjustment_target</em></td>
+        <td>
+          <p>Subsequent adjustment of alpha by displacing point at, can be undefined (Beginning of arc by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Element</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_RSectionElement_Circle" data-uid="Dlubal.RSectionElement#Circle">Circle(no, circle_center, circle_radius, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates RSection circle Element</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Circle(no, circle_center, circle_radius, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Number of Element, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>circle_center</em></td>
+        <td>
+          <p>Coordinates of circle center</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>circle_radius</em></td>
+        <td>
+          <p>Circle radius</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Element</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_RSectionElement_Ellipse" data-uid="Dlubal.RSectionElement#Ellipse">Ellipse(no, first_point, second_point, control_point, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates RSection ellipse Element</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Ellipse(no, first_point, second_point, control_point, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Number of Element, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>first_point</em></td>
+        <td>
+          <p>Number of first point</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>second_point</em></td>
+        <td>
+          <p>Number of second point</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>control_point</em></td>
+        <td>
+          <p>Control point coordinates</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Element</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_RSectionElement_Parabola" data-uid="Dlubal.RSectionElement#Parabola">Parabola(no, points_of_parabola, control_point, parabola_alpha, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates RSection parabola Element</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Parabola(no, points_of_parabola, control_point, parabola_alpha, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Number of Element, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>points_of_parabola</em></td>
+        <td>
+          <p>Points numbers of parabola</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>control_point</em></td>
+        <td>
+          <p>Control point</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>parabola_alpha</em></td>
+        <td>
+          <p>Angle of the parabola, can be undefined (0 as default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Element</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_RSectionElement_NURBS" data-uid="Dlubal.RSectionElement#NURBS">NURBS(no, control_points, nurbs_order, nurbs_knots, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates RSection NURBS Element</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function NURBS(no, control_points, nurbs_order, nurbs_knots, comment, params)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>no</em></td>
+        <td>
+          <p>Number of Element, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>control_points</em></td>
+        <td>
+          <p>Control points ([[y1, z1 (, weight1)], [y2, z2, weight2], ...])</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>nurbs_order</em></td>
+        <td>
+          <p>Nurbs order, can be undefine (2 as default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>nurbs_knots</em></td>
+        <td>
+          <p>Nurbs knots, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>comment</em></td>
+        <td>
+          <p>Comment, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><em>params</em></td>
+        <td>
+          <p>Parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Element</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_RSectionElement_Thickness" data-uid="Dlubal.RSectionElement#Thickness">Thickness(thickness, shear_thickness)</h4>
+  <div class="markdown level1 summary"><p>Sets thickness and/or shear thickness</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Thickness(thickness, shear_thickness)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>thickness</em></td>
+        <td>
+          <p>Thickness</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>shear_thickness</em></td>
+        <td>
+          <p>Effective thickness for shear transfer, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Modified Element</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright © 2022 <a href="https://www.dlubal.com/en-US">Dlubal Software</a><br>Generated by <strong>DocFX</strong>
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

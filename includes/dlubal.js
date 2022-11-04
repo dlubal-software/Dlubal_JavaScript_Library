@@ -24,12 +24,15 @@ if (RFEM) {
     include("BasicObjects/Thickness.js");
 }
 if (RSECTION) {
-    include("BasicObjects/rsection_point.js");
-    include("BasicObjects/rsection_line.js");
-    include("BasicObjects/rsection_part.js");
-    include("BasicObjects/rsection_opening.js");
-    include("BasicObjects/rsection_element.js");
-    include("BasicObjects/rsection_stress_point.js");
+    include("BasicObjects/RsectionControlPoint.js");
+    include("BasicObjects/RsectionElement.js");
+    include("BasicObjects/RsectionLine.js");
+    include("BasicObjects/RsectionOpening.js");
+    include("BasicObjects/RsectionPart.js");
+    include("BasicObjects/RsectionPoint.js");
+    include("BasicObjects/RsectionStiffener.js");
+    include("BasicObjects/RsectionStressPoint.js");
+    include("BasicObjects/RsectionSubpanel.js");
 }
 include("BasicObjects/Material.js");
 include("BasicObjects/MemberSet.js");

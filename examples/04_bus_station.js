@@ -1,20 +1,22 @@
 if (!RFEM) {
     throw new Error("This script is only for RFEM, it creates surfaces.");
 }
-run("../includes/Tools/clearAll.js");
+
+run("../includes/tools/clearAll.js");
+
 // setup standard for combination wizard
 general.current_standard_for_combination_wizard = general.NATIONAL_ANNEX_AND_EDITION_EN_1990_DIN_2012_08;
 
 // prepare materials, sections and thickness for the model
-var material_steel = Material(undefined, "S235 | EN 1993-1-1:2005-05");
-var material_concrete = Material(undefined, "C12/15 | EN 1992-1-1:2004/A1:2014");
+var material_steel = new Material(1, "S235");
+var material_concrete = new Material(2, "C20/25");
 
 var section_params = { "shear_stiffness_deactivated": true };
-var section_IPE240 = Section(undefined, "IPE 240", material_steel, "", section_params);
-var section_IPE180 = Section(undefined, "IPE 180", material_steel, "", section_params);
+var section_IPE240 = new Section(undefined, "IPE 240", material_steel.No(), "", section_params);
+var section_IPE180 = new Section(undefined, "IPE 180", material_steel.No(), "", section_params);
 
 var th = new Thickness();
-th.Uniform(1, "test 01", 1, [0.120]);
+th.Uniform(1, "thickness", material_concrete.No(), [0.120]);
 thickness = 1;
 
 var nodal_support_1 = new NodalSupport();
@@ -51,7 +53,7 @@ Node(21, 0, 0.588, 0);
 
 Line(undefined, "1,2");
 Line(undefined, "11,13", "", { "support": line_support_1.GetNo() });
-Member(undefined, "12,3", "", { "section_start": section_IPE240, "member_eccentricity_start": 1, "member_eccentricity_end": 1 });
+Member(undefined, "12,3", "", { "section_start": section_IPE240.No(), "member_eccentricity_start": 1, "member_eccentricity_end": 1 });
 Line(undefined, "4,1");
 Line(undefined, "17,20");
 Line(undefined, "2,3");
@@ -66,8 +68,8 @@ Line(undefined, "2,13");
 Line(undefined, "17,19", "", { "type": lines.TYPE_ARC, "arc_control_point": $V(0, 3, -3.520) });
 Line(undefined, "13,14", "", { "support": 1 });
 Line(undefined, "3,14");
-Member(undefined, "4,12", "", { "section_start": section_IPE240, "member_eccentricity_start": 1, "member_eccentricity_end": 1 });
-Member(undefined, "12,16", "", { "section_start": section_IPE180 });
+Member(undefined, "4,12", "", { "section_start": section_IPE240.No(), "member_eccentricity_start": 1, "member_eccentricity_end": 1 });
+Member(undefined, "12,16", "", { "section_start": section_IPE180.No() });
 Line(undefined, "20,21");
 Line(undefined, "21,11", "", { "support": 1 });
 Line(undefined, "21,19");
@@ -87,27 +89,18 @@ line_mesh_refinment.target_length = 0.1m;
 var surface_mesh_refinment = SurfaceMeshRefinement(undefined,[3], 0.8m);
 
 // create load cases with loads and combinations
-if (!load_cases.exist(1)) {
-    var lc1 = LoadCase(1, "Self weight");
-}
+// setup load cases
+var SASGeometricallyLinear = new StaticAnalysisSettings().GeometricallyLinear(1);
+var SASSecondOrder = new StaticAnalysisSettings().SecondOrder(2,"MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON");
+var lc1 = new LoadCase().StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_PERMANENT_G", [true, 0, 0, 1.0]);
+var lc2 = new LoadCase().StaticAnalysis(2, "Live load", SASSecondOrder.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H", [false, 0, 0, 1.0]);
+var design_situation = new DesignSituation(undefined, "DESIGN_SITUATION_TYPE_EQU_PERMANENT_AND_TRANSIENT");
+var co1 = new LoadCombination(undefined,SASGeometricallyLinear.GetStaticAnalysisSettingsNo(),design_situation.DesignSituation().no,[[load_cases[1].no,1.35], [load_cases[2].no,1.5]]);
 
-var lc2 = LoadCase(2, "Live load");
-lc2.name = "Live load";
-lc2.static_analysis_settings = 2;
-lc2.action_category = load_cases.ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H;
-
-SurfaceLoad(undefined, lc2, "4", "", { "uniform_magnitude": 0.75kN/m^2});
-NodalLoad(undefined, lc2, "12", "", { "load_type": nodal_loads.LOAD_TYPE_COMPONENTS, "components_force": $V(1kN, 2kN, 3kN) });
-LineLoad(undefined, lc2, "15", "", { "magnitude": 1.25kN/m^2});
-MemberLoad(undefined, lc2, "1,2", "", { "magnitude": 1.25kN/m^2});
-
-var co1 = LoadCombination(10);
-co1.design_situation = 1;
-co1.static_analysis_settings = 2;
-co1.items[1].factor = 1.35;
-co1.items[1].load_case = 1;
-co1.items[2].factor = 1.5;
-co1.items[2].load_case = 2;
+SurfaceLoad(undefined, lc2.GetLoadCase(), "4", "", { "uniform_magnitude": 0.75kN/m^2});
+NodalLoad(undefined, lc2.GetLoadCase(), "12", "", { "load_type": nodal_loads.LOAD_TYPE_COMPONENTS, "components_force": $V(1kN, 2kN, 3kN) });
+LineLoad(undefined, lc2.GetLoadCase(), "15", "", { "magnitude": 1.25kN/m^2});
+MemberLoad(undefined, lc2.GetLoadCase(), "1,2", "", { "magnitude": 1.25kN/m^2});
 
 load_cases_and_combinations.result_combinations_active = true;
 var rc1 = ResultCombination(1);

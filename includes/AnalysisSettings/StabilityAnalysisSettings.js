@@ -40,7 +40,7 @@ function StabilityAnalysisSettings(no,
     else {
       var StAS = stability_analysis_settings.create(no);
     }
-    console.log("New stability analysis settings no. " + StAS.no + " was created");
+    // console.log("New stability analysis settings no. " + StAS.no + " was created");
     // Static anlysis settings : type
     StAS.analysis_type = stability_analysis_settings[StabilityAnalysisType(isEigenvalueSolver, isIncremental)];
     if (eigenvalueMethod != undefined && isEigenvalueSolver != false) {
@@ -52,7 +52,7 @@ function StabilityAnalysisSettings(no,
     // Stability analysis settings
     this.settings = StAS;
     set_comment_and_parameters(this.settings, comment, params);
-    console.log("-- Done. Stability analysis settings no. " + StAS.no + " all initial params set.");
+    // console.log("-- Done. Stability analysis settings no. " + StAS.no + " all initial params set.");
     // object for creation new stas with callback link to instance
     var self = this;
     return self;

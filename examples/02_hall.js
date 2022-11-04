@@ -1,4 +1,4 @@
-run("../includes/Tools/clearAll.js");
+run("../includes/tools/clearAll.js");
 // setup standard for combination wizard
 general.current_standard_for_combination_wizard = general.NATIONAL_ANNEX_AND_EDITION_EN_1990_DIN_2012_08;
 
@@ -32,11 +32,11 @@ lc6.ConsiderImperfection(1);
 
 
 // prepare materials and sections
-var material = Material(undefined, 'S235 | EN 1993-1-1:2005-05');
-var section_HEB = Section(undefined, 'HEB 220', material);
-var section_IPE240 = Section(undefined, 'IPE 240', material);
-var section_IPE100 = Section(undefined, 'IPE 100', material);
-var section_L = Section(undefined, 'L 20x20x3', material);
+var material = new Material(undefined, 'S235');
+var section_HEB = new Section(undefined, 'HEB 220', material.No());
+var section_IPE240 = new Section(undefined, 'IPE 240', material.No());
+var section_IPE100 = new Section(undefined, 'IPE 100', material.No());
+var section_L = new Section(undefined, 'L 20x20x3', material.No());
 
 // create topology, first we generate all nodes
 for (var i = 0; i < number_of_frames; i++) {
@@ -61,10 +61,9 @@ for (var i = 1; i <= nodes.count(); i++) {
         nodes[i].support = support.GetNo();
     }
 }
-
-var member_parameters_heb = { "section_start": section_HEB };
-var member_parameters_ipe240 = { "section_start": section_IPE240 };
-var member_parameters_ipe100 = { "section_start": section_IPE100 };
+var member_parameters_heb = { "section_start": section_HEB.No() };
+var member_parameters_ipe240 = { "section_start": section_IPE240.No() };
+var member_parameters_ipe100 = { "section_start": section_IPE100.No() };
 
 // create members for the frames
 for (var i = 0; i < number_of_frames; i++) {
@@ -93,7 +92,7 @@ for (var i = 1; i < number_of_frames; i++) {
 var bracing_member_params =
 {
     "type": members.TYPE_TENSION,
-    "section_start": section_L
+    "section_start": section_L.No()
 };
 Member(undefined, [7, 14], "", bracing_member_params);
 Member(undefined, [5, 16], "", bracing_member_params);
