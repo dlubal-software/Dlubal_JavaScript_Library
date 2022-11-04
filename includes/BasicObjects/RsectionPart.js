@@ -96,7 +96,7 @@ RSectionPart.prototype.Triangle = function (no,
  * @param {Array}   center_vertex   Circle center point
  * @param {Number}  radius          Circle radius
  * @param {Object}  material        Material
- * @param {Struig}  comment         Comment, can be undefined
+ * @param {String}  comment         Comment, can be undefined
  * @param {Object}  params          Parameters, can be undefined
  * @returns Circle Part
  */

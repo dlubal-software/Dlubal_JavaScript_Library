@@ -40,7 +40,7 @@
     else {
       var MAS = modal_analysis_settings.create(no);
     }
-    console.log("New modal analysis settings no. " + MAS.no + " was created");
+    // console.log("New modal analysis settings no. " + MAS.no + " was created");
 
     if (solverMethod != undefined) {
       if (RFEM) {

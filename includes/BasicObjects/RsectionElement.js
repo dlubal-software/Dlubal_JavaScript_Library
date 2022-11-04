@@ -164,7 +164,7 @@ RSectionElement.prototype.Parabola = function (no,
     params) {
     ASSERT(typeof points_of_parabola !== "undefine", "Two points of parabola must be defined");
     ASSERT(points_of_parabola.length === 2, "Two points must be specified");
-    ASSERT(typeof control_point !== "undefined", "Center point must be denied");
+    ASSERT(typeof control_point !== "undefined", "Center point must be defin    ed");
     ASSERT(control_point.length === 2, "Two parameter must be specified: y, z");
     this.element = createBaseRSectionElement(no, elements.TYPE_PARABOLA, comment, params);
     this.element.definition_points = points_of_parabola;
