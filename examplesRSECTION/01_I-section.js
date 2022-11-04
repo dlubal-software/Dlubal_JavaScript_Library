@@ -1,6 +1,6 @@
 // Script to create I section
 // author: HejnicF 11/8/2021
-
+run("../includes/Tools/clearAll.js");
 // function to create empty points
 function createEmptyPoints(pointsCount)
 {
