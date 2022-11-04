@@ -11,7 +11,7 @@
 // var r_1 = 0.5
 // var r_2 = 0.4
 // var alpha = 65;
-
+run("../includes/Tools/clearAll.js");
 // create material and section
 Material(1, 'C25/30')
 

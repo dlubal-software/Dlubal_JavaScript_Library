@@ -11,7 +11,7 @@
 // var corner_2 = [0.25, 0.25]; // chamfer for internal corners [y, z]
 // var r = 0.4
 // var alpha = 65;
-
+run("../includes/Tools/clearAll.js");
 // create material and section
 Material(1, 'C25/30')
 

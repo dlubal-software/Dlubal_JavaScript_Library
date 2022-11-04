@@ -1,7 +1,7 @@
 // var a = 0.1;
 // var r = 0.01;
 // var t = 0.004;
-
+run("../includes/Tools/clearAll.js");
 // create material and section
 Material(1, 'S235')
 
