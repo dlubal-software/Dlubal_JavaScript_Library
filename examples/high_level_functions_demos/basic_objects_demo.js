@@ -6,20 +6,17 @@ include("../includes/Tools/high_level_functions_support.js");
 run("../includes/Tools/clearAll.js");
 var t1 = new Date().getTime();
 
-var material = new Material(undefined, "S235");
-var materialConcrete = new Material(undefined, "C25/30", true);
+var material = new Material(1, "S235");
+var materialConcrete = new Material(2, "C25/30");
 
-var section = new Section(undefined, "IPE 80", material.No());
-section.SectionType("STANDARDIZED_TIMBER");
-var section2 = new Section(undefined, "IPE 100", material.No());
-section2.SectionType("PARAMETRIC_THIN_WALLED");
-section2.ManufacturingType("WELDED");
+var section = new Section(1, "IPE 80", material.No());
+var section2 = new Section(2, "IPE 100", material.No());
 section2.Rotation(Math.PI / 4);
-var section3 = new Section(undefined, "IPE 120", material.No());
+var section3 = new Section(3, "IPE 120", material.No());
 TORSIONAL_WARPING.setActive(true);
 section3.DeactivateWarpingStiffness(false);	// Warping property is enable to set
 section3.SectionProperties(undefined, undefined, 10-E4, 0.065, 0.121);
-var section4 = new Section(undefined, "UPE 200", materialConcrete.No());
+var section4 = new Section(4, "R_M1 0.5/1.0", materialConcrete.No());
 COST_ESTIMATION.setActive(true);
 section4.EmissionEstimationValues(1, 2, 3, 4);
 
