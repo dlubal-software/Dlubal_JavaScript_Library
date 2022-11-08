@@ -738,6 +738,14 @@ Member.prototype.SectionDistributionOffsetAtEnd = function (section_start, secti
 	}
 };
 
+Member.prototype.GetNo = function(){
+	return this.member.no;
+};
+
+Member.prototype.GetMember = function (){
+	return this.member;
+};
+
 /**
 * Support function for section distributions (private), more info can be find there
 */

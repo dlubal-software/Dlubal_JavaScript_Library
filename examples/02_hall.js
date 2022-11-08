@@ -17,26 +17,28 @@ var console_length = 0.3;
 var frame_length = 5.0;
 
 // setup load cases
-var SASGeometricallyLinear = new StaticAnalysisSettings().GeometricallyLinear(1);
-var SASSecondOrder = new StaticAnalysisSettings().SecondOrder(2,"MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON");
+var SASGeometricallyLinear = new StaticAnalysisSettings();
+SASGeometricallyLinear.GeometricallyLinear(1);
+var SASSecondOrder = new StaticAnalysisSettings();
+SASSecondOrder.SecondOrder(2,"MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON");
 
-var lc1 = new LoadCase().StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_PERMANENT_G", [true, 0, 0, 1.0]);
-var lc2 = new LoadCase().StaticAnalysis(2, "Live load", SASSecondOrder.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H", [false, 0, 0, 1.0]);
-var lc3 = new LoadCase().StaticAnalysis(3, "Wind load", SASSecondOrder.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_WIND_QW", [false, 0, 0, 1.0]);
-var lc4 = new LoadCase().StaticAnalysis(4, "Wind load 2", SASSecondOrder.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_WIND_QW", [false, 0, 0, 1.0]);
-var lc5 = new LoadCase().StaticAnalysis(5, "Stability - linear", SASGeometricallyLinear.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_PERMANENT_IMPOSED_GQ", [true, 0, 0, 1.0],1);
-var lc6 = new LoadCase().StaticAnalysis(6, "Imperfections", SASSecondOrder.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_PERMANENT_IMPOSED_GQ", [false, 0, 0, 1.0]);
-var lc7 = new LoadCase().StaticAnalysis(7, "Other permanent load", SASSecondOrder.GetStaticAnalysisSettingsNo(), "ACTION_CATEGORY_PERMANENT_G", [false, 0, 0, 1.0]);
+var lc1 = new LoadCase().StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_PERMANENT_G", [true, 0, 0, 1.0]);
+var lc2 = new LoadCase().StaticAnalysis(2, "Live load", SASSecondOrder.GetNo(), "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H", [false, 0, 0, 1.0]);
+var lc3 = new LoadCase().StaticAnalysis(3, "Wind load", SASSecondOrder.GetNo(), "ACTION_CATEGORY_WIND_QW", [false, 0, 0, 1.0]);
+var lc4 = new LoadCase().StaticAnalysis(4, "Wind load 2", SASSecondOrder.GetNo(), "ACTION_CATEGORY_WIND_QW", [false, 0, 0, 1.0]);
+var lc5 = new LoadCase().StaticAnalysis(5, "Stability - linear", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_PERMANENT_IMPOSED_GQ", [true, 0, 0, 1.0],1);
+var lc6 = new LoadCase().StaticAnalysis(6, "Imperfections", SASSecondOrder.GetNo(), "ACTION_CATEGORY_PERMANENT_IMPOSED_GQ", [false, 0, 0, 1.0]);
+var lc7 = new LoadCase().StaticAnalysis(7, "Other permanent load", SASSecondOrder.GetNo(), "ACTION_CATEGORY_PERMANENT_G", [false, 0, 0, 1.0]);
 ImperfectionCase(1, "Local Imperfections Only");
 lc6.ConsiderImperfection(1);
 
 
 // prepare materials and sections
 var material = new Material(undefined, 'S235');
-var section_HEB = new Section(undefined, 'HEB 220', material.No());
-var section_IPE240 = new Section(undefined, 'IPE 240', material.No());
-var section_IPE100 = new Section(undefined, 'IPE 100', material.No());
-var section_L = new Section(undefined, 'L 20x20x3', material.No());
+var section_HEB = new Section(undefined, 'HEB 220', material.GetNo());
+var section_IPE240 = new Section(undefined, 'IPE 240', material.GetNo());
+var section_IPE100 = new Section(undefined, 'IPE 100', material.GetNo());
+var section_L = new Section(undefined, 'L 20x20x3', material.GetNo());
 
 // create topology, first we generate all nodes
 for (var i = 0; i < number_of_frames; i++) {
@@ -61,9 +63,9 @@ for (var i = 1; i <= nodes.count(); i++) {
         nodes[i].support = support.GetNo();
     }
 }
-var member_parameters_heb = { "section_start": section_HEB.No() };
-var member_parameters_ipe240 = { "section_start": section_IPE240.No() };
-var member_parameters_ipe100 = { "section_start": section_IPE100.No() };
+var member_parameters_heb = { "section_start": section_HEB.GetNo() };
+var member_parameters_ipe240 = { "section_start": section_IPE240.GetNo() };
+var member_parameters_ipe100 = { "section_start": section_IPE100.GetNo() };
 
 // create members for the frames
 for (var i = 0; i < number_of_frames; i++) {
@@ -92,7 +94,7 @@ for (var i = 1; i < number_of_frames; i++) {
 var bracing_member_params =
 {
     "type": members.TYPE_TENSION,
-    "section_start": section_L.No()
+    "section_start": section_L.GetNo()
 };
 Member(undefined, [7, 14], "", bracing_member_params);
 Member(undefined, [5, 16], "", bracing_member_params);

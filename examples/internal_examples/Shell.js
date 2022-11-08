@@ -22,6 +22,6 @@ Line(4, [2, 4]);
 
 var no = thicknesses.lastId() + 1;
 var th = new Thickness();
-var thickness_1 = th.Uniform(no, "test_01", 1, [thickness]);
+var thickness_1 = th.Uniform(no, "test_01", 1, thickness);
 var s = new Surface();
 s.Standard(1, surfaces.GEOMETRY_QUADRANGLE, "", [1, 2, 3, 4], no);

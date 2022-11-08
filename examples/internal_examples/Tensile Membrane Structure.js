@@ -26,7 +26,7 @@ var sectionCircularBeam = Section(2, 'CHC 60.3x4.0', materialSteel);
 
 // Create thickness
 var th = new Thickness();
-th.Uniform(1, "Membrane", "", [thickness_1], "", { "material": materialMembrane });
+th.Uniform(1, "Membrane", "", thickness_1, "", { "material": materialMembrane });
 
 // Create Lines
 var l = new Line();

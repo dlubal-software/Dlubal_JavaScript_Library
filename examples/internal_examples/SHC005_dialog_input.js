@@ -27,7 +27,7 @@ Line(no_l + 4, [no_n + 2, no_n + 4]);
 
 var th = new Thickness();
 var no = thicknesses.lastId() + 1;
-var thickness_1 = th.Uniform(no, "test_01", "", [thickness], "", { "material": material });
+var thickness_1 = th.Uniform(no, "test_01", "", thickness, "", { "material": material });
 var s = new Surface();
 var no_s = surfaces.lastId() + 1;
 s.Standard(no_s, surfaces.GEOMETRY_QUADRANGLE, "", [no_l + 1, no_l + 2, no_l + 3, no_l + 4], no);

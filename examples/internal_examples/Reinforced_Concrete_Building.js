@@ -17,8 +17,8 @@ var materialConcrete = Material(1, 'LC50/55');    // Concrete
 
 // Create thickness
 var th = new Thickness();
-th.Uniform(1, "Roof", 1, [thickness_1]);
-th.Uniform(2, "Wall", 1, [thickness_2]);
+th.Uniform(1, "Roof", 1, thickness_1);
+th.Uniform(2, "Wall", 1, thickness_2);
 
 // Create section
 var section_1 = Section(1, 'CIRCLE_M1 508', materialConcrete);  // concrete column

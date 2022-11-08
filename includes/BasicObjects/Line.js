@@ -27,13 +27,12 @@ function Line (no,
 * @param	{Array}		nodes		List of node indexes
 * @param	{String}	comment		Comment, can be undefined
 * @param	{Object}	params  	Line's parameters, can be undefined
-* @returns	Created polyline
 */
 Line.prototype.Polyline = function (no,
 	nodes,
 	comment,
 	params) {
-	return this.line = createBaseLine(no, nodes, lines.TYPE_POLYLINE, comment, params);
+	this.line = createBaseLine(no, nodes, lines.TYPE_POLYLINE, comment, params);
 };
 
 /**
@@ -49,7 +48,6 @@ Line.prototype.Polyline = function (no,
 *														3 - End of arc
 * @param	{String}	comment						Comment, can be undefined
 * @param	{Object}	params						Line's parameters, can be undefined
-* @returns	Created arc line
 */
 Line.prototype.Arc = function (no,
 	nodes,
@@ -86,8 +84,6 @@ Line.prototype.Arc = function (no,
 		this.line.arc_center_y = center_of_arc[1];
 		this.line.arc_center_z = center_of_arc[2];
 	}
-
-	return this.line;
 };
 
 /**
@@ -98,7 +94,6 @@ Line.prototype.Arc = function (no,
 * @param	{Array}		normal_point		Point of normal ti circle plane, can be undefined
 * @param	{String}	comment				Comment, can be undefined
 * @param	{Object}	params  			Line's parameters, can be undefined
-* @returns	Created circle line
 */
 Line.prototype.Circle = function (no,
 	center_of_circle,
@@ -124,8 +119,6 @@ Line.prototype.Circle = function (no,
 		this.line.circle_normal_coordinate_2 = normal_point[1];
 		this.line.circle_normal_coordinate_3 = normal_point[2];
 	}
-
-	return this.line;
 };
 
 /**
@@ -138,7 +131,6 @@ Line.prototype.Circle = function (no,
 * @param	{Number}	elliptical_arc_beta		Arc angle β, can be undefined
 * @param	{String}	comment					Comment, can be undefined
 * @param	{Object}	params  				Line's parameters, can be undefined
-* @returns	Created elliptical arc line
 */
 Line.prototype.EllipticalArc = function (no,
 	control_point_1,
@@ -171,8 +163,6 @@ Line.prototype.EllipticalArc = function (no,
 	if (typeof elliptical_arc_beta !== "undefined") {
 		this.line.elliptical_arc_beta = elliptical_arc_beta;
 	}
-
-	return this.line;
 };
 
 /**
@@ -182,7 +172,6 @@ Line.prototype.EllipticalArc = function (no,
 * @param	{Array}		control_point	Control point
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params  		Line's parameters, can be undefined
-* @returns	Created ellipse line
 */
 Line.prototype.Ellipse = function (no,
 	nodes,
@@ -196,8 +185,6 @@ Line.prototype.Ellipse = function (no,
 	this.line.ellipse_control_point_x = control_point[0];
 	this.line.ellipse_control_point_y = control_point[1];
 	this.line.ellipse_control_point_z = control_point[2];
-
-	return this.line;
 };
 
 /**
@@ -208,7 +195,6 @@ Line.prototype.Ellipse = function (no,
 * @param	{Number}	parabola_alpha	Parabola's parameter α
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params 			Line's parameters, can be undefined
-* @returns	Created parabola line
 */
 Line.prototype.Parabola = function (no,
 	nodes,
@@ -226,8 +212,6 @@ Line.prototype.Parabola = function (no,
 	if (typeof parabola_alpha !== "undefined") {
 		this.line.parabola_alpha = parabola_alpha;
 	}
-
-	return this.line;
 };
 
 /**
@@ -236,13 +220,12 @@ Line.prototype.Parabola = function (no,
 * @param	{Array}		nodes			Nodes of spline
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params  		Line's parameters, can be undefined
-* @returns	Created spline
 */
 Line.prototype.Spline = function (no,
 	nodes,
 	comment,
 	params) {
-	return this.line = createBaseLine(no, nodes, lines.TYPE_SPLINE, comment, params);
+	this.line = createBaseLine(no, nodes, lines.TYPE_SPLINE, comment, params);
 };
 
 /**
@@ -253,7 +236,6 @@ Line.prototype.Spline = function (no,
 * @param	{Number}	nurbs_order						Nurbs order, can be undefined
 * @param	{String}	comment							Comment, can be undefined
 * @param	{Object}	params  						Line's parameters, can be undefined
-* @returns	Created NURBS line
 */
 Line.prototype.NURBS = function (no,
 	nodes,
@@ -282,7 +264,6 @@ Line.prototype.NURBS = function (no,
 		this.line.nurbs_order = nurbs_order;
 	}
 
-	return this.line;
 };
 
 /**
@@ -460,10 +441,10 @@ Line.prototype.Rotation = function (rotation_values,
 /**
 * Sets new default beam member to line
 */
-Line.prototype.AssignMember = function () {
-	ASSERT(sections.count() > 0, "No section found, before use this section you has to create one");
-	return createMember(undefined, sections[1], members.TYPE_BEAM, this.line.no);
-};
+// Line.prototype.AssignMember = function () {
+// 	ASSERT(sections.count() > 0, "No section found, before use this section you has to create one");
+// 	return createMember(undefined, sections[1], members.TYPE_BEAM, this.line.no);
+// };
 
 /**
 * Sets nodes on line
@@ -523,6 +504,15 @@ Line.prototype.WeldedJoints = function (values) {
 		}
 	}
 };
+
+Line.prototype.GetNo = function (){
+	return this.line.no;
+};
+
+Line.prototype.GetLine = function (){
+	return this.line;
+};
+
 
 /**
 * Returns rotation plane from string representation (private)

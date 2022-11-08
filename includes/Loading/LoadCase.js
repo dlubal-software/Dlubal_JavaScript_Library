@@ -160,11 +160,11 @@ LoadCase.prototype.GetActionCategoryList = function () {
 
 LoadCase.prototype.GetLoadCase = function(){
   return this.LoadCase;
-}
+};
 
-LoadCase.prototype.GetLoadCaseNo = function(){
+LoadCase.prototype.GetNo = function(){
   return this.LoadCase.no;
-}
+};
 
 
 // private methods

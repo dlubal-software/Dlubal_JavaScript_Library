@@ -18,8 +18,8 @@ var material = Material(1, 'LC50/55');
 
 // Create thickness
 var th = new Thickness();
-th.Uniform(1, "Roof", 1, [thickness_1]);
-th.Uniform(2, "Walls", 1, [thickness_2]);
+th.Uniform(1, "Roof", 1, thickness_1);
+th.Uniform(2, "Walls", 1, thickness_2);
 
 // Create section
 var columnSection = Section(1, 'CIRCLE_M1 200', material);

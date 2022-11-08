@@ -26,8 +26,8 @@ var materialSteel = Material(2, 'S235');         // Steel
 
 // Create thickness
 var th = new Thickness();
-th.Uniform(1, "Roof", 1, [thickness_1]);
-th.Uniform(2, "Wall", 2, [thickness_2]);
+th.Uniform(1, "Roof", 1, thickness_1);
+th.Uniform(2, "Wall", 2, thickness_2);
 
 // Create section
 var section_1 = Section(1, 'IPE 450', materialSteel);

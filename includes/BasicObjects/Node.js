@@ -36,47 +36,47 @@ function Node(no,
 /**
  * Create Standard node
  * @param {int} no - Number of Node
- * @param {array} coordinate_system - Coordinate of node in format [x, y, z]
+ * @param {array} coordinates - Coordinate of node in format [x, y, z]
  * @param {string} coordinate_system_type - Type of Coordinate System
  * @param {string} comment - Comment for the Node
  * @param {dictionary} params - Parameters of the Node
  */
 Node.prototype.Standard = function (no,
-    coordinate_system,
+    coordinates,
     coordinate_system_type,
     comment,
     params) {
-    if (typeof (coordinate_system) !== "undefined") {
-        coordinate_system = typeof coordinate_system !== 'undefined' ? coordinate_system : [];
+    if (typeof (coordinates) !== "undefined") {
+        coordinates = typeof coordinates !== 'undefined' ? coordinates : [];
         coordinate_system_type = typeof coordinate_system_type !== 'undefined' ? coordinate_system_type : "";
-        ASSERT(coordinate_system.length == 3, "WARNING: The coordinate system needs to be of length 3. Kindly check list inputs for completeness and correctness.");
+        ASSERT(coordinates.length == 3, "WARNING: The coordinate system needs to be of length 3. Kindly check list inputs for completeness and correctness.");
         this.node = engine.create_node(no);
         if (coordinate_system_type == nodes.COORDINATE_SYSTEM_CARTESIAN || coordinate_system_type == "") {
             this.node.coordinate_system_type = nodes.COORDINATE_SYSTEM_CARTESIAN;
-            this.node.coordinate_2 = coordinate_system[1];
-            this.node.coordinate_3 = coordinate_system[2];
+            this.node.coordinate_2 = coordinates[1];
+            this.node.coordinate_3 = coordinates[2];
         }
         else if (coordinate_system_type == nodes.COORDINATE_SYSTEM_X_CYLINDRICAL) {
             this.node.coordinate_system_type = nodes.COORDINATE_SYSTEM_X_CYLINDRICAL;
-            this.node.coordinate_2 = coordinate_system[1];
-            this.node.coordinate_3 = coordinate_system[2] * PI / 180;
+            this.node.coordinate_2 = coordinates[1];
+            this.node.coordinate_3 = coordinates[2] * PI / 180;
         }
         else if (coordinate_system_type == nodes.COORDINATE_SYSTEM_Y_CYLINDRICAL) {
             this.node.coordinate_system_type = nodes.COORDINATE_SYSTEM_Y_CYLINDRICAL;
-            this.node.coordinate_2 = coordinate_system[1];
-            this.node.coordinate_3 = coordinate_system[2] * PI / 180;
+            this.node.coordinate_2 = coordinates[1];
+            this.node.coordinate_3 = coordinates[2] * PI / 180;
         }
         else if (coordinate_system_type == nodes.COORDINATE_SYSTEM_Z_CYLINDRICAL) {
             this.node.coordinate_system_type = nodes.COORDINATE_SYSTEM_Z_CYLINDRICAL;
-            this.node.coordinate_2 = coordinate_system[1] * PI / 180;
-            this.node.coordinate_3 = coordinate_system[2];
+            this.node.coordinate_2 = coordinates[1] * PI / 180;
+            this.node.coordinate_3 = coordinates[2];
         }
         else if (coordinate_system_type == nodes.COORDINATE_SYSTEM_POLAR) {
             this.node.coordinate_system_type = nodes.COORDINATE_SYSTEM_POLAR;
-            this.node.coordinate_2 = coordinate_system[1] * PI / 180;
-            this.node.coordinate_3 = coordinate_system[2] * PI / 180;
+            this.node.coordinate_2 = coordinates[1] * PI / 180;
+            this.node.coordinate_3 = coordinates[2] * PI / 180;
         }
-        this.node.coordinate_1 = coordinate_system[0];
+        this.node.coordinate_1 = coordinates[0];
         set_comment_and_parameters(this.node, comment, params);
     }
 };
@@ -310,4 +310,12 @@ Node.prototype.OnMember = function (no,
         this.node.distance_from_start_absolute = parameters[1];
     }
     set_comment_and_parameters(this.node, comment, params);
+};
+
+Node.prototype.GetNo = function(){
+	return this.node.no;
+};
+
+Node.prototype.GetNode = function () {
+    return this.node;
 };

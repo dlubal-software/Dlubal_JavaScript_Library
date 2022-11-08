@@ -16,7 +16,7 @@ var materialSteel = Material(2, 'S235');       // Steel
 
 // Create thickness
 var th = new Thickness();
-th.Uniform(1, "Roof and Wall", 1, [thickness_1]);
+th.Uniform(1, "Roof and Wall", 1, thickness_1);
 
 // Create section
 var sectionConcreteColumn = Section(1, 'CIRCLE_M1 300', materialConcrete);

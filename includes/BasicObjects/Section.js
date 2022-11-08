@@ -28,9 +28,15 @@ function Section(no,
  * 
  * @returns Number of Section
  */
-Section.prototype.No = function() {
+Section.prototype.GetNo = function() {
     return this.section.no;
 };
+
+Section.prototype.GetSection = function() {
+    return this.section;
+};
+
+
 
 /**
  * Sets section type

@@ -19,7 +19,7 @@ var material = Material(1, 'LC50/55');
 
 // Create thickness
 var th = new Thickness();
-th.Uniform(1, "Wall", 1, [thickness_1]);
+th.Uniform(1, "Wall", 1, thickness_1);
 
 // Create nodes
 Node(1, 0, 0, 0);
