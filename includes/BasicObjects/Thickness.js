@@ -68,8 +68,10 @@ Thickness.prototype.Uniform = function (no,
     }
 
     // Uniform Thickness d
-    this.thickness.uniform_thickness = thickness;
-    this.thickness.type = thicknesses.TYPE_UNIFORM;
+    if (typeof thickness !== 'undefined') {
+        this.thickness.uniform_thickness = thickness;
+        this.thickness.type = thicknesses.TYPE_UNIFORM;
+    }
     set_comment_and_parameters(this.thickness, comment, params);
 };
 

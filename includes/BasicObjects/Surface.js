@@ -156,6 +156,7 @@ Surface.prototype.Plane = function () {
 * Sets quadrangle geometry type of surface
 * @param	{Number}	no				Index of surface, can be undefined
 * @param	{Array}		boundary_lines	List of boundary lines indexes
+* @param	{String}	stiffness_type	Stiffness type
 * @param	{Number}	thickness		Thickness index, can be undefined
 * @param	{Number}	boundary_line	Index of boundary line
 * @param	{Number}	corner_node_1		Quadrangle corner 1, can be undefined
@@ -167,7 +168,7 @@ Surface.prototype.Plane = function () {
 */
 Surface.prototype.Quadrangle = function (no,
 	boundary_lines,
-	surface_type,
+	stiffness_type,
 	thickness,
 	corner_node_1,
 	corner_node_2,
@@ -175,7 +176,7 @@ Surface.prototype.Quadrangle = function (no,
 	corner_node_4,
 	comment,
 	params) {
-	this.surface = createSurfaceWithType(no, boundary_lines, surface_type, thickness, comment, params);
+	this.surface = createSurfaceWithType(no, boundary_lines, stiffness_type, thickness, comment, params);
 	ASSERT(this.surface.type !== surfaces.TYPE_LOAD_TRANSFER, "Quadrangle geometry type cannot be used for this type of surface");
 	this.surface.geometry = surfaces.GEOMETRY_QUADRANGLE;
 	if (typeof corner_node_1 !== "undefined") {
