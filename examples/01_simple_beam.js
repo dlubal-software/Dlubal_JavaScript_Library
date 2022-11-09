@@ -37,14 +37,9 @@ var load_case = new LoadCase();
 load_case.StaticAnalysis(1, "Variable LC", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_A_DOMESTIC_RESIDENTIAL_AREAS_QI_A", [false, 0, 0, 1.0]);
 
 // uniform member load
-var memberLoad = new MemberLoad();
-memberLoad.Force(1, load_case.GetLoadCase(), [member.GetNo()], "Uniform", [1000]);
+var liveLoadMember = new MemberLoad();
+liveLoadMember.Force(1, load_case.GetLoadCase(), [member.GetNo()], "Uniform", [1000]);
 
 // concentrated member load
-// var concentrated_load = MemberLoad(undefined, load_case.GetLoadCase(), [member]);
-// concentrated_load.load_distribution = member_loads.LOAD_DISTRIBUTION_CONCENTRATED_1;
-// concentrated_load.load_direction = member_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE;
-// concentrated_load.magnitude = -2kN;
-// concentrated_load.distance_a_absolute = 5m;
 var concentrated_load = new MemberLoad();
 concentrated_load.Force(2, load_case.GetLoadCase(), [member.GetNo()], member_loads.LOAD_DISTRIBUTION_CONCENTRATED_1, [-2000, 5, false]);

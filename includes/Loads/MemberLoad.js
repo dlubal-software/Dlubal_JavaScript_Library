@@ -566,3 +566,12 @@ MemberLoad.prototype.IndividualMassComponents = function (MX,
 		this.load.mass_z = MZ;
 	}
 };
+
+MemberLoad.prototype.GetNo = function (){
+	return this.load.no;
+};
+
+MemberLoad.prototype.GetMemberLoad = function (){
+	return this.load;
+};
+
