@@ -10,8 +10,6 @@ var H1 = 3;
 var H2 = 3.5;
 var thicknessRoof = 0.2;   // roof
 var thicknessWall = 0.2;   // wall
-var thicknessWallArray = [];
-thicknessWallArray.push(thicknessWall);
 
 // create material
 var materialConcrete = new Material(1, 'C25/30');    // Concrete
@@ -19,9 +17,9 @@ var materialSteel = new Material(2, 'S235');               // Steel
 
 // Create thickness
 var thicknessRoof = new Thickness();
-thicknessRoof.Uniform(1, "thickness", materialConcrete.GetNo(), thicknessRoof);
+thicknessRoof.Uniform(1, "thickness", materialConcrete.GetNo(), Number(thicknessRoof));
 var thicknessWall = new Thickness();
-thicknessWall.Uniform(2, "Wall", 1, thicknessWall);
+thicknessWall.Uniform(2, "Wall", 1, Number(thicknessWall));
 
 // Create section
 var concreteColumn = new Section(1, 'CIRCLE_M1 0.300', materialConcrete.GetNo());
@@ -109,7 +107,7 @@ memberEccentricity.TransverseOffsetMember(3, "SECTION_ALIGNMENT_CENTER_BOTTOM", 
 
 // Create hinge
 var memberHinge = new MemberHinge();
-memberHinge.Translational(1, [3,4,5,6], [3,4,5,6], [false,0],[false,0],[false,0]);
+// memberHinge.Translational(1, [3,4,5,6], [3,4,5,6], [false,0],[false,0],[false,0]);
 memberHinge.Rotational(1, [3,4,5,6], [3,4,5,6], [false,0],[true,0],[true,0]);
 
 // Define Supports
