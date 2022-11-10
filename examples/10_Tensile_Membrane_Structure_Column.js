@@ -1,6 +1,7 @@
 if (!RFEM) {
     throw new Error("This script is only for RFEM, it creates surfaces.");
 }
+run("../includes/tools/clearAll.js");
 // var a = 1.5;             // Short Length
 // var b = 4;               // Long Length
 // var H_1 = 3;             // Height 1
@@ -14,18 +15,17 @@ if (!RFEM) {
 FORM_FINDING.setActive(true);
 
 // Material
-var materialSteel = Material(1, 'S235');                    // Steel
-var materialMembrane = Material(2, 'PES-PVC Typ II');       // Membrane
-materialMembrane.material_model = materials.MODEL_ORTHOTROPIC_2D;
+var materialSteel = new Material(1, 'S235');                    // Steel
+var materialMembrane = new Material(2, 'PES-PVC Typ II');       // Membrane
 
 // Section
-var sectionCable = Section(1, 'R 8', materialSteel);                   // Cable
-var sectionBeam = Section(2, 'CHC 114.3x6.0', materialSteel);          // Beams
-var sectionCircularBeam = Section(3, 'CHC 48.3x4.0', materialSteel);   // Circular top beam
+var sectionCable = new Section(1, 'R 8', materialSteel.GetNo());                   // Cable
+var sectionBeam = new Section(2, 'CHC 114.3x6.0', materialSteel.GetNo());          // Beams
+var sectionCircularBeam = new Section(3, 'CHC 48.3x4.0', materialSteel.GetNo());   // Circular top beam
 
 // Create thickness
-var th = new Thickness();
-th.Uniform(1, "Membrane", "", thickness_1, "", { "material": materialMembrane });
+var thickness = new Thickness();
+thickness.Uniform(1, "Membrane", materialMembrane.GetNo());
 
 // Create Nodes
 Node(1, 0, 0, 0);
@@ -42,43 +42,48 @@ for (var i = 0; i < 4; ++i) {
 
 // Create members
 var memberCount = 1;
-var mem = new Member();
+var member = new Member();
 
-mem.Beam(memberCount, [1, 2], 0, 2);
+member.Beam(memberCount, [1, 2], sectionBeam.GetNo());
 memberCount++;
-mem.Beam(memberCount, [2, 7], 0, 2);
+member.Beam(memberCount, [2, 7], sectionBeam.GetNo());
 memberCount++;
 for (var i = 0; i < 4; ++i) {
-    mem.Beam(memberCount, [2, 3 + i], 0, 2);
+    member.Beam(memberCount, [2, 3 + i], sectionBeam.GetNo());
     memberCount++;
 }
 var cablesList = [];
-mem.Cable(memberCount, [3, 4], 0, 1);
+member.Cable(memberCount, [3, 4], sectionCable.GetNo());
 cablesList.push(memberCount);
 memberCount++;
-mem.Cable(memberCount, [4, 5], 0, 1);
+member.Cable(memberCount, [4, 5], sectionCable.GetNo());
 cablesList.push(memberCount);
 memberCount++;
-mem.Cable(memberCount, [5, 6], 0, 1);
+member.Cable(memberCount, [5, 6], sectionCable.GetNo());
 cablesList.push(memberCount);
 memberCount++;
-mem.Cable(memberCount, [6, 3], 0, 1);
+member.Cable(memberCount, [6, 3], sectionCable.GetNo());
 cablesList.push(memberCount);
 memberCount++;
 for (var i = 0; i < 4; ++i) {
-    mem.Beam(memberCount, [7, 8 + i], 0, 3);
+    member.Beam(memberCount, [7, 8 + i], sectionCircularBeam.GetNo());
     memberCount++;
 }
-var l = new Line();
+
 for (var i = 0; i < 3; ++i) {
     var alpha = i * PI / 2 + PI / 4;
+    var l = new Line();
     l.Arc(memberCount, [8 + i, 9 + i], [r * cos(alpha), r * sin(alpha), -H_1 - H_2]);
-    mem.BeamByLine(memberCount, memberCount, 0, 3);
+    var arcBeam = new Member();
+    arcBeam.Beam(memberCount, memberCount,  sectionCircularBeam.GetNo());
     memberCount++;
 }
+
 alpha = -PI / 4;
-l.Arc(memberCount, [11, 8], [r * cos(alpha), r * sin(alpha), -H_1 - H_2]);
-mem.BeamByLine(memberCount, memberCount, 0, 3);
+var m = new Line();
+m.Arc(memberCount, [11, 8], [r * cos(alpha), r * sin(alpha), -H_1 - H_2]);
+var arcBeam = new Member();
+member.Beam(memberCount, memberCount, sectionCircularBeam.GetNo());
 memberCount++;
 
 // Create surface
@@ -86,48 +91,39 @@ for (var i = 0; i < 4; ++i) {
     Line(memberCount, [3 + i, 8 + i]);
     memberCount++;
 }
-var sur = new Surface();
+
 var surfacesList = [];
 for (var i = 0; i < 3; ++i) {
-    sur.Membrane(i + 1, surfaces.GEOMETRY_QUADRANGLE, "", [15 + i, 19 + i, 7 + i, 20 + i], 1);
+    var surface = new Surface();
+    surface.Quadrangle(i + 1,  [15 + i, 19 + i, 7 + i, 20 + i], "Membrane", thickness.GetNo());
     surfacesList.push(i + 1);
 }
-sur.Membrane(4, surfaces.GEOMETRY_QUADRANGLE, "", [18, 22, 10, 19], 1);
+
+var sur = new Surface();
+surface.Quadrangle(4, [18, 22, 10, 19], "Membrane", thickness.GetNo());
 surfacesList.push(4);
+
 // Define Load case and loads
-if (!load_cases.exist(1)) {
-    var formFindingLoadCase = LoadCase(1, "Form-Finding");
-}
-else {
-    var formFindingLoadCase = load_cases[1];
-}
+var SASLargeDeformation = new StaticAnalysisSettings();
+SASLargeDeformation.LargeDeformations(3, "MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON", 100, 1, undefined, "PLATE_BENDING_THEORY_KIRCHHOFF", [true, 2.0, 3.0, 4.0], [true, 5, true]);
+var formFindingLoadCase = new LoadCase(1, "Form-Finding");
+formFindingLoadCase.static_analysis_settings = SASLargeDeformation.GetStaticAnalysisSettings();
+
 load_cases_and_combinations.activate_combination_wizard_and_classification = false;
-formFindingLoadCase.analysis_type = load_cases.ANALYSIS_TYPE_STATIC;
-if (!static_analysis_settings.exist(1)) {
-    var staticAnalysisSettings = StaticAnalysisSettings(1);
 
-}
-else {
-    var staticAnalysisSettings = static_analysis_settings[1];
-}
-static_analysis_settings[1].analysis_type.analysis_type = static_analysis_settings.LARGE_DEFORMATIONS;
-static_analysis_settings[1].iterative_method_for_nonlinear_analysis = static_analysis_settings.NEWTON_RAPHSON;
-formFindingLoadCase.static_analysis_settings = staticAnalysisSettings;
-var tensionSurfaceLoad = SurfaceLoad(1, formFindingLoadCase);
+var tensionSurfaceLoad = new SurfaceLoad(1, formFindingLoadCase,surfacesList);
 tensionSurfaceLoad.load_type = surface_loads.LOAD_TYPE_FORM_FINDING;
-tensionSurfaceLoad.form_finding_calculation_method = surface_loads.FORM_FINDING_CALCULATION_METHOD_PROJECTION;
+tensionSurfaceLoad.form_finding_calculation_method = surface_loads.FORM_FINDING_CALCULATION_METHOD_STANDARD;
 tensionSurfaceLoad.form_finding_definition = surface_loads.FORM_FINDING_DEFINITION_FORCE;
-tensionSurfaceLoad.magnitude_force_x = n_x;
-tensionSurfaceLoad.magnitude_force_y = n_y;
-tensionSurfaceLoad.surfaces = surfacesList;
+tensionSurfaceLoad.magnitude_uniform_force_x = n_x;
+tensionSurfaceLoad.magnitude_uniform_force_y = n_y;
 
-var tensionMemberLoad = MemberLoad(1, formFindingLoadCase);
+var tensionMemberLoad = new MemberLoad(1, formFindingLoadCase,cablesList);
 tensionMemberLoad.load_type = member_loads.LOAD_TYPE_FORM_FINDING;
 tensionMemberLoad.form_finding_definition_type = member_loads.FORM_FINDING_TYPE_GEOMETRIC;
 tensionMemberLoad.form_finding_geometry_definition = member_loads.FORM_FINDING_GEOMETRIC_INPUT_PARAMETER_SAG;
 tensionMemberLoad.form_finding_magnitude_relative = S_r;
 tensionMemberLoad.form_finding_internal_force = member_loads.FORM_FINDING_INTERNAL_FORCE_TENSION;
-tensionMemberLoad.members = cablesList;
 
 // Define Supports
 var nodalSupport = new NodalSupport();
