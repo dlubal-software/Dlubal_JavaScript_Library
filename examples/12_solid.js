@@ -8,7 +8,7 @@ var a_2 = 4;
 var H = 2;
 
 // create material
-var material = Material(1, 'LC50/55');
+var material = new Material(undefined, 'C25/30');
 
 // Create Nodes
 Node(1, -a_1 / 2, -r_1, 0);
@@ -35,15 +35,15 @@ l.Arc(10, [2, 4], [r_1 + a_1 / 2, 0, 0]);
 l.Arc(11, [5, 7], [-r_2 - a_2 / 2, 0, -H]);
 l.Arc(12, [6, 8], [r_2 + a_2 / 2, 0, -H]);
 
-// Create Surfaces
-var surf = new Surface();
-surf.WithoutThickness(1, surfaces.GEOMETRY_QUADRANGLE, "", [5, 10, 8, 12]);
-surf.WithoutThickness(2, surfaces.GEOMETRY_QUADRANGLE, "", [6, 9, 7, 11]);
-surf.WithoutThickness(3, surfaces.GEOMETRY_PLANE, "", [4, 8, 2, 6]);
-surf.WithoutThickness(4, surfaces.GEOMETRY_PLANE, "", [1, 5, 3, 7]);
-surf.WithoutThickness(5, surfaces.GEOMETRY_PLANE, "", [12, 4, 11, 3]);
-surf.WithoutThickness(6, surfaces.GEOMETRY_PLANE, "", [10, 2, 9, 1]);
+// Create Surfaces 
+var surface = new Surface();
+surface.Quadrangle(1, [5, 10, 8, 12], surfaces.TYPE_WITHOUT_THICKNESS);
+surface.Quadrangle(2, [6, 9, 7, 11], surfaces.TYPE_WITHOUT_THICKNESS);
+surface.WithoutThickness(3, [4, 8, 2, 6]);
+surface.WithoutThickness(4, [1, 5, 3, 7]);
+surface.WithoutThickness(5, [12, 4, 11, 3]);
+surface.WithoutThickness(6, [10, 2, 9, 1]);
 
 // Create Solid
-var sol = new Solid();
-sol.Standard(1, [1, 2, 3, 4, 5, 6], 1);
+var solid = new Solid();
+solid.Standard(1, [1, 2, 3, 4, 5, 6], material.GetNo());

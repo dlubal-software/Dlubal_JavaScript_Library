@@ -9,7 +9,7 @@ var thickness_1 = 0.35;   // ramp
 var thickness_2 = 0.24;   // walls
 
 // create material
-var material = Material(1, 'LC50/55');
+var material = new Material(1, 'C25/30');
 
 // Create thickness
 var th = new Thickness();
