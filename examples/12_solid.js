@@ -1,6 +1,7 @@
 if (!RFEM) {
     throw new Error("This script is only for RFEM, it creates surfaces.");
 }
+run("../includes/Tools/clearAll.js");
 var r_1 = 2;
 var r_2 = 1;
 var a_1 = 5;
@@ -47,3 +48,14 @@ surface.WithoutThickness(6, [10, 2, 9, 1]);
 // Create Solid
 var solid = new Solid();
 solid.Standard(1, [1, 2, 3, 4, 5, 6], material.GetNo());
+
+//load 
+var SASGeometricallyLinear = new StaticAnalysisSettings();
+SASGeometricallyLinear.GeometricallyLinear(1);
+var SASSecondOrder = new StaticAnalysisSettings();
+SASSecondOrder.SecondOrder(2,"MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON");
+var lc1 = new LoadCase();
+lc1.StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_PERMANENT_G", [true, 0, 0, 1.0]);
+
+var surfaceSupport = new SurfaceSupport(1,[6]);
+surfaceSupport.Fixed();

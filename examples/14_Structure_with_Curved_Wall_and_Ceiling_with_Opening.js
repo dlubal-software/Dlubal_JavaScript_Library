@@ -21,8 +21,8 @@ var thickness = new Thickness();
 thickness.Uniform(1, "Roof and Wall", 1, thickness_1);
 
 // Create section
-var sectionConcreteColumn = new Section(1, 'CIRCLE_M1 300', materialConcrete.GetNo());
-var sectionRib = new Section(2, 'R_M1 250/500', materialConcrete.GetNo());
+var sectionConcreteColumn = new Section(1, 'CIRCLE_M1 0.300', materialConcrete.GetNo());
+var sectionRib = new Section(2, 'R_M1 0.250/0.500', materialConcrete.GetNo());
 var sectionSteelFrame = new Section(3, 'HE 300 A', materialSteel.GetNo());
 var sectionSteelBeam = new Section(4, 'HE 260 A', materialSteel.GetNo());
 var sectionBrace = new Section(5, 'L 80x80x8', materialSteel.GetNo());
@@ -79,52 +79,36 @@ var surface = new Surface();
 surface.Quadrangle(4, [19, 21, 20, 22], "Standard", thickness.GetNo());
 
 
-// // Create Rib by Line
-// mem.RibByLine(23, 18, 2);
+// Create Rib by Line
+mem.Rib(23, 18, 2,"ALIGNMENT_ON_Z_SIDE_POSITIVE",true,true,[[1.0,"REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH","REFERENCE_LENGTH_WIDTH_SIXTH",3.0,3.0]]);
+// Create Opening
+l.RectangularPolygon(23, [a / 2, b / 2, -H], len, w, "XY");
+Opening(1, [23]);
 
-// // Create Opening
-// l.RectangularPolygon(23, [a / 2, b / 2, -H], len, w, "XY");
-// Opening(1, [23]);
+// Create hinge
+var memberHinge = new MemberHinge();
+memberHinge.Rotational(1, [4,7], [4,7], [false,0],[true,0],[true,0]);
 
-// // Create hinge
-// var hingesParameters =
-// {
-//   "moment_release_mt": member_hinges.SPRING_CONSTANT_NO,
-//   "axial_release_n": member_hinges.SPRING_CONSTANT_NO,
-//   "axial_release_vy": member_hinges.SPRING_CONSTANT_NO,
-//   "axial_release_vz": member_hinges.SPRING_CONSTANT_NO,
-// };
-// MemberHinge(1, undefined, undefined, "", hingesParameters);
-
-// // Assign hinge to members
-// members[4].member_hinge_start = member_hinges[1];
-// members[4].member_hinge_end = member_hinges[1];
-// members[7].member_hinge_start = member_hinges[1];
-// members[7].member_hinge_end = member_hinges[1];
 
 // // Create eccentricity
-// var eccentricityParameters =
-// {
-//   "specification_type": member_eccentricities.TYPE_RELATIVE_AND_ABSOLUTE,
-//   "vertical_section_alignment": member_eccentricities.ALIGN_TOP,
-//   "axial_offset_active": true
-// };
-// MemberEccentricity(1, undefined, undefined, "", eccentricityParameters);
+var memberEccentricity = new MemberEccentricity();
+memberEccentricity.RelativeAndAbsolute(1, [9,10], [9,10], "SECTION_ALIGNMENT_RIGHT_TOP");
 
-// // Assign eccentricity to member
-// members[9].member_eccentricity_end = member_eccentricities[1];
-// members[9].member_eccentricity_start = member_eccentricities[1];
-// members[10].member_eccentricity_end = member_eccentricities[1];
-// members[10].member_eccentricity_start = member_eccentricities[1];
 
-// // Define Supports
-// var nodalSupport = new NodalSupport();
-// nodalSupport.Hinged();
+// Define Supports
+var nodalSupport = new NodalSupport();
+nodalSupport.Hinged();
 
-// var lineSupport = new LineSupport();
-// lineSupport.Hinged();
+var lineSupport = new LineSupport();
+lineSupport.Hinged();
 
-// // Assign Supports
-// nodes[1].support = nodalSupport.GetNo();
-// nodes[4].support = nodalSupport.GetNo();
-// lines[20].support = lineSupport.GetNo();
+// Assign Supports
+nodes[1].support = nodalSupport.GetNo();
+nodes[4].support = nodalSupport.GetNo();
+lines[20].support = lineSupport.GetNo();
+
+var SASGeometricallyLinear = new StaticAnalysisSettings()
+SASGeometricallyLinear.GeometricallyLinear(1, "MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "PLATE_BENDING_THEORY_KIRCHHOFF", [true, 2.0, 3.0, 4.0], [true, 5, true]);
+var LCSW = new LoadCase();
+LCSW.StaticAnalysis(1, "Static analysis", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_A_DOMESTIC_RESIDENTIAL_AREAS_QI_A", [true, 0, 0, 1.0]);
+

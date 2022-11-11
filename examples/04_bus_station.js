@@ -19,7 +19,7 @@ var thickness = new Thickness();
 thickness.Uniform(1, "thickness", materialConcrete.GetNo(), 0.120);
 
 
-var nodalSupport = new NodalSupport();
+var nodalSupport = new NodalSupport(1);
 nodalSupport.Hinged();
 
 var lineSupport = new LineSupport();

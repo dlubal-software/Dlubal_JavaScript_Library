@@ -17,9 +17,9 @@ var thickness_2 = 0.2;    // walls
 var material = Material(1, 'LC50/55');
 
 // Create thickness
-var th = new Thickness();
-th.Uniform(1, "Roof", 1, thickness_1);
-th.Uniform(2, "Walls", 1, thickness_2);
+var thicknessRoof = new Thickness();
+thicknessRoof.Uniform(1, "Roof", 1, thickness_1);
+thicknessRoof.Uniform(2, "Walls", 1, thickness_2);
 
 // Create section
 var columnSection = Section(1, 'CIRCLE_M1 200', material);
@@ -69,9 +69,9 @@ l.Polyline(13, [21, 22, 23, 24, 21]);
 Line(14, [4, 8]);
 
 // Create surfaces
-var sur = new Surface();
+var surface = new Surface();
 Surface(1, [1, 3, 6, 4], 2);
-sur.Standard(2, surfaces.GEOMETRY_QUADRANGLE, "", [4, 2, 5, 9], 2);
+surface.Standard(2, surfaces.GEOMETRY_QUADRANGLE, "", [4, 2, 5, 9], 2);
 Surface(3, [6, 7, 8, 9], 1);
 
 Opening(1, [10]);

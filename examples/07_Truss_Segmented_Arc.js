@@ -21,6 +21,8 @@ var ns = nodes.count();
 
 Node(1 + ns, 0, 0, 0);
 Node(2 + ns, L, 0, 0);
+var nodalSupport = new NodalSupport(1,[1,2]);
+nodalSupport.Hinged();
 
 // Creating nodes
 var bt = new Node();
@@ -68,3 +70,11 @@ for (var i = 0; i < n / 2 - 1; ++i) {
     mem.Truss(memberCount, [n + 1 + 2 * i + ns, n + 4 + 2 * i + ns], sectionDiagonal.GetNo());
     memberCount++;
 }
+
+//load 
+var SASGeometricallyLinear = new StaticAnalysisSettings();
+SASGeometricallyLinear.GeometricallyLinear(1);
+var SASSecondOrder = new StaticAnalysisSettings();
+SASSecondOrder.SecondOrder(2,"MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON");
+var lc1 = new LoadCase();
+lc1.StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_PERMANENT_G", [true, 0, 0, 1.0]);

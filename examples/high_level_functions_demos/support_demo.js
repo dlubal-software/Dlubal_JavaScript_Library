@@ -140,11 +140,11 @@ if (RFEM) {
 	line_support_5.Nonlinear.X.FrictionY(0.6);
 
 	//  ##### create new support
-	var line_support_6 = new LineSupport();
-	line_support_6.Fixed();
-	line_support_6.SetLines([31, 33, 35]);
-	line_support_6.TranslationZ(500);
-	line_support_6.RotationZ(440);
+	var lineSupport = new LineSupport();
+	lineSupport.Fixed();
+	lineSupport.SetLines([31, 33, 35]);
+	lineSupport.TranslationZ(500);
+	lineSupport.RotationZ(440);
 
 	var line_support_7 = new LineSupport();
 	line_support_7.Hinged();

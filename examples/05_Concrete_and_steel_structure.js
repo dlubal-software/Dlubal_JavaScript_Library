@@ -8,8 +8,8 @@ var b1 = 5;
 var b2 = 5;
 var H1 = 3;
 var H2 = 3.5;
-var thicknessRoof = 0.2;   // roof
-var thicknessWall = 0.2;   // wall
+var thicknessRoofValue = 0.2;   // roof
+var thicknessWallValue = 0.2;   // wall
 
 // create material
 var materialConcrete = new Material(1, 'C25/30');    // Concrete
@@ -17,9 +17,9 @@ var materialSteel = new Material(2, 'S235');               // Steel
 
 // Create thickness
 var thicknessRoof = new Thickness();
-thicknessRoof.Uniform(1, "thickness", materialConcrete.GetNo(), Number(thicknessRoof));
+thicknessRoof.Uniform(1, "thickness", materialConcrete.GetNo(), Number(thicknessRoofValue));
 var thicknessWall = new Thickness();
-thicknessWall.Uniform(2, "Wall", 1, Number(thicknessWall));
+thicknessWall.Uniform(2, "Wall", 1, Number(thicknessWallValue));
 
 // Create section
 var concreteColumn = new Section(1, 'CIRCLE_M1 0.300', materialConcrete.GetNo());
