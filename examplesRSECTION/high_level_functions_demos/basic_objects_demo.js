@@ -58,13 +58,13 @@ var opening = new RSectionOpening(undefined, [circleLine]);
 var opening2 = new RSectionOpening(undefined, [circleLine2]);
 
 var rsPart = new RSectionPart();
-rsPart.WithBoundaryLines(undefined, linesForPart, material.No());
+rsPart.WithBoundaryLines(undefined, linesForPart, material.GetNo());
 rsPart.IntegratedObjects(true, false, [opening, opening2]);
 
-rsPart.Rectangle(undefined, [0.08, -0.04], 0.06, 0.04, material.No(), "Rectangle Part");
-rsPart.Triangle(undefined, [0.1, 0.02], [0.06, 0.06], [0.14, 0.06], material.No(), "Triangle Part");
-rsPart.Circle(undefined, [0.2, 0.04], 0.05, material.No());
-rsPart.Polygon(undefined, [[0.3, 0], [0.36, -0.02], [0.4, 0], [0.4, 0.04], [0.36, 0.08], [0.3, 0.06]], material.No());
+rsPart.Rectangle(undefined, [0.08, -0.04], 0.06, 0.04, material.GetNo(), "Rectangle Part");
+rsPart.Triangle(undefined, [0.1, 0.02], [0.06, 0.06], [0.14, 0.06], material.GetNo(), "Triangle Part");
+rsPart.Circle(undefined, [0.2, 0.04], 0.05, material.GetNo());
+rsPart.Polygon(undefined, [[0.3, 0], [0.36, -0.02], [0.4, 0], [0.4, 0.04], [0.36, 0.08], [0.3, 0.06]], material.GetNo());
 
 var rsOpening = new RSectionOpening();
 rsOpening.Rectangle(undefined, [0.180, 0], 0.02, 0.02);

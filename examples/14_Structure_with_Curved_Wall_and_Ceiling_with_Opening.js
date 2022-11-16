@@ -3,15 +3,16 @@ if (!RFEM) {
 }
 run("../includes/tools/clearAll.js");
 include("../includes/Tools/global.js");
-// var a = 7;                // Length
-// var b = 6;                // Width
-// var H = 4;                // Height
-// var H_1 = 3;              // Height 1
-// var H_2 = 3.9;            // Height 2
-// var len = 2.5;            // Opening Length
-// var w = 1;                // Opening Width
-// var thickness_1 = 0.2;    // Thickness of roof and wall
-
+if (a === undefined) {
+  var a = 7;                // Length
+  var b = 6;                // Width
+  var H = 4;                // Height
+  var H_1 = 3;              // Height 1
+  var H_2 = 3.9;            // Height 2
+  var len = 2.5;            // Opening Length
+  var w = 1;                // Opening Width
+  var thickness_1 = 0.2;    // Thickness of roof and wall
+}
 // create material
 var materialConcrete = new Material(1, 'C30/37');     // Concrete
 var materialSteel = new Material(2, 'S235');       // Steel
@@ -72,27 +73,27 @@ Line(22, [3, 7]);
 
 // Create Surfaces
 var sur = new Surface();
-sur.Standard(1,[15, 16, 17, 18], thickness.GetNo());
-sur.Standard(2,[18, 19], thickness.GetNo());
+sur.Standard(1, [15, 16, 17, 18], thickness.GetNo());
+sur.Standard(2, [18, 19], thickness.GetNo());
 
 var surface = new Surface();
 surface.Quadrangle(4, [19, 21, 20, 22], "Standard", thickness.GetNo());
 
 
 // Create Rib by Line
-mem.Rib(23, 18, 2,"ALIGNMENT_ON_Z_SIDE_POSITIVE",true,true,[[1.0,"REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH","REFERENCE_LENGTH_WIDTH_SIXTH",3.0,3.0]]);
+mem.Rib(23, 18, 2, "ALIGNMENT_ON_Z_SIDE_POSITIVE", true, true, [[1.0, "REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH", "REFERENCE_LENGTH_WIDTH_SIXTH", 3.0, 3.0]]);
 // Create Opening
 l.RectangularPolygon(23, [a / 2, b / 2, -H], len, w, "XY");
 Opening(1, [23]);
 
 // Create hinge
 var memberHinge = new MemberHinge();
-memberHinge.Rotational(1, [4,7], [4,7], [false,0],[true,0],[true,0]);
+memberHinge.Rotational(1, [4, 7], [4, 7], [false, 0], [true, 0], [true, 0]);
 
 
 // // Create eccentricity
 var memberEccentricity = new MemberEccentricity();
-memberEccentricity.RelativeAndAbsolute(1, [9,10], [9,10], "SECTION_ALIGNMENT_RIGHT_TOP");
+memberEccentricity.RelativeAndAbsolute(1, [9, 10], [9, 10], "SECTION_ALIGNMENT_RIGHT_TOP");
 
 
 // Define Supports

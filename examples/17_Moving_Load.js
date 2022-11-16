@@ -1,6 +1,8 @@
-/* var Load = 1000;
-var Steps = 4;
-var Element = 1; */
+if (n === Steps) {
+    var Load = 1000;
+    var Steps = 4;
+    var Element = 1;
+}
 
 var SASExists = false;
 var SASNo = 0;
@@ -13,7 +15,7 @@ for (var i = 1; i < static_analysis_settings.count() + 1; i++) {
 }
 if (!SASExists) {
     var SASGeometricallyLinear = new StaticAnalysisSettings();
-    SASNo = static_analysis_settings.lastId()+1;
+    SASNo = static_analysis_settings.lastId() + 1;
     SASGeometricallyLinear.GeometricallyLinear(SASNo);
 }
 

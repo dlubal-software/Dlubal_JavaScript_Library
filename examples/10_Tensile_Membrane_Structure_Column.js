@@ -2,15 +2,17 @@ if (!RFEM) {
     throw new Error("This script is only for RFEM, it creates surfaces.");
 }
 run("../includes/tools/clearAll.js");
-// var a = 1.5;             // Short Length
-// var b = 4;               // Long Length
-// var H_1 = 3;             // Height 1
-// var H_2 = 1.5;           // Height 2
-// var r = 0.15;            // Radius of circular top beam
-// var thickness_1 = 0.001; // Membrane Thickness
-// var S_r = 0.07;          // Target relative member sag in cables
-// var n_x = 700;           // Force along X axis in membrane
-// var n_y = 700;           // Force along Y axis in membrane
+if (a === undefined) {
+    var a = 1.5;             // Short Length
+    var b = 4;               // Long Length
+    var H_1 = 3;             // Height 1
+    var H_2 = 1.5;           // Height 2
+    var r = 0.15;            // Radius of circular top beam
+    var thickness_1 = 0.001; // Membrane Thickness
+    var S_r = 0.07;          // Target relative member sag in cables
+    var n_x = 700;           // Force along X axis in membrane
+    var n_y = 700;           // Force along Y axis in membrane
+}
 
 FORM_FINDING.setActive(true);
 

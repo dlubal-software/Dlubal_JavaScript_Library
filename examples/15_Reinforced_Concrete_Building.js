@@ -2,23 +2,24 @@ if (!RFEM) {
     throw new Error("This script is only for RFEM, it creates surfaces.");
 }
 run("../includes/tools/clearAll.js");
-// var a = 20;                   // Total Length and Width
-// var H = 3.5;                  // Height
-// var n_f = 10;                 // Number of floors
-// var rotation_degree = 45;     // Rotation Degree
-// var chamfer = 3;              // Chamfer of edges
-// var d = 6;                    // Distance between openings
-// var len = 4;                  // Opening Length
-// var w = 3;                    // Opening Width
-// var thickness_1 = 0.35;       // Roof thickness
-// var thickness_2 = 0.3;        // Wall thickness
-
+if (a === undefined) {
+    var a = 20;                   // Total Length and Width
+    var H = 3.5;                  // Height
+    var n_f = 10;                 // Number of floors
+    var rotation_degree = 45;     // Rotation Degree
+    var chamfer = 3;              // Chamfer of edges
+    var d = 6;                    // Distance between openings
+    var len = 4;                  // Opening Length
+    var w = 3;                    // Opening Width
+    var thickness_1 = 0.35;       // Roof thickness
+    var thickness_2 = 0.3;        // Wall thickness
+}
 // create material
 var materialConcrete = new Material(1, 'C50/60');    // Concrete
 
 // Create thickness
 var thicknessRoof = new Thickness();
-thicknessRoof.Uniform(1, "Roof", 1, thickness_1); 
+thicknessRoof.Uniform(1, "Roof", 1, thickness_1);
 var thicknessWall = new Thickness();
 thicknessWall.Uniform(2, "Wall", 1, thickness_2);
 
@@ -156,27 +157,27 @@ for (var j = 0; j < n_f + 2; ++j) {
 var start_n_l = 9 * (n_f + 1) + 1;   // Number of first line of interior walls
 for (var j = 0; j < n_f + 1; ++j) {
     var sur = new Surface();
-    sur.Standard(surfaceCount,[start_n_l + 21 * j, start_n_l + 11 + 21 * j, start_n_l + 21 + 21 * j, start_n_l + 12 + 21 * j], thicknessWall.GetNo());
+    sur.Standard(surfaceCount, [start_n_l + 21 * j, start_n_l + 11 + 21 * j, start_n_l + 21 + 21 * j, start_n_l + 12 + 21 * j], thicknessWall.GetNo());
     surfaceCount++;
-    sur.Standard(surfaceCount,[start_n_l + 4 + 21 * j, start_n_l + 15 + 21 * j, start_n_l + 25 + 21 * j, start_n_l + 12 + 21 * j], thicknessWall.GetNo());
+    sur.Standard(surfaceCount, [start_n_l + 4 + 21 * j, start_n_l + 15 + 21 * j, start_n_l + 25 + 21 * j, start_n_l + 12 + 21 * j], thicknessWall.GetNo());
     surfaceCount++;
-    sur.Standard(surfaceCount,[start_n_l + 3 + 21 * j, start_n_l + 14 + 21 * j, start_n_l + 24 + 21 * j, start_n_l + 15 + 21 * j], thicknessWall.GetNo());
+    sur.Standard(surfaceCount, [start_n_l + 3 + 21 * j, start_n_l + 14 + 21 * j, start_n_l + 24 + 21 * j, start_n_l + 15 + 21 * j], thicknessWall.GetNo());
     surfaceCount++;
-    sur.Standard(surfaceCount,[start_n_l + 2 + 21 * j, start_n_l + 13 + 21 * j, start_n_l + 23 + 21 * j, start_n_l + 14 + 21 * j], thicknessWall.GetNo());
+    sur.Standard(surfaceCount, [start_n_l + 2 + 21 * j, start_n_l + 13 + 21 * j, start_n_l + 23 + 21 * j, start_n_l + 14 + 21 * j], thicknessWall.GetNo());
     surfaceCount++;
-    sur.Standard(surfaceCount,[start_n_l + 1 + 21 * j, start_n_l + 12 + 21 * j, start_n_l + 22 + 21 * j, start_n_l + 13 + 21 * j], thicknessWall.GetNo());
+    sur.Standard(surfaceCount, [start_n_l + 1 + 21 * j, start_n_l + 12 + 21 * j, start_n_l + 22 + 21 * j, start_n_l + 13 + 21 * j], thicknessWall.GetNo());
     surfaceCount++;
-    sur.Standard(surfaceCount,[start_n_l + 5 + 21 * j, start_n_l + 16 + 21 * j, start_n_l + 26 + 21 * j, start_n_l + 12 + 21 * j], thicknessWall.GetNo());
+    sur.Standard(surfaceCount, [start_n_l + 5 + 21 * j, start_n_l + 16 + 21 * j, start_n_l + 26 + 21 * j, start_n_l + 12 + 21 * j], thicknessWall.GetNo());
     surfaceCount++;
-    sur.Standard(surfaceCount,[start_n_l + 6 + 21 * j, start_n_l + 17 + 21 * j, start_n_l + 27 + 21 * j, start_n_l + 16 + 21 * j], thicknessWall.GetNo());
+    sur.Standard(surfaceCount, [start_n_l + 6 + 21 * j, start_n_l + 17 + 21 * j, start_n_l + 27 + 21 * j, start_n_l + 16 + 21 * j], thicknessWall.GetNo());
     surfaceCount++;
-    sur.Standard(surfaceCount,[start_n_l + 7 + 21 * j, start_n_l + 18 + 21 * j, start_n_l + 28 + 21 * j, start_n_l + 17 + 21 * j], thicknessWall.GetNo());
+    sur.Standard(surfaceCount, [start_n_l + 7 + 21 * j, start_n_l + 18 + 21 * j, start_n_l + 28 + 21 * j, start_n_l + 17 + 21 * j], thicknessWall.GetNo());
     surfaceCount++;
-    sur.Standard(surfaceCount,[start_n_l + 8 + 21 * j, start_n_l + 19 + 21 * j, start_n_l + 29 + 21 * j, start_n_l + 18 + 21 * j], thicknessWall.GetNo());
+    sur.Standard(surfaceCount, [start_n_l + 8 + 21 * j, start_n_l + 19 + 21 * j, start_n_l + 29 + 21 * j, start_n_l + 18 + 21 * j], thicknessWall.GetNo());
     surfaceCount++;
-    sur.Standard(surfaceCount,[start_n_l + 9 + 21 * j, start_n_l + 16 + 21 * j, start_n_l + 30 + 21 * j, start_n_l + 19 + 21 * j], thicknessWall.GetNo());
+    sur.Standard(surfaceCount, [start_n_l + 9 + 21 * j, start_n_l + 16 + 21 * j, start_n_l + 30 + 21 * j, start_n_l + 19 + 21 * j], thicknessWall.GetNo());
     surfaceCount++;
-    sur.Standard(surfaceCount,[start_n_l + 10 + 21 * j, start_n_l + 20 + 21 * j, start_n_l + 31 + 21 * j, start_n_l + 19 + 21 * j], thicknessWall.GetNo());
+    sur.Standard(surfaceCount, [start_n_l + 10 + 21 * j, start_n_l + 20 + 21 * j, start_n_l + 31 + 21 * j, start_n_l + 19 + 21 * j], thicknessWall.GetNo());
     surfaceCount++;
 }
 
@@ -210,6 +211,6 @@ for (var i = 0; i < 11; ++i) {
 var SASGeometricallyLinear = new StaticAnalysisSettings();
 SASGeometricallyLinear.GeometricallyLinear(1);
 var SASSecondOrder = new StaticAnalysisSettings();
-SASSecondOrder.SecondOrder(2,"MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON");
+SASSecondOrder.SecondOrder(2, "MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON");
 var lc1 = new LoadCase();
 lc1.StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_PERMANENT_G", [true, 0, 0, 1.0]);

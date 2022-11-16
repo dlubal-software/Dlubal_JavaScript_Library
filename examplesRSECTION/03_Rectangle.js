@@ -1,70 +1,61 @@
 // var a = 0.1;
 // var r = 0.01;
 // var t = 0.004;
+if (!RSECTION) {
+    throw new Error("This script is only for RSECTION.");
+}
+
 run("../includes/Tools/clearAll.js");
 // create material and section
-Material(1, 'S235')
+var materialSteel = new Material(1, 'S235');
 
-// Create points
-for (var i = 0; i < 16; i++)
-{
-    points.create();
-};
-for (var i = 0; i < 2; i++)
-{
-    points[1 + i*8].coordinates= $V([-a/2 + r,     -a/2 + i*t]);
-    points[2 + i*8].coordinates= $V([ a/2 - r,     -a/2 + i*t]);
-    points[3 + i*8].coordinates= $V([ a/2 - i*t,     -a/2 + r]);
-    points[4 + i*8].coordinates= $V([ a/2 - i*t,      a/2 - r]);
-    points[5 + i*8].coordinates= $V([ a/2 - r,      a/2 - i*t]);
-    points[6 + i*8].coordinates= $V([-a/2 + r,      a/2 - i*t]);
-    points[7 + i*8].coordinates= $V([-a/2 + i*t,      a/2 - r]);
-    points[8 + i*8].coordinates= $V([-a/2 + i*t,     -a/2 + r]);
+var rsPoint = new RSectionPoint();
+var id = 0;
+for (var i = 0; i < 2; i++) {
+    id = 1 + i * 8;
+    rsPoint.Standard(id, -a / 2 + r, -a / 2 + i * t);
+    rsPoint.Standard(id + 1, a / 2 - r, -a / 2 + i * t);
+    rsPoint.Standard(id + 2, a / 2 - i * t, -a / 2 + r);
+    rsPoint.Standard(id + 3, a / 2 - i * t, a / 2 - r);
+    rsPoint.Standard(id + 4, a / 2 - r, a / 2 - i * t);
+    rsPoint.Standard(id + 5, -a / 2 + r, a / 2 - i * t);
+    rsPoint.Standard(id + 6, -a / 2 + i * t, a / 2 - r);
+    rsPoint.Standard(id + 7, -a / 2 + i * t, -a / 2 + r);
 };
 
 // Create lines
-for (var i = 0; i < 16; i++)
-{
-    lines.create();
-};
-lines[1].definition_points = [1, 2];
-lines[2].type = this.lines.TYPE_ARC;
-lines[2].definition_points = [2, 3];
-lines[2].arc_control_point = $V([ a/2 - (r - r/sqrt(2)),  -a/2 + (r - r/sqrt(2))]);
-lines[3].definition_points = [3, 4];
-lines[4].type = this.lines.TYPE_ARC;
-lines[4].definition_points = [4, 5];
-lines[4].arc_control_point = $V([ a/2 - (r - r/sqrt(2)),   a/2 - (r - r/sqrt(2))]);
-lines[5].definition_points = [5, 6];
-lines[6].type = this.lines.TYPE_ARC;
-lines[6].definition_points = [6, 7];
-lines[6].arc_control_point = $V([-a/2 + (r - r/sqrt(2)),   a/2 - (r - r/sqrt(2))]);
-lines[7].definition_points = [7, 8];
-lines[8].type = this.lines.TYPE_ARC;
-lines[8].definition_points = [8, 1];
-lines[8].arc_control_point = $V([-a/2 + (r - r/sqrt(2)),  -a/2 + (r - r/sqrt(2))]);
-var r_1 = r - t;
-lines[9].definition_points = [9, 10];
-lines[10].type = this.lines.TYPE_ARC;
-lines[10].definition_points = [10, 11];
-lines[10].arc_control_point = $V([ a/2 - (r_1 - r_1/sqrt(2)) - t,  -a/2 + (r_1 - r_1/sqrt(2)) + t]);
-lines[11].definition_points = [11, 12];
-lines[12].type = this.lines.TYPE_ARC;
-lines[12].definition_points = [12, 13];
-lines[12].arc_control_point = $V([ a/2 - (r_1 - r_1/sqrt(2)) - t,   a/2 - (r_1 - r_1/sqrt(2)) - t]);
-lines[13].definition_points = [13, 14];
-lines[14].type = this.lines.TYPE_ARC;
-lines[14].definition_points = [14, 15];
-lines[14].arc_control_point = $V([-a/2 + (r_1 - r_1/sqrt(2)) + t,   a/2 - (r_1 - r_1/sqrt(2)) - t]);
-lines[15].definition_points = [15, 16];
-lines[16].type = this.lines.TYPE_ARC;
-lines[16].definition_points = [16, 9];
-lines[16].arc_control_point = $V([-a/2 + (r_1 - r_1/sqrt(2)) + t,  -a/2 + (r_1 - r_1/sqrt(2)) + t]);
+var rsLine = new RSectionLine();
+rsLine.Polyline(1, [1, 2]);
+rsLine.Arc(2, [2, 3],[ a/2 - (r - r/sqrt(2)),  -a/2 + (r - r/sqrt(2))]);
+rsLine.Polyline(3, [3, 4]);
+rsLine.Arc(4, [4, 5],[a / 2 - (r - r / sqrt(2)), a / 2 - (r - r / sqrt(2))]);
+rsLine.Polyline(5, [5, 6]);
+rsLine.Arc(6, [6, 7],[-a / 2 + (r - r / sqrt(2)), a / 2 - (r - r / sqrt(2))]);
+rsLine.Polyline(7, [7, 8]);
+rsLine.Arc(8, [8, 1],[-a / 2 + (r - r / sqrt(2)), -a / 2 + (r - r / sqrt(2))]);
 
-parts.create();
-parts[1].boundary_lines = [1, 2, 3, 4, 5, 6, 7, 8];
-parts[1].material = 1;
+var r_1 = r - t;
+rsLine.Polyline(9, [9, 10]);
+rsLine.Arc(10, [10, 11],[a / 2 - (r_1 - r_1 / sqrt(2)) - t, -a / 2 + (r_1 - r_1 / sqrt(2)) + t]);
+rsLine.Polyline(11, [11, 12]);
+rsLine.Arc(12, [12, 13],[a / 2 - (r_1 - r_1 / sqrt(2)) - t, a / 2 - (r_1 - r_1 / sqrt(2)) - t]);
+rsLine.Polyline(13, [13, 14]);
+rsLine.Arc(14, [14, 15],[-a / 2 + (r_1 - r_1 / sqrt(2)) + t, a / 2 - (r_1 - r_1 / sqrt(2)) - t]);
+rsLine.Polyline(15, [15, 16]);
+rsLine.Arc(16, [16, 9],[-a / 2 + (r_1 - r_1 / sqrt(2)) + t, -a / 2 + (r_1 - r_1 / sqrt(2)) + t]);
+
+//part
+var boundaryLines = [1, 2, 3, 4, 5, 6, 7, 8];
+var rsPart = new RSectionPart();
+rsPart.WithBoundaryLines(1, boundaryLines, materialSteel.GetNo());
 
 // Create opening
-openings.create();
-openings[1].boundary_lines = [9, 10, 11, 12, 13, 14, 15, 16];
+var boundaryLinesOpening = [9, 10, 11, 12, 13, 14, 15, 16];
+var rsOpening = new RSectionOpening(1, boundaryLinesOpening);
+
+var load_case = new RSectionLoadCase(undefined, "PERMANENT_G", "First load case", false);
+var internal_force = new RSectionInternalForces(undefined, load_case.no, "Y_Z");
+internal_force.AxialForce(1500);
+internal_force.ShearForces(2000, 2500);
+internal_force.TorsionalMoments(500, 800);
+internal_force.BendingMoments(1000, 2000);
