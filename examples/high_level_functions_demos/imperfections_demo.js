@@ -33,6 +33,19 @@ var section = new Section(undefined, "IPE 80", material.No());
 var member = new Member();
 member.Beam(undefined, [node1.no, node2.no], section.No());
 
+include("../includes/Tools/high_level_functions_support.js");
+var nodeForMembers = createNodesGrid(1, 8, [8, 1], [3, 0]);
+
+var member2 = new Member;
+var members_list = [];
+
+for (var i = 0; i < nodeForMembers.length - 1; ++i) {
+    members_list.push(member2.Beam(undefined, [nodeForMembers[i], nodeForMembers[i + 1]], section.No()));
+}
+
+var memberSet = new MemberSet;
+memberSet.ContinuousMembers(undefined, members_list);
+
 /****************************************************** Imperfection cases ***************************************************************/
 var imperfection_case = new ImperfectionCase();
 var localIC = imperfection_case.LocalImperfection(undefined, [lc.GetLoadCaseNo()], undefined, true, "Imperfection case comment");
@@ -46,7 +59,7 @@ imperfection_case.GroupOfImperfection(undefined, [lc7.GetLoadCaseNo()], [[lc3.Ge
 var coordinate_system = new CoordinateSystem();
 coordinate_system.Offset(undefined, [1.0, 2.0, 3.0]);
 
-/****************************************************** member imperfections *************************************************************/
+/****************************************************** Member imperfections *************************************************************/
 var member_imperfection = new MemberImperfection();
 member_imperfection.InitialSway(undefined, localIC.no, [member.No()], "PRINCIPAL", "V_NEGATIVE");
 member_imperfection.Relative(1.5);
@@ -96,6 +109,57 @@ member_imperfection.InitialBowAndCriterion(undefined, localIC.no, [member.No()],
 member_imperfection.Relative(1.5, "DEFINE", 2.5);
 member_imperfection.InitialBowAndCriterion(undefined, localIC.no, [member.No()], "PRINCIPAL", "V_NEGATIVE", true);  // With reference to list of members
 member_imperfection.Absolute(0.5, "EN_1993");
+
+/****************************************************** Member set imperfections *************************************************************/
+var member_set_imperfection = new MemberSetImperfection();
+member_set_imperfection.InitialSway(undefined, localIC.no, [memberSet.No()], "PRINCIPAL", "V_NEGATIVE");
+member_set_imperfection.Relative(1.5);
+member_set_imperfection.InitialSway(undefined, localIC.no, [memberSet.No()]);
+member_set_imperfection.Absolute(0.05);
+member_set_imperfection.InitialSway(undefined, localIC.no, [memberSet.No()]);
+member_set_imperfection.EN_1992_1(10, 2.5, 3, true);
+member_set_imperfection.InitialSway(undefined, localIC.no, [memberSet.No()]);
+member_set_imperfection.EN_1993_1_1(20, 3.5, 5);
+member_set_imperfection.InitialSway(undefined, localIC.no, [memberSet.No()]);
+member_set_imperfection.EN_1995_1_1(30);    // With default height
+member_set_imperfection.InitialSway(undefined, localIC.no, [memberSet.No()]);
+member_set_imperfection.ANSI_CURRENT(0.005, "ASD");
+member_set_imperfection.InitialSway(undefined, localIC.no, [memberSet.No()]);
+member_set_imperfection.ANSI_GRAVITY_LOAD(lc8.GetLoadCaseNo(), 0.006, "ASD");
+member_set_imperfection.InitialSway(undefined, localIC.no, [memberSet.No()]);
+member_set_imperfection.CSA_CURRENT(0.02);
+member_set_imperfection.InitialSway(undefined, localIC.no, [memberSet.No()]);
+member_set_imperfection.CSA_GRAVITY_LOAD(lc7.GetLoadCaseNo(), 0.03);
+member_set_imperfection.InitialSway(undefined, localIC.no, [memberSet.No()]);
+member_set_imperfection.GB_50017_2017_CURRENT(0.03, 1.5, 4);
+member_set_imperfection.InitialSway(undefined, localIC.no, [memberSet.No()]);
+member_set_imperfection.GB_50017_2017_GRAVITY_LOAD(lc6.GetLoadCaseNo(), 0.09, 3);
+member_set_imperfection.InitialBow(undefined, localIC.no, [memberSet.No()], coordinate_system.no);
+member_set_imperfection.Relative(1.5);
+member_set_imperfection.InitialBow(undefined, localIC.no, [memberSet.No()], coordinate_system.no);
+member_set_imperfection.Absolute(0.25);
+member_set_imperfection.InitialBow(undefined, localIC.no, [memberSet.No()]);
+member_set_imperfection.InitialBow_EN_1993_1_1("PLASTIC");
+member_set_imperfection.InitialBow(undefined, localIC.no, [memberSet.No()], "LOCAL", "LOCAL_Y_NEGATIVE");
+member_set_imperfection.EN_1995_1_1(30);
+member_set_imperfection.InitialBow(undefined, localIC.no, [memberSet.No()], "LOCAL", "LOCAL_Z_NEGATIVE");
+member_set_imperfection.EN_1999_1_1();  // With PLASTIC default design type
+member_set_imperfection.InitialBow(undefined, localIC.no, [memberSet.No()]);
+member_set_imperfection.InitialBow_ANSI_CURRENT(0.005);
+member_set_imperfection.InitialBow(undefined, localIC.no, [memberSet.No()]);
+member_set_imperfection.InitialBow_ANSI_GRAVITY_LOAD(lc6.GetLoadCaseNo(), 0.95);
+member_set_imperfection.InitialBow(undefined, localIC.no, [memberSet.No()], "LOCAL", "LOCAL_Z_NEGATIVE", "Comment1");
+member_set_imperfection.CSA_CURRENT(1250);
+member_set_imperfection.InitialBow(undefined, localIC.no, [memberSet.No()]);
+member_set_imperfection.CSA_GRAVITY_LOAD(lc7.GetLoadCaseNo(), 0.03);
+///member_set_imperfection.InitialBow(undefined, localIC.no, [memberSet.No()]);
+//member_set_imperfection.GB_50017_2017(0); Bug?
+member_set_imperfection.InitialBowAndCriterion(undefined, localIC.no, [memberSet.No()], "PRINCIPAL", "V_NEGATIVE");
+member_set_imperfection.Relative(1.5, "DIN_18800");
+member_set_imperfection.InitialBowAndCriterion(undefined, localIC.no, [memberSet.No()], "PRINCIPAL", "V_NEGATIVE");
+member_set_imperfection.Relative(1.5, "DEFINE", 2.5);
+member_set_imperfection.InitialBowAndCriterion(undefined, localIC.no, [memberSet.No()], "PRINCIPAL", "V_NEGATIVE", true);  // With reference to list of members
+member_set_imperfection.Absolute(0.5, "EN_1993");
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;
