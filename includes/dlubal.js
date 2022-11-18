@@ -24,12 +24,15 @@ if (RFEM) {
     include("BasicObjects/Thickness.js");
 }
 if (RSECTION) {
-    include("BasicObjects/rsection_point.js");
-    include("BasicObjects/rsection_line.js");
-    include("BasicObjects/rsection_part.js");
-    include("BasicObjects/rsection_opening.js");
-    include("BasicObjects/rsection_element.js");
-    include("BasicObjects/rsection_stress_point.js");
+    include("BasicObjects/RsectionControlPoint.js");
+    include("BasicObjects/RsectionElement.js");
+    include("BasicObjects/RsectionLine.js");
+    include("BasicObjects/RsectionOpening.js");
+    include("BasicObjects/RsectionPart.js");
+    include("BasicObjects/RsectionPoint.js");
+    include("BasicObjects/RsectionStiffener.js");
+    include("BasicObjects/RsectionStressPoint.js");
+    include("BasicObjects/RsectionSubpanel.js");
 }
 include("BasicObjects/Material.js");
 include("BasicObjects/MemberSet.js");
@@ -75,22 +78,26 @@ if (RFEM) {
     include("TypesForSurfaces/SurfaceEccentricity.js");
     include("TypesForSurfaces/SurfaceMeshRefinement.js");
     include("TypesForSurfaces/SurfaceSupport.js");
-	include("TypesForSurfaces/SurfaceStiffnessModification.js");
-// Types for solids
-	include("TypesForSolids/ContactSolids.js");
-	include("TypesForSolids/GasSolids.js");
-	include("TypesForSolids/SolidMeshRefinement.js");
+    include("TypesForSurfaces/SurfaceStiffnessModification.js");
+    // Types for solids
+    include("TypesForSolids/ContactSolids.js");
+    include("TypesForSolids/GasSolids.js");
+    include("TypesForSolids/SolidMeshRefinement.js");
 }
-// Imperfections
-include("Imperfections/ImperfectionCase.js");
-include("Imperfections/MemberImperfection.js");
-include("Imperfections/MemberSetImperfection.js");
-include("Imperfections/SurfaceImperfection.js");
-include("Imperfections/SurfaceSetImperfection.js");
 // Loading
 include("Loading/LoadCombination.js");
 include("Loading/LoadCase.js");
-include("Loading/DesignSituation.js")
+include("Loading/DesignSituation.js");
+if (RSECTION) {
+    include("Loading/RsectionLoadCase.js");
+    include("Loading/RsectionLoadCombination.js");
+    include("InternalForces/RsectionInternalForces.js");
+}
+include("Imperfections/ImperfectionCase.js")
+include("Imperfections/MemberImperfection.js")
+include("Imperfections/MemberSetImperfection.js")
+include("Imperfections/SurfaceImperfection.js")
+include("Imperfections/SurfaceSetImperfection.js")
 // Loads
 if (RFEM) {
     include("Loads/FreeCircularLoad.js");
@@ -120,3 +127,4 @@ include("Dimensions/DiameterDimension.js");
 include("Dimensions/LinearDimension.js");
 include("Dimensions/RadiusDimension.js");
 include("Dimensions/SlopeDimension.js");
+

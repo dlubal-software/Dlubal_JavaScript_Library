@@ -16,6 +16,14 @@ function ImperfectionCase (no,
 }
 
 /**
+ * Returns Imperfection case number.
+ * @returns Imperfection case number
+ */
+ImperfectionCase.prototype.No = function () {
+    return this.imperfectionCase.no;
+};
+
+/**
  * Creates Local imperfection case
  * @param {Number}  no                      Index of Imperfection case, can be undefined
  * @param {Array}   load_cases_to_assign    Load cases to assign (array of numbers)
@@ -336,7 +344,7 @@ function createTypedImperfectionCase (no,
     comment,
     params) {
     var imperfectionCase = imperfection_cases.create();
-    imperfectionCase.type = GetImperfectionType(imperfection_type);
+    imperfectionCase.type = GetImperfectionCaseImperfectionType(imperfection_type);
     set_comment_and_parameters(imperfectionCase, comment, params);
     return imperfectionCase;
 }
@@ -401,7 +409,7 @@ function GetImperfectionDirection(coordination_type, imperfection_direction) {
 	}
 }
 
-function GetImperfectionType(imperfection_type) {
+function GetImperfectionCaseImperfectionType(imperfection_type) {
 	const imperfection_types_dict = {
 		"LOCAL_IMPERFECTIONS" : imperfection_cases.IMPERFECTION_TYPE_LOCAL_IMPERFECTIONS,
         "NOTIONAL_LOADS_FROM_LOAD_CASE" : imperfection_cases.IMPERFECTION_TYPE_NOTIONAL_LOADS_FROM_LOAD_CASE,

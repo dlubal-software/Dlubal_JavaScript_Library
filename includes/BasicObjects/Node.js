@@ -24,9 +24,9 @@ function Node(no,
         this.node = engine.create_node(no);
 
         // Coordinates
-        node.coordinate_1 = coordinate_X;
-        node.coordinate_2 = coordinate_Y;
-        node.coordinate_3 = coordinate_Z;
+        this.node.coordinate_1 = coordinate_X;
+        this.node.coordinate_2 = coordinate_Y;
+        this.node.coordinate_3 = coordinate_Z;
 
         set_comment_and_parameters(this.node, comment, params);
         return this.node;

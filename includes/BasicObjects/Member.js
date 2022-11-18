@@ -28,6 +28,15 @@ function Member(no,
 		return this.member;
 	}
 }
+
+/**
+ * Return member§s number
+ * @returns Member's number
+ */
+Member.prototype.No = function () {
+	return this.member.no;
+}
+
 /**
  * Creates beam member
  * @param	{Number}		no				Index of member, can be undefined
