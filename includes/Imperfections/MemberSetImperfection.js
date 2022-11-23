@@ -98,7 +98,6 @@ MemberSetImperfection.prototype.InitialBowAndCriterion = function (no,
  * @param {Number} initial_sway         Relative initial sway / Initial bow / Initial bow and criterion, can be undefined (200 as default)
  * @param {String} active_criterion     Active criterion, can be undefined ("Always" as default). Can be set only when Initial bow and criterion imperfection type is defined, in other case must be undefined.
  * @param {Number} active_bow           Active bow from member slenderness, can be defined only when active criterion has "DEFINE" value
- * @returns Modified Member set imperfection
  */
 MemberSetImperfection.prototype.Relative = function (initial_sway,
     active_criterion,
@@ -113,7 +112,6 @@ MemberSetImperfection.prototype.Relative = function (initial_sway,
             this.memberSetImperfection.active_bow = active_bow;
         }
     }
-    return this.memberSetImperfection;
 };
 
 /**
@@ -121,7 +119,6 @@ MemberSetImperfection.prototype.Relative = function (initial_sway,
  * @param {Number} initial_sway         Absolute initial sway / bow
  * @param {String} active_criterion     Active criterion, can be undefined ("Always" as default). Can be set only when Initial bow and criterion imperfection type is defined, in other case must be undefined.
  * @param {Number} active_bow           Active bow from member slenderness, can be defined only when active criterion has "DEFINE" value
- * @returns Modified Member set imperfection
  */
 MemberSetImperfection.prototype.Absolute = function (initial_sway,
     active_criterion,
@@ -137,7 +134,6 @@ MemberSetImperfection.prototype.Absolute = function (initial_sway,
             this.memberSetImperfection.active_bow = active_bow;
         }
     }
-    return this.memberSetImperfection;
 };
 
 /**
@@ -146,7 +142,6 @@ MemberSetImperfection.prototype.Absolute = function (initial_sway,
  * @param {Number}  height                      Structure height, can be undefined (0.001 as default)
  * @param {Number}  columns_inn_row_count       Number of columns in one row, can be undefined (1 as default)
  * @param {Boolean} reduction_factor_h_limit    Set alpha_h >= acc. to equation (5.1), can be undefined (true as default)
- * @returns Modified Member set imperfection
  */
 MemberSetImperfection.prototype.EN_1992_1 = function (basic_value_relative,
     structure_height,
@@ -165,7 +160,6 @@ MemberSetImperfection.prototype.EN_1992_1 = function (basic_value_relative,
     if (typeof reduction_factor_h_limit !== "undefined") {
         this.memberSetImperfection.reduction_factor_h_limit = reduction_factor_h_limit;
     }
-    return this.memberSetImperfection;
 };
 
 /**
@@ -173,7 +167,6 @@ MemberSetImperfection.prototype.EN_1992_1 = function (basic_value_relative,
  * @param {Number}  basic_value_relative        Basic value, can be undefined (200 as default)
  * @param {Number}  height                      Structure height, can be undefined (0.001 as default)
  * @param {Number}  columns_inn_row_count       Number of columns in one row, can be undefined (1 as default)
- * @returns Modified Member set imperfection
  */
 MemberSetImperfection.prototype.EN_1993_1_1 = function (basic_value_relative,
     height,
@@ -188,25 +181,21 @@ MemberSetImperfection.prototype.EN_1993_1_1 = function (basic_value_relative,
     if (typeof columns_inn_row_count !== "undefined") {
         this.memberSetImperfection.column_in_row = columns_inn_row_count;
     }
-    return this.memberSetImperfection;
 };
 
 /**
  * Modifies Member set imperfection to definition type EN 1993 1.1 ()
  * @param {String}  section_design        Section design, can be undefined ("PLASTIC" as default)
- * @returns Modified Member set imperfection
  */
  MemberSetImperfection.prototype.InitialBow_EN_1993_1_1 = function (section_design) {
     this.memberSetImperfection.definition_type = GetMemberSetImperfectionDefinitionType(this.memberSetImperfection.imperfection_type, "EN_1993_1_1");
     this.memberSetImperfection.section_design = GetMemberSetImperfectionSectionDesignType(section_design);
-    return this.memberSetImperfection;
 };
 
 /**
  * Modifies Member set imperfection to definition type EN 1995 1.1
  * @param {Number}  value        Basic value / initial bow, can be undefined (200 as default with Initial sway, 400 with Initial bow)
  * @param {Number}  height       Structure height, can be undefined (0.001 as default). With Initial Bow imperfection is undefined.
- * @returns Modified Member set imperfection
  */
 MemberSetImperfection.prototype.EN_1995_1_1 = function (value,
     height) {
@@ -219,14 +208,12 @@ MemberSetImperfection.prototype.EN_1995_1_1 = function (value,
         ASSERT(this.memberSetImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_SWAY, "Height must be undefined with Initial Bow imperfection");
         this.memberSetImperfection.height = height;
     }
-    return this.memberSetImperfection;
 };
 
 /**
  * Modifies Member set imperfection to definition type ANSI/AISC 360-16 | Current
  * @param {Number} notional_load_coefficient        Notional load coefficient, can be undefined (0.002 by default)
  * @param {Number} standard_factor_enumeration      Factor alpha, can be undefined (LRFD by default). With Initial Bow imperfection is undefined.
- * @returns Modified Member set imperfection
  */
 MemberSetImperfection.prototype.ANSI_CURRENT = function (notional_load_coefficient,
     standard_factor_enumeration) {
@@ -235,20 +222,17 @@ MemberSetImperfection.prototype.ANSI_CURRENT = function (notional_load_coefficie
         this.memberSetImperfection.basic_value_coefficient = notional_load_coefficient;
     }
     this.memberSetImperfection.standard_factor_enumeration = GetMemberSetImperfectionStandardFactorEnumerationType(standard_factor_enumeration);
-    return this.memberSetImperfection;
 };
 
 /**
  * Modifies Initial Bow Member set imperfection to definition type ANSI/AISC 360-16 | Current
  * @param {Number} initial_bow  Initial bow
- * @returns Modified Member set imperfection
  */
 MemberSetImperfection.prototype.InitialBow_ANSI_CURRENT = function (initial_bow) {
     this.memberSetImperfection.definition_type = GetMemberSetImperfectionDefinitionType(this.memberSetImperfection.imperfection_type, "ANSI_CURRENT");
     if (typeof initial_bow !== "undefined") {
         this.memberSetImperfection.basic_value_relative = initial_bow;
     }
-    return this.memberSetImperfection;
 };
 
 /**
@@ -256,7 +240,6 @@ MemberSetImperfection.prototype.InitialBow_ANSI_CURRENT = function (initial_bow)
  * @param {Number} load_case_combination_no         Axial forces Ny from load case or load combination number
  * @param {Number} notional_load_coefficient        Notional load coefficient, can be undefined (0.002 by default)
  * @param {Number} standard_factor_enumeration      Factor alpha, can be undefined (LRFD by default)
- * @returns Modified Member set imperfection
  */
  MemberSetImperfection.prototype.ANSI_GRAVITY_LOAD = function (load_case_combination_no, 
     notional_load_coefficient,
@@ -273,14 +256,12 @@ MemberSetImperfection.prototype.InitialBow_ANSI_CURRENT = function (initial_bow)
         this.memberSetImperfection.basic_value_coefficient = notional_load_coefficient;
     }
     this.memberSetImperfection.standard_factor_enumeration = GetMemberSetImperfectionStandardFactorEnumerationType(standard_factor_enumeration);
-    return this.memberSetImperfection;
 };
 
 /**
  * Modifies Member set imperfection to definition type ANSI/AISC 360-16 | Gravity Load
  * @param {Number} load_case_combination_no     Axial forces Ny from load case or load combination number
  * @param {Number} initial_bow                  Initial bow, can be undefined (1000 as default)                
- * @returns Modified Member set imperfection
  */
 MemberSetImperfection.prototype.InitialBow_ANSI_GRAVITY_LOAD = function (load_case_combination_no, 
     initial_bow) {
@@ -295,13 +276,11 @@ MemberSetImperfection.prototype.InitialBow_ANSI_GRAVITY_LOAD = function (load_ca
     if (typeof initial_bow !== "undefined") {
         this.memberSetImperfection.basic_value_relative = initial_bow;
     }
-    return this.memberSetImperfection;
 };
 
 /**
  * Modifies Member set imperfection to definition type CSA S16:19 | Current
  * @param {Number} value    Notional load coefficient (Initial Sway) / Initial bow (Initial bow), can be undefined (0.005 / 1000 by default)
- * @returns Modified Member set imperfection
  */
 MemberSetImperfection.prototype.CSA_CURRENT = function (value) {
     ASSERT(this.memberSetImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_SWAY || this.memberSetImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_BOW, "This function cannot be use on this imperfection");
@@ -314,14 +293,12 @@ MemberSetImperfection.prototype.CSA_CURRENT = function (value) {
             this.memberSetImperfection.basic_value_relative = value;
         }
     }
-    return this.memberSetImperfection;
 };
 
 /**
  * Modifies Member set imperfection to definition type CSA S16:19 | Gravity Load
  * @param {Number} load_case_combination_no     Axial forces Ny from load case or load combination number
  * @param {Number} value                        Notional load coefficient (Initial Sway) / Initial bow (Initial bow), can be undefined (0.005 / 1000 by default)
- * @returns Modified Member set imperfection
  */
 MemberSetImperfection.prototype.CSA_GRAVITY_LOAD = function (load_case_combination_no,
     value) {
@@ -341,7 +318,6 @@ MemberSetImperfection.prototype.CSA_GRAVITY_LOAD = function (load_case_combinati
             this.memberSetImperfection.basic_value_relative = value;
         }
     }
-    return this.memberSetImperfection;
 };
 
 /**
@@ -349,7 +325,6 @@ MemberSetImperfection.prototype.CSA_GRAVITY_LOAD = function (load_case_combinati
  * @param {Number} basic_value_relative     Basic value relative, can be undefined (250 by default)
  * @param {Number} structure_height         Structure height, can be undefined (0.001 by default)
  * @param {Number} number_of_floors         Total number of floors, can be undefined (1 by default)
- * @returns MOdified Member set imperfection
  */
 MemberSetImperfection.prototype.GB_50017_2017_CURRENT = function (basic_value_relative,
     structure_height,
@@ -365,7 +340,6 @@ MemberSetImperfection.prototype.GB_50017_2017_CURRENT = function (basic_value_re
     if (typeof number_of_floors !== "undefined") {
         this.memberSetImperfection.number_of_floors = number_of_floors;
     }
-    return this.memberSetImperfection;
 };
 
 /**
@@ -373,7 +347,6 @@ MemberSetImperfection.prototype.GB_50017_2017_CURRENT = function (basic_value_re
  * @param {Number} load_case_combination_no     Axial forces Ny from load case or load combination number
  * @param {Number} notional_load_coefficient    Notional load coefficient, can be undefined (0.004 by default)
  * @param {Number} number_of_floors             Total number of floors, can be undefined (1 by default)
- * @returns Modified Member set imperfection
  */
 MemberSetImperfection.prototype.GB_50017_2017_GRAVITY_LOAD = function (load_case_combination_no,
     notional_load_coefficient,
@@ -392,25 +365,21 @@ MemberSetImperfection.prototype.GB_50017_2017_GRAVITY_LOAD = function (load_case
     if (typeof number_of_floors !== "undefined") {
         this.memberSetImperfection.number_of_floors = number_of_floors;
     }
-    return this.memberSetImperfection;
 };
 
 /**
  * Modifies Member set imperfection to definition type EN 1999-1-1
  * @param {String} section_design   Section design, can be undefined ("PLASTIC" as default)
- * @returns Modified Member set imperfection
  */
 MemberSetImperfection.prototype.EN_1999_1_1 = function (section_design) {
     ASSERT(this.memberSetImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_BOW, "This function can be used only with Initial Bow imperfection type");
     this.memberSetImperfection.definition_type = GetMemberSetImperfectionDefinitionType(this.memberSetImperfection.imperfection_type, "EN_1999_1_1");
     this.memberSetImperfection.section_design = GetMemberSetImperfectionSectionDesignType(section_design);
-    return this.memberSetImperfection;
 };
 
 /**
  * Modifies Member set imperfection to definition type GB 50017-2017
  * @param {String} buckling_curve   Buckling curve, can be undefined ("d" as default)
- * @returns Modified Member set imperfection
  */
 MemberSetImperfection.prototype.GB_50017_2017 = function (buckling_curve) {
     ASSERT(this.memberSetImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_BOW, "This function can be used only with Initial Bow imperfection type");
@@ -418,8 +387,21 @@ MemberSetImperfection.prototype.GB_50017_2017 = function (buckling_curve) {
     if (typeof buckling_curve !== "undefined") {
         //this.memberSetImperfection.xxx = buckling_curve;  What value name??
     }
-    return this.memberSetImperfection;
 }
+
+/**
+ * @returns Member set imperfection object
+ */
+ MemberSetImperfection.prototype.GetMemberSetImperfection = function () {
+    return this.memberSetImperfection;
+};
+
+/**
+ * @returns Member set imperfection number
+ */
+MemberSetImperfection.prototype.No = function () {
+    return this.memberSetImperfection.no;
+};
 
 function createBaseMemberSetImperfection (no,
     imperfection_case_no,

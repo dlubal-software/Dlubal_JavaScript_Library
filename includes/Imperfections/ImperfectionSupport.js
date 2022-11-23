@@ -225,3 +225,51 @@ function GetMemberSetImperfectionActivityCriterionType(activity_criterion_type) 
 function GetMemberSetImperfectionStandardFactorEnumerationType(factor_type) {
 	return GetMemberImperfectionStandardFactorEnumerationType(factor_type);
 }
+
+function GetSurfaceImperfectionDefinitionType(definition_type) {
+	const definition_types_dict = {
+        "RELATIVE" : surface_imperfections.RELATIVE,
+		"ABSOLUTE" : surface_imperfections.ABSOLUTE
+	};
+
+	if (definition_type !== undefined) {
+		var definitionType = definition_types_dict[definition_type];
+		if (definitionType === undefined) {
+			console.log("Wrong definition type. Value was: " + definition_type);
+			console.log("Correct values are: ( " + Object.keys(definition_types_dict) + ")");
+			definitionType = surface_imperfections.ABSOLUTE;
+		}
+		return definitionType;
+	}
+	else {
+		return surface_imperfections.ABSOLUTE;
+	}
+}
+
+function GetSurfaceImperfectionDirection(direction_type) {
+	const direction_types_dict = {
+        "LOCAL_Z" : surface_imperfections.IMPERFECTION_DIRECTION_LOCAL_Z,
+        "Z_NEGATIVE" : surface_imperfections.IMPERFECTION_DIRECTION_LOCAL_Z_NEGATIVE
+	};
+
+	if (direction_type !== undefined) {
+		var directionType = direction_types_dict[direction_type];
+		if (directionType === undefined) {
+			console.log("Wrong direction type. Value was: " + direction_type);
+			console.log("Correct values are: ( " + Object.keys(direction_types_dict) + ")");
+			directionType = surface_imperfections.IMPERFECTION_DIRECTION_LOCAL_Z;
+		}
+		return directionType;
+	}
+	else {
+		return surface_imperfections.IMPERFECTION_DIRECTION_LOCAL_Z;
+	}
+}
+
+function GetSurfaceSetImperfectionDefinitionType(definition_type) {
+	return GetSurfaceImperfectionDefinitionType(definition_type);
+}
+
+function GetSurfaceSetImperfectionDirection(direction_type) {
+	return GetSurfaceImperfectionDirection(direction_type);
+}

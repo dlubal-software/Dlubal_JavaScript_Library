@@ -31,7 +31,6 @@ ImperfectionCase.prototype.No = function () {
  * @param {Boolean} is_active               Is imperfection case active, can be undefined (false as default)
  * @param {String}  comment                 Comment, can be undefined
  * @param {Object}  params                  Parameters, can be undefined
- * @returns Imperfection case
  */
 ImperfectionCase.prototype.LocalImperfection = function (no,
     load_cases_to_assign,
@@ -41,7 +40,6 @@ ImperfectionCase.prototype.LocalImperfection = function (no,
     params) {
     this.imperfectionCase = createTypedImperfectionCase(no, "LOCAL_IMPERFECTIONS", comment, params);
     this.imperfectionCase = assignCommonValues(this.imperfectionCase, load_cases_to_assign, assign_to_all_load, is_active);
-    return this.imperfectionCase;
 };
 
 /**
@@ -53,7 +51,6 @@ ImperfectionCase.prototype.LocalImperfection = function (no,
  * @param {Boolean} is_active                           Is imperfection case active, can be undefined (false as default)
  * @param {String}  comment                             Comment, can be undefined
  * @param {Object}  params                              Parameters, can be undefined
- * @returns Imperfection case
  */
 ImperfectionCase.prototype.Notional = function (no,
     load_cases_to_assign,
@@ -72,7 +69,6 @@ ImperfectionCase.prototype.Notional = function (no,
     var load_case = load_cases[notional_loads_from_load_case_no];
     ASSERT(load_case.action_category === load_cases.ACTION_CATEGORY_NONE_NONE, "Only load case from None category is allowed");
     this.imperfectionCase.load_case_for_notional_loads = notional_load_from_no;
-    return this.imperfectionCase;
 };
 
 /**
@@ -88,7 +84,6 @@ ImperfectionCase.prototype.Notional = function (no,
  * @param {Boolean} is_active                       Is imperfection case active, can be undefined (false as default)
  * @param {String}  comment                         Comment, can be undefined
  * @param {Object}  params                          Parameters, can be undefined
- * @returns Imperfection case
  */
 ImperfectionCase.prototype.InitialSway = function (no,
     load_cases_to_assign,
@@ -206,8 +201,6 @@ ImperfectionCase.prototype.InitialSway = function (no,
         // There is one empty extra row, delete it! Bug?
         this.imperfectionCase.level_imperfections.remove_row(level_imperfections.length + 1);
     }
-
-    return this.imperfectionCase;
 };
 
 /**
@@ -225,7 +218,6 @@ ImperfectionCase.prototype.InitialSway = function (no,
  * @param {Boolean} is_active                       Is imperfection case active, can be undefined (false as default)
  * @param {String}  comment                         Comment, can be undefined
  * @param {Object}  params                          Parameters, can be undefined
- * @returns Imperfection load
  */
 ImperfectionCase.prototype.StaticDeformation = function (no,
     load_cases_to_assign,
@@ -272,7 +264,6 @@ ImperfectionCase.prototype.StaticDeformation = function (no,
         }
     }
     this.imperfectionCase.direction = GetLevelDirection(imperfection_direction);   // We have to use this function for imperfection direction
-    return this.imperfectionCase;
 };
 
 /**
@@ -284,7 +275,6 @@ ImperfectionCase.prototype.StaticDeformation = function (no,
  * @param {Boolean} is_active                       Is imperfection case active, can be undefined (false as default)
  * @param {String}  comment                         Comment, can be undefined
  * @param {Object}  params                          Parameters, can be undefined
- * @returns Imperfection load
  */
 ImperfectionCase.prototype.GroupOfImperfection = function (no,
     load_cases_to_assign,
@@ -312,7 +302,20 @@ ImperfectionCase.prototype.GroupOfImperfection = function (no,
         // There is one empty extra row, delete it! Bug?
         this.imperfectionCase.imperfection_cases_items.remove_row(imperfection_cases.length + 1);
     }
+};
+
+/**
+ * @returns Imperfection case object
+ */
+ImperfectionCase.prototype.GetImperfectionCase = function() {
     return this.imperfectionCase;
+};
+
+/**
+ * @returns Imperfection case number
+ */
+ImperfectionCase.prototype.GetNo = function() {
+    return this.imperfectionCase.no;
 };
 
 function assignCommonValues (imperfection_case,

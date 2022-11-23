@@ -165,7 +165,6 @@ function createSurfacesFromNodesGrid(nodes, surfaceGridSize, surfaceType, surfac
 	}
 
 	var surfaceList = {};
-	var surfsNodes = {};
 
 	for (var i = 0; i < surfacesCount; ++i)
 	{

@@ -24,6 +24,20 @@ function Surface(no,
 }
 
 /**
+ * @returns Surface object
+ */
+Surface.prototype.GetSurface = function () {
+	return this.surface;
+}
+
+/**
+ * @returns Surface number
+ */
+Surface.prototype.GetNo = function () {
+	return this.surface.no;
+}
+
+/**
 * Creates standard surface
 * @param	{Number}	no				Index of surface, can be undefined
 * @param	{Array}		boundary_lines	List of boundary lines indexes
