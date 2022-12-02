@@ -6,10 +6,10 @@ if (!RSECTION) {
  * Create RSection Stiffener
  * @class
  * @constructor
- * @param {int}         no          Number of Stiffener
- * @param {string}      comment     Comment for the Stiffener
- * @param {dictionary}  params      Parameters of the Stiffener
- * @returns Stiffener
+ * @param {int} no - Number of Stiffener
+ * @param {string} comment - Comment for the Stiffener
+ * @param {dictionary} params - Parameters of the Stiffener
+ * @returns stiffener
  */
 function Stiffener(no,
     comment,

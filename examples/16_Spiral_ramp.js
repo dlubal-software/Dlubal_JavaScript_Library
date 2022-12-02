@@ -123,7 +123,7 @@ var lineSupport = new LineSupport(1, [17, 21]);
 lineSupport.Hinged();
 lineSupport.RotationZ(true);
 
-//load 
+//load
 var SASGeometricallyLinear = new StaticAnalysisSettings();
 SASGeometricallyLinear.GeometricallyLinear(1);
 var SASSecondOrder = new StaticAnalysisSettings();

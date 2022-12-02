@@ -25,7 +25,7 @@ function Section(no,
 }
 
 /**
- * 
+ *
  * @returns Number of Section
  */
 Section.prototype.GetNo = function() {

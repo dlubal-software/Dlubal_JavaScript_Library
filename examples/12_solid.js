@@ -36,7 +36,7 @@ l.Arc(10, [2, 4], [r_1 + a_1 / 2, 0, 0]);
 l.Arc(11, [5, 7], [-r_2 - a_2 / 2, 0, -H]);
 l.Arc(12, [6, 8], [r_2 + a_2 / 2, 0, -H]);
 
-// Create Surfaces 
+// Create Surfaces
 var surface = new Surface();
 surface.Quadrangle(1, [5, 10, 8, 12], surfaces.TYPE_WITHOUT_THICKNESS);
 surface.Quadrangle(2, [6, 9, 7, 11], surfaces.TYPE_WITHOUT_THICKNESS);
@@ -49,7 +49,7 @@ surface.WithoutThickness(6, [10, 2, 9, 1]);
 var solid = new Solid();
 solid.Standard(1, [1, 2, 3, 4, 5, 6], material.GetNo());
 
-//load 
+//load
 var SASGeometricallyLinear = new StaticAnalysisSettings();
 SASGeometricallyLinear.GeometricallyLinear(1);
 var SASSecondOrder = new StaticAnalysisSettings();

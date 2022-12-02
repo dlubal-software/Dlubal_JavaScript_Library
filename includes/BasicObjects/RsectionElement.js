@@ -57,8 +57,8 @@ RSectionElement.prototype.SingleLine = function (no,
  * @param {Number}  no                      Number of Element, can be undefined
  * @param {Array}   points_of_arc           Points numbers of arc Element
  * @param {Array}   control_point           Coordinates of control point
- * @param {Number}  thickness       Thickness, can be undefined (10 mm by default)
- * @param {Number}  shear_thickness Shear thickness, can be undefined (not specified by default) 
+ * @param {Number}  thickness               Thickness, can be undefined (10 mm by default)
+ * @param {Number}  shear_thickness         Shear thickness, can be undefined (not specified by default)
  * @param {Array}   arc_parameters          Arc parameters, can be undefined
  * @param {Array}   arc_center              Coordinates of arc center, can be undefined
  * @param {String}  alpha_adjustment_target Subsequent adjustment of alpha by displacing point at, can be undefined (Beginning of arc by default)
@@ -110,7 +110,7 @@ RSectionElement.prototype.Arc = function (no,
  * @param {Array}   circle_center   Coordinates of circle center
  * @param {Number}  circle_radius   Circle radius
  * @param {Number}  thickness       Thickness, can be undefined (10 mm by default)
- * @param {Number}  shear_thickness Shear thickness, can be undefined (not specified by default) 
+ * @param {Number}  shear_thickness Shear thickness, can be undefined (not specified by default)
  * @param {String}  comment         Comment, can be undefined
  * @param {Object}  params          Parameters, can be undefined
  * @returns Element
@@ -142,8 +142,8 @@ RSectionElement.prototype.Circle = function (no,
  * @param {Number}  first_point         Number of first point
  * @param {Number}  second_point        Number of second point
  * @param {Array}   control_point       Control point coordinates
- * @param {Number}  thickness       Thickness, can be undefined (10 mm by default)
- * @param {Number}  shear_thickness Shear thickness, can be undefined (not specified by default) 
+ * @param {Number}  thickness           Thickness, can be undefined (10 mm by default)
+ * @param {Number}  shear_thickness     Shear thickness, can be undefined (not specified by default)
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Parameters, can be undefined
  * @returns Element
@@ -176,8 +176,8 @@ RSectionElement.prototype.Ellipse = function (no,
  * @param {Number}  no                      Number of Element, can be undefined
  * @param {Array}   points_of_parabola      Points numbers of parabola
  * @param {Array}   control_point           Control point
- * @param {Number}  thickness       Thickness, can be undefined (10 mm by default)
- * @param {Number}  shear_thickness Shear thickness, can be undefined (not specified by default)  
+ * @param {Number}  thickness               Thickness, can be undefined (10 mm by default)
+ * @param {Number}  shear_thickness         Shear thickness, can be undefined (not specified by default)
  * @param {Number}  parabola_alpha          Angle of the parabola, can be undefined (0 as default)
  * @param {String}  comment                 Comment, can be undefined
  * @param {Object}  params                  Parameters, can be undefined
@@ -214,8 +214,8 @@ RSectionElement.prototype.Parabola = function (no,
  * @param {Array}   control_points      Control points ([[y1, z1 (, weight1)], [y2, z2, weight2], ...])
  * @param {Number}  nurbs_order         Nurbs order, can be undefine (2 as default)
  * @param {Array}   nurbs_knots         Nurbs knots, can be undefined
- * @param {Number}  thickness       Thickness, can be undefined (10 mm by default)
- * @param {Number}  shear_thickness Shear thickness, can be undefined (not specified by default)  
+ * @param {Number}  thickness           Thickness, can be undefined (10 mm by default)
+ * @param {Number}  shear_thickness     Shear thickness, can be undefined (not specified by default)
 * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Parameters, can be undefined
  * @returns Element

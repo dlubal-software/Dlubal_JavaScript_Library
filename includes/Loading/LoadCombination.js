@@ -309,7 +309,7 @@ function SetDesignSituation(load_combination, design_situation_no) {
         }
     }
 }
-function SetLoadCombinationItems(load_combination, 
+function SetLoadCombinationItems(load_combination,
     load_combination_items) {
     ASSERT(typeof load_combination !== "undefined", "Load combination number must be specified");
     ASSERT(typeof load_combination_items !== "undefined" && Array.isArray(load_combination_items), "At least one load case must be specified [[load_case_no, factor], [load_case_no, factor]]");

@@ -81,7 +81,7 @@ for (var i = 0; i < n / 2 - 1; ++i) {
     memberCount++;
 }
 
-//load 
+//load
 var SASGeometricallyLinear = new StaticAnalysisSettings();
 SASGeometricallyLinear.GeometricallyLinear(1);
 var SASSecondOrder = new StaticAnalysisSettings();

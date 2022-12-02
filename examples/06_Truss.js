@@ -70,7 +70,7 @@ for (var i = 0; i < n / 2 - 1; ++i) {
 }
 mem.Truss(memberCount, [3 + ns, 2 * n + 2 + ns], sectionDiagonal.GetNo());
 
-//load 
+//load
 var SASGeometricallyLinear = new StaticAnalysisSettings();
 SASGeometricallyLinear.GeometricallyLinear(1);
 var SASSecondOrder = new StaticAnalysisSettings();

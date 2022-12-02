@@ -318,7 +318,7 @@ for (var i = 0; i < n_b + 1; ++i) {
     nodes[no_no3_r + 2 * i].support = nodalSupport.no;
 }
 
-//load 
+//load
 var SASGeometricallyLinear = new StaticAnalysisSettings();
 SASGeometricallyLinear.GeometricallyLinear(1);
 var SASSecondOrder = new StaticAnalysisSettings();

@@ -66,7 +66,7 @@ for (var copy = 0; copy < 2; ++copy) {
 		createMember([modelNodes[6], modelNodes[7]], section, members.TYPE_BEAM),
 		createMember([modelNodes[7], modelNodes[4]], section, members.TYPE_BEAM)
 	}
-	
+
 	var modelNodes2 = [
 		createNode(-15 + 35 * copy, 5 - 30 * copy, 0),
 		createNode(35 * copy, 5 - 30 * copy, 0),

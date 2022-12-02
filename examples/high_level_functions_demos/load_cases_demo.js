@@ -10,10 +10,10 @@ DYNAMIC_ANALYSIS.MODAL.setActive(true);
 modal_analysis_settings.erase(1);
 modal_analysis_settings.erase(2);
 modal_analysis_settings.erase(3);
-var MASUserDefined = new ModalAnalysisSettings().UserDefinedNumberOfModes(1, "UserDefinedNumberOfModes", 10, "METHOD_LANCZOS");
-var MASMaxFrequency = new ModalAnalysisSettings().AutomaticNumberOfModesToReachMaxFreq(2, "AutomaticMaxFreq", 1200, "METHOD_LANCZOS");
+var MASUserDefined = new ModalAnalysisSettings().UserDefinedNumberOfModes(1, "UserDefinedNumberOfModes", 10, "METHOD_ROOT_OF_CHARACTERISTIC_POLYNOMIAL");
+var MASMaxFrequency = new ModalAnalysisSettings().AutomaticNumberOfModesToReachMaxFreq(2, "AutomaticMaxFreq", 1200, "METHOD_ROOT_OF_CHARACTERISTIC_POLYNOMIAL");
 if (PRERELEASE_MODE) {
-    var MASMass = new ModalAnalysisSettings().AutomaticNumberOfModesToReachEffMass(3, "AutomaticMass", 0.8, "METHOD_LANCZOS");
+    var MASMass = new ModalAnalysisSettings().AutomaticNumberOfModesToReachEffMass(3, "AutomaticMass", 0.8, "METHOD_ROOT_OF_CHARACTERISTIC_POLYNOMIAL");
 }
 // direct access to  static analysis settings
 MASUserDefined.Settings.comment = "Access via .settings";

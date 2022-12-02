@@ -59,7 +59,7 @@ RSectionPoint.prototype.Standard = function (no,
         this.point.reference_point = reference_point;
     }
     this.point.coordinate_system_type = points.COORDINATE_SYSTEM_CARTESIAN;
-    return this.point; 
+    return this.point;
 };
 
  /**

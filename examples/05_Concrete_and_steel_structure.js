@@ -113,7 +113,7 @@ memberHinge.Rotational(1, [3,4,5,6], [3,4,5,6], [false,0],[true,0],[true,0]);
 // Define Supports
 var nodalSupport = new NodalSupport(1,[5,7,8]);
 nodalSupport.Hinged();
- 
+
 var lineSupport = new LineSupport(1,[1,2,26]);
 lineSupport.Hinged();
 

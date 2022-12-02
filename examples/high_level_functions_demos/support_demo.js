@@ -4,11 +4,11 @@ var material_steel = new Material(undefined, "S235");
 var material_concrete = new Material(undefined, "C12/15");
 
 var section_params = { "shear_stiffness_deactivated": true };
-var section_IPE240 = Section(undefined, "IPE 240", material_steel.No(), "", section_params);
-var section_IPE180 = Section(undefined, "IPE 180", material_steel.No(), "", section_params);
+var section_IPE240 = Section(undefined, "IPE 240", material_steel.GetNo(), "", section_params);
+var section_IPE180 = Section(undefined, "IPE 180", material_steel.GetNo(), "", section_params);
 
 if (RFEM) {
-	var thickness = Thickness(undefined, "", material_concrete.No(), 120mm);
+	var thickness = Thickness(undefined, "", material_concrete.GetNo(), 120mm);
 };
 for (var i = 0; i < 20; ++i) {
 	Node("undefined", 0, 0, i);
@@ -257,7 +257,7 @@ if (RFEM) {
 	surface_support_4.SlidingZ();
 	surface_support_4.ShearX(300);
 	surface_support_4.ShearY(400);
-	surface_support_4.Nonlinear.FailIfPositive.Stress(300);
+	//surface_support_4.Nonlinear.FailIfPositive.Stress(300);
 
 	var surface_support_5 = new SurfaceSupport();
 	surface_support_5.Fixed();
@@ -274,6 +274,6 @@ if (RFEM) {
 	surface_support_7.Fixed();
 	surface_support_7.ShearX(300);
 	surface_support_7.ShearY(400);
-	// surface_support_7.Nonlinear.FailIfNegative.Stress(0.7);
+	//surface_support_7.Nonlinear.FailIfNegative.Stress(0.7);
 };
 

@@ -207,7 +207,7 @@ for (var i = 0; i < 11; ++i) {
     lines[9 * (n_f + 1) + 1 + i].support = lineSupport.GetNo();
 }
 
-//load 
+//load
 var SASGeometricallyLinear = new StaticAnalysisSettings();
 SASGeometricallyLinear.GeometricallyLinear(1);
 var SASSecondOrder = new StaticAnalysisSettings();

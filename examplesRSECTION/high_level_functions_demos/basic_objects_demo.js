@@ -13,6 +13,8 @@ var t1 = new Date().getTime();
 run("../includes/Tools/clearAll.js");
 
 var material = new Material(undefined, "S235");
+var section = new Section(1, "IPE 80", material.No());
+var section2 = new Section(2, "IPE 100", material.No());
 
 var pointsList = [
     [0.1, -0.15], [0.1, -0.144], [0.097656854249492, -0.138343145750508], [0.092, -0.136], [0.015, -0.136], [0.007928932188135, -0.133071067811865], [0.005, -0.126],
@@ -111,7 +113,7 @@ element.NURBS(undefined, [otherPoints[4], otherPoints[8]], [[otherPoints[5].coor
 var stressPoint = new RSectionStressPoint;
 stressPoint.Standard(undefined, 1, undefined, [0, 0.1]);
 stressPoint.OnLine(undefined, 6, [0.75, undefined]);
-stressPoint.OnLine(undefined, 6, [undefined, 0.15, false]);     // absolute distances
+stressPoint.OnLine(undefined, 6, [undefined, 0.01, false]);     // absolute distances
 stressPoint.OnElement(undefined, 5, [0.10, undefined]);   // relative distances
 
 var t2 = new Date().getTime();

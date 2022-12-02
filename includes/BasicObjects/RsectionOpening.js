@@ -47,7 +47,7 @@ function RSectionOpening(no,
     var boundaryLines = [];
     var boundaryLinePoints = [[topLeftPoint, topRightPoint], [topRightPoint, bottomRightPoint], [bottomRightPoint, bottomLeftPoint], [bottomLeftPoint, topLeftPoint]];
     var line = new RSectionLine();
-    for (var i = 0; i < boundaryLinePoints.length; ++i) {    
+    for (var i = 0; i < boundaryLinePoints.length; ++i) {
         boundaryLines.push(line.Polyline(undefined, [boundaryLinePoints[i][0].no, boundaryLinePoints[i][1].no]));
     }
     return createBaseOpening(no, boundaryLines, comment, params);
@@ -80,7 +80,7 @@ function RSectionOpening(no,
     var boundaryLinePoints = [[boundaryPoints[0], boundaryPoints[1]], [boundaryPoints[1], boundaryPoints[2]], [boundaryPoints[2], boundaryPoints[0]]];
     var line = new RSectionLine();
     boundaryLines = [];
-    for (var i = 0; i < boundaryLinePoints.length; ++i) {    
+    for (var i = 0; i < boundaryLinePoints.length; ++i) {
         boundaryLines.push(line.Polyline(undefined, [boundaryLinePoints[i][0].no, boundaryLinePoints[i][1].no]));
     }
     return createBaseOpening(no, boundaryLines, comment, params);

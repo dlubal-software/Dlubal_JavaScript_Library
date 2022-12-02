@@ -51,6 +51,20 @@ function StaticAnalysisSettings(no,
 }
 
 /**
+ * @returns Number of Static analysis setting
+ */
+StaticAnalysisSettings.prototype.GetNo = function() {
+  return this.Settings.no;
+};
+
+/**
+ * @returns Static analysis settings object
+ */
+StaticAnalysisSettings.prototype.GetStaticAnalysisSettings = function() {
+  return this.Settings;
+};
+
+/**
  *
  * @param {*} no
  * @param {*} name
