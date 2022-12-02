@@ -46,6 +46,9 @@ RSectionElement.prototype.SingleLine = function (no,
     this.element = createBaseRSectionElement(no, elements.TYPE_SINGLELINE, comment, params);
     ASSERT(typeof definition_points !== "undefined" || definition_points.length !== 2, "Two definition points must be defined");
     this.element.definition_points = definition_points;
+    if (typeof thickness !== "undefined") {
+        this.Thickness(thickness, shear_thickness);
+    }
     return this.element;
 };
 
@@ -54,6 +57,8 @@ RSectionElement.prototype.SingleLine = function (no,
  * @param {Number}  no                      Number of Element, can be undefined
  * @param {Array}   points_of_arc           Points numbers of arc Element
  * @param {Array}   control_point           Coordinates of control point
+ * @param {Number}  thickness               Thickness, can be undefined (10 mm by default)
+ * @param {Number}  shear_thickness         Shear thickness, can be undefined (not specified by default)
  * @param {Array}   arc_parameters          Arc parameters, can be undefined
  * @param {Array}   arc_center              Coordinates of arc center, can be undefined
  * @param {String}  alpha_adjustment_target Subsequent adjustment of alpha by displacing point at, can be undefined (Beginning of arc by default)
@@ -64,8 +69,10 @@ RSectionElement.prototype.SingleLine = function (no,
 RSectionElement.prototype.Arc = function (no,
     points_of_arc,
     control_point,
+    thickness,
+    shear_thickness,
     arc_parameters,
-    /*center_of_arc,*/
+    arc_center,
     alpha_adjustment_target,
     comment,
     params) {
@@ -76,6 +83,10 @@ RSectionElement.prototype.Arc = function (no,
     this.element.definition_points = points_of_arc;
     this.element.arc_control_point_y = control_point[0];
     this.element.arc_control_point_z = control_point[1];
+    if (typeof thickness !== "undefined") {
+        this.Thickness(thickness, shear_thickness);
+    }
+
     if (typeof arc_parameters !== "undefined") {
         ASSERT(arc_parameters.length === 3, "Three parameters must be specified: height, radius, alpha");
         this.element.arc_height = arc_parameters[0];
@@ -90,7 +101,7 @@ RSectionElement.prototype.Arc = function (no,
     if (typeof alpha_adjustment_target !== "undefined") {
         this.element.arc_alpha_adjustment_target = GetAlphaAdjustmentTargetType(alpha_adjustment_target);
     }
-    return this.element
+    return this.element;
 };
 
 /**
@@ -98,6 +109,8 @@ RSectionElement.prototype.Arc = function (no,
  * @param {Number}  no              Number of Element, can be undefined
  * @param {Array}   circle_center   Coordinates of circle center
  * @param {Number}  circle_radius   Circle radius
+ * @param {Number}  thickness       Thickness, can be undefined (10 mm by default)
+ * @param {Number}  shear_thickness Shear thickness, can be undefined (not specified by default)
  * @param {String}  comment         Comment, can be undefined
  * @param {Object}  params          Parameters, can be undefined
  * @returns Element
@@ -105,7 +118,9 @@ RSectionElement.prototype.Arc = function (no,
 RSectionElement.prototype.Circle = function (no,
     circle_center,
     circle_radius,
-    rotation,
+    thickness,
+    shear_thickness,
+    //rotation,
     comment,
     params) {
     ASSERT(typeof circle_center !== "undefined", "Circle center must be defined");
@@ -115,6 +130,9 @@ RSectionElement.prototype.Circle = function (no,
     this.element.circle_center_coordinate_y = circle_center[0];
     this.element.circle_center_coordinate_z = circle_center[1];
     this.element.circle_radius = circle_radius;
+    if (typeof thickness !== "undefined") {
+        this.Thickness(thickness, shear_thickness);
+    }
     return this.element;
 };
 
@@ -124,6 +142,8 @@ RSectionElement.prototype.Circle = function (no,
  * @param {Number}  first_point         Number of first point
  * @param {Number}  second_point        Number of second point
  * @param {Array}   control_point       Control point coordinates
+ * @param {Number}  thickness           Thickness, can be undefined (10 mm by default)
+ * @param {Number}  shear_thickness     Shear thickness, can be undefined (not specified by default)
  * @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Parameters, can be undefined
  * @returns Element
@@ -132,6 +152,8 @@ RSectionElement.prototype.Ellipse = function (no,
     first_point,
     second_point,
     control_point,
+    thickness,
+    shear_thickness,
     comment,
     params) {
     ASSERT(typeof first_point !== "undefined", "First point must be defined");
@@ -143,6 +165,9 @@ RSectionElement.prototype.Ellipse = function (no,
     this.element.ellipse_second_point = second_point;
     this.element.ellipse_control_point_y = control_point[0];
     this.element.ellipse_control_point_z = control_point[1];
+    if (typeof thickness !== "undefined") {
+        this.Thickness(thickness, shear_thickness);
+    }
     return this.line;
 };
 
@@ -151,6 +176,8 @@ RSectionElement.prototype.Ellipse = function (no,
  * @param {Number}  no                      Number of Element, can be undefined
  * @param {Array}   points_of_parabola      Points numbers of parabola
  * @param {Array}   control_point           Control point
+ * @param {Number}  thickness               Thickness, can be undefined (10 mm by default)
+ * @param {Number}  shear_thickness         Shear thickness, can be undefined (not specified by default)
  * @param {Number}  parabola_alpha          Angle of the parabola, can be undefined (0 as default)
  * @param {String}  comment                 Comment, can be undefined
  * @param {Object}  params                  Parameters, can be undefined
@@ -159,6 +186,8 @@ RSectionElement.prototype.Ellipse = function (no,
 RSectionElement.prototype.Parabola = function (no,
     points_of_parabola,
     control_point,
+    thickness,
+    shear_thickness,
     parabola_alpha,
     comment,
     params) {
@@ -170,6 +199,9 @@ RSectionElement.prototype.Parabola = function (no,
     this.element.definition_points = points_of_parabola;
     this.element.parabola_control_point_y = control_point[0];
     this.element.parabola_control_point_z = control_point[1];
+    if (typeof thickness !== "undefined") {
+        this.Thickness(thickness, shear_thickness);
+    }
     if (typeof parabola_alpha !== "undefined") {
         this.element.parabola_alpha = parabola_alpha;
     }
@@ -182,7 +214,9 @@ RSectionElement.prototype.Parabola = function (no,
  * @param {Array}   control_points      Control points ([[y1, z1 (, weight1)], [y2, z2, weight2], ...])
  * @param {Number}  nurbs_order         Nurbs order, can be undefine (2 as default)
  * @param {Array}   nurbs_knots         Nurbs knots, can be undefined
- * @param {String}  comment             Comment, can be undefined
+ * @param {Number}  thickness           Thickness, can be undefined (10 mm by default)
+ * @param {Number}  shear_thickness     Shear thickness, can be undefined (not specified by default)
+* @param {String}  comment             Comment, can be undefined
  * @param {Object}  params              Parameters, can be undefined
  * @returns Element
  */
@@ -191,6 +225,8 @@ RSectionElement.prototype.NURBS = function (no,
     control_points,
     nurbs_order,
     nurbs_knots,
+    thickness,
+    shear_thickness,
     comment,
     params) {
     ASSERT(typeof definition_points !== "undefined", "Definition points must be defined");
@@ -219,6 +255,10 @@ RSectionElement.prototype.NURBS = function (no,
             this.element.nurbs_knots[i] = nurbs_knots[i];
         }
     }
+    if (typeof thickness !== "undefined") {
+        this.Thickness(thickness, shear_thickness);
+    }
+
     return this.element;
 };
 
@@ -230,7 +270,7 @@ RSectionElement.prototype.NURBS = function (no,
  * @param {Object}  params  Parameters, can be undefined
  * @returns Element
  */
- function createBaseRSectionElement(no,
+function createBaseRSectionElement(no,
     type,
     comment,
     params) {
@@ -257,21 +297,21 @@ RSectionElement.prototype.Thickness = function (thickness,
     return this.element;
 }
 
-function GetAlphaAdjustmentTargetType (target_type) {
+function GetAlphaAdjustmentTargetType(target_type) {
     const alpha_adjustment_target_types = {
-        "BEGINNING_OF_ARC" : lines.ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC,
-        "CONTROL_POINT" : lines.ALPHA_ADJUSTMENT_TARGET_ARC_CONTROL_POINT,
-        "END_OF_ARC" : lines.ALPHA_ADJUSTMENT_TARGET_END_OF_ARC
+        "BEGINNING_OF_ARC": lines.ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC,
+        "CONTROL_POINT": lines.ALPHA_ADJUSTMENT_TARGET_ARC_CONTROL_POINT,
+        "END_OF_ARC": lines.ALPHA_ADJUSTMENT_TARGET_END_OF_ARC
     };
     if (target_type !== "undefined") {
-		if (!(target_type in alpha_adjustment_target_types)) {
+        if (!(target_type in alpha_adjustment_target_types)) {
             console.log("Wrong alpha adjustment target type. Value was: " + target_type);
-			console.log("Correct values are: ( " + Object.keys(alpha_adjustment_target_types) + ")");
-			target_type = "BEGINNING_OF_ARC";
+            console.log("Correct values are: ( " + Object.keys(alpha_adjustment_target_types) + ")");
+            target_type = "BEGINNING_OF_ARC";
         }
         return alpha_adjustment_target_types[target_type];
-	}
-	else {
-		return lines.ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC;
-	}
+    }
+    else {
+        return lines.ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC;
+    }
 }

@@ -28,12 +28,16 @@ function Material(no,
     set_comment_and_parameters(this.material, comment, params);
 }
 
-Material.prototype.No = function() {
+Material.prototype.GetNo = function () {
     return this.material.no;
 };
 
-Material.prototype.Type = function() {
+Material.prototype.GetType = function () {
     return this.material.material_type;
+};
+
+Material.prototype.GetMaterial = function () {
+    return this.material;
 };
 
 /**
@@ -47,7 +51,7 @@ Material.prototype.Type = function() {
  * @param {Number} thermal_coefficient      Coefficient of thermal expansion, can be undefined (value specified by default)
  * @returns Modified material
  */
-Material.prototype.BasicProperties = function(modulus_of_elasticity,
+Material.prototype.BasicProperties = function (modulus_of_elasticity,
     shear_modulus,
     definition_type,
     poisson_ratio,
@@ -79,9 +83,9 @@ Material.prototype.BasicProperties = function(modulus_of_elasticity,
     return this.material;
 };
 
-Material.prototype.DefineConcreteMaterial = function(strains,
+Material.prototype.DefineConcreteMaterial = function (strains,
     moduli) {
-    ASSERT(this.Type() === materials.TYPE_CONCRETE, "Only for material with Concrete type");
+    ASSERT(this.GetType() === materials.TYPE_CONCRETE, "Only for material with Concrete type");
     this.material.user_defined = true;
     if (typeof strengths !== undefined) {
         ASSERT(Array.isArray(strengths), "Strengths must be in array format [fck, fcuk, fcm, fctm, fctk_0.05, fctk_0.95, nifc, taufc], undefined values are allowed");
@@ -99,7 +103,7 @@ Material.prototype.DefineConcreteMaterial = function(strains,
 
 Material.prototype.DefineSteelMaterial = function (thickness_ranges,
     correlation_factor) {
-    ASSERT(this.Type() === materials.TYPE_STEEL, "Only for material with Steel type");
+    ASSERT(this.GetType() === materials.TYPE_STEEL, "Only for material with Steel type");
     if (typeof thickness_ranges !== "undefined") {
         ASSERT(Array.isArray(thickness_ranges), "Thickness ranges must defined as array [[tmax1, fy1, fu1, tmax2, fy2, fu2, ...]]");
         ASSERT(thickness_ranges.length <= this.material.thickness_range_size, "Thickness range must not exceed " + this.material.thickness_range_size);
@@ -127,7 +131,7 @@ Material.prototype.DefineSteelMaterial = function (thickness_ranges,
 Material.prototype.Timber = function (strengths,
     moduli,
     additional_information) {
-    ASSERT(this.Type() === materials.TYPE_TIMBER, "Only for material with Timber type");
+    ASSERT(this.GetType() === materials.TYPE_TIMBER, "Only for material with Timber type");
     if (typeof strengths !== "undefined") {
         ASSERT(Array.isArray(strengths), "Strength must be defined as array [fb, fv, ft, fc, fcp, fRk]");
         if (typeof strengths[0] !== "undefined") {
@@ -140,7 +144,7 @@ Material.prototype.Timber = function (strengths,
 Material.prototype.Aluminum = function (thickness_range,
     tension_coefficient,
     temper) {
-    ASSERT(this.Type() === materials.TYPE_ALUMINUM, "Only for material with Aluminum type");
+    ASSERT(this.GetType() === materials.TYPE_ALUMINUM, "Only for material with Aluminum type");
     if (typeof thickness_range !== "undefined") {
         ASSERT(Array.isArray(thickness_range), "Thickness range must be specified as array");
 
@@ -149,50 +153,50 @@ Material.prototype.Aluminum = function (thickness_range,
 
 function GetMaterialType(material_type) {
     const material_types = {
-        "BASIC" : materials.TYPE_BASIC,
-        "CONCRETE" : materials.TYPE_CONCRETE,
-        "METAL" : materials.TYPE_METAL,
-        "TIMBER" : materials.TYPE_TIMBER,
-        "ALUMINUM" : materials.TYPE_ALUMINUM,
-        "MASONRY" : materials.TYPE_MASONRY,
-        "GLASS" : materials.TYPE_GLASS,
-        "FOIL" : materials.TYPE_FOIL,
-        "GAS" : materials.TYPE_GAS,
-        "REINFORCING_STEEL" : materials.TYPE_REINFORCING_STEEL,
-        "STEEL" : materials.TYPE_STEEL,
-        "SOIL" : materials.TYPE_SOIL,
-        "FABRIC" : materials.TYPE_FABRIC
+        "BASIC": materials.TYPE_BASIC,
+        "CONCRETE": materials.TYPE_CONCRETE,
+        "METAL": materials.TYPE_METAL,
+        "TIMBER": materials.TYPE_TIMBER,
+        "ALUMINUM": materials.TYPE_ALUMINUM,
+        "MASONRY": materials.TYPE_MASONRY,
+        "GLASS": materials.TYPE_GLASS,
+        "FOIL": materials.TYPE_FOIL,
+        "GAS": materials.TYPE_GAS,
+        "REINFORCING_STEEL": materials.TYPE_REINFORCING_STEEL,
+        "STEEL": materials.TYPE_STEEL,
+        "SOIL": materials.TYPE_SOIL,
+        "FABRIC": materials.TYPE_FABRIC
     };
     if (material_type !== "undefined") {
-		if (!(material_type in material_types)) {
+        if (!(material_type in material_types)) {
             console.log("Wrong material type. Value was: " + material_type);
-			console.log("Correct values are: ( " + Object.keys(material_types) + ")");
-			material_type = "BASIC";
+            console.log("Correct values are: ( " + Object.keys(material_types) + ")");
+            material_type = "BASIC";
         }
         return material_types[material_type];
-	}
-	else {
-		return materials.TYPE_BASIC;
-	}
+    }
+    else {
+        return materials.TYPE_BASIC;
+    }
 }
 
 function GetDefinitionType(definition_type) {
     const definition_types = {
-        "DERIVED_NU" : materials.DERIVED_NU,
-        "DERIVED_G" : materials.DERIVED_G,
-        "E_G_NU" : materials.E_G_NU,
-        "E_G_NO_NU" : materials.E_G_NO_NU,
-        "NONE" : materials.NONE
+        "DERIVED_NU": materials.DERIVED_NU,
+        "DERIVED_G": materials.DERIVED_G,
+        "E_G_NU": materials.E_G_NU,
+        "E_G_NO_NU": materials.E_G_NO_NU,
+        "NONE": materials.NONE
     };
     if (definition_type !== "undefined") {
-		if (!(definition_type in definition_types)) {
+        if (!(definition_type in definition_types)) {
             console.log("Wrong definition type. Value was: " + definition_type);
-			console.log("Correct values are: ( " + Object.keys(definition_types) + ")");
-			definition_type = "NONE";
+            console.log("Correct values are: ( " + Object.keys(definition_types) + ")");
+            definition_type = "NONE";
         }
         return definition_types[definition_type];
-	}
-	else {
-		return materials.NONE;
-	}
+    }
+    else {
+        return materials.NONE;
+    }
 }

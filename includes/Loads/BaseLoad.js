@@ -315,7 +315,7 @@ var setLineLoadDistribution = function (load,
 					break;
 				case line_loads.LOAD_DISTRIBUTION_CONCENTRATED_N:
 					ASSERT(load_values.length >= 1, "Wrong number of load parameters, at least one value is required (P)");
-					setLoadValues(load, load_values, "magnitude", "count_n", "distance_a", "distance_b, distance_a_is_defined_as_relative, distance_b_is_defined_as_relative");
+					setLoadValues(load, load_values, "magnitude", "count_n", "distance_a", "distance_b", "distance_a_is_defined_as_relative", "distance_b_is_defined_as_relative");
 					break;
 				case line_loads.LOAD_DISTRIBUTION_CONCENTRATED_2x2:
 					ASSERT(load_values.length >= 1, "Wrong number of load parameters, at least one value is required (P)");

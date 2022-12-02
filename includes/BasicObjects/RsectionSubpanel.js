@@ -6,10 +6,10 @@ if (!RSECTION) {
  * Create RSection Subpanel
  * @class
  * @constructor
- * @param {int} no - Number of Subpanel
- * @param {string} comment - Comment for the Subpanel
- * @param {dictionary} params - Parameters of the Subpanel
- * @returns subpanel
+ * @param {int}         no          Number of Subpanel
+ * @param {string}      comment     Comment for the Subpanel
+ * @param {dictionary}  params      Parameters of the Subpanel
+ * @returns Subpanel
  */
 function Subpanel(no,
     comment,

@@ -59,7 +59,7 @@ RSectionPoint.prototype.Standard = function (no,
         this.point.reference_point = reference_point;
     }
     this.point.coordinate_system_type = points.COORDINATE_SYSTEM_CARTESIAN;
-    return this.point; 
+    return this.point;
 };
 
  /**
@@ -94,8 +94,8 @@ RSectionPoint.prototype.Standard = function (no,
     this.point.type = points.TYPE_BETWEEN_TWO_LOCATIONS;
     this.point.between_two_locations_start_point_coordinate_1 = start_location[0];
     this.point.between_two_locations_start_point_coordinate_2 = start_location[1];
-    this.point.between_two_locations_end_point_coordinate_1 = end_point[0];
-    this.point.between_two_locations_end_point_coordinate_2 = end_point[1];
+    this.point.between_two_locations_end_point_coordinate_1 = end_location[0];
+    this.point.between_two_locations_end_point_coordinate_2 = end_location[1];
     if (typeof distance_from_start_relative === "undefined") {
         distance_from_start_relative = True;
     }

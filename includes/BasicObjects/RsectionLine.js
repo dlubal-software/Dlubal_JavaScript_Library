@@ -37,7 +37,7 @@ function RSectionLine(no,
  */
 RSectionLine.prototype.Polyline = function (no,
     definition_points,
-    comment, 
+    comment,
     params) {
     ASSERT(typeof definition_points !== "undefined" && Array.isArray(definition_points) && definition_points.length >= 2, "Definition points must be specified");
     this.line = createBaseRSectionLine(no, lines.TYPE_POLYLINE, comment, params);
@@ -253,7 +253,7 @@ RSectionLine.prototype.PointsOnLine = function (points_on_line) {
 /**
  * Creates RSection base Line
  * @param {Number} no       Number of Line, can be undefined
- * @param {String} type     Type of Line  
+ * @param {String} type     Type of Line
  * @param {String} comment  Comment, can be undefined
  * @param {Object} params   Parameters, can be undefined
  * @returns Line

@@ -9,14 +9,14 @@ var t1 = new Date().getTime();
 var material = new Material(1, "S235");
 var materialConcrete = new Material(2, "C25/30");
 
-var section = new Section(1, "IPE 80", material.No());
-var section2 = new Section(2, "IPE 100", material.No());
+var section = new Section(1, "IPE 80", material.GetNo());
+var section2 = new Section(2, "IPE 100", material.GetNo());
 section2.Rotation(Math.PI / 4);
-var section3 = new Section(3, "IPE 120", material.No());
+var section3 = new Section(3, "IPE 120", material.GetNo());
 TORSIONAL_WARPING.setActive(true);
 section3.DeactivateWarpingStiffness(false);	// Warping property is enable to set
 section3.SectionProperties(undefined, undefined, 10-E4, 0.065, 0.121);
-var section4 = new Section(4, "R_M1 0.5/1.0", materialConcrete.No());
+var section4 = new Section(4, "R_M1 0.5/1.0", materialConcrete.GetNo());
 COST_ESTIMATION.setActive(true);
 section4.EmissionEstimationValues(1, 2, 3, 4);
 
@@ -24,7 +24,7 @@ var nodesForMembers = createNodesGrid(-28, -28, [10, 6], [3, 4]);
 
 if (RFEM) {
 	var nodeForLines = createNodesGrid(-28, -6, [10, 10], [3, 4]);
-	var thickness = createThickness("0.250", material.No(), thicknesses.TYPE_UNIFORM);
+	var thickness = createThickness("0.250", materialConcrete.GetNo(), thicknesses.TYPE_UNIFORM);
 	var solid = makeSolid([[8, -16, 0], [20, -16, 0], [20, -8, 0], [8, -8, 0], [8, -16, -5], [20, -16, -5], [20, -8, -5], [8, -8, -5]]);
 	var nodesForSurfaces = createNodesGrid(1, 10, [10, 10], [3, 2]);
 	var linesForSurfaces = createSurfacesFromNodesGrid(nodesForSurfaces, [5, 5], undefined, undefined, true);
@@ -58,18 +58,19 @@ if (RFEM) {
 	var node7 = createNode(node5.coordinate_1, node5.coordinate_2, 5);
 	var node8 = createNode(node2.coordinate_1, node2.coordinate_2, 5);
 	var line1 = createLine(node1.no, node2.no);
-	var line2 = createLine(node2.no, node3.no);
+	var linearc = createLine(node2.no, node3.no);
 	var line3 = createLine(node3.no, node4.no);
 	var line4 = createLine(node5.no, node4.no);
 	var line5 = createLine(node6.no, node5.no);
 	var line6 = createLine(node6.no, node1.no);
 	var lineForWeldedJoint = new Line();
-	var lineForWeldedJointNo = lineForWeldedJoint.Polyline(undefined, [node5.no, node2.no]).no;
+	lineForWeldedJoint.Polyline(100000, [node5.no, node2.no]);
+	var lineForWeldedJointNo = lineForWeldedJoint.GetNo();
 	var line8 = createLine(node5.no, node7.no);
 	var line9 = createLine(node2.no, node8.no);
 	var line10 = createLine(node7.no, node8.no);
-	var surfaceForWeldedJoint = createSurface([line1.no, lineForWeldedJointNo, line5.no, line6.no], surfaces.TYPE_STANDARD, thickness);
-	var surface2ForWeldedJoint = createSurface([line2.no, line3.no, line4.no, lineForWeldedJointNo], surfaces.TYPE_STANDARD, thickness);
+	var surfaceForWeldedJoint = createSurface([line1.no, 100000, line5.no, line6.no], surfaces.TYPE_STANDARD, thickness);
+	var surface2ForWeldedJoint = createSurface([linearc.no, line3.no, line4.no, lineForWeldedJointNo], surfaces.TYPE_STANDARD, thickness);
 	var surface3ForWeldedJoint = createSurface([lineForWeldedJointNo, line9.no, line10.no, line8.no], surfaces.TYPE_STANDARD, thickness);
 }
 
@@ -182,17 +183,17 @@ member19.SectionDistributionOffsetAtEnd(section.no, section2.no, "XZ", [2.5, fal
 if (RFEM) {
 	/***************************************** Lines *********************************************/
 	var line = new Line(undefined, [61, 62], "First line with default type");
-	var line2 = new Line();
-	line2.Polyline(undefined, [63, 74, 64, 75, 65]);
-	line2.Arc(undefined, [66, 68], [-10, 7, 0]);
-	line2.Arc(undefined, [69, 70], [-8, 7, 0], [undefined, undefined, 2.5]);	// with α parameter defined
-	line2.Arc(undefined, [71, 72], [-24, 8, 0], undefined, [-29, 7.5, 0]);		// with moved center of arc
-	line2.Circle(undefined, [nodes[83].coordinate_1, nodes[83].coordinate_2, nodes[83].coordinate_3], 2, [1, 0, 0]); // with normal parallel to X-Axis
-	line2.EllipticalArc(undefined, [nodes[84].coordinate_1, nodes[84].coordinate_2, nodes[84].coordinate_3], [nodes[87].coordinate_1, nodes[87].coordinate_2, nodes[87].coordinate_3], [nodes[96].coordinate_1, nodes[96].coordinate_2, nodes[96].coordinate_3]);
-	line2.Ellipse(undefined, [88, 100], [nodes[98].coordinate_1, nodes[98].coordinate_2, nodes[98].coordinate_3]);
-	line2.Parabola(undefined, [81, 93], [nodes[101].coordinate_1, nodes[101].coordinate_2, nodes[101].coordinate_3]);
-	line2.Spline(undefined, [103, 94, 105, 95, 106]);
-	line2.NURBS(undefined, [107, 109], [[-7, 14, 0, undefined], [-7, 10, 0, undefined], [-4, 14, 0, undefined]], 3);
+	var linearc = new Line();
+	linearc.Polyline(undefined, [63, 74, 64, 75, 65]);
+	linearc.Arc(undefined, [66, 68], [-10, 7, 0]);
+	linearc.Arc(undefined, [69, 70], [-8, 7, 0], [undefined, undefined, 2.5]);	// with α parameter defined
+	linearc.Arc(undefined, [71, 72], [-24, 8, 0], undefined, [-29, 7.5, 0]);		// with moved center of arc
+	linearc.Circle(undefined, [nodes[83].coordinate_1, nodes[83].coordinate_2, nodes[83].coordinate_3], 2, [1, 0, 0]); // with normal parallel to X-Axis
+	linearc.EllipticalArc(undefined, [nodes[84].coordinate_1, nodes[84].coordinate_2, nodes[84].coordinate_3], [nodes[87].coordinate_1, nodes[87].coordinate_2, nodes[87].coordinate_3], [nodes[96].coordinate_1, nodes[96].coordinate_2, nodes[96].coordinate_3]);
+	linearc.Ellipse(undefined, [88, 100], [nodes[98].coordinate_1, nodes[98].coordinate_2, nodes[98].coordinate_3]);
+	linearc.Parabola(undefined, [81, 93], [nodes[101].coordinate_1, nodes[101].coordinate_2, nodes[101].coordinate_3]);
+	linearc.Spline(undefined, [103, 94, 105, 95, 106]);
+	linearc.NURBS(undefined, [107, 109], [[-7, 14, 0, undefined], [-7, 10, 0, undefined], [-4, 14, 0, undefined]], 3);
 	// Option: rotation
 	var line3 = new Line();
 	line3.Polyline(undefined, [121, 122]);
@@ -204,7 +205,7 @@ if (RFEM) {
 	// Option: member
 	var line4 = new Line();
 	line4.Polyline(undefined, [128, 129]);
-	line4.AssignMember();
+	// line4.AssignMember();
 	// Option: nodes on line
 	var line5 = new Line();
 	line5.Polyline(undefined, [131, 132]);
@@ -297,7 +298,7 @@ if (RFEM) {
 	surface2.Standard(undefined, linesForSurfaces[20][0]);
 	var material2 = createMaterial("C16/20");
 	var thickness2 = new Thickness();
-	thickness2.Uniform(undefined, "Thickness2", material2, [0.180]);
+	thickness2.Uniform(undefined, "Thickness2", material2, 0.180);
 	surface2.SurfaceType("Membrane", undefined, thickness2.thickness);
 
 	member.Rib(undefined, [239, 240], 4, "ALIGNMENT_ON_Z_SIDE_NEGATIVE", true, true, [[1.0, "REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH", "REFERENCE_LENGTH_WIDTH_SIXTH", 3.0, 3.0]]);

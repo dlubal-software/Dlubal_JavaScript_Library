@@ -476,14 +476,30 @@ var UNIT = {
     CRANEWAY_DESIGN_RATIOS: "CRANEWAY_DESIGN_RATIOS",
 };
 
+if (RSECTION || EXPORTER) {
+    UNIT['RSECTION_AREA'] = "RSECTION_AREA";
+    UNIT['RSECTION_DIMENSION'] = "RSECTION_DIMENSION";
+    UNIT['RSECTION_LENGTH'] = "RSECTION_LENGTH";
+    UNIT['RSECTION_RESULT_LOCATIONS'] = "RSECTION_RESULT_LOCATIONS";
+    UNIT['RSECTION_RESULT_STRESSES'] = "RSECTION_RESULT_STRESSES";
+    UNIT['RSECTION_RESULT_RATIOS'] = "RSECTION_RESULT_RATIOS";
+}
+
 // parameters shortcuts
 
-function category(name, multiplicity_counter_key, parent) {
+function tab(name, key) {
+    current_tab = block.add_tab(name, key);
+    current_row = current_tab;
+
+    return current_tab;
+}
+
+function category(name, multiplicity_counter_key, parent, key) {
     if (parent === undefined) {
-        current_category = block.add_category(name, multiplicity_counter_key);
+        current_category = block.add_category(name, multiplicity_counter_key, key);
     }
     else {
-        current_category = parent.add_category(name, multiplicity_counter_key);
+        current_category = parent.add_category(name, multiplicity_counter_key, key);
     }
     current_row = current_category;
 
@@ -499,6 +515,14 @@ function loading_category(name) {
 function add_parameter(key, description, multiplicity_counter_key) {
     current_parameter = current_category.add_parameter(key, description, multiplicity_counter_key);
     current_row = current_parameter;
+    return current_parameter;
+}
+
+function parameter_string(name, key, value, multiplicity_counter_key) {
+    add_parameter(key, name, multiplicity_counter_key);
+
+    current_parameter.set_definition_type(STRING);
+    current_parameter.set_value(value, "");
     return current_parameter;
 }
 
@@ -581,8 +605,8 @@ function load_case(no, name, multiplicity_counter_key) {
     return input_object("load_case_" + no, LOAD_CASE, name, multiplicity_counter_key);
 }
 
-function parameter_check(description, key, value) {
-    add_parameter(key, description);
+function parameter_check(description, key, value, multiplicity_counter_key) {
+    add_parameter(key, description, multiplicity_counter_key);
 
     current_parameter.set_definition_type(CHECKBOX);
     current_parameter.set_value(value);
@@ -605,6 +629,10 @@ function editable(value) {
     current_row.set_editable(value);
 }
 
+function hidden(value) {
+    current_row.set_hidden(value);
+}
+
 function combobox(description, key) {
     add_parameter(key, description);
 
@@ -612,6 +640,6 @@ function combobox(description, key) {
     return current_parameter;
 }
 
-function combobox_value(description, value, is_default) {
-    current_parameter.add_popup_value(description, value, is_default);
+function combobox_value(description, value, is_default, hidden) {
+    current_parameter.add_popup_value(description, value, is_default, hidden);
 }

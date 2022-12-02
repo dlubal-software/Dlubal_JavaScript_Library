@@ -1,36 +1,45 @@
 run("../includes/tools/clearAll.js");
 // create material and section
 var material = new Material(undefined, 'S235');
-var section = new Section(undefined, 'IPE 200', material.No());
+var section = new Section(undefined, 'IPE 200', material.GetNo());
 
 // create topology of the member
-var first = Node(undefined, 0, 0, 0);
-var second = Node(undefined, 10, 0, 0);
+var firstNode = new Node();
+firstNode.Standard(1, [0, 0, 0]);
+var secondNode = new Node();
+secondNode.Standard(2, [10, 0, 0]);
 
-var member = new Member(undefined, [first, second]);
-member.section_start = section.No();
+var member = new Member();
+if (RFEM) {
+    // Member defined by line
+    var line = new Line();
+    line.Polyline(1, [firstNode.GetNo(), secondNode.GetNo()]);
+    member.Beam(1, line.GetNo(), section.GetNo());
+} else {
+    // Member defined by nodes
+    member.Beam(1, [firstNode.GetNo(), secondNode.GetNo()], section.GetNo());
+}
 
 // assign one of pre-defined nodal supports to new nodes
-var nodal_support_1 = new NodalSupport(1, [1]);
-nodal_support_1.Hinged();
+var nodalSupport1 = new NodalSupport(1, [firstNode.GetNo()]);
+nodalSupport1.Hinged();
 
-var nodal_support_2 = new NodalSupport(2, [2]);
-nodal_support_2.Hinged();
-nodal_support_2.TranslationX(false);
-nodal_support_2.RotationX(true);
+var nodalSupport2 = new NodalSupport(2, [secondNode.GetNo()]);
+nodalSupport2.Hinged();
+nodalSupport2.TranslationX(false);
+nodalSupport2.RotationX(true);
 
-var SASGeometricallyLinear = new StaticAnalysisSettings().GeometricallyLinear(1);
+var SASGeometricallyLinear = new StaticAnalysisSettings();
+SASGeometricallyLinear.GeometricallyLinear(1);
 
 // create load case and two member loads
-var load_case = new LoadCase().StaticAnalysis(1, "", SASGeometricallyLinear.Settings.no, "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_A_DOMESTIC_RESIDENTIAL_AREAS_QI_A", [false, 0, 0, 1.0]);
+var load_case = new LoadCase();
+load_case.StaticAnalysis(1, "Variable LC", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_A_DOMESTIC_RESIDENTIAL_AREAS_QI_A", [false, 0, 0, 1.0]);
 
 // uniform member load
-var uniform_load = MemberLoad(undefined, load_case.GetLoadCase(), [member]);
-uniform_load.magnitude = 1kN/m;
+var liveLoadMember = new MemberLoad();
+liveLoadMember.Force(1, load_case.GetLoadCase(), [member.GetNo()], "Uniform", [1000]);
 
 // concentrated member load
-var concentrated_load = MemberLoad(undefined, load_case.GetLoadCase(), [member]);
-concentrated_load.load_distribution = member_loads.LOAD_DISTRIBUTION_CONCENTRATED_1;
-concentrated_load.load_direction = member_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE;
-concentrated_load.magnitude = -2kN;
-concentrated_load.distance_a_absolute = 5m;
+var concentrated_load = new MemberLoad();
+concentrated_load.Force(2, load_case.GetLoadCase(), [member.GetNo()], member_loads.LOAD_DISTRIBUTION_CONCENTRATED_1, [-2000, 5, false]);

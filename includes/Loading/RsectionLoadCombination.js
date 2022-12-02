@@ -7,7 +7,7 @@ if (!RSECTION) {
  * @class
  * @constructor
  * @param {Number}  no                      Number of Load case, can be undefined
- * @param {Array}   load_combination_items  Items of load combination - load case index and factor [[LC1no, factor], [LC2no, factor]]   
+ * @param {Array}   load_combination_items  Items of load combination - load case index and factor [[LC1no, factor], [LC2no, factor]]
  * @param {String}  name                    Name, can be undefined
  * @param {Boolean} to_solve                To solve, can be undefined (true as default)
  * @param {String}  comment                 Comment, can be undefined
@@ -24,7 +24,7 @@ function RSectionLoadCombination (no,
     SetLoadCombinationItems(this.load_combination, load_combination_items);
 }
 
-function SetLoadCombinationItems(load_combination, 
+function SetLoadCombinationItems(load_combination,
     load_combination_items) {
     ASSERT(typeof load_combination !== "undefined", "Load combination number must be specified");
     ASSERT(typeof load_combination_items !== "undefined" && Array.isArray(load_combination_items), "At least one load case must be specified [[load_case_no1, factor1], [load_case_no2, factor2], ...]");

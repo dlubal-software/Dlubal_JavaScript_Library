@@ -53,3 +53,11 @@ LineSet.prototype.GroupOfLines = function (no,
     this.line_set.set_type = line_sets.SET_TYPE_GROUP;
     set_comment_and_parameters(this.line_set, comment, params);
 };
+
+LineSet.prototype.GetNo = function (){
+	return this.line_set.no;
+};
+
+LineSet.prototype.GetLine = function (){
+	return this.line_set;
+};

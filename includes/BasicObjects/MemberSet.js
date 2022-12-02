@@ -59,3 +59,11 @@ MemberSet.prototype.GroupOfMembers = function (no,
         set_comment_and_parameters(this.member_set, comment, params);
     }
 };
+
+MemberSet.prototype.GetNo = function(){
+	return this.member_set.no;
+};
+
+MemberSet.prototype.GetMember = function (){
+	return this.member_set;
+};

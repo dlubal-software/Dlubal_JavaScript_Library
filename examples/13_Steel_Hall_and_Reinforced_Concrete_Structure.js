@@ -1,7 +1,8 @@
 if (!RFEM) {
     throw new Error("This script is only for RFEM, it creates surfaces.");
 }
-
+run("../includes/tools/clearAll.js");
+// include("../includes/Tools/global.js");
 if (H_1 === undefined) {
 	H_1 = 7;
 	H_2 = 7.5;
@@ -14,29 +15,30 @@ if (H_1 === undefined) {
 	a_1 = 5;
 	a_2 = 5;
 // //opening
-	l = 2.5;
+	line = 2.5;
 	w = 1.5;
 	thickness_1 = 0.2;   // roof
 	thickness_2 = 0.2;   // wall
 }
 
 // create material
-var materialConcrete = Material(1, 'LC50/55');    // Concrete
-var materialSteel = Material(2, 'S235');         // Steel
+var materialConcrete = new Material(1, 'C50/60');    // Concrete
+var materialSteel = new Material(2, 'S235');         // Steel
 
 // Create thickness
-var th = new Thickness();
-th.Uniform(1, "Roof", 1, [thickness_1]);
-th.Uniform(2, "Wall", 2, [thickness_2]);
+var thicknessRoof = new Thickness();
+thicknessRoof.Uniform(1, "Roof", materialConcrete.GetNo(), Number(thickness_1));
+var thicknessWall = new Thickness();
+thicknessWall.Uniform(2, "Wall", materialConcrete.GetNo(), Number(thickness_2));
 
 // Create section
-var section_1 = Section(1, 'IPE 450', materialSteel);
-var section_2 = Section(2, 'HE 300 A', materialSteel);
-var section_3 = Section(3, 'CHS 76.1x4.0', materialSteel);
-var section_4 = Section(4, 'R 20', materialSteel);
-var section_5 = Section(5, 'HE 180 A', materialSteel);
-var section_6 = Section(6, 'R_M1 300/400', materialConcrete);  // concrete beam
-var section_7 = Section(7, 'R_M1 300/300', materialConcrete);  // concrete column
+var section_1 = Section(1, 'IPE 450', materialSteel.GetNo());
+var section_2 = Section(2, 'HE 300 A', materialSteel.GetNo());
+var section_3 = Section(3, 'CHS 76.1x4.0', materialSteel.GetNo());
+var section_4 = Section(4, 'R 20', materialSteel.GetNo());
+var section_5 = Section(5, 'HE 180 A', materialSteel.GetNo());
+var section_6 = Section(6, 'R_M1 0.300/0.400', materialConcrete.GetNo());  // concrete beam
+var section_7 = Section(7, 'R_M1 0.300/0.300', materialConcrete.GetNo());  // concrete column
 
 // Create node
 var nodeCount = 1;
@@ -66,29 +68,29 @@ for (var j = 0; j < n_a + 1; ++j) {
 var mem = new Member();
 var memberCount = 1;
 for (var i = 0; i < n_b + 1; ++i) {
-    mem.Beam(memberCount, [i + 1, n_b + 2 * n_a + 2 + i], 0, 5);
+    mem.Beam(memberCount, [i + 1, n_b + 2 * n_a + 2 + i], 5);
     memberCount++;
 }
 for (var i = 0; i < n_b; ++i) {
-    mem.Beam(memberCount, [n_b + 2 * n_a + 2 + i, n_b + 2 * n_a + 3 + i], 0, 5);
+    mem.Beam(memberCount, [n_b + 2 * n_a + 2 + i, n_b + 2 * n_a + 3 + i], 5);
     memberCount++;
 }
 for (var j = 0; j < n_a; ++j) {
     for (var i = 0; i < n_b; ++i) {
-        mem.Beam(memberCount, [2 * n_b + 2 * n_a + 3 + i + j * (n_b + 1), 2 * n_b + 2 * n_a + 4 + i + j * (n_b + 1)], 0, 1);
+        mem.Beam(memberCount, [2 * n_b + 2 * n_a + 3 + i + j * (n_b + 1), 2 * n_b + 2 * n_a + 4 + i + j * (n_b + 1)], 1);
         memberCount++;
     }
 }
 for (var i = 0; i < n_a; ++i) {
-    mem.Beam(memberCount, [n_b + 2 + 2 * i, 2 * n_b + 2 * n_a + 3 + i * (n_b + 1)], 0, 2);
+    mem.Beam(memberCount, [n_b + 2 + 2 * i, 2 * n_b + 2 * n_a + 3 + i * (n_b + 1)], 2);
     memberCount++;
-    mem.Beam(memberCount, [n_b + 3 + 2 * i, 2 * n_b + 2 * n_a + 3 + (i + 1) * (n_b) + i], 0, 2);
+    mem.Beam(memberCount, [n_b + 3 + 2 * i, 2 * n_b + 2 * n_a + 3 + (i + 1) * (n_b) + i], 2);
     memberCount++;
 }
 
 for (var j = 0; j < n_b + 1; ++j) {
     for (var i = 0; i < n_a; ++i) {
-        mem.Beam(memberCount, [n_b + 2 * n_a + 2 + i * (n_b + 1) + j, n_b + 2 * n_a + 2 + (i + 1) * (n_b + 1) + j], 0, 3);
+        mem.Beam(memberCount, [n_b + 2 * n_a + 2 + i * (n_b + 1) + j, n_b + 2 * n_a + 2 + (i + 1) * (n_b + 1) + j], 3);
         memberCount++;
     }
 }
@@ -97,46 +99,46 @@ for (var j = 0; j < n_b + 1; ++j) {
 
 if (braces_bays[0] == 1) {
     for (var i = 0; i < n_b; ++i) {
-        mem.Beam(memberCount, [n_b + 2 * n_a + 3 + i, 2 * n_b + 2 * n_a + 3 + i], 0, 4);
+        mem.Beam(memberCount, [n_b + 2 * n_a + 3 + i, 2 * n_b + 2 * n_a + 3 + i], 4);
         memberCount++;
-        mem.Beam(memberCount, [n_b + 2 * n_a + 2 + i, 2 * n_b + 2 * n_a + 4 + i], 0, 4);
+        mem.Beam(memberCount, [n_b + 2 * n_a + 2 + i, 2 * n_b + 2 * n_a + 4 + i], 4);
         memberCount++;
     }
-    mem.Beam(memberCount, [1, 2 * n_b + 2 * n_a + 3], 0, 4);
+    mem.Beam(memberCount, [1, 2 * n_b + 2 * n_a + 3], 4);
     memberCount++;
-    mem.Beam(memberCount, [n_b + 2, n_b + 2 * n_a + 2], 0, 4);
+    mem.Beam(memberCount, [n_b + 2, n_b + 2 * n_a + 2], 4);
     memberCount++;
 
-    mem.Beam(memberCount, [n_b + 3, 2 * n_b + 2 * n_a + 2], 0, 4);
+    mem.Beam(memberCount, [n_b + 3, 2 * n_b + 2 * n_a + 2], 4);
     memberCount++;
-    mem.Beam(memberCount, [n_b + 1, 3 * n_b + 2 * n_a + 3], 0, 4);
+    mem.Beam(memberCount, [n_b + 1, 3 * n_b + 2 * n_a + 3], 4);
     memberCount++;
 
     braces_bays.shift();
 }
 
-mem.Beam(memberCount, [1, n_b + 2 * n_a + 3], 0, 4);
+mem.Beam(memberCount, [1, n_b + 2 * n_a + 3], 4);
 memberCount++;
-mem.Beam(memberCount, [2, n_b + 2 * n_a + 2], 0, 4);
+mem.Beam(memberCount, [2, n_b + 2 * n_a + 2], 4);
 memberCount++;
 
 for (var j = 0; j < braces_bays.length; ++j) {
     for (var i = 0; i < n_b; ++i) {
-        mem.Beam(memberCount, [n_b + 2 * n_a + 3 + i + (braces_bays[j] - 1) * (n_b + 1), 2 * n_b + 2 * n_a + 3 + i + (braces_bays[j] - 1) * (n_b + 1)], 0, 4);
+        mem.Beam(memberCount, [n_b + 2 * n_a + 3 + i + (braces_bays[j] - 1) * (n_b + 1), 2 * n_b + 2 * n_a + 3 + i + (braces_bays[j] - 1) * (n_b + 1)], 4);
         memberCount++;
-        mem.Beam(memberCount, [n_b + 2 * n_a + 2 + i + (braces_bays[j] - 1) * (n_b + 1), 2 * n_b + 2 * n_a + 4 + i + (braces_bays[j] - 1) * (n_b + 1)], 0, 4);
+        mem.Beam(memberCount, [n_b + 2 * n_a + 2 + i + (braces_bays[j] - 1) * (n_b + 1), 2 * n_b + 2 * n_a + 4 + i + (braces_bays[j] - 1) * (n_b + 1)], 4);
         memberCount++;
     }
 }
 
 for (var j = 0; j < braces_bays.length; ++j) {
-    mem.Beam(memberCount, [n_b + 2 + (braces_bays[j] - 2) * 2, 3 * n_b + 2 * n_a + 4 + (braces_bays[j] - 2) * (n_b + 1)], 0, 4);
+    mem.Beam(memberCount, [n_b + 2 + (braces_bays[j] - 2) * 2, 3 * n_b + 2 * n_a + 4 + (braces_bays[j] - 2) * (n_b + 1)], 4);
     memberCount++;
-    mem.Beam(memberCount, [n_b + 4 + (braces_bays[j] - 2) * 2, 2 * n_b + 2 * n_a + 3 + (braces_bays[j] - 2) * (n_b + 1)], 0, 4);
+    mem.Beam(memberCount, [n_b + 4 + (braces_bays[j] - 2) * 2, 2 * n_b + 2 * n_a + 3 + (braces_bays[j] - 2) * (n_b + 1)], 4);
     memberCount++;
-    mem.Beam(memberCount, [n_b + 3 + (braces_bays[j] - 2) * 2, 4 * n_b + 2 * n_a + 4 + (braces_bays[j] - 2) * (n_b + 1)], 0, 4);
+    mem.Beam(memberCount, [n_b + 3 + (braces_bays[j] - 2) * 2, 4 * n_b + 2 * n_a + 4 + (braces_bays[j] - 2) * (n_b + 1)], 4);
     memberCount++;
-    mem.Beam(memberCount, [n_b + 5 + (braces_bays[j] - 2) * 2, 3 * n_b + 2 * n_a + 3 + (braces_bays[j] - 2) * (n_b + 1)], 0, 4);
+    mem.Beam(memberCount, [n_b + 5 + (braces_bays[j] - 2) * 2, 3 * n_b + 2 * n_a + 3 + (braces_bays[j] - 2) * (n_b + 1)], 4);
     memberCount++;
 }
 
@@ -203,24 +205,24 @@ for (var i = 0; i < n_b + 1; ++i) {
     Line(memberCount, [no_n2 + 2 + 3 * i, no_n2 + 3 * (n_b + 1) + 2 + 3 * i]);
     memberCount++;
 }
-
+memberCount++;
 // Create Surfaces
-var sur = new Surface();
+var surface = new Surface();
 var surfaceCount = 1;
 for (var i = 0; i < n_b; ++i) {
-    sur.Standard(surfaceCount, surfaces.GEOMETRY_PLANE, "", [no_mem + 2 * i, no_mem + 4 * (n_b + 1) + i, no_mem + 2 + 2 * i, no_mem + 4 * (n_b + 1) + n_b + i], 2);
+    surface.Standard(surfaceCount,[no_mem + 2 * i, no_mem + 4 * (n_b + 1) + i, no_mem + 2 + 2 * i, no_mem + 4 * (n_b + 1) + n_b + i], thicknessWall.GetNo());
     surfaceCount++;
 }
 for (var i = 0; i < n_b; ++i) {
-    sur.Standard(surfaceCount, surfaces.GEOMETRY_PLANE, "", [no_mem + 2 * i + 1, no_mem + 4 * (n_b + 1) + i + n_b, no_mem + 3 + 2 * i, no_mem + 4 * (n_b + 1) + 2 * n_b + i], 2);
+    surface.Standard(surfaceCount,[no_mem + 2 * i + 1, no_mem + 4 * (n_b + 1) + i + n_b, no_mem + 3 + 2 * i, no_mem + 4 * (n_b + 1) + 2 * n_b + i], thicknessWall.GetNo());
     surfaceCount++;
 }
 for (var i = 0; i < n_b; ++i) {
-    sur.Standard(surfaceCount, surfaces.GEOMETRY_PLANE, "", [no_mem + 2 * (n_b + 1) + 2 * i, no_mem + 4 * (n_b + 1) + 3 * n_b + i, no_mem + 2 + 2 * i + 2 * (n_b + 1), no_mem + 4 * (n_b + 1) + 4 * n_b + i], 2);
+    surface.Standard(surfaceCount,[no_mem + 2 * (n_b + 1) + 2 * i, no_mem + 4 * (n_b + 1) + 3 * n_b + i, no_mem + 2 + 2 * i + 2 * (n_b + 1), no_mem + 4 * (n_b + 1) + 4 * n_b + i], thicknessWall.GetNo());
     surfaceCount++;
 }
 for (var i = 0; i < n_b; ++i) {
-    sur.Standard(surfaceCount, surfaces.GEOMETRY_PLANE, "", [no_mem + 2 * (n_b + 1) + 2 * i + 1, no_mem + 4 * (n_b + 1) + i + 4 * n_b, no_mem + 3 + 2 * i + 2 * (n_b + 1), no_mem + 4 * (n_b + 1) + i + 5 * n_b], 2);
+    surface.Standard(surfaceCount,[no_mem + 2 * (n_b + 1) + 2 * i + 1, no_mem + 4 * (n_b + 1) + i + 4 * n_b, no_mem + 3 + 2 * i + 2 * (n_b + 1), no_mem + 4 * (n_b + 1) + i + 5 * n_b], thicknessWall.GetNo());
     surfaceCount++;
 }
 
@@ -241,25 +243,25 @@ for (var i = 0; i < n_b; ++i) {
 secondFloor.push(no_mem + 4 * (n_b + 1) + 6 * n_b + 1);
 secondFloor.push(no_mem + 4 * (n_b + 1) + 6 * n_b + 3);
 // create floor
-sur.Standard(surfaceCount, surfaces.GEOMETRY_PLANE, "", firstFloor, 1, "");
-var surface_support = new SurfaceSupport(undefined, surfaceCount, "Fixed");
+surface.Standard(surfaceCount,firstFloor, thicknessRoof.GetNo());
+var surface_support = new SurfaceSupport(1, surfaceCount, "Fixed");
 surface_support.Fixed();
 surfaceCount++;
-sur.Standard(surfaceCount, surfaces.GEOMETRY_PLANE, "", secondFloor, 1);
+surface.Standard(surfaceCount,secondFloor, thicknessRoof.GetNo());
 surfaceCount++;
 
 for (var i = 0; i < n_b; ++i) {
-    sur.Standard(surfaceCount, surfaces.GEOMETRY_PLANE, "", [no_mem + 4 * (n_b + 1) + 6 * n_b + 4 + i, no_mem + 4 * (n_b + 1) + 5 * n_b + i, no_mem + 4 * (n_b + 1) + 6 * n_b + 5 + i, no_mem + 4 * (n_b + 1) + 2 * n_b + i], 1);
+    surface.Standard(surfaceCount,[no_mem + 4 * (n_b + 1) + 6 * n_b + 4 + i, no_mem + 4 * (n_b + 1) + 5 * n_b + i, no_mem + 4 * (n_b + 1) + 6 * n_b + 5 + i, no_mem + 4 * (n_b + 1) + 2 * n_b + i], thicknessRoof.GetNo());
     surfaceCount++;
 }
 
-sur.Standard(surfaceCount, surfaces.GEOMETRY_PLANE, "", [no_mem + 4 * (n_b + 1) + 6 * n_b, no_mem, no_mem + 4 * (n_b + 1) + 6 * n_b + 1, no_mem + 2 * (n_b + 1)], 2);
+surface.Standard(surfaceCount,[no_mem + 4 * (n_b + 1) + 6 * n_b, no_mem, no_mem + 4 * (n_b + 1) + 6 * n_b + 1, no_mem + 2 * (n_b + 1)], thicknessWall.GetNo());
 surfaceCount++;
-sur.Standard(surfaceCount, surfaces.GEOMETRY_PLANE, "", [no_mem + 4 * (n_b + 1) + 6 * n_b + 1, no_mem + 1, no_mem + 4 * (n_b + 1) + 6 * n_b + 4, no_mem + 2 * (n_b + 1) + 1], 2);
+surface.Standard(surfaceCount,[no_mem + 4 * (n_b + 1) + 6 * n_b + 1, no_mem + 1, no_mem + 4 * (n_b + 1) + 6 * n_b + 4, no_mem + 2 * (n_b + 1) + 1], thicknessWall.GetNo());
 surfaceCount++;
-sur.Standard(surfaceCount, surfaces.GEOMETRY_PLANE, "", [no_mem + 4 * (n_b + 1) + 6 * n_b + 2, no_mem + 2 * n_b, no_mem + 4 * (n_b + 1) + 6 * n_b + 3, no_mem + 2 * (n_b + 1) + 2 * n_b], 2);
+surface.Standard(surfaceCount,[no_mem + 4 * (n_b + 1) + 6 * n_b + 2, no_mem + 2 * n_b, no_mem + 4 * (n_b + 1) + 6 * n_b + 3, no_mem + 2 * (n_b + 1) + 2 * n_b], thicknessWall.GetNo());
 surfaceCount++;
-sur.Standard(surfaceCount, surfaces.GEOMETRY_PLANE, "", [no_mem + 4 * (n_b + 1) + 6 * n_b + 3, no_mem + 2 * n_b + 1, no_mem + 4 * (n_b + 1) + 7 * n_b + 4, no_mem + 2 * (n_b + 1) + 2 * n_b + 1], 2);
+surface.Standard(surfaceCount,[no_mem + 4 * (n_b + 1) + 6 * n_b + 3, no_mem + 2 * n_b + 1, no_mem + 4 * (n_b + 1) + 7 * n_b + 4, no_mem + 2 * (n_b + 1) + 2 * n_b + 1], thicknessWall.GetNo());
 surfaceCount++;
 
 // Create opening
@@ -267,12 +269,12 @@ var openingCount = 1;
 var lin = new Line();
 for (var j = 0; j < 2; ++j) {
     for (var i = 0; i < n_b; ++i) {
-        lin.RectangularPolygon(memberCount, [a + d + j * a_1, b / (2 * n_b) + i * b / n_b, -H_1 / 4], l, w, "YZ");
+        lin.RectangularPolygon(memberCount, [a + d + j * a_1, b / (2 * n_b) + i * b / n_b, -H_1 / 4], line, w, "YZ");
         Opening(openingCount, [memberCount]);
         openingCount++;
         memberCount++;
 
-        lin.RectangularPolygon(memberCount, [a + d + j * a_1, b / (2 * n_b) + i * b / n_b, -3 * H_1 / 4], l, w, "YZ");
+        lin.RectangularPolygon(memberCount, [a + d + j * a_1, b / (2 * n_b) + i * b / n_b, -3 * H_1 / 4], line, w, "YZ");
         Opening(openingCount, [memberCount]);
         openingCount++;
         memberCount++;
@@ -280,11 +282,11 @@ for (var j = 0; j < 2; ++j) {
 }
 
 for (var i = 0; i < 2; ++i) {
-    lin.RectangularPolygon(memberCount, [a + d + a_1 / 2, i * b, -H_1 / 4], l, w, "XZ");
+    lin.RectangularPolygon(memberCount, [a + d + a_1 / 2, i * b, -H_1 / 4], line, w, "XZ");
     Opening(openingCount, [memberCount]);
     openingCount++;
     memberCount++;
-    lin.RectangularPolygon(memberCount, [a + d + a_1 / 2, i * b, -3 * H_1 / 4], l, w, "XZ");
+    lin.RectangularPolygon(memberCount, [a + d + a_1 / 2, i * b, -3 * H_1 / 4], line, w, "XZ");
     Opening(openingCount, [memberCount]);
     openingCount++;
     memberCount++;
@@ -301,17 +303,25 @@ for (var i = 0; i < n_b + 1; ++i) {
     no_no3++;
 }
 for (var i = 0; i < n_b + 1; ++i) {
-    mem.Beam(memberCount, [no_n2 + 3 * (n_b + 1) + 1 + 3 * i, no_no3_r + 1 + 2 * i], 0, 6);
+    mem.Beam(memberCount, [no_n2 + 3 * (n_b + 1) + 1 + 3 * i, no_no3_r + 1 + 2 * i], 6);
     memberCount++;
 }
 for (var i = 0; i < n_b; ++i) {
-    mem.Beam(memberCount, [no_no3_r + 1 + 2 * i, no_no3_r + 3 + 2 * i], 0, 6);
+    mem.Beam(memberCount, [no_no3_r + 1 + 2 * i, no_no3_r + 3 + 2 * i], 6);
     memberCount++;
 }
 for (var i = 0; i < n_b + 1; ++i) {
-    mem.Beam(memberCount, [no_no3_r + 2 * i, no_no3_r + 1 + 2 * i], 0, 7);
+    mem.Beam(memberCount, [no_no3_r + 2 * i, no_no3_r + 1 + 2 * i], 7);
     memberCount++;
 }
 for (var i = 0; i < n_b + 1; ++i) {
     nodes[no_no3_r + 2 * i].support = nodalSupport.no;
 }
+
+//load
+var SASGeometricallyLinear = new StaticAnalysisSettings();
+SASGeometricallyLinear.GeometricallyLinear(1);
+var SASSecondOrder = new StaticAnalysisSettings();
+SASSecondOrder.SecondOrder(2,"MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON");
+var lc1 = new LoadCase();
+lc1.StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_PERMANENT_G", [true, 0, 0, 1.0]);

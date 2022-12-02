@@ -3,10 +3,10 @@
  * Creates load case
  * @class
  * @constructor
- * @param {*} no
- * @param {*} name
- * @param {*} comment
- * @param {*} params
+ * @param {Number} no
+ * @param {String} name
+ * @param {String} comment
+ * @param {Object} params
  * @returns Object of LoadCase
  */
 function LoadCase(no,
@@ -23,14 +23,14 @@ function LoadCase(no,
 
 /**
  *
- * @param {*} no
- * @param {*} name
- * @param {*} staticAnalysisSettingsNo
- * @param {*} ActionCategory
- * @param {*} selfWeighParams
- * @param {*} stabilityAnalysisSettingsNo
- * @param {*} comment
- * @param {*} params
+ * @param {Number} no
+ * @param {String} name
+ * @param {Number} staticAnalysisSettingsNo
+ * @param {String} ActionCategory
+ * @param {Array}  selfWeighParams
+ * @param {Number} stabilityAnalysisSettingsNo
+ * @param {String} comment
+ * @param {Object} params
  * @returns Object of LoadCase
  */
 LoadCase.prototype.StaticAnalysis = function (no, name, staticAnalysisSettingsNo, ActionCategory, selfWeighParams, stabilityAnalysisSettingsNo, comment, params) {
@@ -48,13 +48,13 @@ LoadCase.prototype.StaticAnalysis = function (no, name, staticAnalysisSettingsNo
 
 /**
  *
- * @param {*} no
- * @param {*} name
- * @param {*} modalAnalysisSettingsNo
- * @param {*} importMassesFrom
- * @param {*} selfWeighParams
- * @param {*} comment
- * @param {*} params
+ * @param {Number}  no
+ * @param {String}  name
+ * @param {Number}  modalAnalysisSettingsNo
+ * @param {Boolean} importMassesFrom
+ * @param {Array}   selfWeighParams
+ * @param {String}  comment
+ * @param {Object}  params
  * @returns Object of LoadCase
  */
 LoadCase.prototype.ModalAnalysis = function (no, name, modalAnalysisSettingsNo, importMassesFrom, comment, params) {
@@ -70,13 +70,13 @@ LoadCase.prototype.ModalAnalysis = function (no, name, modalAnalysisSettingsNo, 
 };
 /**
  *
- * @param {*} no
- * @param {*} name
- * @param {*} responseSpectrumAnalysisSettingsNo
- * @param {*} importModalAnalysisFrom
- * @param {*} responseSpectrums
- * @param {*} comment
- * @param {*} params
+ * @param {Number}  no
+ * @param {String}  name
+ * @param {Number}  responseSpectrumAnalysisSettingsNo
+ * @param {Number}  importModalAnalysisFrom
+ * @param {Array}   responseSpectrums
+ * @param {String}  comment
+ * @param {Object}  params
  * @returns Object of LoadCase
  */
 LoadCase.prototype.ResponseSpectrumAnalysis = function (no, name, responseSpectrumAnalysisSettingsNo, importModalAnalysisFrom, responseSpectrums, comment, params) {
@@ -90,6 +90,21 @@ LoadCase.prototype.ResponseSpectrumAnalysis = function (no, name, responseSpectr
   var self = this;
   return self;
 };
+
+/**
+ * 
+ * @param {Number}  no 
+ * @param {String}  name 
+ * @param {Number}  staticAnalysisSettingsNo 
+ * @param {Number}  windAnalysisSettingsNo 
+ * @param {Number}  windProfileNo 
+ * @param {String}  windDirection 
+ * @param {Number}  terrainOffset 
+ * @param {Number}  stabilityAnalysisSettingsNo 
+ * @param {String}  comment 
+ * @param {Object}  params 
+ * @returns Object of LoadCase
+ */
 LoadCase.prototype.WindSimulation = function (no, name, staticAnalysisSettingsNo, windAnalysisSettingsNo, windProfileNo, windDirection, terrainOffset, stabilityAnalysisSettingsNo, comment, params) {
 
   this.LoadCase = CreateLoadCase(no, name);
@@ -108,7 +123,7 @@ LoadCase.prototype.WindSimulation = function (no, name, staticAnalysisSettingsNo
 
 /**
  *
- * @param {*} imperfectionCaseNo
+ * @param {Number} imperfectionCaseNo
  */
 LoadCase.prototype.ConsiderImperfection = function (imperfectionCaseNo) {
   if (this.LoadCase !== undefined) {
@@ -130,7 +145,7 @@ LoadCase.prototype.ConsiderImperfection = function (imperfectionCaseNo) {
 
 /**
  *
- * @param {*} structureModificationNo
+ * @param {Number} structureModificationNo
  */
 LoadCase.prototype.SetStructureModification = function (structureModificationNo) {
   if (this.LoadCase !== undefined) {
@@ -157,15 +172,21 @@ LoadCase.prototype.GetActionCategoryList = function () {
   return actionCategory_dict;
 };
 
-
+/**
+ * 
+ * @returns Load case object
+ */
 LoadCase.prototype.GetLoadCase = function(){
   return this.LoadCase;
-}
+};
 
-LoadCase.prototype.GetLoadCaseNo = function(){
+/**
+ * 
+ * @returns Number of Load case
+ */
+LoadCase.prototype.GetNo = function(){
   return this.LoadCase.no;
-}
-
+};
 
 // private methods
 function CreateLoadCase(no, name) {
