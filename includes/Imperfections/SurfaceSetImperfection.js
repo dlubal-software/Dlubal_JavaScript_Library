@@ -1,6 +1,6 @@
 /**
  * Creates default Surface set imperfection
- * @param {Number} no                       Number of Surface imperfection, can be undefined
+ * @param {Number} no                       Number of Surface set imperfection, can be undefined
  * @param {Number} imperfection_case_no     Imperfection case number
  * @param {Array}  surface_sets_no          Array of surfaces numbers
  * @param {String} comment                  Comment, can be undefined
@@ -67,7 +67,7 @@ SurfaceSetImperfection.prototype.Absolute = function (no,
         this.surfaceSetImperfection.initial_bow = initial_bow;
     }
     this.surfaceSetImperfection.imperfection_direction = GetSurfaceSetImperfectionDirection(imperfection_direction);
-}
+};
 
 /**
  * @returns Surface set imperfection object

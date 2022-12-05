@@ -74,7 +74,7 @@ MemberSetImperfection.prototype.InitialBow = function (no,
  * Creates Initial Bow and Criterion Member set imperfection
  * @param {Number}          no                      Number of Member set imperfection, can be undefined
  * @param {Number}          imperfection_case_no    Imperfection case number
- * @param {Array}           member_sets_no          Array of members numbers
+ * @param {Array}           member_sets_no          Array of member sets numbers
  * @param {String/Number}   coordinate_system       Coordinate system, can be "LOCAL" or "PRINCIPAL" or number of user coordinate system. Can be undefined
  * @param {String}          imperfection_direction  Imperfection direction, can be undefined.
  *                                                  Coordinate system "LOCAL": "LOCAL_Y", "LOCAL_Z""LOCAL_Y_NEGATIVE", "LOCAL_Z_NEGATIVE"
@@ -245,7 +245,7 @@ MemberSetImperfection.prototype.InitialBow_ANSI_CURRENT = function (initial_bow)
     notional_load_coefficient,
     standard_factor_enumeration) {
     this.memberSetImperfection.definition_type = GetMemberSetImperfectionDefinitionType(this.memberSetImperfection.imperfection_type, "ANSI_GRAVITY_LOAD");
-    ASSERT(typeof load_case_combination_no !== "undefined", "LOad case or load combination must be specified");
+    ASSERT(typeof load_case_combination_no !== "undefined", "Load case or load combination must be specified");
     if (load_cases.exist(load_case_combination_no) || load_combinations.exist(load_case_combination_no)) {
         this.memberSetImperfection.case_object = load_case_combination_no;
     }
@@ -266,7 +266,7 @@ MemberSetImperfection.prototype.InitialBow_ANSI_CURRENT = function (initial_bow)
 MemberSetImperfection.prototype.InitialBow_ANSI_GRAVITY_LOAD = function (load_case_combination_no, 
     initial_bow) {
     this.memberSetImperfection.definition_type = GetMemberSetImperfectionDefinitionType(this.memberSetImperfection.imperfection_type, "ANSI_GRAVITY_LOAD");
-    ASSERT(typeof load_case_combination_no !== "undefined", "LOad case or load combination must be specified");
+    ASSERT(typeof load_case_combination_no !== "undefined", "Load case or load combination must be specified");
     if (load_cases.exist(load_case_combination_no) || load_combinations.exist(load_case_combination_no)) {
         this.memberSetImperfection.case_object = load_case_combination_no;
     }
@@ -283,7 +283,7 @@ MemberSetImperfection.prototype.InitialBow_ANSI_GRAVITY_LOAD = function (load_ca
  * @param {Number} value    Notional load coefficient (Initial Sway) / Initial bow (Initial bow), can be undefined (0.005 / 1000 by default)
  */
 MemberSetImperfection.prototype.CSA_CURRENT = function (value) {
-    ASSERT(this.memberSetImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_SWAY || this.memberSetImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_BOW, "This function cannot be use on this imperfection");
+    ASSERT(this.memberSetImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_SWAY || this.memberSetImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_BOW, "This function cannot be use on this type of imperfection");
     this.memberSetImperfection.definition_type = GetMemberSetImperfectionDefinitionType(this.memberSetImperfection.imperfection_type, "CSA_CURRENT");
     if (typeof value !== "undefined") {
         if (this.memberSetImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_SWAY) {
@@ -302,7 +302,7 @@ MemberSetImperfection.prototype.CSA_CURRENT = function (value) {
  */
 MemberSetImperfection.prototype.CSA_GRAVITY_LOAD = function (load_case_combination_no,
     value) {
-    ASSERT(this.memberSetImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_SWAY || this.memberSetImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_BOW, "This function cannot be use on this imperfection");
+    ASSERT(this.memberSetImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_SWAY || this.memberSetImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_BOW, "This function cannot be use on this type of imperfection");
     this.memberSetImperfection.definition_type = GetMemberSetImperfectionDefinitionType(this.memberSetImperfection.imperfection_type, "CSA_GRAVITY_LOAD");
     if (load_cases.exist(load_case_combination_no) || load_combinations.exist(load_case_combination_no)) {
         this.memberSetImperfection.case_object = load_case_combination_no;
@@ -399,7 +399,7 @@ MemberSetImperfection.prototype.GB_50017_2017 = function (buckling_curve) {
 /**
  * @returns Member set imperfection number
  */
-MemberSetImperfection.prototype.No = function () {
+MemberSetImperfection.prototype.GetNo = function () {
     return this.memberSetImperfection.no;
 };
 

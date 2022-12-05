@@ -49,7 +49,7 @@ function GetMemberImperfectionCoordinateSystemType(coordinate_type) {
 	if (coordinate_type !== "undefined") {
 		var coordinateType = coordinate_types_dict[coordinate_type];
 		if (coordinateType === "undefined") {
-			console.log("Wrong type of coordinate type. Value was: " + coordinate_type);
+			console.log("Wrong type of coordinate system type. Value was: " + coordinate_type);
 			console.log("Correct values are: ( " + Object.keys(coordinate_types_dict) + ")");
 			coordinateType = member_imperfections.COORDINATE_SYSTEM_TYPE_LOCAL;
 		}
@@ -118,7 +118,7 @@ function GetMemberImperfectionDefinitionType(imperfection_type, definition_type)
         }
     }
     else {
-        ASSERT(false, "Unknow imperfection type");
+        ASSERT(false, "Unknown imperfection type");
     }
 
 	if (definition_type !== undefined) {

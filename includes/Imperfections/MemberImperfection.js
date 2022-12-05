@@ -251,7 +251,7 @@ MemberImperfection.prototype.InitialBow_ANSI_CURRENT = function (initial_bow) {
     notional_load_coefficient,
     standard_factor_enumeration) {
     this.memberImperfection.definition_type = GetMemberImperfectionDefinitionType(this.memberImperfection.imperfection_type, "ANSI_GRAVITY_LOAD");
-    ASSERT(typeof load_case_combination_no !== "undefined", "LOad case or load combination must be specified");
+    ASSERT(typeof load_case_combination_no !== "undefined", "Load case or load combination must be specified");
     if (load_cases.exist(load_case_combination_no) || load_combinations.exist(load_case_combination_no)) {
         this.memberImperfection.case_object = load_case_combination_no;
     }
@@ -272,7 +272,7 @@ MemberImperfection.prototype.InitialBow_ANSI_CURRENT = function (initial_bow) {
 MemberImperfection.prototype.InitialBow_ANSI_GRAVITY_LOAD = function (load_case_combination_no, 
     initial_bow) {
     this.memberImperfection.definition_type = GetMemberImperfectionDefinitionType(this.memberImperfection.imperfection_type, "ANSI_GRAVITY_LOAD");
-    ASSERT(typeof load_case_combination_no !== "undefined", "LOad case or load combination must be specified");
+    ASSERT(typeof load_case_combination_no !== "undefined", "Load case or load combination must be specified");
     if (load_cases.exist(load_case_combination_no) || load_combinations.exist(load_case_combination_no)) {
         this.memberImperfection.case_object = load_case_combination_no;
     }
@@ -289,7 +289,7 @@ MemberImperfection.prototype.InitialBow_ANSI_GRAVITY_LOAD = function (load_case_
  * @param {Number} value    Notional load coefficient (Initial Sway) / Initial bow (Initial bow), can be undefined (0.005 / 1000 by default)
  */
 MemberImperfection.prototype.CSA_CURRENT = function (value) {
-    ASSERT(this.memberImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_SWAY || this.memberImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_BOW, "This function cannot be use on this imperfection");
+    ASSERT(this.memberImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_SWAY || this.memberImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_BOW, "This function cannot be use on this type of imperfection");
     this.memberImperfection.definition_type = GetMemberImperfectionDefinitionType(this.memberImperfection.imperfection_type, "CSA_CURRENT");
     if (typeof value !== "undefined") {
         if (this.memberImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_SWAY) {
@@ -308,7 +308,7 @@ MemberImperfection.prototype.CSA_CURRENT = function (value) {
  */
 MemberImperfection.prototype.CSA_GRAVITY_LOAD = function (load_case_combination_no,
     value) {
-    ASSERT(this.memberImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_SWAY || this.memberImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_BOW, "This function cannot be use on this imperfection");
+    ASSERT(this.memberImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_SWAY || this.memberImperfection.imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_BOW, "This function cannot be use on this type of imperfection");
     this.memberImperfection.definition_type = GetMemberImperfectionDefinitionType(this.memberImperfection.imperfection_type, "CSA_GRAVITY_LOAD");
     if (load_cases.exist(load_case_combination_no) || load_combinations.exist(load_case_combination_no)) {
         this.memberImperfection.case_object = load_case_combination_no;
@@ -393,7 +393,7 @@ MemberImperfection.prototype.GB_50017_2017 = function (buckling_curve) {
     if (typeof buckling_curve !== "undefined") {
         //this.memberImperfection.xxx = buckling_curve;  What value name??
     }
-}
+};
 
 /**
  * @returns Member imperfection object
@@ -405,7 +405,7 @@ MemberImperfection.prototype.GetMemberImperfection = function () {
 /**
  * @returns Member imperfection number
  */
-MemberImperfection.prototype.No = function () {
+MemberImperfection.prototype.GetNo = function () {
     return this.memberImperfection.no;
 };
 

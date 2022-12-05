@@ -69,7 +69,7 @@ SurfaceImperfection.prototype.Absolute = function (no,
         this.surfaceImperfection.initial_bow = initial_bow;
     }
     this.surfaceImperfection.imperfection_direction = GetSurfaceImperfectionDirection(imperfection_direction);
-}
+};
 
 /**
  * @returns Surface imperfection object

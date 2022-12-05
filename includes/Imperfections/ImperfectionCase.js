@@ -5,7 +5,7 @@
 * @param	{Number}	no				Index of Imperfection case, can be undefined
 * @param	{String}	comment			Comment, can be undefined
 * @param	{Object}	params  		Parameters, can be undefined
- * @returns	Created empty Imperfection case
+* @returns	Created empty Imperfection case
 */
 function ImperfectionCase (no,
     comment,
@@ -16,11 +16,17 @@ function ImperfectionCase (no,
 }
 
 /**
- * Returns Imperfection case number.
  * @returns Imperfection case number
  */
-ImperfectionCase.prototype.No = function () {
+ImperfectionCase.prototype.GetNo = function () {
     return this.imperfectionCase.no;
+};
+
+/**
+ * @returns Imperfection case object
+ */
+ImperfectionCase.prototype.ImperfectionCase = function() {
+    return this.imperfectionCase;
 };
 
 /**
@@ -75,11 +81,11 @@ ImperfectionCase.prototype.Notional = function (no,
  * Creates Initial sway imperfection case
  * @param {Number}  no                              Index of imperfection case, can be undefined
  * @param {Array}   load_cases_to_assign            Load cases to assign (array of numbers)
- * @param {Array}   level_imperfections             Level imperfections ([level1, [level2, theta_1_x, theta_1_y], ... [leveln, theta_n_x, theta_n_x]])
+ * @param {Array}   level_imperfections             Level imperfections ([level1, [level2, theta_1_x, theta_1_y], ... [level_n, theta_n_x, theta_n_x]])
  * @param {Number}  coordinate_system_no            Coordinate system, can be undefined (Global XYZ by default)
  * @param {String}  level_direction                 Level direction, can be undefined (GLOBAL_IN_Z by default if Global XYZ is specified, otherwise USER_DEFINED_IN_W by default)
  * @param {String}  imperfection_direction          Imperfection direction, can be undefined (XY by default)
- * @param {Boolean} sway_coefficients_reciprocal    Sway coeficient as reciprocal by 1, can be undefined (true as default)
+ * @param {Boolean} sway_coefficients_reciprocal    Sway coefficient as reciprocal by 1, can be undefined (true as default)
  * @param {Boolean} assign_to_all_load              Assign to all load combinations without assigned imperfection case, can be undefined (true as default)       
  * @param {Boolean} is_active                       Is imperfection case active, can be undefined (false as default)
  * @param {String}  comment                         Comment, can be undefined
@@ -169,7 +175,7 @@ ImperfectionCase.prototype.InitialSway = function (no,
                 }
             }
             else {
-                ASSERT(level_imperfections[i].length >= 3, "Item array must containt at least three values");
+                ASSERT(level_imperfections[i].length >= 3, "Item array must contain at least three values");
                 this.imperfectionCase.level_imperfections[row].level = level_imperfections[i][0];
                 this.imperfectionCase.level_imperfections[row].theta_1 = level_imperfections[i][1];
                 this.imperfectionCase.level_imperfections[row].theta_2 = level_imperfections[i][2];
@@ -188,7 +194,7 @@ ImperfectionCase.prototype.InitialSway = function (no,
                 }
             }
             else {
-                ASSERT(level_imperfections[i].length >= 2, "Item array must containt at least two values");
+                ASSERT(level_imperfections[i].length >= 2, "Item array must contain at least two values");
                 this.imperfectionCase.level_imperfections[row].level = level_imperfections[i][0];
                 this.imperfectionCase.level_imperfections[row].theta_2 = level_imperfections[i][1];
                 if (level_imperfections[i].length > 2) {
@@ -249,7 +255,7 @@ ImperfectionCase.prototype.StaticDeformation = function (no,
             this.imperfectionCase.shape_from_load_combination = shape_from_no;
         }
         else {
-            console.log("Load comabination no. " + shape_from_no + " doesn't exist");
+            console.log("Load combination no. " + shape_from_no + " doesn't exist");
         }
     }
     ASSERT(typeof imperfection_magnitude !== "undefined", "Imperfection magnitude must be defined");
@@ -263,11 +269,11 @@ ImperfectionCase.prototype.StaticDeformation = function (no,
             console.log("Coordinate system no. " + coordinate_system_no + " doesn't exist");
         }
     }
-    this.imperfectionCase.direction = GetLevelDirection(imperfection_direction);   // We have to use this function for imperfection direction
+    this.imperfectionCase.direction = GetLevelDirection(imperfection_direction);   // We can use this function for imperfection direction
 };
 
 /**
- * Returns Group of Imperfections Imperfection case
+ * Returns Group of Imperfection cases
  * @param {Number}  no                              Number of Imperfection case, can be undefined
  * @param {Array}   load_cases_to_assign            Array of load case numbers
  * @param {Array}   imperfection_cases              Imperfection cases ([[case_no_1, factor_1, (comment_1)], ... [case_no_n, factor_n, (comment_n)]])
@@ -439,10 +445,8 @@ function GetImperfectionCaseImperfectionType(imperfection_type) {
 
 function GetStaticDeformationSourceType(source_type) {
 	const source_types_dict = {
-		/*"OWN_LOAD_CASE_OR_COMBINATION" : imperfection_cases.SOURCE_TYPE_OWN_LOAD_CASE_OR_COMBINATION,*/
         "LOAD_CASE" : imperfection_cases.SOURCE_TYPE_LOAD_CASE,
-        "LOAD_COMBINATION" : imperfection_cases.SOURCE_TYPE_LOAD_COMBINATION/*,
-        "AUTOMATICALLY" : imperfection_cases.SOURCE_TYPE_AUTOMATICALLY*/
+        "LOAD_COMBINATION" : imperfection_cases.SOURCE_TYPE_LOAD_COMBINATION
 	};
 
 	if (source_type !== undefined) {
