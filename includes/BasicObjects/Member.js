@@ -30,12 +30,18 @@ function Member(no,
 }
 
 /**
- * Return member§s number
  * @returns Member's number
  */
-Member.prototype.No = function () {
+Member.prototype.GetNo = function () {
 	return this.member.no;
-}
+};
+
+/**
+ * @returns Member object
+ */
+Member.prototype.GetMember = function () {
+	return this.member;
+};
 
 /**
  * Creates beam member

@@ -33,19 +33,19 @@ member.Beam(undefined, [node1.no, node2.no], section.GetNo());
 include("../includes/Tools/high_level_functions_support.js");
 var nodesForMembers = createNodesGrid(1, 8, [8, 1], [3, 0]);
 
-var member2 = new Member;
+var member2 = new Member();
 var members_list = [];
 
 for (var i = 0; i < nodesForMembers.length - 1; ++i) {
     members_list.push(member2.Beam(undefined, [nodesForMembers[i], nodesForMembers[i + 1]], section.GetNo()));
 }
 
-var memberSet = new MemberSet;
+var memberSet = new MemberSet();
 memberSet.ContinuousMembers(undefined, members_list);
 
 if (RFEM) {
-    var thickness = new Thickness;
-    thickness.Uniform(1, "Thickness", material.GetNo(), 0.250)
+    var thickness = new Thickness();
+    thickness.Uniform(1, "Thickness", material.GetNo(), 0.250);
 
     var nodesForSurfaces = createNodesGrid(1, 10, [6, 2], [3, 3]);
     dictSurfaces = createSurfacesFromNodesGrid(nodesForSurfaces, [3, 1], surfaces.TYPE_STANDARD, thickness.GetNo());
@@ -53,7 +53,7 @@ if (RFEM) {
         return dictSurfaces[key][0];
     });
 
-    var surfaceSet = new SurfaceSet;
+    var surfaceSet = new SurfaceSet();
     surfaceSet.ContinuousSurfaces(undefined, [surfaceList[2].no]);   
 }
 
@@ -179,12 +179,12 @@ member_set_imperfection.Absolute(0.5, "EN_1993");
 
 if (RFEM) {
     /****************************************************** Surface imperfections *************************************************************/
-    var surfaceImperfection = new SurfaceImperfection;
+    var surfaceImperfection = new SurfaceImperfection();
     surfaceImperfection.Relative(undefined, localIC, [surfaceList[0].no], 2, 300, "LOCAL_Z_NEGATIVE");
     surfaceImperfection.Absolute(undefined, localIC, [surfaceList[1].no], 3, "LOCAL_Z_NEGATIVE");
 
     /****************************************************** Surface set imperfections *********************************************************/
-    var surfaceSetImperfection = new SurfaceSetImperfection;
+    var surfaceSetImperfection = new SurfaceSetImperfection();
     surfaceSetImperfection.Relative(undefined, localIC, [surfaceSet.GetNo()], 2, 300);
     surfaceSetImperfection.Absolute(undefined, localIC, [surfaceSet.GetNo()], 3);
 }

@@ -36,14 +36,14 @@ function SurfaceSet(no,
  */
  SurfaceSet.prototype.GetSurfaceSet = function () {
 	return this.surface_set;
-}
+};
 
 /**
  * @returns Surface set number
  */
 SurfaceSet.prototype.GetNo = function () {
 	return this.surface_set.no;
-}
+};
 
 /**
  * Create Continuous Surfaces surfaceSet type

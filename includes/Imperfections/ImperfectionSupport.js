@@ -249,7 +249,7 @@ function GetSurfaceImperfectionDefinitionType(definition_type) {
 function GetSurfaceImperfectionDirection(direction_type) {
 	const direction_types_dict = {
         "LOCAL_Z" : surface_imperfections.IMPERFECTION_DIRECTION_LOCAL_Z,
-        "Z_NEGATIVE" : surface_imperfections.IMPERFECTION_DIRECTION_LOCAL_Z_NEGATIVE
+        "LOCAL_Z_NEGATIVE" : surface_imperfections.IMPERFECTION_DIRECTION_LOCAL_Z_NEGATIVE
 	};
 
 	if (direction_type !== undefined) {

@@ -28,14 +28,14 @@ function Surface(no,
  */
 Surface.prototype.GetSurface = function () {
 	return this.surface;
-}
+};
 
 /**
  * @returns Surface number
  */
 Surface.prototype.GetNo = function () {
 	return this.surface.no;
-}
+};
 
 /**
 * Creates standard surface
