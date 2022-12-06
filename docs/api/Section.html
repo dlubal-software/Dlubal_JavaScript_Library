@@ -90,13 +90,13 @@
   </h3>
   
   
-  <h4 id="Dlubal_Section__ctor" data-uid="Dlubal.Section.#ctor">Section(no, name, material, comment, params)</h4>
+  <h4 id="Dlubal_Section__ctor" data-uid="Dlubal.Section.#ctor">Section(no, section_name, material_no, comment, params)</h4>
   <div class="markdown level1 summary"><p>Create Section</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">new Section(no, name, material, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">new Section(no, section_name, material_no, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -109,26 +109,26 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">undefinedint</span></td>
+        <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Number of the Section</p>
+          <p>Number of the Section, can be undefined</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">string</span></td>
-        <td><em>name</em></td>
+        <td><span class="xref">String</span></td>
+        <td><em>section_name</em></td>
         <td>
-          <p>Name of the Section</p>
+          <p>Name of the Section, can be undefined (IPE 300 by default)</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">undefinedint</span></td>
-        <td><em>material</em></td>
+        <td><span class="xref">Number</span></td>
+        <td><em>material_no</em></td>
         <td>
           <p>Number of the material</p>
 
@@ -136,19 +136,19 @@
         </td>
       </tr>
       <tr>
-        <td><span class="xref">string</span></td>
+        <td><span class="xref">String</span></td>
         <td><em>comment</em></td>
         <td>
-          <p>Comment for the Opening</p>
+          <p>Comment</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">undefineddictionary</span></td>
+        <td><span class="xref">Object</span></td>
         <td><em>params</em></td>
         <td>
-          <p>Parameters of the Opening</p>
+          <p>Parameters</p>
 
           
         </td>
@@ -166,7 +166,782 @@
     <tbody>
       <tr>
         <td></td>
-        <td><p>section</p>
+        <td><p>Section</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="functions">Functions
+  </h3>
+  
+  
+  <h4 id="Dlubal_Section_No" data-uid="Dlubal.Section#No">No()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function No()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Number of Section</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_Section_SectionType" data-uid="Dlubal.Section#SectionType">SectionType(section_type)</h4>
+  <div class="markdown level1 summary"><p>Sets section type</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function SectionType(section_type)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>section_type</em></td>
+        <td>
+          <p>Section type</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Modified Section</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_Section_ManufacturingType" data-uid="Dlubal.Section#ManufacturingType">ManufacturingType(manufacturing_type)</h4>
+  <div class="markdown level1 summary"><p>Sets manufacturing type</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function ManufacturingType(manufacturing_type)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>manufacturing_type</em></td>
+        <td>
+          <p>Manufacturing type</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Modified Section</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_Section_SectionProperties" data-uid="Dlubal.Section#SectionProperties">SectionProperties(area_shear_y, area_shear_z, warping, width_temperature_load, depth_temperature_load)</h4>
+  <div class="markdown level1 summary"><p>Sets Section properties</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function SectionProperties(area_shear_y, area_shear_z, warping, width_temperature_load, depth_temperature_load)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>area_shear_y</em></td>
+        <td>
+          <p>Shear sectional areas, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>area_shear_z</em></td>
+        <td>
+          <p>Shear sectional areas, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>warping</em></td>
+        <td>
+          <p>Warping, van be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>width_temperature_load</em></td>
+        <td>
+          <p>Width (for non-uniform temperature loads), can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>depth_temperature_load</em></td>
+        <td>
+          <p>Depth (for non-uniform temperature loads), can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Modified Section</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_Section_DeactivateShearStiffness" data-uid="Dlubal.Section#DeactivateShearStiffness">DeactivateShearStiffness(deactivated)</h4>
+  <div class="markdown level1 summary"><p>Deactivates shear stiffness</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function DeactivateShearStiffness(deactivated)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>deactivated</em></td>
+        <td>
+          <p>Shear stiffness deactivation/activation, can be undefined (true as default)</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Modified Section</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_Section_Rotation" data-uid="Dlubal.Section#Rotation">Rotation(rotation_angle)</h4>
+  <div class="markdown level1 summary"><p>Sets Section rotation</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Rotation(rotation_angle)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>rotation_angle</em></td>
+        <td>
+          <p>Rotation angle</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Modified Section</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_Section_ThinWalledModel" data-uid="Dlubal.Section#ThinWalledModel">ThinWalledModel(thin_walled_model)</h4>
+  <div class="markdown level1 summary"><p>Sets thin-walled model</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function ThinWalledModel(thin_walled_model)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>thin_walled_model</em></td>
+        <td>
+          <p>Thin-walled model enabling/disabling, can be undefined (true as default)</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Modified Section</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_Section_UsNotation" data-uid="Dlubal.Section#UsNotation">UsNotation(us_spelling_of_properties)</h4>
+  <div class="markdown level1 summary"><p>Sets US notation for section properties</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function UsNotation(us_spelling_of_properties)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>us_spelling_of_properties</em></td>
+        <td>
+          <p>US notation enabling/disabling, can be undefined (true as default)</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Modified Section</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_Section_StressSmoothing" data-uid="Dlubal.Section#StressSmoothing">StressSmoothing(stress_smoothing_to_avoid_singularities)</h4>
+  <div class="markdown level1 summary"><p>Sets stress smoothing to avoid singularities</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function StressSmoothing(stress_smoothing_to_avoid_singularities)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>stress_smoothing_to_avoid_singularities</em></td>
+        <td>
+          <p>Stress smoothing enabling/disabling, can be undefined (true as default)</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Modified Section</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_Section_DeactivateWarpingStiffness" data-uid="Dlubal.Section#DeactivateWarpingStiffness">DeactivateWarpingStiffness(deactivated)</h4>
+  <div class="markdown level1 summary"><p>Deactivates warping stiffness</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function DeactivateWarpingStiffness(deactivated)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>deactivated</em></td>
+        <td>
+          <p>Warping stiffness deactivation/activation, can be undefined (true as default). Torsional Warping add-on must be active.</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Modified Section</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_Section_CostEstimation" data-uid="Dlubal.Section#CostEstimation">CostEstimation(cost_estimation)</h4>
+  <div class="markdown level1 summary"><p>Sets cost estimation</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function CostEstimation(cost_estimation)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>cost_estimation</em></td>
+        <td>
+          <p>Cost estimation apply from material enabling/disabling, can be undefined (true as default). Optimization &amp; Costs / CO2 Emission Estimation add-on must be active.</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Modified Section</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_Section_CostEstimationValues" data-uid="Dlubal.Section#CostEstimationValues">CostEstimationValues(member_weight, member_volume, member_surface, member_length)</h4>
+  <div class="markdown level1 summary"><p>Sets Cost estimation values</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function CostEstimationValues(member_weight, member_volume, member_surface, member_length)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>member_weight</em></td>
+        <td>
+          <p>Member weight, can be undefined. Optimization &amp; Costs / CO2 Emission Estimation add-on must be active.</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>member_volume</em></td>
+        <td>
+          <p>Member volume, can be undefined. Optimization &amp; Costs / CO2 Emission Estimation add-on must be active.</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>member_surface</em></td>
+        <td>
+          <p>Member surface, can be undefined. Optimization &amp; Costs / CO2 Emission Estimation add-on must be active.</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>member_length</em></td>
+        <td>
+          <p>Member length, can be undefined. Optimization &amp; Costs / CO2 Emission Estimation add-on must be active.</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Modified Section</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_Section_EmissionEstimation" data-uid="Dlubal.Section#EmissionEstimation">EmissionEstimation(emission_estimation)</h4>
+  <div class="markdown level1 summary"><p>Sets estimation of CO2 emissions</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function EmissionEstimation(emission_estimation)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>emission_estimation</em></td>
+        <td>
+          <p>Estimation of CO2 emissions enabling/disabling, can be undefined (true as default). Optimization &amp; Costs / CO2 Emission Estimation add-on must be active.</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Modified Section</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_Section_EmissionEstimationValues" data-uid="Dlubal.Section#EmissionEstimationValues">EmissionEstimationValues(member_weight, member_volume, member_surface, member_length)</h4>
+  <div class="markdown level1 summary"><p>Sets Emission estimation values</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function EmissionEstimationValues(member_weight, member_volume, member_surface, member_length)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>member_weight</em></td>
+        <td>
+          <p>Member weight, can be undefined. Optimization &amp; Costs / CO2 Emission Estimation add-on must be active.</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>member_volume</em></td>
+        <td>
+          <p>Member volume, can be undefined. Optimization &amp; Costs / CO2 Emission Estimation add-on must be active.</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>member_surface</em></td>
+        <td>
+          <p>Member surface, can be undefined. Optimization &amp; Costs / CO2 Emission Estimation add-on must be active.</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>member_length</em></td>
+        <td>
+          <p>Member length, can be undefined. Optimization &amp; Costs / CO2 Emission Estimation add-on must be active.</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Modified Section</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_Section_Optimization" data-uid="Dlubal.Section#Optimization">Optimization(optimization)</h4>
+  <div class="markdown level1 summary"><p>Sets optimization</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function Optimization(optimization)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>optimization</em></td>
+        <td>
+          <p>Optimization enabling/disabling, can be undefined (true as default). Optimization &amp; Costs / CO2 Emission Estimation add-on must be active.</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Modified Section</p>
 </td>
       </tr>
     </tbody>

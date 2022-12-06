@@ -90,13 +90,13 @@
   </h3>
   
   
-  <h4 id="Dlubal_Material__ctor" data-uid="Dlubal.Material.#ctor">Material(no, name, comment, params)</h4>
+  <h4 id="Dlubal_Material__ctor" data-uid="Dlubal.Material.#ctor">Material(no, name, basic_material, comment, params)</h4>
   <div class="markdown level1 summary"><p>Create Material</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">new Material(no, name, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">new Material(no, name, basic_material, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -109,37 +109,133 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">undefinedint</span></td>
+        <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Number of Material</p>
+          <p>Number of Material, can be undefined</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">string</span></td>
+        <td><span class="xref">String</span></td>
         <td><em>name</em></td>
         <td>
-          <p>Name of Material</p>
+          <p>Name of Material, can be undefined</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">string</span></td>
+        <td><span class="xref">String</span></td>
+        <td><em>basic_material</em></td>
+        <td>
+          <p>Basic material type, can be undefined (false as default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
         <td><em>comment</em></td>
         <td>
-          <p>Comment for the Material</p>
+          <p>Comment, can be undefined</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">undefineddictionary</span></td>
+        <td><span class="xref">Object</span></td>
         <td><em>params</em></td>
         <td>
-          <p>Parameters of the Material</p>
+          <p>Parameters, can be undefined</p>
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="functions">Functions
+  </h3>
+  
+  
+  <h4 id="Dlubal_Material_BasicProperties" data-uid="Dlubal.Material#BasicProperties">BasicProperties(modulus_of_elasticity, shear_modulus, definition_type, poisson_ratio, specific_weight, mass_density, thermal_coefficient)</h4>
+  <div class="markdown level1 summary"><p>Sets base material properties</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function BasicProperties(modulus_of_elasticity, shear_modulus, definition_type, poisson_ratio, specific_weight, mass_density, thermal_coefficient)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>modulus_of_elasticity</em></td>
+        <td>
+          <p>Modulus of elasticity, can be undefined (value specified by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>shear_modulus</em></td>
+        <td>
+          <p>Shear modulus, can be undefined (value specified by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>definition_type</em></td>
+        <td>
+          <p>Definition type, can be undefined (value specified by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>poisson_ratio</em></td>
+        <td>
+          <p>Poisson's ration, can be undefined (value specified by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>specific_weight</em></td>
+        <td>
+          <p>Specific weight, can be undefined (value specified by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>mass_density</em></td>
+        <td>
+          <p>Mass density, can be undefined (value specified by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>thermal_coefficient</em></td>
+        <td>
+          <p>Coefficient of thermal expansion, can be undefined (value specified by default)</p>
 
           
         </td>
@@ -157,7 +253,7 @@
     <tbody>
       <tr>
         <td></td>
-        <td><p>material</p>
+        <td><p>Modified material</p>
 </td>
       </tr>
     </tbody>

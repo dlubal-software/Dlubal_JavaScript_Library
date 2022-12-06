@@ -25,7 +25,7 @@
  * Returns internal Design Situation object
  * @returns Internal Design Situation object
  */
-DesignSituation.prototype.DesignSituation = function() {
+DesignSituation.prototype.GetDesignSituation = function() {
     return this.design_situation;
 };
 
@@ -34,7 +34,7 @@ DesignSituation.prototype.DesignSituation = function() {
  * Returns number of Design Situation
  * @returns Number of Design Situation
  */
-DesignSituation.prototype.No = function() {
+DesignSituation.prototype.GetNo = function() {
     return this.design_situation.no;
 };
 

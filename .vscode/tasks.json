@@ -12,9 +12,21 @@
         },
         {
             "label": "GenerateDocumentation",
-            "command": "./GenerateDocumentation.ps1",
+            "command": "PowerShellScripts/GenerateDocumentation.ps1",
             "type": "shell",
-            "args": []
+            "args": [],
+            "problemMatcher": [
+                "$pester"
+            ]
+        },
+        {
+            "label": "CopyFilesToCommitToMainAppRepo",
+            "command": "PowerShellScripts/CopyFilesToCommitToMainAppRepo.ps1",
+            "type": "shell",
+            "args": [],
+            "problemMatcher": [
+                "$pester"
+            ]
         }
     ]
 }

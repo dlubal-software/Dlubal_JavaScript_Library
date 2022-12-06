@@ -65,9 +65,9 @@ references:
   href: api/CoordinateSystem.html#Dlubal_CoordinateSystem_TwoPointsAndAngle
   fullName: Dlubal.CoordinateSystem.TwoPointsAndAngle(no, original_point, uw_plane_point_coordinate, uw_plane_angle, comment, params)
 - uid: Dlubal.CoordinateSystem.#ctor
-  name: CoordinateSystem(no, comment, params)
+  name: CoordinateSystem(no, coordinate_system_type, comment, params)
   href: api/CoordinateSystem.html#Dlubal_CoordinateSystem__ctor
-  fullName: Dlubal.CoordinateSystem.CoordinateSystem(no, comment, params)
+  fullName: Dlubal.CoordinateSystem.CoordinateSystem(no, coordinate_system_type, comment, params)
 - uid: Dlubal.DesignSituation
   name: DesignSituation
   href: api/DesignSituation.html#Dlubal_DesignSituation
@@ -96,14 +96,6 @@ references:
   name: DesignSituation(no, design_situation_type, params, comment)
   href: api/DesignSituation.html#Dlubal_DesignSituation__ctor
   fullName: Dlubal.DesignSituation.DesignSituation(no, design_situation_type, params, comment)
-- uid: Dlubal.Element
-  name: Element
-  href: api/Element.html#Dlubal_Element
-  fullName: Dlubal.Element
-- uid: Dlubal.Element.#ctor
-  name: Element(no, comment, params)
-  href: api/Element.html#Dlubal_Element__ctor
-  fullName: Dlubal.Element.Element(no, comment, params)
 - uid: Dlubal.FreeCircularLoad
   name: FreeCircularLoad
   href: api/FreeCircularLoad.html#Dlubal_FreeCircularLoad
@@ -496,10 +488,14 @@ references:
   name: Material
   href: api/Material.html#Dlubal_Material
   fullName: Dlubal.Material
+- uid: Dlubal.Material#BasicProperties
+  name: BasicProperties(modulus_of_elasticity, shear_modulus, definition_type, poisson_ratio, specific_weight, mass_density, thermal_coefficient)
+  href: api/Material.html#Dlubal_Material_BasicProperties
+  fullName: Dlubal.Material.BasicProperties(modulus_of_elasticity, shear_modulus, definition_type, poisson_ratio, specific_weight, mass_density, thermal_coefficient)
 - uid: Dlubal.Material.#ctor
-  name: Material(no, name, comment, params)
+  name: Material(no, name, basic_material, comment, params)
   href: api/Material.html#Dlubal_Material__ctor
-  fullName: Dlubal.Material.Material(no, name, comment, params)
+  fullName: Dlubal.Material.Material(no, name, basic_material, comment, params)
 - uid: Dlubal.Member
   name: Member
   href: api/Member.html#Dlubal_Member
@@ -1020,6 +1016,10 @@ references:
   name: MemberNonlinearity
   href: api/MemberNonlinearity.html#Dlubal_MemberNonlinearity
   fullName: Dlubal.MemberNonlinearity
+- uid: Dlubal.MemberNonlinearity#Failure
+  name: Failure(no, members, compression_force, tension_force, comment, params)
+  href: api/MemberNonlinearity.html#Dlubal_MemberNonlinearity_Failure
+  fullName: Dlubal.MemberNonlinearity.Failure(no, members, compression_force, tension_force, comment, params)
 - uid: Dlubal.MemberNonlinearity#FailureIfCompression
   name: FailureIfCompression(no, members, comment, params)
   href: api/MemberNonlinearity.html#Dlubal_MemberNonlinearity_FailureIfCompression
@@ -1036,22 +1036,18 @@ references:
   name: FailureIfTensionWithSlippage(no, members, slippage, comment, params)
   href: api/MemberNonlinearity.html#Dlubal_MemberNonlinearity_FailureIfTensionWithSlippage
   fullName: Dlubal.MemberNonlinearity.FailureIfTensionWithSlippage(no, members, slippage, comment, params)
+- uid: Dlubal.MemberNonlinearity#FailureUnderCompression
+  name: FailureUnderCompression(no, members, compression_force, comment, params)
+  href: api/MemberNonlinearity.html#Dlubal_MemberNonlinearity_FailureUnderCompression
+  fullName: Dlubal.MemberNonlinearity.FailureUnderCompression(no, members, compression_force, comment, params)
+- uid: Dlubal.MemberNonlinearity#FailureUnderTension
+  name: FailureUnderTension(no, members, tension_force, comment, params)
+  href: api/MemberNonlinearity.html#Dlubal_MemberNonlinearity_FailureUnderTension
+  fullName: Dlubal.MemberNonlinearity.FailureUnderTension(no, members, tension_force, comment, params)
 - uid: Dlubal.MemberNonlinearity#Slippage
   name: Slippage(no, members, slippage, comment, params)
   href: api/MemberNonlinearity.html#Dlubal_MemberNonlinearity_Slippage
   fullName: Dlubal.MemberNonlinearity.Slippage(no, members, slippage, comment, params)
-- uid: Dlubal.MemberNonlinearity#Tearing
-  name: Tearing(no, members, compression_force, tension_force, comment, params)
-  href: api/MemberNonlinearity.html#Dlubal_MemberNonlinearity_Tearing
-  fullName: Dlubal.MemberNonlinearity.Tearing(no, members, compression_force, tension_force, comment, params)
-- uid: Dlubal.MemberNonlinearity#TearingUnderCompression
-  name: TearingUnderCompression(no, members, compression_force, comment, params)
-  href: api/MemberNonlinearity.html#Dlubal_MemberNonlinearity_TearingUnderCompression
-  fullName: Dlubal.MemberNonlinearity.TearingUnderCompression(no, members, compression_force, comment, params)
-- uid: Dlubal.MemberNonlinearity#TearingUnderTension
-  name: TearingUnderTension(no, members, tension_force, comment, params)
-  href: api/MemberNonlinearity.html#Dlubal_MemberNonlinearity_TearingUnderTension
-  fullName: Dlubal.MemberNonlinearity.TearingUnderTension(no, members, tension_force, comment, params)
 - uid: Dlubal.MemberNonlinearity#Yielding
   name: Yielding(no, members, compression_force, tension_force, comment, params)
   href: api/MemberNonlinearity.html#Dlubal_MemberNonlinearity_Yielding
@@ -1392,30 +1388,318 @@ references:
   name: OpeningLoad(no, load_case, openings, comment, params)
   href: api/OpeningLoad.html#Dlubal_OpeningLoad__ctor
   fullName: Dlubal.OpeningLoad.OpeningLoad(no, load_case, openings, comment, params)
-- uid: Dlubal.Part
-  name: Part
-  href: api/Part.html#Dlubal_Part
-  fullName: Dlubal.Part
-- uid: Dlubal.Part.#ctor
-  name: Part(no, comment, params)
-  href: api/Part.html#Dlubal_Part__ctor
-  fullName: Dlubal.Part.Part(no, comment, params)
-- uid: Dlubal.Point
-  name: Point
-  href: api/Point.html#Dlubal_Point
-  fullName: Dlubal.Point
-- uid: Dlubal.Point.#ctor
-  name: Point(no, coordinate_Y, coordinate_Z, comment, params)
-  href: api/Point.html#Dlubal_Point__ctor
-  fullName: Dlubal.Point.Point(no, coordinate_Y, coordinate_Z, comment, params)
+- uid: Dlubal.RSectionElement
+  name: RSectionElement
+  href: api/RSectionElement.html#Dlubal_RSectionElement
+  fullName: Dlubal.RSectionElement
+- uid: Dlubal.RSectionElement#Arc
+  name: Arc(no, points_of_arc, control_point, arc_parameters, arc_center, alpha_adjustment_target, comment, params)
+  href: api/RSectionElement.html#Dlubal_RSectionElement_Arc
+  fullName: Dlubal.RSectionElement.Arc(no, points_of_arc, control_point, arc_parameters, arc_center, alpha_adjustment_target, comment, params)
+- uid: Dlubal.RSectionElement#Circle
+  name: Circle(no, circle_center, circle_radius, comment, params)
+  href: api/RSectionElement.html#Dlubal_RSectionElement_Circle
+  fullName: Dlubal.RSectionElement.Circle(no, circle_center, circle_radius, comment, params)
+- uid: Dlubal.RSectionElement#Ellipse
+  name: Ellipse(no, first_point, second_point, control_point, comment, params)
+  href: api/RSectionElement.html#Dlubal_RSectionElement_Ellipse
+  fullName: Dlubal.RSectionElement.Ellipse(no, first_point, second_point, control_point, comment, params)
+- uid: Dlubal.RSectionElement#NURBS
+  name: NURBS(no, control_points, nurbs_order, nurbs_knots, comment, params)
+  href: api/RSectionElement.html#Dlubal_RSectionElement_NURBS
+  fullName: Dlubal.RSectionElement.NURBS(no, control_points, nurbs_order, nurbs_knots, comment, params)
+- uid: Dlubal.RSectionElement#Parabola
+  name: Parabola(no, points_of_parabola, control_point, parabola_alpha, comment, params)
+  href: api/RSectionElement.html#Dlubal_RSectionElement_Parabola
+  fullName: Dlubal.RSectionElement.Parabola(no, points_of_parabola, control_point, parabola_alpha, comment, params)
+- uid: Dlubal.RSectionElement#SingleLine
+  name: SingleLine(no, boundary_lines, thickness, shear_thickness, comment, params)
+  href: api/RSectionElement.html#Dlubal_RSectionElement_SingleLine
+  fullName: Dlubal.RSectionElement.SingleLine(no, boundary_lines, thickness, shear_thickness, comment, params)
+- uid: Dlubal.RSectionElement#Thickness
+  name: Thickness(thickness, shear_thickness)
+  href: api/RSectionElement.html#Dlubal_RSectionElement_Thickness
+  fullName: Dlubal.RSectionElement.Thickness(thickness, shear_thickness)
+- uid: Dlubal.RSectionElement.#ctor
+  name: RSectionElement(no, type, comment, params)
+  href: api/RSectionElement.html#Dlubal_RSectionElement__ctor
+  fullName: Dlubal.RSectionElement.RSectionElement(no, type, comment, params)
+- uid: Dlubal.RSectionInternalForces
+  name: RSectionInternalForces
+  href: api/RSectionInternalForces.html#Dlubal_RSectionInternalForces
+  fullName: Dlubal.RSectionInternalForces
+- uid: Dlubal.RSectionInternalForces#AssignInternalForces
+  name: AssignInternalForces(axial_force, shear_forces, torsional_moments, bending_moments, bimoment)
+  href: api/RSectionInternalForces.html#Dlubal_RSectionInternalForces_AssignInternalForces
+  fullName: Dlubal.RSectionInternalForces.AssignInternalForces(axial_force, shear_forces, torsional_moments, bending_moments, bimoment)
+- uid: Dlubal.RSectionInternalForces#AxialForce
+  name: AxialForce(axial_force)
+  href: api/RSectionInternalForces.html#Dlubal_RSectionInternalForces_AxialForce
+  fullName: Dlubal.RSectionInternalForces.AxialForce(axial_force)
+- uid: Dlubal.RSectionInternalForces#BendingMoments
+  name: BendingMoments(bending_moment_1, bending_moment_2)
+  href: api/RSectionInternalForces.html#Dlubal_RSectionInternalForces_BendingMoments
+  fullName: Dlubal.RSectionInternalForces.BendingMoments(bending_moment_1, bending_moment_2)
+- uid: Dlubal.RSectionInternalForces#Bimoment
+  name: Bimoment(bimoment_m_omega)
+  href: api/RSectionInternalForces.html#Dlubal_RSectionInternalForces_Bimoment
+  fullName: Dlubal.RSectionInternalForces.Bimoment(bimoment_m_omega)
+- uid: Dlubal.RSectionInternalForces#ShearForces
+  name: ShearForces(shear_force_1, shear_force_2)
+  href: api/RSectionInternalForces.html#Dlubal_RSectionInternalForces_ShearForces
+  fullName: Dlubal.RSectionInternalForces.ShearForces(shear_force_1, shear_force_2)
+- uid: Dlubal.RSectionInternalForces#TorsionalMoments
+  name: TorsionalMoments(torsional_moment_m_xp, torsional_moment_m_xs)
+  href: api/RSectionInternalForces.html#Dlubal_RSectionInternalForces_TorsionalMoments
+  fullName: Dlubal.RSectionInternalForces.TorsionalMoments(torsional_moment_m_xp, torsional_moment_m_xs)
+- uid: Dlubal.RSectionInternalForces.#ctor
+  name: RSectionInternalForces(no, load_case_no, internal_forces_system, member_no, location_x, comment, params)
+  href: api/RSectionInternalForces.html#Dlubal_RSectionInternalForces__ctor
+  fullName: Dlubal.RSectionInternalForces.RSectionInternalForces(no, load_case_no, internal_forces_system, member_no, location_x, comment, params)
+- uid: Dlubal.RSectionLine
+  name: RSectionLine
+  href: api/RSectionLine.html#Dlubal_RSectionLine
+  fullName: Dlubal.RSectionLine
+- uid: Dlubal.RSectionLine#Arc
+  name: Arc(no, points_of_arc, control_point, arc_parameters, arc_center, alpha_adjustment_target, comment, params)
+  href: api/RSectionLine.html#Dlubal_RSectionLine_Arc
+  fullName: Dlubal.RSectionLine.Arc(no, points_of_arc, control_point, arc_parameters, arc_center, alpha_adjustment_target, comment, params)
+- uid: Dlubal.RSectionLine#Circle
+  name: Circle(no, circle_center, circle_radius, comment, params)
+  href: api/RSectionLine.html#Dlubal_RSectionLine_Circle
+  fullName: Dlubal.RSectionLine.Circle(no, circle_center, circle_radius, comment, params)
+- uid: Dlubal.RSectionLine#Ellipse
+  name: Ellipse(no, first_point, second_point, control_point, comment, params)
+  href: api/RSectionLine.html#Dlubal_RSectionLine_Ellipse
+  fullName: Dlubal.RSectionLine.Ellipse(no, first_point, second_point, control_point, comment, params)
+- uid: Dlubal.RSectionLine#NURBS
+  name: NURBS(no, definition_points, control_points, nurbs_order, nurbs_knots, comment, params)
+  href: api/RSectionLine.html#Dlubal_RSectionLine_NURBS
+  fullName: Dlubal.RSectionLine.NURBS(no, definition_points, control_points, nurbs_order, nurbs_knots, comment, params)
+- uid: Dlubal.RSectionLine#Parabola
+  name: Parabola(no, points_of_parabola, control_point, parabola_alpha, comment, params)
+  href: api/RSectionLine.html#Dlubal_RSectionLine_Parabola
+  fullName: Dlubal.RSectionLine.Parabola(no, points_of_parabola, control_point, parabola_alpha, comment, params)
+- uid: Dlubal.RSectionLine#PointsOnLine
+  name: PointsOnLine(points_on_line)
+  href: api/RSectionLine.html#Dlubal_RSectionLine_PointsOnLine
+  fullName: Dlubal.RSectionLine.PointsOnLine(points_on_line)
+- uid: Dlubal.RSectionLine#Polyline
+  name: Polyline(no, definition_points, comment, params)
+  href: api/RSectionLine.html#Dlubal_RSectionLine_Polyline
+  fullName: Dlubal.RSectionLine.Polyline(no, definition_points, comment, params)
+- uid: Dlubal.RSectionLine.#ctor
+  name: RSectionLine(no, type, comment, params)
+  href: api/RSectionLine.html#Dlubal_RSectionLine__ctor
+  fullName: Dlubal.RSectionLine.RSectionLine(no, type, comment, params)
+- uid: Dlubal.RSectionLoadCase
+  name: RSectionLoadCase
+  href: api/RSectionLoadCase.html#Dlubal_RSectionLoadCase
+  fullName: Dlubal.RSectionLoadCase
+- uid: Dlubal.RSectionLoadCase#GetLoadcase
+  name: GetLoadcase()
+  href: api/RSectionLoadCase.html#Dlubal_RSectionLoadCase_GetLoadcase
+  fullName: Dlubal.RSectionLoadCase.GetLoadcase()
+- uid: Dlubal.RSectionLoadCase#GetNo
+  name: GetNo()
+  href: api/RSectionLoadCase.html#Dlubal_RSectionLoadCase_GetNo
+  fullName: Dlubal.RSectionLoadCase.GetNo()
+- uid: Dlubal.RSectionLoadCase.#ctor
+  name: RSectionLoadCase(no, action_category, name, to_solve, comment, params)
+  href: api/RSectionLoadCase.html#Dlubal_RSectionLoadCase__ctor
+  fullName: Dlubal.RSectionLoadCase.RSectionLoadCase(no, action_category, name, to_solve, comment, params)
+- uid: Dlubal.RSectionLoadCombination
+  name: RSectionLoadCombination
+  href: api/RSectionLoadCombination.html#Dlubal_RSectionLoadCombination
+  fullName: Dlubal.RSectionLoadCombination
+- uid: Dlubal.RSectionLoadCombination#AssignLoadCases
+  name: AssignLoadCases(load_combination_items)
+  href: api/RSectionLoadCombination.html#Dlubal_RSectionLoadCombination_AssignLoadCases
+  fullName: Dlubal.RSectionLoadCombination.AssignLoadCases(load_combination_items)
+- uid: Dlubal.RSectionLoadCombination.#ctor
+  name: RSectionLoadCombination(no, load_combination_items, name, to_solve, comment, params)
+  href: api/RSectionLoadCombination.html#Dlubal_RSectionLoadCombination__ctor
+  fullName: Dlubal.RSectionLoadCombination.RSectionLoadCombination(no, load_combination_items, name, to_solve, comment, params)
+- uid: Dlubal.RSectionOpening
+  name: RSectionOpening
+  href: api/RSectionOpening.html#Dlubal_RSectionOpening
+  fullName: Dlubal.RSectionOpening
+- uid: Dlubal.RSectionOpening#Circle
+  name: Circle(no, center_vertex, radius, comment, params)
+  href: api/RSectionOpening.html#Dlubal_RSectionOpening_Circle
+  fullName: Dlubal.RSectionOpening.Circle(no, center_vertex, radius, comment, params)
+- uid: Dlubal.RSectionOpening#Polygon
+  name: Polygon(no, vertex_points, comment, params)
+  href: api/RSectionOpening.html#Dlubal_RSectionOpening_Polygon
+  fullName: Dlubal.RSectionOpening.Polygon(no, vertex_points, comment, params)
+- uid: Dlubal.RSectionOpening#Rectangle
+  name: Rectangle(no, top_left_corner, width, height, comment, params)
+  href: api/RSectionOpening.html#Dlubal_RSectionOpening_Rectangle
+  fullName: Dlubal.RSectionOpening.Rectangle(no, top_left_corner, width, height, comment, params)
+- uid: Dlubal.RSectionOpening#Triangle
+  name: Triangle(no, first_vertex, second_vertex, third_vertex, comment, params)
+  href: api/RSectionOpening.html#Dlubal_RSectionOpening_Triangle
+  fullName: Dlubal.RSectionOpening.Triangle(no, first_vertex, second_vertex, third_vertex, comment, params)
+- uid: Dlubal.RSectionOpening.#ctor
+  name: RSectionOpening(no, boundary_lines, comment, params)
+  href: api/RSectionOpening.html#Dlubal_RSectionOpening__ctor
+  fullName: Dlubal.RSectionOpening.RSectionOpening(no, boundary_lines, comment, params)
+- uid: Dlubal.RSectionPart
+  name: RSectionPart
+  href: api/RSectionPart.html#Dlubal_RSectionPart
+  fullName: Dlubal.RSectionPart
+- uid: Dlubal.RSectionPart#Circle
+  name: Circle(no, center_vertex, radius, material, comment, params)
+  href: api/RSectionPart.html#Dlubal_RSectionPart_Circle
+  fullName: Dlubal.RSectionPart.Circle(no, center_vertex, radius, material, comment, params)
+- uid: Dlubal.RSectionPart#IntegratedObjects
+  name: IntegratedObjects(enable, automatic_object_detection, integrated_openings)
+  href: api/RSectionPart.html#Dlubal_RSectionPart_IntegratedObjects
+  fullName: Dlubal.RSectionPart.IntegratedObjects(enable, automatic_object_detection, integrated_openings)
+- uid: Dlubal.RSectionPart#No
+  name: No()
+  href: api/RSectionPart.html#Dlubal_RSectionPart_No
+  fullName: Dlubal.RSectionPart.No()
+- uid: Dlubal.RSectionPart#Polygon
+  name: Polygon(no, vertex_points, material, comment, params)
+  href: api/RSectionPart.html#Dlubal_RSectionPart_Polygon
+  fullName: Dlubal.RSectionPart.Polygon(no, vertex_points, material, comment, params)
+- uid: Dlubal.RSectionPart#Rectangle
+  name: Rectangle(no, top_left_corner, width, height, material, comment, params)
+  href: api/RSectionPart.html#Dlubal_RSectionPart_Rectangle
+  fullName: Dlubal.RSectionPart.Rectangle(no, top_left_corner, width, height, material, comment, params)
+- uid: Dlubal.RSectionPart#Triangle
+  name: Triangle(no, first_vertex, second_vertex, third_vertex, material, comment, params)
+  href: api/RSectionPart.html#Dlubal_RSectionPart_Triangle
+  fullName: Dlubal.RSectionPart.Triangle(no, first_vertex, second_vertex, third_vertex, material, comment, params)
+- uid: Dlubal.RSectionPart#WithBoundaryLines
+  name: WithBoundaryLines(no, boundary_lines, material, comment, params)
+  href: api/RSectionPart.html#Dlubal_RSectionPart_WithBoundaryLines
+  fullName: Dlubal.RSectionPart.WithBoundaryLines(no, boundary_lines, material, comment, params)
+- uid: Dlubal.RSectionPart.#ctor
+  name: RSectionPart(no, comment, params)
+  href: api/RSectionPart.html#Dlubal_RSectionPart__ctor
+  fullName: Dlubal.RSectionPart.RSectionPart(no, comment, params)
+- uid: Dlubal.RSectionPoint
+  name: RSectionPoint
+  href: api/RSectionPoint.html#Dlubal_RSectionPoint
+  fullName: Dlubal.RSectionPoint
+- uid: Dlubal.RSectionPoint#BetweenTwoLocations
+  name: BetweenTwoLocations(no, start_location, end_location, distance_from_start, distance_from_end, distance_from_start_relative, reference_type, offset_in_local_direction, comment, params)
+  href: api/RSectionPoint.html#Dlubal_RSectionPoint_BetweenTwoLocations
+  fullName: Dlubal.RSectionPoint.BetweenTwoLocations(no, start_location, end_location, distance_from_start, distance_from_end, distance_from_start_relative, reference_type, offset_in_local_direction, comment, params)
+- uid: Dlubal.RSectionPoint#BetweenTwoPoints
+  name: BetweenTwoPoints(no, start_point, end_point, distance_from_start, distance_from_end, distance_from_start_relative, reference_type, offset_in_local_direction, comment, params)
+  href: api/RSectionPoint.html#Dlubal_RSectionPoint_BetweenTwoPoints
+  fullName: Dlubal.RSectionPoint.BetweenTwoPoints(no, start_point, end_point, distance_from_start, distance_from_end, distance_from_start_relative, reference_type, offset_in_local_direction, comment, params)
+- uid: Dlubal.RSectionPoint#OnLine
+  name: OnLine(no, line, distance_from_start, distance_from_end, distance_from_start_relative, reference_type, comment, params)
+  href: api/RSectionPoint.html#Dlubal_RSectionPoint_OnLine
+  fullName: Dlubal.RSectionPoint.OnLine(no, line, distance_from_start, distance_from_end, distance_from_start_relative, reference_type, comment, params)
+- uid: Dlubal.RSectionPoint#Standard
+  name: Standard(no, coordinate_y, coordinate_z, reference_point, comment, params)
+  href: api/RSectionPoint.html#Dlubal_RSectionPoint_Standard
+  fullName: Dlubal.RSectionPoint.Standard(no, coordinate_y, coordinate_z, reference_point, comment, params)
+- uid: Dlubal.RSectionPoint#y
+  name: y()
+  href: api/RSectionPoint.html#Dlubal_RSectionPoint_y
+  fullName: Dlubal.RSectionPoint.y()
+- uid: Dlubal.RSectionPoint#z
+  name: z()
+  href: api/RSectionPoint.html#Dlubal_RSectionPoint_z
+  fullName: Dlubal.RSectionPoint.z()
+- uid: Dlubal.RSectionPoint.#ctor
+  name: RSectionPoint(no, coordinate_y, coordinate_z, comment, params)
+  href: api/RSectionPoint.html#Dlubal_RSectionPoint__ctor
+  fullName: Dlubal.RSectionPoint.RSectionPoint(no, coordinate_y, coordinate_z, comment, params)
+- uid: Dlubal.RSectionStressPoint
+  name: RSectionStressPoint
+  href: api/RSectionStressPoint.html#Dlubal_RSectionStressPoint
+  fullName: Dlubal.RSectionStressPoint
+- uid: Dlubal.RSectionStressPoint#OnElement
+  name: OnElement(no, element_no, distance_points, reference_type, element_side, comment, params)
+  href: api/RSectionStressPoint.html#Dlubal_RSectionStressPoint_OnElement
+  fullName: Dlubal.RSectionStressPoint.OnElement(no, element_no, distance_points, reference_type, element_side, comment, params)
+- uid: Dlubal.RSectionStressPoint#OnLine
+  name: OnLine(no, line_no, distance_points, reference_type, part_no, element_no, comment, params)
+  href: api/RSectionStressPoint.html#Dlubal_RSectionStressPoint_OnLine
+  fullName: Dlubal.RSectionStressPoint.OnLine(no, line_no, distance_points, reference_type, part_no, element_no, comment, params)
+- uid: Dlubal.RSectionStressPoint#Standard
+  name: Standard(no, part_no, reference_stress_point_no, non_global_coordinates, global_coordinations, element_no, comment, params)
+  href: api/RSectionStressPoint.html#Dlubal_RSectionStressPoint_Standard
+  fullName: Dlubal.RSectionStressPoint.Standard(no, part_no, reference_stress_point_no, non_global_coordinates, global_coordinations, element_no, comment, params)
+- uid: Dlubal.RSectionStressPoint.#ctor
+  name: RSectionStressPoint(no, comment, params)
+  href: api/RSectionStressPoint.html#Dlubal_RSectionStressPoint__ctor
+  fullName: Dlubal.RSectionStressPoint.RSectionStressPoint(no, comment, params)
 - uid: Dlubal.Section
   name: Section
   href: api/Section.html#Dlubal_Section
   fullName: Dlubal.Section
+- uid: Dlubal.Section#CostEstimation
+  name: CostEstimation(cost_estimation)
+  href: api/Section.html#Dlubal_Section_CostEstimation
+  fullName: Dlubal.Section.CostEstimation(cost_estimation)
+- uid: Dlubal.Section#CostEstimationValues
+  name: CostEstimationValues(member_weight, member_volume, member_surface, member_length)
+  href: api/Section.html#Dlubal_Section_CostEstimationValues
+  fullName: Dlubal.Section.CostEstimationValues(member_weight, member_volume, member_surface, member_length)
+- uid: Dlubal.Section#DeactivateShearStiffness
+  name: DeactivateShearStiffness(deactivated)
+  href: api/Section.html#Dlubal_Section_DeactivateShearStiffness
+  fullName: Dlubal.Section.DeactivateShearStiffness(deactivated)
+- uid: Dlubal.Section#DeactivateWarpingStiffness
+  name: DeactivateWarpingStiffness(deactivated)
+  href: api/Section.html#Dlubal_Section_DeactivateWarpingStiffness
+  fullName: Dlubal.Section.DeactivateWarpingStiffness(deactivated)
+- uid: Dlubal.Section#EmissionEstimation
+  name: EmissionEstimation(emission_estimation)
+  href: api/Section.html#Dlubal_Section_EmissionEstimation
+  fullName: Dlubal.Section.EmissionEstimation(emission_estimation)
+- uid: Dlubal.Section#EmissionEstimationValues
+  name: EmissionEstimationValues(member_weight, member_volume, member_surface, member_length)
+  href: api/Section.html#Dlubal_Section_EmissionEstimationValues
+  fullName: Dlubal.Section.EmissionEstimationValues(member_weight, member_volume, member_surface, member_length)
+- uid: Dlubal.Section#ManufacturingType
+  name: ManufacturingType(manufacturing_type)
+  href: api/Section.html#Dlubal_Section_ManufacturingType
+  fullName: Dlubal.Section.ManufacturingType(manufacturing_type)
+- uid: Dlubal.Section#No
+  name: No()
+  href: api/Section.html#Dlubal_Section_No
+  fullName: Dlubal.Section.No()
+- uid: Dlubal.Section#Optimization
+  name: Optimization(optimization)
+  href: api/Section.html#Dlubal_Section_Optimization
+  fullName: Dlubal.Section.Optimization(optimization)
+- uid: Dlubal.Section#Rotation
+  name: Rotation(rotation_angle)
+  href: api/Section.html#Dlubal_Section_Rotation
+  fullName: Dlubal.Section.Rotation(rotation_angle)
+- uid: Dlubal.Section#SectionProperties
+  name: SectionProperties(area_shear_y, area_shear_z, warping, width_temperature_load, depth_temperature_load)
+  href: api/Section.html#Dlubal_Section_SectionProperties
+  fullName: Dlubal.Section.SectionProperties(area_shear_y, area_shear_z, warping, width_temperature_load, depth_temperature_load)
+- uid: Dlubal.Section#SectionType
+  name: SectionType(section_type)
+  href: api/Section.html#Dlubal_Section_SectionType
+  fullName: Dlubal.Section.SectionType(section_type)
+- uid: Dlubal.Section#StressSmoothing
+  name: StressSmoothing(stress_smoothing_to_avoid_singularities)
+  href: api/Section.html#Dlubal_Section_StressSmoothing
+  fullName: Dlubal.Section.StressSmoothing(stress_smoothing_to_avoid_singularities)
+- uid: Dlubal.Section#ThinWalledModel
+  name: ThinWalledModel(thin_walled_model)
+  href: api/Section.html#Dlubal_Section_ThinWalledModel
+  fullName: Dlubal.Section.ThinWalledModel(thin_walled_model)
+- uid: Dlubal.Section#UsNotation
+  name: UsNotation(us_spelling_of_properties)
+  href: api/Section.html#Dlubal_Section_UsNotation
+  fullName: Dlubal.Section.UsNotation(us_spelling_of_properties)
 - uid: Dlubal.Section.#ctor
-  name: Section(no, name, material, comment, params)
+  name: Section(no, section_name, material_no, comment, params)
   href: api/Section.html#Dlubal_Section__ctor
-  fullName: Dlubal.Section.Section(no, name, material, comment, params)
+  fullName: Dlubal.Section.Section(no, section_name, material_no, comment, params)
 - uid: Dlubal.SnowLoadWizard
   name: SnowLoadWizard
   href: api/SnowLoadWizard.html#Dlubal_SnowLoadWizard
@@ -1628,14 +1912,6 @@ references:
   name: Stiffener(no, comment, params)
   href: api/Stiffener.html#Dlubal_Stiffener__ctor
   fullName: Dlubal.Stiffener.Stiffener(no, comment, params)
-- uid: Dlubal.StressPoint
-  name: StressPoint
-  href: api/StressPoint.html#Dlubal_StressPoint
-  fullName: Dlubal.StressPoint
-- uid: Dlubal.StressPoint.#ctor
-  name: StressPoint(no, comment, params)
-  href: api/StressPoint.html#Dlubal_StressPoint__ctor
-  fullName: Dlubal.StressPoint.StressPoint(no, comment, params)
 - uid: Dlubal.StructureModification
   name: StructureModification
   href: api/StructureModification.html#Dlubal_StructureModification

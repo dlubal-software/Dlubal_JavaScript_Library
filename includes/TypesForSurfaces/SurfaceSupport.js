@@ -66,7 +66,7 @@ SurfaceSupport.prototype.SlidingX = function () {
 
 SurfaceSupport.prototype.SlidingY = function () {
   this.support.translation = CreateSpringVector(true, false, true);
-  console.log("SurfaceSupport " + this.support.no + " was created. Base type 'SlidingY'");
+  // console.log("SurfaceSupport " + this.support.no + " was created. Base type 'SlidingY'");
   return self;
 };
 
@@ -74,7 +74,7 @@ SurfaceSupport.prototype.SlidingZ = function () {
   this.support.translation = CreateSpringVector(true, true, false);
   this.support.shear_xz = CreateSpring(false);
   this.support.shear_xz = CreateSpring(false);
-  console.log("SurfaceSupport " + this.support.no + " was created. Base type 'SlidingZ'");
+  // console.log("SurfaceSupport " + this.support.no + " was created. Base type 'SlidingZ'");
   return self;
 };
 
@@ -82,7 +82,7 @@ SurfaceSupport.prototype.Free = function () {
   this.support.translation = CreateSpringVector(false, false, false);
   this.support.shear_xz = CreateSpring(false);
   this.support.shear_xz = CreateSpring(false);
-  console.log("SurfaceSupport " + this.support.no + " was created. Base type 'Free'");
+  // console.log("SurfaceSupport " + this.support.no + " was created. Base type 'Free'");
   return self;
 };
 

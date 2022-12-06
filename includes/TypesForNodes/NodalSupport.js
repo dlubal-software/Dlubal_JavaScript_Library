@@ -2,7 +2,7 @@ include("../Supports/Functions.js");
 include("../Supports/Nonlinearities/Nonlinearities.js");
 
 /**
- * Creates nodal support hight level function 
+ * Creates nodal support hight level function
  * @class
  * @constructor
  * @param {Number}  no            Index of nodal support, empty by default
@@ -70,7 +70,7 @@ NodalSupport.prototype.SetComment = function (comment) {
 
 /**
  * Set identification number to nodal support
- * @param {*} no identification number of nodal support
+ * @param {Number} no identification number of nodal support
  */
 NodalSupport.prototype.SetNo = function (no) {
   ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
@@ -188,7 +188,7 @@ NodalSupport.prototype.TranslationX = function (x) {
 /**
  * Sets flexible stiffness in Y direction for translation
  * @param {Number} y Stiffness in Y direction
- * @returns Nodal support object 
+ * @returns Nodal support object
  */
 NodalSupport.prototype.TranslationY = function (y) {
   this.support.spring_y = CreateSpring(false);
@@ -199,7 +199,7 @@ NodalSupport.prototype.TranslationY = function (y) {
 /**
  * Sets flexible stiffness in Z direction for translation
  * @param {Number} z Stiffness in Z direction
- * @returns Nodal support object 
+ * @returns Nodal support object
  */
 NodalSupport.prototype.TranslationZ = function (z) {
   this.support.spring_z = CreateSpring(false);
@@ -223,7 +223,7 @@ NodalSupport.prototype.Rotation = function (x, y, z) {
 /**
  * Sets flexible stiffness around X direction for rotation
  * @param {Number} x Stiffness around x direction
- * @returns Nodal support object 
+ * @returns Nodal support object
  */
 NodalSupport.prototype.RotationX = function (x) {
   this.support.rotational_restraint_x = CreateSpring(false);
@@ -234,7 +234,7 @@ NodalSupport.prototype.RotationX = function (x) {
 /**
  * Sets flexible stiffness around Y direction for rotation
  * @param {Number} y Stiffness around y direction
- * @returns Nodal support object 
+ * @returns Nodal support object
  */
 NodalSupport.prototype.RotationY = function (y) {
   this.support.rotational_restraint_y = CreateSpring(false);
@@ -245,7 +245,7 @@ NodalSupport.prototype.RotationY = function (y) {
 /**
  * Sets flexible stiffness around Z direction for rotation
  * @param {Number} z Stiffness around z direction
- * @returns Nodal support object 
+ * @returns Nodal support object
  */
 NodalSupport.prototype.RotationZ = function (z) {
   this.support.rotational_restraint_z = CreateSpring(false);

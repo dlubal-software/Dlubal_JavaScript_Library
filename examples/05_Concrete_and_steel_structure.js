@@ -1,49 +1,51 @@
 if (!RFEM) {
   throw new Error("This script is only for RFEM, it creates surfaces.");
 }
-run("../includes/Tools/clearAll.js");
-var a_1 = 5;
-var a_2 = 5;
-var b_1 = 5;
-var b_2 = 5;
-var H_1 = 3;
-var H_2 = 3.5;
-var thickness_1 = 0.2;   // roof
-var thickness_2 = 0.2;   // wall
+run("../includes/tools/clearAll.js");
+var a1 = 5;
+var a2 = 5;
+var b1 = 5;
+var b2 = 5;
+var H1 = 3;
+var H2 = 3.5;
+var thicknessRoofValue = 0.2;   // roof
+var thicknessWallValue = 0.2;   // wall
 
 // create material
 var materialConcrete = new Material(1, 'C25/30');    // Concrete
 var materialSteel = new Material(2, 'S235');               // Steel
 
 // Create thickness
-var th = new Thickness();
-th.Uniform(1, "Roof", 1, [thickness_1]);
-th.Uniform(2, "Wall", 1, [thickness_2]);
+var thicknessRoof = new Thickness();
+thicknessRoof.Uniform(1, "thickness", materialConcrete.GetNo(), Number(thicknessRoofValue));
+var thicknessWall = new Thickness();
+thicknessWall.Uniform(2, "Wall", 1, Number(thicknessWallValue));
 
 // Create section
-var concreteColumn = new Section(1, 'CIRCLE_M1 0.300', materialConcrete);
-var concreteRib = new Section(2, 'R_M1 0.3/0.400', materialConcrete);
-var steelFrame = new Section(3, 'HE 200 A', materialSteel);
-var steelBeams = new Section(4, 'IPE 200', materialSteel);
+var concreteColumn = new Section(1, 'CIRCLE_M1 0.300', materialConcrete.GetNo());
+var concreteRib = new Section(2, 'R_M1 0.3/0.400', materialConcrete.GetNo());
+var steelFrame = new Section(3, 'HE 200 A', materialSteel.GetNo());
+var steelBeams = new Section(4, 'IPE 200', materialSteel.GetNo());
+
 // Create Nodes
 Node(1, 0, 0, 0);
-Node(2, a_1, 0, 0);
-Node(3, a_1 + a_2, 0, 0);
-Node(4, 0, b_1, 0);
-Node(5, a_1, b_1, 0);
-Node(6, a_1 + a_2, b_1, 0);
-Node(7, a_1, b_1 + b_2, 0);
-Node(8, a_1 + a_2, b_1 + b_2, 0);
-Node(9, 0, 0, -H_1);
-Node(10, a_1, 0, -H_1);
-Node(11, a_1, 0, -H_2);
-Node(12, a_1 + a_2, 0, -H_2);
-Node(13, 0, b_1, -H_1);
-Node(14, a_1, b_1, -H_1);
-Node(15, a_1, b_1, -H_2);
-Node(16, a_1 + a_2, b_1, -H_2);
-Node(17, a_1, b_1 + b_2, -H_2);
-Node(18, a_1 + a_2, b_1 + b_2, -H_2);
+Node(2, a1, 0, 0);
+Node(3, a1 + a2, 0, 0);
+Node(4, 0, b1, 0);
+Node(5, a1, b1, 0);
+Node(6, a1 + a2, b1, 0);
+Node(7, a1, b1 + b2, 0);
+Node(8, a1 + a2, b1 + b2, 0);
+Node(9, 0, 0, -H1);
+Node(10, a1, 0, -H1);
+Node(11, a1, 0, -H2);
+Node(12, a1 + a2, 0, -H2);
+Node(13, 0, b1, -H1);
+Node(14, a1, b1, -H1);
+Node(15, a1, b1, -H2);
+Node(16, a1 + a2, b1, -H2);
+Node(17, a1, b1 + b2, -H2);
+Node(18, a1 + a2, b1 + b2, -H2);
 var nod = new Node();
 nod.BetweenTwoNodes(19, 15, 16, "", [true, 33.33]);
 nod.BetweenTwoNodes(20, 15, 16, "", [true, 66.66]);
@@ -51,32 +53,32 @@ nod.BetweenTwoNodes(21, 17, 18, "", [true, 33.33]);
 nod.BetweenTwoNodes(22, 17, 18, "", [true, 66.66]);
 
 // Create lines
-Line(1, [1, 4]);
-Line(2, [1, 2]);
-Line(3, [1, 9]);
-Line(4, [4, 13]);
-Line(5, [2, 10]);
-Line(6, [5, 14]);
-Line(7, [10, 11]);
-Line(8, [14, 15]);
-Line(9, [3, 12]);
-Line(10, [6, 16]);
-Line(11, [7, 17]);
-Line(12, [8, 18]);
-Line(13, [9, 10]);
-Line(14, [11, 12]);
-Line(15, [12, 16]);
-Line(16, [15, 16]);
-Line(17, [11, 15]);
-Line(18, [10, 14]);
-Line(19, [13, 14]);
-Line(20, [9, 13]);
-Line(21, [17, 18]);
-Line(22, [15, 17]);
-Line(23, [19, 21]);
-Line(24, [20, 22]);
-Line(25, [16, 18]);
-Line(26, [3, 6]);
+new Line(1, [1, 4]);
+new Line(2, [1, 2]);
+new Line(3, [1, 9]);
+new Line(4, [4, 13]);
+new Line(5, [2, 10]);
+new Line(6, [5, 14]);
+new Line(7, [10, 11]);
+new Line(8, [14, 15]);
+new Line(9, [3, 12]);
+new Line(10, [6, 16]);
+new Line(11, [7, 17]);
+new Line(12, [8, 18]);
+new Line(13, [9, 10]);
+new Line(14, [11, 12]);
+new Line(15, [12, 16]);
+new Line(16, [15, 16]);
+new Line(17, [11, 15]);
+new Line(18, [10, 14]);
+new Line(19, [13, 14]);
+new Line(20, [9, 13]);
+new Line(21, [17, 18]);
+new Line(22, [15, 17]);
+new Line(23, [19, 21]);
+new Line(24, [20, 22]);
+new Line(25, [16, 18]);
+new Line(26, [3, 6]);
 
 // Create Surfaces
 var sur = new Surface();
@@ -104,14 +106,9 @@ memberEccentricity.RelativeToSection(1, [9], [9], "SECTION_ALIGNMENT_CENTER_TOP"
 memberEccentricity.TransverseOffsetMember(3, "SECTION_ALIGNMENT_CENTER_BOTTOM", 15);
 
 // Create hinge
-var hinges_params_1 =
-{
-  "moment_release_mt": member_hinges.SPRING_CONSTANT_NO,
-  "axial_release_n": member_hinges.SPRING_CONSTANT_NO,
-  "axial_release_vy": member_hinges.SPRING_CONSTANT_NO,
-  "axial_release_vz": member_hinges.SPRING_CONSTANT_NO,
-};
-var memberHinge = new MemberHinge(1, [3,4,5,6], [3,4,5,6],"",hinges_params_1);
+var memberHinge = new MemberHinge();
+// memberHinge.Translational(1, [3,4,5,6], [3,4,5,6], [false,0],[false,0],[false,0]);
+memberHinge.Rotational(1, [3,4,5,6], [3,4,5,6], [false,0],[true,0],[true,0]);
 
 // Define Supports
 var nodalSupport = new NodalSupport(1,[5,7,8]);
@@ -120,5 +117,7 @@ nodalSupport.Hinged();
 var lineSupport = new LineSupport(1,[1,2,26]);
 lineSupport.Hinged();
 
-var SASGeometricallyLinear = new StaticAnalysisSettings().GeometricallyLinear(1, "MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "PLATE_BENDING_THEORY_KIRCHHOFF", [true, 2.0, 3.0, 4.0], [true, 5, true]);
-var LCSW = new LoadCase().StaticAnalysis(1, "Static analysis", SASGeometricallyLinear.Settings.no, "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_A_DOMESTIC_RESIDENTIAL_AREAS_QI_A", [true, 0, 0, 1.0]);
+var SASGeometricallyLinear = new StaticAnalysisSettings()
+SASGeometricallyLinear.GeometricallyLinear(1, "MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "PLATE_BENDING_THEORY_KIRCHHOFF", [true, 2.0, 3.0, 4.0], [true, 5, true]);
+var LCSW = new LoadCase();
+LCSW.StaticAnalysis(1, "Static analysis", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_A_DOMESTIC_RESIDENTIAL_AREAS_QI_A", [true, 0, 0, 1.0]);

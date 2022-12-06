@@ -134,7 +134,7 @@ if (RFEM) {
 
 /***************************************** Member loads ******************************************/
 // Default member load with magnitude sets via load parameters
-var memberLoad = new MemberLoad(undefined, lc, [1], "Default member load sets via parameters", { "magnitude": 500 });
+var liveLoadMember = new MemberLoad(undefined, lc, [1], "Default member load sets via parameters", { "magnitude": 500 });
 var memberLoad2 = new MemberLoad();
 // Force concentrated - 1 member load with relative distance
 memberLoad2.Force(undefined, lc, [2], member_loads.LOAD_DISTRIBUTION_CONCENTRATED_1, [500, 0.5, true]);

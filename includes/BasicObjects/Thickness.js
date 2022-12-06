@@ -44,18 +44,18 @@ function Thickness(no,
  * @param {int} no - Number of Thickness
  * @param {string} name - Name of the Thickness
  * @param {int} material - Number of material
- * @param {array} properties - Properties of thickness in format [thickness]
+ * @param {number} thickness - Properties of thickness in format [thickness]
  * @param {string} comment - Comment for the Thickness
  * @param {dictionary} params - Parameters of the Thickness
  */
 Thickness.prototype.Uniform = function (no,
     name,
     material,
-    properties,
+    thickness,
     comment,
     params) {
     name = typeof name !== 'undefined' ? name : "";
-    properties = typeof properties !== 'undefined' ? properties : [];
+    // thickness = typeof thickness !== 'undefined' ? thickness : [];
 
     this.thickness = engine.create_thickness(no);
 
@@ -68,8 +68,10 @@ Thickness.prototype.Uniform = function (no,
     }
 
     // Uniform Thickness d
-    this.thickness.uniform_thickness = properties[0];
-    this.thickness.type = thicknesses.TYPE_UNIFORM;
+    if (typeof thickness !== 'undefined') {
+        this.thickness.uniform_thickness = thickness;
+        this.thickness.type = thicknesses.TYPE_UNIFORM;
+    }
     set_comment_and_parameters(this.thickness, comment, params);
 };
 
@@ -78,19 +80,19 @@ Thickness.prototype.Uniform = function (no,
  * @param {int} no - Number of Thickness
  * @param {string} name - Name of the Thickness
  * @param {int} material - Number of material
- * @param {array} properties - Properties of thickness
+ * @param {array} thicknessProperties - Properties of thickness [thickness_1,node_1,thickness_2,node_2,thickness_3,node_3]
  * @param {string} comment - Comment for the Thickness
  * @param {dictionary} params - Parameters of the Thickness
  */
 Thickness.prototype.Variable_3Nodes = function (no,
     name,
     material,
-    properties,
+    thicknessProperties,
     comment,
     params) {
     name = typeof name !== 'undefined' ? name : "";
-    properties = typeof properties !== 'undefined' ? properties : [];
-    ASSERT(properties.length == 6, "WARNING: The properties parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.");
+    thicknessProperties = typeof thicknessProperties !== 'undefined' ? thicknessProperties : [];
+    ASSERT(thicknessProperties.length == 6, "WARNING: The properties parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.");
 
     this.thickness = engine.create_thickness(no);
 
@@ -103,12 +105,12 @@ Thickness.prototype.Variable_3Nodes = function (no,
     }
 
     this.thickness.type = thicknesses.TYPE_VARIABLE_THREE_NODES;
-    this.thickness.thickness_1 = properties[0];
-    this.thickness.node_1 = properties[1];
-    this.thickness.thickness_2 = properties[2];
-    this.thickness.node_2 = properties[3];
-    this.thickness.thickness_3 = properties[4];
-    this.thickness.node_3 = properties[5];
+    this.thickness.thickness_1 = thicknessProperties[0];
+    this.thickness.node_1 = thicknessProperties[1];
+    this.thickness.thickness_2 = thicknessProperties[2];
+    this.thickness.node_2 = thicknessProperties[3];
+    this.thickness.thickness_3 = thicknessProperties[4];
+    this.thickness.node_3 = thicknessProperties[5];
 
     set_comment_and_parameters(this.thickness, comment, params);
 };
@@ -118,19 +120,19 @@ Thickness.prototype.Variable_3Nodes = function (no,
  * @param {int} no - Number of Thickness
  * @param {string} name - Name of the Thickness
  * @param {int} material - Number of material
- * @param {array} properties - Properties of thickness
+ * @param {array} thicknessProperties - Properties of thickness [thickness_1,node_1,thickness_2,node_2,direction]
  * @param {string} comment - Comment for the Thickness
  * @param {dictionary} params - Parameters of the Thickness
  */
 Thickness.prototype.Variable_2NodesAndDirection = function (no,
     name,
     material,
-    properties,
+    thicknessProperties,
     comment,
     params) {
     name = typeof name !== 'undefined' ? name : "";
-    properties = typeof properties !== 'undefined' ? properties : [];
-    ASSERT(properties.length == 5, "WARNING: The properties parameter needs to be of length 5. Kindly check list inputs for completeness and correctness.");
+    thicknessProperties = typeof thicknessProperties !== 'undefined' ? thicknessProperties : [];
+    ASSERT(thicknessProperties.length == 5, "WARNING: The properties parameter needs to be of length 5. Kindly check list inputs for completeness and correctness.");
 
     this.thickness = engine.create_thickness(no);
 
@@ -143,11 +145,11 @@ Thickness.prototype.Variable_2NodesAndDirection = function (no,
     }
 
     this.thickness.type = thicknesses.TYPE_VARIABLE_TWO_NODES_AND_DIRECTION;
-    this.thickness.thickness_1 = properties[0];
-    this.thickness.node_1 = properties[1];
-    this.thickness.thickness_2 = properties[2];
-    this.thickness.node_2 = properties[3];
-    this.thickness.direction = properties[4];
+    this.thickness.thickness_1 = thicknessProperties[0];
+    this.thickness.node_1 = thicknessProperties[1];
+    this.thickness.thickness_2 = thicknessProperties[2];
+    this.thickness.node_2 = thicknessProperties[3];
+    this.thickness.direction = thicknessProperties[4];
 
     set_comment_and_parameters(this.thickness, comment, params);
 };
@@ -157,19 +159,19 @@ Thickness.prototype.Variable_2NodesAndDirection = function (no,
  * @param {int} no - Number of Thickness
  * @param {string} name - Name of the Thickness
  * @param {int} material - Number of material
- * @param {array} properties - Properties of thickness
+ * @param {array} thicknessProperties - Properties of thickness [thickness_1,node_1,thickness_2,node_2,thickness_3,node_3,thickness_4,node_4]
  * @param {string} comment - Comment for the Thickness
  * @param {dictionary} params - Parameters of the Thickness
  */
 Thickness.prototype.Variable_4SurfaceCorners = function (no,
     name,
     material,
-    properties,
+    thicknessProperties,
     comment,
     params) {
     name = typeof name !== 'undefined' ? name : "";
-    properties = typeof properties !== 'undefined' ? properties : [];
-    ASSERT(properties.length == 8, "WARNING: The properties parameter needs to be of length 8. Kindly check list inputs for completeness and correctness.");
+    thicknessProperties = typeof thicknessProperties !== 'undefined' ? thicknessProperties : [];
+    ASSERT(thicknessProperties.length == 8, "WARNING: The properties parameter needs to be of length 8. Kindly check list inputs for completeness and correctness.");
 
     this.thickness = engine.create_thickness(no);
 
@@ -182,14 +184,14 @@ Thickness.prototype.Variable_4SurfaceCorners = function (no,
     }
 
     this.thickness.type = thicknesses.TYPE_VARIABLE_FOUR_SURFACE_CORNERS;
-    this.thickness.thickness_1 = properties[0];
-    this.thickness.node_1 = properties[1];
-    this.thickness.thickness_2 = properties[2];
-    this.thickness.node_2 = properties[3];
-    this.thickness.thickness_3 = properties[4];
-    this.thickness.node_3 = properties[5];
-    this.thickness.thickness_4 = properties[6];
-    this.thickness.node_4 = properties[7];
+    this.thickness.thickness_1 = thicknessProperties[0];
+    this.thickness.node_1 = thicknessProperties[1];
+    this.thickness.thickness_2 = thicknessProperties[2];
+    this.thickness.node_2 = thicknessProperties[3];
+    this.thickness.thickness_3 = thicknessProperties[4];
+    this.thickness.node_3 = thicknessProperties[5];
+    this.thickness.thickness_4 = thicknessProperties[6];
+    this.thickness.node_4 = thicknessProperties[7];
 
     set_comment_and_parameters(this.thickness, comment, params);
 };
@@ -199,19 +201,19 @@ Thickness.prototype.Variable_4SurfaceCorners = function (no,
  * @param {int} no - Number of Thickness
  * @param {string} name - Name of the Thickness
  * @param {int} material - Number of material
- * @param {array} properties - Properties of thickness
+ * @param {array} thicknessProperties - Properties of thickness [thickness_circle_center,thickness_circle_line]
  * @param {string} comment - Comment for the Thickness
  * @param {dictionary} params - Parameters of the Thickness
  */
 Thickness.prototype.Variable_Circle = function (no,
     name,
     material,
-    properties,
+    thicknessProperties,
     comment,
     params) {
     name = typeof name !== 'undefined' ? name : "";
-    properties = typeof properties !== 'undefined' ? properties : [];
-    ASSERT(properties.length == 2, "WARNING: The properties parameter needs to be of length 2. Kindly check list inputs for completeness and correctness.");
+    thicknessProperties = typeof thicknessProperties !== 'undefined' ? thicknessProperties : [];
+    ASSERT(thicknessProperties.length == 2, "WARNING: The properties parameter needs to be of length 2. Kindly check list inputs for completeness and correctness.");
 
     this.thickness = engine.create_thickness(no);
 
@@ -224,8 +226,8 @@ Thickness.prototype.Variable_Circle = function (no,
     }
 
     this.thickness.type = thicknesses.TYPE_VARIABLE_CIRCLE;
-    this.thickness.thickness_circle_center = properties[0];
-    this.thickness.thickness_circle_line = properties[1];
+    this.thickness.thickness_circle_center = thicknessProperties[0];
+    this.thickness.thickness_circle_line = thicknessProperties[1];
     set_comment_and_parameters(this.thickness, comment, params);
 };
 
@@ -233,7 +235,7 @@ Thickness.prototype.Variable_Circle = function (no,
  * Create Layers thickness
  * @param {int} no - Number of Thickness
  * @param {string} name - Name of the Thickness
- * @param {array} layers - List of layers
+ * @param {array} layers - List of layers [[material,thickness,angle,comment],]
  * @param {string} comment - Comment for the Thickness
  * @param {dictionary} params - Parameters of the Thickness
  */
@@ -394,7 +396,7 @@ Thickness.prototype.ShapeOrthotropy = function (no,
  * @param {number} rotation_beta - Rotation about Z-axis of surface (Degree)
  * @param {string} consideration_of_self_weight - Self-Weight definition
  * @param {array} coefficient_of_thermal_expansion - Coefficient of thermal expansion
- * @param {array} stiffness_matrix - Stiffness Matrix
+ * @param {array} stiffness_matrix - Stiffness Matrix [[D11,D12,D13,D22,D23,D33],....]
  * @param {string} comment - Comment for the Thickness
  * @param {dictionary} params - Parameters of the Thickness
  */
@@ -468,4 +470,12 @@ Thickness.prototype.StiffnessMatrix = function (no,
     // Thickness Name
     this.thickness.name = name;
     set_comment_and_parameters(this.thickness, comment, params);
+};
+
+Thickness.prototype.GetNo = function () {
+    return this.thickness.no;
+};
+
+Thickness.prototype.GetThickness = function () {
+    return this.thickness;
 };
