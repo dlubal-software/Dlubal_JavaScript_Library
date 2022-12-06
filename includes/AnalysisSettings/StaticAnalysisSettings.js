@@ -28,7 +28,7 @@ function StaticAnalysisSettings(no,
     else {
       this.Settings = static_analysis_settings.create(no);
     }
-    console.log("New static analysis settings no. " + this.Settings.no + " was created");
+    // console.log("New static analysis settings no. " + this.Settings.no + " was created");
     // Static analysis settings : type
     this.Settings.analysis_type = static_analysis_settings[StaticAnalysisType(analysisType)];
     SetEquationSolver(this.Settings, equationSolver);
@@ -43,12 +43,26 @@ function StaticAnalysisSettings(no,
     }
 
     set_comment_and_parameters(this.Settings, comment, params);
-    console.log("-- Done. Static analysis settings no. " + this.Settings.no + " all initial params set.");
+    // console.log("-- Done. Static analysis settings no. " + this.Settings.no + " all initial params set.");
     // object for creation new static analysis settings with callback link to instance
     var self = this;
     return self;
   }
 }
+
+/**
+ * @returns Number of Static analysis setting
+ */
+StaticAnalysisSettings.prototype.GetNo = function() {
+  return this.Settings.no;
+};
+
+/**
+ * @returns Static analysis settings object
+ */
+StaticAnalysisSettings.prototype.GetStaticAnalysisSettings = function() {
+  return this.Settings;
+};
 
 /**
  *
@@ -181,7 +195,7 @@ StaticAnalysisSettings.prototype.GetStaticAnalysisSettings = function () {
   return this.Settings;
 }
 
-StaticAnalysisSettings.prototype.GetStaticAnalysisSettingsNo = function () {
+StaticAnalysisSettings.prototype.GetNo = function () {
   return this.Settings.no;
 }
 
@@ -297,10 +311,10 @@ function CreateStaticAnalysisSettings(no, name) {
 function AvoidWrongAssignment(SAS, param) {
   var setParameter = false;
   if (SAS.analysis_type === static_analysis_settings.GEOMETRICALLY_LINEAR) {
-    console.log("(" + param + ") This parameter cant be set for linear analysis.");
+    console.log("(" + param + ") This parameter can't be set for linear analysis.");
   }
   else if (SAS.iterative_method_for_nonlinear_analysis === static_analysis_settings.DYNAMIC_RELAXATION) {
-    console.log("(" + param + ") This parameter cant be set for dynamic relaxation iterative method.");
+    console.log("(" + param + ") This parameter can't be set for dynamic relaxation iterative method.");
   }
   else {
     setParameter = true;

@@ -1,14 +1,14 @@
 run("../includes/Tools/clearAll.js");
 // prepare materials, sections and thickness for the model
-var material_steel = Material(undefined, "S235 | EN 1993-1-1:2005-05");
-var material_concrete = Material(undefined, "C12/15 | EN 1992-1-1:2004/A1:2014");
+var material_steel = new Material(undefined, "S235");
+var material_concrete = new Material(undefined, "C12/15");
 
 var section_params = { "shear_stiffness_deactivated": true };
-var section_IPE240 = Section(undefined, "IPE 240", material_steel, "", section_params);
-var section_IPE180 = Section(undefined, "IPE 180", material_steel, "", section_params);
+var section_IPE240 = Section(undefined, "IPE 240", material_steel.GetNo(), "", section_params);
+var section_IPE180 = Section(undefined, "IPE 180", material_steel.GetNo(), "", section_params);
 
 if (RFEM) {
-	var thickness = Thickness(undefined, "", material_concrete, 120mm);
+	var thickness = Thickness(undefined, "", material_concrete.GetNo(), 120mm);
 };
 for (var i = 0; i < 20; ++i) {
 	Node("undefined", 0, 0, i);
@@ -140,11 +140,11 @@ if (RFEM) {
 	line_support_5.Nonlinear.X.FrictionY(0.6);
 
 	//  ##### create new support
-	var line_support_6 = new LineSupport();
-	line_support_6.Fixed();
-	line_support_6.SetLines([31, 33, 35]);
-	line_support_6.TranslationZ(500);
-	line_support_6.RotationZ(440);
+	var lineSupport = new LineSupport();
+	lineSupport.Fixed();
+	lineSupport.SetLines([31, 33, 35]);
+	lineSupport.TranslationZ(500);
+	lineSupport.RotationZ(440);
 
 	var line_support_7 = new LineSupport();
 	line_support_7.Hinged();
@@ -257,7 +257,7 @@ if (RFEM) {
 	surface_support_4.SlidingZ();
 	surface_support_4.ShearX(300);
 	surface_support_4.ShearY(400);
-	surface_support_4.Nonlinear.FailIfPositive.Stress(300);
+	//surface_support_4.Nonlinear.FailIfPositive.Stress(300);
 
 	var surface_support_5 = new SurfaceSupport();
 	surface_support_5.Fixed();
@@ -274,6 +274,6 @@ if (RFEM) {
 	surface_support_7.Fixed();
 	surface_support_7.ShearX(300);
 	surface_support_7.ShearY(400);
-	// surface_support_7.Nonlinear.FailIfNegative.Stress(0.7);
+	//surface_support_7.Nonlinear.FailIfNegative.Stress(0.7);
 };
 

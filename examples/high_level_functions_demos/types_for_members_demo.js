@@ -48,7 +48,7 @@ memberHinge.DiagramTranslationalY([[0.5, 500, 1000], [1, 600, 200], [1.1, 500, -
 var memberNonlinearity = new MemberNonlinearity();
 memberNonlinearity.FailureIfTension(undefined, [31]);
 memberNonlinearity.FailureIfTensionWithSlippage(undefined, [32], 0.05);
-memberNonlinearity.TearingUnderTension(undefined, [33], 500);
+memberNonlinearity.FailureUnderTension(undefined, [33], 500);
 memberNonlinearity.YieldingUnderCompression(undefined, [34], 1000);
 memberNonlinearity.Yielding(undefined, [35, 36, 37], 500, 600);
 

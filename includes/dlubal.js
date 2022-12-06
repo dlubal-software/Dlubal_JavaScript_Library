@@ -98,6 +98,7 @@ include("Imperfections/MemberImperfection.js")
 include("Imperfections/MemberSetImperfection.js")
 include("Imperfections/SurfaceImperfection.js")
 include("Imperfections/SurfaceSetImperfection.js")
+
 // Loads
 if (RFEM) {
     include("Loads/FreeCircularLoad.js");
