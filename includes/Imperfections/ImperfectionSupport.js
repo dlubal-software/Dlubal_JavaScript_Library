@@ -5,7 +5,7 @@ function GetMemberImperfectionDirection(coordinate_system, imperfection_directio
             "LOCAL_Z" : member_imperfections.IMPERFECTION_DIRECTION_LOCAL_Z,
             "LOCAL_Y_NEGATIVE" : member_imperfections.IMPERFECTION_DIRECTION_LOCAL_Y_NEGATIVE,
             "LOCAL_Z_NEGATIVE" : member_imperfections.IMPERFECTION_DIRECTION_LOCAL_Z_NEGATIVE
-        }
+        };
     }
     else if (coordinate_system === "PRINCIPAL") {
         const imperfection_directions_dict = {
@@ -13,7 +13,7 @@ function GetMemberImperfectionDirection(coordinate_system, imperfection_directio
             "V" : member_imperfections.IMPERFECTION_DIRECTION_PRINCIPAL_V,
             "U_NEGATIVE" : member_imperfections.IMPERFECTION_DIRECTION_PRINCIPAL_U_NEGATIVE,
             "V_NEGATIVE" : member_imperfections.IMPERFECTION_DIRECTION_PRINCIPAL_V_NEGATIVE
-        }
+        };
     }
     else {
         const imperfection_directions_dict = {
@@ -23,7 +23,7 @@ function GetMemberImperfectionDirection(coordinate_system, imperfection_directio
             "X_U_NEGATIVE" : member_imperfections.IMPERFECTION_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_NEGATIVE,
             "Y_V_NEGATIVE" : member_imperfections.IMPERFECTION_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_NEGATIVE,
             "Z_W_NEGATIVE" : member_imperfections.IMPERFECTION_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_NEGATIVE
-        }
+        };
     }
 
     if (imperfection_direction !== undefined) {
