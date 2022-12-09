@@ -10,19 +10,19 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Surface
    | Dlubal JavaScript High Level Functions Library ">
-    <meta name="generator" content="docfx 2.57.2.0">
+    <meta name="generator" content="docfx 2.59.4.0">
     
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     
     <meta property="docfx:rel" content="../">
     
-  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
         
@@ -173,6 +173,56 @@
   </table>
   <h3 id="functions">Functions
   </h3>
+  
+  
+  <h4 id="Dlubal_Surface_GetSurface" data-uid="Dlubal.Surface#GetSurface">GetSurface()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function GetSurface()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Surface object</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_Surface_GetNo" data-uid="Dlubal.Surface#GetNo">GetNo()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function GetNo()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Surface number</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   
   
   <h4 id="Dlubal_Surface_Standard" data-uid="Dlubal.Surface#Standard">Standard(no, boundary_lines, thickness, comment, params)</h4>
@@ -717,13 +767,13 @@ loaded_lines, loaded_members]</p>
   </div>
   
   
-  <h4 id="Dlubal_Surface_Quadrangle" data-uid="Dlubal.Surface#Quadrangle">Quadrangle(no, boundary_lines, thickness, boundary_line, corner_node_1, corner_node_2, corner_node_3, corner_node_4, comment, params)</h4>
+  <h4 id="Dlubal_Surface_Quadrangle" data-uid="Dlubal.Surface#Quadrangle">Quadrangle(no, boundary_lines, stiffness_type, thickness, boundary_line, corner_node_1, corner_node_2, corner_node_3, corner_node_4, comment, params)</h4>
   <div class="markdown level1 summary"><p>Sets quadrangle geometry type of surface</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Quadrangle(no, boundary_lines, thickness, boundary_line, corner_node_1, corner_node_2, corner_node_3, corner_node_4, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function Quadrangle(no, boundary_lines, stiffness_type, thickness, boundary_line, corner_node_1, corner_node_2, corner_node_3, corner_node_4, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -749,6 +799,15 @@ loaded_lines, loaded_members]</p>
         <td><em>boundary_lines</em></td>
         <td>
           <p>List of boundary lines indexes</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>stiffness_type</em></td>
+        <td>
+          <p>Stiffness type</p>
 
           
         </td>

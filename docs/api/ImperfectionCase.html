@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class SurfaceSetLoad
+    <title>Class ImperfectionCase
    | Dlubal JavaScript High Level Functions Library </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class SurfaceSetLoad
+    <meta name="title" content="Class ImperfectionCase
    | Dlubal JavaScript High Level Functions Library ">
     <meta name="generator" content="docfx 2.59.4.0">
     
@@ -78,25 +78,25 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Dlubal.SurfaceSetLoad">
+            <article class="content wrap" id="_content" data-uid="Dlubal.ImperfectionCase">
   
   
-  <h1 id="Dlubal_SurfaceSetLoad" data-uid="Dlubal.SurfaceSetLoad">Class SurfaceSetLoad
+  <h1 id="Dlubal_ImperfectionCase" data-uid="Dlubal.ImperfectionCase">Class ImperfectionCase
   </h1>
-  <div class="markdown level0 summary"><p>Creates line set load</p>
+  <div class="markdown level0 summary"><p>Creates Imperfection case</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <h4 id="Dlubal_SurfaceSetLoad__ctor" data-uid="Dlubal.SurfaceSetLoad.#ctor">SurfaceSetLoad(no, load_case, line_sets, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates line set load</p>
+  <h4 id="Dlubal_ImperfectionCase__ctor" data-uid="Dlubal.ImperfectionCase.#ctor">ImperfectionCase(no, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates Imperfection case</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">new SurfaceSetLoad(no, load_case, line_sets, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">new ImperfectionCase(no, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -112,25 +112,7 @@
         <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Index of line set load, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>load_case</em></td>
-        <td>
-          <p>Load case</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Array</span></td>
-        <td><em>line_sets</em></td>
-        <td>
-          <p>List of line set indexes</p>
+          <p>Index of Imperfection case, can be undefined</p>
 
           
         </td>
@@ -148,7 +130,7 @@
         <td><span class="xref">Object</span></td>
         <td><em>params</em></td>
         <td>
-          <p>Load parameters, can be undefined</p>
+          <p>Parameters, can be undefined</p>
 
           
         </td>
@@ -165,8 +147,8 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><p>Created line set load</p>
+        <td></td>
+        <td><p>Created empty Imperfection case</p>
 </td>
       </tr>
     </tbody>
@@ -175,13 +157,63 @@
   </h3>
   
   
-  <h4 id="Dlubal_SurfaceSetLoad_Force" data-uid="Dlubal.SurfaceSetLoad#Force">Force(no, load_case, surface_sets, load_distribution, load_values, load_direction, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates surface set force load</p>
+  <h4 id="Dlubal_ImperfectionCase_GetNo" data-uid="Dlubal.ImperfectionCase#GetNo">GetNo()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function GetNo()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Imperfection case number</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_ImperfectionCase_GetImperfectionCase" data-uid="Dlubal.ImperfectionCase#GetImperfectionCase">GetImperfectionCase()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function GetImperfectionCase()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><p>Imperfection case object</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Dlubal_ImperfectionCase_LocalImperfection" data-uid="Dlubal.ImperfectionCase#LocalImperfection">LocalImperfection(no, load_cases_to_assign, assign_to_all_load, is_active, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates Local imperfection case</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Force(no, load_case, surface_sets, load_distribution, load_values, load_direction, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function LocalImperfection(no, load_cases_to_assign, assign_to_all_load, is_active, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -197,52 +229,34 @@
         <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Index of surface set load, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>load_case</em></td>
-        <td>
-          <p>Load case</p>
+          <p>Index of Imperfection case, can be undefined</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Array</span></td>
-        <td><em>surface_sets</em></td>
+        <td><em>load_cases_to_assign</em></td>
         <td>
-          <p>List of surface set indexes</p>
+          <p>Load cases to assign (array of numbers)</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>load_distribution</em></td>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>assign_to_all_load</em></td>
         <td>
-          <p>Load distribution</p>
+          <p>Assign to all load combinations without assigned imperfection case, can be undefined (true as default)</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Array</span></td>
-        <td><em>load_values</em></td>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>is_active</em></td>
         <td>
-          <p>Load parameters depend on load distribution (for more information look at setSurfaceLoadDistribution function)</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>load_direction</em></td>
-        <td>
-          <p>Load direction, can be undefined</p>
+          <p>Is imperfection case active, can be undefined (false as default)</p>
 
           
         </td>
@@ -260,38 +274,22 @@
         <td><span class="xref">Object</span></td>
         <td><em>params</em></td>
         <td>
-          <p>Load parameters, can be undefined</p>
+          <p>Parameters, can be undefined</p>
 
           
         </td>
       </tr>
     </tbody>
   </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><p>Created surface set force load</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   
   
-  <h4 id="Dlubal_SurfaceSetLoad_Temperature" data-uid="Dlubal.SurfaceSetLoad#Temperature">Temperature(no, load_case, surface_sets, load_distribution, load_values, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates surface set temperature load</p>
+  <h4 id="Dlubal_ImperfectionCase_Notional" data-uid="Dlubal.ImperfectionCase#Notional">Notional(no, load_cases_to_assign, notional_loads_from_load_case_no, assign_to_all_load, is_active, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates Notional loads from load case imperfection case</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Temperature(no, load_case, surface_sets, load_distribution, load_values, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function Notional(no, load_cases_to_assign, notional_loads_from_load_case_no, assign_to_all_load, is_active, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -307,43 +305,43 @@
         <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Index of surface set load, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>load_case</em></td>
-        <td>
-          <p>Load case</p>
+          <p>Index of imperfection case, can be undefined</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Array</span></td>
-        <td><em>surface_sets</em></td>
+        <td><em>load_cases_to_assign</em></td>
         <td>
-          <p>List of surface set indexes</p>
+          <p>Load cases to assign (array of numbers)</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>load_distribution</em></td>
+        <td><span class="xref">Number</span></td>
+        <td><em>notional_loads_from_load_case_no</em></td>
         <td>
-          <p>Load distribution</p>
+          <p>Notional loads from load case</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Array</span></td>
-        <td><em>load_values</em></td>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>assign_to_all_load</em></td>
         <td>
-          <p>Load parameters depend on load distribution (for more information look at setSurfaceLoadDistribution function)</p>
+          <p>Assign to all load combinations without assigned imperfection case, can be undefined (true as default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>is_active</em></td>
+        <td>
+          <p>Is imperfection case active, can be undefined (false as default)</p>
 
           
         </td>
@@ -361,38 +359,22 @@
         <td><span class="xref">Object</span></td>
         <td><em>params</em></td>
         <td>
-          <p>Load parameters, can be undefined</p>
+          <p>Parameters, can be undefined</p>
 
           
         </td>
       </tr>
     </tbody>
   </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><p>Created surface set temperature load</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   
   
-  <h4 id="Dlubal_SurfaceSetLoad_AxialStrain" data-uid="Dlubal.SurfaceSetLoad#AxialStrain">AxialStrain(no, load_case, surface_sets, load_distribution, load_values, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates surface set axial strain load</p>
+  <h4 id="Dlubal_ImperfectionCase_InitialSway" data-uid="Dlubal.ImperfectionCase#InitialSway">InitialSway(no, load_cases_to_assign, level_imperfections, coordinate_system_no, level_direction, imperfection_direction, sway_coefficients_reciprocal, assign_to_all_load, is_active, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Creates Initial sway imperfection case</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function AxialStrain(no, load_case, surface_sets, load_distribution, load_values, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function InitialSway(no, load_cases_to_assign, level_imperfections, coordinate_system_no, level_direction, imperfection_direction, sway_coefficients_reciprocal, assign_to_all_load, is_active, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -408,43 +390,79 @@
         <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Index of surface set load, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>load_case</em></td>
-        <td>
-          <p>Load case</p>
+          <p>Index of imperfection case, can be undefined</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Array</span></td>
-        <td><em>surface_sets</em></td>
+        <td><em>load_cases_to_assign</em></td>
         <td>
-          <p>List of surface set indexes</p>
+          <p>Load cases to assign (array of numbers)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Array</span></td>
+        <td><em>level_imperfections</em></td>
+        <td>
+          <p>Level imperfections ([level1, [level2, theta_1_x, theta_1_y], ... [level_n, theta_n_x, theta_n_x]])</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>coordinate_system_no</em></td>
+        <td>
+          <p>Coordinate system, can be undefined (Global XYZ by default)</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">String</span></td>
-        <td><em>load_distribution</em></td>
+        <td><em>level_direction</em></td>
         <td>
-          <p>Load distribution</p>
+          <p>Level direction, can be undefined (GLOBAL_IN_Z by default if Global XYZ is specified, otherwise USER_DEFINED_IN_W by default)</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Array</span></td>
-        <td><em>load_values</em></td>
+        <td><span class="xref">String</span></td>
+        <td><em>imperfection_direction</em></td>
         <td>
-          <p>Load parameters depend on load distribution (for more information look at setSurfaceLoadDistribution function)</p>
+          <p>Imperfection direction, can be undefined (XY by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>sway_coefficients_reciprocal</em></td>
+        <td>
+          <p>Sway coefficient as reciprocal by 1, can be undefined (true as default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>assign_to_all_load</em></td>
+        <td>
+          <p>Assign to all load combinations without assigned imperfection case, can be undefined (true as default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>is_active</em></td>
+        <td>
+          <p>Is imperfection case active, can be undefined (false as default)</p>
 
           
         </td>
@@ -462,38 +480,22 @@
         <td><span class="xref">Object</span></td>
         <td><em>params</em></td>
         <td>
-          <p>Load parameters, can be undefined</p>
+          <p>Parameters, can be undefined</p>
 
           
         </td>
       </tr>
     </tbody>
   </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><p>Created surface set axial strain load</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   
   
-  <h4 id="Dlubal_SurfaceSetLoad_Precamber" data-uid="Dlubal.SurfaceSetLoad#Precamber">Precamber(no, load_case, surface_sets, load_value, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates surface set precamber load</p>
+  <h4 id="Dlubal_ImperfectionCase_StaticDeformation" data-uid="Dlubal.ImperfectionCase#StaticDeformation">StaticDeformation(no, load_cases_to_assign, source_type, shape_from_no, imperfection_magnitude, magnitude_assignment_type, node_no, coordinate_system_no, imperfection_direction, assign_to_all_load, is_active, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Returns Static deformation Imperfection case</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Precamber(no, load_case, surface_sets, load_value, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function StaticDeformation(no, load_cases_to_assign, source_type, shape_from_no, imperfection_magnitude, magnitude_assignment_type, node_no, coordinate_system_no, imperfection_direction, assign_to_all_load, is_active, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -509,34 +511,97 @@
         <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Index of surface set load, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>load_case</em></td>
-        <td>
-          <p>Load case</p>
+          <p>Number of Imperfection case, can be undefined</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Array</span></td>
-        <td><em>surface_sets</em></td>
+        <td><em>load_cases_to_assign</em></td>
         <td>
-          <p>List of surface set indexes</p>
+          <p>Array of load case numbers</p>
 
           
         </td>
       </tr>
       <tr>
-        <td><span class="xref">Array</span></td>
-        <td><em>load_value</em></td>
+        <td><span class="xref">String</span></td>
+        <td><em>source_type</em></td>
         <td>
-          <p>Uniform load parameter</p>
+          <p>Source type, can be undefined (&quot;Select load case&quot; by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>shape_from_no</em></td>
+        <td>
+          <p>Static deformation from load case (source type is Select load case) or from load combination (source type is Select load combination)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>imperfection_magnitude</em></td>
+        <td>
+          <p>Imperfection magnitude - Imperfection magnitude</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>magnitude_assignment_type</em></td>
+        <td>
+          <p>Imperfection magnitude - reference location, can be undefined (&quot;Location with largest displacement&quot; by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>node_no</em></td>
+        <td>
+          <p>Node number, additional parameter to &quot;Node no.&quot; reference location, with &quot;Location with largest displacement&quot; must be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>coordinate_system_no</em></td>
+        <td>
+          <p>Coordinate system, can be undefined (Global XYZ by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">String</span></td>
+        <td><em>imperfection_direction</em></td>
+        <td>
+          <p>Imperfection direction, can be undefined (XY by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>assign_to_all_load</em></td>
+        <td>
+          <p>Assign to all load combinations without assigned imperfection case, can be undefined (true as default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>is_active</em></td>
+        <td>
+          <p>Is imperfection case active, can be undefined (false as default)</p>
 
           
         </td>
@@ -554,38 +619,22 @@
         <td><span class="xref">Object</span></td>
         <td><em>params</em></td>
         <td>
-          <p>Load parameters, can be undefined</p>
+          <p>Parameters, can be undefined</p>
 
           
         </td>
       </tr>
     </tbody>
   </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><p>Created surface set precamber load</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   
   
-  <h4 id="Dlubal_SurfaceSetLoad_RotaryMotion" data-uid="Dlubal.SurfaceSetLoad#RotaryMotion">RotaryMotion(no, load_case, surface_sets, load_values, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates surface set rotary motion load</p>
+  <h4 id="Dlubal_ImperfectionCase_GroupOfImperfection" data-uid="Dlubal.ImperfectionCase#GroupOfImperfection">GroupOfImperfection(no, load_cases_to_assign, imperfection_cases, assign_to_all_load, is_active, comment, params)</h4>
+  <div class="markdown level1 summary"><p>Returns Group of Imperfection cases</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function RotaryMotion(no, load_case, surface_sets, load_values, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function GroupOfImperfection(no, load_cases_to_assign, imperfection_cases, assign_to_all_load, is_active, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -601,34 +650,43 @@
         <td><span class="xref">Number</span></td>
         <td><em>no</em></td>
         <td>
-          <p>Index of surface set load, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>load_case</em></td>
-        <td>
-          <p>Load case</p>
+          <p>Number of Imperfection case, can be undefined</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Array</span></td>
-        <td><em>surface_sets</em></td>
+        <td><em>load_cases_to_assign</em></td>
         <td>
-          <p>List of surface set indexes</p>
+          <p>Array of load case numbers</p>
 
           
         </td>
       </tr>
       <tr>
         <td><span class="xref">Array</span></td>
-        <td><em>load_values</em></td>
+        <td><em>imperfection_cases</em></td>
         <td>
-          <p>Load parameters depend on load distribution (for more information look at setSurfaceLoadDistribution function)</p>
+          <p>Imperfection cases ([[case_no_1, factor_1, (comment_1)], ... [case_no_n, factor_n, (comment_n)]])</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>assign_to_all_load</em></td>
+        <td>
+          <p>Assign to all load combinations without assigned imperfection case, can be undefined (true as default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Boolean</span></td>
+        <td><em>is_active</em></td>
+        <td>
+          <p>Is imperfection case active, can be undefined (false as default)</p>
 
           
         </td>
@@ -646,13 +704,22 @@
         <td><span class="xref">Object</span></td>
         <td><em>params</em></td>
         <td>
-          <p>Load parameters, can be undefined</p>
+          <p>Parameters, can be undefined</p>
 
           
         </td>
       </tr>
     </tbody>
   </table>
+  
+  
+  <h4 id="Dlubal_ImperfectionCase_GetImperfectionCase" data-uid="Dlubal.ImperfectionCase#GetImperfectionCase">GetImperfectionCase()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-js hljs">function GetImperfectionCase()</code></pre>
+  </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -663,88 +730,21 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><p>Created surface set rotary motion load</p>
+        <td></td>
+        <td><p>Imperfection case object</p>
 </td>
       </tr>
     </tbody>
   </table>
   
   
-  <h4 id="Dlubal_SurfaceSetLoad_Mass" data-uid="Dlubal.SurfaceSetLoad#Mass">Mass(no, load_case, surface_sets, load_value, comment, params)</h4>
-  <div class="markdown level1 summary"><p>Creates surface set mass load</p>
-</div>
+  <h4 id="Dlubal_ImperfectionCase_GetNo" data-uid="Dlubal.ImperfectionCase#GetNo">GetNo()</h4>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Mass(no, load_case, surface_sets, load_value, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function GetNo()</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>no</em></td>
-        <td>
-          <p>Index of surface set load, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>load_case</em></td>
-        <td>
-          <p>Load case</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Array</span></td>
-        <td><em>surface_sets</em></td>
-        <td>
-          <p>List of surface set indexes</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Array</span></td>
-        <td><em>load_value</em></td>
-        <td>
-          <p>Uniform load parameter</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">String</span></td>
-        <td><em>comment</em></td>
-        <td>
-          <p>Comment, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><em>params</em></td>
-        <td>
-          <p>Load parameters, can be undefined</p>
-
-          
-        </td>
-      </tr>
-    </tbody>
-  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -755,58 +755,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><p>Created surface set mass load</p>
+        <td></td>
+        <td><p>Imperfection case number</p>
 </td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Dlubal_SurfaceSetLoad_IndividualMassComponents" data-uid="Dlubal.SurfaceSetLoad#IndividualMassComponents">IndividualMassComponents(MX, MY, MZ)</h4>
-  <div class="markdown level1 summary"><p>Sets individual mass components (only for mass load)</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-js hljs">function IndividualMassComponents(MX, MY, MZ)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>MX</em></td>
-        <td>
-          <p>Mass in X coordination, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>MY</em></td>
-        <td>
-          <p>Mass in Y coordination, can be undefined</p>
-
-          
-        </td>
-      </tr>
-      <tr>
-        <td><span class="xref">Number</span></td>
-        <td><em>MZ</em></td>
-        <td>
-          <p>Mass in Z coordination, can be undefined</p>
-
-          
-        </td>
       </tr>
     </tbody>
   </table>
