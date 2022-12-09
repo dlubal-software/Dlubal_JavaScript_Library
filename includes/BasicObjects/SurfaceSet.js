@@ -32,6 +32,20 @@ function SurfaceSet(no,
 }
 
 /**
+ * @returns Surface set object
+ */
+ SurfaceSet.prototype.GetSurfaceSet = function () {
+	return this.surface_set;
+};
+
+/**
+ * @returns Surface set number
+ */
+SurfaceSet.prototype.GetNo = function () {
+	return this.surface_set.no;
+};
+
+/**
  * Create Continuous Surfaces surfaceSet type
  * @param {int} no - Number of Surface Set
  * @param {array} surfaces - List of surfaces

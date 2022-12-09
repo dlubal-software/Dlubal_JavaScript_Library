@@ -12,7 +12,7 @@
 	if (arguments.length !== 0) {
 		var coordinate_system = engine.create_coordinate_system(no);
 
-		var coordinate_system_type_handled = typeof coordinate_system_type !== 'undefined' ? coordinate_system_type : model.coordinate_systems.TYPE_3_POINTS;
+		var coordinate_system_type_handled = typeof coordinate_system_type !== 'undefined' ? coordinate_system_type : coordinate_systems.TYPE_3_POINTS;
 		coordinate_system.type = coordinate_system_type_handled;
 		var handled_params = typeof params !== 'undefined' ? params : {};
 

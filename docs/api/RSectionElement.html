@@ -10,19 +10,19 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class RSectionElement
    | Dlubal JavaScript High Level Functions Library ">
-    <meta name="generator" content="docfx 2.57.2.0">
+    <meta name="generator" content="docfx 2.59.4.0">
     
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     
     <meta property="docfx:rel" content="../">
     
-  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
         
@@ -258,13 +258,13 @@
   </table>
   
   
-  <h4 id="Dlubal_RSectionElement_Arc" data-uid="Dlubal.RSectionElement#Arc">Arc(no, points_of_arc, control_point, arc_parameters, arc_center, alpha_adjustment_target, comment, params)</h4>
+  <h4 id="Dlubal_RSectionElement_Arc" data-uid="Dlubal.RSectionElement#Arc">Arc(no, points_of_arc, control_point, thickness, shear_thickness, arc_parameters, arc_center, alpha_adjustment_target, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates RSection arc Element</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Arc(no, points_of_arc, control_point, arc_parameters, arc_center, alpha_adjustment_target, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function Arc(no, points_of_arc, control_point, thickness, shear_thickness, arc_parameters, arc_center, alpha_adjustment_target, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -299,6 +299,24 @@
         <td><em>control_point</em></td>
         <td>
           <p>Coordinates of control point</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>thickness</em></td>
+        <td>
+          <p>Thickness, can be undefined (10 mm by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>shear_thickness</em></td>
+        <td>
+          <p>Shear thickness, can be undefined (not specified by default)</p>
 
           
         </td>
@@ -368,13 +386,13 @@
   </table>
   
   
-  <h4 id="Dlubal_RSectionElement_Circle" data-uid="Dlubal.RSectionElement#Circle">Circle(no, circle_center, circle_radius, comment, params)</h4>
+  <h4 id="Dlubal_RSectionElement_Circle" data-uid="Dlubal.RSectionElement#Circle">Circle(no, circle_center, circle_radius, thickness, shear_thickness, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates RSection circle Element</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Circle(no, circle_center, circle_radius, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function Circle(no, circle_center, circle_radius, thickness, shear_thickness, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -409,6 +427,24 @@
         <td><em>circle_radius</em></td>
         <td>
           <p>Circle radius</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>thickness</em></td>
+        <td>
+          <p>Thickness, can be undefined (10 mm by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>shear_thickness</em></td>
+        <td>
+          <p>Shear thickness, can be undefined (not specified by default)</p>
 
           
         </td>
@@ -451,13 +487,13 @@
   </table>
   
   
-  <h4 id="Dlubal_RSectionElement_Ellipse" data-uid="Dlubal.RSectionElement#Ellipse">Ellipse(no, first_point, second_point, control_point, comment, params)</h4>
+  <h4 id="Dlubal_RSectionElement_Ellipse" data-uid="Dlubal.RSectionElement#Ellipse">Ellipse(no, first_point, second_point, control_point, thickness, shear_thickness, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates RSection ellipse Element</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Ellipse(no, first_point, second_point, control_point, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function Ellipse(no, first_point, second_point, control_point, thickness, shear_thickness, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -506,6 +542,24 @@
         </td>
       </tr>
       <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>thickness</em></td>
+        <td>
+          <p>Thickness, can be undefined (10 mm by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>shear_thickness</em></td>
+        <td>
+          <p>Shear thickness, can be undefined (not specified by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
         <td><span class="xref">String</span></td>
         <td><em>comment</em></td>
         <td>
@@ -543,13 +597,13 @@
   </table>
   
   
-  <h4 id="Dlubal_RSectionElement_Parabola" data-uid="Dlubal.RSectionElement#Parabola">Parabola(no, points_of_parabola, control_point, parabola_alpha, comment, params)</h4>
+  <h4 id="Dlubal_RSectionElement_Parabola" data-uid="Dlubal.RSectionElement#Parabola">Parabola(no, points_of_parabola, control_point, thickness, shear_thickness, parabola_alpha, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates RSection parabola Element</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function Parabola(no, points_of_parabola, control_point, parabola_alpha, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function Parabola(no, points_of_parabola, control_point, thickness, shear_thickness, parabola_alpha, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -584,6 +638,24 @@
         <td><em>control_point</em></td>
         <td>
           <p>Control point</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>thickness</em></td>
+        <td>
+          <p>Thickness, can be undefined (10 mm by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>shear_thickness</em></td>
+        <td>
+          <p>Shear thickness, can be undefined (not specified by default)</p>
 
           
         </td>
@@ -635,13 +707,13 @@
   </table>
   
   
-  <h4 id="Dlubal_RSectionElement_NURBS" data-uid="Dlubal.RSectionElement#NURBS">NURBS(no, control_points, nurbs_order, nurbs_knots, comment, params)</h4>
+  <h4 id="Dlubal_RSectionElement_NURBS" data-uid="Dlubal.RSectionElement#NURBS">NURBS(no, control_points, nurbs_order, nurbs_knots, thickness, shear_thickness, comment, params)</h4>
   <div class="markdown level1 summary"><p>Creates RSection NURBS Element</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-js hljs">function NURBS(no, control_points, nurbs_order, nurbs_knots, comment, params)</code></pre>
+    <pre><code class="lang-js hljs">function NURBS(no, control_points, nurbs_order, nurbs_knots, thickness, shear_thickness, comment, params)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -685,6 +757,24 @@
         <td><em>nurbs_knots</em></td>
         <td>
           <p>Nurbs knots, can be undefined</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>thickness</em></td>
+        <td>
+          <p>Thickness, can be undefined (10 mm by default)</p>
+
+          
+        </td>
+      </tr>
+      <tr>
+        <td><span class="xref">Number</span></td>
+        <td><em>shear_thickness</em></td>
+        <td>
+          <p>Shear thickness, can be undefined (not specified by default)</p>
 
           
         </td>

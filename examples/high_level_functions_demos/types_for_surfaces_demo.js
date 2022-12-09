@@ -15,7 +15,7 @@ var section = createSection(material, "IPE 80");
 
 var thickness = createThickness("0.250", material, thicknesses.TYPE_UNIFORM);
 var nodesForSurfaces = createNodesGrid(-28, -28, [10, 10], [3, 2]);
-var linesForSurfaces = createSurfacesFromNodesGrid(nodesForSurfaces, [5, 5], surfaces.TYPE_STANDARD, thickness);
+createSurfacesFromNodesGrid(nodesForSurfaces, [5, 5], surfaces.TYPE_STANDARD, thickness);
 
 /*****************************************Surface eccentricity********************************/
 var surfaceEccentricity = new SurfaceEccentricity(undefined, [1, 2, 3, 4, 5], "Surface eccentricity for surfaces no. 1 - 5");

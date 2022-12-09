@@ -23,6 +23,20 @@ function MemberSet(no,
 }
 
 /**
+ * @returns Number of member set
+ */
+MemberSet.prototype.GetNo = function() {
+    return this.member_set.no;
+};
+
+/**
+ * @returns Member set object
+ */
+MemberSet.prototype.GetMemberSet = function() {
+    return this.member_set;
+};
+
+/**
  * Create Continuous Member memberSet type
  * @param {int} no - Number of Member Set
  * @param {array} members - List of the number of the members

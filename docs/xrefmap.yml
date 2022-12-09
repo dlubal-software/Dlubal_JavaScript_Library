@@ -72,14 +72,14 @@ references:
   name: DesignSituation
   href: api/DesignSituation.html#Dlubal_DesignSituation
   fullName: Dlubal.DesignSituation
-- uid: Dlubal.DesignSituation#DesignSituation
-  name: DesignSituation()
-  href: api/DesignSituation.html#Dlubal_DesignSituation_DesignSituation
-  fullName: Dlubal.DesignSituation.DesignSituation()
-- uid: Dlubal.DesignSituation#No
-  name: No()
-  href: api/DesignSituation.html#Dlubal_DesignSituation_No
-  fullName: Dlubal.DesignSituation.No()
+- uid: Dlubal.DesignSituation#GetDesignSituation
+  name: GetDesignSituation()
+  href: api/DesignSituation.html#Dlubal_DesignSituation_GetDesignSituation
+  fullName: Dlubal.DesignSituation.GetDesignSituation()
+- uid: Dlubal.DesignSituation#GetNo
+  name: GetNo()
+  href: api/DesignSituation.html#Dlubal_DesignSituation_GetNo
+  fullName: Dlubal.DesignSituation.GetNo()
 - uid: Dlubal.DesignSituation#SetActive
   name: SetActive(active)
   href: api/DesignSituation.html#Dlubal_DesignSituation_SetActive
@@ -96,6 +96,22 @@ references:
   name: DesignSituation(no, design_situation_type, params, comment)
   href: api/DesignSituation.html#Dlubal_DesignSituation__ctor
   fullName: Dlubal.DesignSituation.DesignSituation(no, design_situation_type, params, comment)
+- uid: Dlubal.Dimension
+  name: Dimension
+  href: api/Dimension.html#Dlubal_Dimension
+  fullName: Dlubal.Dimension
+- uid: Dlubal.Dimension.#ctor
+  name: Dimension(no, comment, params)
+  href: api/Dimension.html#Dlubal_Dimension__ctor
+  fullName: Dlubal.Dimension.Dimension(no, comment, params)
+- uid: Dlubal.Element
+  name: Element
+  href: api/Element.html#Dlubal_Element
+  fullName: Dlubal.Element
+- uid: Dlubal.Element.#ctor
+  name: Element(no, comment, params)
+  href: api/Element.html#Dlubal_Element__ctor
+  fullName: Dlubal.Element.Element(no, comment, params)
 - uid: Dlubal.FreeCircularLoad
   name: FreeCircularLoad
   href: api/FreeCircularLoad.html#Dlubal_FreeCircularLoad
@@ -212,6 +228,42 @@ references:
   name: GasSolid(no, pressure, temperature, comment, params)
   href: api/GasSolid.html#Dlubal_GasSolid__ctor
   fullName: Dlubal.GasSolid.GasSolid(no, pressure, temperature, comment, params)
+- uid: Dlubal.ImperfectionCase
+  name: ImperfectionCase
+  href: api/ImperfectionCase.html#Dlubal_ImperfectionCase
+  fullName: Dlubal.ImperfectionCase
+- uid: Dlubal.ImperfectionCase#GetImperfectionCase
+  name: GetImperfectionCase()
+  href: api/ImperfectionCase.html#Dlubal_ImperfectionCase_GetImperfectionCase
+  fullName: Dlubal.ImperfectionCase.GetImperfectionCase()
+- uid: Dlubal.ImperfectionCase#GetNo
+  name: GetNo()
+  href: api/ImperfectionCase.html#Dlubal_ImperfectionCase_GetNo
+  fullName: Dlubal.ImperfectionCase.GetNo()
+- uid: Dlubal.ImperfectionCase#GroupOfImperfection
+  name: GroupOfImperfection(no, load_cases_to_assign, imperfection_cases, assign_to_all_load, is_active, comment, params)
+  href: api/ImperfectionCase.html#Dlubal_ImperfectionCase_GroupOfImperfection
+  fullName: Dlubal.ImperfectionCase.GroupOfImperfection(no, load_cases_to_assign, imperfection_cases, assign_to_all_load, is_active, comment, params)
+- uid: Dlubal.ImperfectionCase#InitialSway
+  name: InitialSway(no, load_cases_to_assign, level_imperfections, coordinate_system_no, level_direction, imperfection_direction, sway_coefficients_reciprocal, assign_to_all_load, is_active, comment, params)
+  href: api/ImperfectionCase.html#Dlubal_ImperfectionCase_InitialSway
+  fullName: Dlubal.ImperfectionCase.InitialSway(no, load_cases_to_assign, level_imperfections, coordinate_system_no, level_direction, imperfection_direction, sway_coefficients_reciprocal, assign_to_all_load, is_active, comment, params)
+- uid: Dlubal.ImperfectionCase#LocalImperfection
+  name: LocalImperfection(no, load_cases_to_assign, assign_to_all_load, is_active, comment, params)
+  href: api/ImperfectionCase.html#Dlubal_ImperfectionCase_LocalImperfection
+  fullName: Dlubal.ImperfectionCase.LocalImperfection(no, load_cases_to_assign, assign_to_all_load, is_active, comment, params)
+- uid: Dlubal.ImperfectionCase#Notional
+  name: Notional(no, load_cases_to_assign, notional_loads_from_load_case_no, assign_to_all_load, is_active, comment, params)
+  href: api/ImperfectionCase.html#Dlubal_ImperfectionCase_Notional
+  fullName: Dlubal.ImperfectionCase.Notional(no, load_cases_to_assign, notional_loads_from_load_case_no, assign_to_all_load, is_active, comment, params)
+- uid: Dlubal.ImperfectionCase#StaticDeformation
+  name: StaticDeformation(no, load_cases_to_assign, source_type, shape_from_no, imperfection_magnitude, magnitude_assignment_type, node_no, coordinate_system_no, imperfection_direction, assign_to_all_load, is_active, comment, params)
+  href: api/ImperfectionCase.html#Dlubal_ImperfectionCase_StaticDeformation
+  fullName: Dlubal.ImperfectionCase.StaticDeformation(no, load_cases_to_assign, source_type, shape_from_no, imperfection_magnitude, magnitude_assignment_type, node_no, coordinate_system_no, imperfection_direction, assign_to_all_load, is_active, comment, params)
+- uid: Dlubal.ImperfectionCase.#ctor
+  name: ImperfectionCase(no, comment, params)
+  href: api/ImperfectionCase.html#Dlubal_ImperfectionCase__ctor
+  fullName: Dlubal.ImperfectionCase.ImperfectionCase(no, comment, params)
 - uid: Dlubal.ImposedLineDeformation
   name: ImposedLineDeformation
   href: api/ImposedLineDeformation.html#Dlubal_ImposedLineDeformation
@@ -244,10 +296,6 @@ references:
   name: Arc(no, nodes, control_point, arc_parameters, center_of_arc, alpha_adjustement_target, comment, params)
   href: api/Line.html#Dlubal_Line_Arc
   fullName: Dlubal.Line.Arc(no, nodes, control_point, arc_parameters, center_of_arc, alpha_adjustement_target, comment, params)
-- uid: Dlubal.Line#AssignMember
-  name: AssignMember()
-  href: api/Line.html#Dlubal_Line_AssignMember
-  fullName: Dlubal.Line.AssignMember()
 - uid: Dlubal.Line#Circle
   name: Circle(no, center_of_circle, circle_radius, normal_point, comment, params)
   href: api/Line.html#Dlubal_Line_Circle
@@ -464,6 +512,14 @@ references:
   name: GetActionCategoryList()
   href: api/LoadCase.html#Dlubal_LoadCase_GetActionCategoryList
   fullName: Dlubal.LoadCase.GetActionCategoryList()
+- uid: Dlubal.LoadCase#GetLoadCase
+  name: GetLoadCase()
+  href: api/LoadCase.html#Dlubal_LoadCase_GetLoadCase
+  fullName: Dlubal.LoadCase.GetLoadCase()
+- uid: Dlubal.LoadCase#GetNo
+  name: GetNo()
+  href: api/LoadCase.html#Dlubal_LoadCase_GetNo
+  fullName: Dlubal.LoadCase.GetNo()
 - uid: Dlubal.LoadCase#ModalAnalysis
   name: ModalAnalysis(no, name, modalAnalysisSettingsNo, importMassesFrom, selfWeighParams, comment, params)
   href: api/LoadCase.html#Dlubal_LoadCase_ModalAnalysis
@@ -480,6 +536,10 @@ references:
   name: StaticAnalysis(no, name, staticAnalysisSettingsNo, ActionCategory, selfWeighParams, stabilityAnalysisSettingsNo, comment, params)
   href: api/LoadCase.html#Dlubal_LoadCase_StaticAnalysis
   fullName: Dlubal.LoadCase.StaticAnalysis(no, name, staticAnalysisSettingsNo, ActionCategory, selfWeighParams, stabilityAnalysisSettingsNo, comment, params)
+- uid: Dlubal.LoadCase#WindSimulation
+  name: WindSimulation(no, name, staticAnalysisSettingsNo, windAnalysisSettingsNo, windProfileNo, windDirection, terrainOffset, stabilityAnalysisSettingsNo, comment, params)
+  href: api/LoadCase.html#Dlubal_LoadCase_WindSimulation
+  fullName: Dlubal.LoadCase.WindSimulation(no, name, staticAnalysisSettingsNo, windAnalysisSettingsNo, windProfileNo, windDirection, terrainOffset, stabilityAnalysisSettingsNo, comment, params)
 - uid: Dlubal.LoadCase.#ctor
   name: LoadCase(no, name, comment, params)
   href: api/LoadCase.html#Dlubal_LoadCase__ctor
@@ -544,6 +604,14 @@ references:
   name: EndModifications(member_start, member_end)
   href: api/Member.html#Dlubal_Member_EndModifications
   fullName: Dlubal.Member.EndModifications(member_start, member_end)
+- uid: Dlubal.Member#GetMember
+  name: GetMember()
+  href: api/Member.html#Dlubal_Member_GetMember
+  fullName: Dlubal.Member.GetMember()
+- uid: Dlubal.Member#GetNo
+  name: GetNo()
+  href: api/Member.html#Dlubal_Member_GetNo
+  fullName: Dlubal.Member.GetNo()
 - uid: Dlubal.Member#Hinges
   name: Hinges(member_start_hinge, member_end_hinge)
   href: api/Member.html#Dlubal_Member_Hinges
@@ -808,6 +876,98 @@ references:
   name: MemberHinge(no, members_start_list, members_end_list, comment, params)
   href: api/MemberHinge.html#Dlubal_MemberHinge__ctor
   fullName: Dlubal.MemberHinge.MemberHinge(no, members_start_list, members_end_list, comment, params)
+- uid: Dlubal.MemberImperfection
+  name: MemberImperfection
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection
+  fullName: Dlubal.MemberImperfection
+- uid: Dlubal.MemberImperfection#Absolute
+  name: Absolute(initial_sway, active_criterion, active_bow)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_Absolute
+  fullName: Dlubal.MemberImperfection.Absolute(initial_sway, active_criterion, active_bow)
+- uid: Dlubal.MemberImperfection#ANSI_CURRENT
+  name: ANSI_CURRENT(notional_load_coefficient, standard_factor_enumeration)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_ANSI_CURRENT
+  fullName: Dlubal.MemberImperfection.ANSI_CURRENT(notional_load_coefficient, standard_factor_enumeration)
+- uid: Dlubal.MemberImperfection#ANSI_GRAVITY_LOAD
+  name: ANSI_GRAVITY_LOAD(load_case_combination_no, notional_load_coefficient, standard_factor_enumeration)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_ANSI_GRAVITY_LOAD
+  fullName: Dlubal.MemberImperfection.ANSI_GRAVITY_LOAD(load_case_combination_no, notional_load_coefficient, standard_factor_enumeration)
+- uid: Dlubal.MemberImperfection#CSA_CURRENT
+  name: CSA_CURRENT(value)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_CSA_CURRENT
+  fullName: Dlubal.MemberImperfection.CSA_CURRENT(value)
+- uid: Dlubal.MemberImperfection#CSA_GRAVITY_LOAD
+  name: CSA_GRAVITY_LOAD(load_case_combination_no, value)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_CSA_GRAVITY_LOAD
+  fullName: Dlubal.MemberImperfection.CSA_GRAVITY_LOAD(load_case_combination_no, value)
+- uid: Dlubal.MemberImperfection#EN_1992_1
+  name: EN_1992_1(basic_value_relative, height, columns_inn_row_count, reduction_factor_h_limit)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_EN_1992_1
+  fullName: Dlubal.MemberImperfection.EN_1992_1(basic_value_relative, height, columns_inn_row_count, reduction_factor_h_limit)
+- uid: Dlubal.MemberImperfection#EN_1993_1_1
+  name: EN_1993_1_1(basic_value_relative, height, columns_inn_row_count)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_EN_1993_1_1
+  fullName: Dlubal.MemberImperfection.EN_1993_1_1(basic_value_relative, height, columns_inn_row_count)
+- uid: Dlubal.MemberImperfection#EN_1995_1_1
+  name: EN_1995_1_1(value, height)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_EN_1995_1_1
+  fullName: Dlubal.MemberImperfection.EN_1995_1_1(value, height)
+- uid: Dlubal.MemberImperfection#EN_1999_1_1
+  name: EN_1999_1_1(section_design)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_EN_1999_1_1
+  fullName: Dlubal.MemberImperfection.EN_1999_1_1(section_design)
+- uid: Dlubal.MemberImperfection#GB_50017_2017
+  name: GB_50017_2017(buckling_curve)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_GB_50017_2017
+  fullName: Dlubal.MemberImperfection.GB_50017_2017(buckling_curve)
+- uid: Dlubal.MemberImperfection#GB_50017_2017_CURRENT
+  name: GB_50017_2017_CURRENT(basic_value_relative, structure_height, number_of_floors)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_GB_50017_2017_CURRENT
+  fullName: Dlubal.MemberImperfection.GB_50017_2017_CURRENT(basic_value_relative, structure_height, number_of_floors)
+- uid: Dlubal.MemberImperfection#GB_50017_2017_GRAVITY_LOAD
+  name: GB_50017_2017_GRAVITY_LOAD(load_case_combination_no, notional_load_coefficient, number_of_floors)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_GB_50017_2017_GRAVITY_LOAD
+  fullName: Dlubal.MemberImperfection.GB_50017_2017_GRAVITY_LOAD(load_case_combination_no, notional_load_coefficient, number_of_floors)
+- uid: Dlubal.MemberImperfection#GetMemberImperfection
+  name: GetMemberImperfection()
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_GetMemberImperfection
+  fullName: Dlubal.MemberImperfection.GetMemberImperfection()
+- uid: Dlubal.MemberImperfection#GetNo
+  name: GetNo()
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_GetNo
+  fullName: Dlubal.MemberImperfection.GetNo()
+- uid: Dlubal.MemberImperfection#InitialBow
+  name: InitialBow(no, imperfection_case_no, members_no, coordinate_system, imperfection_direction, reference_to_members, comment, params)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_InitialBow
+  fullName: Dlubal.MemberImperfection.InitialBow(no, imperfection_case_no, members_no, coordinate_system, imperfection_direction, reference_to_members, comment, params)
+- uid: Dlubal.MemberImperfection#InitialBow_ANSI_CURRENT
+  name: InitialBow_ANSI_CURRENT(initial_bow)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_InitialBow_ANSI_CURRENT
+  fullName: Dlubal.MemberImperfection.InitialBow_ANSI_CURRENT(initial_bow)
+- uid: Dlubal.MemberImperfection#InitialBow_ANSI_GRAVITY_LOAD
+  name: InitialBow_ANSI_GRAVITY_LOAD(load_case_combination_no, initial_bow)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_InitialBow_ANSI_GRAVITY_LOAD
+  fullName: Dlubal.MemberImperfection.InitialBow_ANSI_GRAVITY_LOAD(load_case_combination_no, initial_bow)
+- uid: Dlubal.MemberImperfection#InitialBow_EN_1993_1_1
+  name: InitialBow_EN_1993_1_1(section_design)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_InitialBow_EN_1993_1_1
+  fullName: Dlubal.MemberImperfection.InitialBow_EN_1993_1_1(section_design)
+- uid: Dlubal.MemberImperfection#InitialBowAndCriterion
+  name: InitialBowAndCriterion(no, imperfection_case_no, members_no, coordinate_system, imperfection_direction, reference_to_members, comment, params)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_InitialBowAndCriterion
+  fullName: Dlubal.MemberImperfection.InitialBowAndCriterion(no, imperfection_case_no, members_no, coordinate_system, imperfection_direction, reference_to_members, comment, params)
+- uid: Dlubal.MemberImperfection#InitialSway
+  name: InitialSway(no, imperfection_case_no, members_no, coordinate_system, imperfection_direction, reference_to_members, comment, params)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_InitialSway
+  fullName: Dlubal.MemberImperfection.InitialSway(no, imperfection_case_no, members_no, coordinate_system, imperfection_direction, reference_to_members, comment, params)
+- uid: Dlubal.MemberImperfection#Relative
+  name: Relative(initial_sway, active_criterion, active_bow)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection_Relative
+  fullName: Dlubal.MemberImperfection.Relative(initial_sway, active_criterion, active_bow)
+- uid: Dlubal.MemberImperfection.#ctor
+  name: MemberImperfection(no, imperfection_case_no, members_no, comment, params)
+  href: api/MemberImperfection.html#Dlubal_MemberImperfection__ctor
+  fullName: Dlubal.MemberImperfection.MemberImperfection(no, imperfection_case_no, members_no, comment, params)
 - uid: Dlubal.MemberLoad
   name: MemberLoad
   href: api/MemberLoad.html#Dlubal_MemberLoad
@@ -1088,6 +1248,14 @@ references:
   name: ContinuousMembers(no, members, comment, params)
   href: api/MemberSet.html#Dlubal_MemberSet_ContinuousMembers
   fullName: Dlubal.MemberSet.ContinuousMembers(no, members, comment, params)
+- uid: Dlubal.MemberSet#GetMemberSet
+  name: GetMemberSet()
+  href: api/MemberSet.html#Dlubal_MemberSet_GetMemberSet
+  fullName: Dlubal.MemberSet.GetMemberSet()
+- uid: Dlubal.MemberSet#GetNo
+  name: GetNo()
+  href: api/MemberSet.html#Dlubal_MemberSet_GetNo
+  fullName: Dlubal.MemberSet.GetNo()
 - uid: Dlubal.MemberSet#GroupOfMembers
   name: GroupOfMembers(no, members, comment, params)
   href: api/MemberSet.html#Dlubal_MemberSet_GroupOfMembers
@@ -1096,6 +1264,98 @@ references:
   name: MemberSet(no, members, comment, params)
   href: api/MemberSet.html#Dlubal_MemberSet__ctor
   fullName: Dlubal.MemberSet.MemberSet(no, members, comment, params)
+- uid: Dlubal.MemberSetImperfection
+  name: MemberSetImperfection
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection
+  fullName: Dlubal.MemberSetImperfection
+- uid: Dlubal.MemberSetImperfection#Absolute
+  name: Absolute(initial_sway, active_criterion, active_bow)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_Absolute
+  fullName: Dlubal.MemberSetImperfection.Absolute(initial_sway, active_criterion, active_bow)
+- uid: Dlubal.MemberSetImperfection#ANSI_CURRENT
+  name: ANSI_CURRENT(notional_load_coefficient, standard_factor_enumeration)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_ANSI_CURRENT
+  fullName: Dlubal.MemberSetImperfection.ANSI_CURRENT(notional_load_coefficient, standard_factor_enumeration)
+- uid: Dlubal.MemberSetImperfection#ANSI_GRAVITY_LOAD
+  name: ANSI_GRAVITY_LOAD(load_case_combination_no, notional_load_coefficient, standard_factor_enumeration)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_ANSI_GRAVITY_LOAD
+  fullName: Dlubal.MemberSetImperfection.ANSI_GRAVITY_LOAD(load_case_combination_no, notional_load_coefficient, standard_factor_enumeration)
+- uid: Dlubal.MemberSetImperfection#CSA_CURRENT
+  name: CSA_CURRENT(value)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_CSA_CURRENT
+  fullName: Dlubal.MemberSetImperfection.CSA_CURRENT(value)
+- uid: Dlubal.MemberSetImperfection#CSA_GRAVITY_LOAD
+  name: CSA_GRAVITY_LOAD(load_case_combination_no, value)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_CSA_GRAVITY_LOAD
+  fullName: Dlubal.MemberSetImperfection.CSA_GRAVITY_LOAD(load_case_combination_no, value)
+- uid: Dlubal.MemberSetImperfection#EN_1992_1
+  name: EN_1992_1(basic_value_relative, height, columns_inn_row_count, reduction_factor_h_limit)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_EN_1992_1
+  fullName: Dlubal.MemberSetImperfection.EN_1992_1(basic_value_relative, height, columns_inn_row_count, reduction_factor_h_limit)
+- uid: Dlubal.MemberSetImperfection#EN_1993_1_1
+  name: EN_1993_1_1(basic_value_relative, height, columns_inn_row_count)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_EN_1993_1_1
+  fullName: Dlubal.MemberSetImperfection.EN_1993_1_1(basic_value_relative, height, columns_inn_row_count)
+- uid: Dlubal.MemberSetImperfection#EN_1995_1_1
+  name: EN_1995_1_1(value, height)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_EN_1995_1_1
+  fullName: Dlubal.MemberSetImperfection.EN_1995_1_1(value, height)
+- uid: Dlubal.MemberSetImperfection#EN_1999_1_1
+  name: EN_1999_1_1(section_design)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_EN_1999_1_1
+  fullName: Dlubal.MemberSetImperfection.EN_1999_1_1(section_design)
+- uid: Dlubal.MemberSetImperfection#GB_50017_2017
+  name: GB_50017_2017(buckling_curve)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_GB_50017_2017
+  fullName: Dlubal.MemberSetImperfection.GB_50017_2017(buckling_curve)
+- uid: Dlubal.MemberSetImperfection#GB_50017_2017_CURRENT
+  name: GB_50017_2017_CURRENT(basic_value_relative, structure_height, number_of_floors)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_GB_50017_2017_CURRENT
+  fullName: Dlubal.MemberSetImperfection.GB_50017_2017_CURRENT(basic_value_relative, structure_height, number_of_floors)
+- uid: Dlubal.MemberSetImperfection#GB_50017_2017_GRAVITY_LOAD
+  name: GB_50017_2017_GRAVITY_LOAD(load_case_combination_no, notional_load_coefficient, number_of_floors)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_GB_50017_2017_GRAVITY_LOAD
+  fullName: Dlubal.MemberSetImperfection.GB_50017_2017_GRAVITY_LOAD(load_case_combination_no, notional_load_coefficient, number_of_floors)
+- uid: Dlubal.MemberSetImperfection#GetMemberSetImperfection
+  name: GetMemberSetImperfection()
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_GetMemberSetImperfection
+  fullName: Dlubal.MemberSetImperfection.GetMemberSetImperfection()
+- uid: Dlubal.MemberSetImperfection#GetNo
+  name: GetNo()
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_GetNo
+  fullName: Dlubal.MemberSetImperfection.GetNo()
+- uid: Dlubal.MemberSetImperfection#InitialBow
+  name: InitialBow(no, imperfection_case_no, member_sets_no, coordinate_system, imperfection_direction, comment, params)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_InitialBow
+  fullName: Dlubal.MemberSetImperfection.InitialBow(no, imperfection_case_no, member_sets_no, coordinate_system, imperfection_direction, comment, params)
+- uid: Dlubal.MemberSetImperfection#InitialBow_ANSI_CURRENT
+  name: InitialBow_ANSI_CURRENT(initial_bow)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_InitialBow_ANSI_CURRENT
+  fullName: Dlubal.MemberSetImperfection.InitialBow_ANSI_CURRENT(initial_bow)
+- uid: Dlubal.MemberSetImperfection#InitialBow_ANSI_GRAVITY_LOAD
+  name: InitialBow_ANSI_GRAVITY_LOAD(load_case_combination_no, initial_bow)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_InitialBow_ANSI_GRAVITY_LOAD
+  fullName: Dlubal.MemberSetImperfection.InitialBow_ANSI_GRAVITY_LOAD(load_case_combination_no, initial_bow)
+- uid: Dlubal.MemberSetImperfection#InitialBow_EN_1993_1_1
+  name: InitialBow_EN_1993_1_1(section_design)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_InitialBow_EN_1993_1_1
+  fullName: Dlubal.MemberSetImperfection.InitialBow_EN_1993_1_1(section_design)
+- uid: Dlubal.MemberSetImperfection#InitialBowAndCriterion
+  name: InitialBowAndCriterion(no, imperfection_case_no, member_sets_no, coordinate_system, imperfection_direction, comment, params)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_InitialBowAndCriterion
+  fullName: Dlubal.MemberSetImperfection.InitialBowAndCriterion(no, imperfection_case_no, member_sets_no, coordinate_system, imperfection_direction, comment, params)
+- uid: Dlubal.MemberSetImperfection#InitialSway
+  name: InitialSway(no, imperfection_case_no, member_sets_no, coordinate_system, imperfection_direction, comment, params)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_InitialSway
+  fullName: Dlubal.MemberSetImperfection.InitialSway(no, imperfection_case_no, member_sets_no, coordinate_system, imperfection_direction, comment, params)
+- uid: Dlubal.MemberSetImperfection#Relative
+  name: Relative(initial_sway, active_criterion, active_bow)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection_Relative
+  fullName: Dlubal.MemberSetImperfection.Relative(initial_sway, active_criterion, active_bow)
+- uid: Dlubal.MemberSetImperfection.#ctor
+  name: MemberSetImperfection(no, imperfection_case_no, member_sets_no, comment, params)
+  href: api/MemberSetImperfection.html#Dlubal_MemberSetImperfection__ctor
+  fullName: Dlubal.MemberSetImperfection.MemberSetImperfection(no, imperfection_case_no, member_sets_no, comment, params)
 - uid: Dlubal.MemberSetLoad
   name: MemberSetLoad
   href: api/MemberSetLoad.html#Dlubal_MemberSetLoad
@@ -1357,9 +1617,9 @@ references:
   href: api/Node.html#Dlubal_Node_OnMember
   fullName: Dlubal.Node.OnMember(no, member_number, node_reference, parameters, comment, params)
 - uid: Dlubal.Node#Standard
-  name: Standard(no, coordinate_system, coordinate_system_type, comment, params)
+  name: Standard(no, coordinates, coordinate_system_type, comment, params)
   href: api/Node.html#Dlubal_Node_Standard
-  fullName: Dlubal.Node.Standard(no, coordinate_system, coordinate_system_type, comment, params)
+  fullName: Dlubal.Node.Standard(no, coordinates, coordinate_system_type, comment, params)
 - uid: Dlubal.Node.#ctor
   name: Node(no, coordinate_X, coordinate_Y, coordinate_Z, comment, params)
   href: api/Node.html#Dlubal_Node__ctor
@@ -1388,30 +1648,46 @@ references:
   name: OpeningLoad(no, load_case, openings, comment, params)
   href: api/OpeningLoad.html#Dlubal_OpeningLoad__ctor
   fullName: Dlubal.OpeningLoad.OpeningLoad(no, load_case, openings, comment, params)
+- uid: Dlubal.Part
+  name: Part
+  href: api/Part.html#Dlubal_Part
+  fullName: Dlubal.Part
+- uid: Dlubal.Part.#ctor
+  name: Part(no, comment, params)
+  href: api/Part.html#Dlubal_Part__ctor
+  fullName: Dlubal.Part.Part(no, comment, params)
+- uid: Dlubal.Point
+  name: Point
+  href: api/Point.html#Dlubal_Point
+  fullName: Dlubal.Point
+- uid: Dlubal.Point.#ctor
+  name: Point(no, coordinate_Y, coordinate_Z, comment, params)
+  href: api/Point.html#Dlubal_Point__ctor
+  fullName: Dlubal.Point.Point(no, coordinate_Y, coordinate_Z, comment, params)
 - uid: Dlubal.RSectionElement
   name: RSectionElement
   href: api/RSectionElement.html#Dlubal_RSectionElement
   fullName: Dlubal.RSectionElement
 - uid: Dlubal.RSectionElement#Arc
-  name: Arc(no, points_of_arc, control_point, arc_parameters, arc_center, alpha_adjustment_target, comment, params)
+  name: Arc(no, points_of_arc, control_point, thickness, shear_thickness, arc_parameters, arc_center, alpha_adjustment_target, comment, params)
   href: api/RSectionElement.html#Dlubal_RSectionElement_Arc
-  fullName: Dlubal.RSectionElement.Arc(no, points_of_arc, control_point, arc_parameters, arc_center, alpha_adjustment_target, comment, params)
+  fullName: Dlubal.RSectionElement.Arc(no, points_of_arc, control_point, thickness, shear_thickness, arc_parameters, arc_center, alpha_adjustment_target, comment, params)
 - uid: Dlubal.RSectionElement#Circle
-  name: Circle(no, circle_center, circle_radius, comment, params)
+  name: Circle(no, circle_center, circle_radius, thickness, shear_thickness, comment, params)
   href: api/RSectionElement.html#Dlubal_RSectionElement_Circle
-  fullName: Dlubal.RSectionElement.Circle(no, circle_center, circle_radius, comment, params)
+  fullName: Dlubal.RSectionElement.Circle(no, circle_center, circle_radius, thickness, shear_thickness, comment, params)
 - uid: Dlubal.RSectionElement#Ellipse
-  name: Ellipse(no, first_point, second_point, control_point, comment, params)
+  name: Ellipse(no, first_point, second_point, control_point, thickness, shear_thickness, comment, params)
   href: api/RSectionElement.html#Dlubal_RSectionElement_Ellipse
-  fullName: Dlubal.RSectionElement.Ellipse(no, first_point, second_point, control_point, comment, params)
+  fullName: Dlubal.RSectionElement.Ellipse(no, first_point, second_point, control_point, thickness, shear_thickness, comment, params)
 - uid: Dlubal.RSectionElement#NURBS
-  name: NURBS(no, control_points, nurbs_order, nurbs_knots, comment, params)
+  name: NURBS(no, control_points, nurbs_order, nurbs_knots, thickness, shear_thickness, comment, params)
   href: api/RSectionElement.html#Dlubal_RSectionElement_NURBS
-  fullName: Dlubal.RSectionElement.NURBS(no, control_points, nurbs_order, nurbs_knots, comment, params)
+  fullName: Dlubal.RSectionElement.NURBS(no, control_points, nurbs_order, nurbs_knots, thickness, shear_thickness, comment, params)
 - uid: Dlubal.RSectionElement#Parabola
-  name: Parabola(no, points_of_parabola, control_point, parabola_alpha, comment, params)
+  name: Parabola(no, points_of_parabola, control_point, thickness, shear_thickness, parabola_alpha, comment, params)
   href: api/RSectionElement.html#Dlubal_RSectionElement_Parabola
-  fullName: Dlubal.RSectionElement.Parabola(no, points_of_parabola, control_point, parabola_alpha, comment, params)
+  fullName: Dlubal.RSectionElement.Parabola(no, points_of_parabola, control_point, thickness, shear_thickness, parabola_alpha, comment, params)
 - uid: Dlubal.RSectionElement#SingleLine
   name: SingleLine(no, boundary_lines, thickness, shear_thickness, comment, params)
   href: api/RSectionElement.html#Dlubal_RSectionElement_SingleLine
@@ -1660,14 +1936,14 @@ references:
   name: EmissionEstimationValues(member_weight, member_volume, member_surface, member_length)
   href: api/Section.html#Dlubal_Section_EmissionEstimationValues
   fullName: Dlubal.Section.EmissionEstimationValues(member_weight, member_volume, member_surface, member_length)
+- uid: Dlubal.Section#GetNo
+  name: GetNo()
+  href: api/Section.html#Dlubal_Section_GetNo
+  fullName: Dlubal.Section.GetNo()
 - uid: Dlubal.Section#ManufacturingType
   name: ManufacturingType(manufacturing_type)
   href: api/Section.html#Dlubal_Section_ManufacturingType
   fullName: Dlubal.Section.ManufacturingType(manufacturing_type)
-- uid: Dlubal.Section#No
-  name: No()
-  href: api/Section.html#Dlubal_Section_No
-  fullName: Dlubal.Section.No()
 - uid: Dlubal.Section#Optimization
   name: Optimization(optimization)
   href: api/Section.html#Dlubal_Section_Optimization
@@ -1892,6 +2168,14 @@ references:
   name: GeometricallyLinear(no, name, equationSolver, plateBendingTheory, activeMass, modifyLoading, comment, params)
   href: api/StaticAnalysisSettings.html#Dlubal_StaticAnalysisSettings_GeometricallyLinear
   fullName: Dlubal.StaticAnalysisSettings.GeometricallyLinear(no, name, equationSolver, plateBendingTheory, activeMass, modifyLoading, comment, params)
+- uid: Dlubal.StaticAnalysisSettings#GetNo
+  name: GetNo()
+  href: api/StaticAnalysisSettings.html#Dlubal_StaticAnalysisSettings_GetNo
+  fullName: Dlubal.StaticAnalysisSettings.GetNo()
+- uid: Dlubal.StaticAnalysisSettings#GetStaticAnalysisSettings
+  name: GetStaticAnalysisSettings()
+  href: api/StaticAnalysisSettings.html#Dlubal_StaticAnalysisSettings_GetStaticAnalysisSettings
+  fullName: Dlubal.StaticAnalysisSettings.GetStaticAnalysisSettings()
 - uid: Dlubal.StaticAnalysisSettings#LargeDeformations
   name: LargeDeformations(no, name, equationSolver, nonlinearMethod, maxNumberOfIterations, numberOfLoadIncrements, percentageOfIterations, plateBendingTheory, activeMass, modifyLoading, comment, params)
   href: api/StaticAnalysisSettings.html#Dlubal_StaticAnalysisSettings_LargeDeformations
@@ -1912,6 +2196,14 @@ references:
   name: Stiffener(no, comment, params)
   href: api/Stiffener.html#Dlubal_Stiffener__ctor
   fullName: Dlubal.Stiffener.Stiffener(no, comment, params)
+- uid: Dlubal.StressPoint
+  name: StressPoint
+  href: api/StressPoint.html#Dlubal_StressPoint
+  fullName: Dlubal.StressPoint
+- uid: Dlubal.StressPoint.#ctor
+  name: StressPoint(no, comment, params)
+  href: api/StressPoint.html#Dlubal_StressPoint__ctor
+  fullName: Dlubal.StressPoint.StressPoint(no, comment, params)
 - uid: Dlubal.StructureModification
   name: StructureModification
   href: api/StructureModification.html#Dlubal_StructureModification
@@ -2036,6 +2328,14 @@ references:
   name: Eccentricity(eccentricity)
   href: api/Surface.html#Dlubal_Surface_Eccentricity
   fullName: Dlubal.Surface.Eccentricity(eccentricity)
+- uid: Dlubal.Surface#GetNo
+  name: GetNo()
+  href: api/Surface.html#Dlubal_Surface_GetNo
+  fullName: Dlubal.Surface.GetNo()
+- uid: Dlubal.Surface#GetSurface
+  name: GetSurface()
+  href: api/Surface.html#Dlubal_Surface_GetSurface
+  fullName: Dlubal.Surface.GetSurface()
 - uid: Dlubal.Surface#GridForResults
   name: GridForResults(grid_type, number_of_grid_points, grid_adapt_automatically, grid_distancies, grid_rotation, grid_origin)
   href: api/Surface.html#Dlubal_Surface_GridForResults
@@ -2073,9 +2373,9 @@ references:
   href: api/Surface.html#Dlubal_Surface_Plane
   fullName: Dlubal.Surface.Plane()
 - uid: Dlubal.Surface#Quadrangle
-  name: Quadrangle(no, boundary_lines, thickness, boundary_line, corner_node_1, corner_node_2, corner_node_3, corner_node_4, comment, params)
+  name: Quadrangle(no, boundary_lines, stiffness_type, thickness, boundary_line, corner_node_1, corner_node_2, corner_node_3, corner_node_4, comment, params)
   href: api/Surface.html#Dlubal_Surface_Quadrangle
-  fullName: Dlubal.Surface.Quadrangle(no, boundary_lines, thickness, boundary_line, corner_node_1, corner_node_2, corner_node_3, corner_node_4, comment, params)
+  fullName: Dlubal.Surface.Quadrangle(no, boundary_lines, stiffness_type, thickness, boundary_line, corner_node_1, corner_node_2, corner_node_3, corner_node_4, comment, params)
 - uid: Dlubal.Surface#Rigid
   name: Rigid(no, boundary_lines, comment, params)
   href: api/Surface.html#Dlubal_Surface_Rigid
@@ -2180,6 +2480,14 @@ references:
   name: ContinuousSurfaces(no, surfaces, comment, params)
   href: api/SurfaceSet.html#Dlubal_SurfaceSet_ContinuousSurfaces
   fullName: Dlubal.SurfaceSet.ContinuousSurfaces(no, surfaces, comment, params)
+- uid: Dlubal.SurfaceSet#GetNo
+  name: GetNo()
+  href: api/SurfaceSet.html#Dlubal_SurfaceSet_GetNo
+  fullName: Dlubal.SurfaceSet.GetNo()
+- uid: Dlubal.SurfaceSet#GetSurfaceSet
+  name: GetSurfaceSet()
+  href: api/SurfaceSet.html#Dlubal_SurfaceSet_GetSurfaceSet
+  fullName: Dlubal.SurfaceSet.GetSurfaceSet()
 - uid: Dlubal.SurfaceSet#GroupOfSurfaces
   name: GroupOfSurfaces(no, surfaces, comment, params)
   href: api/SurfaceSet.html#Dlubal_SurfaceSet_GroupOfSurfaces
@@ -2269,25 +2577,25 @@ references:
   href: api/Thickness.html#Dlubal_Thickness_StiffnessMatrix
   fullName: Dlubal.Thickness.StiffnessMatrix(no, name, rotation_beta, consideration_of_self_weight, coefficient_of_thermal_expansion, stiffness_matrix, comment, params)
 - uid: Dlubal.Thickness#Uniform
-  name: Uniform(no, name, material, properties, comment, params)
+  name: Uniform(no, name, material, thickness, comment, params)
   href: api/Thickness.html#Dlubal_Thickness_Uniform
-  fullName: Dlubal.Thickness.Uniform(no, name, material, properties, comment, params)
+  fullName: Dlubal.Thickness.Uniform(no, name, material, thickness, comment, params)
 - uid: Dlubal.Thickness#Variable_2NodesAndDirection
-  name: Variable_2NodesAndDirection(no, name, material, properties, comment, params)
+  name: Variable_2NodesAndDirection(no, name, material, thicknessProperties, comment, params)
   href: api/Thickness.html#Dlubal_Thickness_Variable_2NodesAndDirection
-  fullName: Dlubal.Thickness.Variable_2NodesAndDirection(no, name, material, properties, comment, params)
+  fullName: Dlubal.Thickness.Variable_2NodesAndDirection(no, name, material, thicknessProperties, comment, params)
 - uid: Dlubal.Thickness#Variable_3Nodes
-  name: Variable_3Nodes(no, name, material, properties, comment, params)
+  name: Variable_3Nodes(no, name, material, thicknessProperties, comment, params)
   href: api/Thickness.html#Dlubal_Thickness_Variable_3Nodes
-  fullName: Dlubal.Thickness.Variable_3Nodes(no, name, material, properties, comment, params)
+  fullName: Dlubal.Thickness.Variable_3Nodes(no, name, material, thicknessProperties, comment, params)
 - uid: Dlubal.Thickness#Variable_4SurfaceCorners
-  name: Variable_4SurfaceCorners(no, name, material, properties, comment, params)
+  name: Variable_4SurfaceCorners(no, name, material, thicknessProperties, comment, params)
   href: api/Thickness.html#Dlubal_Thickness_Variable_4SurfaceCorners
-  fullName: Dlubal.Thickness.Variable_4SurfaceCorners(no, name, material, properties, comment, params)
+  fullName: Dlubal.Thickness.Variable_4SurfaceCorners(no, name, material, thicknessProperties, comment, params)
 - uid: Dlubal.Thickness#Variable_Circle
-  name: Variable_Circle(no, name, material, properties, comment, params)
+  name: Variable_Circle(no, name, material, thicknessProperties, comment, params)
   href: api/Thickness.html#Dlubal_Thickness_Variable_Circle
-  fullName: Dlubal.Thickness.Variable_Circle(no, name, material, properties, comment, params)
+  fullName: Dlubal.Thickness.Variable_Circle(no, name, material, thicknessProperties, comment, params)
 - uid: Dlubal.Thickness.#ctor
   name: Thickness(no, name, material, uniform_thickness_d, comment, params)
   href: api/Thickness.html#Dlubal_Thickness__ctor
