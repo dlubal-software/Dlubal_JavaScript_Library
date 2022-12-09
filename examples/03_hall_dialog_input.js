@@ -30,11 +30,11 @@ lc4.StaticAnalysis(4, "Wind load 2", SASSecondOrder.GetNo(), "ACTION_CATEGORY_WI
 var lc5 = new LoadCase();
 lc5.StaticAnalysis(5, "Stability - linear", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_PERMANENT_IMPOSED_GQ", [true, 0, 0, 1.0],1);
 var lc6 = new LoadCase();
-lc5.StaticAnalysis(6, "Imperfections", SASSecondOrder.GetNo(), "ACTION_CATEGORY_PERMANENT_IMPOSED_GQ", [false, 0, 0, 1.0]);
+lc6.StaticAnalysis(6, "Imperfections", SASSecondOrder.GetNo(), "ACTION_CATEGORY_PERMANENT_IMPOSED_GQ", [false, 0, 0, 1.0]);
+var imperfection_case = new ImperfectionCase();
+imperfection_case.LocalImperfection(undefined, [lc6.GetNo()], undefined, true, "Imperfection case comment");
 var lc7 = new LoadCase();
 lc7.StaticAnalysis(7, "Other permanent load", SASSecondOrder.GetNo(), "ACTION_CATEGORY_PERMANENT_G", [false, 0, 0, 1.0]);
-ImperfectionCase(1, "Local Imperfections Only");
-lc6.ConsiderImperfection(1);
 
 
 // prepare materials and sections
@@ -109,9 +109,10 @@ member.Tension(undefined,  [3, 10], sectionL.GetNo());
 
 
 // create member imperfections
-var imperfection = MemberImperfection(undefined, 1);
-imperfection.members = "1,9,17,25,33";
-imperfection.basic_value_absolute = 5mm;
+var member_imperfection = new MemberImperfection();
+member_imperfection.InitialSway(undefined, imperfection_case.GetNo(), [1,9,17,25,33]);
+member_imperfection.Absolute(0.05);
+
 
 // loading values for live load and wind load
 var f_g = 150N/m2;
