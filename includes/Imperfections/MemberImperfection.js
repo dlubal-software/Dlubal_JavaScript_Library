@@ -461,6 +461,6 @@ function createBaseMemberImperfection (no,
         return memberImperfection;
     }
     else {
-        console.log("Imperfection case no. " + imperfection_case_no + "doesn't exist");
+        console.log("Imperfection case no. " + imperfection_case_no + " doesn't exist");
     }
 }

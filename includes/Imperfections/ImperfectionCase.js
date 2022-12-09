@@ -25,7 +25,7 @@ ImperfectionCase.prototype.GetNo = function () {
 /**
  * @returns Imperfection case object
  */
-ImperfectionCase.prototype.ImperfectionCase = function() {
+ImperfectionCase.prototype.GetImperfectionCase = function() {
     return this.imperfectionCase;
 };
 
@@ -168,14 +168,14 @@ ImperfectionCase.prototype.InitialSway = function (no,
         ASSERT(Array.isArray(level_imperfections[i]), i + 1 + ". item must be array");
         if (imperfection_direction === "DIRECTION_XY" || imperfection_direction === "DIRECTION_XZ" || imperfection_direction === "DIRECTION_YZ") {
             if (i === 0) {
-                ASSERT(level_imperfections[i].length === 1, "First array item can contain only level");
+                ASSERT(level_imperfections[i].length === 1, "First array item can contain only level value");
                 this.imperfectionCase.level_imperfections[row].level = level_imperfections[i][0];
                 if (level_imperfections[i].length > 1) {
                     this.imperfectionCase.level_imperfections[row].comment = level_imperfections[i][1];
                 }
             }
             else {
-                ASSERT(level_imperfections[i].length >= 3, "Item array must contain at least three values");
+                ASSERT(level_imperfections[i].length >= 3, "Item array must contain at least three values (level, theta_x, theta_y)");
                 this.imperfectionCase.level_imperfections[row].level = level_imperfections[i][0];
                 this.imperfectionCase.level_imperfections[row].theta_1 = level_imperfections[i][1];
                 this.imperfectionCase.level_imperfections[row].theta_2 = level_imperfections[i][2];
@@ -185,16 +185,16 @@ ImperfectionCase.prototype.InitialSway = function (no,
             }
         }
         else {
-            // We set only level and theta 1 (+ comment)
+            // We set only level and theta 2 (+ comment)
             if (i === 0) {
-                ASSERT(level_imperfections[i].length === 1, "First array item can contain only level");
+                ASSERT(level_imperfections[i].length === 1, "First array item can contain only level value");
                 this.imperfectionCase.level_imperfections[row].level = level_imperfections[i][0];
                 if (level_imperfections[i].length > 1) {
                     this.imperfectionCase.level_imperfections[row].comment = level_imperfections[i][1];
                 }
             }
             else {
-                ASSERT(level_imperfections[i].length >= 2, "Item array must contain at least two values");
+                ASSERT(level_imperfections[i].length >= 2, "Item array must contain at least two values (level, theta 2)");
                 this.imperfectionCase.level_imperfections[row].level = level_imperfections[i][0];
                 this.imperfectionCase.level_imperfections[row].theta_2 = level_imperfections[i][1];
                 if (level_imperfections[i].length > 2) {

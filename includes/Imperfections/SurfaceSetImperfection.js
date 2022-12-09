@@ -90,27 +90,32 @@ function createBaseSurfaceSetImperfection (no,
     comment,
     params) {
     ASSERT(typeof imperfection_case_no !== "undefined", "Imperfection case number must be specified");
-    if (typeof no === "undefined") {
-        var surfaceSetImperfection = imperfection_cases[imperfection_case_no].surface_set_imperfections.create();
-    }
-    else {
-        var surfaceSetImperfection = imperfection_cases[imperfection_case_no].surface_set_imperfections.create(no);
-    }
-    set_comment_and_parameters(surfaceSetImperfection, comment, params);
-    if (typeof surface_sets_no !== "undefined") {
-        for (var i = 0; i < surface_sets_no.length; ++i) {
-            if (!surface_sets.exist(surface_sets_no[i])) {
-                console.log("Surface set no. " + surface_sets_no[i] + " doesn't exist");
-            }
-            else if (surface_sets[surface_sets_no[i]].set_type !== surface_sets.SET_TYPE_CONTINUOUS) {
-                console.log("Surface set " + surface_sets_no[i] + " must be of continuos type");
-            }
+    if (imperfection_cases.exist(imperfection_case_no)) {
+        if (typeof no === "undefined") {
+            var surfaceSetImperfection = imperfection_cases[imperfection_case_no].surface_set_imperfections.create();
         }
-        surfaceSetImperfection.surface_sets = surface_sets_no.join(",");
+        else {
+            var surfaceSetImperfection = imperfection_cases[imperfection_case_no].surface_set_imperfections.create(no);
+        }
+        set_comment_and_parameters(surfaceSetImperfection, comment, params);
+        if (typeof surface_sets_no !== "undefined") {
+            for (var i = 0; i < surface_sets_no.length; ++i) {
+                if (!surface_sets.exist(surface_sets_no[i])) {
+                    console.log("Surface set no. " + surface_sets_no[i] + " doesn't exist");
+                }
+                else if (surface_sets[surface_sets_no[i]].set_type !== surface_sets.SET_TYPE_CONTINUOUS) {
+                    console.log("Surface set " + surface_sets_no[i] + " must be of continuos type");
+                }
+            }
+            surfaceSetImperfection.surface_sets = surface_sets_no.join(",");
+        }
+        else {
+            console.log("No surface sets are defined");
+        }
+        surfaceSetImperfection.definition_type = GetSurfaceSetImperfectionDefinitionType(definition_type);
+        return surfaceSetImperfection;
     }
     else {
-        console.log("No surface sets are defined");
+        console.log("Imperfection case no. " + imperfection_case_no + " doesn't exist");
     }
-    surfaceSetImperfection.definition_type = GetSurfaceSetImperfectionDefinitionType(definition_type);
-    return surfaceSetImperfection;
 }

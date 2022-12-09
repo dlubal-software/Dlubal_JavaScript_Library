@@ -92,24 +92,29 @@ function createBaseSurfaceImperfection (no,
     comment,
     params) {
     ASSERT(typeof imperfection_case_no !== "undefined", "Imperfection case number must be specified");
-    if (typeof no === "undefined") {
-        var surfaceImperfection = imperfection_cases[imperfection_case_no].surface_imperfections.create();
-    }
-    else {
-        var surfaceImperfection = imperfection_cases[imperfection_case_no].surface_imperfections.create(no);
-    }
-    set_comment_and_parameters(surfaceImperfection, comment, params);
-    if (typeof surfaces_no !== "undefined") {
-        for (var i = 0; i < surfaces_no.length; ++i) {
-            if (!surfaces.exist(surfaces_no[i])) {
-                console.log("Surface no. " + surfaces_no[i] + " doesn't exist");
-            }
+    if (imperfection_cases.exist(imperfection_case_no)) {
+        if (typeof no === "undefined") {
+            var surfaceImperfection = imperfection_cases[imperfection_case_no].surface_imperfections.create();
         }
-        surfaceImperfection.surfaces = surfaces_no.join(",");
+        else {
+            var surfaceImperfection = imperfection_cases[imperfection_case_no].surface_imperfections.create(no);
+        }
+        set_comment_and_parameters(surfaceImperfection, comment, params);
+        if (typeof surfaces_no !== "undefined") {
+            for (var i = 0; i < surfaces_no.length; ++i) {
+                if (!surfaces.exist(surfaces_no[i])) {
+                    console.log("Surface no. " + surfaces_no[i] + " doesn't exist");
+                }
+            }
+            surfaceImperfection.surfaces = surfaces_no.join(",");
+        }
+        else {
+            console.log("No surfaces are defined");
+        }
+        surfaceImperfection.definition_type = GetSurfaceImperfectionDefinitionType(definition_type);
+        return surfaceImperfection;
     }
     else {
-        console.log("No surfaces are defined");
+        console.log("Imperfection case no. " + imperfection_case_no + " doesn't exist");
     }
-    surfaceImperfection.definition_type = GetSurfaceImperfectionDefinitionType(definition_type);
-    return surfaceImperfection;
 }

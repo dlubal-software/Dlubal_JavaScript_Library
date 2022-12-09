@@ -31,7 +31,7 @@ function GetMemberImperfectionDirection(coordinate_system, imperfection_directio
 		if (imperfectionDirection === undefined) {
 			console.log("Wrong type of imperfection direction. Value was: " + imperfection_direction);
 			console.log("Correct values are: ( " + Object.keys(imperfection_directions_dict) + ")");
-			imperfectionDirection = imperfection_directions_dict[Object.keys(imperfection_directions_dict)[0]]
+			imperfectionDirection = imperfection_directions_dict[Object.keys(imperfection_directions_dict)[0]];
 		}
 		return imperfectionDirection;
 	}
@@ -109,13 +109,13 @@ function GetMemberImperfectionDefinitionType(imperfection_type, definition_type)
             "CSA_CURRENT" : member_imperfections.DEFINITION_TYPE_CSA_CURRENT,
             "CSA_GRAVITY_LOAD" : member_imperfections.DEFINITION_TYPE_CSA_GRAVITY_LOAD,
             "GB_50017_2017" : member_imperfections.DEFINITION_TYPE_GB_50017_2017
-        }
+        };
     }
     else if (imperfection_type === member_imperfections.IMPERFECTION_TYPE_INITIAL_BOW_AND_CRITERION) {
         const definition_types_dict = {
             "MANUALLY_RELATIVE" : member_imperfections.DEFINITION_TYPE_RELATIVE,
             "MANUALLY_ABSOLUTE" : member_imperfections.DEFINITION_TYPE_ABSOLUTE
-        }
+        };
     }
     else {
         ASSERT(false, "Unknown imperfection type");

@@ -32,7 +32,7 @@ MemberSet.prototype.GetNo = function() {
 /**
  * @returns Member set object
  */
-MemberSet.prototype.MemberSet = function() {
+MemberSet.prototype.GetMemberSet = function() {
     return this.member_set;
 };
 
