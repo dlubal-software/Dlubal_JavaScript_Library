@@ -4,6 +4,9 @@ if (!RSECTION) {
 
 include("../includes/Tools/high_level_functions_support.js");
 
+// Bug 46956: has_concerete_reinforcement
+// Bar.MultiVariable function - cannot set bar.info_number_of_bars??
+
 /*********************************************************************************************
 ****************************************** Main **********************************************
 *********************************************************************************************/
@@ -13,8 +16,7 @@ var t1 = new Date().getTime();
 run("../includes/Tools/clearAll.js");
 
 var material = new Material(undefined, "S235");
-var section = new Section(1, "IPE 80", material.No());
-var section2 = new Section(2, "IPE 100", material.No());
+var material2 = new Material(undefined, "Grade 40");
 
 var pointsList = [
     [0.1, -0.15], [0.1, -0.144], [0.097656854249492, -0.138343145750508], [0.092, -0.136], [0.015, -0.136], [0.007928932188135, -0.133071067811865], [0.005, -0.126],
@@ -115,6 +117,17 @@ stressPoint.Standard(undefined, 1, undefined, [0, 0.1]);
 stressPoint.OnLine(undefined, 6, [0.75, undefined]);
 stressPoint.OnLine(undefined, 6, [undefined, 0.01, false]);     // absolute distances
 stressPoint.OnElement(undefined, 5, [0.10, undefined]);   // relative distances
+
+/*********************************************** Bar ********************************************/
+general.has_concerete_reinforcement = true;
+var bar = new Bar();
+bar.MultiUniform(undefined, 31, 32, material2.GetNo(), 1, "REFERENCE_TYPE_Y", 0.025, -0.020);     // With default 2 bars
+var bar2 = new Bar();
+bar2.MultiVariable(undefined, 28, 1, material2.GetNo(), 1, "REFERENCE_TYPE_Z", 0.010, -0.020, undefined, undefined, 0.020, 0.010); // With added axial distance sj
+var bar3 = new Bar();
+bar3.SingleBetweenTwoPoints(undefined, 15, 14, material2.GetNo(), 1, undefined, 0.010, -0.020, undefined, 0.040, false); // With default ("L") reference type and absolute xj-k value specified
+var bar4 = new Bar();
+bar4.SinglePoint(undefined, 40, material2.GetNo(), undefined, 0.05, 0.05);  // With default diameter
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;
