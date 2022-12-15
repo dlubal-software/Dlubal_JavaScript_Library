@@ -4,9 +4,6 @@ if (!RSECTION) {
 
 include("../includes/Tools/high_level_functions_support.js");
 
-// Bug 46956: has_concerete_reinforcement
-// Bar.MultiVariable function - cannot set bar.info_number_of_bars??
-
 /*********************************************************************************************
 ****************************************** Main **********************************************
 *********************************************************************************************/
@@ -125,9 +122,22 @@ bar.MultiUniform(undefined, 31, 32, material2.GetNo(), 1, "REFERENCE_TYPE_Y", 0.
 var bar2 = new Bar();
 bar2.MultiVariable(undefined, 28, 1, material2.GetNo(), 1, "REFERENCE_TYPE_Z", 0.010, -0.020, undefined, undefined, 0.020, 0.010); // With added axial distance sj
 var bar3 = new Bar();
-bar3.SingleBetweenTwoPoints(undefined, 15, 14, material2.GetNo(), 1, undefined, 0.010, -0.020, undefined, 0.040, false); // With default ("L") reference type and absolute xj-k value specified
+bar3.SingleBetweenTwoPoints(undefined, 15, 14, material2.GetNo(), 1, undefined, 0.010, -0.020, undefined, 0.040, false); // With default ("L") reference type and absolute Xj-k value specified
 var bar4 = new Bar();
-bar4.SinglePoint(undefined, 40, material2.GetNo(), undefined, 0.05, 0.05);  // With default diameter
+bar4.SingleBetweenTwoPoints(undefined, 15, 14, material2.GetNo(), 1, undefined, 0.010, -0.020, 0.3); // With default ("L") reference type and relative Xi-k value specified
+var bar5 = new Bar();
+bar5.SinglePoint(undefined, 40, material2.GetNo(), 1, undefined, 0.05, 0.05);  // With default diameter
+
+/***************************************** Bar + Stirrups****************************************/
+var concreteMaterial = new Material(undefined, "C12/15");
+var reinforcedSteelMaterial = new Material(undefined, "Grade 40");
+rsPart.Rectangle(undefined, [0.3, -0.18], 0.28, 0.11, concreteMaterial.GetNo());
+var stirrup = new Stirrup(undefined, [501, 502, 503, 504, 501], reinforcedSteelMaterial.GetNo(), 0.022, 0.022, 1);
+var bar6 = new Bar();
+bar6.SinglePoint(undefined, 511, material2.GetNo(), 1);  // With default diameter and offsets
+bar6.SinglePoint(undefined, 508, material2.GetNo(), 1);  // With default diameter and offsets
+bar6.SinglePoint(undefined, 513, material2.GetNo(), 1);  // With default diameter and offsets
+bar6.SinglePoint(undefined, 516, material2.GetNo(), 1);  // With default diameter and offsets
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;

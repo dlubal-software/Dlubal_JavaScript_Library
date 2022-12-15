@@ -33,8 +33,8 @@ if (RSECTION) {
     include("BasicObjects/RsectionStiffener.js");
     include("BasicObjects/RsectionStressPoint.js");
     include("BasicObjects/RsectionSubpanel.js");
-    include("BasicObjects/Stirrups.js");
-    include("BasicObjects/Bars.js");
+    include("BasicObjects/Stirrup.js");
+    include("BasicObjects/Bar.js");
 }
 include("BasicObjects/Material.js");
 include("BasicObjects/MemberSet.js");

@@ -1,6 +1,9 @@
 if (!RSECTION) {
-    throw new Error("This script is only for RSECTION, it creates RSection Lines.");
+    throw new Error("This script is only for RSECTION, it creates RSection Bars.");
 }
+
+// Bug 46956: has_concerete_reinforcement bad API value name
+// Bar.MultiVariable function - cannot set bar.info_number_of_bars??
 
 /**
  * Creates RSECTION Bar
@@ -145,8 +148,8 @@ Bar.prototype.MultiVariable = function (no,
  * @param {String}  distance_between_i_and_j_type   Distance between i and j reference type, can be undefined ("REFERENCE_TYPE_L" as default)
  * @param {Number}  diameter                        Bar diameter, can be undefined (12 mm as default)
  * @param {Number}  offset                          Offset, can be undefined (0 by default)
- * @param {Number}  distance_from_start             Distance between point k and Xi-k, can be undefined (in case the second distance is not undefined)
- * @param {Number}  distance_from_end               Distance between point k and Xj-k, can be undefined (in case the first distance is not undefined)
+ * @param {Number}  distance_from_start             Distance between point k and Xi-k, can be undefined (in case Xj-k is not undefined)
+ * @param {Number}  distance_from_end               Distance between point k and Xj-k, can be undefined (in case Xi-k is not undefined)
  * @param {Boolean} relative                        Distance Xi-k or Xj-k are specified as relative or absolute, can be undefined (true as default)
  * @param {String}  comment                         Comment, can be undefined
  * @param {Object}  params                          Parameters, can be undefined
@@ -261,16 +264,15 @@ function createBaseBar (no,
     }
     ASSERT(typeof material_no !==  "undefined", "Material number must be defined");
     if (!materials.exist(material_no)) {
-        console.log("Material no. " + material_no + " doesnt exist");
+        console.log("Material no. " + material_no + " doesn't exist");
     }
     bar.material = material_no;
-    if (typeof layer_no !== "undefined") {
-        if (layers.exist(layer_no)) {
-            bar.layer = layer_no;
-        }
-        else {
-            console.log("Layer no. " + layer_no + " doesn't exist");
-        }
+    ASSERT(typeof layer_no !== "undefined", "Number of layer must be specified");
+    if (layers.exist(layer_no)) {
+        bar.layer = layer_no;
+    }
+    else {
+        console.log("Layer no. " + layer_no + " doesn't exist");
     }
     set_comment_and_parameters(bar, comment, params);
     return bar;
