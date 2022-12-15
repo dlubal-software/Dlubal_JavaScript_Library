@@ -3,9 +3,6 @@
 		{
 			"path": "."
 		},
-		{
-			"path": "..\\..\\TestingVersions\\master_b154985_e6e6d32244f\\scripts\\internal"
-		}
 	],
 	"settings": {
 		"markdownlint.config": {

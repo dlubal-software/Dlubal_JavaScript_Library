@@ -1,0 +1,11 @@
+{
+    "devDependencies": {
+        "jsdoc-to-markdown": "^7.1.1"
+    },
+    "scripts": {
+        "docs": "jsdoc2md includes/*/*.js > MD/TypesForSurfaces.md"
+    },
+    "dependencies": {
+        "jsdoc": "^4.0.0"
+    }
+}
