@@ -1,7 +1,0 @@
-- name: Gettings Started
-  items:
-  - name: Dynamic blocks
-    href: introblocks.md
-  - name: Overview of functions used for blocks
-    href: functionsForBlocks.md
-
