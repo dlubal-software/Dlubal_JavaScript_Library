@@ -7,7 +7,7 @@ include("../Tools/high_level_functions_support.js");
  * @class
  * @constructor
  * @param	{Number}	no			Index of line, can be undefined
- * @param	{Array}		nodes		List of node indexes
+ * @param	{Array}		nodes		List of {@link Node} indexes
  * @param	{String}	comment		Comment, can be undefined
  * @param	{Object}	params		Line's parameters, can be undefined
  * @returns	Created line
@@ -24,9 +24,13 @@ function Line (no,
 /**
 * Creates polyline
 * @param	{Number}	no			Index of line, can be undefined
-* @param	{Array}		nodes		List of node indexes
+* @param	{Array}		nodes		List of {@link Node} indexes
 * @param	{String}	comment		Comment, can be undefined
 * @param	{Object}	params  	Line's parameters, can be undefined
+* @example
+ * // returns polyline
+ * var line = new line();
+ * line.Polyline(1, [1,2]);
 */
 Line.prototype.Polyline = function (no,
 	nodes,
@@ -38,7 +42,7 @@ Line.prototype.Polyline = function (no,
 /**
 * Creates arc line
 * @param	{Number}	no							Index of line, can be undefined
-* @param	{Array}		nodes						List of node indexes
+* @param	{Array}		nodes						List of {@link Node} indexes
 * @param	{Array}		control_point				Control point of arc
 * @param	{Array}		arc_parameters				Arc's parameters, can be undefined (only one of three parameter can be set, when arc parameter is set, other parameters (control point) will be recalculated)
 * @param	{Array}		center_of_arc				Center of arc, can be undefined (when center of is set, control point will be recalculated)
@@ -533,7 +537,7 @@ var getRotationPlane = function (rotation_plane) {
 /**
 * Creates line (private)
 * @param	{Number}	no			Index of line, can be undefined
-* @param	{Array}		nodes		List of node indexes
+* @param	{Array}		nodes		List of {@link Node} indexes
 * @param	{String}	comment		Comment, can be undefined
 * @param	{Object}	params  	Line's parameters, can be undefined
 * @returns	Created line

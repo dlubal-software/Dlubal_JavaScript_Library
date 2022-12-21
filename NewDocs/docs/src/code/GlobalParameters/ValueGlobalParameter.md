@@ -1,0 +1,6 @@
+---
+title: ValueGlobalParameter
+---
+
+# ValueGlobalParameter
+
