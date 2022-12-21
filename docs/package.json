@@ -10,7 +10,8 @@
   "repository": "https://github.com/Dlubal-Software/Dlubal_JavaScript_Library/Dlubal JavaScript High Level Functions",
   "scripts": {
     "dev": "vuepress dev src",
-    "build": "vuepress build src"
+    "build": "vuepress build src",
+    "APIDOCS": "vuepress-jsdoc --source '../includes/' --dist './src/' --folder code"
   },
   "license": "MIT",
   "devDependencies": {
