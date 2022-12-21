@@ -1,0 +1,3 @@
+# JavaScript High Level Functions
+
+This JavaScript project is focused on opening of possibility of scripting inside [**RFEM 6**](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem) [**RSTAB 9**](https://www.dlubal.com/en/products/rstab-beam-structures/what-is-rstab) and [**RSECTION**](https://www.dlubal.com/en/products/cross-section-properties-software/rsection) to all our customers. Library enables them possibility to create models and interact with our applications on much higher level. The goal is to create easily expandable JavaScript library for scripting inside RFEM / RSTAB /RSECTION.

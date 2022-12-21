@@ -1,17 +1,8 @@
-
-/**
- * AnalysisSettings namespace
- * @namespace AnalysisSettings
- * @module AnalysisSettings
- */
-
 /**
  * Creates modal analysis settings high level function
  * @class
  * @constructor
- * @memberof AnalysisSettings
  * @classdesc Modal analysis settings high level function
- * @customTag Tohle je custom tag
  * @param {Number} no unique ID of modal analysis settings
  * @param {String} solverMethod solver method()
  * @param {String} beyondFrequency Setting of eigenvectors beyond frequency
