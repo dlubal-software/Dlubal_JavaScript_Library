@@ -127,7 +127,4 @@ var memberLoad = new MemberLoad();
 memberLoad.Force(1, lc2.GetLoadCase(), [1,2], "Uniform", [1.25kN/m^2]);
 
 load_cases_and_combinations.result_combinations_active = true;
-var rc1 = ResultCombination(1);
-rc1.design_situation = 1;
-rc1.items[1].case_object_item = load_combinations[1];
-rc1.items[1].case_object_factor = 1.0;
+var rc1 = new ResultCombination(undefined, 1, undefined, [[load_combinations[1], 1.0]]);

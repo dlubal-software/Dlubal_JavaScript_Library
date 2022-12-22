@@ -88,6 +88,7 @@ if (RFEM) {
 include("Loading/LoadCombination.js");
 include("Loading/LoadCase.js");
 include("Loading/DesignSituation.js");
+include("Loading/ResultCombination.js");
 if (RSECTION) {
     include("Loading/RsectionLoadCase.js");
     include("Loading/RsectionLoadCombination.js");
