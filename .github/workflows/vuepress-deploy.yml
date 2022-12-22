@@ -13,5 +13,5 @@ jobs:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         TARGET_REPO: Dlubal-Software/Dlubal_JavaScript_Library
         TARGET_BRANCH: gh_pages
-        BUILD_SCRIPT: yarn && yarn docs:build
+        BUILD_SCRIPT: cd docs/ && npm run build
         BUILD_DIR: docs/.vuepress/dist
