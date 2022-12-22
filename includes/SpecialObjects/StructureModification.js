@@ -35,7 +35,8 @@ StructureModification.prototype.Material = function (material_name,
 	this.structure_modification.modify_stiffnesses_materials = true;
 	var table = this.structure_modification.modify_stiffnesses_material_table;
 	for (var row = 1; row <= table.row_count(); ++row) {
-		if (table[row].material_name.name === material_name) {
+		var splitDesc = table[row].material_name.name.split(" | ");
+		if (splitDesc[0] === material_name) {
 			if (typeof modification_type !== "undefined") {
 				table[row].modification_type = modification_type;
 			}
@@ -71,7 +72,8 @@ StructureModification.prototype.Section = function (section_name,
 	this.structure_modification.modify_stiffnesses_sections = true;
 	var table = this.structure_modification.modify_stiffnesses_section_table;
 	for (var row = 1; row <= table.row_count(); ++row) {
-		if (table[row].section_name === section_name) {
+		var splitDesc = table[row].section_name.split(" | ");
+		if (splitDesc[0] === section_name) {
 			if (typeof sectional_areas_factor_a !== "undefined") {
 				table[row].A = sectional_areas_factor_a;
 			}

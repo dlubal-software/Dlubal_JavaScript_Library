@@ -1,4 +1,6 @@
-run("../includes/Tools/clearAll.js");
+if (typeof CLEAR_ALL_DISABLED === "undefined") {
+    run("../includes/Tools/clearAll.js");
+}
 
 load_cases_and_combinations.activate_combination_wizard = true;
 combination_wizard = combination_wizards.create()
