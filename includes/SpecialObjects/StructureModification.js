@@ -570,7 +570,7 @@ StructureModification.prototype.DisableNonlinearitiesNodalSupports = function (d
  * @param {Boolean}	disabled 	Disabled, true if undefined
  */
 StructureModification.prototype.DisableNonlinearitiesLineSupports = function (disabled) {
-	if (typeof disabled === "undefinied") {
+	if (typeof disabled === "undefined") {
 		disabled = true;
 	}
 	this.structure_modification.nonlinearities_disabled_line_supports = disabled;
