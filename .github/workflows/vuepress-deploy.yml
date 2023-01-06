@@ -6,7 +6,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
-
+    - name: Configure git to trust the workspace despite the different owner
+      run:  git config --global --add safe.directory "$GITHUB_WORKSPACE"
     - name: vuepress-deploy
       uses: jenkey2011/vuepress-deploy@master
       env:
