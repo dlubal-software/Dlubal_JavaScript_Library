@@ -1,11 +1,22 @@
 {
-    "devDependencies": {
-        "jsdoc-to-markdown": "^7.1.1"
-    },
-    "scripts": {
-        "docs": "jsdoc2md includes/*/*.js > MD/TypesForSurfaces.md"
-    },
-    "dependencies": {
-        "jsdoc": "^4.0.0"
-    }
+  "name": "Dlubal JavaScript High Level Functions",
+  "version": "0.0.1",
+  "description": "High level functions for JavaScript for InApp scripting in RFEM / RSTAB and RSECTION",
+  "main": "index.js",
+  "authors": {
+    "name": "DLubal Software",
+    "email": "api@dlubal.com"
+  },
+  "repository": "https://github.com/Dlubal-Software/Dlubal_JavaScript_Library/Dlubal JavaScript High Level Functions",
+  "license": "MIT",
+  "scripts": {
+    "docs:build": "vuepress build docs",
+    "docs:dev": "vuepress dev docs"
+  },
+  "dependencies": {
+    "vuepress": "^1.9.7"
+  },
+  "devDependencies": {
+    "@vuepress/plugin-back-to-top": "^1.9.7"
+  }
 }
