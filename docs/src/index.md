@@ -16,5 +16,5 @@ features:
 
 ::: slot footer
 MIT Licensed | Copyright © 2022-present [Dlubal Software GmbH](https://www.dlubal.com/en)
-Made by Dlubal Software with ❤️
+Made by Team 9 @ Dlubal Software with ❤️
 :::
