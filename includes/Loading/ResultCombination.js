@@ -211,7 +211,7 @@ function createResultCombination(no,
   else {
       console.log("Design situation no. " + design_situation_no + " doesn't exist");
   }
-  result_combination.combination_type = GetResultCombinationType(combination_type);;
+  result_combination.combination_type = GetResultCombinationType(combination_type);
   SetResultCombinationItems(result_combination, load_case_items, load_combination_items);
   set_comment_and_parameters(result_combination, comment, params);
   return result_combination;
