@@ -238,12 +238,14 @@ if (RFEM) {
 	surface.Rigid(undefined, linesForSurfaces[3][0], "With default plane geometry type");
 	surface.Membrane(undefined, linesForSurfaces[4][0], 1, "With default plane geometry type");
 	surface.WithoutMembraneTension(undefined, linesForSurfaces[5][0], 1, "With default plane geometry type");
-	surface.LoadTransfer(undefined, linesForSurfaces[6][0], "With default plane geometry type");
+	var surfaceLoadTransfer = new Surface();
+	surfaceLoadTransfer.LoadTransfer(undefined, linesForSurfaces[6][0], "DIRECTION_IN_Y", "Uniform", "With default plane geometry type");
 	// Geometry type: quadrangle
 	nodes[202].coordinate_3 = 0.5;
 	surface.Quadrangle(undefined, linesForSurfaces[7][0], "Standard", 1);
 	// Geometry type NURBS
-	var coreSurface = surface.Standard(undefined, linesForSurfaces[8][0], 1);
+	surface.Standard(undefined, linesForSurfaces[8][0], 1);
+	var coreSurface = surface.GetSurface();
 	for (var i = 0; i < coreSurface.boundary_lines.length; ++i) {
 		coreSurface.boundary_lines[i].type = lines.TYPE_NURBS;
 	}
@@ -257,7 +259,8 @@ if (RFEM) {
 	// Option: grid for results
 	// TODO
 	// Option: hinges
-	surfaceWithHingesNo = surface.Standard(undefined, linesForSurfaces[11][0], 1).no;
+	surface.Standard(undefined, linesForSurfaces[11][0], 1);
+	var surfaceWithHingesNo = surface.GetNo();
 	var lineHinge = new LineHinge(undefined, undefined);
 	surface.Hinges([[surfaces[surfaceWithHingesNo].boundary_lines[1], lineHinge.lineHinge.no]]);
 	// Option: support
@@ -292,6 +295,13 @@ if (RFEM) {
 	integratedLine.Polyline(undefined, [linesForSurfaces[19][1][0], linesForSurfaces[19][1][2]]);
 	surface.Standard(undefined, linesForSurfaces[19][0]);
 	surface.IntegratedObjects(false, undefined, [integratedLine.line.no]);
+	// Load transfer surface options
+	surfaceLoadTransfer.RemoveInfluenceFrom(undefined, undefined, [13, 14, 15, 16], undefined, [189,190,199,200]);	// with lines and nodes defined
+	surfaceLoadTransfer.SurfaceWeight(2000);
+	surfaceLoadTransfer.ConsiderMemberEccentricity();
+	surfaceLoadTransfer.ConsiderSectionDistribution();
+	surfaceLoadTransfer.AdvancedDistribution(0.05);
+	surfaceLoadTransfer.NeglectEquilibriumOfMoments();
 	/*********************************************************************************************/
 
 	var surface2 = new Surface();

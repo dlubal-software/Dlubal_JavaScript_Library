@@ -86,7 +86,7 @@ ImperfectionCase.prototype.Notional = function (no,
  * @param {String}  level_direction                 Level direction, can be undefined (GLOBAL_IN_Z by default if Global XYZ is specified, otherwise USER_DEFINED_IN_W by default)
  * @param {String}  imperfection_direction          Imperfection direction, can be undefined (XY by default)
  * @param {Boolean} sway_coefficients_reciprocal    Sway coefficient as reciprocal by 1, can be undefined (true as default)
- * @param {Boolean} assign_to_all_load              Assign to all load combinations without assigned imperfection case, can be undefined (true as default)       
+ * @param {Boolean} assign_to_all_load              Assign to all load combinations without assigned imperfection case, can be undefined (true as default)
  * @param {Boolean} is_active                       Is imperfection case active, can be undefined (false as default)
  * @param {String}  comment                         Comment, can be undefined
  * @param {Object}  params                          Parameters, can be undefined
@@ -154,7 +154,7 @@ ImperfectionCase.prototype.InitialSway = function (no,
                     ASSERT(false, "Unknown level direction: " + level_direction);
             }
         }
-        
+
         this.imperfectionCase.direction_for_level_direction = GetImperfectionDirection(this.imperfectionCase.coordinate_system.type, imperfection_direction);
     }
     if (typeof sway_coefficients_reciprocal === "undefined") {

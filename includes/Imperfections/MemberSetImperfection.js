@@ -241,7 +241,7 @@ MemberSetImperfection.prototype.InitialBow_ANSI_CURRENT = function (initial_bow)
  * @param {Number} notional_load_coefficient        Notional load coefficient, can be undefined (0.002 by default)
  * @param {Number} standard_factor_enumeration      Factor alpha, can be undefined (LRFD by default)
  */
- MemberSetImperfection.prototype.ANSI_GRAVITY_LOAD = function (load_case_combination_no, 
+ MemberSetImperfection.prototype.ANSI_GRAVITY_LOAD = function (load_case_combination_no,
     notional_load_coefficient,
     standard_factor_enumeration) {
     this.memberSetImperfection.definition_type = GetMemberSetImperfectionDefinitionType(this.memberSetImperfection.imperfection_type, "ANSI_GRAVITY_LOAD");
@@ -261,9 +261,9 @@ MemberSetImperfection.prototype.InitialBow_ANSI_CURRENT = function (initial_bow)
 /**
  * Modifies Member set imperfection to definition type ANSI/AISC 360-16 | Gravity Load
  * @param {Number} load_case_combination_no     Axial forces Ny from load case or load combination number
- * @param {Number} initial_bow                  Initial bow, can be undefined (1000 as default)                
+ * @param {Number} initial_bow                  Initial bow, can be undefined (1000 as default)
  */
-MemberSetImperfection.prototype.InitialBow_ANSI_GRAVITY_LOAD = function (load_case_combination_no, 
+MemberSetImperfection.prototype.InitialBow_ANSI_GRAVITY_LOAD = function (load_case_combination_no,
     initial_bow) {
     this.memberSetImperfection.definition_type = GetMemberSetImperfectionDefinitionType(this.memberSetImperfection.imperfection_type, "ANSI_GRAVITY_LOAD");
     ASSERT(typeof load_case_combination_no !== "undefined", "Load case or load combination must be specified");

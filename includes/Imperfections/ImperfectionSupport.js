@@ -45,7 +45,7 @@ function GetMemberImperfectionCoordinateSystemType(coordinate_type) {
 		"LOCAL" : member_imperfections.COORDINATE_SYSTEM_TYPE_LOCAL,
         "PRINCIPAL" : member_imperfections.COORDINATE_SYSTEM_TYPE_PRINCIPAL
 	};
-    
+
 	if (coordinate_type !== "undefined") {
 		var coordinateType = coordinate_types_dict[coordinate_type];
 		if (coordinateType === "undefined") {

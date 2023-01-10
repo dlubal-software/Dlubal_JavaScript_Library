@@ -16,9 +16,9 @@ function Section(no,
     params) {
     var name = typeof section_name !== "undefined" ? section_name : "IPE 300";
     ASSERT(typeof material_no !== "undefined", "Material number must be set");
-    if (!materials.exist(material_no)) {
-        console.log("Material no. " + material_no + " doesn't exist");
-    }
+    // if (!materials.exist(material_no)) { due to BUGFIX-45508
+    //     console.log("Material no. " + material_no + " doesn't exist");
+    // }
     this.section = engine.create_section(no, material_no);
     this.section.name = name;
     set_comment_and_parameters(this.section, comment, params);

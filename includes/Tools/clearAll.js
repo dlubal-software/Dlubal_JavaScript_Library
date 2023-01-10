@@ -138,6 +138,12 @@ if (RFEM)
         concrete_durabilities,
         blocks,
         global_parameters,
+        nodal_release_types,
+        nodal_releases,
+        line_release_types,
+        line_releases,
+        surface_release_types,
+        surface_releases,
         boreholes//,
         // relationship_between_load_cases
     ];
@@ -196,7 +202,9 @@ if (RSTAB) {
         concrete_durabilities,
         blocks,
         global_parameters,
-        relationship_between_load_cases
+        relationship_between_load_cases,
+        nodal_release_types,
+        nodal_releases
     ];
     if (PRERELEASE_MODE)
     {
@@ -209,7 +217,7 @@ if (RSECTION)
     if (PRERELEASE_MODE)
     {
         general.has_material_definition_active = true;
-        general.has_concerete_reinforcement = false;
+        general.has_concrete_reinforcement = false;
     }
     general.solver_model = general.MASSIVE;
     general.has_effective_section_properties_active = false;

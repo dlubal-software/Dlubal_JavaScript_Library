@@ -54,7 +54,7 @@ if (RFEM) {
     });
 
     var surfaceSet = new SurfaceSet();
-    surfaceSet.ContinuousSurfaces(undefined, [surfaceList[2].no]);   
+    surfaceSet.ContinuousSurfaces(undefined, [surfaceList[2].no]);
 }
 
 /*********************************************************************************************
