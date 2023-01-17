@@ -2,6 +2,12 @@ run("../includes/tools/clearAll.js");
 // setup standard for combination wizard
 general.current_standard_for_combination_wizard = general.NATIONAL_ANNEX_AND_EDITION_EN_1990_DIN_2012_08;
 
+if (numberOfFrames === undefined) {
+	numberOfFrames = 5;
+	width = 12;
+	frameLength = 5;
+	
+}
 // setup required addons
 STRUCTURE_STABILITY.setActive(true);
 applyChanges();

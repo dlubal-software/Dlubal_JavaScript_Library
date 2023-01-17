@@ -21,8 +21,13 @@ Node(1 + ns, 0, 0, 0);
 Node(2 + ns, 0, 0, -H);
 Node(3 + ns, L, 0, 0);
 Node(4 + ns, L, 0, -H);
-var nodalSupport = new NodalSupport(1,[1,3]);
+var nodalSupport = new NodalSupport(1,[1]);
 nodalSupport.Hinged();
+
+var nodalSupport2 = new NodalSupport(2, [3]);
+nodalSupport2.Hinged();
+nodalSupport2.TranslationX(false);
+nodalSupport2.RotationX(true);
 
 var bt = new Node();
 var nodeCount = 5 + ns;

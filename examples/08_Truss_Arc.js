@@ -26,8 +26,13 @@ var nl = lines.count();
 Node(1 + ns, 0, 0, 0);
 Node(2 + ns, L, 0, 0);
 
-var nodalSupport = new NodalSupport(1,[1,2]);
+var nodalSupport = new NodalSupport(1,[1]);
 nodalSupport.Hinged();
+
+var nodalSupport2 = new NodalSupport(2, [2]);
+nodalSupport2.Hinged();
+nodalSupport2.TranslationX(false);
+nodalSupport2.RotationX(true);
 
 // Creating nodes
 var bt = new Node();
