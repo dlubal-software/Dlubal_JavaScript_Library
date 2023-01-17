@@ -33,6 +33,17 @@ if (RSECTION) {
     include("BasicObjects/RsectionStiffener.js");
     include("BasicObjects/RsectionStressPoint.js");
     include("BasicObjects/RsectionSubpanel.js");
+    //added for the quick fix of Bugfix G-44805 - needs to be solved with development of supports functions - create, erase ...
+    include("BasicObjects/rsection_element.js");
+    include("BasicObjects/rsection_line.js");
+    include("BasicObjects/rsection_opening.js");
+    include("BasicObjects/rsection_part.js");
+    include("BasicObjects/rsection_point.js");
+    include("BasicObjects/rsection_stiffener.js");
+    include("BasicObjects/rsection_stress_point.js");
+    include("BasicObjects/rsection_subpanel.js");
+    include("BasicObjects/rsection_control_point.js");
+    include("BasicObjects/rsection_dimension.js");
 }
 include("BasicObjects/Material.js");
 include("BasicObjects/MemberSet.js");
