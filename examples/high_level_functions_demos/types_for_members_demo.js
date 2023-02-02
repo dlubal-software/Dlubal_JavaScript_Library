@@ -75,6 +75,38 @@ var memberStiffnessModification2 = new MemberStiffnessModification(undefined, st
 memberStiffnessModification2.SteelStructuresAisc(1, 2);
 var memberDefinableStiffness3 = new MemberStiffnessModification(undefined, structure_modification);
 memberDefinableStiffness3.SteelStructuresCSA(undefined, undefined, 1, 2);
+
+STEEL_DESIGN.setActive(true)
+
+var memberSurfaceModel = new Member();
+memberSurfaceModel.SurfaceModel(undefined, [102, 103], 1);
+var memberSetForOpenings = new MemberSet();
+memberSetForOpenings.ContinuousMembers(undefined, [51, memberSurfaceModel.GetNo()]);
+
+members[49].type = members.TYPE_SURFACE_MODEL;
+members[50].type = members.TYPE_SURFACE_MODEL;
+members[51].type = members.TYPE_SURFACE_MODEL;
+
+// clearAll.js not removes member openings
+for (var i = member_openings.count(); i > 0; --i) {
+    member_openings.erase(member_openings.getNthObjectId(i));
+}
+
+var circleMemberOpening = new MemberOpening(undefined, [49], undefined, "Member circle openings");
+for (var row = 0; row < 9; ++row) {
+    circleMemberOpening.AddTypeAndLocation("CIRCLE_OPENING", 0.3 * (row + 1), "Circle opening no. " + (row + 1));
+}
+var rectangleMemberOpening = new MemberOpening(undefined, [50], undefined, "Member rectangle opening");
+for (var row = 0; row < 9; ++row) {
+    rectangleMemberOpening.AddTypeAndLocation("RECTANGLE_OPENING", 0.3 * (row + 1), "Rectangle opening no. " + (row + 1));
+    rectangleMemberOpening.SetRectangleDimension(row + 1, 0.05, 0.05);
+}
+var hexagonalMemberOpening = new MemberOpening(undefined, undefined, [1], "Hexagonal member openings with multiple");
+hexagonalMemberOpening.AddTypeAndLocation("HEXAGONAL_OPENING", 3.5, "Hexagonal opening no. 1");
+hexagonalMemberOpening.SetHexagonalDimension(1, 0.25, 0.05, 0.06);
+hexagonalMemberOpening.SetPosition(1, "TOP", 0.02);
+hexagonalMemberOpening.SetMultipleDefinition(1, 3, "RELATIVE", 0.05);
+
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;
 console.log("Elapsed time: " + time + "s");
