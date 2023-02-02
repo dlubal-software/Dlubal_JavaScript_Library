@@ -178,6 +178,23 @@ Member.prototype.Cable = function (no,
 };
 
 /**
+ * Creates surface model member
+ * @param	{Number}		no				Index of member, can be undefined
+ * @param	{Array/Number}	nodes_or_line	List of node indexes or number of line
+ * @param	{Number}		section_start	Section start. Section end is same as section start by default. To set section end specify distribution type.
+ * @param	{String}		comment			Comment, can be undefined
+ * @param	{Object}		params  		Member's parameters, can be undefined
+ * @returns	Created member
+ */
+Member.prototype.SurfaceModel = function (no,
+	nodes_or_line,
+	section_start,
+	comment,
+	params) {
+	return this.member = createBaseMember(no, nodes_or_line, members.TYPE_SURFACE_MODEL, section_start, comment, params);
+};
+
+/**
 * Create result beam member
 * @param	{Number}		no											Index of member, can be undefined
 * @param	{Array/Number}	nodes_or_line								List of node indexes or number of line
