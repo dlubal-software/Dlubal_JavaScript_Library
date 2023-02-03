@@ -117,7 +117,6 @@ function createMemberOpening (no,
     member_sets_no,
     comment,
     params) {
-    ASSERT(!(typeof members_no !== "undefined" && typeof member_sets_no !== "undefined"), "You can't specify members or member sets together");
     if (typeof members_no !== "undefined") {
         ASSERT(Array.isArray(members_no), "List of members must be defined as array of member indexes");
         member_list = members_no;
@@ -142,17 +141,22 @@ function createMemberOpening (no,
         member_sets_no = [];
         for (var i = 0; i < member_sets_list.length; ++i) {
             if (member_sets.exist(member_sets_list[i])) {
-                member_set_is_valid = true;
-                for (var j = 0; j < member_sets[member_sets_list[i]].members.length; ++j) {
-                    member_no = member_sets[member_sets_list[i]].members[j].no;
-                    if (members[member_no].type !== members.TYPE_SURFACE_MODEL) {
-                        member_set_is_valid = false;
-                        console.log("Member set no. " + member_sets_list[i] + "is not valid. One or more members has unsupported type (Surface model type is required)");
-                        break;
+                if (member_sets[member_sets_list[i]].set_type === member_sets.SET_TYPE_CONTINUOUS) {
+                    member_set_is_valid = true;
+                    for (var j = 0; j < member_sets[member_sets_list[i]].members.length; ++j) {
+                        member_no = member_sets[member_sets_list[i]].members[j].no;
+                        if (members[member_no].type !== members.TYPE_SURFACE_MODEL) {
+                            member_set_is_valid = false;
+                            console.log("Member set no. " + member_sets_list[i] + "is not valid. One or more members has unsupported type (Surface model type is required)");
+                            break;
+                        }
+                    }
+                    if (member_set_is_valid) {
+                        member_sets_no.push(member_sets_list[i]);
                     }
                 }
-                if (member_set_is_valid) {
-                    member_sets_no.push(member_sets_list[i]);
+                else {
+                    console.log("Member set no. " + member_sets_list[i] + " must be of continuos type");
                 }
             }
             else {
@@ -162,15 +166,15 @@ function createMemberOpening (no,
     }
     if (typeof members_no !== "undefined" && members_no.length > 0 || typeof member_sets_no !== "undefined" && member_sets_no.length > 0) {
         if (typeof no === "undefined") {
-            member_opening = member_openings.create();
+            var member_opening = member_openings.create();
         }
         else {
-            member_opening = member_openings.create(no);
+            var member_opening = member_openings.create(no);
         }
         if (typeof members_no !== "undefined" && members_no.length > 0) {
             member_opening.members = members_no;
         }
-        else {
+        if (typeof member_sets_no != "undefined" && member_sets_no.length > 0) {
             member_opening.member_sets = member_sets_no;
         }
         set_comment_and_parameters(member_opening, comment, params);

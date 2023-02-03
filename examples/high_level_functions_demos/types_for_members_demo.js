@@ -76,16 +76,16 @@ memberStiffnessModification2.SteelStructuresAisc(1, 2);
 var memberDefinableStiffness3 = new MemberStiffnessModification(undefined, structure_modification);
 memberDefinableStiffness3.SteelStructuresCSA(undefined, undefined, 1, 2);
 
-STEEL_DESIGN.setActive(true)
-
-var memberSurfaceModel = new Member();
-memberSurfaceModel.SurfaceModel(undefined, [102, 103], 1);
-var memberSetForOpenings = new MemberSet();
-memberSetForOpenings.ContinuousMembers(undefined, [51, memberSurfaceModel.GetNo()]);
+/********************************************************************************* Member opening ****************************************************************************/
+var member1 = new Member();
+member1.SurfaceModel(undefined, [102, 103], 1);
+var memberSet1 = new MemberSet();
+memberSet1.ContinuousMembers(undefined, [51, member1.GetNo(), 52]);
 
 members[49].type = members.TYPE_SURFACE_MODEL;
 members[50].type = members.TYPE_SURFACE_MODEL;
 members[51].type = members.TYPE_SURFACE_MODEL;
+members[52].type = members.TYPE_SURFACE_MODEL;
 
 // clearAll.js not removes member openings
 for (var i = member_openings.count(); i > 0; --i) {
@@ -101,11 +101,32 @@ for (var row = 0; row < 9; ++row) {
     rectangleMemberOpening.AddTypeAndLocation("RECTANGLE_OPENING", 0.3 * (row + 1), "Rectangle opening no. " + (row + 1));
     rectangleMemberOpening.SetRectangleDimension(row + 1, 0.05, 0.05);
 }
-var hexagonalMemberOpening = new MemberOpening(undefined, undefined, [1], "Hexagonal member openings with multiple");
-hexagonalMemberOpening.AddTypeAndLocation("HEXAGONAL_OPENING", 3.5, "Hexagonal opening no. 1");
+var hexagonalMemberOpening = new MemberOpening(undefined, undefined, [memberSet1.GetNo()], "Hexagonal member openings with multiple");
+hexagonalMemberOpening.AddTypeAndLocation("HEXAGONAL_OPENING", 0.2, "Hexagonal opening no. 1");
 hexagonalMemberOpening.SetHexagonalDimension(1, 0.25, 0.05, 0.06);
 hexagonalMemberOpening.SetPosition(1, "TOP", 0.02);
-hexagonalMemberOpening.SetMultipleDefinition(1, 3, "RELATIVE", 0.05);
+hexagonalMemberOpening.SetMultipleDefinition(1, 20, "RELATIVE", 0.05);
+
+/*************************************************************************** Member shear panel ****************************************************************************/
+STEEL_DESIGN.setActive(true)
+
+var member2 = new Member();
+member2.Beam(undefined, [110, 111], 1);
+var memberSet2 = new MemberSet();
+memberSet2.ContinuousMembers(undefined, [55, member2.GetNo(), 56]);
+
+var memberShearPanel = new MemberShearPanel();
+memberShearPanel.TrapezoidalSheeting(undefined, undefined, "LOWER_FLANGE", "FI (+) 35/207 - 0.75 (b: 1) | DIN 18807 | Fischer Profil", "EVERY_SECOND_RIB", "Member shear panel 1");
+memberShearPanel.SetTrapezoidalSheetingParameters(1.5, undefined, 2.0);
+var memberShearPanel2 = new MemberShearPanel();
+memberShearPanel2.Bracing(undefined, undefined, undefined, "L 100x65x7 | EN 10056-1:1998; ... | ArcelorMittal", "IPE 100 | Euronorm 19-57 | ArcelorMittal (2011)");  // With position on section UPPER_FLANGE default
+memberShearPanel2.SetBracingParameters(3.0, 2.0, 3.5, 5.0); // With girder length
+var memberShearPanel3 = new MemberShearPanel();
+memberShearPanel3.TrapezoidalSheetingAndBracing(undefined, undefined, "CENTROID", "FI (+) 35/207 - 0.75 (b: 1) | DIN 18807 | Fischer Profil", undefined, "L 100x65x7 | EN 10056-1:1998; ... | ArcelorMittal", "IPE 100 | Euronorm 19-57 | ArcelorMittal (2011)", "Trapezoidal and bracing member shear panel");   // With EVERY_RIB fastening arrangement default
+memberShearPanel3.TrapezoidalSheetingAndBracingParameters(1.5, undefined, 2.5, undefined, undefined, 3.5, 3);
+var memberShearPanel4 = new MemberShearPanel();
+memberShearPanel4.DefineSProv(10, undefined, "DEFINE");
+memberShearPanel4.DefineSProvParameters(3.0, 4.0);
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;
