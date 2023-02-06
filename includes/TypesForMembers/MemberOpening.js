@@ -3,8 +3,8 @@
  * @param {Number}  no                  Index of member opening, can be undefined
  * @param {Array}   members_no          Index list of assigned members, can be undefined (only in case list of member_sets_no is defined)
  * @param {Array}   member_sets_no      Index list of assigned member sets, can be undefined (only in case list of members_no is defined)
- * @param {String}  comment             Comment
- * @param {Object}  params              Additional parameters
+ * @param {String}  comment             Comment, can be undefined
+ * @param {Object}  params              Additional parameters, can be undefined
  */
 function MemberOpening (no,
     members_no,
@@ -127,7 +127,7 @@ function createMemberOpening (no,
                     members_no.push(member_list[i]);
                 }
                 else {
-                    console.log("Only member with Surface model type can be used");
+                    console.log("Only member of Surface model type can be used");
                 }
             }
             else {
@@ -136,7 +136,7 @@ function createMemberOpening (no,
         }
     }
     if (typeof member_sets_no !== "undefined") {
-        ASSERT(Array.isArray(member_sets_no), "List of member sets must be defined as array of member indexes");
+        ASSERT(Array.isArray(member_sets_no), "List of member sets must be defined as array of member sets indexes");
         member_sets_list = member_sets_no;
         member_sets_no = [];
         for (var i = 0; i < member_sets_list.length; ++i) {
