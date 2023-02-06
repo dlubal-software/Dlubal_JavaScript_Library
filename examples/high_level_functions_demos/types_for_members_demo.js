@@ -108,6 +108,10 @@ hexagonalMemberOpening.SetPosition(1, "TOP", 0.02);
 hexagonalMemberOpening.SetMultipleDefinition(1, 20, "RELATIVE", 0.05);
 
 /*************************************************************************** Member shear panel ****************************************************************************/
+var memberSupport = new MemberSupport();
+memberSupport.Shear(true, false, 1200);
+memberSupport.Rotation(false);
+
 STEEL_DESIGN.setActive(true)
 
 var member2 = new Member();
@@ -125,8 +129,19 @@ var memberShearPanel3 = new MemberShearPanel();
 memberShearPanel3.TrapezoidalSheetingAndBracing(undefined, undefined, "CENTROID", "FI (+) 35/207 - 0.75 (b: 1) | DIN 18807 | Fischer Profil", undefined, "L 100x65x7 | EN 10056-1:1998; ... | ArcelorMittal", "IPE 100 | Euronorm 19-57 | ArcelorMittal (2011)", "Trapezoidal and bracing member shear panel");   // With EVERY_RIB fastening arrangement default
 memberShearPanel3.TrapezoidalSheetingAndBracingParameters(1.5, undefined, 2.5, undefined, undefined, 3.5, 3);
 var memberShearPanel4 = new MemberShearPanel();
-memberShearPanel4.DefineSProv(10, undefined, "DEFINE");
+memberShearPanel4.DefineSProv(10, undefined, "DEFINE"); // With object index specified
 memberShearPanel4.DefineSProvParameters(3.0, 4.0);
+
+/*************************************************************************** Member rotational restraint *******************************************************************/
+var memberRotationalRestraint = new MemberRotationalRestraint();
+memberRotationalRestraint.Continuous(undefined, [memberSupport.GetNo()], "Grade S275", "TBS (+) T 35 - 0.75", "NEGATIVE", "INTERNAL_PANEL", false, "Continuous member rotational restraint example");
+memberRotationalRestraint.SetContinuousParameters(205000.0E6, 0.018, 0.00000022, 0.208, 0.041, 3.0, 1.5);
+var memberRotationalRestraint2 = new MemberRotationalRestraint();
+memberRotationalRestraint2.Discrete(undefined, undefined, "Grade S275", "ASB 280 - 74", "MANUALLY", undefined); // With default end panel continuous beam effect and section deformation (true)
+memberRotationalRestraint2.SetDiscreteParameters(205000.0E6, 0.00012191, 0.333, 1.5, 5000.0);
+memberRotationalRestraint3 = new MemberRotationalRestraint();
+memberRotationalRestraint3.Manually();
+memberRotationalRestraint3.SetManuallyParameters(1.5E3);
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;
