@@ -118,7 +118,7 @@ MemberShearPanel.prototype.DefineSProv = function (no,
 };
 
 /**
- * Sets for Trapezoidal Sheeting Member Shear Panel parameters
+ * Sets parameters for Trapezoidal Sheeting Member Shear Panel
  * @param {Number}  shear_panel_length          Shear panel length
  * @param {Number}  girder_length               Girder length, can be undefined (define length automatically as default)
  * @param {Number}  beam_spacing                Beam spacing
@@ -135,7 +135,7 @@ MemberShearPanel.prototype.SetTrapezoidalSheetingParameters = function (shear_pa
 };
 
 /**
- * Sets for Bracing Member Shear Panel parameters
+ * Sets parameters for Bracing Member Shear Panel
  * @param {Number} shear_panel_length       Shear panel length
  * @param {Number} girder_length            Girder length, can be undefined (define length automatically as default)
  * @param {Number} beam_spacing             Beam spacing
@@ -151,11 +151,12 @@ MemberShearPanel.prototype.SetBracingParameters = function (shear_panel_length,
     number_of_bracings,
     diagonals_section_area,
     posts_section_area) {
+    ASSERT(this.member_shear_panel.definition_type === member_shear_panels.DEFINITION_TYPE_BRACING, "Only for Bracing definition type");
     SetMemberShearPanelParameters(this.member_shear_panel, shear_panel_length, girder_length, beam_spacing, undefined, undefined, post_spacing, number_of_bracings, diagonals_section_area, posts_section_area);
 };
 
 /**
- * Sets for Trapezoidal Sheeting and Bracing Member Shear Panel parameters
+ * Sets parameters for Trapezoidal Sheeting and Bracing Member Shear Panel
  * @param {Number} shear_panel_length           Shear panel length
  * @param {Number} girder_length                Girder length, can be undefined (define length automatically as default)
  * @param {Number} beam_spacing                 Beam spacing
@@ -175,16 +176,18 @@ MemberShearPanel.prototype.TrapezoidalSheetingAndBracingParameters = function (s
     number_of_bracings,
     diagonals_section_area,
     posts_section_area) {
+    ASSERT(this.member_shear_panel.definition_type === member_shear_panels.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING, "Only for Trapezoidal Sheeting and Bracing definition type");
     SetMemberShearPanelParameters(this.member_shear_panel, shear_panel_length, girder_length, beam_spacing, shear_panel_coefficient_k1, shear_panel_coefficient_k2, post_spacing, number_of_bracings, diagonals_section_area, posts_section_area);
 };
 
 /**
- * Sets Define S-prov Member Shear Panel parameters
+ * Sets parameters Define S-prov Member Shear Panel
  * @param {Number}  shear_panel_stiffness   Shear panel stiffness
  * @param {Number}  girder_length           Girder length, can be undefined (define length automatically as default)        
  */
 MemberShearPanel.prototype.DefineSProvParameters = function (shear_panel_stiffness,
     girder_length) {
+    ASSERT(this.member_shear_panel.definition_type === member_shear_panels.DEFINITION_TYPE_DEFINE_S_PROV, "Only for Define S-prov definition type");
     SetMemberShearPanelParameters(this.member_shear_panel, undefined, girder_length, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, shear_panel_stiffness);
 };
 

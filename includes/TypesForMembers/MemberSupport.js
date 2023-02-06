@@ -34,6 +34,10 @@ function MemberSupport(no,
   return self;
 }
 
+MemberSupport.prototype.GetNo = function () {
+  return this.support.no;
+};
+
 MemberSupport.prototype.SetNo = function (no) {
   // * @param   {Number}  no            Index of member support, empty by default
   ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
