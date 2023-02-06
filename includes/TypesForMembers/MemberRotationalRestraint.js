@@ -23,7 +23,7 @@ function MemberRotationalRestraint (no,
 }
 
 /**
- * @returns Number of member rotational restraint
+ * @returns member rotational restraint index
  */
 MemberRotationalRestraint.prototype.GetNo = function () {
     return this.member_rotational_restraint.no;
