@@ -82,11 +82,6 @@ member1.SurfaceModel(undefined, [102, 103], 1);
 var memberSet1 = new MemberSet();
 memberSet1.ContinuousMembers(undefined, [51, member1.GetNo(), 52]);
 
-members[49].type = members.TYPE_SURFACE_MODEL;
-members[50].type = members.TYPE_SURFACE_MODEL;
-members[51].type = members.TYPE_SURFACE_MODEL;
-members[52].type = members.TYPE_SURFACE_MODEL;
-
 // clearAll.js not removes member openings
 for (var i = member_openings.count(); i > 0; --i) {
     member_openings.erase(member_openings.getNthObjectId(i));
