@@ -78,7 +78,7 @@ memberDefinableStiffness3.SteelStructuresCSA(undefined, undefined, 1, 2);
 
 /********************************************************************************* Member opening ****************************************************************************/
 var member1 = new Member();
-member1.SurfaceModel(undefined, [102, 103], 1);
+member1.Beam(undefined, [102, 103], 1);
 var memberSet1 = new MemberSet();
 memberSet1.ContinuousMembers(undefined, [51, member1.GetNo(), 52]);
 
@@ -87,6 +87,8 @@ for (var i = member_openings.count(); i > 0; --i) {
     member_openings.erase(member_openings.getNthObjectId(i));
 }
 
+/*
+Pre-release - when merge to master make sure that member openings can be created for other member types than only for Surface model (pre-release can only Surface model type)
 var circleMemberOpening = new MemberOpening(undefined, [49], undefined, "Member circle openings");
 for (var row = 0; row < 9; ++row) {
     circleMemberOpening.AddTypeAndLocation("CIRCLE_OPENING", 0.3 * (row + 1), "Circle opening no. " + (row + 1));
@@ -100,7 +102,7 @@ var hexagonalMemberOpening = new MemberOpening(undefined, undefined, [memberSet1
 hexagonalMemberOpening.AddTypeAndLocation("HEXAGONAL_OPENING", 0.2, "Hexagonal opening no. 1");
 hexagonalMemberOpening.SetHexagonalDimension(1, 0.25, 0.05, 0.06);
 hexagonalMemberOpening.SetPosition(1, "TOP", 0.02);
-hexagonalMemberOpening.SetMultipleDefinition(1, 20, "RELATIVE", 0.05);
+hexagonalMemberOpening.SetMultipleDefinition(1, 20, "RELATIVE", 0.05);*/
 
 /*************************************************************************** Member shear panel ****************************************************************************/
 var memberSupport = new MemberSupport();
