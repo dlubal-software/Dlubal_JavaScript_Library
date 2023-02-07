@@ -123,12 +123,7 @@ function createMemberOpening (no,
         members_no = [];
         for (var i = 0; i < member_list.length; ++i) {
             if (members.exist(member_list[i])) {
-                if (members[member_list[i]].type === members.TYPE_SURFACE_MODEL) {
-                    members_no.push(member_list[i]);
-                }
-                else {
-                    console.log("Only member of Surface model type can be used");
-                }
+                members_no.push(member_list[i]);
             }
             else {
                 console.log("Member no. " + str(i) + " doesn't exist");
@@ -142,18 +137,7 @@ function createMemberOpening (no,
         for (var i = 0; i < member_sets_list.length; ++i) {
             if (member_sets.exist(member_sets_list[i])) {
                 if (member_sets[member_sets_list[i]].set_type === member_sets.SET_TYPE_CONTINUOUS) {
-                    member_set_is_valid = true;
-                    for (var j = 0; j < member_sets[member_sets_list[i]].members.length; ++j) {
-                        member_no = member_sets[member_sets_list[i]].members[j].no;
-                        if (members[member_no].type !== members.TYPE_SURFACE_MODEL) {
-                            member_set_is_valid = false;
-                            console.log("Member set no. " + member_sets_list[i] + "is not valid. One or more members has unsupported type (Surface model type is required)");
-                            break;
-                        }
-                    }
-                    if (member_set_is_valid) {
-                        member_sets_no.push(member_sets_list[i]);
-                    }
+                    member_sets_no.push(member_sets_list[i]);
                 }
                 else {
                     console.log("Member set no. " + member_sets_list[i] + " must be of continuos type");
