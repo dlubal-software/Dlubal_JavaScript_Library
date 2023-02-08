@@ -87,8 +87,6 @@ for (var i = member_openings.count(); i > 0; --i) {
     member_openings.erase(member_openings.getNthObjectId(i));
 }
 
-/*
-Pre-release - when merge to master make sure that member openings can be created for other member types than only for Surface model (pre-release can only Surface model type)
 var circleMemberOpening = new MemberOpening(undefined, [49], undefined, "Member circle openings");
 for (var row = 0; row < 9; ++row) {
     circleMemberOpening.AddTypeAndLocation("CIRCLE_OPENING", 0.3 * (row + 1), "Circle opening no. " + (row + 1));
@@ -102,7 +100,7 @@ var hexagonalMemberOpening = new MemberOpening(undefined, undefined, [memberSet1
 hexagonalMemberOpening.AddTypeAndLocation("HEXAGONAL_OPENING", 0.2, "Hexagonal opening no. 1");
 hexagonalMemberOpening.SetHexagonalDimension(1, 0.25, 0.05, 0.06);
 hexagonalMemberOpening.SetPosition(1, "TOP", 0.02);
-hexagonalMemberOpening.SetMultipleDefinition(1, 20, "RELATIVE", 0.05);*/
+hexagonalMemberOpening.SetMultipleDefinition(1, 20, "RELATIVE", 0.05);
 
 /*************************************************************************** Member shear panel ****************************************************************************/
 var memberSupport = new MemberSupport();
@@ -128,7 +126,7 @@ memberShearPanel3.TrapezoidalSheetingAndBracing(undefined, undefined, "CENTROID"
 memberShearPanel3.TrapezoidalSheetingAndBracingParameters(1.5, undefined, 2.5, undefined, undefined, 3.5, 3);
 var memberShearPanel4 = new MemberShearPanel();
 memberShearPanel4.DefineSProv(10, undefined, "DEFINE"); // With object index specified
-memberShearPanel4.DefineSProvParameters(3.0, 4.0);*/
+memberShearPanel4.DefineSProvParameters(3.0, 4.0, 0.005);*/
 
 /*************************************************************************** Member rotational restraint *******************************************************************/
 /* Pre-release - when merge to master be sure the objects are accessible, if so, uncomment code bellow

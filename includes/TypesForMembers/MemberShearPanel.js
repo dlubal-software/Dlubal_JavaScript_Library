@@ -186,9 +186,13 @@ MemberShearPanel.prototype.TrapezoidalSheetingAndBracingParameters = function (s
  * @param {Number}  girder_length           Girder length, can be undefined (define length automatically as default)        
  */
 MemberShearPanel.prototype.DefineSProvParameters = function (shear_panel_stiffness,
-    girder_length) {
+    girder_length,
+    position_on_section_value) {
     ASSERT(this.member_shear_panel.definition_type === member_shear_panels.DEFINITION_TYPE_DEFINE_S_PROV, "Only for Define S-prov definition type");
-    SetMemberShearPanelParameters(this.member_shear_panel, undefined, girder_length, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, shear_panel_stiffness);
+    if (typeof position_on_section_value !== "undefined") {
+        ASSERT(this.member_shear_panel.position_on_section === member_shear_panels.POSITION_DEFINE, "Position on section value can be set only if default position on section is set");
+    }
+    SetMemberShearPanelParameters(this.member_shear_panel, undefined, girder_length, undefined, undefined, undefined, undefined, undefined, undefined, undefined, position_on_section_value, shear_panel_stiffness);
 };
 
 function SetMemberShearPanelParameters (member_shear_panel,
@@ -203,6 +207,7 @@ function SetMemberShearPanelParameters (member_shear_panel,
     posts_section_area,
     position_on_section_value,
     stiffness) {
+        console.log(position_on_section_value);
     if (typeof panel_length !== "undefined") {
         member_shear_panel.panel_length = panel_length;
     }
