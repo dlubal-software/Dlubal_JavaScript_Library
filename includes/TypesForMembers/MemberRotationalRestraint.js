@@ -2,6 +2,7 @@
 1. Condition for compare of valid material of members assigned to member support is not solved. Condition can be taken from RFEM app code, MaterialImpl::isMaterialForSteelDesign(). 
    But for now there is any support for material sub type, standard group and property in API. Function memberIsValid returns true as default for this time.
 2. No member supports can be assigned to member shear panel for now
+3. "Spring Stiffness Depending on Loading" tab - table values are not supported?
 */
 
 /**
