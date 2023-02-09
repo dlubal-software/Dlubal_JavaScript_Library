@@ -132,7 +132,7 @@ memberShearPanel4.DefineSProvParameters(3.0, 4.0, 0.005);*/
 /* Pre-release - when merge to master be sure the objects are accessible, if so, uncomment code bellow
 var memberRotationalRestraint = new MemberRotationalRestraint();
 memberRotationalRestraint.Continuous(undefined, [memberSupport.GetNo()], "Grade S275", "TBS (+) T 35 - 0.75", "NEGATIVE", "INTERNAL_PANEL", false, "Continuous member rotational restraint example");
-memberRotationalRestraint.SetContinuousParameters(205000.0E6, 0.018, 0.00000022, 0.208, 0.041, 3.0, 1.5);
+memberRotationalRestraint.SetContinuousParameters(205000.0E6, 0.018, 0.00000022, 0.208, 0.041, 3000.0, 1.5);
 var memberRotationalRestraint2 = new MemberRotationalRestraint();
 memberRotationalRestraint2.Discrete(undefined, undefined, "Grade S275", "ASB 280 - 74", "MANUALLY", undefined); // With default end panel continuous beam effect and section deformation (true)
 memberRotationalRestraint2.SetDiscreteParameters(205000.0E6, 0.00012191, 0.333, 1.5, 5000.0);
