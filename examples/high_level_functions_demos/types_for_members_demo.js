@@ -114,7 +114,6 @@ member2.Beam(undefined, [110, 111], 1);
 var memberSet2 = new MemberSet();
 memberSet2.ContinuousMembers(undefined, [55, member2.GetNo(), 56]);
 
-/* Pre-release - when merge to master be sure the objects are accessible, if so, uncomment code bellow
 var memberShearPanel = new MemberShearPanel();
 memberShearPanel.TrapezoidalSheeting(undefined, undefined, "LOWER_FLANGE", "FI (+) 35/207 - 0.75 (b: 1) | DIN 18807 | Fischer Profil", "EVERY_SECOND_RIB", "Member shear panel 1");
 memberShearPanel.SetTrapezoidalSheetingParameters(1.5, undefined, 2.0);
@@ -126,10 +125,9 @@ memberShearPanel3.TrapezoidalSheetingAndBracing(undefined, undefined, "CENTROID"
 memberShearPanel3.TrapezoidalSheetingAndBracingParameters(1.5, undefined, 2.5, undefined, undefined, 3.5, 3);
 var memberShearPanel4 = new MemberShearPanel();
 memberShearPanel4.DefineSProv(10, undefined, "DEFINE"); // With object index specified
-memberShearPanel4.DefineSProvParameters(3.0, 4.0, 0.005);*/
+memberShearPanel4.DefineSProvParameters(3.0, 4.0, 0.005);
 
 /*************************************************************************** Member rotational restraint *******************************************************************/
-/* Pre-release - when merge to master be sure the objects are accessible, if so, uncomment code bellow
 var memberRotationalRestraint = new MemberRotationalRestraint();
 memberRotationalRestraint.Continuous(undefined, [memberSupport.GetNo()], "Grade S275", "TBS (+) T 35 - 0.75", "NEGATIVE", "INTERNAL_PANEL", false, "Continuous member rotational restraint example");
 memberRotationalRestraint.SetContinuousParameters(205000.0E6, 0.018, 0.00000022, 0.208, 0.041, 3000.0, 1.5);
@@ -138,7 +136,7 @@ memberRotationalRestraint2.Discrete(undefined, undefined, "Grade S275", "ASB 280
 memberRotationalRestraint2.SetDiscreteParameters(205000.0E6, 0.00012191, 0.333, 1.5, 5000.0);
 memberRotationalRestraint3 = new MemberRotationalRestraint();
 memberRotationalRestraint3.Manually();
-memberRotationalRestraint3.SetManuallyParameters(1.5E3);*/
+memberRotationalRestraint3.SetManuallyParameters(1.5E3);
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;
