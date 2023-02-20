@@ -13,7 +13,7 @@ function SteelDesignUltimateConfigurationGB (no,
     member_sets_no,
     comment,
     params) {
-    this.addon = createBaseSteelDesignUltimateConfiguration(no, name, members_no, member_sets_no, comment, params);
+    this.addon = createBaseSteelDesignConfiguration(STEEL_DESIGN.steel_design_uls_configurations, no, name, members_no, member_sets_no, comment, params);
 }
 
 /**

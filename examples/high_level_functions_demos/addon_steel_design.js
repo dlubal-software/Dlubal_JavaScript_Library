@@ -54,6 +54,8 @@ switch (general.current_standard_for_steel_design)
         steelDesignUltimateConfigurationEC3.PositionOfPositiveTransverse(undefined, undefined, undefined, true);
         steelDesignUltimateConfigurationEC3.LateralTorsionalBuckling(true, undefined, false, false);
         steelDesignUltimateConfigurationEC3.Parameters(true);
+        var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "EC3 Serviceability configuration for testing", [2]);
+        steelDesignServiceabilityConfiguration.DesignParametersEC3(400, 500, 600, 450, 550, 650, 0.006, true, undefined, true);
         break;
     case "AISC 360 | 2016":
         var steelDesignStrengthConfigurationAISC = new SteelDesignStrengthConfigurationAISC(undefined, "AICS Strength configuration for testing", [1]);
@@ -62,16 +64,20 @@ switch (general.current_standard_for_steel_design)
         steelDesignStrengthConfigurationAISC.LocalBuckling(true);
         steelDesignStrengthConfigurationAISC.LocalBuckling(true, 13.5, 42.5);
         steelDesignStrengthConfigurationAISC.PositionOfPositiveTransverse(undefined, undefined, true);
+        var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "AISC Serviceability configuration for testing", [2]);
+        steelDesignServiceabilityConfiguration.DesignParametersAISC(200, 300);
         break;
     case "IS 800 | 2007-12":
         var steelDesignUltimateConfigurationIS = new SteelDesignUltimateConfigurationIS(undefined, "IS Ultimate configuration for testing", [1]);
-        steelDesignUltimateConfigurationIS.General(false);
+        steelDesignUltimateConfigurationIS.General(true);
         steelDesignUltimateConfigurationIS.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07);
         steelDesignUltimateConfigurationIS.ElasticDesign(true);
         steelDesignUltimateConfigurationIS.DesignOfShearBuckling(true, undefined, true);
         steelDesignUltimateConfigurationIS.Combined(true);
         steelDesignUltimateConfigurationIS.CalculationMethod(true, true);
         steelDesignUltimateConfigurationIS.PositionOfPositiveTransverse(undefined, true);
+        var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "IS Serviceability configuration for testing", [2]);
+        steelDesignServiceabilityConfiguration.DesignParametersIS(200, 300);
         break;
     case "BS 5950 | 2001-05":
         var steelDesignUltimateConfigurationBS = new SteelDesignUltimateConfigurationBS(undefined, "BS Ultimate configuration for testing", [1]);
@@ -80,6 +86,8 @@ switch (general.current_standard_for_steel_design)
         steelDesignUltimateConfigurationBS.Options(true,true);
         steelDesignUltimateConfigurationBS.PositionOfPositiveTransverse(undefined, undefined, true);
         steelDesignUltimateConfigurationBS.EquivalentUniformMomentFactors(undefined, true, 0.500, undefined, true, 0.600, true);
+        var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "BS Serviceability configuration for testing", [2]);
+        steelDesignServiceabilityConfiguration.DesignParametersBS(300, 400, 0.01);
         break;
     case "GB 50017 | 2017-12":
         var steelDesignUltimateConfigurationGB = new SteelDesignUltimateConfigurationGB(undefined, "GB Ultimate configuration for testing", [1]);
@@ -96,6 +104,8 @@ switch (general.current_standard_for_steel_design)
         steelDesignUltimateConfigurationGB.GeneralSections("A", "B");
         steelDesignUltimateConfigurationGB.ImaginaryAxis1(0.3);
         steelDesignUltimateConfigurationGB.EquivalentMomentFactors(true, true, 0.5, undefined, true, true, 0.4, undefined, 0.1, 0.2);
+        var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "GB Serviceability configuration for testing", [2]);
+        steelDesignServiceabilityConfiguration.DesignParametersGB(1100, 1200, 501, 502);
         break;
     case "CSA S16 | 2019":
         var steelDesignUltimateConfigurationCSA = new SteelDesignUltimateConfigurationCSA(undefined, "CSA Ultimate configuration for testing", [1])
@@ -103,6 +113,8 @@ switch (general.current_standard_for_steel_design)
         steelDesignUltimateConfigurationCSA.Options(true, undefined, true, undefined, true, 0.9, 0.95);
         steelDesignUltimateConfigurationCSA.StructureType(true, true);
         steelDesignUltimateConfigurationCSA.PositionOfPositiveTransverse(undefined, true);
+        var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "CSA Serviceability configuration for testing", [2]);
+        steelDesignServiceabilityConfiguration.DesignParametersCSA(300, 400);
         break;
     case "AS 4100 | 2016-06":
         var steelDesignUltimateConfigurationAS = new SteelDesignUltimateConfigurationAS(undefined, "AS Ultimate configuration for testing", [1]);
@@ -112,6 +124,8 @@ switch (general.current_standard_for_steel_design)
         steelDesignUltimateConfigurationAS.SectionManufacture(true, "CF");
         steelDesignUltimateConfigurationAS.PositionOfPositiveTransverse(undefined, undefined, true);
         steelDesignUltimateConfigurationAS.FabricationOfWeldedSections(undefined, true);
+        var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "AS Serviceability configuration for testing", [2]);
+        steelDesignServiceabilityConfiguration.DesignParametersAS(101, 102, 103, 104);
         break;
     case "SP 16.13330 | 2017-02":
         var steelDesignUltimateConfigurationSP = new SteelDesignUltimateConfigurationSP(undefined, "SP Ultimate configuration for testing", [1]);
@@ -122,6 +136,8 @@ switch (general.current_standard_for_steel_design)
         steelDesignUltimateConfigurationSP.Options(true);
         steelDesignUltimateConfigurationSP.LoadSafetyCoefficient(true, 1.1);
         steelDesignUltimateConfigurationSP.DesignParameters(0.06, 0.07, undefined, true);
+        var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "SP Serviceability configuration for testing", [2], undefined, "Last test example");
+        steelDesignServiceabilityConfiguration.DesignParametersSP(101, 102);
         break;
     default:
         ASSERT(false);

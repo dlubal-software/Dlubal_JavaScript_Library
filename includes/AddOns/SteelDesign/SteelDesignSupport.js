@@ -1,4 +1,5 @@
-function createBaseSteelDesignUltimateConfiguration (no,
+function createBaseSteelDesignConfiguration (object_to_create,
+    no,
     name,
     members_no,
     member_sets_no,
@@ -6,10 +7,10 @@ function createBaseSteelDesignUltimateConfiguration (no,
     params) {
     ASSERT(STEEL_DESIGN.isActive(), "Steel design must be active");
     if (typeof no === "undefined") {
-        addon = STEEL_DESIGN.steel_design_uls_configurations.create();
+        addon = object_to_create.create();
     }
     else {
-        addon = STEEL_DESIGN.steel_design_uls_configurations.create(no);
+        addon = object_to_create.create(no);
     }
     if (typeof name !== "undefined") {
         addon.name = name;
