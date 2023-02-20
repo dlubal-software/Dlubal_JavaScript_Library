@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<script>
+    <arguments>
+        <argument argument-name="standard_index" default-value="0" label-name="Current index of standard for steel design"/>
+    </arguments>
+</script>

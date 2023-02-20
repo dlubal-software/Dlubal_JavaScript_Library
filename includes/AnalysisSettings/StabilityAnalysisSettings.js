@@ -1,3 +1,7 @@
+/*
+find_eigenvectors_beyond_critical_load_factor is not in API
+*/
+
 /**
  * Constructor creates a new object of type StabilityAnalysisSettings
  * @class
@@ -187,13 +191,14 @@ function SetPropertiesForEigenValueMethod(StAS, numberOfLowestEigenvalues, eigen
   StAS.eigenvalue_method = stability_analysis_settings[SetEigenValueMethod(eigenValueMethod)];
   StAS.matrix_type = stability_analysis_settings[SetMatrixType(matrixType)];
 
-  if (eigenValueBeyondCriticalFactor !== undefined) {
+  // Property find_eigenvectors_beyond_critical_load_factor is not in API
+  /*if (eigenValueBeyondCriticalFactor !== undefined) {
     StAS.find_eigenvectors_beyond_critical_load_factor = true;
     StAS.critical_load_factor = eigenValueBeyondCriticalFactor
   }
   else {
     StAS.find_eigenvectors_beyond_critical_load_factor = false;
-  }
+  }*/
 
 }
 

@@ -130,6 +130,16 @@ include("Loads/ImposedNodalDeformation.js");
 include("Loads/MemberLoad.js");
 include("Loads/MemberSetLoad.js");
 include("Loads/NodalLoad.js");
+// Addons
+include("AddOns/SteelDesign/UltimateConfigurationSupport.js");
+include("AddOns/SteelDesign/UltimateConfigurationAISC.js");
+include("AddOns/SteelDesign/UltimateConfigurationAS.js");
+include("AddOns/SteelDesign/UltimateConfigurationBS.js");
+include("AddOns/SteelDesign/UltimateConfigurationCSA.js");
+include("AddOns/SteelDesign/UltimateConfigurationEC3.js");
+include("AddOns/SteelDesign/UltimateConfigurationGB.js");
+include("AddOns/SteelDesign/UltimateConfigurationIS.js");
+include("AddOns/SteelDesign/UltimateConfigurationSP.js");
 // Guide objects
 include("GuideObjects/CoordinateSystem.js");
 // Dimensions
@@ -139,4 +149,3 @@ include("Dimensions/DiameterDimension.js");
 include("Dimensions/LinearDimension.js");
 include("Dimensions/RadiusDimension.js");
 include("Dimensions/SlopeDimension.js");
-
