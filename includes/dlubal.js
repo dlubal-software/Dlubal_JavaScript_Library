@@ -141,6 +141,7 @@ include("AddOns/SteelDesign/UltimateConfigurationGB.js");
 include("AddOns/SteelDesign/UltimateConfigurationIS.js");
 include("AddOns/SteelDesign/UltimateConfigurationSP.js");
 include("AddOns/SteelDesign/ServiceabilityConfiguration.js");
+include("AddOns/SteelDesign/FireResistanceConfiguration.js");
 // Guide objects
 include("GuideObjects/CoordinateSystem.js");
 // Dimensions

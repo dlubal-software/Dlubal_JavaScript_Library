@@ -56,6 +56,15 @@ switch (general.current_standard_for_steel_design)
         steelDesignUltimateConfigurationEC3.Parameters(true);
         var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "EC3 Serviceability configuration for testing", [2]);
         steelDesignServiceabilityConfiguration.DesignParametersEC3(400, 500, 600, 450, 550, 650, 0.006, true, undefined, true);
+        var steelDesignFireResistanceConfigurationEC3 = new SteelDesignFireResistanceConfiguration(undefined, "EC3 Fire resistance configuration for testing", [1], undefined, "Fire resistance configuration can be set now only for EC3 standard");
+        steelDesignFireResistanceConfigurationEC3.FinalTemperatureEC3("ANALYTICALLY");
+        steelDesignFireResistanceConfigurationEC3.AnalyticallyDesignSettingsEC3(1200, 6.5, "3_SIDES", undefined, true, 1.5);
+        steelDesignFireResistanceConfigurationEC3.AnalyticallyFireProtectionEC3("HOLLOW", 333, 0.111, 1222, 0.011);
+        steelDesignFireResistanceConfigurationEC3.AnalyticallyTemperatureCurveEC3(undefined, true, undefined, 30);
+        steelDesignFireResistanceConfigurationEC3.AnalyticallyThermalActionsEC3(0.999, 0.8, 0.5, 0.777, undefined, 0.888);
+        var steelDesignFireResistanceConfigurationEC3_2 = new SteelDesignFireResistanceConfiguration(undefined, "EC3 Fire resistance configuration for testing", [1], undefined, "Fire resistance configuration can be set now only for EC3 standard");
+        steelDesignFireResistanceConfigurationEC3_2.FinalTemperatureEC3("MANUALLY");
+        steelDesignFireResistanceConfigurationEC3_2.ManuallyFinalTemperatureEC3(undefined, "3_SIDES", true);
         break;
     case "AISC 360 | 2016":
         var steelDesignStrengthConfigurationAISC = new SteelDesignStrengthConfigurationAISC(undefined, "AICS Strength configuration for testing", [1]);

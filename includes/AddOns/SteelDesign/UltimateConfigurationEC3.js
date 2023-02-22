@@ -311,7 +311,7 @@ function EC3FormingFactor(factor) {
 		if (type === undefined) {
 			console.log("Wrong type of EC3 forming factor. Value was: " + factor);
 			console.log("Correct values are: ( " + Object.keys(factor_types_dict) + ")");
-			direction = member_ulsconfig_steel_design_ec3.E_CONSIDER_FACTOR_ROLL_FORMING;
+			type = member_ulsconfig_steel_design_ec3.E_CONSIDER_FACTOR_ROLL_FORMING;
 		}
 		return type;
 	}

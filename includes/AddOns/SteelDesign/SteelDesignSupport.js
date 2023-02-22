@@ -1,3 +1,7 @@
+/*
+Member sets cannot be set?? What condition for member sets?
+*/
+
 function createBaseSteelDesignConfiguration (object_to_create,
     no,
     name,
@@ -40,7 +44,7 @@ setSteelDesign_Members = function (addon,
     if (typeof member_sets_no !== "undefined") {
         ASSERT(Array.isArray(member_sets_no), "Member set list must be array of member sets indexes");
         member_sets_list = member_sets_no;
-        member_sets_nos = [];
+        member_sets_no = [];
         for (var i = 0; i < member_sets_list.length; ++i) {
             if (member_sets.exist(member_sets_list[i])) {
                 member_sets_no.push(member_sets_list[i]);
