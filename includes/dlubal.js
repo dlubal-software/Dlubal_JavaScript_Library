@@ -142,6 +142,10 @@ include("AddOns/SteelDesign/UltimateConfigurationIS.js");
 include("AddOns/SteelDesign/UltimateConfigurationSP.js");
 include("AddOns/SteelDesign/ServiceabilityConfiguration.js");
 include("AddOns/SteelDesign/FireResistanceConfiguration.js");
+// Addons - Types for
+include("AddOns/TypesForSteelDesign/BoundaryCondition.js");
+include("AddOns/TypesForSteelDesign/EffectiveLength.js");
+include("AddOns/TypesForSteelDesign/MemberLocalSectionReduction.js");
 // Guide objects
 include("GuideObjects/CoordinateSystem.js");
 // Dimensions
