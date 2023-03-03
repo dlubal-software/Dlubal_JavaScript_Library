@@ -118,8 +118,8 @@ member4.Beam(undefined, [33, 34], 1);
 var member5 = new Member();
 member5.Beam(undefined, [35, 36], 1);
 var memberEccentricity = new MemberEccentricity();
-memberEccentricity.RelativeToSection(undefined, [], [], "SECTION_ALIGNMENT_RIGHT_TOP");
-memberEccentricity.RelativeAndAbsolute(undefined, [], [], "SECTION_ALIGNMENT_RIGHT_BOTTOM", 0.005, 0.0015, 0.002);
+memberEccentricity.RelativeToSection(undefined, [], [], "RIGHT_TOP");
+memberEccentricity.RelativeAndAbsolute(undefined, [], [], "RIGHT_BOTTOM", 0.005, 0.0015, 0.002);
 member5.Eccentricities(1, 2);
 // Option: member support
 var member6 = new Member();
@@ -156,28 +156,28 @@ member10.Beam(undefined, [48, 49], 1);
 member10.SectionDistributionUniform();
 var member12 = new Member();
 member12.Beam(undefined, [51, 52], 2);
-member12.SectionDistributionLinear(section.no, section2.no, "Top");
+member12.SectionDistributionLinear(section.no, section2.no, "TOP");
 var member13 = new Member();
 member13.Beam(undefined, [53, 54], 1);
-member13.SectionDistributionTaperedAtBothSides(section.no, section2.no, section3.no, "XY", [0.30, true], [1.5, false], "Bottom");//add sections
+member13.SectionDistributionTaperedAtBothSides(section.no, section2.no, section3.no, "XY", [0.30, true], [1.5, false], "BOTTOM");//add sections
 var member14 = new Member();
 member14.Beam(undefined, [55, 56], 1);
-member14.SectionDistributionTaperedAtStart(section3.no, section2.no, "XY", [0.30, true], "Top");
+member14.SectionDistributionTaperedAtStart(section3.no, section2.no, "XY", [0.30, true], "TOP");
 var member15 = new Member();
 member15.Beam(undefined, [57, 58], 1);
-member15.SectionDistributionTaperedAtEnd(section.no, section2.no, undefined, [1.5, false], "Bottom");	// With default reference type (L)
+member15.SectionDistributionTaperedAtEnd(section.no, section2.no, undefined, [1.5, false], "BOTTOM");	// With default reference type (L)
 var member16 = new Member();
 member16.Beam(undefined, [59, 60], 1);
 member16.SectionDistributionSaddle(section.no, section3.no, section2.no, "XY", [2, false]);
 var member17 = new Member();
 member17.Beam(undefined, [76, 77], 1);
-member17.SectionDistributionOffsetAtBothSides(section.no, section3.no, section2.no, "XY", [0.30, true], [1.5, false], "Bottom");
+member17.SectionDistributionOffsetAtBothSides(section.no, section3.no, section2.no, "XY", [0.30, true], [1.5, false], "BOTTOM");
 var member18 = new Member();
 member18.Beam(undefined, [115, 116], 1);
 member18.SectionDistributionOffsetAtStart(section2.no, section.no, "XY", [0.30, true]);	// With default section alignment (top)
 var member19 = new Member();
 member19.Beam(undefined, [117, 118], 1);
-member19.SectionDistributionOffsetAtEnd(section.no, section2.no, "XZ", [2.5, false], "Centric");
+member19.SectionDistributionOffsetAtEnd(section.no, section2.no, "XZ", [2.5, false], "CENTRIC");
 /*********************************************************************************************/
 
 if (RFEM) {
@@ -238,18 +238,27 @@ if (RFEM) {
 	surface.Rigid(undefined, linesForSurfaces[3][0], "With default plane geometry type");
 	surface.Membrane(undefined, linesForSurfaces[4][0], 1, "With default plane geometry type");
 	surface.WithoutMembraneTension(undefined, linesForSurfaces[5][0], 1, "With default plane geometry type");
-	surface.LoadTransfer(undefined, linesForSurfaces[6][0], "With default plane geometry type");
+	var surfaceLoadTransfer = new Surface();
+	surfaceLoadTransfer.LoadTransfer(undefined, linesForSurfaces[6][0], "DIRECTION_IN_Y", "Uniform", "With default plane geometry type");
+	// Load transfer surface options
+	surfaceLoadTransfer.RemoveInfluenceFrom(undefined, undefined, [13, 14, 15, 16], undefined, [189,190,199,200]);	// with lines and nodes defined
+	surfaceLoadTransfer.SurfaceWeight(2000);
+	surfaceLoadTransfer.ConsiderMemberEccentricity();
+	surfaceLoadTransfer.ConsiderSectionDistribution();
+	surfaceLoadTransfer.AdvancedDistribution(0.05);
+	surfaceLoadTransfer.NeglectEquilibriumOfMoments();
 	// Geometry type: quadrangle
 	nodes[202].coordinate_3 = 0.5;
-	surface.Quadrangle(undefined, linesForSurfaces[7][0], "Standard", 1);
+	surface.Quadrangle(undefined, linesForSurfaces[7][0], "STANDARD", 1);
 	// Geometry type NURBS
-	var coreSurface = surface.Standard(undefined, linesForSurfaces[8][0], 1);
+	surface.Standard(undefined, linesForSurfaces[8][0], 1);
+	var coreSurface = surface.GetSurface();
 	for (var i = 0; i < coreSurface.boundary_lines.length; ++i) {
 		coreSurface.boundary_lines[i].type = lines.TYPE_NURBS;
 	}
 	surface.NURBS();
 	// Geometry type: rotated
-	surface.Rotated(undefined, linesForSurfaces[9][0], "Standard", 1, 56, 0.2, [nodes[120].coordinate_1, nodes[120].coordinate_2, nodes[120].coordinate_3], [nodes[130].coordinate_1, nodes[130].coordinate_2, nodes[130].coordinate_3]);
+	surface.Rotated(undefined, linesForSurfaces[9][0], "STANDARD", 1, 56, 0.2, [nodes[120].coordinate_1, nodes[120].coordinate_2, nodes[120].coordinate_3], [nodes[130].coordinate_1, nodes[130].coordinate_2, nodes[130].coordinate_3]);
 	// TODO
 	// Geometry type: pipe
 	surface.Standard(undefined, linesForSurfaces[10][0], 1);
@@ -257,7 +266,8 @@ if (RFEM) {
 	// Option: grid for results
 	// TODO
 	// Option: hinges
-	surfaceWithHingesNo = surface.Standard(undefined, linesForSurfaces[11][0], 1).no;
+	surface.Standard(undefined, linesForSurfaces[11][0], 1);
+	var surfaceWithHingesNo = surface.GetNo();
 	var lineHinge = new LineHinge(undefined, undefined);
 	surface.Hinges([[surfaces[surfaceWithHingesNo].boundary_lines[1], lineHinge.lineHinge.no]]);
 	// Option: support
@@ -278,7 +288,7 @@ if (RFEM) {
 	var inputAxesValues = [1, [45, undefined, undefined]];
 	surface.SpecificAxes(inputAxesValues);	// Angular rotation category
 	surface.Standard(undefined, linesForSurfaces[16][0]);
-	inputAxesValues = [2, [[surface.surface.boundary_lines[0], surface.surface.boundary_lines[1]], "Axis y"]];
+	inputAxesValues = [2, [[surface.surface.boundary_lines[0], surface.surface.boundary_lines[1]], "AXIS_Y"]];
 	surface.SpecificAxes(inputAxesValues);	// Axis parallel to lines category
 	surface.Standard(undefined, linesForSurfaces[17][0]);
 	var node1 = linesForSurfaces[17][1][0];
@@ -292,6 +302,7 @@ if (RFEM) {
 	integratedLine.Polyline(undefined, [linesForSurfaces[19][1][0], linesForSurfaces[19][1][2]]);
 	surface.Standard(undefined, linesForSurfaces[19][0]);
 	surface.IntegratedObjects(false, undefined, [integratedLine.line.no]);
+
 	/*********************************************************************************************/
 
 	var surface2 = new Surface();
@@ -299,7 +310,7 @@ if (RFEM) {
 	var material2 = createMaterial("C16/20");
 	var thickness2 = new Thickness();
 	thickness2.Uniform(undefined, "Thickness2", material2, 0.180);
-	surface2.SurfaceType("Membrane", undefined, thickness2.thickness);
+	surface2.SurfaceType("MEMBRANE", undefined, thickness2.thickness);
 
 	member.Rib(undefined, [239, 240], 4, "ALIGNMENT_ON_Z_SIDE_NEGATIVE", true, true, [[1.0, "REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH", "REFERENCE_LENGTH_WIDTH_SIXTH", 3.0, 3.0]]);
 }

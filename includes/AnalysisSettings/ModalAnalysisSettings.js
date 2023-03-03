@@ -1,17 +1,8 @@
-
-/**
- * AnalysisSettings namespace
- * @namespace AnalysisSettings
- * @module AnalysisSettings
- */
-
 /**
  * Creates modal analysis settings high level function
  * @class
  * @constructor
- * @memberof AnalysisSettings
  * @classdesc Modal analysis settings high level function
- * @customTag Tohle je custom tag
  * @param {Number} no unique ID of modal analysis settings
  * @param {String} solverMethod solver method()
  * @param {String} beyondFrequency Setting of eigenvectors beyond frequency
@@ -32,7 +23,6 @@
 
   if (arguments.length !== 0) {
     ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
-    ASSERT(typeof type != undefined || typeof name != "string", "Name must be assigned as a string.");
 
     if (no === undefined) {
       var MAS = modal_analysis_settings.create();
@@ -44,7 +34,7 @@
 
     if (solverMethod != undefined) {
       if (RFEM) {
-        MAS.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
+        MAS.solution_method = SolverMethodType(solverMethod);
       }
     }
 
@@ -95,12 +85,12 @@ ModalAnalysisSettings.prototype.UserDefinedNumberOfModes = function (no, name, n
   }
 
   if (RFEM) {
-    this.Settings.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
+    this.Settings.solution_method = SolverMethodType(solverMethod);
   }
 
-  this.Settings.mass_matrix_type = modal_analysis_settings[MassMatrixType(typeOfMassMatrix)];
+  this.Settings.mass_matrix_type = MassMatrixType(typeOfMassMatrix);
 
-  this.Settings.mass_conversion_type = modal_analysis_settings[MassConversionType(massConversion)];
+  this.Settings.mass_conversion_type = MassConversionType(massConversion);
 
   SetActingMasses(this.Settings, actingMasses);
 
@@ -135,11 +125,11 @@ ModalAnalysisSettings.prototype.AutomaticNumberOfModesToReachEffMass = function 
     this.Settings.effective_modal_mass_factor = 0.9;
   }
   if (RFEM) {
-    this.Settings.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
+    this.Settings.solution_method = SolverMethodType(solverMethod);
   }
-  this.Settings.mass_matrix_type = modal_analysis_settings[MassMatrixType(typeOfMassMatrix)];
+  this.Settings.mass_matrix_type = MassMatrixType(typeOfMassMatrix);
 
-  this.Settings.mass_conversion_type = modal_analysis_settings[MassConversionType(massConversion)];
+  this.Settings.mass_conversion_type = MassConversionType(massConversion);
 
   SetActingMasses(this.Settings, actingMasses);
 
@@ -174,11 +164,11 @@ ModalAnalysisSettings.prototype.AutomaticNumberOfModesToReachMaxFreq = function 
     this.Settings.maxmimum_natural_frequency = 1600;
   }
   if (RFEM) {
-    this.Settings.solution_method = modal_analysis_settings[SolverMethodType(solverMethod)];
+    this.Settings.solution_method = SolverMethodType(solverMethod);
   }
-  this.Settings.mass_matrix_type = modal_analysis_settings[MassMatrixType(typeOfMassMatrix)];
+  this.Settings.mass_matrix_type = MassMatrixType(typeOfMassMatrix);
 
-  this.Settings.mass_conversion_type = modal_analysis_settings[MassConversionType(massConversion)];
+  this.Settings.mass_conversion_type = MassConversionType(massConversion);
 
   SetActingMasses(this.Settings, actingMasses);
 
@@ -211,11 +201,11 @@ ModalAnalysisSettings.prototype.SetBeyondFrequency = function (frequency) {
 function SolverMethodType(solverMethod) {
 
   const SolverMethod_dict = {
-    "METHOD_LANCZOS": "METHOD_LANCZOS",
-    "METHOD_ROOT_OF_CHARACTERISTIC_POLYNOMIAL": "METHOD_ROOT_OF_CHARACTERISTIC_POLYNOMIAL",
-    "METHOD_SUBSPACE_ITERATION": "METHOD_SUBSPACE_ITERATION",
-    "METHOD_ICG_ITERATION": "METHOD_ICG_ITERATION",
-    "SOLUTION_METHOD_SHIFTED_INVERSE_POWER_METHOD": "SOLUTION_METHOD_SHIFTED_INVERSE_POWER_METHOD"
+    "METHOD_LANCZOS": modal_analysis_settings.METHOD_LANCZOS,
+    "METHOD_ROOT_OF_CHARACTERISTIC_POLYNOMIAL": modal_analysis_settings.METHOD_ROOT_OF_CHARACTERISTIC_POLYNOMIAL,
+    "METHOD_SUBSPACE_ITERATION": modal_analysis_settings.METHOD_SUBSPACE_ITERATION,
+    "METHOD_ICG_ITERATION": modal_analysis_settings.METHOD_ICG_ITERATION,
+    "SOLUTION_METHOD_SHIFTED_INVERSE_POWER_METHOD": modal_analysis_settings.SOLUTION_METHOD_SHIFTED_INVERSE_POWER_METHOD
   };
 
   if (solverMethod !== undefined) {
@@ -224,11 +214,11 @@ function SolverMethodType(solverMethod) {
     if (equationSolver === undefined) {
       console.log("Wrong equation solver input. Value was: " + solverMethod);
       console.log("Correct values are: ( " + Object.keys(EquationSolver_dict) + ")");
-      equationSolver = "METHOD_LANCZOS";
+      equationSolver = modal_analysis_settings.METHOD_LANCZOS;
     }
     return equationSolver;
   } else {
-    return "METHOD_LANCZOS";
+    return modal_analysis_settings.METHOD_LANCZOS;
   }
 
 }
@@ -236,9 +226,9 @@ function SolverMethodType(solverMethod) {
 function MassConversionType(massConversionMethod) {
 
   const MassConversion_dict = {
-    "MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS": "MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS",
-    "MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS_IN_DIRECTION_OF_GRAVITY": "MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS_IN_DIRECTION_OF_GRAVITY",
-    "MASS_CONVERSION_TYPE_FULL_LOADS_AS_MASS": "MASS_CONVERSION_TYPE_FULL_LOADS_AS_MASS"
+    "MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS": modal_analysis_settings.MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS,
+    "MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS_IN_DIRECTION_OF_GRAVITY": modal_analysis_settings.MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS_IN_DIRECTION_OF_GRAVITY,
+    "MASS_CONVERSION_TYPE_FULL_LOADS_AS_MASS": modal_analysis_settings.MASS_CONVERSION_TYPE_FULL_LOADS_AS_MASS
   };
 
   if (massConversionMethod !== undefined) {
@@ -246,22 +236,22 @@ function MassConversionType(massConversionMethod) {
     if (massConversion === undefined) {
       console.log("Wrong mass conversion input. Value was: " + massConversionMethod);
       console.log("Correct values are: ( " + Object.keys(MassConversion_dict) + ")");
-      massConversion = "MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS";
+      massConversion = modal_analysis_settings.MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS;
     }
     return massConversion;
   }
   else {
-    return "MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS";
+    return modal_analysis_settings.MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS;
   }
 }
 
 function MassMatrixType(massMatrixMethod) {
 
   const MassMatrix_dict = {
-    "MASS_MATRIX_TYPE_DIAGONAL": "MASS_MATRIX_TYPE_DIAGONAL",
-    "MASS_MATRIX_TYPE_DIAGONAL_WITH_TORSIONAL_ELEMENTS": "MASS_MATRIX_TYPE_DIAGONAL_WITH_TORSIONAL_ELEMENTS",
-    "MASS_MATRIX_TYPE_CONSISTENT": "MASS_MATRIX_TYPE_CONSISTENT",
-    "MASS_MATRIX_TYPE_UNIT": "MASS_MATRIX_TYPE_UNIT"
+    "MASS_MATRIX_TYPE_DIAGONAL": modal_analysis_settings.MASS_MATRIX_TYPE_DIAGONAL,
+    "MASS_MATRIX_TYPE_DIAGONAL_WITH_TORSIONAL_ELEMENTS": modal_analysis_settings.MASS_MATRIX_TYPE_DIAGONAL_WITH_TORSIONAL_ELEMENTS,
+    "MASS_MATRIX_TYPE_CONSISTENT": modal_analysis_settings.MASS_MATRIX_TYPE_CONSISTENT,
+    "MASS_MATRIX_TYPE_UNIT": modal_analysis_settings.MASS_MATRIX_TYPE_UNIT
   };
 
   if (massMatrixMethod !== undefined) {
@@ -269,12 +259,12 @@ function MassMatrixType(massMatrixMethod) {
     if (massMatrix === undefined) {
       console.log("Wrong equation solver input. Value was: " + massMatrixMethod);
       console.log("Correct values are: ( " + Object.keys(MassMatrix_dict) + ")");
-      massMatrixMethod = "MASS_MATRIX_TYPE_DIAGONAL";
+      massMatrixMethod = modal_analysis_settings.MASS_MATRIX_TYPE_DIAGONAL;
     }
     return massMatrixMethod;
   }
   else {
-    return "MASS_MATRIX_TYPE_DIAGONAL";
+    return modal_analysis_settings.MASS_MATRIX_TYPE_DIAGONAL;
   }
 }
 

@@ -20,7 +20,7 @@ function StaticAnalysisSettings(no,
 
   if (arguments.length !== 0) {
     ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
-    ASSERT(typeof analysisType != undefined || typeof name != "string", "Name must be assigned as a string.");
+    ASSERT(typeof analysisType != undefined, "Name must be assigned as a string.");
 
     if (no === undefined) {
       this.Settings = static_analysis_settings.create();
@@ -30,7 +30,7 @@ function StaticAnalysisSettings(no,
     }
     // console.log("New static analysis settings no. " + this.Settings.no + " was created");
     // Static analysis settings : type
-    this.Settings.analysis_type = static_analysis_settings[StaticAnalysisType(analysisType)];
+    this.Settings.analysis_type = StaticAnalysisType(analysisType);
     SetEquationSolver(this.Settings, equationSolver);
 
     // Nonlinear method
@@ -82,7 +82,7 @@ StaticAnalysisSettings.prototype.GeometricallyLinear = function (no, name, equat
 
   this.Settings = CreateStaticAnalysisSettings(no, name);
 
-  this.Settings.analysis_type = static_analysis_settings[StaticAnalysisType("GEOMETRICALLY_LINEAR")];
+  this.Settings.analysis_type = StaticAnalysisType("GEOMETRICALLY_LINEAR");
 
   SetEquationSolver(this.Settings, equationSolver);
 
@@ -118,7 +118,7 @@ StaticAnalysisSettings.prototype.SecondOrder = function (no, name, equationSolve
 
   this.Settings = CreateStaticAnalysisSettings(no, name);
 
-  this.Settings.analysis_type = static_analysis_settings[StaticAnalysisType("SECOND_ORDER_P_DELTA")];
+  this.Settings.analysis_type = StaticAnalysisType("SECOND_ORDER_P_DELTA");
 
   SetEquationSolver(this.Settings, equationSolver);
 
@@ -159,7 +159,7 @@ StaticAnalysisSettings.prototype.LargeDeformations = function (no, name, equatio
 
   this.Settings = CreateStaticAnalysisSettings(no, name);
 
-  this.Settings.analysis_type = static_analysis_settings[StaticAnalysisType("LARGE_DEFORMATIONS")];
+  this.Settings.analysis_type = StaticAnalysisType("LARGE_DEFORMATIONS");
 
   if (nonlinearMethod === "DYNAMIC_RELAXATION" && equationSolver !== "METHOD_OF_EQUATION_SYSTEM_DIRECT") {
     equationSolver = "METHOD_OF_EQUATION_SYSTEM_DIRECT";
@@ -228,7 +228,7 @@ function SetNonlinearMethod(StaticAnalysisSettings, staticAnalysisType, nonlinea
   if (nonlinearMethod !== undefined) {
     var NA_method = NonlinearMethodsType(staticAnalysisType, nonlinearMethod);
     if (NA_method !== undefined) {
-      StaticAnalysisSettings.iterative_method_for_nonlinear_analysis = static_analysis_settings[NA_method];
+      StaticAnalysisSettings.iterative_method_for_nonlinear_analysis = NA_method;
       // console.log("Nonlinear analysis method: " + StaticAnalysisSettings.iterative_method_for_nonlinear_analysis);
     }
   }
@@ -271,9 +271,9 @@ function SetActiveMass(StaticAnalysisSettings, activeMass) {
 function SetPlateBendingTheory(StaticAnalysisSettings, plateBendingTheory) {
   if (RFEM) {
     if (plateBendingTheory !== undefined) {
-      StaticAnalysisSettings.plate_bending_theory = static_analysis_settings[plateBendingTheoryType(plateBendingTheory)];
+      StaticAnalysisSettings.plate_bending_theory = plateBendingTheoryType(plateBendingTheory);
     } else {
-      StaticAnalysisSettings.plate_bending_theory = static_analysis_settings[plateBendingTheoryType("PLATE_BENDING_THEORY_MINDLIN")];
+      StaticAnalysisSettings.plate_bending_theory = plateBendingTheoryType("PLATE_BENDING_THEORY_MINDLIN");
     }
   }
 }
@@ -282,10 +282,10 @@ function SetEquationSolver(StaticAnalysisSettings, equationSolver) {
 
   if (RFEM) {
     if (equationSolver !== undefined) {
-      StaticAnalysisSettings.method_of_equation_system = static_analysis_settings[EquationSolverType(equationSolver)];
+      StaticAnalysisSettings.method_of_equation_system = EquationSolverType(equationSolver);
     }
     else {
-      StaticAnalysisSettings.method_of_equation_system = static_analysis_settings[EquationSolverType("METHOD_OF_EQUATION_SYSTEM_DIRECT")];
+      StaticAnalysisSettings.method_of_equation_system = EquationSolverType("METHOD_OF_EQUATION_SYSTEM_DIRECT");
     }
 
   }
@@ -324,15 +324,15 @@ function AvoidWrongAssignment(SAS, param) {
 
 function StaticAnalysisType(type) {
   const StaticAnalysisType_dict = {
-    undefined: "GEOMETRICALLY_LINEAR",
-    "GEOMETRICALLY_LINEAR": "GEOMETRICALLY_LINEAR",
-    "SECOND_ORDER_P_DELTA": "SECOND_ORDER_P_DELTA",
-    "LARGE_DEFORMATIONS": "LARGE_DEFORMATIONS"
+    undefined: static_analysis_settings.GEOMETRICALLY_LINEAR,
+    "GEOMETRICALLY_LINEAR": static_analysis_settings.GEOMETRICALLY_LINEAR,
+    "SECOND_ORDER_P_DELTA": static_analysis_settings.SECOND_ORDER_P_DELTA,
+    "LARGE_DEFORMATIONS": static_analysis_settings.LARGE_DEFORMATIONS
   };
 
   var SASType = StaticAnalysisType_dict[type];
   if (SASType === undefined) {
-    SASType = "GEOMETRICALLY_LINEAR";
+    SASType = static_analysis_settings.GEOMETRICALLY_LINEAR;
     console.log("Wrong static analysis type input. Value was: " + type);
     console.log("Correct values are: ('GEOMETRICALLY_LINEAR', 'SECOND_ORDER_P_DELTA', 'LARGE_DEFORMATIONS')");
   }
@@ -342,13 +342,13 @@ function StaticAnalysisType(type) {
 
 function plateBendingTheoryType(type) {
   const plateBendingTheoryType_dict = {
-    undefined: "PLATE_BENDING_THEORY_MINDLIN",
-    "PLATE_BENDING_THEORY_MINDLIN": "PLATE_BENDING_THEORY_MINDLIN",
-    "PLATE_BENDING_THEORY_KIRCHHOFF": "PLATE_BENDING_THEORY_KIRCHHOFF"
+    undefined: static_analysis_settings.PLATE_BENDING_THEORY_MINDLIN,
+    "PLATE_BENDING_THEORY_MINDLIN": static_analysis_settings.PLATE_BENDING_THEORY_MINDLIN,
+    "PLATE_BENDING_THEORY_KIRCHHOFF": static_analysis_settings.PLATE_BENDING_THEORY_KIRCHHOFF
   };
   var PlateType = plateBendingTheoryType_dict[type];
   if (PlateType === undefined) {
-    PlateType = "PLATE_BENDING_THEORY_MINDLIN";
+    PlateType = static_analysis_settings.PLATE_BENDING_THEORY_MINDLIN;
     console.log("Wrong plate bending type input. Value was: " + type);
     console.log("Correct values are: ('PLATE_BENDING_THEORY_MINDLIN', 'PLATE_BENDING_THEORY_KIRCHHOFF')");
   }
@@ -359,18 +359,18 @@ function plateBendingTheoryType(type) {
 function NonlinearMethodsType(type, method) {
 
   const nonlinearMethods_secondOrder_dict = {
-    "NEWTON_RAPHSON": "NEWTON_RAPHSON",
-    "PICARD": "PICARD",
-    "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS": "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS"
+    "NEWTON_RAPHSON": static_analysis_settings.NEWTON_RAPHSON,
+    "PICARD": static_analysis_settings.PICARD,
+    "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS": static_analysis_settings.NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS
   };
 
   const nonlinearMethods_largeDeformations_dict = {
-    "NEWTON_RAPHSON": "NEWTON_RAPHSON",
-    "NEWTON_RAPHSON_COMBINED_WITH_PICARD": "NEWTON_RAPHSON_COMBINED_WITH_PICARD",
-    "PICARD": "PICARD",
-    "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS": "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS",
-    "NEWTON_RAPHSON_WITH_CONSTANT_STIFFNESS": "NEWTON_RAPHSON_WITH_CONSTANT_STIFFNESS",
-    "DYNAMIC_RELAXATION": "DYNAMIC_RELAXATION",
+    "NEWTON_RAPHSON": static_analysis_settings.NEWTON_RAPHSON,
+    "NEWTON_RAPHSON_COMBINED_WITH_PICARD": static_analysis_settings.NEWTON_RAPHSON_COMBINED_WITH_PICARD,
+    "PICARD": static_analysis_settings.PICARD,
+    "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS": static_analysis_settings.NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS,
+    "NEWTON_RAPHSON_WITH_CONSTANT_STIFFNESS": static_analysis_settings.NEWTON_RAPHSON_WITH_CONSTANT_STIFFNESS,
+    "DYNAMIC_RELAXATION": static_analysis_settings.DYNAMIC_RELAXATION,
   };
 
   const nonlinearMethodsSwitcher = {
@@ -387,7 +387,7 @@ function NonlinearMethodsType(type, method) {
   else {
     nonlinear_method = method_dict[method];
     if (nonlinear_method === undefined) {
-      nonlinear_method = "NEWTON_RAPHSON";
+      nonlinear_method = static_analysis_settings.NEWTON_RAPHSON;
       console.log("Wrong nonlinear analysis method input. Value was: " + method);
       console.log("Correct values are: ( " + Object.keys(method_dict) + ")");
     }
@@ -398,14 +398,14 @@ function NonlinearMethodsType(type, method) {
 function EquationSolverType(solverType) {
 
   const EquationSolver_dict = {
-    METHOD_OF_EQUATION_SYSTEM_DIRECT: "METHOD_OF_EQUATION_SYSTEM_DIRECT",
-    METHOD_OF_EQUATION_SYSTEM_ITERATIVE: "METHOD_OF_EQUATION_SYSTEM_ITERATIVE"
+    METHOD_OF_EQUATION_SYSTEM_DIRECT: static_analysis_settings.METHOD_OF_EQUATION_SYSTEM_DIRECT,
+    METHOD_OF_EQUATION_SYSTEM_ITERATIVE: static_analysis_settings.METHOD_OF_EQUATION_SYSTEM_ITERATIVE
   };
   var equationSolver = EquationSolver_dict[solverType];
   if (equationSolver === undefined) {
     console.log("Wrong equation solver input. Value was: " + solverType);
     console.log("Correct values are: ( " + Object.keys(EquationSolver_dict) + ")");
-    equationSolver = "METHOD_OF_EQUATION_SYSTEM_DIRECT";
+    equationSolver = static_analysis_settings.METHOD_OF_EQUATION_SYSTEM_DIRECT;
   }
   return equationSolver;
 }

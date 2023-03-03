@@ -26,7 +26,7 @@ var lineSupport = new LineSupport();
 lineSupport.Hinged();
 
 var memberEccentricity = new MemberEccentricity();
-memberEccentricity.RelativeAndAbsolute(1, undefined, undefined, "SECTION_ALIGNMENT_RIGHT_TOP");
+memberEccentricity.RelativeAndAbsolute(1, undefined, undefined, "RIGHT_TOP");
 
 
 // create geometry of the model
@@ -111,23 +111,20 @@ SASGeometricallyLinear.GeometricallyLinear(1);
 var SASSecondOrder = new StaticAnalysisSettings();
 SASSecondOrder.SecondOrder(2,"MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON");
 var lc1 = new LoadCase();
-lc1.StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_PERMANENT_G", [true, 0, 0, 1.0]);
+lc1.StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "PERMANENT_G", [true, 0, 0, 1.0]);
 var lc2 = new LoadCase();
-lc2.StaticAnalysis(2, "Live load", SASSecondOrder.GetNo(), "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H", [false, 0, 0, 1.0]);
-var designSituation = new DesignSituation(undefined, "DESIGN_SITUATION_TYPE_EQU_PERMANENT_AND_TRANSIENT");
+lc2.StaticAnalysis(2, "Live load", SASSecondOrder.GetNo(), "IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H", [false, 0, 0, 1.0]);
+var designSituation = new DesignSituation(undefined, "EQU_PERMANENT_AND_TRANSIENT");
 var co1 = new LoadCombination(undefined,SASGeometricallyLinear.GetNo(),designSituation.GetNo(),[[lc1.GetNo(),1.35], [lc2.GetNo(),1.5]]);
 
 var surfLoad =  new SurfaceLoad();
-surfLoad.Force(1, lc2.GetLoadCase(), [4], "Uniform", [750]);
+surfLoad.Force(1, lc2.GetLoadCase(), [4], "UNIFORM", [750]);
 var nodalLoad = new NodalLoad();
 nodalLoad.Components(1, lc2.GetLoadCase(), [12],[1kN, 2kN, 3kN],[0,0,0] );
 var lineLoad = new LineLoad();
-lineLoad.Force(undefined, lc2.GetLoadCase(), [15], "Uniform", [1.25kN/m^2]);
+lineLoad.Force(undefined, lc2.GetLoadCase(), [15], "UNIFORM", [1.25kN/m^2]);
 var memberLoad = new MemberLoad();
-memberLoad.Force(1, lc2.GetLoadCase(), [1,2], "Uniform", [1.25kN/m^2]);
+memberLoad.Force(1, lc2.GetLoadCase(), [1,2], "UNIFORM", [1.25kN/m^2]);
 
 load_cases_and_combinations.result_combinations_active = true;
-var rc1 = ResultCombination(1);
-rc1.design_situation = 1;
-rc1.items[1].case_object_item = load_combinations[1];
-rc1.items[1].case_object_factor = 1.0;
+var rc1 = new ResultCombination(undefined, 1, undefined, [[load_combinations[1], 1.0]]);

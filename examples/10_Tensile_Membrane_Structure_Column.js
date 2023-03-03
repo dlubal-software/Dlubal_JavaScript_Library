@@ -27,7 +27,7 @@ var sectionCircularBeam = new Section(3, 'CHC 48.3x4.0', materialSteel.GetNo());
 
 // Create thickness
 var thickness = new Thickness();
-thickness.Uniform(1, "Membrane", materialMembrane.GetNo());
+thickness.Uniform(1, "MEMBRANE", materialMembrane.GetNo());
 
 // Create Nodes
 Node(1, 0, 0, 0);
@@ -97,12 +97,12 @@ for (var i = 0; i < 4; ++i) {
 var surfacesList = [];
 for (var i = 0; i < 3; ++i) {
     var surface = new Surface();
-    surface.Quadrangle(i + 1,  [15 + i, 19 + i, 7 + i, 20 + i], "Membrane", thickness.GetNo());
+    surface.Quadrangle(i + 1,  [15 + i, 19 + i, 7 + i, 20 + i], "MEMBRANE", thickness.GetNo());
     surfacesList.push(i + 1);
 }
 
 var sur = new Surface();
-surface.Quadrangle(4, [18, 22, 10, 19], "Membrane", thickness.GetNo());
+surface.Quadrangle(4, [18, 22, 10, 19], "MEMBRANE", thickness.GetNo());
 surfacesList.push(4);
 
 // Define Load case and loads

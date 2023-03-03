@@ -15,7 +15,7 @@ if (H_1 === undefined) {
 	a_1 = 5;
 	a_2 = 5;
 // //opening
-	line = 2.5;
+	l = 2.5;
 	w = 1.5;
 	thickness_1 = 0.2;   // roof
 	thickness_2 = 0.2;   // wall
@@ -269,12 +269,12 @@ var openingCount = 1;
 var lin = new Line();
 for (var j = 0; j < 2; ++j) {
     for (var i = 0; i < n_b; ++i) {
-        lin.RectangularPolygon(memberCount, [a + d + j * a_1, b / (2 * n_b) + i * b / n_b, -H_1 / 4], line, w, "YZ");
+        lin.RectangularPolygon(memberCount, [a + d + j * a_1, b / (2 * n_b) + i * b / n_b, -H_1 / 4], l, w, "YZ");
         Opening(openingCount, [memberCount]);
         openingCount++;
         memberCount++;
 
-        lin.RectangularPolygon(memberCount, [a + d + j * a_1, b / (2 * n_b) + i * b / n_b, -3 * H_1 / 4], line, w, "YZ");
+        lin.RectangularPolygon(memberCount, [a + d + j * a_1, b / (2 * n_b) + i * b / n_b, -3 * H_1 / 4], l, w, "YZ");
         Opening(openingCount, [memberCount]);
         openingCount++;
         memberCount++;
@@ -282,11 +282,11 @@ for (var j = 0; j < 2; ++j) {
 }
 
 for (var i = 0; i < 2; ++i) {
-    lin.RectangularPolygon(memberCount, [a + d + a_1 / 2, i * b, -H_1 / 4], line, w, "XZ");
+    lin.RectangularPolygon(memberCount, [a + d + a_1 / 2, i * b, -H_1 / 4], l, w, "XZ");
     Opening(openingCount, [memberCount]);
     openingCount++;
     memberCount++;
-    lin.RectangularPolygon(memberCount, [a + d + a_1 / 2, i * b, -3 * H_1 / 4], line, w, "XZ");
+    lin.RectangularPolygon(memberCount, [a + d + a_1 / 2, i * b, -3 * H_1 / 4], l, w, "XZ");
     Opening(openingCount, [memberCount]);
     openingCount++;
     memberCount++;
@@ -324,4 +324,4 @@ SASGeometricallyLinear.GeometricallyLinear(1);
 var SASSecondOrder = new StaticAnalysisSettings();
 SASSecondOrder.SecondOrder(2,"MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON");
 var lc1 = new LoadCase();
-lc1.StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_PERMANENT_G", [true, 0, 0, 1.0]);
+lc1.StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "PERMANENT_G", [true, 0, 0, 1.0]);

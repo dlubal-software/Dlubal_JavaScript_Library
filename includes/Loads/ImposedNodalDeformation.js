@@ -51,8 +51,8 @@ ImposedNodalDeformation.prototype.Set = function (no,
 	params) {
 	ASSERT(arguments.length >= 4, "Wrong number of parameters, at lease four are required (no, load case, nodes, imposed displacement x)");
 
-	load_values = [imposed_displacement_x];
-	for (var i = 4; i < arguments.length; ++i) {
+	load_values = [];
+	for (var i = 3; i < arguments.length; ++i) {
 		if (typeof arguments[i] != "undefined") {
 			load_values.push(arguments[i]);
 		}

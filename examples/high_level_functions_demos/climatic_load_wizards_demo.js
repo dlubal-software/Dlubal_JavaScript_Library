@@ -133,13 +133,13 @@ for (var copy = 0; copy < 2; ++copy) {
 *********************************************************************************************/
 var snowLoadWizard = new SnowLoadWizard();
 var lc2 = new LoadCase();
-lc2.StaticAnalysis(undefined, "Test lc 2", staticAnalysisSettings.no, "ACTION_CATEGORY_SNOW_ICE_LOADS_FINLAND_ICELAND_QS");
+lc2.StaticAnalysis(undefined, "Test lc 2", staticAnalysisSettings.no, "SNOW_ICE_LOADS_FINLAND_ICELAND_QS");
 var lc3 = new LoadCase();
-lc3.StaticAnalysis(undefined, "Test lc 3", staticAnalysisSettings.no, "ACTION_CATEGORY_SNOW_ICE_LOADS_FINLAND_ICELAND_QS");
+lc3.StaticAnalysis(undefined, "Test lc 3", staticAnalysisSettings.no, "SNOW_ICE_LOADS_FINLAND_ICELAND_QS");
 var lc4 = new LoadCase();
-lc4.StaticAnalysis(undefined, "Test lc 4", staticAnalysisSettings.no, "ACTION_CATEGORY_SNOW_ICE_LOADS_FINLAND_ICELAND_QS");
+lc4.StaticAnalysis(undefined, "Test lc 4", staticAnalysisSettings.no, "SNOW_ICE_LOADS_FINLAND_ICELAND_QS");
 var lc5 = new LoadCase();
-lc5.StaticAnalysis(undefined, "Test lc 5", staticAnalysisSettings.no, "ACTION_CATEGORY_SNOW_ICE_LOADS_FINLAND_ICELAND_QS");
+lc5.StaticAnalysis(undefined, "Test lc 5", staticAnalysisSettings.no, "SNOW_ICE_LOADS_FINLAND_ICELAND_QS");
 snowLoadWizard.SetMonoPitchRoofType(undefined, [5, 6, 7, 8], lc2.LoadCase);
 snowLoadWizard.SetDuopitch(undefined, [16, 13, 17, 14, 15, 18], lc3.LoadCase,  lc4.LoadCase,  lc5.LoadCase);
 snowLoadWizard.SetLoadedRoofs([true, false]);	// Disable second loaded roof
@@ -154,7 +154,7 @@ var windLoadWizard = new WindLoadWizard();
 var loadCases = [];
 for (var i = 0; i < 26; ++i) {
 	var lc = new LoadCase();
-	lc.StaticAnalysis(undefined, "Test lc " + (i + 6), staticAnalysisSettings.no, "ACTION_CATEGORY_WIND_QW");
+	lc.StaticAnalysis(undefined, "Test lc " + (i + 6), staticAnalysisSettings.no, "WIND_QW");
 	loadCases.push(lc);
 }
 

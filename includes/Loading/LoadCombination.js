@@ -32,7 +32,6 @@ function LoadCombination(no,
     }
 }
 
-
 /**
  * Sets analysis type and static analysis settings
  * @param {Number}  no                          Load combination index, can be undefined
@@ -48,13 +47,11 @@ LoadCombination.prototype.StaticAnalysis = function (no,
     comment,
     params) {
     this.load_combination = createBaseLoadCombination(no, comment, params);
-    analysis_type = "ANALYSIS_TYPE_STATIC";
-    this.load_combination.analysis_type = analysis_types[analysis_type];
+    this.load_combination.analysis_type = GetLoadCombinationAnalysisType("STATIC");
     this.load_combination.static_analysis_settings = static_analysis_settings;
     SetDesignSituation(this.load_combination, design_situation_no);
     return this.load_combination;
 };
-
 
 /**
  * Sets imperfection case
@@ -77,7 +74,6 @@ LoadCombination.prototype.ConsiderImperfection = function (imperfection_case,
     return this.load_combination;
 };
 
-
 /**
  * Sets structure modification
  * @param {Object}  structure_modification  Structure modification, can be undefined (in case of disabling)
@@ -99,7 +95,6 @@ LoadCombination.prototype.StructureModification = function (structure_modificati
     return this.load_combination;
 };
 
-
 /**
  * Sets initial state from
  * @param {Object}  initial_state_case              Initial state, can be undefined (in case of disabling)
@@ -120,13 +115,12 @@ LoadCombination.prototype.ConsiderInitialState = function (initial_state_case,
         }
         this.load_combination.initial_state_case = initial_state_case;
         if (initial_state_definition_type === "undefined") {
-            initial_state_definition_type = "DEFINITION_TYPE_FINAL_STATE";
+            initial_state_definition_type = "FINAL_STATE";
         }
-        this.load_combination.initial_state_definition_type = initial_state_definition_types[initial_state_definition_type];
+        this.load_combination.initial_state_definition_type = GetLoadCombinationInitialStateDefinitionType(initial_state_definition_type);
     }
     return this.load_combination;
 };
-
 
 /**
  * Calculates critical load
@@ -149,7 +143,6 @@ LoadCombination.prototype.CriticalLoadForCalculation = function (stability_analy
     return this.load_combination;
 };
 
-
 /**
  * Creep caused by permanent load from
  * @param {Object}  creep_caused_by_permanent_loading_case      Creep caused by permanent loading case, can be undefined (in case of disabling)
@@ -170,7 +163,6 @@ LoadCombination.prototype.CreepCausedByPermanentLoadingCase = function (creep_ca
     }
     return this.load_combination;
 };
-
 
 /**
  * Consider construction stage
@@ -193,10 +185,9 @@ LoadCombination.prototype.ConsiderConstructionStage = function (construction_sta
     return this.load_combination;
 };
 
-
 /**
  * Assigns load cases
- * @param {Array} load_combination_items    Load combination itemns [[load case no, factor], .... ]
+ * @param {Array} load_combination_items    Load combination items [[load case no, factor], .... ]
  * @returns Modified load combination
  */
 LoadCombination.prototype.AssignLoadCases = function (load_combination_items) {
@@ -205,7 +196,6 @@ LoadCombination.prototype.AssignLoadCases = function (load_combination_items) {
         return this.load_combination;
     }
 };
-
 
 /**
  * Sets load combination to solve
@@ -220,27 +210,24 @@ LoadCombination.prototype.ToSolve = function (to_solve) {
     return this.load_combination;
 };
 
-
 LoadCombination.prototype.SetAnalysisTypeAndSettings = function (analysis_type, analysis_settings) {
     if (typeof analysis_type === "undefined") {
-        analysis_type = "ANALYSIS_TYPE_STATIC";
+        analysis_type = "STATIC";
     }
-    if (!(analysis_type in analysis_types)) {
-        console.log("Analysis type " + analysis_type + " does not exist");
-        get_analysis_types();
-    }
+
+    // Only for check if analysis type name is valid
+    GetLoadCombinationAnalysisType(analysis_type);
+
     if (analysis_settings !== "undefined") {
         switch (analysis_type) {
-            case "ANALYSIS_TYPE_STATIC":
+            case "STATIC":
+            case "TIME_DEPENDENCE":
                 this.load_combination.static_analysis_settings = analysis_settings;
                 break;
-            case "ANALYSIS_TYPE_STATIC_TIME_DEPENDENCE":
-                this.load_combination.static_analysis_settings = analysis_settings;
-                break;
-            case "ANALYSIS_TYPE_STATIC_CREEP_AND_SHRINKAGE":
+            case "CREEP_AND_SHRINKAGE":
                 //this.load_combination.static_analysis_settings = analysis_settings;
                 break;
-            case "ANALYSIS_TYPE_HARMONIC_RESPONSE_ANALYSIS":
+            case "HARMONIC_RESPONSE_ANALYSIS":
                 this.load_combination.harmonic_response_analysis_settings = analysis_settings;
                 break;
             default:
@@ -249,7 +236,6 @@ LoadCombination.prototype.SetAnalysisTypeAndSettings = function (analysis_type, 
         }
     }
 };
-
 
 /**
  * Creates load combination (private)
@@ -269,35 +255,50 @@ function createBaseLoadCombination(no,
     return load_combination;
 }
 
+function GetLoadCombinationAnalysisType(analysis_type) {
+	const analysis_types_dict = {
+        "STATIC": load_combinations.ANALYSIS_TYPE_STATIC,
+        "TIME_DEPENDENCE": load_combinations.ANALYSIS_TYPE_STATIC_TIME_DEPENDENCE,
+        "CREEP_AND_SHRINKAGE": load_combinations.ANALYSIS_TYPE_STATIC_CREEP_AND_SHRINKAGE,
+        "HARMONIC_RESPONSE_ANALYSIS": load_combinations.ANALYSIS_TYPE_HARMONIC_RESPONSE_ANALYSIS,
+        "PUSHOVER": load_combinations.ANALYSIS_TYPE_PUSHOVER
+	};
 
-/**
- * Gets all available analysis types strings
- */
-function get_analysis_types() {
-    console.log(Object.keys(analysis_types));
+	if (analysis_type !== undefined) {
+	  var type = analysis_types_dict[analysis_type];
+	  if (type === undefined) {
+		console.log("Wrong analysis type. Value was: " + analysis_type);
+		console.log("Correct values are: ( " + Object.keys(analysis_types_dict) + ")");
+		type = load_combinations.ANALYSIS_TYPE_STATIC;
+	  }
+	  return type;
+	}
+	else {
+	  return load_combinations.ANALYSIS_TYPE_STATIC;
+	}
 }
 
+function GetLoadCombinationInitialStateDefinitionType(definition_type) {
+	const definition_types_dict = {
+        "FINAL_STATE": load_combinations.DEFINITION_TYPE_FINAL_STATE,
+        "STRAINS": load_combinations.DEFINITION_TYPE_STRAINS,
+        "STIFFNESS": load_combinations.DEFINITION_TYPE_STIFFNESS,
+        "STRAINS_WITH_USER_DEFINED_FACTORS": load_combinations.DEFINITION_TYPE_STRAINS_WITH_USER_DEFINED_FACTORS
+	};
 
-/**
- * Gets all available initial state definition types strings
- */
-function get_initial_state_definition_types() {
-    console.log(Object.keys(initial_state_definition_types));
+	if (definition_type !== undefined) {
+	  var type = definition_types_dict[definition_type];
+	  if (type === undefined) {
+		console.log("Wrong initial state definition type. Value was: " + definition_type);
+		console.log("Correct values are: ( " + Object.keys(definition_types_dict) + ")");
+		type = load_combinations.DEFINITION_TYPE_FINAL_STATE;
+	  }
+	  return type;
+	}
+	else {
+	  return load_combinations.DEFINITION_TYPE_FINAL_STATE;
+	}
 }
-
-const analysis_types = {
-    "ANALYSIS_TYPE_STATIC": "Static Analysis",
-    "ANALYSIS_TYPE_STATIC_TIME_DEPENDENCE": "Static Analysis | Time-Dependent Analysis (TDA)",
-    "ANALYSIS_TYPE_STATIC_CREEP_AND_SHRINKAGE": "Static Analysis | Creep & Shrinkage (Linear)",
-    "ANALYSIS_TYPE_HARMONIC_RESPONSE_ANALYSIS": "Harmonic Response Analysis"
-};
-
-const initial_state_definition_types = {
-    "DEFINITION_TYPE_FINAL_STATE": "Final State",
-    "DEFINITION_TYPE_STRAINS": "Strains",
-    "DEFINITION_TYPE_STIFFNESS": "Stiffness",
-    "DEFINITION_TYPE_STRAINS_WITH_USER_DEFINED_FACTORS": "Strains with user-defined factors"
-};
 
 function SetDesignSituation(load_combination, design_situation_no) {
     if (typeof design_situation_no !== "undefined") {
@@ -309,6 +310,7 @@ function SetDesignSituation(load_combination, design_situation_no) {
         }
     }
 }
+
 function SetLoadCombinationItems(load_combination,
     load_combination_items) {
     ASSERT(typeof load_combination !== "undefined", "Load combination number must be specified");
@@ -321,5 +323,3 @@ function SetLoadCombinationItems(load_combination,
         }
     }
 }
-
-

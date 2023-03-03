@@ -1,103 +1,103 @@
 function SetPeriodicCombinationRule(rule) {
 
   const CombinationRule_dict = {
-    "SRSS": "SRSS",
-    "CQC": "CQC",
-    "ABSOLUTE_SUM": "ABSOLUTE_SUM",
+    "SRSS": spectral_analysis_settings.SRSS,
+    "CQC": spectral_analysis_settings.CQC,
+    "ABSOLUTE_SUM": spectral_analysis_settings.ABSOLUTE_SUM,
   };
   if (rule != undefined) {
     var CombinationRule = CombinationRule_dict[rule];
     if (CombinationRule === undefined) {
-      CombinationRule = "SRSS";
+      CombinationRule = spectral_analysis_settings.SRSS;
       console.log("Wrong periodic combination rule method input. Value was: " + rule);
       console.log("Correct values are: ( " + Object.keys(CombinationRule_dict) + ")");
     }
     return CombinationRule;
   }
   else {
-    return "SRSS";
+    return spectral_analysis_settings.SRSS;
   }
 }
 
 function SetDirectionalCombinationRule(rule) {
 
   const CombinationRule_dict = {
-    "SRSS": "SRSS",
-    "SCALED_SUM": "SCALED_SUM",
-    "ABSOLUTE_SUM": "ABSOLUTE_SUM",
+    "SRSS": spectral_analysis_settings.SRSS,
+    "SCALED_SUM": spectral_analysis_settings.SCALED_SUM,
+    "ABSOLUTE_SUM": spectral_analysis_settings.ABSOLUTE_SUM,
   };
   if (rule != undefined) {
     var CombinationRule = CombinationRule_dict[rule];
     if (CombinationRule === undefined) {
-      CombinationRule = "SRSS";
+      CombinationRule = spectral_analysis_settings.SRSS;
       console.log("Wrong direction combination rule method input. Value was: " + rule);
       console.log("Correct values are: ( " + Object.keys(CombinationRule_dict) + ")");
     }
     return CombinationRule;
   }
   else {
-    return "SRSS";
+    return spectral_analysis_settings.SRSS;
   }
 }
 
 function SetRuleForMissingMasses(rule) {
 
   const CombinationRule_dict = {
-    "SRSS": "SRSS",
-    "ABSOLUTE_SUM": "ABSOLUTE_SUM",
+    "SRSS": spectral_analysis_settings.SRSS,
+    "ABSOLUTE_SUM": spectral_analysis_settings.ABSOLUTE_SUM,
   };
   if (rule != undefined) {
     var CombinationRule = CombinationRule_dict[rule];
     if (CombinationRule === undefined) {
-      CombinationRule = "SRSS";
+      CombinationRule = spectral_analysis_settings.SRSS;
       console.log("Wrong rule for missing masses. Value was: " + rule);
       console.log("Correct values are: ( " + Object.keys(CombinationRule_dict) + ")");
     }
     return CombinationRule;
   }
   else {
-    return "SRSS";
+    return spectral_analysis_settings.SRSS;
   }
 }
 
 function DampingRuleForCQCType(rule) {
 
   const CombinationRule_dict = {
-    "CONSTANT_FOR_EACH_MODE": "CONSTANT_FOR_EACH_MODE",
-    "DIFFERENT_FOR_EACH_MODE": "DIFFERENT_FOR_EACH_MODE",
+    "CONSTANT_FOR_EACH_MODE": spectral_analysis_settings.CONSTANT_FOR_EACH_MODE,
+    "DIFFERENT_FOR_EACH_MODE": spectral_analysis_settings.DIFFERENT_FOR_EACH_MODE,
   };
   if (rule != undefined) {
     var CombinationRule = CombinationRule_dict[rule];
     if (CombinationRule === undefined) {
-      CombinationRule = "CONSTANT_FOR_EACH_MODE";
+      CombinationRule = spectral_analysis_settings.CONSTANT_FOR_EACH_MODE;
       console.log("Wrong damping rule for CQCS. Value was: " + rule);
       console.log("Correct values are: ( " + Object.keys(CombinationRule_dict) + ")");
     }
     return CombinationRule;
   }
   else {
-    return "CONSTANT_FOR_EACH_MODE";
+    return spectral_analysis_settings.CONSTANT_FOR_EACH_MODE;
   }
 }
 
 function SetZeroPeriodAccelerationType(type) {
 
   const PeriodTypes_dict = {
-    "ACCORDING_TO_RESPONSE_SPECTRUM": "ACCORDING_TO_RESPONSE_SPECTRUM",
-    "SPECTRAL_ACCELERATION_OF_LAST_CALCULATED_FREQUENCY": "SPECTRAL_ACCELERATION_OF_LAST_CALCULATED_FREQUENCY",
-    "USER_DEFINED": "USER_DEFINED"
+    "ACCORDING_TO_RESPONSE_SPECTRUM": spectral_analysis_settings.ACCORDING_TO_RESPONSE_SPECTRUM,
+    "SPECTRAL_ACCELERATION_OF_LAST_CALCULATED_FREQUENCY": spectral_analysis_settings.SPECTRAL_ACCELERATION_OF_LAST_CALCULATED_FREQUENCY,
+    "USER_DEFINED": spectral_analysis_settings.USER_DEFINED
   };
   if (type !== undefined) {
     var periodType = PeriodTypes_dict[type];
     if (periodType === undefined) {
-      periodType = "ACCORDING_TO_RESPONSE_SPECTRUM";
+      periodType = spectral_analysis_settings.ACCORDING_TO_RESPONSE_SPECTRUM;
       console.log("Wrong direction combination rule method input. Value was: " + type);
       console.log("Correct values are: ( " + Object.keys(PeriodTypes_dict) + ")");
     }
     return periodType;
   }
   else {
-    return "ACCORDING_TO_RESPONSE_SPECTRUM";
+    return spectral_analysis_settings.ACCORDING_TO_RESPONSE_SPECTRUM;
   }
 }
 
@@ -108,8 +108,8 @@ function SetZeroPeriodAccelerationType(type) {
  */
 SpectralAnalysisSettings.prototype.SetDampingRuleForCQC = function (dampingRule, dampingConstantForEachMode) {
   if (this.Settings !== undefined) {
-    this.Settings.damping_for_cqc_rule = spectral_analysis_settings[DampingRuleForCQCType(dampingRule)];
-    if (this.Settings.damping_for_cqc_rule === "CONSTANT_FOR_EACH_MODE") {
+    this.Settings.damping_for_cqc_rule = DampingRuleForCQCType(dampingRule);
+    if (this.Settings.damping_for_cqc_rule === spectral_analysis_settings.CONSTANT_FOR_EACH_MODE) {
       if (dampingConstantForEachMode !== undefined) {
         this.Settings.constant_d_for_each_mode = dampingConstantForEachMode;
       }
@@ -130,9 +130,9 @@ SpectralAnalysisSettings.prototype.IncludeMissingMasses = function (ruleForMasse
 
   if (this.Settings !== undefined) {
     this.Settings.include_missing_masses = true;
-    this.Settings.combination_rule_for_missing_masses = spectral_analysis_settings[SetRuleForMissingMasses(ruleForMasses)];
-    this.Settings.zero_periodic_acceleration_type = spectral_analysis_settings[SetZeroPeriodAccelerationType(zeroPeriodicAccelerationType)];
-    if (this.Settings.zero_periodic_acceleration_type === "USER_DEFINED") {
+    this.Settings.combination_rule_for_missing_masses = SetRuleForMissingMasses(ruleForMasses);
+    this.Settings.zero_periodic_acceleration_type = SetZeroPeriodAccelerationType(zeroPeriodicAccelerationType);
+    if (this.Settings.zero_periodic_acceleration_type === spectral_analysis_settings.USER_DEFINED) {
       if (userDefinedValue !== undefined) {
         this.Settings.user_defined_zpa = userDefinedValue;
       }
@@ -189,10 +189,10 @@ function SpectralAnalysisSettings(no,
     // console.log("New spectral analysis settings no. " +this.Settings.no + " was created");
 
     // Spectral anlysis settings : combination rules
-   this.Settings.combination_rule_for_periodic_responses = spectral_analysis_settings[SetPeriodicCombinationRule(combinationRulePeriodic)];
+   this.Settings.combination_rule_for_periodic_responses = SetPeriodicCombinationRule(combinationRulePeriodic);
 
-   this.Settings.combination_rule_for_directional_components = spectral_analysis_settings[SetDirectionalCombinationRule(combinationRuleDirectional)];
-    if (this.Settings.combination_rule_for_directional_components === "SCALED_SUM") {
+   this.Settings.combination_rule_for_directional_components = SetDirectionalCombinationRule(combinationRuleDirectional);
+    if (this.Settings.combination_rule_for_directional_components === spectral_analysis_settings.SCALED_SUM) {
       if (scaledSumDirectionalComponentValue !== undefined) {
        this.Settings.combination_rule_for_directional_components_value = scaledSumDirectionalComponentValue;
       }

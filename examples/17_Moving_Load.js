@@ -23,11 +23,11 @@ if (!SASExists) {
 for (var i = 0; i < Steps + 1; i++) {
 
     var Loadcase = new LoadCase();
-    Loadcase.StaticAnalysis(load_cases.lastId() + 1, "Moving Load " + i, SASNo, "ACTION_CATEGORY_PERMANENT_G", [false, 0, 0, 1.0]);
+    Loadcase.StaticAnalysis(load_cases.lastId() + 1, "Moving Load " + i, SASNo, "PERMANENT_G", [false, 0, 0, 1.0]);
 
     var distance = 1 / Steps * i;
     var memberLoad = new MemberLoad();
-    memberLoad.Force(1, Loadcase.GetLoadCase(), Element, member_loads.LOAD_DISTRIBUTION_CONCENTRATED_1, [Load, distance, true], LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE);
+    memberLoad.Force(1, Loadcase.GetLoadCase(), Element, "CONCENTRATED_1", [Load, distance, true], "GLOBAL_Z_OR_USER_DEFINED_W_TRUE");
     memberLoad.GetMemberLoad().coordinate_system = 1;
 
 }

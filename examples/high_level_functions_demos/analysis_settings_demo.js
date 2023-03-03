@@ -42,4 +42,5 @@ if (PRERELEASE_MODE) {
 // Wind simulation settings
 WIND_SIMULATION.setActive(true);
 wind_simulation_analysis_settings.erase(1);
-var WSAS = new WindSimulationSettings(20, "Wind simulation:", 1.25, 0.000015, true, "TURBULENCE_TYPE_OMEGA", "CONCENTRATED");
+var index = wind_simulation_analysis_settings.count() + 1;
+var WSAS = new WindSimulationSettings(index, "Wind simulation:", 1.25, 0.000015, true, "TURBULENCE_TYPE_OMEGA", "CONCENTRATED");

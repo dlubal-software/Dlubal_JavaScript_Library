@@ -489,8 +489,8 @@ var setPartialActivityZoneValues = function (member_hinge,
 * @param	{Object}	member_hinge	Member hinge
 * @param	{Array}		values			Values to be set, [Translational/Rotational, Spring constant, Nonlinearity]
 *										- Values can be in two formats:
-*											[bool, float, int] - if bool is true (translation is enabled), then can be specified next two values (spring constant and nonlinearity)
-*											[bool, int]		   - if bool is false (translation is disabled), then can be specified only next one value (nonlinearity)
+*											[bool, float, string] - if bool is true (translation is enabled), then can be specified next two values (spring constant and nonlinearity)
+*											[bool, string]		   - if bool is false (translation is disabled), then can be specified only next one value (nonlinearity)
 *											Nonlinearity: can be string name or index: None (0), Fixed if negative (1), Fixed if positive (2), Failure all if negative (3), Failure all if positive (4),
 *														  Partial activity (5), Diagram (6), Stiffness diagram (7), Friction direction 1 (8), Friction direction 2 (9),
 *														  Friction direction 1 2 (10), Friction direction 1 + 2 (11)
@@ -508,45 +508,14 @@ var setMainHingeValues = function (member_hinge,
 		ASSERT(values.length >= 2);
 		member_hinge[property_1] = values[1];		// Spring constant
 		if (values.length > 2) {
-			member_hinge[property_2] = getNonlinearityString(values[2]);	// Nonlinearity
+			member_hinge[property_2] = GetMemberHingeNonlinearityType(values[2]);	// Nonlinearity
 		}
 	}
 	else {
 		// Translational or Rotational is enabled
 		ASSERT(values.length === 2);
 		member_hinge[property_1] = member_hinges.SPRING_CONSTANT_NO;
-		member_hinge[property_2] = getNonlinearityString(values[1]);		// Nonlinearity
-	}
-};
-
-var getNonlinearityString = function (nonlinearity) {
-	switch (nonlinearity) {
-		case 0:
-			return member_hinges.NONLINEARITY_TYPE_NONE;
-		case 1:
-			return member_hinges.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE;
-		case 2:
-			return member_hinges.NONLINEARITY_TYPE_FAILURE_IF_POSITIVE;
-		case 3:
-			return member_hinges.NONLINEARITY_TYPE_FAILURE_ALL_IF_NEGATIVE;
-		case 4:
-			return member_hinges.NONLINEARITY_TYPE_FAILURE_ALL_IF_POSITIVE;
-		case 5:
-			return member_hinges.NONLINEARITY_TYPE_PARTIAL_ACTIVITY;
-		case 6:
-			return member_hinges.NONLINEARITY_TYPE_DIAGRAM;
-		case 7:
-			return member_hinges.NONLINEARITY_TYPE_STIFFNESS_DIAGRAM;
-		case 8:
-			return member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1;
-		case 9:
-			return member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_2;
-		case 10:
-			return member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2;
-		case 11:
-			return member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2;
-		default:
-			ASSERT(false);
+		member_hinge[property_2] = GetMemberHingeNonlinearityType(values[1]);		// Nonlinearity
 	}
 };
 
@@ -592,3 +561,39 @@ var createMemberHinge = function (no,
 
 	return memberHinge;
 };
+
+function GetMemberHingeNonlinearityType(nonlinearity_type) {
+	const nonlinearity_types_dict = {
+		"NONE": member_hinges.NONLINEARITY_TYPE_NONE,
+		"FAILURE_IF_NEGATIVE": member_hinges.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE,
+		"FAILURE_IF_POSITIVE": member_hinges.NONLINEARITY_TYPE_FAILURE_IF_POSITIVE,
+		"FAILURE_ALL_IF_NEGATIVE": member_hinges.NONLINEARITY_TYPE_FAILURE_ALL_IF_NEGATIVE,
+		"FAILURE_ALL_IF_POSITIVE": member_hinges.NONLINEARITY_TYPE_FAILURE_ALL_IF_POSITIVE,
+		"PARTIAL_ACTIVITY": member_hinges.NONLINEARITY_TYPE_PARTIAL_ACTIVITY,
+		"DIAGRAM": member_hinges.NONLINEARITY_TYPE_DIAGRAM,
+		"STIFFNESS_DIAGRAM": member_hinges.NONLINEARITY_TYPE_STIFFNESS_DIAGRAM,
+		"FRICTION_DIRECTION_1": member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1,
+		"FRICTION_DIRECTION_2": member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_2,
+		"FRICTION_DIRECTION_1_2": member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2,
+		"FRICTION_DIRECTION_1_PLUS_2": member_hinges.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2,
+		"FORCE_MOMENT_DIAGRAM": member_hinges.NONLINEARITY_TYPE_FORCE_MOMENT_DIAGRAM,
+		"PLASTIC_BILINEAR": member_hinges.NONLINEARITY_TYPE_PLASTIC_BILINEAR,
+		"PLASTIC_DIAGRAM": member_hinges.NONLINEARITY_TYPE_PLASTIC_DIAGRAM,
+		"PLASTIC_FEMA_356_ELASTIC": member_hinges.NONLINEARITY_TYPE_PLASTIC_FEMA_356_ELASTIC,
+		"PLASTIC_FEMA_356_RIGID": member_hinges.NONLINEARITY_TYPE_PLASTIC_FEMA_356_RIGID,
+		"PLASTIC_EUROCODE8_RIGID": member_hinges.NONLINEARITY_TYPE_PLASTIC_EUROCODE8_RIGID
+	};
+
+	if (nonlinearity_type !== undefined) {
+	  var type = nonlinearity_types_dict[nonlinearity_type];
+	  if (type === undefined) {
+		console.log("Wrong nonlinearity type. Value was: " + nonlinearity_type);
+		console.log("Correct values are: ( " + Object.keys(nonlinearity_types_dict) + ")");
+		type = member_hinges.NONLINEARITY_TYPE_NONE;
+	  }
+	  return type;
+	}
+	else {
+	  return member_hinges.NONLINEARITY_TYPE_NONE;
+	}
+}

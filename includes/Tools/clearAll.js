@@ -93,10 +93,8 @@ if (RFEM)
         member_sets,
         member_definable_stiffnesses,
         design_supports,
-        steel_member_shear_panels,
-        steel_member_rotational_restraints,
-        aluminum_member_shear_panels,
-        aluminum_member_rotational_restraints,
+        member_shear_panels,
+        member_rotational_restraints,
         member_loads_from_area_load,
         member_loads_from_free_line_load,
         object_selections,
@@ -140,6 +138,12 @@ if (RFEM)
         concrete_durabilities,
         blocks,
         global_parameters,
+        nodal_release_types,
+        nodal_releases,
+        line_release_types,
+        line_releases,
+        surface_release_types,
+        surface_releases,
         boreholes//,
         // relationship_between_load_cases
     ];
@@ -198,7 +202,9 @@ if (RSTAB) {
         concrete_durabilities,
         blocks,
         global_parameters,
-        relationship_between_load_cases
+        relationship_between_load_cases,
+        nodal_release_types,
+        nodal_releases
     ];
     if (PRERELEASE_MODE)
     {
@@ -211,7 +217,7 @@ if (RSECTION)
     if (PRERELEASE_MODE)
     {
         general.has_material_definition_active = true;
-        general.has_concerete_reinforcement = false;
+        general.has_concrete_reinforcement = false;
     }
     general.solver_model = general.MASSIVE;
     general.has_effective_section_properties_active = false;

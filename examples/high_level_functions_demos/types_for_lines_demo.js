@@ -1,3 +1,7 @@
+if (!RFEM) {
+    throw new Error("This script is only for RFEM, it works with lines.");
+}
+
 run("../includes/Tools/clearAll.js");
 // prepare materials, sections and thickness for the model
 var material_steel = Material(undefined, "S235 | EN 1993-1-1:2005-05");

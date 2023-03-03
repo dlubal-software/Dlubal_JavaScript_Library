@@ -88,17 +88,17 @@ var lc = LoadCase(undefined);
 if (RFEM) {
 	/**************************************** Line set loads **************************************/
 // Line set force uniform load set via parameters
-	var lineSetLoad = new LineSetLoad(undefined, lc, [1], "Line set load sets via parameters", { "load_type" : "Force", "load_distribution" : "Uniform", "magnitude" : 1500 });
+	var lineSetLoad = new LineSetLoad(undefined, lc, [1], "Line set load sets via parameters", { "load_type" : line_set_loads.LOAD_TYPE_FORCE, "load_distribution" : line_set_loads.LOAD_DISTRIBUTION_UNIFORM, "magnitude" : 1500 });
 	// Line set force concentrated 2x load with load distance "B" set with percents
 	var lineSetLoad2 = new LineSetLoad();
-	lineSetLoad2.Force(undefined, lc, [2], line_set_loads.LOAD_DISTRIBUTION_CONCENTRATED_2, [2000, 0.5, 2500, 0.7, false, true]);
+	lineSetLoad2.Force(undefined, lc, [2], "CONCENTRATED_2", [2000, 0.5, 2500, 0.7, false, true]);
 	// Line set force trapezoidal load with load over line sets
 	var lineSetLoad3 = new LineSetLoad();
-	lineSetLoad3.Force(undefined, lc, [3], "Trapezoidal", [1500, 2, 1000, 1]);
+	lineSetLoad3.Force(undefined, lc, [3], "TRAPEZOIDAL", [1500, 2, 1000, 1], "GLOBAL_X_OR_USER_DEFINED_U_TRUE");
 	lineSetLoad3.LoadOverLineSet(true);
 	// Line set moment varying load with XL direction
 	var lineSetLoad4 = new LineSetLoad();
-	lineSetLoad4.Moment(undefined, lc, [4], "Varying", [500, 0.2, 600, 0.5, 1000, 0.7, 1000, 1.2, 600, 1.8, 500, 2], "X_L (U_L )");
+	lineSetLoad4.Moment(undefined, lc, [4], "VARYING", [500, 0.2, 600, 0.5, 1000, 0.7, 1000, 1.2, 600, 1.8, 500, 2]);
 	// Line set mass load with individual mass components
 	var lineSetLoad5 = new LineSetLoad();
 	lineSetLoad5.Mass(undefined, lc, [5], 1500);
@@ -108,35 +108,35 @@ if (RFEM) {
 /**************************************** Member set loads ***********************************/
 // Member set force parabolic load with eccentricity
 var memberSetLoad = new MemberSetLoad();
-memberSetLoad.Force(undefined, lc, [1], "Parabolic", [500, 900, 400]);
+memberSetLoad.Force(undefined, lc, [1], "PARABOLIC", [500, 900, 400]);
 memberSetLoad.Eccentricity("shear_center", 0.1, 0.1, 0.02, 0.02);
 // Member set force varying in Z load
 var memberSetLoad2 = new MemberSetLoad();
-memberSetLoad2.Force(undefined, lc, [2], "Varying", [500, 0, 1000, 0.5, 1000, 1, 1500, 1.5, 200, 2]);
+memberSetLoad2.Force(undefined, lc, [2], "VARYING", [500, 0, 1000, 0.5, 1000, 1, 1500, 1.5, 200, 2]);
 // Member set temperature parabolic load
 var memberSetLoad3 = new MemberSetLoad();
-memberSetLoad3.Temperature(undefined, lc, [3], "Parabolic", [280, 290, 300, 290, 320, 290], "z");
+memberSetLoad3.Temperature(undefined, lc, [3], "PARABOLIC", [280, 290, 300, 290, 320, 290], "LOCAL_Z");
 // Member set pipe content partial load
 var memberSetLoad4 = new MemberSetLoad();
 memberSetLoad4.PipeContentPartial(undefined, lc, [4], [1500, 10]);
 // Member set uniform rotation load in XL direction
 var memberSetLoad5 = new MemberSetLoad();
-memberSetLoad5.Rotation(undefined, lc, [5], "Uniform", [15], "X_L (U_L )");
+memberSetLoad5.Rotation(undefined, lc, [5], "UNIFORM", [15], "GLOBAL_X_OR_USER_DEFINED_U_TRUE");
 
 if (RFEM) {
 	/**************************************** Surface set loads ***********************************/
 	// Surface set force linear load
 	var surfaceSetLoad = new SurfaceSetLoad();
-	surfaceSetLoad.Force(undefined, lc, [1], "Linear", [121, 122, 131, 500, 1500, 500]);
+	surfaceSetLoad.Force(undefined, lc, [1], "LINEAR", [121, 122, 131, 500, 1500, 500], "GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED");
 	// Surface set temperature linear load with only values required
 	var surfaceSetLoad2 = new SurfaceSetLoad();
-	surfaceSetLoad2.Temperature(undefined, lc, [2], "Linear", [123, 124, 133, 20]);
+	surfaceSetLoad2.Temperature(undefined, lc, [2], "LINEAR", [123, 124, 133, 20]);
 	// Surface set temperature radial load, axis defined by point and parallel axis
 	var surfaceSetLoad3 = new SurfaceSetLoad();
-	surfaceSetLoad3.Temperature(undefined, lc, [3], "Radial", [2, 60, 70, 10, 10, 125, 136, [125], "Y"]);
+	surfaceSetLoad3.Temperature(undefined, lc, [3], "RADIAL", ["POINT_AND_AXIS", 60, 70, 10, 10, 125, 136, [125], "Y"]);
 	// Surface set axial strain linear in Y load
 	var surfaceSetLoad4 = new SurfaceSetLoad();
-	surfaceSetLoad4.AxialStrain(undefined, lc, [4], "Linear in Y", [127, 137, 0.01, 0.01, 0.02, 0.02]);
+	surfaceSetLoad4.AxialStrain(undefined, lc, [4], "LINEAR_IN_Y", [127, 137, 0.01, 0.01, 0.02, 0.02]);
 	// Surface set mass load
 	var surfaceSetLoad5 = new SurfaceSetLoad();
 	surfaceSetLoad5.Mass(undefined, lc, [5], 2000);
@@ -144,5 +144,5 @@ if (RFEM) {
 	/***************************************** Solid set loads ***********************************/
 	// Solid set strain linear in X load
 	var solidSetLoad = new SolidSetLoad();
-	solidSetLoad.Strain(undefined, lc, [1], "Linear in X", [255, 256, 0.05, 0.06, 0.07, 0.08]);
+	solidSetLoad.Strain(undefined, lc, [1], "LINEAR_IN_X", [255, 256, 0.05, 0.06, 0.07, 0.08]);
 }

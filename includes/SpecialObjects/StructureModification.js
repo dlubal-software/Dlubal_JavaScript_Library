@@ -35,7 +35,8 @@ StructureModification.prototype.Material = function (material_name,
 	this.structure_modification.modify_stiffnesses_materials = true;
 	var table = this.structure_modification.modify_stiffnesses_material_table;
 	for (var row = 1; row <= table.row_count(); ++row) {
-		if (table[row].material_name.name === material_name) {
+		var splitDesc = table[row].material_name.name.split(" | ");
+		if (splitDesc[0] === material_name) {
 			if (typeof modification_type !== "undefined") {
 				table[row].modification_type = modification_type;
 			}
@@ -279,14 +280,14 @@ StructureModification.prototype.NodalSupports = function (node_no,
 };
 
 /**
- * Mofification of line supports
- * @param {Number}	line_no 					Line index
+ * Modification of line supports
+ * @param {Number}	line_no						Line index
  * @param {Number}	translational_factor_u_x	Translational factor Cu,x, can be undefined (1.00 by default)
- * @param {Number}	translational_factor_u_y 	Translational factor Cu,y, can be undefined (1.00 by default)
- * @param {Number}	translational_factor_u_z 	Transational factor Cu,z, can be undefined (1.00 by default)
- * @param {Number}	rotational_factor_phi_x 	Rotational factor Cφ,x, can be undefined (1.00 by default)
- * @param {Number}	rotational_factor_phi_y 	Rotational factor Cφ,z, can be undefined (1.00 by default)
- * @param {Number}	rotational_factor_phi_z 	Rotational factor Cφ,z, can be undefined (1.00 by default)
+ * @param {Number}	translational_factor_u_y	Translational factor Cu,y, can be undefined (1.00 by default)
+ * @param {Number}	translational_factor_u_z	Transational factor Cu,z, can be undefined (1.00 by default)
+ * @param {Number}	rotational_factor_phi_x		Rotational factor Cφ,x, can be undefined (1.00 by default)
+ * @param {Number}	rotational_factor_phi_y		Rotational factor Cφ,z, can be undefined (1.00 by default)
+ * @param {Number}	rotational_factor_phi_z		Rotational factor Cφ,z, can be undefined (1.00 by default)
  */
 StructureModification.prototype.LineSupports = function (line_no,
 	translational_factor_u_x,
@@ -568,7 +569,7 @@ StructureModification.prototype.DisableNonlinearitiesNodalSupports = function (d
  * @param {Boolean}	disabled 	Disabled, true if undefined
  */
 StructureModification.prototype.DisableNonlinearitiesLineSupports = function (disabled) {
-	if (typeof disabled === "undefinied") {
+	if (typeof disabled === "undefined") {
 		disabled = true;
 	}
 	this.structure_modification.nonlinearities_disabled_line_supports = disabled;

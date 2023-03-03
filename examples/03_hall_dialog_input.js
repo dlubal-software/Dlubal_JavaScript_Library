@@ -20,21 +20,21 @@ var SASSecondOrder = new StaticAnalysisSettings();
 SASSecondOrder.SecondOrder(2,"MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON");
 
 var lc1 = new LoadCase();
-lc1.StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_PERMANENT_G", [true, 0, 0, 1.0]);
+lc1.StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "PERMANENT_G", [true, 0, 0, 1.0]);
 var lc2 = new LoadCase();
-lc2.StaticAnalysis(2, "Live load", SASSecondOrder.GetNo(), "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H", [false, 0, 0, 1.0]);
+lc2.StaticAnalysis(2, "Live load", SASSecondOrder.GetNo(), "IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H", [false, 0, 0, 1.0]);
 var lc3 = new LoadCase();
-lc3.StaticAnalysis(3, "Wind load", SASSecondOrder.GetNo(), "ACTION_CATEGORY_WIND_QW", [false, 0, 0, 1.0]);
+lc3.StaticAnalysis(3, "Wind load", SASSecondOrder.GetNo(), "WIND_QW", [false, 0, 0, 1.0]);
 var lc4 = new LoadCase();
-lc4.StaticAnalysis(4, "Wind load 2", SASSecondOrder.GetNo(), "ACTION_CATEGORY_WIND_QW", [false, 0, 0, 1.0]);
+lc4.StaticAnalysis(4, "Wind load 2", SASSecondOrder.GetNo(), "WIND_QW", [false, 0, 0, 1.0]);
 var lc5 = new LoadCase();
-lc5.StaticAnalysis(5, "Stability - linear", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_PERMANENT_IMPOSED_GQ", [true, 0, 0, 1.0],1);
+lc5.StaticAnalysis(5, "Stability - linear", SASGeometricallyLinear.GetNo(), "PERMANENT_IMPOSED_GQ", [true, 0, 0, 1.0],1);
 var lc6 = new LoadCase();
-lc6.StaticAnalysis(6, "Imperfections", SASSecondOrder.GetNo(), "ACTION_CATEGORY_PERMANENT_IMPOSED_GQ", [false, 0, 0, 1.0]);
+lc6.StaticAnalysis(6, "Imperfections", SASSecondOrder.GetNo(), "PERMANENT_IMPOSED_GQ", [false, 0, 0, 1.0]);
 var imperfection_case = new ImperfectionCase();
 imperfection_case.LocalImperfection(undefined, [lc6.GetNo()], undefined, true, "Imperfection case comment");
 var lc7 = new LoadCase();
-lc7.StaticAnalysis(7, "Other permanent load", SASSecondOrder.GetNo(), "ACTION_CATEGORY_PERMANENT_G", [false, 0, 0, 1.0]);
+lc7.StaticAnalysis(7, "Other permanent load", SASSecondOrder.GetNo(), "PERMANENT_G", [false, 0, 0, 1.0]);
 
 
 // prepare materials and sections
@@ -133,7 +133,7 @@ function getMembersByOffset(offsets) {
 // LC2: live load, create member loads and nodal loads
 var llMagnitude = f_q * frameLength;
 var liveLoadMember = new MemberLoad();
-liveLoadMember.Force(1, lc2.GetLoadCase(), getMembersByOffset([3, 4]) , "Uniform", [llMagnitude],member_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE);
+liveLoadMember.Force(1, lc2.GetLoadCase(), getMembersByOffset([3, 4]) , "UNIFORM", [llMagnitude], "GLOBAL_Z_OR_USER_DEFINED_W_TRUE");
 
 
 var node_ids = [];
@@ -147,20 +147,20 @@ liveLoadNodal.Components(1, lc2.GetLoadCase(), node_ids.toString(),[0, 0, 10000]
 // LC3: wind load
 var wlMLC3Magnitude = f_w * frameLength;
 var windLoadMemberLC3 = new MemberLoad();
-windLoadMemberLC3.Force(1, lc3.GetLoadCase(), getMembersByOffset([1, 2, 5, 8]),"Uniform",[wlMLC3Magnitude],member_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE);
+windLoadMemberLC3.Force(1, lc3.GetLoadCase(), getMembersByOffset([1, 2, 5, 8]), "UNIFORM", [wlMLC3Magnitude], "GLOBAL_X_OR_USER_DEFINED_U_TRUE");
 
 
 // LC4: wind load
 var wlLC4Magnitude = f_w * width / 2;
 var windLoadMemberLC4 = new MemberLoad();
-windLoadMemberLC4.Force(1, lc4.GetLoadCase(), "3,4","Uniform",[wlLC4Magnitude], member_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE);
+windLoadMemberLC4.Force(1, lc4.GetLoadCase(), "3,4", "UNIFORM", [wlLC4Magnitude], "GLOBAL_Y_OR_USER_DEFINED_V_TRUE");
 
 var wlLC4RestMagnitude = f_w * 0.015;
 var windLoadMemberLC4Rest = new MemberLoad();
-windLoadMemberLC4Rest.Force(2, lc4.GetLoadCase(), getMembersByOffset([1, 2, 3, 4, 5, 8]),"Uniform",[wlLC4RestMagnitude], member_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE);
+windLoadMemberLC4Rest.Force(2, lc4.GetLoadCase(), getMembersByOffset([1, 2, 3, 4, 5, 8]), "UNIFORM", [wlLC4RestMagnitude], "GLOBAL_Y_OR_USER_DEFINED_V_TRUE");
 
 // LC7: other permanent load
 var memberLoadLC7Magnitude = f_g * frameLength;
 var memberLoadLC7 = new MemberLoad();
-memberLoadLC7.Force(1, lc7.GetLoadCase(), getMembersByOffset([3, 4]),"Uniform",[memberLoadLC7Magnitude]);
+memberLoadLC7.Force(1, lc7.GetLoadCase(), getMembersByOffset([3, 4]), "UNIFORM", [memberLoadLC7Magnitude]);
 
