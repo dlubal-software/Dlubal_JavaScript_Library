@@ -1,12 +1,18 @@
 include("BaseLoad.js");
 
 /**
+Bug?
+LOAD_TYPE_PIPE_CONTENT_FULL, LOAD_TYPE_PIPE_CONTENT_PARTIAL:
+- here is bug, load direction is not allowed to set (+ZL, -ZL) - SetMemberLoadDirectionTypeWithDirectionOrientation function bellow
+ */
+
+/**
 * Creates member load
 * @class
 * @constructor
-* @param 	{Number}	no					Index of member load, can be undefined
-* @param 	{Object}	load_case			Load case
-* @param 	{Array}		members				List of member indexes
+* @param	{Number}	no					Index of member load, can be undefined
+* @param	{Object}	load_case			Load case
+* @param	{Array}		members				List of member indexes
 * @param	{String}	comment				Comment, can be undefined
 * @param	{Object}	params				Load parameters, can be undefined
 * @return	{Object}	Created member load
@@ -47,7 +53,7 @@ MemberLoad.prototype.Force = function (no,
 	this.load = setMemberLoadDistribution(this.load, member_loads.LOAD_TYPE_FORCE, load_distribution, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = GetMemberLoadDirectionType(member_loads.LOAD_TYPE_FORCE, load_direction);
 	}
 
 	return this.load;
@@ -77,7 +83,7 @@ MemberLoad.prototype.Moment = function (no,
 	this.load = setMemberLoadDistribution(this.load, member_loads.LOAD_TYPE_MOMENT, load_distribution, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = GetMemberLoadDirectionType(member_loads.LOAD_TYPE_MOMENT, load_direction);
 	}
 
 	return this.load;
@@ -129,7 +135,7 @@ MemberLoad.prototype.Temperature = function (no,
 	this.load = setMemberLoadDistribution(this.load, member_loads.LOAD_TYPE_TEMPERATURE, load_distribution, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = GetMemberLoadDirectionType(member_loads.LOAD_TYPE_TEMPERATURE, load_direction);
 	}
 
 	return this.load;
@@ -159,7 +165,7 @@ MemberLoad.prototype.TemperatureChange = function (no,
 	this.load = setMemberLoadDistribution(this.load, member_loads.LOAD_TYPE_TEMPERATURE_CHANGE, load_distribution, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = GetMemberLoadDirectionType(member_loads.LOAD_TYPE_TEMPERATURE_CHANGE, load_direction);
 	}
 
 	return this.load;
@@ -167,12 +173,11 @@ MemberLoad.prototype.TemperatureChange = function (no,
 
 /**
  * Creates member axial strain load
- * @param 	{Number}	no					Index of member load, can be undefined
- * @param 	{Object}	load_case			Load case
- * @param 	{Array}		members				List of member indexes
- * @param 	{String}	load_distribution	Load distribution
+ * @param	{Number}	no					Index of member load, can be undefined
+ * @param	{Object}	load_case			Load case
+ * @param	{Array}		members				List of member indexes
+ * @param	{String}	load_distribution	Load distribution
  * @param	{Array}		load_values			Load parameters depend on load distribution (for more information look at setMemberLoadDistribution function)
- * @param 	{String}	load_direction		Load direction, can be undefined
  * @param	{String}	comment				Comment, can be undefined
  * @param	{Object}	params				Load parameters, can be undefined
  * @return	{Object}	Created member axial strain load
@@ -236,7 +241,7 @@ MemberLoad.prototype.Precamber = function (no,
 	this.load = setMemberLoadDistribution(this.load, member_loads.LOAD_TYPE_PRECAMBER, load_distribution, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = GetMemberLoadDirectionType(member_loads.LOAD_TYPE_PRECAMBER, load_direction);
 	}
 
 	return this.load;
@@ -288,7 +293,7 @@ MemberLoad.prototype.Displacement = function (no,
 	this.load = setMemberLoadDistribution(this.load, member_loads.LOAD_TYPE_DISPLACEMENT, load_distribution, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = GetMemberLoadDirectionType(member_loads.LOAD_TYPE_DISPLACEMENT, load_direction);
 	}
 
 	return this.load;
@@ -318,7 +323,7 @@ MemberLoad.prototype.Rotation = function (no,
 	this.load = setMemberLoadDistribution(this.load, member_loads.LOAD_TYPE_ROTATION, load_distribution, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = GetMemberLoadDirectionType(member_loads.LOAD_TYPE_ROTATION, load_direction);
 	}
 
 	return this.load;
@@ -346,7 +351,7 @@ MemberLoad.prototype.PipeContentFull = function (no,
 	this.load = setMemberLoadDistribution(this.load, member_loads.LOAD_TYPE_PIPE_CONTENT_FULL, undefined, [load_value]);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		SetMemberLoadDirectionTypeWithDirectionOrientation(this.load, load_direction);
 	}
 
 	return this.load;
@@ -374,7 +379,7 @@ MemberLoad.prototype.PipeContentPartial = function (no,
 	this.load = setMemberLoadDistribution(this.load, member_loads.LOAD_TYPE_PIPE_CONTENT_PARTIAL, undefined, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		SetMemberLoadDirectionTypeWithDirectionOrientation(this.load, load_direction);
 	}
 
 	return this.load;
@@ -475,8 +480,7 @@ MemberLoad.prototype.LoadOverMember = function (value) {
 
 /**
 * Sets eccentricity (only force load)
-* @param 	{String}	reference_to			Eccentricity is refereed to what ("left_top", "center_top", "right_top", "left_center", "center_center", "right_center",
-*												"left_bottom", "center_bottom", "right_bottom", "center_of_gravity", "shear_center")
+* @param	{String}	reference_to			Eccentricity is refereed to what ("LEFT_TOP", "CENTER_TOP", "RIGHT_TOP", "LEFT_CENTER", "CENTER_CENTER", "RIGHT_CENTER", "LEFT_BOTTOM", "CENTER_BOTTOM", "RIGHT_BOTTOM", "CENTER_OF_GRAVITY", "SHEAR_CENTER")
 * @param	{Number}	offset_member_start_ey	Offset at member start, can be undefined
 * @param	{Number}	offset_member_start_ez	Offset at member start, can be undefined
 * @param	{Number}	offset_member_end_ey	Offset at member end, can be undefined
@@ -496,20 +500,18 @@ MemberLoad.prototype.Eccentricity = function (reference_to,
 
 	this.load.has_force_eccentricity = true;
 
-	if (reference_to !== "center_of_gravity" && reference_to !== "shear_center") {
+	if (reference_to !== "MIDDLE_CENTER_OF_GRAVITY" && reference_to !== "MIDDLE_SHEAR_CENTER" && reference_to !== "MIDDLE_NONE") {
 		var params = reference_to.split("_");
 		ASSERT(params.length === 2, "Wrong reference string");
-		var horizontal = params[0];
-		var vertical = params[1];
-		this.load.eccentricity_horizontal_alignment = horizontal.charAt(0).toUpperCase() + horizontal.slice(1);
-		this.load.eccentricity_vertical_alignment = vertical.charAt(0).toUpperCase() + vertical.slice(1);
+		this.load.eccentricity_horizontal_alignment = GetMemberLoadEccentricityAlignment("ALIGN_" + params[0]);
+		this.load.eccentricity_vertical_alignment = GetMemberLoadEccentricityAlignment("ALIGN_" + params[1]);
 	}
-	else if (reference_to === " center_of_gravity") {
-		this.load.eccentricity_section_middle = member_loads.LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY;
+	else if (reference_to === " MIDDLE_CENTER_OF_GRAVITY" || reference_to === "MIDDLE_NONE") {
+		this.load.eccentricity_section_middle = GetMemberLoadEccentricityAlignment(reference_to);
 	}
 	else if (reference_to === "shear_center") {
 		this.load.is_eccentricity_at_end_different_from_start = true;
-		this.load.eccentricity_section_middle = member_loads.LOAD_ECCENTRICITY_SECTION_MIDDLE_SHEAR_CENTER;
+		this.load.eccentricity_section_middle = GetMemberLoadEccentricityAlignment(reference_to);
 	}
 	else {
 		ASSERT(false, "Unknown type of eccentricity (" + reference_to + ")");
@@ -575,3 +577,86 @@ MemberLoad.prototype.GetMemberLoad = function (){
 	return this.load;
 };
 
+function GetMemberLoadDirectionType(load_type, direction_type) {
+	var direction_types_dict = {};
+	switch (load_type)
+	{
+		case member_loads.LOAD_TYPE_FORCE:
+			direction_types_dict = {
+				"GLOBAL_X_OR_USER_DEFINED_U_TRUE": member_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE,
+				"GLOBAL_Y_OR_USER_DEFINED_V_TRUE": member_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,
+				"GLOBAL_Z_OR_USER_DEFINED_W_TRUE": member_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
+				"GLOBAL_X_OR_USER_DEFINED_U_PROJECTED": member_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED,
+				"GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED": member_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED,
+				"GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED": member_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED
+			}
+			break;
+		case member_loads.LOAD_TYPE_MOMENT:
+		case member_loads.LOAD_TYPE_ROTATION:
+			direction_types_dict = {
+				"GLOBAL_X_OR_USER_DEFINED_U_TRUE": member_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE,
+				"GLOBAL_Y_OR_USER_DEFINED_V_TRUE": member_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,
+				"GLOBAL_Z_OR_USER_DEFINED_W_TRUE": member_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE
+			};
+			break;
+		case member_loads.LOAD_TYPE_TEMPERATURE:
+		case member_loads.LOAD_TYPE_TEMPERATURE_CHANGE:
+		case member_loads.LOAD_TYPE_PRECAMBER:
+			direction_types_dict = {
+				"LOCAL_Y": member_loads.LOAD_DIRECTION_LOCAL_Y,
+				"LOCAL_Z": member_loads.LOAD_DIRECTION_LOCAL_Z
+			};
+			break;
+	}
+
+	var type = direction_types_dict[direction_type];
+	if (type === undefined) {
+	  console.log("Wrong direction type. Value was: " + direction_type);
+	  console.log("Correct values are: ( " + Object.keys(direction_types_dict) + ")");
+	}
+	return type;
+}
+
+function SetMemberLoadDirectionTypeWithDirectionOrientation(member_load, direction_type) {
+	switch (member_load.load_type)
+	{
+		case member_loads.LOAD_TYPE_PIPE_CONTENT_FULL:
+		case member_loads.LOAD_TYPE_PIPE_CONTENT_PARTIAL:
+			ASSERT(direction_type === "+ZL" || direction_type === "-ZL");
+			member_load.load_direction_orientation = direction_type[0];
+			member_load.load_direction = member_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE;
+			break;
+		default:
+			ASSERT(false);
+	}
+}
+
+function GetMemberLoadEccentricityAlignment(eccentricity_type) {
+	const eccentricity_types_dict = {
+		"ALIGN_NONE": member_loads.ALIGN_NONE,
+		"ALIGN_LEFT": member_loads.ALIGN_LEFT,
+		"ALIGN_MIDDLE": member_loads.ALIGN_MIDDLE,
+		"ALIGN_RIGHT": member_loads.ALIGN_RIGHT,
+		"ALIGN_TOP": member_loads.ALIGN_TOP,
+		"ALIGN_MIDDLE": member_loads.ALIGN_MIDDLE,
+		"ALIGN_BOTTOM": member_loads.ALIGN_BOTTOM,
+		"ALIGN_MIDDLE_CENTER_OF_GRAVITY": member_loads.LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY,
+		"ALIGN_MIDDLE_SHEAR_CENTER": member_loads.LOAD_ECCENTRICITY_SECTION_MIDDLE_SHEAR_CENTER,
+		"ALIGN_MIDDLE_NONE": member_loads.LOAD_ECCENTRICITY_SECTION_MIDDLE_NONE
+	};
+
+	eccentricity_type = eccentricity_type.replace("CENTER", "MIDDLE");
+
+	if (eccentricity_type !== undefined) {
+	  var type = eccentricity_types_dict[eccentricity_type];
+	  if (type === undefined) {
+		console.log("Wrong eccentricity alignment type. Value was: " + eccentricity_type);
+		console.log("Correct values are: ( " + Object.keys(eccentricity_types_dict) + ")");
+		type = member_loads.ALIGN_NONE;
+	  }
+	  return type;
+	}
+	else {
+	  return member_loads.ALIGN_NONE;
+	}
+}

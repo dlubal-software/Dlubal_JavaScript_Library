@@ -21,13 +21,8 @@ Node(1 + ns, 0, 0, 0);
 Node(2 + ns, 0, 0, -H);
 Node(3 + ns, L, 0, 0);
 Node(4 + ns, L, 0, -H);
-var nodalSupport = new NodalSupport(1,[1]);
+var nodalSupport = new NodalSupport(1,[1,3]);
 nodalSupport.Hinged();
-
-var nodalSupport2 = new NodalSupport(2, [3]);
-nodalSupport2.Hinged();
-nodalSupport2.TranslationX(false);
-nodalSupport2.RotationX(true);
 
 var bt = new Node();
 var nodeCount = 5 + ns;
@@ -81,4 +76,4 @@ SASGeometricallyLinear.GeometricallyLinear(1);
 var SASSecondOrder = new StaticAnalysisSettings();
 SASSecondOrder.SecondOrder(2,"MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON");
 var lc1 = new LoadCase();
-lc1.StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_PERMANENT_G", [true, 0, 0, 1.0]);
+lc1.StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "PERMANENT_G", [true, 0, 0, 1.0]);

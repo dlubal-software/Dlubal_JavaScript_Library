@@ -61,7 +61,7 @@ SnowLoadWizard.prototype.SetDuopitch = function (no,
 
 /**
  * Sets loaded roofs
- * @param {Array}   loaded_planes_accessibility   Enable or disable loaded roofs (array of booleans [roof1 | roof1, roof2])
+ * @param {Array}   loaded_planes_accessibility   Enable or disable loaded roofs (array of booleans [roof1 or roof1, roof2])
  */
 SnowLoadWizard.prototype.SetLoadedRoofs = function(loaded_planes_accessibility) {
     console.log(this.snowLoadWizard.loaded_planes.row_count());

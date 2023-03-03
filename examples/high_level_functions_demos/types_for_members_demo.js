@@ -11,38 +11,38 @@ var nodesForMembers = createNodesGrid(-28, -28, [12, 10], [3, 5]);
 createMembersFromNodesGrid(nodesForMembers, [6, 10], members.TYPE_BEAM, section);
 
 var memberEccentricity = new MemberEccentricity();
-memberEccentricity.RelativeToSection(undefined, [1], [1], "SECTION_ALIGNMENT_RIGHT_TOP");
-memberEccentricity.RelativeToSection(undefined, [2], [2], "SECTION_ALIGNMENT_CENTER_CENTER");
+memberEccentricity.RelativeToSection(undefined, [1], [1], "RIGHT_TOP");
+memberEccentricity.RelativeToSection(undefined, [2], [2], "CENTER_CENTER");
 memberEccentricity.Absolute(undefined, [3], [3], 0.05, undefined, 0.15);
 // With global coordinates
 memberEccentricity.Absolute(undefined, [4], [4], 0.05, 0.06, 0.07, coordinate_systems[1]);
-memberEccentricity.RelativeToSection(undefined, [5], [5], "SECTION_ALIGNMENT_RIGHT_TOP");
+memberEccentricity.RelativeToSection(undefined, [5], [5], "RIGHT_TOP");
 memberEccentricity.AxialOffset();
 memberEccentricity.HingeLocationAtNode();
-memberEccentricity.RelativeAndAbsolute(undefined, [6], [6], "SECTION_ALIGNMENT_RIGHT_BOTTOM", 0.005, 0.0015, 0.002);
-memberEccentricity.TransverseOffsetMember(7, "SECTION_ALIGNMENT_RIGHT_TOP", 14);
+memberEccentricity.RelativeAndAbsolute(undefined, [6], [6], "RIGHT_BOTTOM", 0.005, 0.0015, 0.002);
+memberEccentricity.TransverseOffsetMember(7, "RIGHT_TOP", 14);
 
 var memberHinge = new MemberHinge();
 // Translational uy, Fixed if negative nonlinearity
-memberHinge.Translational(undefined, [15], undefined, undefined, [true, 5000, 2]);
+memberHinge.Translational(undefined, [15], undefined, undefined, [true, 5000, "FAILURE_IF_POSITIVE"]);
 // Translational ux, Fixed if positive N nonlinearity
-memberHinge.Translational(undefined, [16], [16], [true, 1500, 2]);
+memberHinge.Translational(undefined, [16], [16], [true, 1500, "FAILURE_IF_POSITIVE"]);
 // Translational uz, Partial activity nonlinearity
-memberHinge.Translational(undefined, [17], [17], undefined, undefined, [true, 5000, 5]);
+memberHinge.Translational(undefined, [17], [17], undefined, undefined, [true, 5000, "PARTIAL_ACTIVITY"]);
 // Negative and positive zone type "Complete"
 memberHinge.PartialActivityTranslationalZ([0, 0.01], [0, 0.02]);
 // Translational ux, Partial activity nonlinearity
-memberHinge.Translational(undefined, [18, 19, 20], [18, 19, 20], [true, 5000, 5]);
+memberHinge.Translational(undefined, [18, 19, 20], [18, 19, 20], [true, 5000, "PARTIAL_ACTIVITY"]);
 // Negative zone type: Fixed from release displacement ux (-), positive zone type: Yielding from release force N (+)
 memberHinge.PartialActivityTranslationalX([1, 0.05, 0.02], [3, 1500, 0.025]);
 // Rotational φy, Diagram nonlinearity
-memberHinge.Rotational(undefined, [21], [21], undefined, [true, 5, 6]);
+memberHinge.Rotational(undefined, [21], [21], undefined, [true, 5, "DIAGRAM"]);
 memberHinge.DiagramRotationalY([[10, 5, 500], [18.3, 10, 600]]);
 // Translational friction friction Vy+Vz nonlinearity for ux
-memberHinge.Translational(undefined, [22], [22], [true, 1200, 11]);
+memberHinge.Translational(undefined, [22], [22], [true, 1200, "FRICTION_DIRECTION_1_PLUS_2"]);
 memberHinge.FrictionVyPlusVzTranslationalX(1, 2, 1500);
 // Translational uy, Fixed if negative nonlinearity, infinity spring constant, diagram nonlinearity
-memberHinge.Translational(undefined, [23, 24], [24, 25], undefined, [false, 6]);
+memberHinge.Translational(undefined, [23, 24], [24, 25], undefined, [false, "DIAGRAM"]);
 memberHinge.DiagramTranslationalY([[0.5, 500, 1000], [1, 600, 200], [1.1, 500, -1000]]);
 
 var memberNonlinearity = new MemberNonlinearity();
@@ -69,8 +69,8 @@ memberResultIntermediatePoint2.DivisionOrdinates([0.1, 0.2, 0.3, 0.4, 0.9]);
 
 var structureModification = new StructureModification();
 var memberStiffnessModification = new MemberStiffnessModification(undefined, structure_modification);
-// Type: Walls cracked
-memberStiffnessModification.ConcreteStructuresCsa(1);
+// Type: Beams
+memberStiffnessModification.ConcreteStructuresCsa("COLUMNS");
 var memberStiffnessModification2 = new MemberStiffnessModification(undefined, structure_modification);
 memberStiffnessModification2.SteelStructuresAisc(1, 2);
 var memberDefinableStiffness3 = new MemberStiffnessModification(undefined, structure_modification);

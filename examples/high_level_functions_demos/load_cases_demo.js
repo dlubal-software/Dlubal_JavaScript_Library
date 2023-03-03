@@ -44,7 +44,7 @@ WIND_SIMULATION.setActive(true);
 wind_simulation_analysis_settings.erase(1);
 var WSAS = new WindSimulationSettings(undefined, "Wind simulation:", 1.25, 0.000015, true, "TURBULENCE_TYPE_OMEGA", "CONCENTRATED");
 
-var LCSW = new LoadCase().StaticAnalysis(undefined, "Static analysis", SASGeometricallyLinear.Settings.no, "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_A_DOMESTIC_RESIDENTIAL_AREAS_QI_A", [true, 0, 0, 1.0]);
+var LCSW = new LoadCase().StaticAnalysis(undefined, "Static analysis", SASGeometricallyLinear.Settings.no, "IMPOSED_LOADS_CATEGORY_A_DOMESTIC_RESIDENTIAL_AREAS_QI_A", [true, 0, 0, 1.0]);
 var LCModalLoad = new LoadCase().ModalAnalysis(undefined, "Modal analysis", MASUserDefined.Settings.no, LCSW.LoadCase.no);
 var LCSpectralAnalysis = new LoadCase().ResponseSpectrumAnalysis(undefined, "Spectral analysis", SpAS.Settings.no, LCModalLoad.LoadCase.no, [[0, 0], [0, 0], [1, 1]]);
 var LCWind = new LoadCase().WindSimulation(undefined, "Wind simulation", SASGeometricallyLinear.Settings.no, WSAS.Settings.no, 1);

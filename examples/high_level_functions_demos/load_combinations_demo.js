@@ -3,7 +3,7 @@ include("../includes/Tools/high_level_functions_support.js");
 run("load_cases_demo.js");
 
 var static_analysis_setting = static_analysis_settings.create(static_analysis_settings.lastId() + 1);
-var design_situation = new DesignSituation(undefined, "DESIGN_SITUATION_TYPE_EQU_PERMANENT_AND_TRANSIENT");
+var design_situation = new DesignSituation(undefined, "EQU_PERMANENT_AND_TRANSIENT");
 var material = createMaterial("S235");
 var materialGlass = createMaterial("Soda-lime silicate glass");
 var imperfection = imperfection_cases.create();

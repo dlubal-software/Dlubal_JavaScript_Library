@@ -49,7 +49,7 @@ SurfaceLoad.prototype.Force = function(no,
 
 	if (typeof load_direction !== "undefined")
 	{
-		this.load.load_direction = load_direction;
+		this.load.load_direction = GetSurfaceLoadDirectionType(surface_loads.LOAD_TYPE_FORCE, load_direction);
 	}
 
 	return this.load;
@@ -209,3 +209,27 @@ SurfaceLoad.prototype.IndividualMassComponents = function(MX,
 		this.load.magnitude_mass_z = MZ;
 	}
 };
+
+function GetSurfaceLoadDirectionType(load_type, direction_type) {
+	var direction_types_dict = {};
+	switch (load_type)
+	{
+		case surface_loads.LOAD_TYPE_FORCE:
+			direction_types_dict = {
+				"GLOBAL_X_OR_USER_DEFINED_U_TRUE": member_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE,
+				"GLOBAL_Y_OR_USER_DEFINED_V_TRUE": member_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,
+				"GLOBAL_Z_OR_USER_DEFINED_W_TRUE": member_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
+				"GLOBAL_X_OR_USER_DEFINED_U_PROJECTED": member_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED,
+				"GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED": member_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED,
+				"GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED": member_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED
+			}
+			break;
+	}
+
+	var type = direction_types_dict[direction_type];
+	if (type === undefined) {
+	  console.log("Wrong direction type. Value was: " + direction_type);
+	  console.log("Correct values are: ( " + Object.keys(direction_types_dict) + ")");
+	}
+	return type;
+}

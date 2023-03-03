@@ -38,7 +38,7 @@ nodalSupports.nodes = [63, 64, 65, 66];
 var freeRectangularLoad = new FreeRectangularLoad();
 // Free rectangular uniform load with corner points of rectangle
 // [location, p, X1, Y1, X2, Y2, α]
-freeRectangularLoad.Uniform(undefined, lc, [1, 2], [1, 1500, -27, -27, -24, -24, 10]);
+freeRectangularLoad.Uniform(undefined, lc, [1, 2], [1, 1500, -27, -27, -24, -24, 10], undefined, "GLOBAL_X_TRUE");
 // Free rectangular linear in Y load with corner and sides of rectangle
 // [location, p1, p2, Xc, Yc, a, b]
 freeRectangularLoad.LinearX(undefined, lc, [3], [2, 1500, 2000, -6, -26, 3, 4]);
@@ -47,35 +47,35 @@ freeRectangularLoad.LinearX(undefined, lc, [3], [2, 1500, 2000, -6, -26, 3, 4]);
 freeRectangularLoad.VaryingZ(undefined, lc, [4], [2, 1500, -26, -16, 3, 4, [1, 0, 1500, 2, 0, 2000, 3, 0, 1500]]);
 // Free rectangular varying along perimeter load with corner and sides of rectangle
 // [location, p, Xc, Yc, a, b, [XA, YA, ZA, XB, YB, ZB, α0, (α1, kα1, pα1, α2, kα2, pα2, α3, kα3, pα3)]]
-freeRectangularLoad.VaryingPerimeter(undefined, lc, [5], [2, 1500, -16, -16, 3, 4, [-26, -16, -1, -25, -15, 0, 0, 1, 0, 1000, 2, 0, 1500, 3, 0, 1000]]);
+freeRectangularLoad.VaryingPerimeter(undefined, lc, [5], [2, 1500, -16, -16, 3, 4, [-26, -16, -1, -25, -15, 0, 0, 1, 0, 1000, 2, 0, 1500, 3, 0, 1000]], undefined);
 
 var freeConcentratedLoad = new FreeConcentratedLoad();
 // Free concentrated force load with "x" load direction
-freeConcentratedLoad.Force(undefined, lc, [6], [200, -6, -16], undefined, "x");
+freeConcentratedLoad.Force(undefined, lc, [6], [200, -6, -16], undefined, "GLOBAL_Z");
 // Free concentrated moment load with "z" load direction
-freeConcentratedLoad.Moment(undefined, lc, [7], [200, -25, -5], undefined, "y");
+freeConcentratedLoad.Moment(undefined, lc, [7], [200, -25, -5], undefined, "GLOBAL_Y");
 
 var freeCircularLoad = new FreeCircularLoad();
 // Free circular uniform load
-freeCircularLoad.Uniform(undefined, lc, [8], [1500, 10, -15, -5]);
+freeCircularLoad.Uniform(undefined, lc, [8], [1500, 10, -15, -5], undefined, "LOCAL_Z");
 // Free circular linear load
 freeCircularLoad.Linear(undefined, lc, [9], [1500, 5, 500, -5, -7]);
 
 var freeLineLoad = new FreeLineLoad();
 // Free line uniform load
-freeLineLoad.Uniform(undefined, lc, [10], [1500, -27, 4, -24, 6]);
+freeLineLoad.Uniform(undefined, lc, [10], [1500, -27, 4, -24, 6], undefined);
 // Free line linear load
 freeLineLoad.Linear(undefined, lc, [11], [1000, 1500, -17, 3, -14, 6]);
 
 var freePolygonLoad = new FreePolygonLoad();
 // Free polygon linear load
 // [p1, node1, node2, node3, [X1, Y1, X2, Y2, X3, Y3 ... Xn, Yn], p2, p3]
-freePolygonLoad.Linear(undefined, lc, [12], [500, 1, 2, 3, [-7, 3, -4, 3, -5, 6], 1000, 1500]);
+freePolygonLoad.Linear(undefined, lc, [12], [500, 1, 2, 3, [-7, 3, -4, 3, -5, 6], 1000, 1500], undefined, "LOCAL_Z");
 
 // Imposed line deformation, with only specification uX,i, uY,i
 var imposedLineDeformation = new ImposedLineDeformation();
 imposedLineDeformation.Set(undefined, lc, [61], 0.005, 0.01);
 
-// Imposed nodal deformation, with only specification uX,i, uY,i
+// Imposed nodal deformation, with only specification uX' and uZ'
 var imposedNodalDeformation = new ImposedNodalDeformation();
-imposedNodalDeformation.Set(undefined, lc, [63, 64, 65, 66], 0.005, 0.01);
+imposedNodalDeformation.Set(undefined, lc, [63, 64, 65, 66], 0.005, 0, 0.01);

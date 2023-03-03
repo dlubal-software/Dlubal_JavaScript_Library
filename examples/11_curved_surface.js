@@ -28,7 +28,7 @@ new Line(no_l + 4, [no_n + 2, no_n + 4]);
 var thicknessSurface = new Thickness();
 thicknessSurface.Uniform(1, "thickness", material.GetNo(), Number(thickness));
 var surface = new Surface();
-surface.Quadrangle(1, [no_l + 1, no_l + 2, no_l + 3, no_l + 4], "Standard", thicknessSurface.GetNo());
+surface.Quadrangle(1, [no_l + 1, no_l + 2, no_l + 3, no_l + 4], "STANDARD", thicknessSurface.GetNo());
 
 //load
 var SASGeometricallyLinear = new StaticAnalysisSettings();
@@ -36,7 +36,7 @@ SASGeometricallyLinear.GeometricallyLinear(1);
 var SASSecondOrder = new StaticAnalysisSettings();
 SASSecondOrder.SecondOrder(2, "MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON");
 var lc1 = new LoadCase();
-lc1.StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_PERMANENT_G", [true, 0, 0, 1.0]);
+lc1.StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "PERMANENT_G", [true, 0, 0, 1.0]);
 
 var lineSupport = new LineSupport(1,[2,3]);
 lineSupport.Fixed();

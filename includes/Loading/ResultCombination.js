@@ -12,11 +12,11 @@
  *                                            At least one load case must be specified:
  *                                              - combination type 'General': [[load_case, factor, load_type, operator], [load_case, factor, load_type, load_operator], ...]
  *                                              - other combination types: [[load_case], [load_case], ...]
- *                                            
+ *
  * @param {Array}   load_combination_items    Array of load combinations, can be undefined
  *                                            At least one load combination must be specified:
  *                                              - combination type 'General': [[load_combination, factor, load_type, operator], [load_combination, factor, load_type, load_operator], ...]
- *                                              - other combination types: [[load_combination], [load_combination], ...] 
+ *                                              - other combination types: [[load_combination], [load_combination], ...]
  * @param {String}  combination_type          Combination type, can be one of these types: GENERAL, ENVELOPE_PERMANENT, ENVELOPE_TRANSIENT, SUPERPOSITION.
  * @param {String}  comment                   Comment, can be undefined
  * @param {String}  params                    Additional parameters, can be undefined
@@ -41,11 +41,11 @@ function ResultCombination(no,
  *                                            At least one load case must be specified:
  *                                              - combination type 'General': [[load_case, factor, load_type, operator], [load_case, factor, load_type, load_operator], ...]
  *                                              - other combination types: [[load_case], [load_case], ...]
- *                                            
+ *
  * @param {Array}   load_combination_items    Array of load combinations, can be undefined
  *                                            At least one load combination must be specified:
  *                                              - combination type 'General': [[load_combination, factor, load_type, operator], [load_combination, factor, load_type, load_operator], ...]
- *                                              - other combination types: [[load_combination], [load_combination], ...] 
+ *                                              - other combination types: [[load_combination], [load_combination], ...]
  * @param {String}  comment                   Comment, can be undefined
  * @param {String}  params                    Additional parameters, can be undefined
  */
@@ -66,11 +66,11 @@ ResultCombination.prototype.General = function (no,
  *                                            At least one load case must be specified:
  *                                              - combination type 'General': [[load_case, factor, load_type, operator], [load_case, factor, load_type, load_operator], ...]
  *                                              - other combination types: [[load_case], [load_case], ...]
- *                                            
+ *
  * @param {Array}   load_combination_items    Array of load combinations, can be undefined
  *                                            At least one load combination must be specified:
  *                                              - combination type 'General': [[load_combination, factor, load_type, operator], [load_combination, factor, load_type, load_operator], ...]
- *                                              - other combination types: [[load_combination], [load_combination], ...] 
+ *                                              - other combination types: [[load_combination], [load_combination], ...]
  * @param {String}  comment                   Comment, can be undefined
  * @param {String}  params                    Additional parameters, can be undefined
  */
@@ -91,11 +91,11 @@ ResultCombination.prototype.EnvelopePermanent = function (no,
  *                                            At least one load case must be specified:
  *                                              - combination type 'General': [[load_case, factor, load_type, operator], [load_case, factor, load_type, load_operator], ...]
  *                                              - other combination types: [[load_case], [load_case], ...]
- *                                            
+ *
  * @param {Array}   load_combination_items    Array of load combinations, can be undefined
  *                                            At least one load combination must be specified:
  *                                              - combination type 'General': [[load_combination, factor, load_type, operator], [load_combination, factor, load_type, load_operator], ...]
- *                                              - other combination types: [[load_combination], [load_combination], ...] 
+ *                                              - other combination types: [[load_combination], [load_combination], ...]
  * @param {String}  comment                   Comment, can be undefined
  * @param {String}  params                    Additional parameters, can be undefined
  */
@@ -116,11 +116,11 @@ ResultCombination.prototype.EnvelopeTransient = function (no,
  *                                            At least one load case must be specified:
  *                                              - combination type 'General': [[load_case, factor, load_type, operator], [load_case, factor, load_type, load_operator], ...]
  *                                              - other combination types: [[load_case], [load_case], ...]
- *                                            
+ *
  * @param {Array}   load_combination_items    Array of load combinations, can be undefined
  *                                            At least one load combination must be specified:
  *                                              - combination type 'General': [[load_combination, factor, load_type, operator], [load_combination, factor, load_type, load_operator], ...]
- *                                              - other combination types: [[load_combination], [load_combination], ...] 
+ *                                              - other combination types: [[load_combination], [load_combination], ...]
  * @param {String}  comment                   Comment, can be undefined
  * @param {String}  params                    Additional parameters, can be undefined
  */

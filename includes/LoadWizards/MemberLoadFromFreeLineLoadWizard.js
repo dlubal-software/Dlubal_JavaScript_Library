@@ -43,7 +43,7 @@ function MemberLoadFromFreeLineLoadWizard (no,
         this.memberWizard.coordinate_system = coordinate_system;
     }
     if (typeof load_direction !== "undefined") {
-        this.memberWizard.load_direction = member_loads_from_free_line_load[GetDirectionOfMemberLoad(load_direction)];
+        this.memberWizard.load_direction = GetMemberLoadFromFreeLineLoadWizardDirection(load_direction);
     }
 };
 
@@ -76,7 +76,7 @@ MemberLoadFromFreeLineLoadWizard.prototype.Linear = function (no,
         this.memberWizard.coordinate_system = coordinate_system;
     }
     if (typeof load_direction !== "undefined") {
-        this.memberWizard.load_direction = member_loads_from_free_line_load[GetDirectionOfMemberLoad(load_direction)];
+        this.memberWizard.load_direction = GetMemberLoadFromFreeLineLoadWizardDirection(load_direction);
     }
 };
 
@@ -224,15 +224,14 @@ MemberLoadFromFreeLineLoadWizard.prototype.ExcludedMembers = function (excluded_
     }
     return member_wizard;
 }
-function GetDirectionOfMemberLoad(direction) {
-
+function GetMemberLoadFromFreeLineLoadWizardDirection(direction) {
     const direction_dict = {
-        "LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE": "LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE",
-        "LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE": "LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE",
-        "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE": "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE",
-        "LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED": "LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED",
-        "LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED": "LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED",
-        "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED": "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED",
+        "GLOBAL_X_OR_USER_DEFINED_U_TRUE": member_loads_from_free_line_load.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE,
+        "GLOBAL_Y_OR_USER_DEFINED_V_TRUE": member_loads_from_free_line_load.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,
+        "GLOBAL_Z_OR_USER_DEFINED_W_TRUE": member_loads_from_free_line_load.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
+        "GLOBAL_X_OR_USER_DEFINED_U_PROJECTED": member_loads_from_free_line_load.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED,
+        "GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED": member_loads_from_free_line_load.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED,
+        "GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED": member_loads_from_free_line_load.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED
     };
 
     if (direction !== undefined) {

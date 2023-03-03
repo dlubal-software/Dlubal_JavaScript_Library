@@ -2,41 +2,42 @@
 function SetTurbulenceModel(model) {
 
   const model_dict = {
-    "TURBULENCE_TYPE_OMEGA": "TURBULENCE_TYPE_OMEGA",
-    "TURBULENCE_TYPE_EPSILON": "TURBULENCE_TYPE_EPSILON",
+    "TURBULENCE_TYPE_OMEGA": wind_simulation_analysis_settings.TURBULENCE_TYPE_OMEGA,
+    "TURBULENCE_TYPE_EPSILON": wind_simulation_analysis_settings.TURBULENCE_TYPE_EPSILON,
+    "TURBULENCE_TYPE_LES": wind_simulation_analysis_settings.TURBULENCE_TYPE_LES
   };
   if (model != undefined) {
     var modelType = model_dict[model];
     if (modelType === undefined) {
-      modelType = "TURBULENCE_TYPE_OMEGA";
+      modelType = wind_simulation_analysis_settings.TURBULENCE_TYPE_OMEGA;
       console.log("Wrong turbulence type input. Value was: " + model);
       console.log("Correct values are: ( " + Object.keys(model_dict) + ")");
     }
     return modelType;
   }
   else {
-    return "TURBULENCE_TYPE_OMEGA";
+    return wind_simulation_analysis_settings.TURBULENCE_TYPE_OMEGA;
   }
 }
 
 function SetMemberLoadDistribution(type) {
 
   const distribution_dict = {
-    "UNIFORM": "UNIFORM",
-    "CONCENTRATED": "CONCENTRATED",
-    "TRAPEZOIDAL": "TRAPEZOIDAL"
+    "UNIFORM": wind_simulation_analysis_settings.UNIFORM,
+    "CONCENTRATED": wind_simulation_analysis_settings.CONCENTRATED,
+    "TRAPEZOIDAL": wind_simulation_analysis_settings.TRAPEZOIDAL
   };
   if (type != undefined) {
     var distributionType = distribution_dict[type];
     if (distributionType === undefined) {
-      modelType = "CONCENTRATED";
+      modelType = wind_simulation_analysis_settings.CONCENTRATED;
       console.log("Wrong member load distribution type. Value was: " + type);
       console.log("Correct values are: ( " + Object.keys(distribution_dict) + ")");
     }
     return distributionType;
   }
   else {
-    return "CONCENTRATED";
+    return wind_simulation_analysis_settings.CONCENTRATED;
   }
 }
 
@@ -95,10 +96,10 @@ function WindSimulationSettings(no,
 
   if (consider_turbulence !== undefined) {
     this.Settings.consider_turbulence = consider_turbulence;
-    this.Settings.turbulence_model_type = wind_simulation_analysis_settings[SetTurbulenceModel(turbulenceModel)];
+    this.Settings.turbulence_model_type = SetTurbulenceModel(turbulenceModel);
   }
 
-  this.Settings.member_load_distribution = wind_simulation_analysis_settings[SetMemberLoadDistribution(memberLoadDistribution)];
+  this.Settings.member_load_distribution = SetMemberLoadDistribution(memberLoadDistribution);
 
   // Wind simulation analysis settings
 

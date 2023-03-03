@@ -32,8 +32,6 @@ function StabilityAnalysisSettings(no,
 
   if (arguments.length !== 0) {
     ASSERT(typeof no != undefined || typeof no != "number", "No must be assigned as an integer.");
-    ASSERT(typeof type != undefined || typeof name != "string", "Name must be assigned as a string.");
-
     if (no === undefined) {
       var StAS = stability_analysis_settings.create();
     }
@@ -42,9 +40,9 @@ function StabilityAnalysisSettings(no,
     }
     // console.log("New stability analysis settings no. " + StAS.no + " was created");
     // Static anlysis settings : type
-    StAS.analysis_type = stability_analysis_settings[StabilityAnalysisType(isEigenvalueSolver, isIncremental)];
+    StAS.analysis_type = StabilityAnalysisType(isEigenvalueSolver, isIncremental);
     if (eigenvalueMethod != undefined && isEigenvalueSolver != false) {
-      StAS.eigenvalue_method = stability_analysis_settings[SetEigenValueMethod(eigenvalueMethod)];
+      StAS.eigenvalue_method = SetEigenValueMethod(eigenvalueMethod);
     }
     if (numberOfLowestEigenvalues != undefined && isEigenvalueSolver != false) {
       StAS.number_of_lowest_eigenvalues = numberOfLowestEigenvalues;
@@ -63,7 +61,7 @@ StabilityAnalysisSettings.prototype.EigenValueMethod = function (no, name, numbe
 
   this.Settings = CreateStabilityAnalysisSettings(no, name);
 
-  this.Settings.analysis_type = stability_analysis_settings["EIGENVALUE_METHOD"];
+  this.Settings.analysis_type = stability_analysis_settings.EIGENVALUE_METHOD;
 
   SetPropertiesForEigenValueMethod(this.Settings, numberOfLowestEigenvalues, eigenValueMethod, matrixType, eigenValueBeyondCriticalFactor);
   //stability_analysis_settings[].minimum_initial_strain
@@ -122,7 +120,7 @@ StabilityAnalysisSettings.prototype.IncrementalMethodWithEigenValueAnalysis = fu
   }
 
   this.Settings = CreateStabilityAnalysisSettings(no, name);
-  this.Settings.analysis_type = stability_analysis_settings["INCREMENTALY_METHOD_WITH_EIGENVALUE"];
+  this.Settings.analysis_type = stability_analysis_settings.INCREMENTALY_METHOD_WITH_EIGENVALUE;
 
   //numberOfLowestEigenvalues, eigenValueMethod, matrixType, eigenValueBeyondCriticalFactor
   SetPropertiesForEigenValueMethod(this.Settings, numberOfLowestEigenvalues, eigenValueMethod, matrixType, eigenValueBeyondCriticalFactor);
@@ -138,7 +136,7 @@ StabilityAnalysisSettings.prototype.IncrementalMethodWithEigenValueAnalysis = fu
 StabilityAnalysisSettings.prototype.IncrementalMethodWithoutEigenValueAnalysis = function (no, name, initialLoadFactor, loadFactorIncrement, maximumNumberLoadIncrements, refinementLastLoadIncrement, comment, params) {
 
   this.Settings = CreateStabilityAnalysisSettings(no, name);
-  this.Settings.analysis_type = stability_analysis_settings["INCREMENTALY_METHOD_WITHOUT_EIGENVALUE"];
+  this.Settings.analysis_type = stability_analysis_settings.INCREMENTALY_METHOD_WITHOUT_EIGENVALUE;
 
   SetPropertiesForIncrementalMethod(this.Settings, initialLoadFactor, loadFactorIncrement, maximumNumberLoadIncrements, refinementLastLoadIncrement);
   set_comment_and_parameters(this.Settings, comment, params);
@@ -184,15 +182,12 @@ function SetPropertiesForEigenValueMethod(StAS, numberOfLowestEigenvalues, eigen
   else {
     StAS.number_of_lowest_eigenvalues = 4;
   }
-  StAS.eigenvalue_method = stability_analysis_settings[SetEigenValueMethod(eigenValueMethod)];
-  StAS.matrix_type = stability_analysis_settings[SetMatrixType(matrixType)];
+  StAS.eigenvalue_method = SetEigenValueMethod(eigenValueMethod);
+  StAS.matrix_type = SetMatrixType(matrixType);
 
   if (eigenValueBeyondCriticalFactor !== undefined) {
     StAS.find_eigenvectors_beyond_critical_load_factor = true;
     StAS.critical_load_factor = eigenValueBeyondCriticalFactor
-  }
-  else {
-    StAS.find_eigenvectors_beyond_critical_load_factor = false;
   }
 
 }
@@ -206,15 +201,15 @@ function StabilityAnalysisType(eigenValue, incremental) {
   }
   switch (eigenValue) {
     case false:
-      return "INCREMENTALY_METHOD_WITHOUT_EIGENVALUE";
+      return stability_analysis_settings.INCREMENTALY_METHOD_WITHOUT_EIGENVALUE;
       break;
     case true:
       switch (incremental) {
         case false:
-          return "EIGENVALUE_METHOD";
+          return stability_analysis_settings.EIGENVALUE_METHOD;
           break;
         case true:
-          return "INCREMENTALY_METHOD_WITH_EIGENVALUE";
+          return stability_analysis_settings.INCREMENTALY_METHOD_WITH_EIGENVALUE;
           break;
       }
   }
@@ -223,44 +218,45 @@ function StabilityAnalysisType(eigenValue, incremental) {
 function SetEigenValueMethod(method) {
 
   var eigenValueMethods_dict = {
-    "EIGENVALUE_METHOD_LANCZOS": "EIGENVALUE_METHOD_LANCZOS",
-    "EIGENVALUE_METHOD_ROOTS_OF_CHARACTERISTIC_POLYNOMIAL": "EIGENVALUE_METHOD_ROOTS_OF_CHARACTERISTIC_POLYNOMIAL",
-    "EIGENVALUE_METHOD_SUBSPACE_ITERATION": "EIGENVALUE_METHOD_SUBSPACE_ITERATION",
-    "EIGENVALUE_METHOD_ICG_ITERATION": "EIGENVALUE_METHOD_ICG_ITERATION",
+    "EIGENVALUE_METHOD_LANCZOS": stability_analysis_settings.EIGENVALUE_METHOD_LANCZOS,
+    "EIGENVALUE_METHOD_ROOTS_OF_CHARACTERISTIC_POLYNOMIAL": stability_analysis_settings.EIGENVALUE_METHOD_ROOTS_OF_CHARACTERISTIC_POLYNOMIAL,
+    "EIGENVALUE_METHOD_SUBSPACE_ITERATION": stability_analysis_settings.EIGENVALUE_METHOD_SUBSPACE_ITERATION,
+    "EIGENVALUE_METHOD_ICG_ITERATION": stability_analysis_settings.EIGENVALUE_METHOD_ICG_ITERATION,
+    "EIGENVALUE_METHOD_SHIFTED_INVERSE_POWER_METHOD": stability_analysis_settings.E_EIGENVALUE_METHOD_SHIFTED_INVERSE_POWER_METHOD
   };
 
   if (method !== undefined) {
     var eigenValueMethod = eigenValueMethods_dict[method];
     if (eigenValueMethod === undefined) {
-      eigenValueMethod = "EIGENVALUE_METHOD_LANCZOS";
+      eigenValueMethod = stability_analysis_settings.EIGENVALUE_METHOD_LANCZOS;
       console.log("Wrong eigenvalue solver method input. Value was: " + method);
       console.log("Correct values are: ( " + Object.keys(eigenValueMethods_dict) + ")");
     }
     return eigenValueMethod;
   }
   else {
-    return "EIGENVALUE_METHOD_LANCZOS";
+    return stability_analysis_settings.EIGENVALUE_METHOD_LANCZOS;
   }
 }
 
 function SetMatrixType(matrixType) {
 
   var eigenValueMethods_dict = {
-    "MATRIX_TYPE_STANDARD": "MATRIX_TYPE_STANDARD",
-    "MATRIX_TYPE_UNIT": "MATRIX_TYPE_UNIT"
+    "MATRIX_TYPE_STANDARD": stability_analysis_settings.MATRIX_TYPE_STANDARD,
+    "MATRIX_TYPE_UNIT": stability_analysis_settings.MATRIX_TYPE_UNIT
   };
 
   if (matrixType !== undefined) {
     var matrix = eigenValueMethods_dict[matrixType];
     if (matrix === undefined) {
-      matrix = "MATRIX_TYPE_STANDARD";
+      matrix = stability_analysis_settings.MATRIX_TYPE_STANDARD;
       console.log("Wrong eigenvalue solver method input. Value was: " + matrixType);
       console.log("Correct values are: ( " + Object.keys(eigenValueMethods_dict) + ")");
     }
     return matrix;
   }
   else {
-    return "MATRIX_TYPE_STANDARD";
+    return stability_analysis_settings.MATRIX_TYPE_STANDARD;
   }
 }
 

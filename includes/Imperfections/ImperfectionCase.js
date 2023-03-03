@@ -352,7 +352,12 @@ function createTypedImperfectionCase (no,
     imperfection_type,
     comment,
     params) {
-    var imperfectionCase = imperfection_cases.create();
+    if (typeof no === "undefined") {
+        var imperfectionCase = imperfection_cases.create();
+    }
+    else {
+        var imperfectionCase = imperfection_cases.create(no);
+    }
     imperfectionCase.type = GetImperfectionCaseImperfectionType(imperfection_type);
     set_comment_and_parameters(imperfectionCase, comment, params);
     return imperfectionCase;

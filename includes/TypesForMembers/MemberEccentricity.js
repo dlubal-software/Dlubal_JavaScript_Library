@@ -1,17 +1,4 @@
 // AxialOffset, HingeLocationAtNode: problem
-
-const SectionAlignment = {
-	"SECTION_ALIGNMENT_LEFT_TOP" : "left_top",
-	"SECTION_ALIGNMENT_CENTER_TOP" : "middle_top",
-	"SECTION_ALIGNMENT_RIGHT_TOP" : "right_top",
-	"SECTION_ALIGNMENT_LEFT_CENTER" : "left_middle",
-	"SECTION_ALIGNMENT_CENTER_CENTER" : "middle_middle",
-	"SECTION_ALIGNMENT_RIGHT_CENTER" : "right_middle",
-	"SECTION_ALIGNMENT_LEFT_BOTTOM" : "left_bottom",
-	"SECTION_ALIGNMENT_CENTER_BOTTOM" : "middle_bottom",
-	"SECTION_ALIGNMENT_RIGHT_BOTTOM" : "right_bottom"
-};
-
 /**
 * Creates member eccentricity
 * @class
@@ -169,18 +156,8 @@ MemberEccentricity.prototype.TransverseOffsetNone = function () {
 * @param	{String}	reference_type			Reference type ("None", "Member", "Surface")
 * @param	{Number}	reference object index	Reference member or surface index
 * @param	{Number}	reference_node_index	Reference member node index, in case of surface is undefined
-* @param	{String}	alignment_type			For member offset:	SECTION_ALIGNMENT_LEFT_TOP,
-*																	SECTION_ALIGNMENT_CENTER_TOP,
-*																	SECTION_ALIGNMENT_RIGHT_TOP,
-*																	SECTION_ALIGNMENT_LEFT_CENTER,
-*																	SECTION_ALIGNMENT_CENTER_CENTER,
-*																	SECTION_ALIGNMENT_RIGHT_CENTER,
-*																	SECTION_ALIGNMENT_LEFT_BOTTOM,
-*																	SECTION_ALIGNMENT_CENTER_BOTTOM,
-*																	SECTION_ALIGNMENT_RIGHT_BOTTOM.
-*												For surface offset:	SECTION_ALIGNMENT_CENTER_TOP,
-*																	SECTION_ALIGNMENT_CENTER_CENTER,
-*																	SECTION_ALIGNMENT_CENTER_BOTTOM.
+* @param	{String}	alignment_type			For member offset:	LEFT_TOP, CENTER_TOP, RIGHT_TOP, LEFT_CENTER, CENTER_CENTER, RIGHT_CENTER, LEFT_BOTTOM, CENTER_BOTTOM, RIGHT_BOTTOM.
+*												For surface offset:	CENTER_TOP, CENTER_CENTER, CENTER_BOTTOM.
 */
 var setTransverseOffset = function (member_eccentricity,
 	reference_type,
@@ -188,21 +165,17 @@ var setTransverseOffset = function (member_eccentricity,
 	reference_node_index,
 	alignment_type) {
 	member_eccentricity.transverse_offset_reference_type = reference_type;
-	ASSERT(alignment_type in SectionAlignment, "Unknown alignment type");
-
-	var alignment = SectionAlignment[alignment_type];
-
 	if (reference_type === member_eccentricities.TRANSVERSE_OFFSET_TYPE_FROM_MEMBER_SECTION) {
 		member_eccentricity.transverse_offset_reference_member = reference_object_index;
 		if (typeof reference_node_index !== "undefined") {
 			member_eccentricity.transverse_offset_member_reference_node = reference_node_index;
 		}
-		member_eccentricity.transverse_offset_horizontal_alignment = getAlignmentParts(alignment)[0];
-		member_eccentricity.transverse_offset_vertical_alignment = getAlignmentParts(alignment)[1];
+		member_eccentricity.transverse_offset_horizontal_alignment = GetMemberEccentricitySectionAlignment("ALIGN_" + getAlignmentParts(alignment_type)[0]);
+		member_eccentricity.transverse_offset_vertical_alignment = GetMemberEccentricitySectionAlignment("ALIGN_" + getAlignmentParts(alignment_type)[1]);
 	}
 	else {
 		member_eccentricity.transverse_offset_reference_surface = reference_object_index;
-		member_eccentricity.vertical_section_alignment = getAlignmentParts(alignment)[1];
+		member_eccentricity.vertical_section_alignment = GetMemberEccentricitySectionAlignment("ALIGN_" + getAlignmentParts(alignment_type)[1]);
 	}
 };
 
@@ -250,28 +223,14 @@ var createMemberEccentricity = function (no,
 
 /**
 * Sets member eccentricity for relative to section type (private)
-* @param 	{Object}	member_eccentricity	Member eccentricity to be set
-* @param	{String}	alignment_type		Alignment: 	SECTION_ALIGNMENT_LEFT_TOP,
-*														SECTION_ALIGNMENT_CENTER_TOP,
-*														SECTION_ALIGNMENT_RIGHT_TOP,
-*														SECTION_ALIGNMENT_LEFT_CENTER,
-*														SECTION_ALIGNMENT_CENTER_CENTER,
-*														SECTION_ALIGNMENT_RIGHT_CENTER,
-*														SECTION_ALIGNMENT_LEFT_BOTTOM,
-*														SECTION_ALIGNMENT_CENTER_BOTTOM,
-*														SECTION_ALIGNMENT_RIGHT_BOTTOM.
+* @param	{Object}	member_eccentricity	Member eccentricity to be set
+* @param	{String}	alignment_type		Alignment: LEFT_TOP, CENTER_TOP, RIGHT_TOP, LEFT_CENTER, CENTER_CENTER, RIGHT_CENTER, LEFT_BOTTOM, CENTER_BOTTOM, RIGHT_BOTTOM.
 */
 var setRelativeValues = function (member_eccentricity,
 	alignment_type) {
 	ASSERT(member_eccentricity.specification_type !== member_eccentricities.TYPE_ABSOLUTE);
-	ASSERT(alignment_type in SectionAlignment, "Unknown alignment type");
-
-	var alignment = SectionAlignment[alignment_type];
-	var horizontal = getAlignmentParts(alignment)[0];
-	var vertical = getAlignmentParts(alignment)[1];
-
-	member_eccentricity.horizontal_section_alignment = horizontal;
-	member_eccentricity.vertical_section_alignment = vertical;
+	member_eccentricity.horizontal_section_alignment = GetMemberEccentricitySectionAlignment("ALIGN_" + getAlignmentParts(alignment_type)[0]);
+	member_eccentricity.vertical_section_alignment = GetMemberEccentricitySectionAlignment("ALIGN_" + getAlignmentParts(alignment_type)[1]);
 };
 
 /**
@@ -282,17 +241,7 @@ var setRelativeValues = function (member_eccentricity,
 var getAlignmentParts = function (alignment) {
 	var params = alignment.split("_");
 	ASSERT(params.length === 2, "Wrong alignment string");
-
-	var horizontal = params[0].charAt(0).toUpperCase() + params[0].slice(1);
-	var vertical = params[1].charAt(0).toUpperCase() + params[1].slice(1);
-	if (horizontal !== "Middle") {
-		horizontal += (horizontal === "Left") ? " (-y)" : " (+y)";
-	}
-	if (vertical !== "Middle") {
-		vertical += (vertical === "Top") ? " (-z)" : " (+z)";
-	}
-
-	return [horizontal, vertical];
+	return params;
 };
 
 /**
@@ -323,3 +272,31 @@ var setAbsoluteValues = function (member_eccentricity,
 		member_eccentricity.coordinate_system = coordinate_system;
 	}
 };
+
+function GetMemberEccentricitySectionAlignment(section_alignment) {
+	const section_alignments_dict = {
+        "ALIGN_LEFT": member_eccentricities.ALIGN_LEFT,
+		"ALIGN_MIDDLE": member_eccentricities.ALIGN_MIDDLE,
+		"ALIGN_RIGHT": member_eccentricities.ALIGN_RIGHT,
+		"ALIGN_TOP": member_eccentricities.ALIGN_TOP,
+		"ALIGN_MIDDLE": member_eccentricities.ALIGN_MIDDLE,
+		"ALIGN_BOTTOM": member_eccentricities.ALIGN_BOTTOM
+	};
+
+	if (section_alignment === "ALIGN_CENTER") {
+		section_alignment = "ALIGN_MIDDLE";
+	}
+
+	if (section_alignment !== undefined) {
+	  var alignment = section_alignments_dict[section_alignment];
+	  if (alignment === undefined) {
+		console.log("Wrong alignment type. Value was: " + section_alignment);
+		console.log("Correct values are: ( " + Object.keys(section_alignments_dict) + ")");
+		alignment = member_eccentricities.ALIGN_LEFT;
+	  }
+	  return alignment;
+	}
+	else {
+	  return member_eccentricities.ALIGN_LEFT;
+	}
+}
