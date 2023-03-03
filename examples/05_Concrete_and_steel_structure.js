@@ -47,10 +47,10 @@ Node(16, a1 + a2, b1, -H2);
 Node(17, a1, b1 + b2, -H2);
 Node(18, a1 + a2, b1 + b2, -H2);
 var nod = new Node();
-nod.BetweenTwoNodes(19, 15, 16, "", [true, 33.33]);
-nod.BetweenTwoNodes(20, 15, 16, "", [true, 66.66]);
-nod.BetweenTwoNodes(21, 17, 18, "", [true, 33.33]);
-nod.BetweenTwoNodes(22, 17, 18, "", [true, 66.66]);
+nod.BetweenTwoNodes(19, 15, 16, undefined, [true, 33.33]);
+nod.BetweenTwoNodes(20, 15, 16, undefined, [true, 66.66]);
+nod.BetweenTwoNodes(21, 17, 18, undefined, [true, 33.33]);
+nod.BetweenTwoNodes(22, 17, 18, undefined, [true, 66.66]);
 
 // Create lines
 new Line(1, [1, 4]);
@@ -102,13 +102,13 @@ mem.Beam(8, 12, 3);
 mem.Beam(9, 21, 3);
 
 var memberEccentricity = new MemberEccentricity();
-memberEccentricity.RelativeToSection(1, [9], [9], "SECTION_ALIGNMENT_CENTER_TOP");
-memberEccentricity.TransverseOffsetMember(3, "SECTION_ALIGNMENT_CENTER_BOTTOM", 15);
+memberEccentricity.RelativeToSection(1, [9], [9], "CENTER_TOP");
+memberEccentricity.TransverseOffsetMember(3, "CENTER_BOTTOM", 15);
 
 // Create hinge
 var memberHinge = new MemberHinge();
 // memberHinge.Translational(1, [3,4,5,6], [3,4,5,6], [false,0],[false,0],[false,0]);
-memberHinge.Rotational(1, [3,4,5,6], [3,4,5,6], [false,0],[true,0],[true,0]);
+memberHinge.Rotational(1, [3,4,5,6], [3,4,5,6], [false,"NONE"],[true,0],[true,0]);
 
 // Define Supports
 var nodalSupport = new NodalSupport(1,[5,7,8]);
@@ -120,4 +120,4 @@ lineSupport.Hinged();
 var SASGeometricallyLinear = new StaticAnalysisSettings()
 SASGeometricallyLinear.GeometricallyLinear(1, "MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "PLATE_BENDING_THEORY_KIRCHHOFF", [true, 2.0, 3.0, 4.0], [true, 5, true]);
 var LCSW = new LoadCase();
-LCSW.StaticAnalysis(1, "Static analysis", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_A_DOMESTIC_RESIDENTIAL_AREAS_QI_A", [true, 0, 0, 1.0]);
+LCSW.StaticAnalysis(1, "Static analysis", SASGeometricallyLinear.GetNo(), "IMPOSED_LOADS_CATEGORY_A_DOMESTIC_RESIDENTIAL_AREAS_QI_A", [true, 0, 0, 1.0]);

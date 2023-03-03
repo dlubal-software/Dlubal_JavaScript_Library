@@ -287,11 +287,12 @@ Thickness.prototype.ShapeOrthotropy = function (no,
     consideration_of_self_weight = typeof consideration_of_self_weight !== 'undefined' ? consideration_of_self_weight : [];
     parameters = typeof parameters !== 'undefined' ? parameters : [];
 
-    if (orthotropy_type == thicknesses.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS) {
+    this.thickness.orthotropy_type = GetThicknessOrthotropicType(orthotropy_type);
+
+    if (orthotropy_type == "EFFECTIVE_THICKNESS") {
         ASSERT(parameters.length == 2, "WARNING: The properties parameter needs to be of length 2. Kindly check list inputs for completeness and correctness.");
         this.thickness = engine.create_thickness(no);
         this.thickness.type = thicknesses.TYPE_SHAPE_ORTHOTROPY;
-        this.thickness.orthotropy_type = thicknesses.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS;
         this.thickness.shape_orthotropy_effective_thickness_x = parameters[0];
         this.thickness.shape_orthotropy_effective_thickness_y = parameters[1];
     }
@@ -300,7 +301,6 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         ASSERT(parameters.length == 3, "WARNING: The properties parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.");
         this.thickness = engine.create_thickness(no);
         this.thickness.type = thicknesses.TYPE_SHAPE_ORTHOTROPY;
-        this.thickness.orthotropy_type = thicknesses.ORTHOTROPIC_THICKNESS_TYPE_COUPLING;
         this.thickness.coupling_thickness = parameters[0];
         this.thickness.coupling_spacing = parameters[1];
         this.thickness.coupling_width = parameters[2];
@@ -310,7 +310,6 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         ASSERT(parameters.length == 4, "WARNING: The properties parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.");
         this.thickness = engine.create_thickness(no);
         this.thickness.type = thicknesses.TYPE_SHAPE_ORTHOTROPY;
-        this.thickness.orthotropy_type = thicknesses.ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE;
         this.thickness.slab_thickness = parameters[0];
         this.thickness.rib_height = parameters[1];
         this.thickness.rib_spacing = parameters[2];
@@ -321,7 +320,6 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         ASSERT(parameters.length == 7, "WARNING: The properties parameter needs to be of length 7. Kindly check list inputs for completeness and correctness.");
         this.thickness = engine.create_thickness(no);
         this.thickness.type = thicknesses.TYPE_SHAPE_ORTHOTROPY;
-        this.thickness.orthotropy_type = thicknesses.ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE;
         this.thickness.slab_thickness = parameters[0];
         this.thickness.rib_height_x = parameters[1];
         this.thickness.rib_height_y = parameters[2];
@@ -335,7 +333,6 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         ASSERT(parameters.length == 5, "WARNING: The properties parameter needs to be of length 5. Kindly check list inputs for completeness and correctness.");
         this.thickness = engine.create_thickness(no);
         this.thickness.type = thicknesses.TYPE_SHAPE_ORTHOTROPY;
-        this.thickness.orthotropy_type = thicknesses.ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET;
         this.thickness.sheet_thickness = parameters[0];
         this.thickness.total_profile_height = parameters[1];
         this.thickness.rib_spacing = parameters[2];
@@ -347,7 +344,6 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         ASSERT(parameters.length == 3, "WARNING: The properties parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.");
         this.thickness = engine.create_thickness(no);
         this.thickness.type = thicknesses.TYPE_SHAPE_ORTHOTROPY;
-        this.thickness.orthotropy_type = thicknesses.ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB;
         this.thickness.slab_thickness = parameters[0];
         this.thickness.void_spacing = parameters[1];
         this.thickness.void_diameter = parameters[2];
@@ -357,7 +353,6 @@ Thickness.prototype.ShapeOrthotropy = function (no,
         ASSERT(parameters.length == 5, "WARNING: The properties parameter needs to be of length 5. Kindly check list inputs for completeness and correctness.");
         this.thickness = engine.create_thickness(no);
         this.thickness.type = thicknesses.TYPE_SHAPE_ORTHOTROPY;
-        this.thickness.orthotropy_type = thicknesses.ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE;
         this.thickness.slab_thickness = parameters[0];
         this.thickness.rib_spacing_x = parameters[1];
         this.thickness.rib_spacing_y = parameters[2];
@@ -479,3 +474,28 @@ Thickness.prototype.GetNo = function () {
 Thickness.prototype.GetThickness = function () {
     return this.thickness;
 };
+
+function GetThicknessOrthotropicType(orthotropic_type) {
+	const orthotropic_types_dict = {
+        "EFFECTIVE_THICKNESS": thicknesses.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS,
+        "COUPLING": thicknesses.ORTHOTROPIC_THICKNESS_TYPE_COUPLING,
+        "UNIDIRECTIONAL_RIBBED_PLATE": thicknesses.ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE,
+        "BIDIRECTIONAL_RIBBED_PLATE": thicknesses.ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE,
+        "TRAPEZOIDAL_SHEET": thicknesses.ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET,
+        "HOLLOW_CORE_SLAB": thicknesses.ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB,
+        "GRILLAGE": thicknesses.ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE
+	};
+
+	if (orthotropic_type !== undefined) {
+	  var type = orthotropic_types_dict[orthotropic_type];
+	  if (type === undefined) {
+		console.log("Wrong thickness orthotropic type. Value was: " + orthotropic_type);
+		console.log("Correct values are: ( " + Object.keys(orthotropic_types_dict) + ")");
+		type = thicknesses.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS;
+	  }
+	  return type;
+	}
+	else {
+	  return thicknesses.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS;
+	}
+}

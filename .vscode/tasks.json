@@ -27,6 +27,15 @@
             "problemMatcher": [
                 "$pester"
             ]
+        },
+        {
+            "label": "CopyFilesFromMainAppRepo",
+            "command": "PowerShellScripts/CopyFilesFromMainGitRepo.ps1",
+            "type": "shell",
+            "args": [],
+            "problemMatcher": [
+                "$pester"
+            ]
         }
     ]
 }

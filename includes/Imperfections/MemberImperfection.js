@@ -396,6 +396,39 @@ MemberImperfection.prototype.GB_50017_2017 = function (buckling_curve) {
 };
 
 /**
+ * Sets reference to list of members
+ * @param {Boolean} enable Can be undefined (true as default)
+ */
+MemberImperfection.prototype.ReferenceToListOfMembers = function (enable) {
+    if (typeof enable === "undefined") {
+        enable = true;
+    }
+    this.memberImperfection.reference_to_list_of_members = enable;
+};
+
+/**
+ * Sets refer distance to the member end
+ * @param {Boolean} enable Can be undefined (true as default)
+ */
+MemberImperfection.prototype.RefereDistanceToTheMemberEnd = function (enable) {
+    if (typeof enable === "undefined") {
+        enable = true;
+    }
+    this.memberImperfection.refer_distance_from_objects_to_assign = enable;
+};
+
+/**
+ * Sets imperfection over total length of member
+ * @param {Boolean} enable Can be undefined (true as default)
+ */
+MemberImperfection.prototype.ImperfectionOverTotalLength = function (enable) {
+    if (typeof enable === "undefined") {
+        enable = true;
+    }
+    this.memberImperfection.imperfection_over_total_length_of_objects_to_assign = enable;
+};
+
+/**
  * @returns Member imperfection object
  */
 MemberImperfection.prototype.GetMemberImperfection = function () {

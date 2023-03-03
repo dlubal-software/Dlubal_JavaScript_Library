@@ -200,7 +200,7 @@ FreeRectangularLoad.prototype.Uniform = function (no,
 	params) {
 	this.load = createBaseLoad("Free_Rectangular_Load", no, load_case, surfaces, comment, params);
 	this.load = setFreeRectangularLoadParameters(this.load, free_rectangular_loads.LOAD_DISTRIBUTION_UNIFORM, load_values);
-	this.load = setCommonFreeLoadsValues(this.load, load_projection, load_direction, load_acting_region_from, load_acting_region_to);
+	this.load = setCommonFreeLoadsValues(this.load, load_projection, GetFreeRectangularLoadDirectionType(free_rectangular_loads.LOAD_DISTRIBUTION_UNIFORM, load_direction), load_acting_region_from, load_acting_region_to);
 
 	return this.load;
 };
@@ -231,7 +231,7 @@ FreeRectangularLoad.prototype.LinearX = function (no,
 	params) {
 	this.load = createBaseLoad("Free_Rectangular_Load", no, load_case, surfaces, comment, params);
 	this.load = setFreeRectangularLoadParameters(this.load, free_rectangular_loads.LOAD_DISTRIBUTION_LINEAR_FIRST, load_values);
-	this.load = setCommonFreeLoadsValues(this.load, load_projection, load_direction, load_acting_region_from, load_acting_region_to);
+	this.load = setCommonFreeLoadsValues(this.load, load_projection, GetFreeRectangularLoadDirectionType(free_rectangular_loads.LOAD_DISTRIBUTION_LINEAR_FIRST, load_direction), load_acting_region_from, load_acting_region_to);
 
 	return this.load;
 };
@@ -262,7 +262,7 @@ FreeRectangularLoad.prototype.LinearY = function (no,
 	params) {
 	this.load = createBaseLoad("Free_Rectangular_Load", no, load_case, surfaces, comment, params);
 	this.load = setFreeRectangularLoadParameters(this.load, free_rectangular_loads.LOAD_DISTRIBUTION_LINEAR_SECOND, load_values);
-	this.load = setCommonFreeLoadsValues(this.load, load_projection, load_direction, load_acting_region_from, load_acting_region_to);
+	this.load = setCommonFreeLoadsValues(this.load, load_projection, GetFreeRectangularLoadDirectionType(free_rectangular_loads.LOAD_DISTRIBUTION_LINEAR_SECOND, load_direction), load_acting_region_from, load_acting_region_to);
 
 	return this.load;
 };
@@ -293,7 +293,7 @@ FreeRectangularLoad.prototype.VaryingZ = function (no,
 	params) {
 	this.load = createBaseLoad("Free_Rectangular_Load", no, load_case, surfaces, comment, params);
 	this.load = setFreeRectangularLoadParameters(this.load, free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z, load_values);
-	this.load = setCommonFreeLoadsValues(this.load, load_projection, load_direction, load_acting_region_from, load_acting_region_to);
+	this.load = setCommonFreeLoadsValues(this.load, load_projection, GetFreeRectangularLoadDirectionType(free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z, load_direction), load_acting_region_from, load_acting_region_to);
 
 	return this.load;
 };
@@ -324,7 +324,7 @@ FreeRectangularLoad.prototype.VaryingPerimeter = function (no,
 	params) {
 	this.load = createBaseLoad("Free_Rectangular_Load", no, load_case, surfaces, comment, params);
 	this.load = setFreeRectangularLoadParameters(this.load, free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER, load_values);
-	this.load = setCommonFreeLoadsValues(this.load, load_projection, load_direction, load_acting_region_from, load_acting_region_to);
+	this.load = setCommonFreeLoadsValues(this.load, load_projection, GetFreeRectangularLoadDirectionType(free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER, load_direction), load_acting_region_from, load_acting_region_to);
 
 	return this.load;
 };
@@ -355,7 +355,42 @@ FreeRectangularLoad.prototype.VaryingZAndPerimeter = function (no,
 	params) {
 	this.load = createBaseLoad("Free_Rectangular_Load", no, load_case, surfaces, comment, params);
 	this.load = setFreeRectangularLoadParameters(this.load, free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER, load_values);
-	this.load = setCommonFreeLoadsValues(this.load, load_projection, load_direction, load_acting_region_from, load_acting_region_to);
+	this.load = setCommonFreeLoadsValues(this.load, load_projection, GetFreeRectangularLoadDirectionType(free_rectangular_loads.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER, load_direction), load_acting_region_from, load_acting_region_to);
 
 	return this.load;
 };
+
+function GetFreeRectangularLoadDirectionType(load_distribution, direction_type) {
+	var direction_types_dict = {
+		"LOCAL_X": free_rectangular_loads.LOAD_DIRECTION_LOCAL_X,
+		"LOCAL_Y": free_rectangular_loads.LOAD_DIRECTION_LOCAL_Y,
+		"LOCAL_Z": free_rectangular_loads.LOAD_DIRECTION_LOCAL_Z,
+		"GLOBAL_X_TRUE": free_rectangular_loads.LOAD_DIRECTION_GLOBAL_X_TRUE,
+		"GLOBAL_Y_TRUE": free_rectangular_loads.LOAD_DIRECTION_GLOBAL_Y_TRUE,
+		"GLOBAL_Z_TRUE": free_rectangular_loads.LOAD_DIRECTION_GLOBAL_Z_TRUE,
+		"GLOBAL_X_PROJECTED": free_rectangular_loads.LOAD_DIRECTION_GLOBAL_X_PROJECTED,
+		"GLOBAL_Y_PROJECTED": free_rectangular_loads.LOAD_DIRECTION_GLOBAL_Y_PROJECTED,
+		"GLOBAL_Z_PROJECTED": free_rectangular_loads.LOAD_DIRECTION_GLOBAL_Z_PROJECTED
+	};
+
+	if (load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_UNIFORM || load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_LINEAR_FIRST ||
+		load_distribution === free_rectangular_loads.LOAD_DISTRIBUTION_LINEAR_SECOND) {
+			direction_types_dict["USER_DEFINED_U_TRUE"] = free_rectangular_loads.LOAD_DIRECTION_USER_DEFINED_U_TRUE;
+			direction_types_dict["USER_DEFINED_V_TRUE"] = free_rectangular_loads.LOAD_DIRECTION_USER_DEFINED_V_TRUE;
+			direction_types_dict["USER_DEFINED_W_TRUE"] = free_rectangular_loads.LOAD_DIRECTION_USER_DEFINED_W_TRUE;
+			direction_types_dict["USER_DEFINED_U_PROJECTED"] = free_rectangular_loads.LOAD_DIRECTION_USER_DEFINED_U_PROJECTED;
+			direction_types_dict["USER_DEFINED_V_PROJECTED"] = free_rectangular_loads.LOAD_DIRECTION_USER_DEFINED_V_PROJECTED;
+			direction_types_dict["USER_DEFINED_W_PROJECTED"] = free_rectangular_loads.LOAD_DIRECTION_USER_DEFINED_W_PROJECTED;
+		}
+
+	if (typeof direction_type !== "undefined") {
+		var type = direction_types_dict[direction_type];
+		if (type === "undefined") {
+		  console.log("Wrong direction type. Value was: " + direction_type);
+		  console.log("Correct values are: ( " + Object.keys(direction_types_dict) + ")");
+		  type = free_circular_loads.LOAD_DIRECTION_GLOBAL_Z_TRUE;
+		}
+		return type;
+	}
+	return free_circular_loads.LOAD_DIRECTION_GLOBAL_Z_TRUE;
+}

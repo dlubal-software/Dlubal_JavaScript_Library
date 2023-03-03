@@ -47,7 +47,7 @@ MemberSetLoad.prototype.Force = function (no,
 	this.load = setMemberLoadDistribution(this.load, member_set_loads.LOAD_TYPE_FORCE, load_distribution, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = GetMemberSetLoadDirectionType(member_set_loads.LOAD_TYPE_FORCE, load_direction);
 	}
 
 	return this.load;
@@ -77,7 +77,7 @@ MemberSetLoad.prototype.Moment = function (no,
 	this.load = setMemberLoadDistribution(this.load, member_set_loads.LOAD_TYPE_MOMENT, load_distribution, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = GetMemberSetLoadDirectionType(member_set_loads.LOAD_TYPE_MOMENT, direction_type);
 	}
 
 	return this.load;
@@ -129,7 +129,7 @@ MemberSetLoad.prototype.Temperature = function (no,
 	this.load = setMemberLoadDistribution(this.load, member_set_loads.LOAD_TYPE_TEMPERATURE, load_distribution, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = GetMemberSetLoadDirectionType(member_set_loads.LOAD_TYPE_TEMPERATURE, load_direction);
 	}
 
 	return this.load;
@@ -159,7 +159,7 @@ MemberSetLoad.prototype.TemperatureChange = function (no,
 	this.load = setMemberLoadDistribution(this.load, member_set_loads.LOAD_TYPE_TEMPERATURE_CHANGE, load_distribution, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = GetMemberSetLoadDirectionType(member_set_loads.LOAD_TYPE_TEMPERATURE_CHANGE, load_direction);
 	}
 
 	return this.load;
@@ -236,7 +236,7 @@ MemberSetLoad.prototype.Precamber = function (no,
 	this.load = setMemberLoadDistribution(this.load, member_set_loads.LOAD_TYPE_PRECAMBER, load_distribution, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = GetMemberSetLoadDirectionType(member_set_loads.LOAD_TYPE_PRECAMBER, load_direction);
 	}
 
 	return this.load;
@@ -288,7 +288,7 @@ MemberSetLoad.prototype.Displacement = function (no,
 	this.load = setMemberLoadDistribution(this.load, member_set_loads.LOAD_TYPE_DISPLACEMENT, load_distribution, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = GetMemberSetLoadDirectionType(member_set_loads.LOAD_TYPE_DISPLACEMENT, load_direction);
 	}
 
 	return this.load;
@@ -318,7 +318,7 @@ MemberSetLoad.prototype.Rotation = function (no,
 	this.load = setMemberLoadDistribution(this.load, member_set_loads.LOAD_TYPE_ROTATION, load_distribution, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = GetMemberSetLoadDirectionType(member_set_loads.LOAD_TYPE_ROTATION, load_direction);
 	}
 
 	return this.load;
@@ -346,7 +346,7 @@ MemberSetLoad.prototype.PipeContentFull = function (no,
 	this.load = setMemberLoadDistribution(this.load, member_set_loads.LOAD_TYPE_PIPE_CONTENT_FULL, undefined, [load_value]);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = SetMemberSetLoadDirectionTypeWithDirectionOrientation(this.load, load_direction);
 	}
 
 	return this.load;
@@ -374,7 +374,7 @@ MemberSetLoad.prototype.PipeContentPartial = function (no,
 	this.load = setMemberLoadDistribution(this.load, member_set_loads.LOAD_TYPE_PIPE_CONTENT_PARTIAL, undefined, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = SetMemberSetLoadDirectionTypeWithDirectionOrientation(this.load, load_direction);
 	}
 
 	return this.load;
@@ -550,3 +550,57 @@ MemberSetLoad.prototype.IndividualMassComponents = function (MX,
 		this.load.mass_z = MZ;
 	}
 };
+
+function GetMemberSetLoadDirectionType(load_type, direction_type) {
+	var direction_types_dict = {};
+	switch (load_type)
+	{
+		case member_loads.LOAD_TYPE_FORCE:
+			direction_types_dict = {
+				"GLOBAL_X_OR_USER_DEFINED_U_TRUE": member_set_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE,
+				"GLOBAL_Y_OR_USER_DEFINED_V_TRUE": member_set_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,
+				"GLOBAL_Z_OR_USER_DEFINED_W_TRUE": member_set_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
+				"GLOBAL_X_OR_USER_DEFINED_U_PROJECTED": member_set_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED,
+				"GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED": member_set_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED,
+				"GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED": member_set_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED
+			}
+			break;
+		case member_loads.LOAD_TYPE_MOMENT:
+		case member_loads.LOAD_TYPE_ROTATION:
+			direction_types_dict = {
+				"GLOBAL_X_OR_USER_DEFINED_U_TRUE": member_set_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE,
+				"GLOBAL_Y_OR_USER_DEFINED_V_TRUE": member_set_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,
+				"GLOBAL_Z_OR_USER_DEFINED_W_TRUE": member_set_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE
+			};
+			break;
+		case member_loads.LOAD_TYPE_TEMPERATURE:
+		case member_loads.LOAD_TYPE_TEMPERATURE_CHANGE:
+		case member_loads.LOAD_TYPE_PRECAMBER:
+			direction_types_dict = {
+				"LOCAL_Y": member_loads.LOAD_DIRECTION_LOCAL_Y,
+				"LOCAL_Z": member_loads.LOAD_DIRECTION_LOCAL_Z
+			};
+			break;
+	}
+
+	var type = direction_types_dict[direction_type];
+	if (type === undefined) {
+	  console.log("Wrong direction type. Value was: " + direction_type);
+	  console.log("Correct values are: ( " + Object.keys(direction_types_dict) + ")");
+	}
+	return type;
+}
+
+function SetMemberSetLoadDirectionTypeWithDirectionOrientation(member_load, direction_type) {
+	switch (member_load.load_type)
+	{
+		case member_loads.LOAD_TYPE_PIPE_CONTENT_FULL:
+		case member_loads.LOAD_TYPE_PIPE_CONTENT_PARTIAL:
+			ASSERT(direction_type === "+ZL" || direction_type === "-ZL");
+			member_load.load_direction_orientation = direction_type[0];
+			member_load.load_direction = member_set_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE;
+			break;
+		default:
+			ASSERT(false);
+	}
+}

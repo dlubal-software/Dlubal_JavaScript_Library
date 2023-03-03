@@ -37,9 +37,9 @@ surfaceStiffnessModification.StiffnessMatrixElementsFactors(no++, 1, [1.1, 1.2, 
 surfaceStiffnessModification.StiffnessMatrixElementsFactors(no++, 1, undefined, [1.1, 1.2, 1.3]);	// Shear stiffness elements
 surfaceStiffnessModification.StiffnessMatrixElementsFactors(no++, 1, undefined, undefined, [1.01, 1.02, 1.03, 1.04, 1.1, 1.12]);	// Membrane stiffness elements
 surfaceStiffnessModification.StiffnessMatrixElementsFactors(no++, 1, undefined, undefined, undefined, [1.01, 1.02, 1.03, 1.04, 1.1, 1.12]);	// Eccentric stiffness elements
-surfaceStiffnessModification.ConcreteStructuresACI(no++, 1, undefined);	// With default column component type
-surfaceStiffnessModification.ConcreteStructuresACI(no++, 1, 3);	// Walls cracked component type
-surfaceStiffnessModification.ConcreteStructuresCSA(no++, 1, 3);	// Beams component type
+surfaceStiffnessModification.ConcreteStructuresACI(no++, 1);	// With default WALLS_UNCRACKED component type
+surfaceStiffnessModification.ConcreteStructuresACI(no++, 1, "WALLS_CRACKED");
+surfaceStiffnessModification.ConcreteStructuresCSA(no++, 1, "PLATES_AND_FLAT_SLABS");
 /*********************************************************************************************/
 
 /**********************************Surface mesh refinement************************************/

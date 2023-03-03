@@ -211,14 +211,13 @@ var setAxisAndOrientation = function (load,
 	return false;
 };
 
-var setRotaryMotionLoad = function (load,
+var setRotaryMotionLoad = function (load_type,
+	load,
 	load_values) {
-	ASSERT(load_values.length >= 4, "Wrong number of load parameters, at least four values are required (type of axes definition, ω, α, [Node1] | XA)");
-	load.axis_definition_type = load_values[0] === 1 ? member_loads.AXIS_DEFINITION_TWO_POINTS : member_loads.AXIS_DEFINITION_POINT_AND_AXIS;
+	ASSERT(load_values.length >= 4, "Wrong number of load parameters, at least four values are required (type of axes definition, ω, α, [Node1] or XA)");
+	load.axis_definition_type = GetLoadAxisDefinitionType(load_type, load_values[0]);
 	load.angular_velocity = load_values[1];
 	load.angular_acceleration = load_values[2];
-	var TWO_POINTS = "1";
-	var POINT_AND_PARALLEL = "2";
 	if (Array.isArray(load_values[3])) // Axis coordinations are defined by list of nodes
 	{
 		// Fourth parameter is list of nodes
@@ -227,13 +226,13 @@ var setRotaryMotionLoad = function (load,
 		load.axis_definition_p1 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
 
 		// If axis definition is "Two points" and there are two axis coordinations
-		if (load_values[0] === TWO_POINTS && load_values[3].length === 2) {
+		if (load_values[0] === "TWO_POINTS" && load_values[3].length === 2) {
 			node = nodes.getNthObject(load_values[3][1]);
 			load.axis_definition_p2 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
 		}
 
 		// load_values = [axis_definition, ω, α, [Node1], parallel_axis]
-		if (load_values[0] === POINT_AND_PARALLEL && load_values.length >= 5) {
+		if (load_values[0] === "POINT_AND_AXIS" && load_values.length >= 5) {
 			// Parallel axis is defined
 			setAxisAndOrientation(load, load_values[4]);
 		}
@@ -244,14 +243,14 @@ var setRotaryMotionLoad = function (load,
 		ASSERT(load_values.length >= 6, "Wrong number of load parameters, at least six values are required (axes definition, ω, α, XA, YA, ZA)");
 		load.axis_definition_p1 = $V(load_values[3], load_values[4], load_values[5]);
 
-		if (load_values[0] === TWO_POINTS && load_values.length > 6) {
+		if (load_values[0] === "TWO_POINTS" && load_values.length > 6) {
 			// Coordinates of second axis point is defined
 			ASSERT(load_values.length === 9, "Wrong number of parameters, nine values are required (axis definition, ω, α, XA, YA, ZA, XB, YB, ZB)");
 			load.axis_definition_p2 = $V(load_values[6], load_values[7], load_values[8]);
 		}
 
 		// load_values = [axis_definition, ω, α, XA, YA, ZA, parallel_axis]
-		if (load_values[0] === POINT_AND_PARALLEL && load_values.length >= 7) {
+		if (load_values[0] === "POINT_AND_AXIS" && load_values.length >= 7) {
 			// Parallel axis is defined
 			setAxisAndOrientation(load, load_values[6]);
 		}
@@ -296,14 +295,29 @@ var setLineLoadDistribution = function (load,
 	load_values) {
 	load.load_type = load_type;
 
+	const line_load_distributions_dict = {
+		"UNIFORM": line_loads.LOAD_DISTRIBUTION_UNIFORM,
+		"UNIFORM_TOTAL": line_loads.LOAD_DISTRIBUTION_UNIFORM_TOTAL,
+		"CONCENTRATED_1": line_loads.LOAD_DISTRIBUTION_CONCENTRATED_1,
+		"CONCENTRATED_N": line_loads.LOAD_DISTRIBUTION_CONCENTRATED_N,
+		"CONCENTRATED_2x2": line_loads.LOAD_DISTRIBUTION_CONCENTRATED_2x2,
+		"CONCENTRATED_2": line_loads.LOAD_DISTRIBUTION_CONCENTRATED_2,
+		"CONCENTRATED_VARYING": line_loads.LOAD_DISTRIBUTION_CONCENTRATED_VARYING,
+		"TRAPEZOIDAL": line_loads.LOAD_DISTRIBUTION_TRAPEZOIDAL,
+		"TAPERED": line_loads.LOAD_DISTRIBUTION_TAPERED,
+		"PARABOLIC": line_loads.LOAD_DISTRIBUTION_PARABOLIC,
+		"VARYING": line_loads.LOAD_DISTRIBUTION_VARYING
+	};
+
+
 	if (typeof load_distribution !== "undefined") {
-		load.load_distribution = load_distribution;
+		load.load_distribution = GetLoadDistributionType(line_load_distributions_dict, load_distribution);
 	}
 
 	switch (load_type) {
 		case line_loads.LOAD_TYPE_FORCE:
 		case line_loads.LOAD_TYPE_MOMENT:
-			switch (load_distribution) {
+			switch (load.load_distribution) {
 				case line_loads.LOAD_DISTRIBUTION_UNIFORM:
 				case line_loads.LOAD_DISTRIBUTION_UNIFORM_TOTAL:
 					ASSERT(load_values.length === 1, "Wrong number of load parameters, one value is required (p)");
@@ -437,8 +451,8 @@ var setLineLoadDistribution = function (load,
 *										- "Pipe Content - Full" / "Uniform": γ
 *										- "Pipe Content - Partial" / "Uniform": [γ, d]
 *										- "Pipe Internal Pressure" / "Uniform": p
-*										- "Rotary Motion": [axis_definition, ω, α, [Node1, Node2] | XA, YA, ZA, XB, YB, ZB] (axis definition 1 === "Two points")
-*														   [axis_definition, ω, α, ([Node1] | XA, YA, ZA), parallel_axis] (axis definition 2 === "Point and axis")
+*										- "Rotary Motion": [axis_definition, ω, α, [Node1, Node2] or XA, YA, ZA, XB, YB, ZB] (axis definition 1 === "Two points")
+*														   [axis_definition, ω, α, ([Node1] or XA, YA, ZA), parallel_axis] (axis definition 2 === "Point and axis")
 * @return	{Object}	Returns modified load
 */
 var setMemberLoadDistribution = function (load,
@@ -447,8 +461,23 @@ var setMemberLoadDistribution = function (load,
 	load_values) {
 	load.load_type = load_type;
 
+	const member_load_distributions_dict = {
+		"UNIFORM": member_loads.LOAD_DISTRIBUTION_UNIFORM,
+		"UNIFORM_TOTAL": member_loads.LOAD_DISTRIBUTION_UNIFORM_TOTAL,
+		"CONCENTRATED_1": member_loads.LOAD_DISTRIBUTION_CONCENTRATED_1,
+		"CONCENTRATED_N": member_loads.LOAD_DISTRIBUTION_CONCENTRATED_N,
+		"CONCENTRATED_2x2": member_loads.LOAD_DISTRIBUTION_CONCENTRATED_2x2,
+		"CONCENTRATED_2": member_loads.LOAD_DISTRIBUTION_CONCENTRATED_2,
+		"CONCENTRATED_VARYING": member_loads.LOAD_DISTRIBUTION_CONCENTRATED_VARYING,
+		"TRAPEZOIDAL": member_loads.LOAD_DISTRIBUTION_TRAPEZOIDAL,
+		"TAPERED": member_loads.LOAD_DISTRIBUTION_TAPERED,
+		"PARABOLIC": member_loads.LOAD_DISTRIBUTION_PARABOLIC,
+		"VARYING": member_loads.LOAD_DISTRIBUTION_VARYING,
+		"VARYING_IN_Z": member_loads.LOAD_DISTRIBUTION_VARYING_IN_Z
+	};
+
 	if (typeof load_distribution !== "undefined") {
-		load.load_distribution = load_distribution;
+		load.load_distribution = GetLoadDistributionType(member_load_distributions_dict, load_distribution);
 	}
 
 	switch (load_type) {
@@ -458,7 +487,7 @@ var setMemberLoadDistribution = function (load,
 		case member_loads.LOAD_TYPE_PRECAMBER:
 		case member_loads.LOAD_TYPE_DISPLACEMENT:
 		case member_loads.LOAD_TYPE_ROTATION:
-			switch (load_distribution) {
+			switch (load.load_distribution) {
 				case member_loads.LOAD_DISTRIBUTION_UNIFORM:
 				case member_loads.LOAD_DISTRIBUTION_UNIFORM_TOTAL:
 					ASSERT(load_values.length === 1, "Wrong number of load parameters, one value is required (p)");
@@ -507,11 +536,11 @@ var setMemberLoadDistribution = function (load,
 			break;
 		case member_loads.E_TYPE_MASS:
 			ASSERT(load_values.length === 1, "Wrong number of load parameters, one value is required (M)");
-			ASSERT(load_distribution === LOAD_DISTRIBUTION_UNIFORM, "Mass load has only uniform distribution");
+			ASSERT(load_distribution === "UNIFORM", "Mass load has only uniform distribution");
 			setLoadValues(load, load_values, "mass_global");
 			break;
 		case member_loads.LOAD_TYPE_TEMPERATURE:
-			switch (load_distribution) {
+			switch (load.load_distribution) {
 				case member_loads.LOAD_DISTRIBUTION_UNIFORM:
 					ASSERT(load_values.length >= 1, "Wrong number of load parameters, at least one value is required (Tt or Tb)");
 					setLoadValues(load, load_values, "magnitude_t_t", "magnitude_t_b");
@@ -539,7 +568,7 @@ var setMemberLoadDistribution = function (load,
 			}
 			break;
 		case member_loads.LOAD_TYPE_TEMPERATURE_CHANGE:
-			switch (load_distribution) {
+			switch (load.load_distribution) {
 				case member_loads.LOAD_DISTRIBUTION_UNIFORM:
 					ASSERT(load_values.length >= 1, "Wrong number of load parameters, at least one value is required (Tc)");
 					setLoadValues(load, load_values, "magnitude_t_c", "magnitude_delta_t");
@@ -572,7 +601,7 @@ var setMemberLoadDistribution = function (load,
 		case member_loads.LOAD_TYPE_PIPE_CONTENT_FULL:
 		case member_loads.LOAD_TYPE_PIPE_CONTENT_PARTIAL:
 		case member_loads.LOAD_TYPE_PIPE_INTERNAL_PRESSURE:
-			ASSERT(load_distribution === LOAD_DISTRIBUTION_UNIFORM, "Load has only uniform distribution");
+			ASSERT(load_distribution === undefined, "Load has only uniform distribution");
 			if (load_type === member_loads.LOAD_TYPE_AXIAL_DISPLACEMENT) {
 				ASSERT(load_values.length === 1, "Wrong number of load parameters, one value is required (Δl)");
 			}
@@ -597,7 +626,7 @@ var setMemberLoadDistribution = function (load,
 			}
 			break;
 		case member_loads.LOAD_TYPE_ROTARY_MOTION:
-			setRotaryMotionLoad(load, load_values);
+			setRotaryMotionLoad("member", load, load_values);
 			break;
 		default:
 			showLoadAssert(load_type);
@@ -618,24 +647,24 @@ var setMemberLoadDistribution = function (load,
 *										- "Force: / "Linear in X": [Node1, Node2, p1, p2]
 *										- "Force" / "Linear in Y": [Node1, Node2, p1, p2]
 *										- "Force" / "Linear in Z": [Node1, Node2, p1, p2]
-*										- "Force" / "Radial": [axis_definition, p1, p2, Node1, Node2, [Node1, Node2] | XA, YA, ZA, XB, YB, ZB] (axis definition 1 === "Two points")
-*														   	  [axis_definition, p1, p2, Node1, Node2, ([Node1] | XA, YA, ZA), parallel_axis] (axis definition 2 === "Point and axis")
+*										- "Force" / "Radial":	[axis_definition, p1, p2, Node1, Node2, [Node1, Node2] or XA, YA, ZA, XB, YB, ZB] (axis definition 1 === "Two points")
+																[axis_definition, p1, p2, Node1, Node2, ([Node1] or XA, YA, ZA), parallel_axis] (axis definition 2 === "Point and axis")
 *										- "Force" / "Varying in Z": [p1, z1, p2, z2, ... pn, zn]
 *										- "Temperature" / "Uniform": [Tc, ΔT]
 *										- "Temperature" / "Linear": [Node1, Node2, Node3, Tc1, Tc2, Tc3, ΔT1, ΔT2, ΔT3]
 *										- "Temperature" / "Linear in X": [Node1, Node2, Tc1, Tc2, ΔT1, ΔT2]
 *										- "Temperature" / "Linear in Y": [Node1, Node2, Tc1, Tc2, ΔT1, ΔT2]
 *										- "Temperature" / "Linear in Z": [Node1, Node2, Tc1, Tc2, ΔT1, ΔT2]
-*										- "Temperature" / "Radial": [axis_definition, Tc1, Tc2, ΔT1, ΔT2, Node1, Node2, [Node1, Node2] | XA, YA, ZA, XB, YB, ZB] (axis definition 1 === "Two points")
-*														   	  		[axis_definition, Tc1, Tc2, ΔT1, ΔT2, Node1, Node2, ([Node1] | XA, YA, ZA), parallel_axis] (axis definition 2 === "Point and axis")
+*										- "Temperature" / "Radial":	[axis_definition, Tc1, Tc2, ΔT1, ΔT2, Node1, Node2, [Node1, Node2] or XA, YA, ZA, XB, YB, ZB] (axis definition 1 === "Two points")
+																	[axis_definition, Tc1, Tc2, ΔT1, ΔT2, Node1, Node2, ([Node1] or XA, YA, ZA), parallel_axis] (axis definition 2 === "Point and axis")
 *										- "Axial Strain" / "Uniform": [εx, εy]
 *										- "Axial Strain" / "Linear": [Node1, Node2, Node3, ε1x, ε1y, ε2x, ε2y, ε3x, ε3y]
 *										- "Axial Strain" / "Linear in X": [Node1, Node2, ε1x, ε1y, ε2x, ε2y]
 *										- "Axial Strain" / "Linear in Y": [Node1, Node2, ε1x, ε1y, ε2x, ε2y]
 *										- "Axial Strain" / "Linear in Z": [Node1, Node2, ε1x, ε1y, ε2x, ε2y]
 *										- "Precamber" / "Uniform": [κ]
-*										- "Rotary Motion": [axis_definition, p1, p2, Node1, Node2, [Node1, Node2] | XA, YA, ZA, XB, YB, ZB] (axis definition 1 === "Two points")
-*														   [axis_definition, p1, p2, Node1, Node2, ([Node1] | XA, YA, ZA), parallel_axis] (axis definition 2 === "Point and axis")
+*										- "Rotary Motion": [axis_definition, p1, p2, Node1, Node2, [Node1, Node2] or XA, YA, ZA, XB, YB, ZB] (axis definition 1 === "Two points")
+*														   [axis_definition, p1, p2, Node1, Node2, ([Node1] or XA, YA, ZA), parallel_axis] (axis definition 2 === "Point and axis")
 *										- "Mass" / "Uniform": [M]
 * @return	{Object}	Returns modified load
 */
@@ -645,16 +674,23 @@ var setSurfaceLoadDistribution = function (load,
 	load_values) {
 	load.load_type = load_type;
 
-	if (typeof load_distribution !== "undefined") {
-		load.load_distribution = load_distribution;
-	}
+	const surface_load_distributions_dict = {
+		"UNIFORM": surface_loads.LOAD_DISTRIBUTION_UNIFORM,
+		"LINEAR": surface_loads.LOAD_DISTRIBUTION_LINEAR,
+		"LINEAR_IN_X": surface_loads.LOAD_DISTRIBUTION_LINEAR_IN_X,
+		"LINEAR_IN_Y": surface_loads.LOAD_DISTRIBUTION_LINEAR_IN_Y,
+		"LINEAR_IN_Z": surface_loads.LOAD_DISTRIBUTION_LINEAR_IN_Z,
+		"RADIAL": surface_loads.LOAD_DISTRIBUTION_RADIAL,
+		"VARYING_IN_Z": surface_loads.LOAD_DISTRIBUTION_VARYING_IN_Z
+	};
 
-	var TWO_POINTS = 1;
-	var POINT_AND_PARALLEL = 2;
+	if (typeof load_distribution !== "undefined") {
+		load.load_distribution = GetLoadDistributionType(surface_load_distributions_dict, load_distribution);
+	}
 
 	switch (load_type) {
 		case surface_loads.LOAD_TYPE_FORCE:
-			switch (load_distribution) {
+			switch (load.load_distribution) {
 				case surface_loads.LOAD_DISTRIBUTION_UNIFORM:
 					ASSERT(load_values.length === 1, "Wrong number of load parameters, one value is required (p)");
 					setLoadValues(load, load_values, "uniform_magnitude");
@@ -670,8 +706,8 @@ var setSurfaceLoadDistribution = function (load,
 					setLoadValues(load, load_values, "node_1", "node_2", "magnitude_1", "magnitude_2");
 					break;
 				case surface_loads.LOAD_DISTRIBUTION_RADIAL:
-					ASSERT(load_values.length >= 6, "Wrong number of load parameters, at least six values are required (type of axes definition, p1, p2, Node1, Node2, [Node1] | XA)");
-					load.axis_definition_type = load_values[0] === 1 ? member_loads.AXIS_DEFINITION_TWO_POINTS : member_loads.AXIS_DEFINITION_POINT_AND_AXIS;
+					ASSERT(load_values.length >= 6, "Wrong number of load parameters, at least six values are required (type of axes definition, p1, p2, Node1, Node2, [Node1] or XA)");
+					load.axis_definition_type = GetLoadAxisDefinitionType("surface", load_values[0]);
 					load.magnitude_1 = load_values[1];
 					load.magnitude_2 = load_values[2];
 					load.node_1 = load_values[3];
@@ -684,13 +720,13 @@ var setSurfaceLoadDistribution = function (load,
 						load.axis_definition_p1 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
 
 						// If axis definition is "Two points" and there are two axis coordinations
-						if (load_values[0] === TWO_POINTS && load_values[5].length === 2) {
+						if (load_values[0] === "TWO_POINTS" && load_values[5].length === 2) {
 							node = nodes.getNthObject(load_values[5][1]);
 							load.axis_definition_p2 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
 						}
 
 						// load_values = [axis_definition, ω, α, [Node1], parallel_axis]
-						if (load_values[0] === POINT_AND_PARALLEL && load_values.length >= 7) {
+						if (load_values[0] === "POINT_AND_AXIS" && load_values.length >= 7) {
 							// Parallel axis is defined
 							setAxis(load, load_values[6]);
 						}
@@ -701,14 +737,14 @@ var setSurfaceLoadDistribution = function (load,
 						ASSERT(load_values.length >= 8, "Wrong number of load parameters, at least six values are required (axes definition, p1, p2, Node1, Node2, XA, YA, ZA)");
 						load.axis_definition_p1 = $V(load_values[5], load_values[6], load_values[7]);
 
-						if (load_values[0] === TWO_POINTS && load_values.length > 8) {
+						if (load_values[0] === "TWO_POINTS" && load_values.length > 8) {
 							// Coordinates of second axis point is defined
 							ASSERT(load_values.length === 11, "Wrong number of parameters, nine values are required (axis definition, p1, p2, Node1, Node2, XA, YA, ZA, XB, YB, ZB)");
 							load.axis_definition_p2 = $V(load_values[8], load_values[9], load_values[10]);
 						}
 
 						// load_values = [axis_definition, p1, p2, Node1, Node2, XA, YA, ZA, parallel_axis]
-						if (load_values[0] === POINT_AND_PARALLEL && load_values.length >= 9) {
+						if (load_values[0] === "POINT_AND_AXIS" && load_values.length >= 9) {
 							// Parallel axis is defined
 							setAxis(load, load_values[8]);
 						}
@@ -726,7 +762,7 @@ var setSurfaceLoadDistribution = function (load,
 			}
 			break;
 		case surface_loads.LOAD_TYPE_TEMPERATURE:
-			switch (load_distribution) {
+			switch (load.load_distribution) {
 				case surface_loads.LOAD_DISTRIBUTION_UNIFORM:
 					ASSERT(load_values.length === 1, "Wrong number of load parameters, one value is required (Tc)");
 					setLoadValues(load, load_values, "uniform_magnitude_t_c", "uniform_magnitude_delta_t");
@@ -742,8 +778,8 @@ var setSurfaceLoadDistribution = function (load,
 					setLoadValues(load, load_values, "node_1", "node_2", "magnitude_t_c_1", "magnitude_t_c_2", "magnitude_delta_t_1", "magnitude_delta_t_2");
 					break;
 				case surface_loads.LOAD_DISTRIBUTION_RADIAL:
-					ASSERT(load_values.length >= 8, "Wrong number of load parameters, at least eight values are required (type of axes definition, Tc1, Tc2, ΔT1, ΔT2, Node1, Node2, [Node1] | XA)");
-					load.axis_definition_type = load_values[0] === 1 ? member_loads.AXIS_DEFINITION_TWO_POINTS : member_loads.AXIS_DEFINITION_POINT_AND_AXIS;
+					ASSERT(load_values.length >= 8, "Wrong number of load parameters, at least eight values are required (type of axes definition, Tc1, Tc2, ΔT1, ΔT2, Node1, Node2, [Node1] or XA)");
+					load.axis_definition_type = GetLoadAxisDefinitionType("surface", load_values[0]);
 					load.magnitude_t_c_1 = load_values[1];
 					load.magnitude_t_c_2 = load_values[2];
 					load.magnitude_delta_t_1 = load_values[3];
@@ -758,13 +794,13 @@ var setSurfaceLoadDistribution = function (load,
 						load.axis_definition_p1 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
 
 						// If axis definition is "Two points" and there are two axis coordinations
-						if (load_values[0] === TWO_POINTS && load_values[7].length === 2) {
+						if (load_values[0] === "TWO_POINTS" && load_values[7].length === 2) {
 							node = nodes.getNthObject(load_values[7][1]);
 							load.axis_definition_p2 = $V(node.coordinate_1, node.coordinate_2, node.coordinate_3);
 						}
 
 						// load_values = [axis_definition, ω, α, [Node1], parallel_axis]
-						if (load_values[0] === POINT_AND_PARALLEL && load_values.length >= 9) {
+						if (load_values[0] === "POINT_AND_AXIS" && load_values.length >= 9) {
 							// Parallel axis is defined
 							setAxis(load, load_values[8]);
 						}
@@ -775,14 +811,14 @@ var setSurfaceLoadDistribution = function (load,
 						ASSERT(load_values.length >= 10, "Wrong number of load parameters, at least ten values are required (axes definition, Tc1, Tc2, ΔT1, ΔT2, Node1, Node2, XA, YA, ZA)");
 						load.axis_definition_p1 = $V(load_values[7], load_values[8], load_values[9]);
 
-						if (load_values[0] === TWO_POINTS && load_values.length > 10) {
+						if (load_values[0] === "TWO_POINTS" && load_values.length > 10) {
 							// Coordinates of second axis point is defined
 							ASSERT(load_values.length === 13, "Wrong number of parameters, thirteen values are required (axis definition, Tc1, Tc2, ΔT1, ΔT2, Node1, Node2, XA, YA, ZA, XB, YB, ZB)");
 							load.axis_definition_p2 = $V(load_values[10], load_values[11], load_values[12]);
 						}
 
 						// load_values = [axis_definition, p1, p2, Node1, Node2, XA, YA, ZA, parallel_axis]
-						if (load_values[0] === POINT_AND_PARALLEL && load_values.length >= 11) {
+						if (load_values[0] === "POINT_AND_AXIS" && load_values.length >= 11) {
 							// Parallel axis is defined
 							setAxis(load, load_values[10]);
 						}
@@ -793,7 +829,7 @@ var setSurfaceLoadDistribution = function (load,
 			}
 			break;
 		case surface_loads.LOAD_TYPE_AXIAL_STRAIN:
-			switch (load_distribution) {
+			switch (load.load_distribution) {
 				case surface_loads.LOAD_DISTRIBUTION_UNIFORM:
 					ASSERT(load_values.length === 1, "Wrong number of load parameters, one value is required (εx)");
 					setLoadValues(load, load_values, "magnitude_axial_strain_1x", "magnitude_axial_strain_1y");
@@ -818,7 +854,7 @@ var setSurfaceLoadDistribution = function (load,
 			setLoadValues(load, load_values, "uniform_magnitude");
 			break;
 		case surface_loads.LOAD_TYPE_ROTARY_MOTION:
-			setRotaryMotionLoad(load, load_values);
+			setRotaryMotionLoad("surface", load, load_values);
 			break;
 		case surface_loads.LOAD_TYPE_MASS:
 			ASSERT(load_values.length === 1, "Wrong number of load parameters, one value is required (M)");
@@ -848,8 +884,8 @@ var setSurfaceLoadDistribution = function (load,
 *										- "Strain" / "Linear in Y": [Node1, Node2, ε1x, ε1y, ε1z, ε2x, ε2y, ε2z]
 *										- "Strain" / "Linear in Z": [Node1, Node2, ε1x, ε1y, ε1z, ε2x, ε2y, ε2z]
 *										- "Buoyancy" / "Uniform": [p]
-*										- "Rotary Motion": [axis_definition, p1, p2, Node1, Node2, [Node1, Node2] | XA, YA, ZA, XB, YB, ZB] (axis definition 1 === "Two points")
-*														   [axis_definition, p1, p2, Node1, Node2, ([Node1] | XA, YA, ZA), parallel_axis] (axis definition 2 === "Point and axis")
+*										- "Rotary Motion": [axis_definition, p1, p2, Node1, Node2, [Node1, Node2] or XA, YA, ZA, XB, YB, ZB] (axis definition 1 === "Two points")
+*														   [axis_definition, p1, p2, Node1, Node2, ([Node1] or XA, YA, ZA), parallel_axis] (axis definition 2 === "Point and axis")
 * @return	{Object}	Returns modified load
 */
 var setSolidLoadDistribution = function (load,
@@ -858,8 +894,15 @@ var setSolidLoadDistribution = function (load,
 	load_values) {
 	load.load_type = load_type;
 
+	const solid_load_distributions_dict = {
+		"UNIFORM": solid_loads.LOAD_DISTRIBUTION_UNIFORM,
+		"LINEAR_IN_X": solid_loads.LOAD_DISTRIBUTION_LINEAR_IN_X,
+		"LINEAR_IN_Y": solid_loads.LOAD_DISTRIBUTION_LINEAR_IN_Y,
+		"LINEAR_IN_Z": solid_loads.LOAD_DISTRIBUTION_LINEAR_IN_Z
+	};
+
 	if (typeof load_distribution !== "undefined") {
-		load.load_distribution = load_distribution;
+		load.load_distribution = GetLoadDistributionType(solid_load_distributions_dict, load_distribution);
 	}
 
 	switch (load_type) {
@@ -868,7 +911,7 @@ var setSolidLoadDistribution = function (load,
 			setLoadValues(load, load_values, "uniform_magnitude");
 			break;
 		case solid_loads.LOAD_TYPE_TEMPERATURE:
-			switch (load_distribution) {
+			switch (load.load_distribution) {
 				case solid_loads.LOAD_DISTRIBUTION_UNIFORM:
 					ASSERT(load_values.length === 1, "Wrong number of load parameters, one is required (p)");
 					setLoadValues(load, load_values, "uniform_magnitude");
@@ -884,7 +927,7 @@ var setSolidLoadDistribution = function (load,
 			}
 			break;
 		case solid_loads.LOAD_TYPE_STRAIN:
-			switch (load_distribution) {
+			switch (load.load_distribution) {
 				case solid_loads.LOAD_DISTRIBUTION_UNIFORM:
 					ASSERT(load_values.length >= 1, "Wrong number of load parameters, at least one value is required (εx)");
 					setLoadValues(load, load_values, "strain_uniform_magnitude_x", "strain_uniform_magnitude_y", "strain_uniform_magnitude_z");
@@ -904,7 +947,7 @@ var setSolidLoadDistribution = function (load,
 			setLoadValues(load, load_values, "uniform_magnitude");
 			break;
 		case solid_loads.LOAD_TYPE_ROTARY_MOTION:
-			setRotaryMotionLoad(load, load_values);
+			setRotaryMotionLoad("solid", load, load_values);
 			break;
 		default:
 			showLoadAssert(load_type);
@@ -945,3 +988,55 @@ var setCommonFreeLoadsValues = function (load,
 
 	return load;
 };
+
+function GetLoadDistributionType(types_dict, distribution_type) {
+	if (distribution_type !== undefined) {
+		var type = types_dict[distribution_type];
+		if (type === undefined) {
+			console.log("Wrong load distribution type. Value was: " + distribution_type);
+			console.log("Correct values are: ( " + Object.keys(types_dict) + ")");
+			return "";
+		  }
+		  return type;
+	}
+	else {
+		return "";
+	}
+}
+
+function GetLoadAxisDefinitionType(load_type, definition_type) {
+	var definition_types_dict = {};
+	if (load_type === "member") {
+		definition_types_dict = {
+			"TWO_POINTS": member_loads.AXIS_DEFINITION_TWO_POINTS,
+			"POINT_AND_AXIS": member_loads.AXIS_DEFINITION_POINT_AND_AXIS
+		};
+	}
+	else if (load_type === "surface") {
+		definition_types_dict = {
+			"TWO_POINTS": surface_loads.AXIS_DEFINITION_TWO_POINTS,
+			"POINT_AND_AXIS": surface_loads.AXIS_DEFINITION_POINT_AND_AXIS
+		};
+	}
+	else if (load_type === "solid") {
+		definition_types_dict = {
+			"TWO_POINTS": solid_loads.AXIS_DEFINITION_TWO_POINTS,
+			"POINT_AND_AXIS": solid_loads.AXIS_DEFINITION_POINT_AND_AXIS
+		};
+	}
+	else {
+		ASSERT("Unknown load type (only member, surface and solid are allowed");
+	}
+
+	if (definition_type !== undefined) {
+		var type = definition_types_dict[definition_type];
+		if (type === undefined) {
+			console.log("Wrong type of axis definition type. Value was: " + definition_type);
+			console.log("Correct values are: ( " + Object.keys(definition_types_dict) + ")");
+		}
+		return type;
+	}
+	else {
+		return definition_type;
+	}
+}

@@ -42,7 +42,7 @@ function SetLoadCombinationItems(load_combination,
 
 /**
  * Assigns load cases
- * @param {Array} load_combination_items    Load combination itemns [[load case no, factor], .... ]
+ * @param {Array} load_combination_items    Load combination items [[load case no, factor], .... ]
  * @returns Modified load combination
  */
  RSectionLoadCombination.prototype.AssignLoadCases = function (load_combination_items) {

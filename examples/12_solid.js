@@ -38,8 +38,8 @@ l.Arc(12, [6, 8], [r_2 + a_2 / 2, 0, -H]);
 
 // Create Surfaces
 var surface = new Surface();
-surface.Quadrangle(1, [5, 10, 8, 12], surfaces.TYPE_WITHOUT_THICKNESS);
-surface.Quadrangle(2, [6, 9, 7, 11], surfaces.TYPE_WITHOUT_THICKNESS);
+surface.Quadrangle(1, [5, 10, 8, 12], "WITHOUT_THICKNESS");
+surface.Quadrangle(2, [6, 9, 7, 11], "WITHOUT_THICKNESS");
 surface.WithoutThickness(3, [4, 8, 2, 6]);
 surface.WithoutThickness(4, [1, 5, 3, 7]);
 surface.WithoutThickness(5, [12, 4, 11, 3]);
@@ -55,7 +55,7 @@ SASGeometricallyLinear.GeometricallyLinear(1);
 var SASSecondOrder = new StaticAnalysisSettings();
 SASSecondOrder.SecondOrder(2,"MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON");
 var lc1 = new LoadCase();
-lc1.StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_PERMANENT_G", [true, 0, 0, 1.0]);
+lc1.StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "PERMANENT_G", [true, 0, 0, 1.0]);
 
 var surfaceSupport = new SurfaceSupport(1,[6]);
 surfaceSupport.Fixed();

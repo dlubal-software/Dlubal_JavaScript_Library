@@ -55,8 +55,9 @@ ImposedLineDeformation.prototype.Set = function (no,
 	params) {
 	ASSERT(arguments.length >= 4, "Wrong number of parameters, at lease four are required (no, load case, nodes, imposed displacement at line start ux,i)");
 
-	load_values = [displacement_line_start_x];
-	for (var i = 4; i < arguments.length; ++i) {
+	load_values = [];
+
+	for (var i = 3; i < arguments.length; ++i) {
 		if (typeof arguments[i] != "undefined") {
 			load_values.push(arguments[i]);
 		}

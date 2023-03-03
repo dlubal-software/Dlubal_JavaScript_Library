@@ -77,7 +77,7 @@ sur.Standard(1, [15, 16, 17, 18], thickness.GetNo());
 sur.Standard(2, [18, 19], thickness.GetNo());
 
 var surface = new Surface();
-surface.Quadrangle(4, [19, 21, 20, 22], "Standard", thickness.GetNo());
+surface.Quadrangle(4, [19, 21, 20, 22], "STANDARD", thickness.GetNo());
 
 
 // Create Rib by Line
@@ -88,12 +88,12 @@ Opening(1, [23]);
 
 // Create hinge
 var memberHinge = new MemberHinge();
-memberHinge.Rotational(1, [4, 7], [4, 7], [false, 0], [true, 0], [true, 0]);
+memberHinge.Rotational(1, [4, 7], [4, 7], [false, "NONE"], [true, 0], [true, 0]);
 
 
 // // Create eccentricity
 var memberEccentricity = new MemberEccentricity();
-memberEccentricity.RelativeAndAbsolute(1, [9, 10], [9, 10], "SECTION_ALIGNMENT_RIGHT_TOP");
+memberEccentricity.RelativeAndAbsolute(1, [9, 10], [9, 10], "RIGHT_TOP");
 
 
 // Define Supports
@@ -111,5 +111,5 @@ lines[20].support = lineSupport.GetNo();
 var SASGeometricallyLinear = new StaticAnalysisSettings()
 SASGeometricallyLinear.GeometricallyLinear(1, "MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "PLATE_BENDING_THEORY_KIRCHHOFF", [true, 2.0, 3.0, 4.0], [true, 5, true]);
 var LCSW = new LoadCase();
-LCSW.StaticAnalysis(1, "Static analysis", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_A_DOMESTIC_RESIDENTIAL_AREAS_QI_A", [true, 0, 0, 1.0]);
+LCSW.StaticAnalysis(1, "Static analysis", SASGeometricallyLinear.GetNo(), "IMPOSED_LOADS_CATEGORY_A_DOMESTIC_RESIDENTIAL_AREAS_QI_A", [true, 0, 0, 1.0]);
 

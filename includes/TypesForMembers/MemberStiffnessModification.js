@@ -71,25 +71,25 @@ MemberStiffnessModification.prototype.PartialStiffnessFactors = function (axial_
 
 /**
 * Sets concrete structure ACI
-* @param	{Number}	component_type	Component type: Columns (1), Walls uncracked (2), Walls cracked (3), Beams (4), Flat plates and flat stabs (5). Can be undefined
+* @param	{Number}	component_type	Component type: COLUMNS, BEAMS. Can be undefined
 */
 MemberStiffnessModification.prototype.ConcreteStructuresAci = function (component_type) {
 	this.member_stiffness_modification.type = member_stiffness_modifications.TYPE_CONCRETE_STRUCTURES_ACI;
-	setConcreteStructuresComponentType(this.member_stiffness_modification, component_type);
+	this.member_stiffness_modification.concrete_structure_component_type = GetMemberStiffnessModificationConcreteStructureComponentType(component_type);
 };
 
 /**
 * Sets concrete structure CSA
-* @param	{Number}	component_type	Component type: Columns (1), Walls uncracked (2), Walls cracked (3), Beams (4), Flat plates and flat stabs (5). Can be undefined
+* @param	{Number}	component_type	Component type: COLUMNS, BEAMS. Can be undefined
 */
 MemberStiffnessModification.prototype.ConcreteStructuresCsa = function(component_type) {
 	this.member_stiffness_modification.type = member_stiffness_modifications.TYPE_CONCRETE_STRUCTURES_CSA;
-	setConcreteStructuresComponentType(this.member_stiffness_modification, component_type);
+	this.member_stiffness_modification.concrete_structure_component_type = GetMemberStiffnessModificationConcreteStructureComponentType(component_type);
 };
 
 /**
 * Sets steel structures AISC
-* @param 	{Number}	determine_tau_b		Determine τb: Iterative (1), Set to 1 (2). Can be undefined.
+* @param	{Number}	determine_tau_b		Determine τb: Iterative (1), Set to 1 (2). Can be undefined.
 * @param	{Number}	design_method		Design method: LRFD (1), ASD (2). Can be undefined. If determine τb has "Set to 1" value, must be undefined.
 */
 MemberStiffnessModification.prototype.SteelStructuresAisc = function (determine_tau_b,
@@ -152,33 +152,22 @@ MemberStiffnessModification.prototype.SteelStructuresCSA = function (determine_t
 	}
 };
 
-/**
-* Sets concrete structures parameters (private)
-* @param	{Object}	member_stiffness_modification	Member stiffness modification to set
-* @param	{Number}	component_type					Component type: Columns (1), Walls uncracked (2), Walls cracked (3), Beams (4), Flat plates and flat stabs (5). Can be undefined
-*/
-var setConcreteStructuresComponentType = function(member_stiffness_modification,
-	component_type) {
-	if (typeof component_type !== "undefined") {
-		switch (component_type)	{
-			case 1:
-				member_stiffness_modification.concrete_structure_component_type = member_stiffness_modifications.COMPONENT_TYPE_COLUMNS;
-				break;
-			case 2:
-				member_stiffness_modification.concrete_structure_component_type = member_stiffness_modifications.COMPONENT_TYPE_WALLS_UNCRACKED;
-				break;
-			case 3:
-				member_stiffness_modification.concrete_structure_component_type = member_stiffness_modifications.COMPONENT_TYPE_WALLS_CRACKED;
-				break;
-			case 4:
-				member_stiffness_modification.concrete_structure_component_type = member_stiffness_modifications.COMPONENT_TYPE_BEAMS;
-				break;
-			case 5:
-				member_stiffness_modification.concrete_structure_component_typ = member_stiffness_modifications.COMPONENT_TYPE_FLAT_PLATES_AND_FLAT_SLABS;
-				break;
-			default:
-				ASSERT(false, "Unknown component type");
-		}
-	}
-};
+function GetMemberStiffnessModificationConcreteStructureComponentType(component_type) {
+	const component_types_dict = {
+		"COLUMNS": member_stiffness_modifications.COMPONENT_TYPE_COLUMNS,
+		"BEAMS": member_stiffness_modifications.COMPONENT_TYPE_BEAMS
+	};
 
+	if (component_type !== undefined) {
+	  var type = component_types_dict[component_type];
+	  if (type === undefined) {
+		console.log("Wrong concrete structure component type. Value was: " + component_type);
+		console.log("Correct values are: ( " + Object.keys(component_types_dict) + ")");
+		type = member_stiffness_modifications.COMPONENT_TYPE_COLUMNS;
+	  }
+	  return type;
+	}
+	else {
+	  return member_stiffness_modifications.COMPONENT_TYPE_COLUMNS;
+	}
+}

@@ -47,7 +47,7 @@ LineLoad.prototype.Force = function (no,
 	this.load = setLineLoadDistribution(this.load, line_loads.LOAD_TYPE_FORCE, load_distribution, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = GetLineLoadDirectionType(line_loads.LOAD_TYPE_FORCE, load_direction);
 	}
 
 	return this.load;
@@ -77,7 +77,7 @@ LineLoad.prototype.Moment = function (no,
 	this.load = setLineLoadDistribution(this.load, line_loads.LOAD_TYPE_MOMENT, load_distribution, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = GetLineLoadDirectionType(line_loads.LOAD_TYPE_MOMENT, load_direction);
 	}
 
 	return this.load;
@@ -180,3 +180,35 @@ LineLoad.prototype.IndividualMassComponents = function (MX,
 		this.load.mass_z = MZ;
 	}
 };
+
+function GetLineLoadDirectionType(load_type, direction_type) {
+	var direction_types_dict = {};
+	if (load_type === line_loads.LOAD_TYPE_FORCE)
+	{
+		direction_types_dict = {
+			"GLOBAL_X_OR_USER_DEFINED_U_TRUE": line_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE,
+			"GLOBAL_Y_OR_USER_DEFINED_V_TRUE": line_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,
+			"GLOBAL_Z_OR_USER_DEFINED_W_TRUE": line_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
+			"GLOBAL_X_OR_USER_DEFINED_U_PROJECTED": line_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED,
+			"GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED": line_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED,
+			"GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED": line_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED
+		};
+	}
+	else if (load_type == line_loads.LOAD_TYPE_MOMENT) {
+		direction_types_dict = {
+			"GLOBAL_X_OR_USER_DEFINED_U_TRUE": line_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE,
+			"GLOBAL_Y_OR_USER_DEFINED_V_TRUE": line_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,
+			"GLOBAL_Z_OR_USER_DEFINED_W_TRUE": line_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
+		};
+	}
+	else {
+		ASSERT("GetLineLoadDirectionType: unknown load type");
+	}
+
+	var type = direction_types_dict[direction_type];
+	if (type === undefined) {
+	  console.log("Wrong direction type. Value was: " + direction_type);
+	  console.log("Correct values are: ( " + Object.keys(direction_types_dict) + ")");
+	}
+	return type;
+}

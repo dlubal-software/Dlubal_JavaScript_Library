@@ -48,10 +48,10 @@ if (RFEM) {
 	var memberHinge = new MemberHinge();
 	for (var i = 0; i < membersForHinges.length; ++i) {
 		if (i <= 2) {
-			memberHinge.Translational(undefined, [membersForHinges[i].no], [membersForHinges[i].no], [true, 5000, 2], [true, 5000, 2], [true, 5000, 2]);
+			memberHinge.Translational(undefined, [membersForHinges[i].no], [membersForHinges[i].no], [true, 5000, "FAILURE_IF_POSITIVE"], [true, 5000, "FAILURE_IF_POSITIVE"], [true, 5000, "FAILURE_IF_POSITIVE"]);
 		}
 		else {
-			memberHinge.Rotational(undefined, [membersForHinges[i].no], undefined, [true, 5000, 2], [true, 5000, 2], [true, 5000, 2]);
+			memberHinge.Rotational(undefined, [membersForHinges[i].no], undefined, [true, 5000, "FAILURE_IF_POSITIVE"], [true, 5000, "FAILURE_IF_POSITIVE"], [true, 5000, "FAILURE_IF_POSITIVE"]);
 		}
 	}
 
@@ -123,7 +123,6 @@ if (RFEM) {
 structureModification.MemberSupports(12, undefined, undefined, undefined, 2.0, 2.5, 3.0); // Member no. 12, Cs,x, Cs,y, Cs,z set
 if (RFEM) {
 	structureModification.SurfaceSupports(15, 1.0, 2.0, 3.0); // Surface no. 15, Cu,x, Cu,y, Cu,z set
-	structureModification.DisableNonlinearitiesMemberHinges();
 }
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;
