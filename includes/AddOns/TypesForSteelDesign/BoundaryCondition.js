@@ -2,6 +2,10 @@
 boundary_condition.nodal_supports[row].eccentricity_type_z - should be string value, but it takes only number index
 */
 
+/*
+IMPORTANT: Boundary condition can be set only for EN 1993 standard
+*/
+
 include("../SteelDesign/SteelDesignSupport.js");
 
 /**
@@ -24,7 +28,7 @@ function SteelDesignBoundaryCondition (no,
         this.boundary_condition = steel_boundary_conditions.create(no);
     }
     if (typeof members_no !== "undefined") {
-        ASSERT(Array.isArray(members_no), "Member list must be array if member indexes");
+        ASSERT(Array.isArray(members_no), "Member list must be array of member indexes");
         member_list = members_no;
         members_no = [];
         for (var i = 0; i < member_list.length; ++i) {
