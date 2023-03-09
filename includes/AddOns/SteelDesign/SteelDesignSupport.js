@@ -24,7 +24,7 @@ function createBaseSteelDesignConfiguration (object_to_create,
     return addon;
 }
 
-setSteelDesign_Members = function (addon,
+setSteelDesign_Members = function (object_to_set,
     members_no,
     member_sets_no) {
     if (typeof members_no !== "undefined") {
@@ -39,7 +39,7 @@ setSteelDesign_Members = function (addon,
                 console.log("Member no. " + member_list[i] + " doesn't exist");
             }
         }
-        addon.assigned_to_members = members_no;
+        object_to_set.assigned_to_members = members_no;
     }
     if (typeof member_sets_no !== "undefined") {
         ASSERT(Array.isArray(member_sets_no), "Member set list must be array of member sets indexes");
@@ -53,7 +53,7 @@ setSteelDesign_Members = function (addon,
                 console.log("Member set no. " + member_sets_list[i] + " doesn't exist");
             }
         }
-        addon.assigned_to_member_sets = member_sets_no;
+        object_to_set.assigned_to_member_sets = member_sets_no;
     }
 }
 
@@ -108,3 +108,7 @@ setSteelDesignUltimateConfiguration_PositionOfPositiveTransverse = function (add
         addon_settings.property_load_acts_vp_downwards_on_bottom_flange = property_load_acts_vp_downwards_on_bottom_flange;
     }
 };
+
+function IsCurrentCodeOfStandard (current_standard) {
+    return general.current_standard_for_steel_design.match(/\w+/) == current_standard;  // Don't use === (we don't want compare types of strings)
+}

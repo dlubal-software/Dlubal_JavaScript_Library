@@ -11,21 +11,28 @@ include("../SteelDesign/SteelDesignSupport.js");
 /**
  * Creates Steel design boundary condition
  * @param {Number} no               Steel design boundary condition index, can be undefined
+ * @param {String}                  Name, can be undefined
  * @param {Array} members_no        List of members indexes, can be undefined
  * @param {Array} member_sets_no    List of member sets indexes, can be undefined
  * @param {String} comment          Comment, can be undefined
  * @param {Object} params           Additional parameters, can be undefined
  */
 function SteelDesignBoundaryCondition (no,
+    name,
     members_no,
     member_sets_no,
     comment,
     params) {
+    ASSERT(IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC"), "Steel design boundary condition can be set only for EN and NTC code of standard");
     if (typeof no === "undefined") {
         this.boundary_condition = steel_boundary_conditions.create();
     }
     else {
         this.boundary_condition = steel_boundary_conditions.create(no);
+    }
+    if (typeof name !== "undefined") {
+        this.boundary_condition.user_defined_name_enabled = true;
+        this.boundary_condition.name = name;
     }
     if (typeof members_no !== "undefined") {
         ASSERT(Array.isArray(members_no), "Member list must be array of member indexes");
@@ -59,11 +66,25 @@ function SteelDesignBoundaryCondition (no,
 }
 
 /**
+ * @returns Steel design boundary condition number
+ */
+SteelDesignBoundaryCondition.prototype.GetNo = function () {
+    return this.boundary_condition.no;
+};
+
+/**
+ * @returns Boundary condition internal object
+ */
+SteelDesignBoundaryCondition.prototype.BoundaryCondition = function () {
+    return this.boundary_condition;
+};
+
+/**
  * Sets Nodal supports for start node sequence
  * @param {String} support_type     Support type (NONE, FIXED_IN_Y, TORSION, FIXED_IN_Y_AND_TORSION, FIXED_IN_Y_AND_WARPING, TORSION_AND_WARPING, FIXED_IN_Y_AND_TORSION_AND_WARPING, FIXED_ALL), can be undefined (FIXED_IN_Y_AND_TORSION as default)
  */
 SteelDesignBoundaryCondition.prototype.NodalSupportsStartWithSupportType = function (support_type) {
-    setBoundaryConditionNodalSupports(this.boundary_condition, 1, support_type);
+    setSteelDesignBoundaryConditionNodalSupports(this.boundary_condition, 1, support_type);
 };
 
 /**
@@ -71,7 +92,35 @@ SteelDesignBoundaryCondition.prototype.NodalSupportsStartWithSupportType = funct
  * @param {String} support_type     Support type (NONE, FIXED_IN_Y, TORSION, FIXED_IN_Y_AND_TORSION, FIXED_IN_Y_AND_WARPING, TORSION_AND_WARPING, FIXED_IN_Y_AND_TORSION_AND_WARPING, FIXED_ALL), can be undefined (FIXED_IN_Y_AND_TORSION as default)
  */
 SteelDesignBoundaryCondition.prototype.NodalSupportsEndWithSupportType = function (support_type) {
-    setBoundaryConditionNodalSupports(this.boundary_condition, this.boundary_condition.nodal_supports.row_count(), support_type);
+    setSteelDesignBoundaryConditionNodalSupports(this.boundary_condition, this.boundary_condition.nodal_supports.row_count(), support_type);
+};
+
+/**
+ * Sets individually values for start node sequence
+ * @param {Boolean} support_in_y        Support in y', can be undefined (is not set, false as default)
+ * @param {Boolean} restraint_about_x   Restraint about x', can be undefined (is not set, false as default)
+ * @param {Boolean} restraint_about_z   Restraint about z', can be undefined (is not set, false as default)
+ * @param {Boolean} restraint_warping   Warping, can be undefined (is not set, false as default)
+ */
+SteelDesignBoundaryCondition.prototype.NodalSupportsStartWithIndividuallySupportType = function (support_in_y,
+    restraint_about_x,
+    restraint_about_z,
+    restraint_warping) {
+    setSteelDesignBoundaryConditionNodalSupports(this.boundary_condition, 1, "INDIVIDUALLY", support_in_y, restraint_about_x, restraint_about_z, restraint_warping);
+};
+
+/**
+ * Sets individually values for end node sequence
+ * @param {Boolean} support_in_y        Support in y', can be undefined (is not set, false as default)
+ * @param {Boolean} restraint_about_x   Restraint about x', can be undefined (is not set, false as default)
+ * @param {Boolean} restraint_about_z   Restraint about z', can be undefined (is not set, false as default)
+ * @param {Boolean} restraint_warping   Warping, can be undefined (is not set, false as default)
+ */
+SteelDesignBoundaryCondition.prototype.NodalSupportsEndWithIndividuallySupportType = function (support_in_y,
+    restraint_about_x,
+    restraint_about_z,
+    restraint_warping) {
+    setSteelDesignBoundaryConditionNodalSupports(this.boundary_condition, this.boundary_condition.nodal_supports.row_count(), "INDIVIDUALLY", support_in_y, restraint_about_x, restraint_about_z, restraint_warping);
 };
 
 /**
@@ -86,35 +135,7 @@ SteelDesignBoundaryCondition.prototype.InsertNodalSupportIntermediateNode = func
     restraint_about_z,
     restraint_warping) {
     ASSERT(this.boundary_condition.intermediate_nodes, "Intermediate nodes must be on");
-    setBoundaryConditionNodalSupports(this.boundary_condition, this.boundary_condition.nodal_supports.row_count() + 1, "INDIVIDUALLY", support_in_y, restraint_about_x, restraint_about_z, restraint_warping);
-};
-
-/**
- * Sets individually values for start node sequence
- * @param {Boolean} support_in_y        Support in y', can be undefined (is not set, false as default)
- * @param {Boolean} restraint_about_x   Restraint about x', can be undefined (is not set, false as default)
- * @param {Boolean} restraint_about_z   Restraint about z', can be undefined (is not set, false as default)
- * @param {Boolean} restraint_warping   Warping, can be undefined (is not set, false as default)
- */
-SteelDesignBoundaryCondition.prototype.NodalSupportsStartWithIndividuallySupportType = function (support_in_y,
-    restraint_about_x,
-    restraint_about_z,
-    restraint_warping) {
-    setBoundaryConditionNodalSupports(this.boundary_condition, 1, "INDIVIDUALLY", support_in_y, restraint_about_x, restraint_about_z, restraint_warping);
-};
-
-/**
- * Sets individually values for end node sequence
- * @param {Boolean} support_in_y        Support in y', can be undefined (is not set, false as default)
- * @param {Boolean} restraint_about_x   Restraint about x', can be undefined (is not set, false as default)
- * @param {Boolean} restraint_about_z   Restraint about z', can be undefined (is not set, false as default)
- * @param {Boolean} restraint_warping   Warping, can be undefined (is not set, false as default)
- */
-SteelDesignBoundaryCondition.prototype.NodalSupportsEndWithIndividuallySupportType = function (support_in_y,
-    restraint_about_x,
-    restraint_about_z,
-    restraint_warping) {
-    setBoundaryConditionNodalSupports(this.boundary_condition, this.boundary_condition.nodal_supports.row_count(), "INDIVIDUALLY", support_in_y, restraint_about_x, restraint_about_z, restraint_warping);
+    setSteelDesignBoundaryConditionNodalSupports(this.boundary_condition, this.boundary_condition.nodal_supports.row_count() + 1, "INDIVIDUALLY", support_in_y, restraint_about_x, restraint_about_z, restraint_warping);
 };
 
 /**
@@ -128,7 +149,7 @@ SteelDesignBoundaryCondition.prototype.SetAdditionalParametersForStart = functio
     eccentricity_type_z,
     eccentricity_x,
     eccentricity_z) {
-    setNodalSupportsAdditionalParameters(this.boundary_condition, 1, rotation, eccentricity_type_z, eccentricity_x, eccentricity_z);
+    setSteelDesignNodalSupportsAdditionalParameters(this.boundary_condition, 1, rotation, eccentricity_type_z, eccentricity_x, eccentricity_z);
 };
 
 /**
@@ -142,7 +163,7 @@ SteelDesignBoundaryCondition.prototype.SetAdditionalParametersForEnd = function 
     eccentricity_type_z,
     eccentricity_x,
     eccentricity_z) {
-    setNodalSupportsAdditionalParameters(this.boundary_condition, this.boundary_condition.nodal_supports.row_count(), rotation, eccentricity_type_z, eccentricity_x, eccentricity_z);
+    setSteelDesignNodalSupportsAdditionalParameters(this.boundary_condition, this.boundary_condition.nodal_supports.row_count(), rotation, eccentricity_type_z, eccentricity_x, eccentricity_z);
 };
 
 /**
@@ -158,7 +179,7 @@ SteelDesignBoundaryCondition.prototype.SetAdditionalParametersForIntermediateRow
     eccentricity_type_z,
     eccentricity_x,
     eccentricity_z) {
-    setNodalSupportsAdditionalParameters(this.boundary_condition, row, rotation, eccentricity_type_z, eccentricity_x, eccentricity_z);
+    setSteelDesignNodalSupportsAdditionalParameters(this.boundary_condition, row, rotation, eccentricity_type_z, eccentricity_x, eccentricity_z);
 };
 
 /**
@@ -194,7 +215,7 @@ SteelDesignBoundaryCondition.prototype.MemberHingesForStart = function (release_
     release_about_x,
     release_about_z,
     release_warping) {
-    setBoundaryConditionMemberHinges(this.boundary_condition, 1, release_in_y, release_about_x, release_about_z, release_warping);
+    setSteelDesignBoundaryConditionMemberHinges(this.boundary_condition, 1, release_in_y, release_about_x, release_about_z, release_warping);
 };
 
 /**
@@ -208,7 +229,7 @@ SteelDesignBoundaryCondition.prototype.MemberHingesForEnd = function (release_in
     release_about_x,
     release_about_z,
     restraint_warping) {
-    setBoundaryConditionMemberHinges(this.boundary_condition, this.boundary_condition.member_hinges.row_count(), release_in_y, release_about_x, release_about_z, restraint_warping);
+    setSteelDesignBoundaryConditionMemberHinges(this.boundary_condition, this.boundary_condition.member_hinges.row_count(), release_in_y, release_about_x, release_about_z, restraint_warping);
 };
 
 /**
@@ -226,7 +247,7 @@ SteelDesignBoundaryCondition.prototype.SetMemberHingeIntermediateNode = function
     release_warping) {
     ASSERT(this.boundary_condition.intermediate_nodes, "Intermediate nodes must be on");
     ASSERT(typeof row !== "undefined", "Row must be undefined");
-    setBoundaryConditionMemberHinges(this.boundary_condition, row, release_in_y, release_about_x, release_about_z, release_warping);
+    setSteelDesignBoundaryConditionMemberHinges(this.boundary_condition, row, release_in_y, release_about_x, release_about_z, release_warping);
 };
 
 /**
@@ -266,7 +287,7 @@ SteelDesignBoundaryCondition.prototype.NodalSupportsEndEdit = function () {
     return support_in_y && restraint_about_x;
 };
 
-function setBoundaryConditionNodalSupports (boundary_condition,
+function setSteelDesignBoundaryConditionNodalSupports (boundary_condition,
     row,
     support_type,
     support_in_y,
@@ -301,6 +322,7 @@ function setBoundaryConditionNodalSupports (boundary_condition,
                         boundary_condition.nodal_supports[row].restraint_about_z = value_to_set;
                     }
                     else {
+                        ASSERT(value_name === "restraint_warping", "setBoundaryConditionNodalSupports");
                         boundary_condition.nodal_supports[row].restraint_warping = value_to_set;
                     }
                 }
@@ -323,7 +345,7 @@ function setBoundaryConditionNodalSupports (boundary_condition,
         boundary_condition.nodal_supports[row].restraint_warping = restraint_warping;
     }
     function setBoundaryConditionSupportType(support_type) {
-        var type = BoundaryConditionSupportType(support_type);
+        var type = SteelDesignBoundaryConditionSupportType(support_type);
         switch (type) {
             case steel_boundary_conditions.SUPPORT_TYPE_FIXED_IN_Y:
                 setValues(true, false, false, false);
@@ -350,7 +372,7 @@ function setBoundaryConditionNodalSupports (boundary_condition,
                 ASSERT(false);
         }
     }
-    //boundary_condition.nodal_supports[index].support_type = BoundaryConditionSupportType(support_type);   // Can't set this way, always "None"
+    //boundary_condition.nodal_supports[index].support_type = SteelDesignBoundaryConditionSupportType(support_type);   // Can't set this way, always "None"
     if (support_type !== "INDIVIDUALLY") {
         setBoundaryConditionSupportType(support_type);
     }
@@ -371,7 +393,7 @@ function setBoundaryConditionNodalSupports (boundary_condition,
     }
 }
 
-function setBoundaryConditionMemberHinges (boundary_condition,
+function setSteelDesignBoundaryConditionMemberHinges (boundary_condition,
     row,
     release_in_y,
     release_about_x,
@@ -408,6 +430,7 @@ function setBoundaryConditionMemberHinges (boundary_condition,
                         boundary_condition.member_hinges[row].release_about_z = value_to_set;
                     }
                     else {
+                        ASSERT(value_name === "release_warping", "setBoundaryConditionMemberHinges");
                         boundary_condition.member_hinges[row].release_warping = value_to_set;
                     }
                 }
@@ -444,7 +467,7 @@ function setBoundaryConditionMemberHinges (boundary_condition,
     setValues(release_in_y, release_about_x, release_about_z, release_warping);
 }
 
-function setNodalSupportsAdditionalParameters (boundary_condition,
+function setSteelDesignNodalSupportsAdditionalParameters (boundary_condition,
     row,
     rotation,
     eccentricity_type_z,
@@ -464,7 +487,7 @@ function setNodalSupportsAdditionalParameters (boundary_condition,
     }
 }
 
-function BoundaryConditionSupportType(support_type) {
+function SteelDesignBoundaryConditionSupportType(support_type) {
 	const support_types_dict = {
         "NONE": steel_boundary_conditions.SUPPORT_TYPE_NONE,
         "FIXED_IN_Y": steel_boundary_conditions.SUPPORT_TYPE_FIXED_IN_Y,

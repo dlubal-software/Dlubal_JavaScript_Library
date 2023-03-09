@@ -18,23 +18,25 @@ const steel_design_standards = {
     4: "GB 50017 | 2017-12",
     5: "CSA S16 | 2019",
     6: "AS 4100 | 2016-06",
-    7: "SP 16.13330 | 2017-02"
+    7: "SP 16.13330 | 2017-02",
+    8: "NTC | 2018-01",
+    9: "NBR 8800 | 2008-08"
 };
 
 var material = new Material(undefined, "S235");
 var section = new Section(undefined, "IPE 80", material.GetNo());
 var member = new Member();
 
-var nodeForMembers = createNodesGrid(-28, -28, [10, 1], [3, 0]);
+var nodeForMembers = createNodesGrid(-28, -28, [12, 1], [3, 0]);
 for (var i = 0; i < nodeForMembers.length; i+=2) {
     member.Beam(undefined, [i + 1, i + 2], section.GetNo());
 }
 
 STEEL_DESIGN.setActive(true);
+general.current_standard_for_steel_design = steel_design_standards[standard_index];
 
 /********************************************** Ultimate, Serviceability, Fire resistance configurations *****************************************************************/
 if (RFEM) {
-    general.current_standard_for_steel_design = steel_design_standards[standard_index];
     switch (general.current_standard_for_steel_design)
     {
         case "EN 1993 | CEN | 2015-06":
@@ -145,39 +147,106 @@ if (RFEM) {
             var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "SP Serviceability configuration for testing", [2], undefined, "Last test example");
             steelDesignServiceabilityConfiguration.DesignParametersSP(101, 102);
             break;
+        case "NTC | 2018-01":
+            break;
+        case "NBR 8800 | 2008-08":
+            break;
         default:
             ASSERT(false);
     }
 }
 
-/******************************************************************** Types for Steel designs ***********************************************************************/
+if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC")) {
+    /******************************************************* Types for Steel designs - Boundary conditions ********************************************************/
+    var boundaryCondition = new SteelDesignBoundaryCondition(undefined, undefined, [3], undefined, "Steel design boundary condition");
+    boundaryCondition.DifferentPropertiesForNodalSupports();
+    boundaryCondition.NodalSupportsStartWithSupportType("FIXED_IN_Y");                          // Node sequence Start
+    boundaryCondition.SetAdditionalParametersForStart(0.1, "AT_UPPER_FLANGE", 0.05);
+    boundaryCondition.NodalSupportsEndWithIndividuallySupportType(true, true, true, false);     // Node sequence End
+    boundaryCondition.SetAdditionalParametersForEnd(0.2, "USER_VALUE", 0.1, 0.05);
+    boundaryCondition.NodalSupportsEndEdit();
+    boundaryCondition.MemberHingesForStart(true, true, true, true);
+    boundaryCondition.MemberHingesForEnd(false, true, false, true);
+    boundaryCondition.DifferentPropertiesForMemberHinges(false);
 
-var boundaryCondition = new SteelDesignBoundaryCondition(undefined, [3], undefined, "Steel design boundary condition");
-boundaryCondition.DifferentPropertiesForNodalSupports();
-boundaryCondition.NodalSupportsStartWithSupportType("FIXED_IN_Y");                              // Node sequence Start
-boundaryCondition.SetAdditionalParametersForStart(0.1, "AT_UPPER_FLANGE", 0.05);
-boundaryCondition.NodalSupportsEndWithIndividuallySupportType(true, true, true, false);     // Node sequence End
-boundaryCondition.SetAdditionalParametersForEnd(0.2, "USER_VALUE", 0.1, 0.05);
-boundaryCondition.NodalSupportsEndEdit();
-boundaryCondition.MemberHingesForStart(true, true, true, true);
-boundaryCondition.MemberHingesForEnd(false, true, false, true);
-boundaryCondition.DifferentPropertiesForMemberHinges(false);
+    var boundaryCondition2 = new SteelDesignBoundaryCondition(undefined, "User defined name", [4], undefined, "Steel design boundary condition with intermediate nodes");
+    boundaryCondition2.DifferentPropertiesForNodalSupports(false);
+    boundaryCondition2.NodalSupportsStartWithSupportType("FIXED_IN_Y");                              // Node sequence Start
+    boundaryCondition2.SetAdditionalParametersForStart(0.1, "AT_UPPER_FLANGE", 0.05);
+    boundaryCondition2.NodalSupportsEndWithIndividuallySupportType(true, true, true, true);     // Node sequence End
+    boundaryCondition2.SetAdditionalParametersForEnd(0.2, "USER_VALUE", 0.1, 0.05);
+    boundaryCondition2.IntermediateNodes();
+    boundaryCondition2.InsertNodalSupportIntermediateNode(true, true, true, true);
+    boundaryCondition2.InsertNodalSupportIntermediateNode(true, true, true, true);
+    boundaryCondition2.SetAdditionalParametersForIntermediateRow(3, 0.1, "USER_VALUE", 0.2, 0.07);  // second intermediate node
+    boundaryCondition2.NodalSupportsEndEdit();
+    boundaryCondition2.DifferentPropertiesForMemberHinges();
+    boundaryCondition2.MemberHingesForStart(true, true, true, true);
+    boundaryCondition2.MemberHingesForEnd(false, true, false, true);
+    boundaryCondition2.SetMemberHingeIntermediateNode(5, true, false, true, false);
+}
 
-var boundaryCondition2 = new SteelDesignBoundaryCondition(undefined, [4], undefined, "Steel design boundary condition");
-boundaryCondition2.DifferentPropertiesForNodalSupports(false);
-boundaryCondition2.NodalSupportsStartWithSupportType("FIXED_IN_Y");                              // Node sequence Start
-boundaryCondition2.SetAdditionalParametersForStart(0.1, "AT_UPPER_FLANGE", 0.05);
-boundaryCondition2.NodalSupportsEndWithIndividuallySupportType(true, true, true, true);     // Node sequence End
-boundaryCondition2.SetAdditionalParametersForEnd(0.2, "USER_VALUE", 0.1, 0.05);
-boundaryCondition2.IntermediateNodes();
-boundaryCondition2.InsertNodalSupportIntermediateNode(true, true, true, true);
-boundaryCondition2.InsertNodalSupportIntermediateNode(true, true, true, true);
-boundaryCondition2.SetAdditionalParametersForIntermediateRow(3, 0.1, "USER_VALUE", 0.2, 0.07);  // second intermediate node
-boundaryCondition2.NodalSupportsEndEdit();
-boundaryCondition2.DifferentPropertiesForMemberHinges();
-boundaryCondition2.MemberHingesForStart(true, true, true, true);
-boundaryCondition2.MemberHingesForEnd(false, true, false, true);
-boundaryCondition2.SetMemberHingeIntermediateNode(5, true, false, true, false);
+/******************************************************* Types for Steel designs - Effective lengths ********************************************************/
+switch (general.current_standard_for_steel_design)
+{
+    case "EN 1993 | CEN | 2015-06":
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (EN)");
+        effectiveLength.DeterminationType(false, false, true, true, "EUROPE_USER_DEFINED");
+        effectiveLength.BucklingAxes(false, true);
+        effectiveLength.NodalSupportsStartWithSupportType("FIXED_IN_Y");
+        break;
+    case "AISC 360 | 2016":
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (AISC)");
+        effectiveLength.BucklingFactorType("RECOMMENDED");
+        effectiveLength.EffectiveLengthsAccToStandard("AISI_S100");
+        effectiveLength.DeterminationType(true, false, false, true, "ACC_TO_CHAPTERS_E2_F21");
+        effectiveLength.ModificationFactor("CB_USER_DEFINED", 1.5);
+        break;
+    case "IS 800 | 2007-12":
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (IS)");
+        effectiveLength.DeterminationType(true, false, undefined, false);
+        break;
+    case "BS 5950 | 2001-05":
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (BS)");
+        effectiveLength.DeterminationType(true, true, undefined, true, "BS5_ACC_TO_ANNEX_B");
+        effectiveLength.BucklingAxes(undefined, true);
+        break;
+    case "GB 50017 | 2017-12":
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (GB)");
+        effectiveLength.DeterminationType(false, false, false, true, "GB50_NOT_USED");
+        effectiveLength.MemberType(undefined, "CANTILEVER", "CANTILEVER");
+        break;
+    case "CSA S16 | 2019":
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (CSA)");
+        effectiveLength.DeterminationType(undefined, undefined, undefined, undefined, "CSA_ACC_TO_CHAPTER_13_6");
+        effectiveLength.MemberType("CANTILEVER");
+        effectiveLength.BucklingFactorType("RECOMMENDED");
+        //effectiveLength.ModificationFactor("CB_USER_DEFINED", 2.5); There is no support for Modification factor for CSA and NBR standards? Only for AISC?
+        break;
+    case "AS 4100 | 2016-06":
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (AS)");
+        effectiveLength.BucklingFactorType("RECOMMENDED");
+        effectiveLength.BucklingAxes(false, true);
+        effectiveLength.SegmentsRestrainedBothEnds("USER_DEFINED", 2.0/*, "EIGENVALUE_METHOD"*/);   // API enum bug?
+        effectiveLength.SegmentsUnrestrainedOneEnd("USER_DEFINED", 2.5);
+        break;
+    case "SP 16.13330 | 2017-02":
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (SP)");
+        effectiveLength.DeterminationType(false, false, undefined, true);
+        effectiveLength.MemberType("CANTILEVER");
+        break;
+    case "NTC | 2018-01":
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (NTC)");
+        effectiveLength.DeterminationType(undefined, undefined, undefined, undefined);  // No API enum for Determination of Mcr (NTC standard)
+        break;
+    case "NBR 8800 | 2008-08":
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (NBR)");
+        effectiveLength.DeterminationType(false, false, false);
+        //effectiveLength.ModificationFactor("CB_USER_DEFINED", 1.8); There is no support for Modification factor for CSA and NBR standards? Only for AISC?
+        break;
+    default:
+        ASSERT(false);
+}
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;
