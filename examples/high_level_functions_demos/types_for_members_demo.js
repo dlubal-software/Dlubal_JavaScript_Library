@@ -82,19 +82,17 @@ member1.Beam(undefined, [102, 103], 1);
 var memberSet1 = new MemberSet();
 memberSet1.ContinuousMembers(undefined, [51, member1.GetNo(), 52]);
 
-// clearAll.js not removes member openings
-for (var i = member_openings.count(); i > 0; --i) {
-    member_openings.erase(member_openings.getNthObjectId(i));
-}
-
 var circleMemberOpening = new MemberOpening(undefined, [49], undefined, "Member circle openings");
-for (var row = 0; row < 9; ++row) {
-    circleMemberOpening.AddTypeAndLocation("CIRCLE_OPENING", 0.3 * (row + 1), "Circle opening no. " + (row + 1));
+for (var row = 0; row < 10; ++row) {
+    circleMemberOpening.AddTypeAndLocation("CIRCLE_OPENING", 0.25 * (row + 1), "Circle opening no. " + (row + 1));
+    circleMemberOpening.SetCircleDimension(row + 1, 0.05 + row * 0.001);
+    circleMemberOpening.SetPosition(row + 1, "CENTER", 0.001 + row * 0.00045);
 }
 var rectangleMemberOpening = new MemberOpening(undefined, [50], undefined, "Member rectangle opening");
 for (var row = 0; row < 9; ++row) {
     rectangleMemberOpening.AddTypeAndLocation("RECTANGLE_OPENING", 0.3 * (row + 1), "Rectangle opening no. " + (row + 1));
-    rectangleMemberOpening.SetRectangleDimension(row + 1, 0.05, 0.05);
+    rectangleMemberOpening.SetRectangleDimension(row + 1, 0.04 + row * 0.001, 0.04 + row * 0.002);
+    rectangleMemberOpening.SetPosition(row + 1, "CENTER", 0.001 + row * 0.00045);
 }
 var hexagonalMemberOpening = new MemberOpening(undefined, undefined, [memberSet1.GetNo()], "Hexagonal member openings with multiple");
 hexagonalMemberOpening.AddTypeAndLocation("HEXAGONAL_OPENING", 0.2, "Hexagonal opening no. 1");
@@ -103,11 +101,7 @@ hexagonalMemberOpening.SetPosition(1, "TOP", 0.02);
 hexagonalMemberOpening.SetMultipleDefinition(1, 20, "RELATIVE", 0.05);
 
 /*************************************************************************** Member shear panel ****************************************************************************/
-var memberSupport = new MemberSupport();
-memberSupport.Shear(true, false, 1200);
-memberSupport.Rotation(false);
-
-STEEL_DESIGN.setActive(true)
+STEEL_DESIGN.setActive(true);
 
 var member2 = new Member();
 member2.Beam(undefined, [110, 111], 1);
@@ -128,15 +122,20 @@ memberShearPanel4.DefineSProv(10, undefined, "DEFINE"); // With object index spe
 memberShearPanel4.DefineSProvParameters(3.0, 4.0, 0.005);
 
 /*************************************************************************** Member rotational restraint *******************************************************************/
+var memberSupport = new MemberSupport();
+memberSupport.SetMembers([42, 48]);
+memberSupport.Shear(true, false, 1200);
+memberSupport.Rotation(false);
+
 var memberRotationalRestraint = new MemberRotationalRestraint();
-memberRotationalRestraint.Continuous(undefined, [memberSupport.GetNo()], "Grade S275", "TBS (+) T 35 - 0.75", "NEGATIVE", "INTERNAL_PANEL", false, "Continuous member rotational restraint example");
-memberRotationalRestraint.SetContinuousParameters(205000.0E6, 0.018, 0.00000022, 0.208, 0.041, 3000.0, 1.5);
+// Bug? Member supports can't be assigned
+memberRotationalRestraint.Continuous(undefined, [memberSupport.GetNo()], "Grade S275", "TBS (+) T 35 - 0.75", "NEGATIVE", "INTERNAL_PANEL", false, 1.5, "Continuous member rotational restraint example");
+memberRotationalRestraint.SetContinuousParameters(205000.0E6, 0.018, 0.00000022, 0.208, 0.041, 3000.0);
 var memberRotationalRestraint2 = new MemberRotationalRestraint();
-memberRotationalRestraint2.Discrete(undefined, undefined, "Grade S275", "ASB 280 - 74", "MANUALLY", undefined); // With default end panel continuous beam effect and section deformation (true)
-memberRotationalRestraint2.SetDiscreteParameters(205000.0E6, 0.00012191, 0.333, 1.5, 5000.0);
+memberRotationalRestraint2.Discrete(undefined, undefined, "Grade S275", "ASB 280 - 74", "MANUALLY", undefined, undefined, 3.5); // With default end panel continuous beam effect and section deformation (true)
+memberRotationalRestraint2.SetDiscreteParameters(205000.0E6, 0.00012191, 0.333, 5000.0);
 memberRotationalRestraint3 = new MemberRotationalRestraint();
-memberRotationalRestraint3.Manually();
-memberRotationalRestraint3.SetManuallyParameters(1.5E3);
+memberRotationalRestraint3.Manually(undefined, 1.5E3);
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;

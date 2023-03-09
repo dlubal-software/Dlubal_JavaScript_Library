@@ -182,6 +182,7 @@ Member.prototype.Cable = function (no,
  * @param	{Number}		no				Index of member, can be undefined
  * @param	{Array/Number}	nodes_or_line	List of node indexes or number of line
  * @param	{Number}		section_start	Section start. Section end is same as section start by default. To set section end specify distribution type.
+ * @param	{Number}		material_no		Material number
  * @param	{String}		comment			Comment, can be undefined
  * @param	{Object}		params  		Member's parameters, can be undefined
  * @returns	Created member
@@ -189,9 +190,17 @@ Member.prototype.Cable = function (no,
 Member.prototype.SurfaceModel = function (no,
 	nodes_or_line,
 	section_start,
+	material_no,
 	comment,
 	params) {
-	return this.member = createBaseMember(no, nodes_or_line, members.TYPE_SURFACE_MODEL, section_start, comment, params);
+	this.member = createBaseMember(no, nodes_or_line, members.TYPE_SURFACE_MODEL, section_start, comment, params);
+	ASSERT(typeof material_no !== "undefined", "Material number of Surface model member must be defined");
+	if (materials.exist(material_no)) {
+		this.member.section_material = material_no;
+	}
+	else {
+		console.log("Material no. " + material_no + " doesn't exist");
+	}
 };
 
 /**

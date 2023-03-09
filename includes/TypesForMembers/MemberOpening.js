@@ -213,7 +213,7 @@ function SetMemberOpeningParameters (member_opening,
                 }
             }
             else {
-                console.log("Component type on row " + row + " (" + member_opening.components[row].reduction_type + ") is differ from " + GetMemberOpeningReductionType(reduction_type));
+                console.log("Component type on row " + row + " (" + member_opening.components[row].reduction_type + ") is differs from " + GetMemberOpeningReductionType(reduction_type));
                 ASSERT(false);
             }
         }

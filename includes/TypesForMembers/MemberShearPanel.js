@@ -1,7 +1,7 @@
 /*
 1. Condition for compare of valid material of members assigned to member support is not solved. Condition can be taken from RFEM app code, MaterialImpl::isMaterialForSteelDesign(). 
    But for now there is any support for material sub type, standard group and property in API. Function memberIsValid returns true as default for this time.
-2. No member supports can be assigned to member shear panel for now
+2. No member supports can be assigned to member shear panel for now??
 */
 
 /**
@@ -21,6 +21,15 @@ function MemberShearPanel (no,
         this.member_shear_panel = createMemberShearPanel(no, definition_type, member_supports_no, comment, params);
     }
 }
+
+/**
+ * Assign member supports
+ * @param {Array} member_supports_no            List of assigned member supports indexes
+ */
+MemberShearPanel.prototype.AssignMemberSupports = function (member_supports_no) {
+    member_supports_no = MemberShearPanelAssignMembers(member_supports_no);
+    this.member_shear_panel.member_supports = member_supports_no;
+};
 
 /**
  * Creates Trapezoidal sheeting Member Shear Panel
@@ -207,7 +216,6 @@ function SetMemberShearPanelParameters (member_shear_panel,
     posts_section_area,
     position_on_section_value,
     stiffness) {
-        console.log(position_on_section_value);
     if (typeof panel_length !== "undefined") {
         member_shear_panel.panel_length = panel_length;
     }
@@ -253,66 +261,7 @@ function createMemberShearPanel (no,
     params) {
     if (typeof member_supports_no !== "undefined") {
         ASSERT(Array.isArray(member_supports_no), "List of member supports must be defined as array of member indexes");
-        member_supports_list = member_supports_no;
-        member_supports_no = [];
-        // Condition can be taken from RFEM app code, MaterialImpl::isMaterialForSteelDesign(). But for now there is any support for material sub type, standard group and property in API. Returns true as default.
-        function memberIsValid(member_no) {
-            /*if (members.exist(member_no)) {
-                var section = members[member_no].section_start;
-                var material = section.material;
-                var isValidType = material.material_type === materials.TYPE_STEEL || material.material_type === materials.TYPE_METAL && 
-            }
-            else {
-                console.log("Member no " + member_no + " doesn't exist");
-                return false;
-            }*/
-            return true;
-        }
-        for (var i = 0; i < member_supports_list.length; ++i) {
-            if (member_supports.exist(member_supports_list[i])) {
-                var member_support = member_supports[member_supports_list[i]];
-                var memberValid = true;
-                if (member_support.members.length > 0) {
-                    for (var j = 0; j < member_support.members.length; ++j) {
-                        if (!memberIsValid(member_support.members[j])) {
-                            memberValid = false;
-                            console.log("Member no. " + j + " is not valid for member shear panel");
-                            break;  // Jump out of the support's member loop and go to the next member support
-                        }
-                    }
-                    if (memberValid) {
-                        member_supports_no.push(member_supports_list[i]);   // Assigned members in member support are valid
-                    }
-                }
-                memberValid = true;
-                if (member_support.member_sets.length > 0) {
-                    for (var j = 0; j < member_support.member_sets.length; ++j) {
-                        if (member_sets.exist(member_support.member_sets[j])) {
-                            for (var k = 0; k < member_support.member_sets[j].members.length; ++k) {
-                                if (!memberIsValid(member_support.member_sets[j][k])) {
-                                    memberValid = false;
-                                    console.log("Member no. " + k + " is not valid for member shear panel");
-                                    break;  // Jump out of the member set list members
-                                }
-                            }
-                            if (!memberValid) {
-                                console.log("Member set no. " + j + " contains un-valid member");
-                                break;  // Jump out of the support's member loop and go to the next member support
-                            }
-                        }
-                        else {
-                            console.log("Member set no. " + j + " doesn't exist");
-                        }
-                    }
-                    if (memberValid) {
-                        member_supports_no.push(member_supports_list[i]);
-                    }
-                }
-            }
-            else {
-                console.log("Member support no. " + member_supports_list[i] + " doesn't exist");
-            }
-        }
+        member_supports_no = MemberShearPanelAssignMembers(member_supports_no);
     }
     if (typeof no === "undefined") {
         var member_shear_panel = member_shear_panels.create();
@@ -326,6 +275,71 @@ function createMemberShearPanel (no,
     }
     set_comment_and_parameters(member_shear_panel, comment, params);
     return member_shear_panel;
+}
+
+function MemberShearPanelAssignMembers (member_supports_list) {
+    ASSERT(typeof member_supports_list !== "undefined", "Member supports must be defined");
+    ASSERT(Array.isArray(member_supports_list), "Member support list must be specified as array of members/member sets indexes");
+    member_supports_no = [];
+    // Condition can be taken from RFEM app code, MaterialImpl::isMaterialForSteelDesign(). But for now there is any support for material sub type, standard group and property in API. Returns true as default.
+    function memberIsValid(member_no) {
+        /*if (members.exist(member_no)) {
+            var section = members[member_no].section_start;
+            var material = section.material;
+            var isValidType = material.material_type === materials.TYPE_STEEL || material.material_type === materials.TYPE_METAL && 
+        }
+        else {
+            console.log("Member no " + member_no + " doesn't exist");
+            return false;
+        }*/
+        return true;
+    }
+    for (var i = 0; i < member_supports_list.length; ++i) {
+        if (member_supports.exist(member_supports_list[i])) {
+            var member_support = member_supports[member_supports_list[i]];
+            var memberValid = true;
+            if (member_support.members.length > 0) {
+                for (var j = 0; j < member_support.members.length; ++j) {
+                    if (!memberIsValid(member_support.members[j])) {
+                        memberValid = false;
+                        console.log("Member no. " + j + " is not valid for member shear panel");
+                        break;  // Jump out of the support's member loop and go to the next member support
+                    }
+                }
+                if (memberValid) {
+                    member_supports_no.push(member_supports_list[i]);   // Assigned members in member support are valid
+                }
+            }
+            memberValid = true;
+            if (member_support.member_sets.length > 0) {
+                for (var j = 0; j < member_support.member_sets.length; ++j) {
+                    if (member_sets.exist(member_support.member_sets[j])) {
+                        for (var k = 0; k < member_support.member_sets[j].members.length; ++k) {
+                            if (!memberIsValid(member_support.member_sets[j][k])) {
+                                memberValid = false;
+                                console.log("Member no. " + k + " is not valid for member shear panel");
+                                break;  // Jump out of the member set list members
+                            }
+                        }
+                        if (!memberValid) {
+                            console.log("Member set no. " + j + " contains un-valid member");
+                            break;  // Jump out of the support's member loop and go to the next member support
+                        }
+                    }
+                    else {
+                        console.log("Member set no. " + j + " doesn't exist");
+                    }
+                }
+                if (memberValid) {
+                    member_supports_no.push(member_supports_list[i]);
+                }
+            }
+        }
+        else {
+            console.log("Member support no. " + member_supports_list[i] + " doesn't exist");
+        }
+    }
+    return member_supports_no;
 }
 
 function GetMemberShearPanelDefinitionType (definition_type) {
