@@ -95,6 +95,12 @@ member.CouplingRigidRigid(undefined, [17, 18], "Coupling rigid-rigid member");
 member.CouplingRigidHinge(undefined, [19, 20], "Coupling rigid-hinge member");
 member.CouplingHingeRigid(undefined, [21, 22], "Coupling hinge-rigid member");
 member.CouplingHingeHinge(undefined, [23, 24], "Coupling hinge-hinge member");
+
+var surfaceMember = new Member();
+var section10 = new Section(10, "", material.GetNo());
+section10.SectionType("STANDARDIZED_STEEL");
+surfaceMember.SurfaceModel(1100, [160, 150], section10.GetNo(), 2, "Surface model member");
+
 // Result beam with "Integrate stresses and forces within block with square area" (1), with included objects
 if (RFEM) {
 	member.ResultBeam(undefined, [25, 26], 1, "INTEGRATE_WITHIN_CUBOID_QUADRATIC", [1.5], [[1], [1, 2], true]);

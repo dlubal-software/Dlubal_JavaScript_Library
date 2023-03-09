@@ -46,6 +46,7 @@ MemberRotationalRestraint.prototype.GetMemberRotationalRestraint = function () {
  * @param {String}  position_of_sheeting        Position of sheeting (POSITIVE, NEGATIVE), can be undefined (POSITIVE as default)
  * @param {String}  continuous_beam_effect      Continuous beam effect, can be undefined (END_PANEL as default)
  * @param {Boolean} section_deformation_cdb     Section deformation CD,B, can be undefined (true as default)
+ * @param {Number}  beam_spacing                Beam spacing, can be undefined (3 m as default)
  * @param {String}  comment                     Comment, can be undefined
  * @param {Object}  params                      Additional parameters, can be undefined
  */
@@ -56,6 +57,7 @@ MemberRotationalRestraint.prototype.Continuous = function (no,
     position_of_sheeting,
     continuous_beam_effect,
     section_deformation_cdb,
+    beam_spacing,
     comment,
     params) {
     this.member_rotational_restraint = createMemberRotationalRestraint(no, member_supports_no, "CONTINUOUS", comment, params);
@@ -69,6 +71,9 @@ MemberRotationalRestraint.prototype.Continuous = function (no,
         section_deformation_cdb = true;
     }
     this.member_rotational_restraint.section_deformation_cdb = section_deformation_cdb;
+    if (typeof beam_spacing !== "undefined") {
+        this.member_rotational_restraint.beam_spacing = beam_spacing;
+    }
 };
 
 /**
@@ -80,6 +85,7 @@ MemberRotationalRestraint.prototype.Continuous = function (no,
  * @param {String}  rotational_stiffness        Rotational stiffness CD,A, can be undefined (INFINITELY as default)  
  * @param {String}  continuous_beam_effect      Continuous beam effect, can be undefined (END_PANEL as default)
  * @param {Boolean} section_deformation_cdb     Section deformation CD,B, can be undefined (true as default)
+ * @param {Number}  beam_spacing                Beam spacing, can be undefined (3 m as default)
  * @param {String}  comment                     Comment, can be undefined
  * @param {Object}  params                      Additional parameters, can be undefined
  */
@@ -90,6 +96,7 @@ MemberRotationalRestraint.prototype.Discrete = function (no,
     rotational_stiffness,
     continuous_beam_effect,
     section_deformation_cdb,
+    beam_spacing,
     comment,
     params) {
     this.member_rotational_restraint = createMemberRotationalRestraint(no, member_supports_no, "DISCRETE", comment, params);
@@ -103,20 +110,27 @@ MemberRotationalRestraint.prototype.Discrete = function (no,
         section_deformation_cdb = true;
     }
     this.member_rotational_restraint.section_deformation_cdb = section_deformation_cdb;
+    if (typeof beam_spacing !== "undefined") {
+        this.member_rotational_restraint.beam_spacing = beam_spacing;
+    }
 };
 
 /**
  * Creates Manually Member Rotational Restraint
- * @param {Number}  no                  Index of Member Rotational Restraint, can be undefined
- * @param {Array}   member_supports_no  List of assigned member supports indexes, can be undefined
- * @param {String}  comment             Comment, can be undefined 
- * @param {Object}  params              Additional parameters, can be undefined
+ * @param {Number}  no                                  Index of Member Rotational Restraint, can be undefined
+ * @param {Number}  total_rotational_spring_stiffness   Total rotational spring stiffness
+ * @param {Array}   member_supports_no                  List of assigned member supports indexes, can be undefined
+ * @param {String}  comment                             Comment, can be undefined 
+ * @param {Object}  params                              Additional parameters, can be undefined
  */
 MemberRotationalRestraint.prototype.Manually = function (no,
+    total_rotational_spring_stiffness,
     member_supports_no,
     comment,
     params) {
     this.member_rotational_restraint = createMemberRotationalRestraint(no, member_supports_no, "MANUALLY", comment, params);
+    ASSERT(typeof total_rotational_spring_stiffness !== "undefined", "Total rotational spring stiffness must be specified");
+    this.member_rotational_restraint.total_rotational_spring_stiffness = total_rotational_spring_stiffness;
 };
 
 /**
@@ -127,15 +141,13 @@ MemberRotationalRestraint.prototype.Manually = function (no,
  * @param {Number} sheeting_distance_of_ribs    Sheeting distance of ribs, can be undefined (default value taken from selected section)
  * @param {Number} width_of_section_flange      Width of sheeting flange, can be undefined (default value taken from selected section)
  * @param {Number} spring_stiffness             Spring stiffness, can be undefined (different depending on loading as default)
- * @param {Number} beam_spacing                 Beam spacing, can be undefined (3 m as default)
  */
 MemberRotationalRestraint.prototype.SetContinuousParameters = function (modulus_of_elasticity,
     sheeting_thickness,
     sheeting_moment_of_inertia,
     sheeting_distance_of_ribs,
     width_of_section_flange,
-    spring_stiffness,
-    beam_spacing) {
+    spring_stiffness) {
     ASSERT(this.member_rotational_restraint.type === member_rotational_restraints.TYPE_CONTINUOUS, "Only for Continuous Member Rotational Restraint");
     if (typeof modulus_of_elasticity !== "undefined") {
         this.member_rotational_restraint.modulus_of_elasticity = modulus_of_elasticity;
@@ -159,9 +171,6 @@ MemberRotationalRestraint.prototype.SetContinuousParameters = function (modulus_
     else {
         this.member_rotational_restraint.different_spring_stiffness = true;
     }
-    if (typeof beam_spacing !== "undefined") {
-        this.member_rotational_restraint.beam_spacing = beam_spacing;
-    }
 };
 
 /**
@@ -169,13 +178,11 @@ MemberRotationalRestraint.prototype.SetContinuousParameters = function (modulus_
  * @param {Number}  modulus_of_elasticity       Modulus of elasticity, can be undefined (default value taken from selected sheeting material)
  * @param {Number}  section_moment_of_inertia   Section moment of inertia, can be undefined (default value taken from selected section)
  * @param {Number}  purlin_spacing              Purling spacing
- * @param {Number}  beam_spacing                Beam spacing, can be undefined (3 m as default)
  * @param {Number}  rotational_stiffness_value  Rotational stiffness, can be undefined (only if rotational stiffness is INFINITELY)
  */
 MemberRotationalRestraint.prototype.SetDiscreteParameters = function (modulus_of_elasticity,
     section_moment_of_inertia,
     purlin_spacing,
-    beam_spacing,
     rotational_stiffness_value) {
     ASSERT(this.member_rotational_restraint.type === member_rotational_restraints.TYPE_DISCRETE, "Only for Discrete Member Rotational Restraint");
     if (modulus_of_elasticity !== "undefined") {
@@ -186,18 +193,10 @@ MemberRotationalRestraint.prototype.SetDiscreteParameters = function (modulus_of
     }
     ASSERT(typeof purlin_spacing !== "undefined", "Purling spacing must be defined");
     this.member_rotational_restraint.purlin_spacing = purlin_spacing;
-    if (typeof beam_spacing !== "undefined") {
-        this.member_rotational_restraint.beam_spacing = beam_spacing;
-    }
     if (typeof rotational_stiffness_value !== "undefined") {
         ASSERT(this.member_rotational_restraint.rotational_stiffness === member_rotational_restraints.ROTATIONAL_STIFFNESS_MANUALLY, "Rotational stiffness can be set only if manually rotational stiffness CD,A is set");
         this.member_rotational_restraint.rotational_stiffness_value = rotational_stiffness_value;
     }
-};
-
-MemberRotationalRestraint.prototype.SetManuallyParameters = function (total_rotational_spring_stiffness) {
-    ASSERT(typeof total_rotational_spring_stiffness !== "undefined", "Total rotational spring stiffness must be specified");
-    this.member_rotational_restraint.total_rotational_spring_stiffness = total_rotational_spring_stiffness;
 };
 
 function createMemberRotationalRestraint (no,

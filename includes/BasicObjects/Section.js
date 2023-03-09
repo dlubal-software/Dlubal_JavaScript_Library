@@ -260,22 +260,21 @@ Section.prototype.EmissionEstimationValues = function (member_weight,
     if (typeof member_weight !== "undefined") {
         this.section.emissions_estimation_apply_from_material = false;
         this.section.emissions_members_weight_active = true;
-        this.section.emissions_members_weight_unit_emission = member_weight;
+        this.section.emissions_members_weight_unit_cost = member_weight;
     }
     if (typeof member_volume !== "undefined") {
         this.section.emissions_estimation_apply_from_material = false;
         this.section.emissions_members_volume_active = true;
-        this.section.emissions_members_volume_unit_emission = member_volume;
+        this.section.emissions_members_volume_unit_cost = member_volume;
     }
     if (typeof member_surface !== "undefined") {
         this.section.emissions_estimation_apply_from_material = false;
         this.section.emissions_members_surface_active = true;
-        this.section.emissions_members_surface_unit_emission = member_surface;
+        this.section.emissions_members_surface_unit_cost = member_surface;
     }
     if (typeof member_length !== "undefined") {
-        this.section.emissions_estimation_apply_from_material = false;
         this.section.emissions_members_length_active = true;
-        this.section.emissions_members_length_unit_emission = member_length;
+        this.section.emissions_members_length_unit_cost = member_length;
     }
     return this.section;
 };
