@@ -14,7 +14,7 @@ if (!RSECTION) {
  * @param {String} comment          Comment, can be undefined
  * @param {Object} params           Parameters, can be undefined
  */
-function Bar (no,
+function Bar(no,
     material_no,
     layer_no,
     comment,
@@ -38,25 +38,45 @@ Bar.prototype.GetBar = function () {
     return this.bar;
 };
 
-Bar.prototype.StartPoint = function (start_point_no) {
+Bar.prototype.StartAndEndPoint = function (start_point_no, end_point_no) {
     ASSERT(typeof start_point_no !== "undefined", "Start point must be defined");
-    if (points.exist(start_point_no)) {
-        this.bar.start_point = start_point_no;
-    }
-    else {
-        console.log("Point no. " + start_point_no + " doesn't exist");
-    }
+    // if (points.exist(start_point_no)) {
+    this.bar.start_point = start_point_no;
+    // }
+    // else {
+    //     
+    // else {
+    //     console.log("Point no. " + start_point_no + " doesn't exist");
+    // }
+    ASSERT(typeof end_point_no !== "undefined", "End point must be defined");
+    //     // if (points.exist(end_point_no)) {
+    this.bar.end_point = end_point_no;
+    //     // }
+    //     // else {
+    //     //     console.log("Point no. " + end_point_no + " doesn't exist");
+    //     // }
+
 };
 
-Bar.prototype.EndPoint = function (end_point_no) {
-    ASSERT(typeof end_point_no !== "undefined", "End point must be defined");
-    if (points.exist(end_point_no)) {
-        this.bar.end_point = end_point_no;
-    }
-    else {
-        console.log("Point no. " + end_point_no + " doesn't exist");
-    }
+Bar.prototype.StartPoint = function (start_point_no) {
+    ASSERT(typeof start_point_no !== "undefined", "Start point must be defined");
+    // if (points.exist(start_point_no)) {
+    this.bar.start_point = start_point_no;
+    // }
+    // else {
+    //     console.log("Point no. " + start_point_no + " doesn't exist");
+    // }
 };
+
+// Bar.prototype.EndPoint = function (end_point_no) {
+//     // ASSERT(typeof end_point_no !== "undefined", "End point must be defined");
+//     // if (points.exist(end_point_no)) {
+//         this.bar.end_point = end_point_no;
+//     // }
+//     // else {
+//     //     console.log("Point no. " + end_point_no + " doesn't exist");
+//     // }
+// };
 
 /**
  * Creates Multi uniform Bar
@@ -90,7 +110,7 @@ Bar.prototype.MultiUniform = function (no,
         this.bar.offset = offset;
     }
     if (typeof number_of_bars !== "undefined") {
-        this.bar.info_number_of_bars = number_of_bars;
+        this.bar.multi_uniform_bar_count = number_of_bars;
     }
 };
 
@@ -132,7 +152,7 @@ Bar.prototype.MultiVariable = function (no,
         this.bar.offset = offset;
     }
     if (typeof number_of_bars !== "undefined") {
-        this.bar.info_number_of_bars = number_of_bars;
+        this.bar.multi_variable_bar_count = number_of_bars;
     }
     if (typeof axial_distance_si !== "undefined") {
         this.bar.axial_distance_si = axial_distance_si;
@@ -153,8 +173,8 @@ Bar.prototype.MultiVariable = function (no,
  * @param {String}  distance_between_i_and_j_type   Distance between i and j reference type, can be undefined ("REFERENCE_TYPE_L" as default)
  * @param {Number}  diameter                        Bar diameter, can be undefined (12 mm as default)
  * @param {Number}  offset                          Offset, can be undefined (0 by default)
- * @param {Number}  distance_from_start             Distance between point k and Xi-k, can be undefined (in case Xj-k is not undefined)
- * @param {Number}  distance_from_end               Distance between point k and Xj-k, can be undefined (in case Xi-k is not undefined)
+ * @param {Number}  distance_from_type              Type of distance from  - "DISTANCE_FROM_START"or "DISTANCE_FROM_END"
+ * @param {Number}  distance                        Distance between point k and Xj-k
  * @param {Boolean} relative                        Distance Xi-k or Xj-k are specified as relative or absolute, can be undefined (true as default)
  * @param {String}  comment                         Comment, can be undefined
  * @param {Object}  params                          Parameters, can be undefined
@@ -165,8 +185,8 @@ Bar.prototype.SingleBetweenTwoPoints = function (no,
     distance_between_i_and_j_type,
     diameter,
     offset,
-    distance_from_start,
-    distance_from_end,
+    distance_from_type,
+    distance,
     relative,
     comment,
     params) {
@@ -180,30 +200,7 @@ Bar.prototype.SingleBetweenTwoPoints = function (no,
     if (typeof offset !== "undefined") {
         this.bar.offset = offset;
     }
-    if (typeof distance_from_start !== "undefined" || typeof distance_from_end != "undefined") {
-        ASSERT(typeof distance_from_start !== "undefined" && typeof distance_from_end === "undefined" || typeof distance_from_start === "undefined" && typeof distance_from_end !== "undefined", "Distance form start and from end cannot be specified together, one of them must be undefined");
-        if (typeof relative === "undefined") {
-            relative = true;
-        }
-        this.bar.distance_from_start_is_defined_as_relative = relative;
-        if (typeof distance_from_start !== "undefined") {
-            if (relative) {
-                this.bar.distance_from_start_relative = distance_from_start;
-            }
-            else {
-                this.bar.distance_from_start_absolute = distance_from_start;
-            }
-        }
-        else {
-            ASSERT(typeof distance_from_end !== "undefined");
-            if (relative) {
-                this.bar.distance_from_end_relative = distance_from_end;
-            }
-            else {
-                this.bar.distance_from_end_absolute = distance_from_end;
-            }
-        }
-    }
+    SetDistance(this.bar, distance_from_type, distance, relative);
 };
 
 /**
@@ -237,7 +234,7 @@ Bar.prototype.SinglePoint = function (no,
     }
 };
 
-function createBaseBar (no,
+function createBaseBar(no,
     definition_type,
     material_no,
     layer_no,
@@ -250,7 +247,7 @@ function createBaseBar (no,
         var bar = bars.create(no);
     }
     bar.definition_type = GetBarDefinitionType(definition_type);
-    ASSERT(typeof material_no !==  "undefined", "Material number must be defined");
+    ASSERT(typeof material_no !== "undefined", "Material number must be defined");
     if (!materials.exist(material_no)) {
         console.log("Material no. " + material_no + " doesn't exist");
     }
@@ -268,39 +265,97 @@ function createBaseBar (no,
 
 function GetBarDefinitionType(definition_type) {
     const definition_types = {
-        "MULTI_UNIFORM" : bars.TYPE_MULTI_UNIFORM,
-        "MULTI_VARIABLE" : bars.TYPE_MULTI_VARIABLE,
-        "BETWEEN_TWO_POINTS" : bars.TYPE_SINGLE_BETWEEN_TWO_POINTS,
-        "SINGLE_POINT" : bars.TYPE_SINGLE_POINT
+        "MULTI_UNIFORM": bars.TYPE_MULTI_UNIFORM,
+        "MULTI_VARIABLE": bars.TYPE_MULTI_VARIABLE,
+        "BETWEEN_TWO_POINTS": bars.TYPE_SINGLE_BETWEEN_TWO_POINTS,
+        "SINGLE_POINT": bars.TYPE_SINGLE_POINT
     };
     if (definition_type !== "undefined") {
-		if (!(definition_type in definition_types)) {
+        if (!(definition_type in definition_types)) {
             console.log("Wrong bar definition type. Value was: " + definition_type);
-			console.log("Correct values are: ( " + Object.keys(definition_types) + ")");
-			definition_type = "MULTI_UNIFORM";
+            console.log("Correct values are: ( " + Object.keys(definition_types) + ")");
+            definition_type = "MULTI_UNIFORM";
         }
         return definition_types[definition_type];
-	}
-	else {
-		return bars.TYPE_MULTI_UNIFORM;
-	}
+    }
+    else {
+        return bars.TYPE_MULTI_UNIFORM;
+    }
 }
 
 function GetDistanceBetweenIAndJType(distance_type) {
     const distance_types = {
-        "REFERENCE_TYPE_L" : bars.REFERENCE_TYPE_L,
-        "REFERENCE_TYPE_Y" : bars.REFERENCE_TYPE_Y,
-        "REFERENCE_TYPE_Z" : bars.REFERENCE_TYPE_Z
+        "REFERENCE_TYPE_L": bars.REFERENCE_TYPE_L,
+        "REFERENCE_TYPE_Y": bars.REFERENCE_TYPE_Y,
+        "REFERENCE_TYPE_Z": bars.REFERENCE_TYPE_Z
     };
     if (distance_type !== "undefined") {
-		if (!(distance_type in distance_types)) {
+        if (!(distance_type in distance_types)) {
             console.log("Wrong bar distance type. Value was: " + distance_type);
-			console.log("Correct values are: ( " + Object.keys(distance_types) + ")");
-			distance_type = "REFERENCE_TYPE_L";
+            console.log("Correct values are: ( " + Object.keys(distance_types) + ")");
+            distance_type = "REFERENCE_TYPE_L";
         }
         return distance_types[distance_type];
-	}
-	else {
-		return bars.REFERENCE_TYPE_L;
-	}
+    }
+    else {
+        return bars.REFERENCE_TYPE_L;
+    }
+}
+
+function GetDistanceFrom(distance_from_type) {
+    const distance_from_types = {
+        "DISTANCE_FROM_START": "DISTANCE_FROM_START",
+        "DISTANCE_FROM_END": "DISTANCE_FROM_END"
+    };
+    if (distance_from_type !== "undefined") {
+        if (!(distance_from_type in distance_from_types)) {
+            console.log("Wrong bar distance from type. Value was: " + distance_from_type);
+            console.log("Correct values are: ( " + Object.keys(distance_from_types) + ")");
+            distance_from_type = "DISTANCE_FROM_START";
+        }
+        return distance_from_types[distance_from_type];
+    }
+    else {
+        return "DISTANCE_FROM_START";
+    }
+}
+
+function SetDistance(bar, distance_from_type, distance, relative) {
+
+    // ASSERT(typeof distance_from_type !== "undefined" && typeof distance === "undefined", "Type of d");
+    if (typeof relative === "undefined") {
+        relative = true;
+    }
+
+    var distanceType = GetDistanceFrom(distance_from_type);
+
+    switch (distanceType) {
+        case "DISTANCE_FROM_START":
+            bar.distance_from_start_is_defined_as_relative = relative;
+            if (relative) {
+                bar.distance_from_start_relative = distance;
+
+            }
+            else {
+                bar.distance_from_start_absolute = distance;
+            }
+            break;
+        case "DISTANCE_FROM_END":
+            bar.distance_from_start_is_defined_as_relative = relative;
+            if (relative) {
+                bar.distance_from_end_relative = distance;
+            }
+            else {
+                bar.distance_from_end_absolute = distance;//???
+            }
+            break;
+        default:
+            if (relative) {
+                bar.distance_from_start_relative = distance;
+            }
+            else {
+                bar.distance_from_start_absolute = distance_from_type;
+            }
+            break;
+    }
 }

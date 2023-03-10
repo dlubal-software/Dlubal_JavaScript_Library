@@ -31,11 +31,11 @@ function Stirrup (no,
     }
     ASSERT(typeof cover_points_no !== "undefined", "Cover points numbers must be defined");
     ASSERT(Array.isArray(cover_points_no), "Cover points numbers must be specified as array of point of numbers");
-    for (var i = 0; i < cover_points_no.length; ++i) {
-        if (!points.exist(cover_points_no[i])) {
-            console.log("Point no. " + cover_points_no[i] + " doesn't exist");
-        }
-    }
+    // for (var i = 0; i < cover_points_no.length; ++i) {
+    //     if (!points.exist(cover_points_no[i])) {
+    //         console.log("Point no. " + cover_points_no[i] + " doesn't exist");
+    //     }
+    // }
     this.stirrup.cover_points = cover_points_no;
     ASSERT(typeof material_no !==  "undefined", "Material number must be defined");
     if (!materials.exist(material_no)) {
