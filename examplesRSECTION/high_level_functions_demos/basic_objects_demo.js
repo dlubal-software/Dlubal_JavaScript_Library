@@ -13,6 +13,7 @@ var t1 = new Date().getTime();
 run("../includes/Tools/clearAll.js");
 
 var material = new Material(undefined, "S235");
+var material2 = new Material(undefined, "Grade 40");
 var section = new Section(1, "IPE 80", material.GetNo());
 var section2 = new Section(2, "IPE 100", material.GetNo());
 
@@ -115,30 +116,6 @@ stressPoint.Standard(undefined, 1, undefined, [0, 0.1]);
 stressPoint.OnLine(undefined, 6, [0.75, undefined]);
 stressPoint.OnLine(undefined, 6, [undefined, 0.01, false]);     // absolute distances
 stressPoint.OnElement(undefined, 5, [0.10, undefined]);   // relative distances
-
-/*********************************************** Bar ********************************************/
-general.has_concerete_reinforcement = true;
-var bar = new Bar();
-bar.MultiUniform(undefined, 31, 32, material2.GetNo(), 1, "REFERENCE_TYPE_Y", 0.025, -0.020);     // With default 2 bars
-var bar2 = new Bar();
-bar2.MultiVariable(undefined, 28, 1, material2.GetNo(), 1, "REFERENCE_TYPE_Z", 0.010, -0.020, undefined, undefined, 0.020, 0.010); // With added axial distance sj
-var bar3 = new Bar();
-bar3.SingleBetweenTwoPoints(undefined, 15, 14, material2.GetNo(), 1, undefined, 0.010, -0.020, undefined, 0.040, false); // With default ("L") reference type and absolute Xj-k value specified
-var bar4 = new Bar();
-bar4.SingleBetweenTwoPoints(undefined, 15, 14, material2.GetNo(), 1, undefined, 0.010, -0.020, 0.3); // With default ("L") reference type and relative Xi-k value specified
-var bar5 = new Bar();
-bar5.SinglePoint(undefined, 40, material2.GetNo(), 1, undefined, 0.05, 0.05);  // With default diameter
-
-/***************************************** Bar + Stirrups****************************************/
-var concreteMaterial = new Material(undefined, "C12/15");
-var reinforcedSteelMaterial = new Material(undefined, "Grade 40");
-rsPart.Rectangle(undefined, [0.3, -0.18], 0.28, 0.11, concreteMaterial.GetNo());
-var stirrup = new Stirrup(undefined, [501, 502, 503, 504, 501], reinforcedSteelMaterial.GetNo(), 0.022, 0.022, 1);
-var bar6 = new Bar();
-bar6.SinglePoint(undefined, 511, material2.GetNo(), 1);  // With default diameter and offsets
-bar6.SinglePoint(undefined, 508, material2.GetNo(), 1);  // With default diameter and offsets
-bar6.SinglePoint(undefined, 513, material2.GetNo(), 1);  // With default diameter and offsets
-bar6.SinglePoint(undefined, 516, material2.GetNo(), 1);  // With default diameter and offsets
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;

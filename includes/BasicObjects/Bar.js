@@ -2,7 +2,6 @@ if (!RSECTION) {
     throw new Error("This script is only for RSECTION, it creates RSection Bars.");
 }
 
-// Bug 46956: has_concerete_reinforcement bad API value name
 // Bar.MultiVariable function - cannot set bar.info_number_of_bars??
 
 /**
@@ -10,22 +9,18 @@ if (!RSECTION) {
  * @class
  * @constructor
  * @param {Number} no               Number of Bar, can be undefined
- * @param {Number} start_point_no   Start point number
- * @param {Number} end_point_no     End point number
  * @param {Number} material_no      Material number
  * @param {Number} layer_no         Layer number
  * @param {String} comment          Comment, can be undefined
  * @param {Object} params           Parameters, can be undefined
  */
 function Bar (no,
-    start_point_no,
-    end_point_no,
     material_no,
     layer_no,
     comment,
     params) {
     if (arguments.length > 0) {
-        this.bar = createBaseBar(no, "MULTI_UNIFORM", start_point_no, end_point_no, material_no, layer_no, comment, params);
+        this.bar = createBaseBar(no, "MULTI_UNIFORM", material_no, layer_no, comment, params);
     }
 }
 
@@ -43,11 +38,29 @@ Bar.prototype.GetBar = function () {
     return this.bar;
 };
 
+Bar.prototype.StartPoint = function (start_point_no) {
+    ASSERT(typeof start_point_no !== "undefined", "Start point must be defined");
+    if (points.exist(start_point_no)) {
+        this.bar.start_point = start_point_no;
+    }
+    else {
+        console.log("Point no. " + start_point_no + " doesn't exist");
+    }
+};
+
+Bar.prototype.EndPoint = function (end_point_no) {
+    ASSERT(typeof end_point_no !== "undefined", "End point must be defined");
+    if (points.exist(end_point_no)) {
+        this.bar.end_point = end_point_no;
+    }
+    else {
+        console.log("Point no. " + end_point_no + " doesn't exist");
+    }
+};
+
 /**
  * Creates Multi uniform Bar
  * @param {Number} no                               Number of Bar, can be undefined
- * @param {Number} start_point_no                   Start point number
- * @param {Number} end_point_no                     End point number
  * @param {Number} material_no                      Material's number
  * @param {Number} layer_no                         Number of layer
  * @param {String} distance_between_i_and_j_type    Distance between i and j reference type, can be undefined ("REFERENCE_TYPE_L" as default)
@@ -58,8 +71,6 @@ Bar.prototype.GetBar = function () {
  * @param {Object} params                           Parameters, can be undefined
  */
 Bar.prototype.MultiUniform = function (no,
-    start_point_no,
-    end_point_no,
     material_no,
     layer_no,
     distance_between_i_and_j_type,
@@ -68,7 +79,7 @@ Bar.prototype.MultiUniform = function (no,
     number_of_bars,
     comment,
     params) {
-    this.bar = createBaseBar(no, "MULTI_UNIFORM", start_point_no, end_point_no, material_no, layer_no, comment, params);
+    this.bar = createBaseBar(no, "MULTI_UNIFORM", material_no, layer_no, comment, params);
     if (typeof distance_between_i_and_j_type !== "undefined") {
         this.bar.distance_between_i_and_j_type = GetDistanceBetweenIAndJType(distance_between_i_and_j_type);
     }
@@ -86,8 +97,6 @@ Bar.prototype.MultiUniform = function (no,
 /**
  * Creates Multi variable Bar
  * @param {Number} no                               Number of Bar, can be undefined
- * @param {Number} start_point_no                   Start point number
- * @param {Number} end_point_no                     End point number
  * @param {Number} material_no                      Material's number
  * @param {Number} layer_no                         Number of layer
  * @param {String} distance_between_i_and_j_type    Distance between i and j reference type, can be undefined ("REFERENCE_TYPE_L" as default)
@@ -101,8 +110,6 @@ Bar.prototype.MultiUniform = function (no,
  * @param {Number} params                           Comment, can be undefined
  */
 Bar.prototype.MultiVariable = function (no,
-    start_point_no,
-    end_point_no,
     material_no,
     layer_no,
     distance_between_i_and_j_type,
@@ -114,7 +121,7 @@ Bar.prototype.MultiVariable = function (no,
     axial_distance_sj,
     comment,
     params) {
-    this.bar = createBaseBar(no, "MULTI_VARIABLE", start_point_no, end_point_no, material_no, layer_no, comment, params);
+    this.bar = createBaseBar(no, "MULTI_VARIABLE", material_no, layer_no, comment, params);
     if (typeof distance_between_i_and_j_type !== "undefined") {
         this.bar.distance_between_i_and_j_type = GetDistanceBetweenIAndJType(distance_between_i_and_j_type);
     }
@@ -141,8 +148,6 @@ Bar.prototype.MultiVariable = function (no,
 /**
  * Creates Single between two points Bar
  * @param {Number}  no                              Number of Bar, can be undefined
- * @param {Number}  start_point_no                  Start point number
- * @param {Number}  end_point_no                    End point number
  * @param {Number}  material_no                     Material's number
  * @param {Number}  layer_no                        Number of layer
  * @param {String}  distance_between_i_and_j_type   Distance between i and j reference type, can be undefined ("REFERENCE_TYPE_L" as default)
@@ -155,8 +160,6 @@ Bar.prototype.MultiVariable = function (no,
  * @param {Object}  params                          Parameters, can be undefined
  */
 Bar.prototype.SingleBetweenTwoPoints = function (no,
-    start_point_no,
-    end_point_no,
     material_no,
     layer_no,
     distance_between_i_and_j_type,
@@ -167,7 +170,7 @@ Bar.prototype.SingleBetweenTwoPoints = function (no,
     relative,
     comment,
     params) {
-    this.bar = createBaseBar(no, "BETWEEN_TWO_POINTS", start_point_no, end_point_no, material_no, layer_no, comment, params);
+    this.bar = createBaseBar(no, "BETWEEN_TWO_POINTS", material_no, layer_no, comment, params);
     if (typeof distance_between_i_and_j_type !== "undefined") {
         this.bar.distance_between_i_and_j_type = GetDistanceBetweenIAndJType(distance_between_i_and_j_type);
     }
@@ -206,7 +209,6 @@ Bar.prototype.SingleBetweenTwoPoints = function (no,
 /**
  * Creates Single point Bar
  * @param {Number}  no                  Number of Bar, can be undefined
- * @param {Number}  start_point_no      Start point number
  * @param {Number}  material_no         Material's number
  * @param {Number}  layer_no            Number of layer
  * @param {Number}  diameter            Bar diameter, can be undefined (12 mm as default)
@@ -216,7 +218,6 @@ Bar.prototype.SingleBetweenTwoPoints = function (no,
  * @param {Object}  params              Parameters, can be undefined
  */
 Bar.prototype.SinglePoint = function (no,
-    start_point_no,
     material_no,
     layer_no,
     diameter,
@@ -224,7 +225,7 @@ Bar.prototype.SinglePoint = function (no,
     offset_z,
     comment,
     params) {
-    this.bar = createBaseBar(no, "SINGLE_POINT", start_point_no, undefined, material_no, layer_no, comment, params);
+    this.bar = createBaseBar(no, "SINGLE_POINT", material_no, layer_no, comment, params);
     if (typeof diameter !== "undefined") {
         this.bar.diameter = diameter;
     }
@@ -238,8 +239,6 @@ Bar.prototype.SinglePoint = function (no,
 
 function createBaseBar (no,
     definition_type,
-    start_point_no,
-    end_point_no,
     material_no,
     layer_no,
     comment,
@@ -251,17 +250,6 @@ function createBaseBar (no,
         var bar = bars.create(no);
     }
     bar.definition_type = GetBarDefinitionType(definition_type);
-    ASSERT(typeof start_point_no !== "undefined", "Start point number must be defined");
-    if (!points.exist(start_point_no)) {
-        console.log("Point no. " + start_point_no + " doesn't exist");
-    }
-    if (typeof end_point_no !== "undefined" && !points.exist(end_point_no)) {
-        console.log("Point no. " + end_point_no + " doesn't exist");
-    }
-    bar.start_point = start_point_no;
-    if (typeof end_point_no !== "undefined") {
-        bar.end_point = end_point_no;
-    }
     ASSERT(typeof material_no !==  "undefined", "Material number must be defined");
     if (!materials.exist(material_no)) {
         console.log("Material no. " + material_no + " doesn't exist");
