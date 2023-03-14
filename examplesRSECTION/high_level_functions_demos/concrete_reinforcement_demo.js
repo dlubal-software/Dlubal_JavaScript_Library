@@ -28,14 +28,14 @@ var stirrup = new Stirrup(undefined, [501, 502, 503, 504, 501], reinforcedSteelM
 
 /*********************************************** Bars ********************************************/
 
-var userLayer1 = new Layer(2, "User layer1"); 
-var userLayer2 = new Layer(3, "User layer2"); 
-var userLayer3 = new Layer(4, "User laye3r"); 
-var userLayer4 = new Layer(5, "User layer4"); 
-var userLayer5 = new Layer(6, "User layer5"); 
-var userLayer6 = new Layer(7, "User layer6"); 
+var userLayer1 = new Layer(2, "User layer1");
+var userLayer2 = new Layer(3, "User layer2");
+var userLayer3 = new Layer(4, "User laye3r");
+var userLayer4 = new Layer(5, "User layer4");
+var userLayer5 = new Layer(6, "User layer5");
+var userLayer6 = new Layer(7, "User layer6");
 var bar = new Bar();
-bar.MultiUniform(1, reinforcedSteelMaterial.GetNo(), userLayer1.GetNo(), "REFERENCE_TYPE_Y", 0.01, -0.015);   
+bar.MultiUniform(1, reinforcedSteelMaterial.GetNo(), userLayer1.GetNo(), "REFERENCE_TYPE_Y", 0.01, -0.015);
 bar.StartAndEndPoint(506,511);
 var bar2 = new Bar();
 bar2.MultiVariable(2, reinforcedSteelMaterial.GetNo(), userLayer2.GetNo(), "REFERENCE_TYPE_Y", 0.010, -0.020, 3, 0.01, 0.20, 0.010);
@@ -54,7 +54,7 @@ bar6.SingleBetweenTwoPoints(6, reinforcedSteelMaterial.GetNo(), userLayer4.GetNo
 bar6.StartAndEndPoint(3,2);
 
 var bar7 = new Bar();
-bar7.SinglePoint(7, reinforcedSteelMaterial.GetNo(), userLayer5.GetNo(), 0.01, 0.05, -0.75); 
+bar7.SinglePoint(7, reinforcedSteelMaterial.GetNo(), userLayer5.GetNo(), 0.01, 0.05, -0.75);
 bar7.StartPoint(4);
 
 

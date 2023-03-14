@@ -44,7 +44,7 @@ Bar.prototype.StartAndEndPoint = function (start_point_no, end_point_no) {
     this.bar.start_point = start_point_no;
     // }
     // else {
-    //     
+    //
     // else {
     //     console.log("Point no. " + start_point_no + " doesn't exist");
     // }
