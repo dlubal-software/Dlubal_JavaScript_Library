@@ -398,8 +398,8 @@ function NonlinearMethodsType(type, method) {
 function EquationSolverType(solverType) {
 
   const EquationSolver_dict = {
-    METHOD_OF_EQUATION_SYSTEM_DIRECT: static_analysis_settings.METHOD_OF_EQUATION_SYSTEM_DIRECT,
-    METHOD_OF_EQUATION_SYSTEM_ITERATIVE: static_analysis_settings.METHOD_OF_EQUATION_SYSTEM_ITERATIVE
+    "METHOD_OF_EQUATION_SYSTEM_DIRECT": static_analysis_settings.METHOD_OF_EQUATION_SYSTEM_DIRECT,
+    "METHOD_OF_EQUATION_SYSTEM_ITERATIVE": static_analysis_settings.METHOD_OF_EQUATION_SYSTEM_ITERATIVE
   };
   var equationSolver = EquationSolver_dict[solverType];
   if (equationSolver === undefined) {

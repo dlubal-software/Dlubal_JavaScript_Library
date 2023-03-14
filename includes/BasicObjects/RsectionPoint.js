@@ -24,6 +24,20 @@ function RSectionPoint(no,
 }
 
 /**
+ * @returns Point number
+ */
+RSectionPoint.prototype.GetNo = function () {
+    return this.point.no;
+};
+
+/**
+ * @returns Point object
+ */
+RSectionPoint.prototype.GetPoint = function () {
+    return this.point;
+};
+
+/**
  * Returns y coordinate
  */
 RSectionPoint.prototype.y = function() {
