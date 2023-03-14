@@ -13,6 +13,7 @@ var t1 = new Date().getTime();
 run("../includes/Tools/clearAll.js");
 
 var material = new Material(undefined, "S235");
+var material2 = new Material(undefined, "Grade 40");
 var section = new Section(1, "IPE 80", material.GetNo());
 var section2 = new Section(2, "IPE 100", material.GetNo());
 
