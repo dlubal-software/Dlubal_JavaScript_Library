@@ -22,6 +22,22 @@ function Line (no,
 }
 
 /**
+ * Function for getting id of line
+ * @returns Returns line no
+ */
+Line.prototype.GetNo = function(){
+	return this.line.no;
+};
+
+/**
+ *  Function for getting line object
+ * @returns returns line object
+ */
+Line.prototype.GetLine = function(){
+	return this.line.no;
+};
+
+/**
 * Creates polyline
 * @param	{Number}	no			Index of line, can be undefined
 * @param	{Array}		nodes		List of {@link Node} indexes
@@ -509,13 +525,6 @@ Line.prototype.WeldedJoints = function (values) {
 	}
 };
 
-Line.prototype.GetNo = function (){
-	return this.line.no;
-};
-
-Line.prototype.GetLine = function (){
-	return this.line;
-};
 
 
 /**
