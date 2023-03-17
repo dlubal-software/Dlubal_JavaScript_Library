@@ -1,3 +1,8 @@
+/*
+Some code is fro PRERELEASE:
+effectiveLength.EffectiveLengthsAccToStandard
+*/
+
 include("../../includes/Tools/high_level_functions_support.js");
 /*********************************************************************************************
 ****************************************** Main **********************************************
@@ -189,63 +194,86 @@ if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC")) {
 /******************************************************* Types for Steel designs - Effective lengths ********************************************************/
 switch (general.current_standard_for_steel_design)
 {
-    case "EN 1993 | CEN | 2015-06":
+    case "EN 1993 | CEN | 2015-06": // 0
         var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (EN)");
         effectiveLength.DeterminationType(false, false, true, true, "EUROPE_USER_DEFINED");
         effectiveLength.BucklingAxes(false, true);
+        effectiveLength.DifferentPropertiesForNodalSupports(false);
         effectiveLength.NodalSupportsStartWithSupportType("FIXED_IN_Y");
+        effectiveLength.NodalSupportsEndWithSupportType("FIXED_ALL");
         break;
-    case "AISC 360 | 2016":
+    case "AISC 360 | 2016": // 1
         var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (AISC)");
         effectiveLength.BucklingFactorType("RECOMMENDED");
         effectiveLength.EffectiveLengthsAccToStandard("AISI_S100");
         effectiveLength.DeterminationType(true, false, false, true, "ACC_TO_CHAPTERS_E2_F21");
         effectiveLength.ModificationFactor("CB_USER_DEFINED", 1.5);
+        effectiveLength.InsertNodalSupportIntermediateNodeWithSupportType("FIXED_IN_Z_AND_TORSION");
+        effectiveLength.InsertNodalSupportIntermediateNodeWithSupportType("FIXED_IN_Z");
+        effectiveLength.InsertNodalSupportIntermediateNodeWithSupportType("FIXED_IN_Y");
+        effectiveLength.Eccentricity(4, "USER_VALUE", 0.055);
         break;
-    case "IS 800 | 2007-12":
+    case "IS 800 | 2007-12":    // 2
         var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (IS)");
         effectiveLength.DeterminationType(true, false, undefined, false);
+        effectiveLength.InsertNodalSupportIntermediateNodeWithSupportType("NONE");
         break;
-    case "BS 5950 | 2001-05":
+    case "BS 5950 | 2001-05":   // 3
         var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (BS)");
         effectiveLength.DeterminationType(true, true, undefined, true, "BS5_ACC_TO_ANNEX_B");
         effectiveLength.BucklingAxes(undefined, true);
+        const support_types = ["FIXED_IN_Z", "FIXED_IN_Y", "RESTRAINT_ABOUT_X", "FIXED_IN_Z_AND_TORSION",
+            "FIXED_IN_Z_Y_AND_TORSION", "FIXED_IN_Z_AND_TORSION_AND_WARPING", "FIXED_IN_Z_Y_AND_TORSION_AND_WARPING",
+            "FIXED_ALL"];
+        for (var i = 0; i < support_types.length; ++i) {
+            effectiveLength.InsertNodalSupportIntermediateNodeWithSupportType(support_types[i]);
+        }
+        // Start node sequence
+        effectiveLength.OverwriteEffectiveLengths(1, 1.001, 1.002, 1.003, 1.004, undefined, 1.005);
+        // Node seq. .1
+        effectiveLength.OverwriteEffectiveLengths(2, 1.006, undefined, 1.007, undefined, undefined);
         break;
-    case "GB 50017 | 2017-12":
+    case "GB 50017 | 2017-12":  // 4
         var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (GB)");
         effectiveLength.DeterminationType(false, false, false, true, "GB50_NOT_USED");
         effectiveLength.MemberType(undefined, "CANTILEVER", "CANTILEVER");
+        effectiveLength.InsertNodalSupportIntermediateNodeWithSupportType("FIXED_IN_Y");
+        effectiveLength.Eccentricity(2, "AT_UPPER_FLANGE");
+        // Start node sequence
+        effectiveLength.EffectiveLengthFactors(1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, 1.01, 1.02);
+        // Node seq. .1
+        effectiveLength.EffectiveLengthFactors(2, undefined, undefined, undefined, undefined, undefined, undefined, undefined, 1.5);
         break;
-    case "CSA S16 | 2019":
+    case "CSA S16 | 2019":  // 5
         var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (CSA)");
         effectiveLength.DeterminationType(undefined, undefined, undefined, undefined, "CSA_ACC_TO_CHAPTER_13_6");
         effectiveLength.MemberType("CANTILEVER");
         effectiveLength.BucklingFactorType("RECOMMENDED");
         //effectiveLength.ModificationFactor("CB_USER_DEFINED", 2.5); There is no support for Modification factor for CSA and NBR standards? Only for AISC?
         break;
-    case "AS 4100 | 2016-06":
+    case "AS 4100 | 2016-06":   // 6
         var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (AS)");
         effectiveLength.BucklingFactorType("RECOMMENDED");
         effectiveLength.BucklingAxes(false, true);
         effectiveLength.SegmentsRestrainedBothEnds("USER_DEFINED", 2.0/*, "EIGENVALUE_METHOD"*/);   // API enum bug?
         effectiveLength.SegmentsUnrestrainedOneEnd("USER_DEFINED", 2.5);
         break;
-    case "SP 16.13330 | 2017-02":
+    case "SP 16.13330 | 2017-02":   // 7
         var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (SP)");
         effectiveLength.DeterminationType(false, false, undefined, true);
         effectiveLength.MemberType("CANTILEVER");
         break;
-    case "NTC | 2018-01":
+    case "NTC | 2018-01":   // 8
         var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (NTC)");
         effectiveLength.DeterminationType(undefined, undefined, undefined, undefined);  // No API enum for Determination of Mcr (NTC standard)
         break;
-    case "NBR 8800 | 2008-08":
+    case "NBR 8800 | 2008-08":  // 9
         var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (NBR)");
         effectiveLength.DeterminationType(false, false, false);
         //effectiveLength.ModificationFactor("CB_USER_DEFINED", 1.8); There is no support for Modification factor for CSA and NBR standards? Only for AISC?
         break;
     default:
-        ASSERT(false);
+        ASSERT(false, "Unknown general.current_standard_for_steel_design");
 }
 
 var t2 = new Date().getTime();
