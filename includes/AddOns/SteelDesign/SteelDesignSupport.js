@@ -109,6 +109,10 @@ setSteelDesignUltimateConfiguration_PositionOfPositiveTransverse = function (add
     }
 };
 
+function GetCurrentCodeOfStandard () {
+    return general.current_standard_for_steel_design.match(/\w+/);
+}
+
 function IsCurrentCodeOfStandard (current_standard) {
-    return general.current_standard_for_steel_design.match(/\w+/) == current_standard;  // Don't use === (we don't want compare types of strings)
+    return GetCurrentCodeOfStandard() == current_standard;  // Don't use === (we don't want compare types of strings)
 }

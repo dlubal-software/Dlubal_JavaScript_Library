@@ -140,6 +140,9 @@ include("AddOns/SteelDesign/UltimateConfigurationEC3.js");
 include("AddOns/SteelDesign/UltimateConfigurationGB.js");
 include("AddOns/SteelDesign/UltimateConfigurationIS.js");
 include("AddOns/SteelDesign/UltimateConfigurationSP.js");
+include("AddOns/SteelDesign/UltimateConfigurationNTC.js");
+include("AddOns/SteelDesign/UltimateConfigurationNBR.js");
+include("AddOns/SteelDesign/UltimateConfigurationSIA.js");
 include("AddOns/SteelDesign/ServiceabilityConfiguration.js");
 include("AddOns/SteelDesign/FireResistanceConfiguration.js");
 // Addons - Types for

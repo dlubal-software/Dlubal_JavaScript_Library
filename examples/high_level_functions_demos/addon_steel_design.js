@@ -25,7 +25,8 @@ const steel_design_standards = {
     6: "AS 4100 | 2016-06",
     7: "SP 16.13330 | 2017-02",
     8: "NTC | 2018-01",
-    9: "NBR 8800 | 2008-08"
+    9: "NBR 8800 | 2008-08",
+    10: "SIA 263 | 2013-01"
 };
 
 var material = new Material(undefined, "S235");
@@ -44,7 +45,7 @@ general.current_standard_for_steel_design = steel_design_standards[standard_inde
 if (RFEM) {
     switch (general.current_standard_for_steel_design)
     {
-        case "EN 1993 | CEN | 2015-06":
+        case "EN 1993 | CEN | 2015-06": // 0
             var steelDesignUltimateConfigurationEC3 = new SteelDesignUltimateConfigurationEC3(undefined, "EC3 Ultimate configuration for testing", [1]);
             steelDesignUltimateConfigurationEC3.General(true);
             steelDesignUltimateConfigurationEC3.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07);
@@ -70,7 +71,7 @@ if (RFEM) {
             steelDesignFireResistanceConfigurationEC3_2.FinalTemperatureEC3("MANUALLY");
             steelDesignFireResistanceConfigurationEC3_2.ManuallyFinalTemperatureEC3(undefined, "3_SIDES", true);
             break;
-        case "AISC 360 | 2016":
+        case "AISC 360 | 2016": // 1
             var steelDesignStrengthConfigurationAISC = new SteelDesignStrengthConfigurationAISC(undefined, "AICS Strength configuration for testing", [1]);
             steelDesignStrengthConfigurationAISC.General(true);
             steelDesignStrengthConfigurationAISC.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07);
@@ -80,7 +81,7 @@ if (RFEM) {
             var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "AISC Serviceability configuration for testing", [2]);
             steelDesignServiceabilityConfiguration.DesignParametersAISC(200, 300);
             break;
-        case "IS 800 | 2007-12":
+        case "IS 800 | 2007-12":    // 2
             var steelDesignUltimateConfigurationIS = new SteelDesignUltimateConfigurationIS(undefined, "IS Ultimate configuration for testing", [1]);
             steelDesignUltimateConfigurationIS.General(true);
             steelDesignUltimateConfigurationIS.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07);
@@ -92,7 +93,7 @@ if (RFEM) {
             var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "IS Serviceability configuration for testing", [2]);
             steelDesignServiceabilityConfiguration.DesignParametersIS(200, 300);
             break;
-        case "BS 5950 | 2001-05":
+        case "BS 5950 | 2001-05":   // 3
             var steelDesignUltimateConfigurationBS = new SteelDesignUltimateConfigurationBS(undefined, "BS Ultimate configuration for testing", [1]);
             steelDesignUltimateConfigurationBS.General(true);
             steelDesignUltimateConfigurationBS.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07);
@@ -102,7 +103,7 @@ if (RFEM) {
             var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "BS Serviceability configuration for testing", [2]);
             steelDesignServiceabilityConfiguration.DesignParametersBS(300, 400, 0.01);
             break;
-        case "GB 50017 | 2017-12":
+        case "GB 50017 | 2017-12":  // 4
             var steelDesignUltimateConfigurationGB = new SteelDesignUltimateConfigurationGB(undefined, "GB Ultimate configuration for testing", [1]);
             steelDesignUltimateConfigurationGB.General(true);
             steelDesignUltimateConfigurationGB.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07);
@@ -120,7 +121,7 @@ if (RFEM) {
             var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "GB Serviceability configuration for testing", [2]);
             steelDesignServiceabilityConfiguration.DesignParametersGB(1100, 1200, 501, 502);
             break;
-        case "CSA S16 | 2019":
+        case "CSA S16 | 2019":  // 5
             var steelDesignUltimateConfigurationCSA = new SteelDesignUltimateConfigurationCSA(undefined, "CSA Ultimate configuration for testing", [1])
             steelDesignUltimateConfigurationCSA.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07);
             steelDesignUltimateConfigurationCSA.Options(true, undefined, true, undefined, true, 0.9, 0.95);
@@ -129,7 +130,7 @@ if (RFEM) {
             var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "CSA Serviceability configuration for testing", [2]);
             steelDesignServiceabilityConfiguration.DesignParametersCSA(300, 400);
             break;
-        case "AS 4100 | 2016-06":
+        case "AS 4100 | 2016-06":   // 6
             var steelDesignUltimateConfigurationAS = new SteelDesignUltimateConfigurationAS(undefined, "AS Ultimate configuration for testing", [1]);
             steelDesignUltimateConfigurationAS.General(true);
             steelDesignUltimateConfigurationAS.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07);
@@ -140,7 +141,7 @@ if (RFEM) {
             var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "AS Serviceability configuration for testing", [2]);
             steelDesignServiceabilityConfiguration.DesignParametersAS(101, 102, 103, 104);
             break;
-        case "SP 16.13330 | 2017-02":
+        case "SP 16.13330 | 2017-02":   // 7
             var steelDesignUltimateConfigurationSP = new SteelDesignUltimateConfigurationSP(undefined, "SP Ultimate configuration for testing", [1]);
             steelDesignUltimateConfigurationSP.General(true);
             steelDesignUltimateConfigurationSP.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07);
@@ -152,9 +153,20 @@ if (RFEM) {
             var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "SP Serviceability configuration for testing", [2], undefined, "Last test example");
             steelDesignServiceabilityConfiguration.DesignParametersSP(101, 102);
             break;
-        case "NTC | 2018-01":
+        case "NTC | 2018-01":   // 8 (API support is missing)
+            var steelDesignUltimateConfigurationNTC = new SteelDesignUltimateConfigurationNTC(undefined, "NTC Ultimate configuration for testing", [1]);
             break;
-        case "NBR 8800 | 2008-08":
+        case "NBR 8800 | 2008-08":  // 9
+            var steelDesignUltimateConfigurationNBR = new SteelDesignUltimateConfigurationNBR(undefined, "NBR Ultimate configuration for testing", [1]);
+            steelDesignUltimateConfigurationNBR.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08);
+            steelDesignUltimateConfigurationNBR.Options(0.9, false);
+            steelDesignUltimateConfigurationNBR.PositionOfPositiveTransverse(undefined, true);
+            break;
+        case "SIA 263 | 2013-01":   // 10
+            var steelDesignUltimateConfigurationSIA = new SteelDesignUltimateConfigurationSIA(undefined, "SIA Ultimate configuration for testing", [1]);
+            steelDesignUltimateConfigurationSIA.LimitValues(0.002, 0.003, 0.004, 0.05, 0.006, 0.007);
+            steelDesignUltimateConfigurationSIA.PositionOfPositiveTransverse(undefined, undefined, true);
+
             break;
         default:
             ASSERT(false);
@@ -222,6 +234,8 @@ switch (general.current_standard_for_steel_design)
         var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (BS)");
         effectiveLength.DeterminationType(true, true, undefined, true, "BS5_ACC_TO_ANNEX_B");
         effectiveLength.BucklingAxes(undefined, true);
+        effectiveLength.NodalSupportsStartWithSupportType("FIXED_IN_Y");
+        effectiveLength.NodalSupportsEndWithSupportType("FIXED_IN_Z");
         const support_types = ["FIXED_IN_Z", "FIXED_IN_Y", "RESTRAINT_ABOUT_X", "FIXED_IN_Z_AND_TORSION",
             "FIXED_IN_Z_Y_AND_TORSION", "FIXED_IN_Z_AND_TORSION_AND_WARPING", "FIXED_IN_Z_Y_AND_TORSION_AND_WARPING",
             "FIXED_ALL"];
@@ -271,6 +285,12 @@ switch (general.current_standard_for_steel_design)
         var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (NBR)");
         effectiveLength.DeterminationType(false, false, false);
         //effectiveLength.ModificationFactor("CB_USER_DEFINED", 1.8); There is no support for Modification factor for CSA and NBR standards? Only for AISC?
+        break;
+    case "SIA 263 | 2013-01":   // 10
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (SIA)");
+        effectiveLength.DifferentPropertiesForNodalSupports();
+        effectiveLength.NodalSupportsStartWithSupportType("FIXED_IN_Z_Y_AND_TORSION");
+        effectiveLength.NodalSupportsEndWithSupportType("RESTRAINT_ABOUT_X");
         break;
     default:
         ASSERT(false, "Unknown general.current_standard_for_steel_design");

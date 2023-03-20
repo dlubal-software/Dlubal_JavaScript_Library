@@ -889,12 +889,18 @@ function setSteelDesignEffectiveLengthsNodalSupports (effective_length,
             return true;
         }
         var checks = supportTypeValues[support_type];
-        for (var i = 0; i < checks.length; ++i) {
-            if (checks[i] && !isDirectionEnabled(effective_length, directions[i])) {
-                return false;
+        if (checks !== undefined) {
+            for (var i = 0; i < checks.length; ++i) {
+                if (checks[i] && !isDirectionEnabled(effective_length, directions[i])) {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
+        else {
+            console.log("Wrong support type. Value was: " + support_type);
+			console.log("Correct values are: ( " + Object.keys(supportTypeValues) + ")");
+        }
     }
     var support_false = GetSteelDesignSupportStatusType("SUPPORT_STATUS_NO");
     var support_true = GetSteelDesignSupportStatusType("SUPPORT_STATUS_YES");
@@ -903,23 +909,23 @@ function setSteelDesignEffectiveLengthsNodalSupports (effective_length,
             row = row - 1;
             effective_length.nodal_supports.insert_row(row);
         }
-        if (support_in_y === support_true && isDirectionEnabled(effective_length, "DIRECTION_IN_Y")) {
+        if (isDirectionEnabled(effective_length, "DIRECTION_IN_Y")) {
             checkUniqueValues(support_in_y, "support_in_y");
             effective_length.nodal_supports[row].support_in_y = support_in_y;
         }
-        if (support_in_z === support_true && isDirectionEnabled(effective_length, "DIRECTION_IN_Z")) {
+        if (isDirectionEnabled(effective_length, "DIRECTION_IN_Z")) {
             checkUniqueValues(support_in_z, "support_in_z");
             effective_length.nodal_supports[row].support_in_z = support_in_z;
         }
-        if (restraint_about_x === support_true && isDirectionEnabled(effective_length, "DIRECTION_ABOUT_X")) {
+        if (isDirectionEnabled(effective_length, "DIRECTION_ABOUT_X")) {
             checkUniqueValues(restraint_about_x, "restraint_about_x");
             effective_length.nodal_supports[row].restraint_about_x = restraint_about_x;
         }
-        if (restraint_about_z === support_true && isDirectionEnabled(effective_length, "DIRECTION_ABOUT_Z")) {
+        if (isDirectionEnabled(effective_length, "DIRECTION_ABOUT_Z")) {
             checkUniqueValues(restraint_about_z, "restraint_about_z");
             effective_length.nodal_supports[row].restraint_about_z = restraint_about_z;
         }
-        if (restraint_warping === support_true && isDirectionEnabled(effective_length, "DIRECTION_WARPING")) {
+        if (isDirectionEnabled(effective_length, "DIRECTION_WARPING")) {
             checkUniqueValues(restraint_warping, "restraint_warping");
             effective_length.nodal_supports[row].restraint_warping = restraint_warping;
         }
