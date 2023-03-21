@@ -16,7 +16,7 @@ include("../SteelDesign/SteelDesignSupport.js");
 
 /**
  * Creates Steel design effective length
- * @param {Number} no               Steel design boundary condition index, can be undefined
+ * @param {Number} no               Steel design effective lengths index, can be undefined
  * @param {String} name             Name, can be undefined
  * @param {Array} members_no        List of members indexes, can be undefined
  * @param {Array} member_sets_no    List of member sets indexes, can be undefined

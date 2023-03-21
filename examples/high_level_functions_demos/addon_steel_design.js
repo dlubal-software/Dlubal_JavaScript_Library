@@ -296,6 +296,19 @@ switch (general.current_standard_for_steel_design)
         ASSERT(false, "Unknown general.current_standard_for_steel_design");
 }
 
+/******************************************************* Types for Steel designs - Member local section reduction ********************************************************/
+var memberLocalSectionReduction = new SteelDesignMemberLocalSectionReduction(undefined, "User defined name for member local section reduction", [6], undefined, "Member local section reduction");
+memberLocalSectionReduction.AddReductionType("DESIGN_PARAMETERS", 1.5);
+memberLocalSectionReduction.AddReductionType("DESIGN_PARAMETERS", 1.6, true);
+memberLocalSectionReduction.AddReductionType("SECTION_VALUES", 2.5);
+memberLocalSectionReduction.AddReductionType("SECTION_VALUES", 2.6, true);
+memberLocalSectionReduction.DesignParameters(1, undefined, 0.00075);
+memberLocalSectionReduction.DesignParameters(2, "RELATIVE", 0.025);
+memberLocalSectionReduction.SectionValues(3, "RELATIVE", 0.019, 0.02, 0.021, 0.022, 0.023, 0.024, 0.025);
+memberLocalSectionReduction.SectionValues(4, "ABSOLUTE", 1.1, 1.2, 1.3, 0.0001, 0.0002, 0.0003);
+memberLocalSectionReduction.MultipleDefinition(2, 3, "ABSOLUTE", 0.1);
+memberLocalSectionReduction.MultipleDefinition(4, undefined, "RELATIVE", 0.02);
+
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;
 console.log("Elapsed time: " + time + "s");
