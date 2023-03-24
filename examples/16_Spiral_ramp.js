@@ -93,18 +93,18 @@ line.Polyline(37, [26, 9]);
 
 // Create surfaces
 var sur = new Surface();
-sur.Quadrangle(1, [1, 18, 5, 17],"Standard", thicknessRamp.GetNo());
-sur.Quadrangle(2, [2, 19, 6, 18],"Standard", thicknessRamp.GetNo());
-sur.Quadrangle(3, [3, 20, 7, 19],"Standard", thicknessRamp.GetNo());
-sur.Quadrangle(4, [4, 21, 8, 20],"Standard", thicknessRamp.GetNo());
-sur.Quadrangle(5, [1, 22, 9, 23],"Standard", thicknessWalls.GetNo());
-sur.Quadrangle(6, [2, 23, 10, 24],"Standard", thicknessWalls.GetNo());
-sur.Quadrangle(7, [3, 24, 11, 25],"Standard", thicknessWalls.GetNo());
-sur.Quadrangle(8, [4, 25, 12, 26],"Standard", thicknessWalls.GetNo());
-sur.Quadrangle(9, [5, 28, 13, 27],"Standard", thicknessWalls.GetNo());
-sur.Quadrangle(10, [6, 29, 14, 28],"Standard", thicknessWalls.GetNo());
-sur.Quadrangle(11, [7, 30, 15, 29],"Standard", thicknessWalls.GetNo());
-sur.Quadrangle(12, [8, 31, 16, 30],"Standard", thicknessWalls.GetNo());
+sur.Quadrangle(1, [1, 18, 5, 17],"STANDARD", thicknessRamp.GetNo());
+sur.Quadrangle(2, [2, 19, 6, 18],"STANDARD", thicknessRamp.GetNo());
+sur.Quadrangle(3, [3, 20, 7, 19],"STANDARD", thicknessRamp.GetNo());
+sur.Quadrangle(4, [4, 21, 8, 20],"STANDARD", thicknessRamp.GetNo());
+sur.Quadrangle(5, [1, 22, 9, 23],"STANDARD", thicknessWalls.GetNo());
+sur.Quadrangle(6, [2, 23, 10, 24],"STANDARD", thicknessWalls.GetNo());
+sur.Quadrangle(7, [3, 24, 11, 25],"STANDARD", thicknessWalls.GetNo());
+sur.Quadrangle(8, [4, 25, 12, 26],"STANDARD", thicknessWalls.GetNo());
+sur.Quadrangle(9, [5, 28, 13, 27],"STANDARD", thicknessWalls.GetNo());
+sur.Quadrangle(10, [6, 29, 14, 28],"STANDARD", thicknessWalls.GetNo());
+sur.Quadrangle(11, [7, 30, 15, 29],"STANDARD", thicknessWalls.GetNo());
+sur.Quadrangle(12, [8, 31, 16, 30],"STANDARD", thicknessWalls.GetNo());
 
 // // Create members
 var mem = new Member();
@@ -129,4 +129,4 @@ SASGeometricallyLinear.GeometricallyLinear(1);
 var SASSecondOrder = new StaticAnalysisSettings();
 SASSecondOrder.SecondOrder(2,"MySASLinear", "METHOD_OF_EQUATION_SYSTEM_DIRECT", "NEWTON_RAPHSON");
 var lc1 = new LoadCase();
-lc1.StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_PERMANENT_G", [true, 0, 0, 1.0]);
+lc1.StaticAnalysis(1, "Self weight", SASGeometricallyLinear.GetNo(), "PERMANENT_G", [true, 0, 0, 1.0]);

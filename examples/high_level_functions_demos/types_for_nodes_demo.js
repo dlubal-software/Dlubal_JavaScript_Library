@@ -19,7 +19,7 @@ var linesForSurfaces = createSurfacesFromNodesGrid(nodesForSurfaces, [5, 1], sur
 
 nodalMeshRefinement = new NodalMeshRefinement(undefined, [1, 2, 3, 4, 11, 12, 13, 14]);	// Default
 nodalMeshRefinementCircular = new NodalMeshRefinement();
-nodalMeshRefinementCircular.Circular(undefined, [5, 6, 7, 8, 15, 16, 17, 18], 3, 0.2, 0.6, "Gradually");
+nodalMeshRefinementCircular.Circular(undefined, [5, 6, 7, 8, 15, 16, 17, 18], 3, 0.2, 0.6, "GRADUALLY");
 nodalMeshRefinementRectangular = new NodalMeshRefinement();
 nodalMeshRefinementRectangular.Rectangular(undefined, [9, 10, 19, 20], undefined, 0.5);
 nodalMeshRefinementRectangular.ApplyToSurfaces([5]);

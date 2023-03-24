@@ -72,7 +72,7 @@ catch
 Write-Output "Copying done"
 
 $PathToRFEMExe = $PathToRFEM + "\\bin\\"
-$AppExe = ".\RFEM6.exe"
+ $AppExe = ".\RFEM6.exe"
 # $AppExe = ".\RSTAB9.exe"
 # $AppExe = ".\RSECTION.exe"
 $ArgumentsList = "--prerelease-mode --dev-mode --dbg-solver --DEV-branch-name-in-title"

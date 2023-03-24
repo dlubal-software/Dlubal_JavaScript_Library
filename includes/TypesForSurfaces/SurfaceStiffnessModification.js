@@ -112,9 +112,9 @@ SurfaceStiffnessModification.prototype.StiffnessMatrixElementsFactors = function
 * Creates concrete structure ACI type of surface stiffness modification
 * @param	{Number}	no							Index of surface stiffness modification
 * @param	{Number}	structural_modification		Structural modification index, can be undefined
-* @param	{Number}	component_type				Component type (1 - Columns, 2 - Walls uncracked, 3 - Walls cracked, 4 - Beams, 5 - Flat plates and flat slabs), can be undefined (Columns type as default)
+* @param	{Number}	component_type				Component type (WALLS_UNCRACKED, WALLS_CRACKED, PLATES_AND_FLAT_SLABS), can be undefined (WALLS_UNCRACKED as default)
 * @param	{String}	comment						Comment, can be undefined
-* @param	{Object}	params  					Surface stiffness modification's parameters, can be undefined
+* @param	{Object}	params						Surface stiffness modification's parameters, can be undefined
 * @returns	Created surface stiffness modification
 */
 SurfaceStiffnessModification.prototype.ConcreteStructuresACI = function (no,
@@ -130,9 +130,9 @@ SurfaceStiffnessModification.prototype.ConcreteStructuresACI = function (no,
 * Creates concrete structure CSA type of surface stiffness modification
 * @param	{Number}	no							Index of surface stiffness modification
 * @param	{Number}	structural_modification		Structural modification index, can be undefined
-* @param	{Number}	component_type				Component type (1 - Columns, 2 - Walls uncracked, 3 - Walls cracked, 4 - Beams, 5 - Flat plates and flat slabs), can be undefined (Columns type as default)
+* @param	{Number}	component_type				Component type (WALLS_UNCRACKED, WALLS_CRACKED, PLATES_AND_FLAT_SLABS), can be undefined (WALLS_UNCRACKED as default)
 * @param	{String}	comment						Comment, can be undefined
-* @param	{Object}	params  					Surface stiffness modification's parameters, can be undefined
+* @param	{Object}	params						Surface stiffness modification's parameters, can be undefined
 * @returns	Created surface stiffness modification
 */
 SurfaceStiffnessModification.prototype.ConcreteStructuresCSA = function (no,
@@ -148,35 +148,38 @@ SurfaceStiffnessModification.prototype.ConcreteStructuresCSA = function (no,
 * Modifies concrete structures surface stiffness modification (private)
 * @param	{Object}	surface_stiffness_modification	Surface stiffness modification to be set
 * @param	{String}	stiffness_modification_type		Stiffness modification type
-* @param	{Number}	component_type					Component type (1 - Columns, 2 - Walls uncracked, 3 - Walls cracked, 4 - Beams, 5 - Flat plates and flat slabs), can be undefined (Columns type as default)
+* @param	{Number}	component_type					Component type (WALLS_UNCRACKED, WALLS_CRACKED, PLATES_AND_FLAT_SLABS), can be undefined (WALLS_UNCRACKED as default)
 */
 var setConcreteStructures = function (surface_stiffness_modification,
 	stiffness_modification_type,
 	component_type) {
 	surface_stiffness_modification.type = stiffness_modification_type;
 	if (typeof component_type === "undefined") {
-		component_type = 2;
+		component_type = "WALLS_UNCRACKED";
 	}
-	switch (component_type) {
-		case 1:
-			surface_stiffness_modification.concrete_stuctures_component_type = surface_stiffness_modifications.COMPONENT_TYPE_COLUMNS;
-			break;
-		case 2:
-			surface_stiffness_modification.concrete_stuctures_component_type = surface_stiffness_modifications.COMPONENT_TYPE_WALLS_UNCRACKED;
-			break;
-		case 3:
-			surface_stiffness_modification.concrete_stuctures_component_type = surface_stiffness_modifications.COMPONENT_TYPE_WALLS_CRACKED;
-			break;
-		case 4:
-			surface_stiffness_modification.concrete_stuctures_component_type = surface_stiffness_modifications.COMPONENT_TYPE_BEAMS;
-			break;
-		case 5:
-			surface_stiffness_modification.concrete_stuctures_component_type = surface_stiffness_modifications.COMPONENT_TYPE_FLAT_PLATES_AND_FLAT_SLABS;
-			break;
-		default:
-			ASSERT(false, "Unknown component type");
-	}
+	surface_stiffness_modification.concrete_stuctures_component_type = GetSurfaceStiffnessModificationConcreteStructureComponentType(component_type);
 };
+
+function GetSurfaceStiffnessModificationConcreteStructureComponentType(component_type) {
+	const component_types_dict = {
+		"WALLS_UNCRACKED": surface_stiffness_modifications.COMPONENT_TYPE_WALLS_UNCRACKED,
+		"WALLS_CRACKED": surface_stiffness_modifications.COMPONENT_TYPE_WALLS_CRACKED,
+		"PLATES_AND_FLAT_SLABS": surface_stiffness_modifications.COMPONENT_TYPE_FLAT_PLATES_AND_FLAT_SLABS
+	};
+
+	if (component_type !== undefined) {
+	  var type = component_types_dict[component_type];
+	  if (type === undefined) {
+		console.log("Wrong concrete structure component type. Value was: " + component_type);
+		console.log("Correct values are: ( " + Object.keys(component_types_dict) + ")");
+		type = surface_stiffness_modifications.COMPONENT_TYPE_WALLS_UNCRACKED;
+	  }
+	  return type;
+	}
+	else {
+	  return surface_stiffness_modifications.COMPONENT_TYPE_WALLS_UNCRACKED;
+	}
+}
 
 /**
 * Creates surface stiffness modification

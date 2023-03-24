@@ -29,7 +29,7 @@ gasSolid.AssignTo([2]);
 
 /******************************************Contact solid**************************************/
 // Failure under compression, Rigid friction
-var contactSolid = new ContactSolid(no++, 2, 2, [3.5]);
+var contactSolid = new ContactSolid(no++, "FAILURE_UNDER_COMPRESSION", "RIGID_FRICTION", [3.5]);
 contactSolid.AssignTo([3]);
 /*********************************************************************************************/
 var t2 = new Date().getTime();

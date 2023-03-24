@@ -34,12 +34,12 @@ SASGeometricallyLinear.GeometricallyLinear(1);
 
 // create load case and two member loads
 var load_case = new LoadCase();
-load_case.StaticAnalysis(1, "Variable LC", SASGeometricallyLinear.GetNo(), "ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_A_DOMESTIC_RESIDENTIAL_AREAS_QI_A", [false, 0, 0, 1.0]);
+load_case.StaticAnalysis(1, "Variable LC", SASGeometricallyLinear.GetNo(), "IMPOSED_LOADS_CATEGORY_A_DOMESTIC_RESIDENTIAL_AREAS_QI_A", [false, 0, 0, 1.0]);
 
 // uniform member load
 var liveLoadMember = new MemberLoad();
-liveLoadMember.Force(1, load_case.GetLoadCase(), [member.GetNo()], "Uniform", [1000]);
+liveLoadMember.Force(1, load_case.GetLoadCase(), [member.GetNo()], "UNIFORM", [1000]);
 
 // concentrated member load
 var concentrated_load = new MemberLoad();
-concentrated_load.Force(2, load_case.GetLoadCase(), [member.GetNo()], member_loads.LOAD_DISTRIBUTION_CONCENTRATED_1, [-2000, 5, false]);
+concentrated_load.Force(2, load_case.GetLoadCase(), [member.GetNo()], "CONCENTRATED_1", [-2000, 5, false]);

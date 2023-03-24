@@ -149,12 +149,6 @@ CoordinateSystem.prototype.PointAndThreeAngels = function (no,
 	rotation_angle_3,
 	rotation_angles_sequence) {
 	ASSERT(original_point.length === 3, "Original point has must be in form [X, Y, Z] defined");
-	if (rotation_angles_sequence != "undefined") {
-		if (!(rotation_angles_sequence in rotation_angles_sequences)) {
-			console.log("Rotation angle sequence " + rotation_angles_sequence + " does not exist");
-			getRotationAnglesSequences();
-		}
-	}
 	this.coordinate_system = createBaseCoordinateSystem(no, comment, params);
 	this.coordinate_system.type = coordinate_systems.TYPE_POINT_AND_3_ANGLES;
 	this.coordinate_system.origin_coordinate_x = original_point[0];
@@ -170,7 +164,7 @@ CoordinateSystem.prototype.PointAndThreeAngels = function (no,
 		this.coordinate_system.rotation_angle_3 = rotation_angle_3;
 	}
 	if (rotation_angles_sequence != "undefined") {
-		this.coordinate_system.rotation_angles_sequence = rotation_angles_sequences[rotation_angles_sequence];
+		this.coordinate_system.rotation_angles_sequence = GetCoordinateRotationAnglesSequence(rotation_angles_sequence);
 	}
 	return this.coordinate_system;
 };
@@ -190,15 +184,26 @@ function createBaseCoordinateSystem(no,
 	return coordinate_system;
 };
 
-function getRotationAnglesSequences() {
-	console.log(Object.keys(rotation_angles_sequences));
-};
+function GetCoordinateRotationAnglesSequence(angle_sequence) {
+	const angle_sequences_dict = {
+		"SEQUENCE_XYZ": coordinate_systems.SEQUENCE_XYZ,
+		"SEQUENCE_XZY": coordinate_systems.SEQUENCE_XZY,
+		"SEQUENCE_YXZ": coordinate_systems.SEQUENCE_YXZ,
+		"SEQUENCE_YZX": coordinate_systems.SEQUENCE_YZX,
+		"SEQUENCE_ZXY": coordinate_systems.SEQUENCE_ZXY,
+		"SEQUENCE_ZYX": coordinate_systems.SEQUENCE_ZYX
+	};
 
-const rotation_angles_sequences = {
-	"SEQUENCE_XYZ": "X'Y'Z'",
-	"SEQUENCE_XZY": "X'Z'Y'",
-	"SEQUENCE_YXZ": "Y'X'Z'",
-	"SEQUENCE_YZX": "Y'Z'X'",
-	"SEQUENCE_ZXY": "Z'X'Y'",
-	"SEQUENCE_ZYX": "Z'Y'X'"
-};
+	if (angle_sequence !== undefined) {
+	  var sequence = angle_sequences_dict[angle_sequence];
+	  if (sequence === undefined) {
+		console.log("Wrong rotation angle sequence type. Value was: " + angle_sequence);
+		console.log("Correct values are: ( " + Object.keys(angle_sequences_dict) + ")");
+		sequence = coordinate_systems.SEQUENCE_XYZ;
+	  }
+	  return sequence;
+	}
+	else {
+	  return coordinate_systems.SEQUENCE_XYZ;
+	}
+}

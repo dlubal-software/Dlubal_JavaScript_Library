@@ -152,9 +152,9 @@ RSectionInternalForces.prototype.Bimoment = function (bimoment_m_omega) {
 /**
  * Assigns all internal forces
  * @param {Number} axial_force          Axial force
- * @param {Array} shear_forces          Sher forces (Vy, Vz | Vu, Vv)
+ * @param {Array} shear_forces          Sher forces (Vy, Vz or Vu, Vv)
  * @param {Array} torsional_moments     Torsional moments (Mxp, Mxs)
- * @param {Array} bending_moments       Bending moments (My, Mz | Mu, Mv)
+ * @param {Array} bending_moments       Bending moments (My, Mz or Mu, Mv)
  * @param {Number} bimoment             Bimoment
  */
 RSectionInternalForces.prototype.AssignInternalForces = function (axial_force,

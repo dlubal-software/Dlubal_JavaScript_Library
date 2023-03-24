@@ -19,7 +19,7 @@ function Surface(no,
 	comment,
 	params) {
 	if (arguments.length !== 0) {
-		this.surface = createSurfaceWithType(no, boundary_lines, surfaces.TYPE_STANDARD, thickness, comment, params);
+		return this.surface = createSurfaceWithType(no, boundary_lines, surfaces.TYPE_STANDARD, thickness, comment, params);
 	}
 }
 
@@ -37,6 +37,10 @@ Surface.prototype.GetNo = function () {
 	return this.surface.no;
 };
 
+Surface.prototype.GetType = function () {
+	return this.surface.type;
+};
+
 /**
 * Creates standard surface
 * @param	{Number}	no				Index of surface, can be undefined
@@ -51,7 +55,7 @@ Surface.prototype.Standard = function (no,
 	thickness,
 	comment,
 	params) {
-	this.surface = createSurfaceWithType(no, boundary_lines, surfaces.TYPE_STANDARD, thickness, comment, params);
+	this.surface = createSurfaceWithType(no, boundary_lines, GetSurfaceStiffnessType("STANDARD"), thickness, comment, params);
 };
 
 /**
@@ -66,7 +70,7 @@ Surface.prototype.WithoutThickness = function (no,
 	boundary_lines,
 	comment,
 	params) {
-	this.surface = createSurfaceWithType(no, boundary_lines, surfaces.TYPE_WITHOUT_THICKNESS, undefined, comment, params);
+	this.surface = createSurfaceWithType(no, boundary_lines, GetSurfaceStiffnessType("WITHOUT_THICKNESS"), undefined, comment, params);
 };
 
 /**
@@ -81,7 +85,7 @@ Surface.prototype.Rigid = function (no,
 	boundary_lines,
 	comment,
 	params) {
-	this.surface = createSurfaceWithType(no, boundary_lines, surfaces.TYPE_RIGID, undefined, comment, params);
+	this.surface = createSurfaceWithType(no, boundary_lines, GetSurfaceStiffnessType("RIGID"), undefined, comment, params);
 };
 
 /**
@@ -98,7 +102,7 @@ Surface.prototype.Membrane = function (no,
 	thickness,
 	comment,
 	params) {
-	this.surface = createSurfaceWithType(no, boundary_lines, surfaces.TYPE_MEMBRANE, thickness, comment, params);
+	this.surface = createSurfaceWithType(no, boundary_lines, GetSurfaceStiffnessType("MEMBRANE"), thickness, comment, params);
 };
 
 /**
@@ -115,7 +119,7 @@ Surface.prototype.WithoutMembraneTension = function (no,
 	thickness,
 	comment,
 	params) {
-	this.surface = createSurfaceWithType(no, boundary_lines, surfaces.TYPE_WITHOUT_MEMBRANE_TENSION, thickness, comment, params);
+	this.surface = createSurfaceWithType(no, boundary_lines, GetSurfaceStiffnessType("WITHOUT_MEMBRANE_TENSION"), thickness, comment, params);
 };
 
 /**
@@ -134,7 +138,7 @@ Surface.prototype.LoadTransfer = function (no,
 	load_distribution,
 	comment,
 	params) {
-	this.surface = createSurfaceWithType(no, boundary_lines, surfaces.TYPE_LOAD_TRANSFER, undefined, comment, params);
+	this.surface = createSurfaceWithType(no, boundary_lines, GetSurfaceStiffnessType("LOAD_TRANSFER"), undefined, comment, params);
 	if (typeof load_transfer_direction !== "undefined") {
 		this.surface.load_transfer_direction = GetSurfaceLoadTransferDirection(load_transfer_direction);
 	}
@@ -258,7 +262,7 @@ Surface.prototype.NeglectEquilibriumOfMoments = function (neglect_equilibrium_of
 Surface.prototype.SurfaceType = function (stiffness_type,
 	material,
 	thickness) {
-	this.surface.type = stiffness_type;
+	this.surface.type = GetSurfaceStiffnessType(stiffness_type);
 	if (typeof material !== "undefined") {
 		this.surface.material = material;
 	}
@@ -298,7 +302,7 @@ Surface.prototype.Quadrangle = function (no,
 	corner_node_4,
 	comment,
 	params) {
-	this.surface = createSurfaceWithType(no, boundary_lines, stiffness_type, thickness, comment, params);
+	this.surface = createSurfaceWithType(no, boundary_lines,  GetSurfaceStiffnessType(stiffness_type), thickness, comment, params);
 	ASSERT(this.surface.type !== surfaces.TYPE_LOAD_TRANSFER, "Quadrangle geometry type cannot be used for this type of surface");
 	this.surface.geometry = surfaces.GEOMETRY_QUADRANGLE;
 	if (typeof corner_node_1 !== "undefined") {
@@ -345,7 +349,7 @@ Surface.prototype.Rotated = function (no,
 	rotation_axis_r,
 	comment,
 	params) {
-	this.surface = createSurfaceWithType(no, boundary_lines, stiffness_type, thickness, comment, params);
+	this.surface = createSurfaceWithType(no, boundary_lines, GetSurfaceStiffnessType(stiffness_type), thickness, comment, params);
 	ASSERT(this.surface.type !== surfaces.TYPE_LOAD_TRANSFER, "Quadrangle geometry type cannot be used for this type of surface");
 	ASSERT(typeof boundary_line !== "undefined", "Boundary line must be specified");
 	this.surface.geometry = surfaces.GEOMETRY_ROTATED;
@@ -483,7 +487,7 @@ Surface.prototype.SpecificAxes = function (input_axes,
 				this.surface.input_axes_rotation_specification_type = surfaces.INPUT_AXES_ROTATION_SPECIFICATION_TYPE_PARALLEL_TO_LINES;
 				this.surface.input_axes_lines = values[0];
 				if (typeof values[1] !== "undefined") {
-					this.surface.input_axes_axis = values[1];
+					this.surface.input_axes_axis = GetSurfaceInputAxesAxis(values[1]);
 				}
 				break;
 			case 3:	// Axis directed to point category
@@ -498,7 +502,7 @@ Surface.prototype.SpecificAxes = function (input_axes,
 				this.surface.input_axes_point_2_y = values[1][1];
 				this.surface.input_axes_point_2_z = values[1][2];
 				if (typeof values[2] !== "undefined") {
-					this.surface.input_axes_axis = values[2];
+					this.surface.input_axes_axis = GetSurfaceInputAxesAxis(values[2]);
 				}
 				break;
 			case 4:	// Axis parallel to coordinate system category
@@ -627,10 +631,10 @@ var createSurfaceWithType = function (no,
 		}
 		surface.type = stiffness_type;
 	}
-	if (typeof thickness === 'object'){
+	if (typeof thickness === 'object') {
 		surface.thickness = thickness;
 	}
-	else if(typeof thickness !== "undefined") {
+	else if (typeof thickness !== "undefined") {
 		ASSERT(thicknesses.exist(thickness), "Thickness no. " + thickness + " doesn't exist");
 		surface.thickness = thicknesses[thickness];
 	}
@@ -640,41 +644,89 @@ var createSurfaceWithType = function (no,
 
 function GetSurfaceLoadTransferDirection(load_transfer_direction) {
 	const load_transfer_directions_dict = {
-	  "DIRECTION_IN_X" : surfaces.LOAD_TRANSFER_DIRECTION_IN_X,
-	  "DIRECTION_IN_Y" : surfaces.LOAD_TRANSFER_DIRECTION_IN_Y,
-	  "DIRECTION_IN_BOTH" : surfaces.LOAD_TRANSFER_DIRECTION_IN_BOTH
+		"DIRECTION_IN_X": surfaces.LOAD_TRANSFER_DIRECTION_IN_X,
+		"DIRECTION_IN_Y": surfaces.LOAD_TRANSFER_DIRECTION_IN_Y,
+		"DIRECTION_IN_BOTH": surfaces.LOAD_TRANSFER_DIRECTION_IN_BOTH
 	};
 
 	if (load_transfer_direction !== undefined) {
-	  var loadTransferDirection = load_transfer_directions_dict[load_transfer_direction];
-	  if (loadTransferDirection === undefined) {
-		console.log("Wrong load transfer direction. Value was: " + load_transfer_direction);
-		console.log("Correct values are: ( " + Object.keys(load_transfer_directions_dict) + ")");
-		loadTransferDirection = surfaces.LOAD_TRANSFER_DIRECTION_IN_X;
-	  }
-	  return loadTransferDirection;
+		var loadTransferDirection = load_transfer_directions_dict[load_transfer_direction];
+		if (loadTransferDirection === undefined) {
+			console.log("Wrong load transfer direction. Value was: " + load_transfer_direction);
+			console.log("Correct values are: ( " + Object.keys(load_transfer_directions_dict) + ")");
+			loadTransferDirection = surfaces.LOAD_TRANSFER_DIRECTION_IN_X;
+		}
+		return loadTransferDirection;
 	}
 	else {
-	  return surfaces.LOAD_TRANSFER_DIRECTION_IN_X;
+		return surfaces.LOAD_TRANSFER_DIRECTION_IN_X;
 	}
-  }
+}
 
-  function GetSurfaceTransferLoadDistribution(load_distribution) {
+function GetSurfaceTransferLoadDistribution(load_distribution) {
 	const load_distributions_dict = {
-	  "Uniform" : surfaces.LOAD_DISTRIBUTION_UNIFORM,
-	  "Varying" : surfaces.LOAD_DISTRIBUTION_VARYING
+		"Uniform": surfaces.LOAD_DISTRIBUTION_UNIFORM,
+		"Varying": surfaces.LOAD_DISTRIBUTION_VARYING
 	};
 
 	if (load_distribution !== undefined) {
-	  var loadDistribution = load_distributions_dict[load_distribution];
-	  if (loadDistribution === undefined) {
-		console.log("Wrong load distribution. Value was: " + load_distribution);
-		console.log("Correct values are: ( " + Object.keys(load_distributions_dict) + ")");
-		loadDistribution = surfaces.LOAD_DISTRIBUTION_VARYING;
-	  }
-	  return loadDistribution;
+		var loadDistribution = load_distributions_dict[load_distribution];
+		if (loadDistribution === undefined) {
+			console.log("Wrong load distribution. Value was: " + load_distribution);
+			console.log("Correct values are: ( " + Object.keys(load_distributions_dict) + ")");
+			loadDistribution = surfaces.LOAD_DISTRIBUTION_VARYING;
+		}
+		return loadDistribution;
 	}
 	else {
-	  return surfaces.LOAD_DISTRIBUTION_VARYING;
+		return surfaces.LOAD_DISTRIBUTION_VARYING;
+	}
+}
+
+  function GetSurfaceInputAxesAxis(axis_type) {
+	const axis_types_dict = {
+	  "AXIS_X": surfaces.AXIS_X,
+	  "AXIS_Y": surfaces.AXIS_Y
+	};
+
+	if (axis_type !== undefined) {
+	  var axisType = axis_types_dict[axis_type];
+	  if (axisType === undefined) {
+		console.log("Wrong input axes axis type. Value was: " + axis_type);
+		console.log("Correct values are: ( " + Object.keys(axis_types_dict) + ")");
+		loadDistribution = surfaces.AXIS_X;
+	  }
+	  return axisType;
+	}
+	else {
+	  return surfaces.AXIS_X;
+	}
+  }
+
+  function GetSurfaceStiffnessType(stiffness_type) {
+	const stiffness_types_dict = {
+		"STANDARD": surfaces.TYPE_STANDARD,
+		"WITHOUT_THICKNESS": surfaces.TYPE_WITHOUT_THICKNESS,
+		"RIGID": surfaces.TYPE_RIGID,
+		"MEMBRANE": surfaces.TYPE_MEMBRANE,
+		"WITHOUT_MEMBRANE_TENSION": surfaces.TYPE_WITHOUT_MEMBRANE_TENSION,
+		"LOAD_TRANSFER": surfaces.TYPE_LOAD_TRANSFER,
+		"GROUNDWATER": surfaces.TYPE_GROUNDWATER,
+		"FLOOR": surfaces.TYPE_FLOOR,
+		"FLOOR_DIAPHRAGM": surfaces.TYPE_FLOOR_DIAPHRAGM,
+		"FLOOR_SEMIRIGID": surfaces.TYPE_FLOOR_SEMIRIGID
+	};
+
+	if (stiffness_type !== undefined) {
+	  var type = stiffness_types_dict[stiffness_type];
+	  if (type === undefined) {
+		console.log("Wrong stiffness type. Value was: " + stiffness_type);
+		console.log("Correct values are: ( " + Object.keys(stiffness_types_dict) + ")");
+		type = surfaces.TYPE_STANDARD;
+	  }
+	  return type;
+	}
+	else {
+	  return surfaces.TYPE_STANDARD;
 	}
   }

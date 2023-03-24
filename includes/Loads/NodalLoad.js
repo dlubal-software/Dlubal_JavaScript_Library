@@ -41,7 +41,7 @@ NodalLoad.prototype.Force = function (no,
 	load_direction,
 	comment,
 	params) {
-	this.load = createSimplyValueLoad("Nodal_Load", no, load_case, nodes, force, undefined, undefined, load_direction, comment, params);
+	this.load = createSimplyValueLoad("Nodal_Load", no, load_case, nodes, force, undefined, undefined, GetNodalLoadDirectionType(load_direction), comment, params);
 	return this.load;
 };
 
@@ -63,7 +63,7 @@ NodalLoad.prototype.Moment = function (no,
 	load_direction,
 	comment,
 	params) {
-	this.load = createSimplyValueLoad("Nodal_Load", no, load_case, nodes, undefined, moment, undefined, load_direction, comment, params);
+	this.load = createSimplyValueLoad("Nodal_Load", no, load_case, nodes, undefined, moment, undefined, GetNodalLoadDirectionType(load_direction), comment, params);
 	return this.load;
 };
 
@@ -245,3 +245,22 @@ NodalLoad.prototype.IndividualMassComponents = function (mass,
 	this.load.mass_moment_of_inertia_y = mass_moment_of_inertia[1];
 	this.load.mass_moment_of_inertia_z = mass_moment_of_inertia[2];
 };
+
+function GetNodalLoadDirectionType(direction_type) {
+	var direction_types_dict = {
+		"GLOBAL_X_OR_USER_DEFINED_U": nodal_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U,
+		"GLOBAL_Y_OR_USER_DEFINED_V": nodal_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V,
+		"GLOBAL_Z_OR_USER_DEFINED_W": nodal_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W
+	};
+
+	if (typeof direction_type !== "undefined") {
+		var type = direction_types_dict[direction_type];
+		if (type === undefined) {
+		  console.log("Wrong direction type. Value was: " + direction_type);
+		  console.log("Correct values are: ( " + Object.keys(direction_types_dict) + ")");
+		  type = nodal_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U;
+		}
+		return type;
+	}
+	return nodal_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U;
+}

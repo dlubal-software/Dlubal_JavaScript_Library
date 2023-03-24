@@ -42,18 +42,28 @@ var setLoadDistribution = function (load,
 		load.load_type = load_type;
 	}
 
+	const load_distribution_dict = {
+		"UNIFORM_TRAPEZOIDAL": opening_loads.LOAD_DISTRIBUTION_UNIFORM_TRAPEZOIDAL,
+		"LINEAR_TRAPEZOIDAL": opening_loads.LOAD_DISTRIBUTION_LINEAR_TRAPEZOIDAL
+	};
+
 	if (typeof load_distribution !== "undefined") {
-		load.load_distribution = load_distribution;
+		var type = load_distribution_dict[load_distribution];
+		if (type === undefined) {
+			console.log("Wrong load distribution type. Value was: " + load_distribution);
+			console.log("Correct values are: ( " + Object.keys(load_distribution_dict) + ")");
+		}
+		load.load_distribution = type;
 	}
 
 	switch (load_type) {
 		case opening_loads.LOAD_TYPE_FORCE:
 			switch (load_distribution) {
-				case opening_loads.LOAD_DISTRIBUTION_UNIFORM_TRAPEZOIDAL:
+				case "UNIFORM_TRAPEZOIDAL":
 					ASSERT(load_values.length === 1, "Wrong number of load values, one value is required (p)");
 					setLoadValues(load, load_values, "magnitude");
 					break;
-				case opening_loads.LOAD_DISTRIBUTION_LINEAR_TRAPEZOIDAL:
+				case "LINEAR_TRAPEZOIDAL":
 					ASSERT(load_values.length >= 4, "Wrong number of load values, at least four values are required (p)");
 					setLoadValues(load, load_values, "node_1", "node_2", "node_3", "magnitude_1", "magnitude_2", "magnitude_3");
 					break;
@@ -92,7 +102,7 @@ OpeningLoad.prototype.Force = function (no,
 	this.load = setLoadDistribution(this.load, opening_loads.LOAD_TYPE_FORCE, load_distribution, load_values);
 
 	if (typeof load_direction !== "undefined") {
-		this.load.load_direction = load_direction;
+		this.load.load_direction = GetOpeningLoadDirectionType(load_direction);
 	}
 
 	return this.load;
@@ -109,3 +119,22 @@ OpeningLoad.prototype.SmoothConcentratedLoad = function (value) {
 
 	this.load.smooth_punctual_load_enabled = value;
 };
+
+function GetOpeningLoadDirectionType(direction_type) {
+	direction_types_dict = {
+		"GLOBAL_X_OR_USER_DEFINED_U_TRUE": opening_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE,
+		"GLOBAL_Y_OR_USER_DEFINED_V_TRUE": opening_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,
+		"GLOBAL_Z_OR_USER_DEFINED_W_TRUE": opening_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
+		"GLOBAL_X_OR_USER_DEFINED_U_PROJECTED": opening_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED,
+		"GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED": opening_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED,
+		"GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED": opening_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED
+	}
+
+	var type = direction_types_dict[direction_type];
+	if (type === undefined) {
+	  console.log("Wrong direction type. Value was: " + direction_type);
+	  console.log("Correct values are: ( " + Object.keys(direction_types_dict) + ")");
+	  type = opening_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE;
+	}
+	return type;
+}

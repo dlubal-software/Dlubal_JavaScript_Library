@@ -28,6 +28,20 @@ function RSectionLine(no,
 }
 
 /**
+ * @returns Line number
+ */
+RSectionLine.prototype.GetNo = function () {
+    return this.line.no;
+};
+
+/**
+ * @returns Line object
+ */
+RSectionLine.prototype.GetLine = function () {
+    return this.line;
+};
+
+/**
  * Creates RSection polyline
  * @param {Number}  no                  Number of Line, can be undefined
  * @param {Array}   definition_points   Definition point numbers

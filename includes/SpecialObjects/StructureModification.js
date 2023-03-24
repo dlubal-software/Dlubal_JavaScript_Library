@@ -72,8 +72,7 @@ StructureModification.prototype.Section = function (section_name,
 	this.structure_modification.modify_stiffnesses_sections = true;
 	var table = this.structure_modification.modify_stiffnesses_section_table;
 	for (var row = 1; row <= table.row_count(); ++row) {
-		var splitDesc = table[row].section_name.split(" | ");
-		if (splitDesc[0] === section_name) {
+		if (table[row].section_name === section_name) {
 			if (typeof sectional_areas_factor_a !== "undefined") {
 				table[row].A = sectional_areas_factor_a;
 			}
@@ -281,14 +280,14 @@ StructureModification.prototype.NodalSupports = function (node_no,
 };
 
 /**
- * Mofification of line supports
- * @param {Number}	line_no 					Line index
+ * Modification of line supports
+ * @param {Number}	line_no						Line index
  * @param {Number}	translational_factor_u_x	Translational factor Cu,x, can be undefined (1.00 by default)
- * @param {Number}	translational_factor_u_y 	Translational factor Cu,y, can be undefined (1.00 by default)
- * @param {Number}	translational_factor_u_z 	Transational factor Cu,z, can be undefined (1.00 by default)
- * @param {Number}	rotational_factor_phi_x 	Rotational factor Cφ,x, can be undefined (1.00 by default)
- * @param {Number}	rotational_factor_phi_y 	Rotational factor Cφ,z, can be undefined (1.00 by default)
- * @param {Number}	rotational_factor_phi_z 	Rotational factor Cφ,z, can be undefined (1.00 by default)
+ * @param {Number}	translational_factor_u_y	Translational factor Cu,y, can be undefined (1.00 by default)
+ * @param {Number}	translational_factor_u_z	Transational factor Cu,z, can be undefined (1.00 by default)
+ * @param {Number}	rotational_factor_phi_x		Rotational factor Cφ,x, can be undefined (1.00 by default)
+ * @param {Number}	rotational_factor_phi_y		Rotational factor Cφ,z, can be undefined (1.00 by default)
+ * @param {Number}	rotational_factor_phi_z		Rotational factor Cφ,z, can be undefined (1.00 by default)
  */
 StructureModification.prototype.LineSupports = function (line_no,
 	translational_factor_u_x,

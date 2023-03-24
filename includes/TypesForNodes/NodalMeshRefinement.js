@@ -46,7 +46,7 @@ NodalMeshRefinement.prototype.Circular = function (no,
         this.nodalMeshRefinement.circular_target_outer_length = outer_target_fe_length;
     }
     if (typeof fe_length_arrangement !== "undefined") {
-        this.nodalMeshRefinement.circular_length_arrangement = fe_length_arrangement;
+        this.nodalMeshRefinement.circular_length_arrangement = GetNodalMeshRefinementCircularLengthArrangement(fe_length_arrangement);
     }
 };
 
@@ -122,3 +122,24 @@ var createNodalMeshRefinement = function (no,
     set_comment_and_parameters(nodalMeshRefinement, comment, params);
     return nodalMeshRefinement;
 };
+
+function GetNodalMeshRefinementCircularLengthArrangement(arrangement_type) {
+	const arrangement_types_dict = {
+        "RADIAL": nodal_mesh_refinements.LENGTH_ARRANGEMENT_RADIAL,
+        "GRADUALLY": nodal_mesh_refinements.LENGTH_ARRANGEMENT_GRADUALLY,
+        "COMBINED": nodal_mesh_refinements.LENGTH_ARRANGEMENT_COMBINED
+	};
+
+	if (arrangement_type !== undefined) {
+	  var type = arrangement_types_dict[arrangement_type];
+	  if (type === undefined) {
+		console.log("Wrong circular length arrangement type. Value was: " + arrangement_type);
+		console.log("Correct values are: ( " + Object.keys(arrangement_types_dict) + ")");
+		type = nodal_mesh_refinements.LENGTH_ARRANGEMENT_RADIAL;
+	  }
+	  return type;
+	}
+	else {
+	  return nodal_mesh_refinements.LENGTH_ARRANGEMENT_RADIAL;
+	}
+}

@@ -185,6 +185,32 @@ Member.prototype.Cable = function (no,
 };
 
 /**
+ * Creates surface model member
+ * @param	{Number}		no				Index of member, can be undefined
+ * @param	{Array/Number}	nodes_or_line	List of node indexes or number of line
+ * @param	{Number}		section_start	Section start. Section end is same as section start by default. To set section end specify distribution type.
+ * @param	{Number}		material_no		Material number
+ * @param	{String}		comment			Comment, can be undefined
+ * @param	{Object}		params  		Member's parameters, can be undefined
+ * @returns	Created member
+ */
+Member.prototype.SurfaceModel = function (no,
+	nodes_or_line,
+	section_start,
+	material_no,
+	comment,
+	params) {
+	this.member = createBaseMember(no, nodes_or_line, members.TYPE_SURFACE_MODEL, section_start, comment, params);
+	ASSERT(typeof material_no !== "undefined", "Material number of Surface model member must be defined");
+	if (materials.exist(material_no)) {
+		this.member.section_material = material_no;
+	}
+	else {
+		console.log("Material no. " + material_no + " doesn't exist");
+	}
+};
+
+/**
 * Create result beam member
 * @param	{Number}		no											Index of member, can be undefined
 * @param	{Array/Number}	nodes_or_line								List of node indexes or number of line
@@ -219,14 +245,14 @@ Member.prototype.ResultBeam = function (no,
 		if (typeof result_beam_integrate_stresses_and_forces !== "undefined") {
 			switch (result_beam_integrate_stresses_and_forces) {
 				case "INTEGRATE_WITHIN_CUBOID_QUADRATIC":	// Integrate stresses and forces within block with square base
-					this.member.result_beam_integrate_stresses_and_forces = members[GetResultBeamIntegrationType(result_beam_integrate_stresses_and_forces)];
+					this.member.result_beam_integrate_stresses_and_forces = GetResultBeamIntegrationType(result_beam_integrate_stresses_and_forces);
 					if (typeof result_beam_parameters !== "undefined") {
 						ASSERT(result_beam_parameters.length === 1, "Dimension parameter is required: [Yz]");
 						this.member.result_beam_y_z = result_beam_parameters[0];
 					}
 					break;
 				case "INTEGRATE_WITHIN_CUBOID_GENERAL":		// Integrate stresses and forces within cuboid
-					this.member.result_beam_integrate_stresses_and_forces = members[GetResultBeamIntegrationType(result_beam_integrate_stresses_and_forces)];
+					this.member.result_beam_integrate_stresses_and_forces = GetResultBeamIntegrationType(result_beam_integrate_stresses_and_forces);
 					if (typeof result_beam_parameters !== "undefined") {
 						ASSERT(result_beam_parameters.length === 4, "Four parameters are required: [Y+, Y-, Z+, Z-]");
 						this.member.result_beam_y_plus = result_beam_parameters[0];
@@ -236,14 +262,14 @@ Member.prototype.ResultBeam = function (no,
 					}
 					break;
 				case "INTEGRATE_WITHIN_CYLINDER":		// Integrate stresses and forces within cylinder
-					this.member.result_beam_integrate_stresses_and_forces = members[GetResultBeamIntegrationType(result_beam_integrate_stresses_and_forces)];
+					this.member.result_beam_integrate_stresses_and_forces = GetResultBeamIntegrationType(result_beam_integrate_stresses_and_forces);
 					if (typeof result_beam_parameters !== "undefined") {
 						ASSERT(result_beam_parameters.length === 1, "Radius parameter is required: [R]");
 						this.member.result_beam_radius = result_beam_parameters[0];
 					}
 					break;
 				case "INTEGRATE_FROM_LISTED_OBJECT":		// Integrate stresses and forces from listed objects
-					this.member.result_beam_integrate_stresses_and_forces = members[GetResultBeamIntegrationType(result_beam_integrate_stresses_and_forces)];
+					this.member.result_beam_integrate_stresses_and_forces = GetResultBeamIntegrationType(result_beam_integrate_stresses_and_forces);
 					break;
 				default:
 					ASSERT(false, "Unknown stresses and forces type");
@@ -371,7 +397,7 @@ Member.prototype.Rib = function (no,
 	params) {
 	this.member = createBaseMember(no, nodes_or_line, members.TYPE_RIB, section_start, comment, params);
 
-	this.member.member_type_rib_alignment = members[GetRibAlignmentType(rib_alignment)];
+	this.member.member_type_rib_alignment = GetRibAlignmentType(rib_alignment);
 	this.member.member_rib_surface_assignment_autodetect = surface_assignment_autodetect;
 	this.member.align_local_z_axis_to_local_z_axis_of_surface = align_axes;
 
@@ -524,7 +550,7 @@ Member.prototype.SectionDistributionUniform = function () {
 Member.prototype.SectionDistributionLinear = function (section_start, section_end, section_alignment) {
 	this.member.section_distribution_type = members.SECTION_DISTRIBUTION_TYPE_LINEAR;
 	if (typeof section_alignment !== "undefined") {
-		this.member.section_alignment = section_alignment;
+		this.member.section_alignment = GetMemberSectionAlignment(section_alignment);
 	}
 	if (typeof section_start !== "undefined") {
 		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
@@ -557,7 +583,7 @@ Member.prototype.SectionDistributionTaperedAtBothSides = function (section_start
 	setDistributionAtStart(this.member, section_distance_from_start);
 	setDistributionAtEnd(this.member, section_distance_from_end);
 	if (typeof section_alignment !== "undefined") {
-		this.member.section_alignment = section_alignment;
+		this.member.section_alignment = GetMemberSectionAlignment(section_alignment);
 	}
 	if (typeof section_start !== "undefined") {
 		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
@@ -591,7 +617,7 @@ Member.prototype.SectionDistributionTaperedAtStart = function (section_start, se
 	}
 	setDistributionAtStart(this.member, section_distance_from_start);
 	if (typeof section_alignment !== "undefined") {
-		this.member.section_alignment = section_alignment;
+		this.member.section_alignment = GetMemberSectionAlignment(section_alignment);
 	}
 	if (typeof section_start !== "undefined") {
 		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
@@ -620,7 +646,7 @@ Member.prototype.SectionDistributionTaperedAtEnd = function (section_start, sect
 	}
 	setDistributionAtEnd(this.member, section_distance_from_end);
 	if (typeof section_alignment !== "undefined") {
-		this.member.section_alignment = section_alignment;
+		this.member.section_alignment = GetMemberSectionAlignment(section_alignment);
 	}
 	if (typeof section_start !== "undefined") {
 		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
@@ -650,7 +676,7 @@ Member.prototype.SectionDistributionSaddle = function (section_start, section_in
 	}
 	setDistributionAtStart(this.member, section_distance_from_start);
 	if (typeof section_alignment !== "undefined") {
-		this.member.section_alignment = section_alignment;
+		this.member.section_alignment = GetMemberSectionAlignment(section_alignment);
 	}
 	if (typeof section_start !== "undefined") {
 		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
@@ -687,7 +713,7 @@ Member.prototype.SectionDistributionOffsetAtBothSides = function (section_start,
 	setDistributionAtStart(this.member, section_offset_from_start);
 	setDistributionAtEnd(this.member, section_offset_from_end);
 	if (typeof section_alignment !== "undefined") {
-		this.member.section_alignment = section_alignment;
+		this.member.section_alignment = GetMemberSectionAlignment(section_alignment);
 	}
 	if (typeof section_start !== "undefined") {
 		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
@@ -721,7 +747,7 @@ Member.prototype.SectionDistributionOffsetAtStart = function (section_start, sec
 	}
 	setDistributionAtStart(this.member, section_offset_from_start);
 	if (typeof section_alignment !== "undefined") {
-		this.member.section_alignment = section_alignment;
+		this.member.section_alignment = GetMemberSectionAlignment(section_alignment);
 	}
 	if (typeof section_start !== "undefined") {
 		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
@@ -748,7 +774,7 @@ Member.prototype.SectionDistributionOffsetAtEnd = function (section_start, secti
 	}
 	setDistributionAtEnd(this.member, section_offset_from_end);
 	if (typeof section_alignment !== "undefined") {
-		this.member.section_alignment = section_alignment;
+		this.member.section_alignment = GetMemberSectionAlignment(section_alignment);
 	}
 	if (typeof section_start !== "undefined") {
 		ASSERT(sections.exist(section_start), "Section no. " + section_start + " doesn't exist");
@@ -959,23 +985,23 @@ function GetResultBeamIntegrationType(direction) {
 
 
 	const ResultBeamIntegrate_dict = {
-		"INTEGRATE_WITHIN_CUBOID_QUADRATIC": "INTEGRATE_WITHIN_CUBOID_QUADRATIC",
-		"INTEGRATE_WITHIN_CUBOID_GENERAL": "INTEGRATE_WITHIN_CUBOID_GENERAL",
-		"INTEGRATE_WITHIN_CYLINDER": "INTEGRATE_WITHIN_CYLINDER",
-		"INTEGRATE_FROM_LISTED_OBJECT": "INTEGRATE_FROM_LISTED_OBJECT",
+		"INTEGRATE_WITHIN_CUBOID_QUADRATIC": members.INTEGRATE_WITHIN_CUBOID_QUADRATIC,
+		"INTEGRATE_WITHIN_CUBOID_GENERAL": members.INTEGRATE_WITHIN_CUBOID_GENERAL,
+		"INTEGRATE_WITHIN_CYLINDER": members.INTEGRATE_WITHIN_CYLINDER,
+		"INTEGRATE_FROM_LISTED_OBJECT": members.INTEGRATE_FROM_LISTED_OBJECT,
 	};
 
 	if (direction !== undefined) {
 		var ResultBeamIntegrate = ResultBeamIntegrate_dict[direction];
 		if (ResultBeamIntegrate === undefined) {
-			console.log("Wrong type of integration. Value was: " + direction);
+			console.log("Wrong type of result beam integration type. Value was: " + direction);
 			console.log("Correct values are: ( " + Object.keys(direction_dict) + ")");
-			direction = "INTEGRATE_WITHIN_CUBOID_QUADRATIC";
+			direction = members.INTEGRATE_WITHIN_CUBOID_QUADRATIC;
 		}
 		return ResultBeamIntegrate;
 	}
 	else {
-		return "INTEGRATE_WITHIN_CUBOID_QUADRATIC";
+		return members.INTEGRATE_WITHIN_CUBOID_QUADRATIC;
 	}
 }
 
@@ -984,23 +1010,23 @@ function GetRibAlignmentType(alignment) {
 
 
 	const Alignment_dict = {
-		"ALIGNMENT_ON_Z_SIDE_NEGATIVE": "ALIGNMENT_ON_Z_SIDE_NEGATIVE",
-		"ALIGNMENT_CENTRIC": "ALIGNMENT_CENTRIC",
-		"ALIGNMENT_ON_Z_SIDE_POSITIVE": "ALIGNMENT_ON_Z_SIDE_POSITIVE",
-		"ALIGNMENT_USER_DEFINED_VIA_MEMBER_ECCENTRICITY": "ALIGNMENT_USER_DEFINED_VIA_MEMBER_ECCENTRICITY",
+		"ALIGNMENT_ON_Z_SIDE_NEGATIVE": members.ALIGNMENT_ON_Z_SIDE_NEGATIVE,
+		"ALIGNMENT_CENTRIC": members.ALIGNMENT_CENTRIC,
+		"ALIGNMENT_ON_Z_SIDE_POSITIVE": members.ALIGNMENT_ON_Z_SIDE_POSITIVE,
+		"ALIGNMENT_USER_DEFINED_VIA_MEMBER_ECCENTRICITY": members.ALIGNMENT_USER_DEFINED_VIA_MEMBER_ECCENTRICITY,
 	};
 
 	if (alignment !== undefined) {
 		var RibAlignment = Alignment_dict[alignment];
 		if (RibAlignment === undefined) {
-			console.log("Wrong type of alignment. Value was: " + alignment);
+			console.log("Wrong type of rib alignment type. Value was: " + alignment);
 			console.log("Correct values are: ( " + Object.keys(Alignment_dict) + ")");
-			direction = "ALIGNMENT_ON_Z_SIDE_POSITIVE";
+			direction = members.ALIGNMENT_ON_Z_SIDE_POSITIVE;
 		}
 		return RibAlignment;
 	}
 	else {
-		return "ALIGNMENT_ON_Z_SIDE_POSITIVE";
+		return members.ALIGNMENT_ON_Z_SIDE_POSITIVE;
 	}
 }
 
@@ -1008,9 +1034,9 @@ function GetReferenceLengthType(referenceLength) {
 
 
 	const referenceLength_dict = {
-		"REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH": "REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH",
-		"REFERENCE_LENGTH_TYPE_MEMBER_LENGTH": "REFERENCE_LENGTH_TYPE_MEMBER_LENGTH",
-		"REFERENCE_LENGTH_TYPE_USER_DEFINED": "REFERENCE_LENGTH_TYPE_USER_DEFINED",
+		"REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH": members.REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH,
+		"REFERENCE_LENGTH_TYPE_MEMBER_LENGTH": members.REFERENCE_LENGTH_TYPE_MEMBER_LENGTH,
+		"REFERENCE_LENGTH_TYPE_USER_DEFINED": members.REFERENCE_LENGTH_TYPE_USER_DEFINED,
 	};
 
 	if (referenceLength !== undefined) {
@@ -1018,12 +1044,12 @@ function GetReferenceLengthType(referenceLength) {
 		if (ReferenceLength === undefined) {
 			console.log("Wrong type of reference length type. Value was: " + referenceLength);
 			console.log("Correct values are: ( " + Object.keys(referenceLength_dict) + ")");
-			direction = "REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH";
+			direction = members.REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH;
 		}
 		return ReferenceLength;
 	}
 	else {
-		return "REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH";
+		return members.REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH;
 	}
 }
 
@@ -1031,23 +1057,23 @@ function GetReferenceWidthType(width) {
 
 
 	const widthType_dict = {
-		"REFERENCE_LENGTH_WIDTH_NONE": "REFERENCE_LENGTH_WIDTH_NONE",
-		"REFERENCE_LENGTH_WIDTH_SIXTH": "REFERENCE_LENGTH_WIDTH_SIXTH",
-		"REFERENCE_LENGTH_WIDTH_EIGHTH": "REFERENCE_LENGTH_WIDTH_EIGHTH",
-		"REFERENCE_LENGTH_WIDTH_EC2": "REFERENCE_LENGTH_WIDTH_EC2",
+		"REFERENCE_LENGTH_WIDTH_NONE": members.REFERENCE_LENGTH_WIDTH_NONE,
+		"REFERENCE_LENGTH_WIDTH_SIXTH": members.REFERENCE_LENGTH_WIDTH_SIXTH,
+		"REFERENCE_LENGTH_WIDTH_EIGHTH": members.REFERENCE_LENGTH_WIDTH_EIGHTH,
+		"REFERENCE_LENGTH_WIDTH_EC2": members.REFERENCE_LENGTH_WIDTH_EC2,
 	};
 
 	if (width !== undefined) {
 		var WidthType = widthType_dict[width];
 		if (WidthType === undefined) {
-			console.log("Wrong type of width. Value was: " + width);
+			console.log("Wrong type of reference width type. Value was: " + width);
 			console.log("Correct values are: ( " + Object.keys(widthType_dict) + ")");
-			direction = "REFERENCE_LENGTH_WIDTH_SIXTH";
+			direction = members.REFERENCE_LENGTH_WIDTH_SIXTH;
 		}
 		return WidthType;
 	}
 	else {
-		return "REFERENCE_LENGTH_WIDTH_SIXTH";
+		return members.REFERENCE_LENGTH_WIDTH_SIXTH;
 	}
 }
 
@@ -1056,12 +1082,12 @@ function SetFlangeDimensions(member, flange_dimensions) {
 		for (var index = 0; index < flange_dimensions.length; index++) {
 			const row = flange_dimensions[index];
 			member.flange_dimensions[index + 1].end_ordinate = row[0];
-			member.flange_dimensions[index + 1].reference_length_width = members[GetReferenceWidthType(row[2])];
+			member.flange_dimensions[index + 1].reference_length_width = GetReferenceWidthType(row[2]);
 			member.flange_dimensions[index + 1].width_minus_y_maximal = row[3];
 			member.flange_dimensions[index + 1].width_plus_y_maximal = row[4];
-			if (member.flange_dimensions[index + 1].reference_length_width !== "REFERENCE_LENGTH_WIDTH_NONE") {
-				member.flange_dimensions[index + 1].reference_length_definition_type = members[GetReferenceLengthType(row[1])];
-				if (member.flange_dimensions[index + 1].reference_length_definition_type === "REFERENCE_LENGTH_TYPE_USER_DEFINED") {
+			if (member.flange_dimensions[index + 1].reference_length_width !== members.REFERENCE_LENGTH_WIDTH_NONE) {
+				member.flange_dimensions[index + 1].reference_length_definition_type = GetReferenceLengthType(row[1]);
+				if (member.flange_dimensions[index + 1].reference_length_definition_type === members.REFERENCE_LENGTH_TYPE_USER_DEFINED) {
 					if (row[5] !== undefined && typeof row[5] === 'number') {
 						member.flange_dimensions[index + 1].reference_length = row[5];
 					}
@@ -1078,8 +1104,8 @@ function SetFlangeDimensions(member, flange_dimensions) {
 	}
 	else {
 		member.flange_dimensions[1].end_ordinate = 1.0;
-		member.flange_dimensions[1].reference_length_definition_type = members[GetReferenceLengthType("REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH")];
-		member.flange_dimensions[1].reference_length_width = members[GetReferenceWidthType("REFERENCE_LENGTH_WIDTH_SIXTH")];
+		member.flange_dimensions[1].reference_length_definition_type = GetReferenceLengthType("REFERENCE_LENGTH_TYPE_SEGMENT_LENGTH");
+		member.flange_dimensions[1].reference_length_width = GetReferenceWidthType("REFERENCE_LENGTH_WIDTH_SIXTH");
 		member.flange_dimensions[1].width_minus_y_maximal = 3.0;
 		member.flange_dimensions[1].width_plus_y_maximal = 3.0;
 	}
@@ -1093,4 +1119,29 @@ function Member_GetCurrentCodeOfStandard () {
 function Member_IsCurrentCodeOfStandard (current_standard) {
 	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
     return GetCurrentCodeOfStandard() == current_standard;  // Don't use === (we don't want compare types of strings)
+}
+
+function GetMemberSectionAlignment(section_alignment) {
+	const section_alignments_dict = {
+        "TOP": members.SECTION_ALIGNMENT_TOP,
+		"CENTRIC": members.SECTION_ALIGNMENT_CENTRIC,
+		"BOTTOM": members.SECTION_ALIGNMENT_BOTTOM
+	};
+
+	if (section_alignment === "ALIGN_CENTER") {
+		section_alignment = "ALIGN_MIDDLE";
+	}
+
+	if (section_alignment !== undefined) {
+	  var alignment = section_alignments_dict[section_alignment];
+	  if (alignment === undefined) {
+		console.log("Wrong alignment type. Value was: " + section_alignment);
+		console.log("Correct values are: ( " + Object.keys(section_alignments_dict) + ")");
+		alignment = members.SECTION_ALIGNMENT_TOP;
+	  }
+	  return alignment;
+	}
+	else {
+	  return members.SECTION_ALIGNMENT_TOP;
+	}
 }

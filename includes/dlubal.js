@@ -33,6 +33,9 @@ if (RSECTION) {
     include("BasicObjects/RsectionStiffener.js");
     include("BasicObjects/RsectionStressPoint.js");
     include("BasicObjects/RsectionSubpanel.js");
+    include("BasicObjects/Layer.js");
+    include("BasicObjects/Bar.js");
+    include("BasicObjects/Stirrup.js");
     //added for the quick fix of Bugfix G-44805 - needs to be solved with development of supports functions - create, erase ...
     include("BasicObjects/rsection_element.js");
     include("BasicObjects/rsection_line.js");
@@ -85,6 +88,9 @@ include("TypesForMembers/MemberStiffnessModification.js");
 include("TypesForMembers/MemberSupport.js");
 include("TypesForMembers/MemberTransverseStiffener.js");
 include("TypesForMembers/MemberDesignSupport.js");
+include("TypesForMembers/MemberOpening.js");
+include("TypesForMembers/MemberRotationalRestraint.js");
+include("TypesForMembers/MemberShearPanel.js");
 // Types for Surfaces
 if (RFEM) {
     include("TypesForSurfaces/SurfaceEccentricity.js");

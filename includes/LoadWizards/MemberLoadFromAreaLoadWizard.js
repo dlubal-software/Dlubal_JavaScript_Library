@@ -39,7 +39,7 @@ MemberLoadFromAreaLoadWizard.prototype.Uniform = function (no,
         this.memberWizard.coordinate_system = coordinate_system;
     }
     if (typeof load_direction !== "undefined") {
-        this.memberWizard.load_direction = member_loads_from_area_load[GetDirectionOfMemberLoad(load_direction)];
+        this.memberWizard.load_direction = GetMemberLoadFromAreaLoadWizardDirection(load_direction);
     }
 };
 
@@ -76,7 +76,7 @@ MemberLoadFromAreaLoadWizard.prototype.Linear = function (no,
         this.memberWizard.coordinate_system = coordinate_system;
     }
     if (typeof load_direction !== "undefined") {
-        this.memberWizard.load_direction = member_loads_from_area_load[GetDirectionOfMemberLoad(load_direction)];
+        this.memberWizard.load_direction = GetMemberLoadFromAreaLoadWizardDirection(load_direction);
     }
 };
 
@@ -103,7 +103,7 @@ MemberLoadFromAreaLoadWizard.prototype.VaryingInX = function (no,
         this.memberWizard.coordinate_system = coordinate_system;
     }
     if (typeof load_direction !== "undefined") {
-        this.memberWizard.load_direction = member_loads_from_area_load[GetDirectionOfMemberLoad(load_direction)];
+        this.memberWizard.load_direction = GetMemberLoadFromAreaLoadWizardDirection(load_direction);
     }
 };
 
@@ -130,7 +130,7 @@ MemberLoadFromAreaLoadWizard.prototype.VaryingInY = function (no,
         this.memberWizard.coordinate_system = coordinate_system;
     }
     if (typeof load_direction !== "undefined") {
-        this.memberWizard.load_direction = member_loads_from_area_load[GetDirectionOfMemberLoad(load_direction)];
+        this.memberWizard.load_direction = GetMemberLoadFromAreaLoadWizardDirection(load_direction);
     }
 };
 
@@ -157,7 +157,7 @@ MemberLoadFromAreaLoadWizard.prototype.VaryingInZ = function (no,
         this.memberWizard.coordinate_system = coordinate_system;
     }
     if (typeof load_direction !== "undefined") {
-        this.memberWizard.load_direction = member_loads_from_area_load[GetDirectionOfMemberLoad(load_direction)];
+        this.memberWizard.load_direction = GetMemberLoadFromAreaLoadWizardDirection(load_direction);
     }
 };
 
@@ -339,27 +339,26 @@ function setMemberLoadFromAreaLoadWizardDistribution(member_wizard,
 }
 
 
-function GetDirectionOfMemberLoad(direction) {
-
-    const direction_dict = {
-        "LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE": "LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE",
-        "LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE": "LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE",
-        "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE": "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE",
-        "LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED": "LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED",
-        "LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED": "LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED",
-        "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED": "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED",
+function GetMemberLoadFromAreaLoadWizardDirection(load_direction) {
+    const load_directions_dict = {
+        "GLOBAL_X_OR_USER_DEFINED_U_TRUE": member_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE,    // surface_loads?? But that's how is it in API
+        "GLOBAL_Y_OR_USER_DEFINED_V_TRUE": member_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,
+        "GLOBAL_Z_OR_USER_DEFINED_W_TRUE": member_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
+        "GLOBAL_X_OR_USER_DEFINED_U_PROJECTED": member_loads.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED,
+        "GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED": member_loads.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED,
+        "GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED": member_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED
     };
 
-    if (direction !== undefined) {
-        var loadDirection = direction_dict[direction];
-        if (loadDirection === undefined) {
-            console.log("Wrong direction. Value was: " + direction);
-            console.log("Correct values are: ( " + Object.keys(direction_dict) + ")");
-            direction = "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED";
+    if (load_direction !== undefined) {
+        var direction = load_directions_dict[load_direction];
+        if (direction === undefined) {
+            console.log("Wrong direction. Value was: " + load_direction);
+            console.log("Correct values are: ( " + Object.keys(load_directions_dict) + ")");
+            direction = member_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED;
         }
-        return loadDirection;
+        return direction;
     }
     else {
-        return "LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED";
+        return member_loads.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED;
     }
 }

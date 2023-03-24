@@ -21,5 +21,3 @@ resultCombination4.SRSSCombination(true, "SIGN_POSITIVE");
 resultCombination4.ToSolve(false);
 var resultCombination5 = new ResultCombination();
 resultCombination5.Superposition(undefined, design_situations[1].no, [[load_cases[1]]]);
-
-CONSTRUCTION_STAGES.setActive(true);

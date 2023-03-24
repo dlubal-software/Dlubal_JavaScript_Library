@@ -678,12 +678,6 @@ throw new Error("text"); //error message
 //     modal_analysis_settings.create(4);
 //     modal_analysis_settings[4].solution_method = modal_analysis_settings.METHOD_SUBSPACE_ITERATION;
 
-//     if (PRERELEASE_MODE)
-//     {
-//         modal_analysis_settings.create(5);
-//         modal_analysis_settings[5].solution_method = modal_analysis_settings.METHOD_ICG_ITERATION;
-//     }
-
 //     return true;
 // }
 // function createStandardLoadCase(index, staticAnalysisSettings, action_category, name)
