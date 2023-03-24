@@ -23,6 +23,7 @@ function SteelDesignBoundaryCondition (no,
     member_sets_no,
     comment,
     params) {
+    ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
     ASSERT(IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC"), "Steel design boundary condition can be set only for EN and NTC code of standard");
     if (typeof no === "undefined") {
         this.boundary_condition = steel_boundary_conditions.create();

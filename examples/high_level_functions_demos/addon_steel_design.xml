@@ -2,6 +2,6 @@
 
 <script>
     <arguments>
-        <argument argument-name="standard_index" default-value="0" label-name="Current index of standard for steel design"/>
+        <argument argument-name="standard_index" default-value="0" label-name="Current index of standard for steel design (0: EN, 1: AISC, 2: IS, 3: BS, 4: GB, 5: CSA, 6: AS, 7: SP, 8: NTC, 9: NBR, 10: SIA)"/>
     </arguments>
 </script>

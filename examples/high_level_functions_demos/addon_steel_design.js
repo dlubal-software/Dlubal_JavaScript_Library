@@ -1,6 +1,18 @@
+/********* !PRERELEASE MODE! *********/
+
 /*
-Some code is fro PRERELEASE:
-effectiveLength.EffectiveLengthsAccToStandard
+Effective length	Boundary condition	Local section red.	Ultimate conf.	Serviceability conf.	Fire resistance conf.	Strength conf.	Seismic configuration
+EN	                EN	                EN	                EN	            EN	                    EN		
+AISC		                            AISC		                        AISC		                                    AISC	        AISC
+IS		                                IS	                IS	            IS			
+BS		                                BS	                BS	            BS			
+GB		                                GB	                GB	            GB			
+CSA		                                CSA	                CSA	            CSA			                                                    CSA
+AS		                                AS	                AS	            AS			
+SP		                                SP	                SP	            SP			
+NTC                 NTC	                NTC	                NTC	            NTC	                    NTC		
+NBR		                                NBR	                NBR	            NBR			
+SIA		                                SIA	                SIA	            SIA
 */
 
 include("../../includes/Tools/high_level_functions_support.js");
@@ -8,6 +20,12 @@ include("../../includes/Tools/high_level_functions_support.js");
 ****************************************** Main **********************************************
 *********************************************************************************************/
 run("../includes/Tools/clearAll.js");
+
+function IsCurrent (current_standard) {
+    ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
+	var current = general.current_standard_for_steel_design.match(/\w+/);
+    return current == current_standard;  // Don't use === (we don't want compare types of strings)
+}
 
 var t1 = new Date().getTime();
 
@@ -31,10 +49,12 @@ const steel_design_standards = {
 
 var material = new Material(undefined, "S235");
 var section = new Section(undefined, "IPE 80", material.GetNo());
-var member = new Member();
+var memberList = [];
 
-var nodeForMembers = createNodesGrid(-28, -28, [12, 1], [3, 0]);
+var nodeForMembers = createNodesGrid(-28, -28, [12, 2], [3, 2]);
 for (var i = 0; i < nodeForMembers.length; i+=2) {
+    var member = new Member();
+    memberList.push(member);
     member.Beam(undefined, [i + 1, i + 2], section.GetNo());
 }
 
@@ -61,15 +81,15 @@ if (RFEM) {
             steelDesignUltimateConfigurationEC3.Parameters(true);
             var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "EC3 Serviceability configuration for testing", [2]);
             steelDesignServiceabilityConfiguration.DesignParametersEC3(400, 500, 600, 450, 550, 650, 0.006, true, undefined, true);
-            var steelDesignFireResistanceConfigurationEC3 = new SteelDesignFireResistanceConfiguration(undefined, "EC3 Fire resistance configuration for testing", [1], undefined, "Fire resistance configuration can be set now only for EC3 standard");
-            steelDesignFireResistanceConfigurationEC3.FinalTemperatureEC3("ANALYTICALLY");
-            steelDesignFireResistanceConfigurationEC3.AnalyticallyDesignSettingsEC3(1200, 6.5, "3_SIDES", undefined, true, 1.5);
-            steelDesignFireResistanceConfigurationEC3.AnalyticallyFireProtectionEC3("HOLLOW", 333, 0.111, 1222, 0.011);
-            steelDesignFireResistanceConfigurationEC3.AnalyticallyTemperatureCurveEC3(undefined, true, undefined, 30);
-            steelDesignFireResistanceConfigurationEC3.AnalyticallyThermalActionsEC3(0.999, 0.8, 0.5, 0.777, undefined, 0.888);
-            var steelDesignFireResistanceConfigurationEC3_2 = new SteelDesignFireResistanceConfiguration(undefined, "EC3 Fire resistance configuration for testing", [1], undefined, "Fire resistance configuration can be set now only for EC3 standard");
-            steelDesignFireResistanceConfigurationEC3_2.FinalTemperatureEC3("MANUALLY");
-            steelDesignFireResistanceConfigurationEC3_2.ManuallyFinalTemperatureEC3(undefined, "3_SIDES", true);
+            var steelDesignFireResistanceConfigurationEC3 = new SteelDesignFireResistanceConfiguration(undefined, "EC3 Fire resistance configuration for testing", [1], undefined, "Fire resistance configuration can be set now only for EC3 or NTC standard");
+            steelDesignFireResistanceConfigurationEC3.FinalTemperature("ANALYTICALLY");
+            steelDesignFireResistanceConfigurationEC3.AnalyticallyDesignSettings(1200, 6.5, "3_SIDES", undefined, true, 1.5);
+            steelDesignFireResistanceConfigurationEC3.AnalyticallyFireProtection("HOLLOW", 333, 0.111, 1222, 0.011);
+            steelDesignFireResistanceConfigurationEC3.AnalyticallyTemperatureCurve(undefined, true, undefined, 30);
+            steelDesignFireResistanceConfigurationEC3.AnalyticallyThermalActions(0.999, 0.8, 0.5, 0.777, undefined, 0.888);
+            var steelDesignFireResistanceConfigurationEC3_2 = new SteelDesignFireResistanceConfiguration(undefined, "EC3 Fire resistance configuration for testing", [1], undefined, "Fire resistance configuration can be set now only for EC3 or NTC standard");
+            steelDesignFireResistanceConfigurationEC3_2.FinalTemperature("MANUALLY");
+            steelDesignFireResistanceConfigurationEC3_2.ManuallyFinalTemperature(undefined, "3_SIDES", true);
             break;
         case "AISC 360 | 2016": // 1
             var steelDesignStrengthConfigurationAISC = new SteelDesignStrengthConfigurationAISC(undefined, "AICS Strength configuration for testing", [1]);
@@ -155,6 +175,15 @@ if (RFEM) {
             break;
         case "NTC | 2018-01":   // 8 (API support is missing)
             var steelDesignUltimateConfigurationNTC = new SteelDesignUltimateConfigurationNTC(undefined, "NTC Ultimate configuration for testing", [1]);
+            var steelDesignFireResistanceConfigurationNTC = new SteelDesignFireResistanceConfiguration(undefined, "NTC Fire resistance configuration for testing", [1], undefined, "Fire resistance configuration can be set now only for EC3 or NTC standard");
+            steelDesignFireResistanceConfigurationNTC.FinalTemperature("ANALYTICALLY");
+            steelDesignFireResistanceConfigurationNTC.AnalyticallyDesignSettings(1200, 6.5, "3_SIDES", undefined, true, 1.5);
+            steelDesignFireResistanceConfigurationNTC.AnalyticallyFireProtection("HOLLOW", 333, 0.111, 1222, 0.011);
+            steelDesignFireResistanceConfigurationNTC.AnalyticallyTemperatureCurve(undefined, true, undefined, 30);
+            steelDesignFireResistanceConfigurationNTC.AnalyticallyThermalActions(0.999, 0.8, 0.5, 0.777, undefined, 0.888);
+            var steelDesignFireResistanceConfigurationNTC_2 = new SteelDesignFireResistanceConfiguration(undefined, "NTC Fire resistance configuration for testing", [1], undefined, "Fire resistance configuration can be set now only for EC3 or NTC standard");
+            steelDesignFireResistanceConfigurationNTC_2.FinalTemperature("MANUALLY");
+            steelDesignFireResistanceConfigurationNTC_2.ManuallyFinalTemperature(undefined, "3_SIDES", true);
             break;
         case "NBR 8800 | 2008-08":  // 9
             var steelDesignUltimateConfigurationNBR = new SteelDesignUltimateConfigurationNBR(undefined, "NBR Ultimate configuration for testing", [1]);
@@ -166,7 +195,6 @@ if (RFEM) {
             var steelDesignUltimateConfigurationSIA = new SteelDesignUltimateConfigurationSIA(undefined, "SIA Ultimate configuration for testing", [1]);
             steelDesignUltimateConfigurationSIA.LimitValues(0.002, 0.003, 0.004, 0.05, 0.006, 0.007);
             steelDesignUltimateConfigurationSIA.PositionOfPositiveTransverse(undefined, undefined, true);
-
             break;
         default:
             ASSERT(false);
@@ -308,6 +336,36 @@ memberLocalSectionReduction.SectionValues(3, "RELATIVE", 0.019, 0.02, 0.021, 0.0
 memberLocalSectionReduction.SectionValues(4, "ABSOLUTE", 1.1, 1.2, 1.3, 0.0001, 0.0002, 0.0003);
 memberLocalSectionReduction.MultipleDefinition(2, 3, "ABSOLUTE", 0.1);
 memberLocalSectionReduction.MultipleDefinition(4, undefined, "RELATIVE", 0.02);
+
+/******************************************************************** Steel design add-on **************************************************************************************/
+var member = new Member();
+member.Beam(undefined, [16, 17], section.GetNo());
+var memberSet = new MemberSet();
+memberSet.ContinuousMembers(undefined, [memberList[7].GetNo(), member.GetNo(), memberList[8].GetNo()]);
+memberSet.SteelDesignProperties();
+
+/********************************************************* Member, Member set - Design properties (Steel design add-on) ********************************************************/
+var effectiveLengthNo = 1;
+var boundaryConditionNo = (IsCurrent("EN") || IsCurrent("NTC")) ? 2 : undefined;
+var localSectionReductionNo = 1;
+
+memberList[6].SteelDesignProperties();
+memberList[6].SetSteelDesignTypes(effectiveLengthNo, boundaryConditionNo, localSectionReductionNo);
+memberSet.SetSteelDesignTypes(effectiveLengthNo, boundaryConditionNo, localSectionReductionNo);
+
+/********************************************************* Member, Member set - Design configurations (Steel design add-on) ********************************************************/
+var ultimateConfigurationNo = !IsCurrent("AISC") ? 2 : undefined;
+var serviceabilityConfigurationNo = 2;
+var fireResistanceConfigurationNo = (IsCurrent("EN") || IsCurrent("NTC")) ? 2 : undefined;
+//var strengthConfiguration = IsCurrent("AISC") ? 1 : undefined;    There is no API support for Strength configuration?
+//var seismicConfigurationNo = (IsCurrent("AISC") || IsCurrent("CSA")) ? 1 : undefined; There is no API support for Seismic configuration?
+
+memberList[6].SetSteeleDesignConfigurations(ultimateConfigurationNo, serviceabilityConfigurationNo, fireResistanceConfigurationNo);
+memberSet.SetSteeleDesignConfigurations(ultimateConfigurationNo, serviceabilityConfigurationNo, fireResistanceConfigurationNo);
+
+/**************************************************** Members - Design support & deflection (Steel design add-on) ******************************************************/
+var memberDesignSupport = new MemberDesignSupport(undefined, undefined, [memberSet.GetNo()], [15, 16, 17, 18]);
+memberDesignSupport.Name("Member design support");
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;

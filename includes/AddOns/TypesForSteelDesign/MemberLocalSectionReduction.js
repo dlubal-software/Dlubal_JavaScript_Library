@@ -13,6 +13,7 @@ function SteelDesignMemberLocalSectionReduction (no,
     member_sets_no,
     comment,
     params) {
+    ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
     if (typeof no === "undefined") {
         this.member_local_section_reduction = steel_member_local_section_reductions.create();
     }

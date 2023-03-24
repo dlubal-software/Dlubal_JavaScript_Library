@@ -29,6 +29,7 @@ function SteelDesignEffectiveLength (no,
     member_sets_no,
     comment,
     params) {
+    ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
     if (typeof no === "undefined") {
         this.effective_length = steel_effective_lengths.create();
     }

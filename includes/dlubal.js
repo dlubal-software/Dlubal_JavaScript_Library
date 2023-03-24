@@ -84,6 +84,7 @@ include("TypesForMembers/MemberResultIntermediatePoint.js");
 include("TypesForMembers/MemberStiffnessModification.js");
 include("TypesForMembers/MemberSupport.js");
 include("TypesForMembers/MemberTransverseStiffener.js");
+include("TypesForMembers/MemberDesignSupport.js");
 // Types for Surfaces
 if (RFEM) {
     include("TypesForSurfaces/SurfaceEccentricity.js");

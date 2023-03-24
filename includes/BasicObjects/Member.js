@@ -1,3 +1,10 @@
+/*
+1. SetSteeleDesignConfigurations - no API support for Strength configuration?
+2. SetSteeleDesignConfigurations - no API support for Seismic configuration?
+*/
+
+include("../Tools/high_level_functions_support.js");
+
 /**
  * Creates member
  * @class
@@ -753,12 +760,81 @@ Member.prototype.SectionDistributionOffsetAtEnd = function (section_start, secti
 	}
 };
 
+/**
+ * @returns Number of Member
+ */
 Member.prototype.GetNo = function(){
 	return this.member.no;
 };
 
+/**
+ * @returns Member object
+ */
 Member.prototype.GetMember = function (){
 	return this.member;
+};
+
+/**
+ * Enable / disable Design properties for member (Steel design add-on)
+ * @param {Boolean} enabled 	Enable / disable Design properties, can be undefined (true as default)
+ */
+Member.prototype.SteelDesignProperties = function (enabled) {
+	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
+	if (typeof enabled === "undefined") {
+		enabled = true;
+	}
+	this.member.design_properties_via_member = enabled;
+}
+
+/**
+ * Sets Steel design types (Steel design add-on)
+ * @param {Number} steel_effective_lengths_no 					Effective length number, can be undefined
+ * @param {Number} steel_boundary_conditions_no 				Boundary condition number, can be undefined
+ * @param {Number} steel_member_local_section_reduction_no 		Member local section reduction number, can be undefined
+ */
+Member.prototype.SetSteelDesignTypes = function (steel_effective_lengths_no,
+	steel_boundary_conditions_no,
+	steel_member_local_section_reduction_no) {
+	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
+	if (typeof steel_effective_lengths_no !== "undefined" && __objectExists(steel_effective_lengths_no, "Effective length", steel_effective_lengths)) {
+		this.member.steel_effective_lengths = steel_effective_lengths_no;
+	}
+	if (typeof steel_boundary_conditions_no !== "undefined") {
+		ASSERT(Member_IsCurrentCodeOfStandard("EN") || Member_IsCurrentCodeOfStandard("NTC"), "Boundary condition can be set only for EN, NTC code of standards");
+		if (__objectExists(steel_boundary_conditions_no, "Boundary condition", steel_boundary_conditions)) {
+			this.member.steel_boundary_conditions = steel_boundary_conditions_no;
+		}
+	}
+	if (typeof steel_member_local_section_reduction_no !== "undefined" && __objectExists(steel_member_local_section_reduction_no, "Member local section reduction", steel_member_local_section_reductions)) {
+		this.member.steel_member_local_section_reduction = steel_member_local_section_reduction_no;
+	}
+};
+
+/**
+ * Sets Steel design configurations (Steel design add-on)
+ * @param {Number} member_steel_design_uls_configuration_no 	Ultimate configuration number, can be undefined
+ * @param {Number} member_steel_design_sls_configuration_no 	Serviceability configuration number, can be undefined
+ * @param {Number} member_steel_design_fr_configuration_no 		Fire resistance configuration number, can be undefined
+ */
+Member.prototype.SetSteeleDesignConfigurations = function (member_steel_design_uls_configuration_no,
+	member_steel_design_sls_configuration_no,
+	member_steel_design_fr_configuration_no) {
+	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
+	if (typeof member_steel_design_uls_configuration_no !== "undefined") {
+		ASSERT(!Member_IsCurrentCodeOfStandard("AISC"), "Ultimate configuration can't be set for AISC code of standard");
+		if (__objectExists(member_steel_design_uls_configuration_no, "Ultimate configuration", STEEL_DESIGN.steel_design_uls_configurations)) {
+			this.member.member_steel_design_uls_configuration = member_steel_design_uls_configuration_no;
+		}
+	}
+	if (typeof member_steel_design_sls_configuration_no !== "undefined" && __objectExists(member_steel_design_sls_configuration_no, "Serviceability configuration", STEEL_DESIGN.steel_design_sls_configurations)) {
+		this.member.member_steel_design_sls_configuration = member_steel_design_sls_configuration_no;
+	}
+	if (typeof member_steel_design_fr_configuration_no !== "undefined") {
+		ASSERT(Member_IsCurrentCodeOfStandard("EN") || Member_IsCurrentCodeOfStandard("NTC"), "Fire resistance configuration can be set only for EN, NTC code of standards");
+		if (__objectExists(member_steel_design_fr_configuration_no, "Fire resistance configuration", STEEL_DESIGN.steel_design_fr_configurations)) {
+			this.member.member_steel_design_fr_configuration = member_steel_design_fr_configuration_no;
+		}
+	}
 };
 
 /**
@@ -976,9 +1052,7 @@ function GetReferenceWidthType(width) {
 }
 
 function SetFlangeDimensions(member, flange_dimensions) {
-
 	if (flange_dimensions !== undefined) {
-
 		for (var index = 0; index < flange_dimensions.length; index++) {
 			const row = flange_dimensions[index];
 			member.flange_dimensions[index + 1].end_ordinate = row[0];
@@ -1009,4 +1083,14 @@ function SetFlangeDimensions(member, flange_dimensions) {
 		member.flange_dimensions[1].width_minus_y_maximal = 3.0;
 		member.flange_dimensions[1].width_plus_y_maximal = 3.0;
 	}
+}
+
+function Member_GetCurrentCodeOfStandard () {
+	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
+    return general.current_standard_for_steel_design.match(/\w+/);
+}
+
+function Member_IsCurrentCodeOfStandard (current_standard) {
+	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
+    return GetCurrentCodeOfStandard() == current_standard;  // Don't use === (we don't want compare types of strings)
 }

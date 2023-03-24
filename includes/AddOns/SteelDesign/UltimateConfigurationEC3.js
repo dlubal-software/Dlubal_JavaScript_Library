@@ -20,6 +20,7 @@ function SteelDesignUltimateConfigurationEC3 (no,
     member_sets_no,
     comment,
     params) {
+    ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
     this.addon = createBaseSteelDesignConfiguration(STEEL_DESIGN.steel_design_uls_configurations, no, name, members_no, member_sets_no, comment, params);
 }
 
