@@ -1,4 +1,6 @@
-/********* !PRERELEASE MODE! *********/
+if (!PRERELEASE_MODE) {
+    throw new Error("This script uses some prerelease functionality.");
+}
 
 /*
 Effective length	Boundary condition	Local section red.	Ultimate conf.	Serviceability conf.	Fire resistance conf.	Strength conf.	Seismic configuration
@@ -24,7 +26,7 @@ run("../includes/Tools/clearAll.js");
 function IsCurrent (current_standard) {
     ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
 	var current = general.current_standard_for_steel_design.match(/\w+/);
-    return current == current_standard;  // Don't use === (we don't want compare types of strings)
+    return current == current_standard;  // Don't use === (we don't want compare types of strings, only its string's values)
 }
 
 var t1 = new Date().getTime();
@@ -51,7 +53,7 @@ var material = new Material(undefined, "S235");
 var section = new Section(undefined, "IPE 80", material.GetNo());
 var memberList = [];
 
-var nodeForMembers = createNodesGrid(-28, -28, [12, 2], [3, 2]);
+var nodeForMembers = createNodesGrid(-28, -28, [12, 3], [3, 2]);
 for (var i = 0; i < nodeForMembers.length; i+=2) {
     var member = new Member();
     memberList.push(member);
@@ -344,7 +346,7 @@ var memberSet = new MemberSet();
 memberSet.ContinuousMembers(undefined, [memberList[7].GetNo(), member.GetNo(), memberList[8].GetNo()]);
 memberSet.SteelDesignProperties();
 
-/********************************************************* Member, Member set - Design properties (Steel design add-on) ********************************************************/
+/********************************************************* Member, Member set - Design types (Steel design add-on) ********************************************************/
 var effectiveLengthNo = 1;
 var boundaryConditionNo = (IsCurrent("EN") || IsCurrent("NTC")) ? 2 : undefined;
 var localSectionReductionNo = 1;
@@ -366,6 +368,26 @@ memberSet.SetSteeleDesignConfigurations(ultimateConfigurationNo, serviceabilityC
 /**************************************************** Members - Design support & deflection (Steel design add-on) ******************************************************/
 var memberDesignSupport = new MemberDesignSupport(undefined, undefined, [memberSet.GetNo()], [15, 16, 17, 18]);
 memberDesignSupport.Name("Member design support");
+memberDesignSupport.GeneralInZ(true, 0.25, false, 0.15, "ZAXIS_NEGATIVE");
+memberDesignSupport.GeneralInY(true, undefined, undefined, undefined, "YAXIS_BOTH", false);
+
+memberList[9].SteelDesignProperties();
+memberList[9].SetDesignSupport(memberDesignSupport.GetNo(), memberDesignSupport.GetNo());
+
+memberList[11].SetDesignSupport(memberDesignSupport.GetNo(), memberDesignSupport.GetNo());
+memberList[11].SetDeflectionAnalysis("LOCAL_AXIS_Z_AND_Y", "DEFORMED_UNDEFORMED_SYSTEM", false, 1.5, 0.02);
+
+/**************************************************** Member Sets - Design support & deflection (Steel design add-on) **************************************************/
+var member = new Member();
+member.Beam(undefined, [26, 27], section.GetNo());
+member.SteelDesignPropertiesViaParentMemberSet(false);  // Can't be set?
+var member2 = new Member();
+member2.Beam(undefined, [28, 29], section.GetNo());
+memberSet.ContinuousMembers(undefined, [memberList[12].GetNo(), member.GetNo(), memberList[13].GetNo(), member2.GetNo(), memberList[14].GetNo()]);
+memberSet.SteelDesignProperties();
+memberSet.SetDesignSupport(memberDesignSupport.GetNo(), memberDesignSupport.GetNo());
+memberSet.SetDesignSupportAtInternalNodes(memberDesignSupport.GetNo(), undefined, undefined, memberDesignSupport.GetNo());
+memberSet.SetDeflectionAnalysis("LOCAL_AXIS_Z", "DEFORMED_SEGMENT_ENDS", [undefined, [undefined, 8.0, 0.02]]);
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;

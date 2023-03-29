@@ -68,3 +68,107 @@ MemberDesignSupport.prototype.Name = function (name) {
     ASSERT(typeof name !== "undefined", "name must be defined");
     this.member_design_support.name = name;
 };
+
+MemberDesignSupport.prototype.GeneralInZ = function (activate_in_z,
+    support_width_z,
+    support_depth_by_section_width_of_member_z_enabled,
+    support_depth_z,
+    design_support_orientation_z,
+    consider_in_deflection_design_z) {
+    ASSERT(typeof activate_in_z !== "undefined", "Active state must be specified");
+    this.member_design_support.activate_in_z = activate_in_z;
+    if (typeof support_width_z !== "undefined") {
+        ASSERT(this.member_design_support.activate_in_z, "Activate state must be on");
+        this.member_design_support.support_width_z = support_width_z;
+    }
+    if (typeof support_depth_by_section_width_of_member_z_enabled !== undefined) {
+        ASSERT(this.member_design_support.activate_in_z, "Activate state must be on");
+        this.member_design_support.support_depth_by_section_width_of_member_z_enabled = support_depth_by_section_width_of_member_z_enabled;
+    }
+    if (typeof support_depth_z !== "undefined") {
+        ASSERT(this.member_design_support.activate_in_z, "Activate state must be on");
+        ASSERT(!this.member_design_support.support_depth_by_section_width_of_member_z_enabled, "By section width of member state must be off");
+        this.member_design_support.support_depth_z = support_depth_z;
+    }
+    if (typeof design_support_orientation_z !== "undefined") {
+        ASSERT(this.member_design_support.activate_in_z, "Activate state must be on");
+        this.member_design_support.design_support_orientation_z = GetMemberDesignSupportOrientationZ(design_support_orientation_z);
+    }
+    if (typeof consider_in_deflection_design_z !== "undefined") {
+        ASSERT(this.member_design_support.activate_in_z, "Activate state must be on");
+        this.member_design_support.consider_in_deflection_design_z = consider_in_deflection_design_z;
+    }
+};
+
+MemberDesignSupport.prototype.GeneralInY = function (activate_in_y,
+    support_width_y,
+    support_depth_by_section_width_of_member_y_enabled,
+    support_depth_y,
+    design_support_orientation_y,
+    consider_in_deflection_design_y) {
+    ASSERT(typeof activate_in_y !== "undefined", "Active state must be specified");
+    this.member_design_support.activate_in_y = activate_in_y;
+    if (typeof support_width_y !== "undefined") {
+        ASSERT(this.member_design_support.activate_in_y, "Activate state must be on");
+        this.member_design_support.support_width_y = support_width_y;
+    }
+    if (typeof support_depth_by_section_width_of_member_y_enabled !== "undefined") {
+        ASSERT(this.member_design_support.activate_in_y, "Activate state must be on");
+        this.member_design_support.support_depth_by_section_width_of_member_y_enabled = support_depth_by_section_width_of_member_y_enabled;
+    }
+    if (typeof support_depth_y !== "undefined") {
+        ASSERT(this.member_design_support.activate_in_y, "Activate state must be on");
+        ASSERT(!this.member_design_support.support_depth_by_section_width_of_member_y_enabled, "By section width of member state must be off");
+        this.member_design_support.support_depth_y = support_depth_y;
+    }
+    if (typeof design_support_orientation_y !== "undefined") {
+        ASSERT(this.member_design_support.activate_in_y, "Activate state must be on");
+        this.member_design_support.design_support_orientation_y = GetMemberDesignSupportOrientationY(design_support_orientation_y);
+    }
+    if (typeof consider_in_deflection_design_y !== "undefined") {
+        ASSERT(this.member_design_support.activate_in_y, "Activate state must be on");
+        this.member_design_support.consider_in_deflection_design_y = consider_in_deflection_design_y;
+    }
+};
+
+function GetMemberDesignSupportOrientationZ(orientation_type) {
+	const orientation_types_dict = {
+        "ZAXIS_POSITIVE": design_supports.DESIGN_SUPPORT_ORIENTATION_ZAXIS_POSITIVE,
+        "ZAXIS_NEGATIVE": design_supports.DESIGN_SUPPORT_ORIENTATION_ZAXIS_NEGATIVE,
+        "ZAXIS_BOTH": design_supports.DESIGN_SUPPORT_ORIENTATION_ZAXIS_BOTH
+	};
+
+	if (orientation_type !== undefined) {
+		var type = orientation_types_dict[orientation_type];
+		if (type === undefined) {
+			console.log("Wrong design support orientation in Z type. Value was: " + orientation_type);
+			console.log("Correct values are: ( " + Object.keys(orientation_types_dict) + ")");
+			type = design_supports.DESIGN_SUPPORT_ORIENTATION_ZAXIS_POSITIVE;
+		}
+		return type;
+	}
+	else {
+		return design_supports.DESIGN_SUPPORT_ORIENTATION_ZAXIS_POSITIVE;
+	}
+}
+
+function GetMemberDesignSupportOrientationY(orientation_type) {
+	const orientation_types_dict = {
+        "YAXIS_POSITIVE": design_supports.DESIGN_SUPPORT_ORIENTATION_YAXIS_POSITIVE,
+        "YAXIS_NEGATIVE": design_supports.DESIGN_SUPPORT_ORIENTATION_YAXIS_NEGATIVE,
+        "YAXIS_BOTH": design_supports.DESIGN_SUPPORT_ORIENTATION_YAXIS_BOTH
+	};
+
+	if (orientation_type !== undefined) {
+		var type = orientation_types_dict[orientation_type];
+		if (type === undefined) {
+			console.log("Wrong design support orientation in Y type. Value was: " + orientation_type);
+			console.log("Correct values are: ( " + Object.keys(orientation_types_dict) + ")");
+			type = design_supports.DESIGN_SUPPORT_ORIENTATION_YAXIS_POSITIVE;
+		}
+		return type;
+	}
+	else {
+		return design_supports.DESIGN_SUPPORT_ORIENTATION_YAXIS_POSITIVE;
+	}
+}
