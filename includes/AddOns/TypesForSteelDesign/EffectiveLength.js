@@ -4,7 +4,7 @@
 3. No API enum for Determination of Mcr (NTC standard)?
 4. There is no support for Modification factor for CSA and NBR standards? Only for AISC?
 5. There is found bug 71428 with radio buttons view, check condition after it is fixed! The isLateralTorsionalBucklingEnable sub-function.
-6. nodal_supports[row].eccentricity_type: there is API support, but value cannot be set with enumeration value? Only with index. Bug 72773
+6. nodal_supports[row].eccentricity_type: there is API support, but returned value is index instead of enum string. Bug 78360.
 7. ModificationFactor: NBR standard, user-value cannot be set?
 */
 
@@ -16,15 +16,13 @@ include("../SteelDesign/SteelDesignSupport.js");
 
 /**
  * Creates Steel design effective length
- * @param {Number} no               Steel design effective lengths index, can be undefined
- * @param {String} name             Name, can be undefined
+ * @param {Number} no               Steel design effective length index, can be undefined
  * @param {Array} members_no        List of members indexes, can be undefined
  * @param {Array} member_sets_no    List of member sets indexes, can be undefined
  * @param {String} comment          Comment, can be undefined
  * @param {Object} params           Additional parameters, can be undefined
  */
 function SteelDesignEffectiveLength (no,
-    name,
     members_no,
     member_sets_no,
     comment,
@@ -35,10 +33,6 @@ function SteelDesignEffectiveLength (no,
     }
     else {
         this.effective_length = steel_effective_lengths.create(no);
-    }
-    if (typeof name !== "undefined") {
-        this.effective_length.user_defined_name_enabled = true;
-        this.effective_length.name = name;
     }
     if (typeof members_no !== "undefined") {
         ASSERT(Array.isArray(members_no), "Member list must be array of member indexes");
@@ -83,6 +77,20 @@ SteelDesignEffectiveLength.prototype.GetNo = function () {
  */
 SteelDesignEffectiveLength.prototype.EffectiveLength = function () {
     return this.effective_length;
+};
+
+/**
+ * Sets Name
+ * @param {String} name     Name, can be undefined (when undefined, generated name is used)
+ */
+SteelDesignEffectiveLength.prototype.SetName = function (name) {
+    if (typeof name !== "undefined") {
+        this.effective_length.user_defined_name_enabled = true;
+        this.effective_length.name = name;
+    }
+    else {
+        this.effective_length.user_defined_name_enabled = false;
+    }
 };
 
 /**
@@ -144,7 +152,7 @@ SteelDesignEffectiveLength.prototype.BucklingFactorType = function (buckling_fac
 };
 
 /**
- * Sets member type
+ * Sets Member type
  * @param {String} member_type      Member type (BEAM, CANTILEVER), can be undefined (if not set, BEAM as default)
  * @param {String} member_type_yy   Member type y-y (BEAM, CANTILEVER), can be undefined (if not set, BEAM as default)
  * @param {String} member_type_zz   Member type z-z (BEAM, CANTILEVER), can be undefined (if not set, BEAM as default)
@@ -250,7 +258,7 @@ SteelDesignEffectiveLength.prototype.ModificationFactor = function (modification
 };
 
 /**
- * Sets nodal supports type for start sequence node
+ * Sets Nodal supports type for start sequence node
  * @param {String} support_type     Support type (NONE, FIXED_IN_Z, FIXED_IN_Y, RESTRAINT_ABOUT_X, FIXED_IN_Z_AND_TORSION, FIXED_IN_Z_Y_AND_TORSION, FIXED_IN_Z_AND_TORSION_AND_WARPING, FIXED_IN_Z_Y_AND_TORSION_AND_WARPING, FIXED_ALL, INDIVIDUALLY), can be undefined (if not set, FIXED_IN_Z_Y_AND_TORSION as default)
  */
 SteelDesignEffectiveLength.prototype.NodalSupportsStartWithSupportType = function (support_type) {
@@ -258,7 +266,7 @@ SteelDesignEffectiveLength.prototype.NodalSupportsStartWithSupportType = functio
 };
 
 /**
- * Sets nodal supports type for end sequence node
+ * Sets Nodal supports type for end sequence node
  * @param {String} support_type     Support type (NONE, FIXED_IN_Z, FIXED_IN_Y, RESTRAINT_ABOUT_X, FIXED_IN_Z_AND_TORSION, FIXED_IN_Z_Y_AND_TORSION, FIXED_IN_Z_AND_TORSION_AND_WARPING, FIXED_IN_Z_Y_AND_TORSION_AND_WARPING, FIXED_ALL, INDIVIDUALLY), can be undefined (if not set, FIXED_IN_Z_Y_AND_TORSION as default)
  */
 SteelDesignEffectiveLength.prototype.NodalSupportsEndWithSupportType = function (support_type) {
@@ -266,7 +274,7 @@ SteelDesignEffectiveLength.prototype.NodalSupportsEndWithSupportType = function 
 };
 
 /**
- * Sets nodal supports individually values for start sequence node
+ * Sets Nodal supports individually values for start sequence node
  * @param {Boolean} support_in_y          Fixed support in y/u, can be undefined (if not set, true as default)
  * @param {Boolean} support_in_z          Fixed support in z/v, can be undefined (if not set, true as default)
  * @param {Boolean} restraint_about_x     Restraint about x, can be undefined (if not set, true as default)
@@ -282,7 +290,7 @@ SteelDesignEffectiveLength.prototype.NodalSupportsStartWithIndividuallySupportTy
 };
 
 /**
- * Sets nodal supports individually values for end sequence node
+ * Sets Nodal supports individually values for end sequence node
  * @param {Boolean} support_in_y          Fixed support in y/u, can be undefined (if not set, true as default)
  * @param {Boolean} support_in_z          Fixed support in z/v, can be undefined (if not set, true as default)
  * @param {Boolean} restraint_about_x     Restraint about x, can be undefined (if not set, true as default)
@@ -298,7 +306,7 @@ SteelDesignEffectiveLength.prototype.NodalSupportsEndWithIndividuallySupportType
 };
 
 /**
- * Inserts intermediate node with support type
+ * Inserts Intermediate node with support type
  * @param {String} support_type     Support type (NONE, FIXED_IN_Z, FIXED_IN_Y, RESTRAINT_ABOUT_X, FIXED_IN_Z_AND_TORSION, FIXED_IN_Z_Y_AND_TORSION, FIXED_IN_Z_AND_TORSION_AND_WARPING, FIXED_IN_Z_Y_AND_TORSION_AND_WARPING, FIXED_ALL, INDIVIDUALLY), can be undefined (if not set, FIXED_IN_Z_Y_AND_TORSION as default)
  */
 SteelDesignEffectiveLength.prototype.InsertNodalSupportIntermediateNodeWithSupportType = function (support_type) {
@@ -307,7 +315,7 @@ SteelDesignEffectiveLength.prototype.InsertNodalSupportIntermediateNodeWithSuppo
 };
 
 /**
- * Insert intermediate node with individually support values
+ * Insert Intermediate node with individually support values
  * @param {Boolean} support_in_y          Fixed support in y/u, can be undefined (if not set, true as default)
  * @param {Boolean} support_in_z          Fixed support in z/v, can be undefined (if not set, true as default)
  * @param {Boolean} restraint_about_x     Restraint about x, can be undefined (if not set, true as default)
@@ -403,7 +411,6 @@ SteelDesignEffectiveLength.prototype.Eccentricity = function (row,
     eccentricity_ez) {
     ASSERT(row >= 1 && row < this.effective_length.nodal_supports.row_count(), "Row must be in range 1-" + (this.effective_length.nodal_supports.row_count() - 1).toString());
     ASSERT(isSteelDesignNodalSupportEccentricityEnable(row, this.effective_length), "Eccentricity cannot be set");
-    // there is API support, but value cannot be set with enumeration value? Only with index. Bug 72773
     this.effective_length.nodal_supports[row].eccentricity_type = GetSteelDesignNodalSupportEccentricityType(eccentricity_type);
     if (typeof eccentricity_ez !== "undefined") {
         var enable = IsCurrentCodeOfStandard("AISC") || IsCurrentCodeOfStandard("SP") || IsCurrentCodeOfStandard("NBR");
@@ -508,7 +515,8 @@ function setSteelDesignEffectiveLengthsBuckling (effective_length,
             enable &= effective_length.determination_mcr_gb50 !== GetDeterminationOfElasticCriticalMoment("GB50_USER_DEFINED");
         }
         if (IsCurrentCodeOfStandard("CSA")) {
-            //There is bug 71428 with bad radio buttons displaying, check condition after it is fixed!
+            enable &= effective_length.lateral_torsional_buckling;
+            enable &= effective_length.determination_mcr_csa !== GetDeterminationOfElasticCriticalMoment("CSA_USER_DEFINED");
         }
         if (IsCurrentCodeOfStandard("AS")) {
             enable &= absolute_values;
@@ -540,7 +548,8 @@ function setSteelDesignEffectiveLengthsBuckling (effective_length,
             enable &= effective_length.determination_mcr_gb50 === GetDeterminationOfElasticCriticalMoment("GB50_USER_DEFINED");
         }
         if (IsCurrentCodeOfStandard("CSA")) {
-            //There is bug 71428 with bad radio buttons displaying, check condition after it is fixed!
+            enable &= effective_length.lateral_torsional_buckling;
+            enable &= effective_length.determination_mcr_csa === GetDeterminationOfElasticCriticalMoment("CSA_USER_DEFINED");
         }
         if (IsCurrentCodeOfStandard("NTC")) {
             // No API support?
@@ -548,7 +557,9 @@ function setSteelDesignEffectiveLengthsBuckling (effective_length,
         }
         return enable;
     }
-    function isLateralTorsionalBucklingEccentricityTopEnable(effective_length) {
+    function isLateralTorsionalBucklingEccentricityTopEnable(effective_length,
+        row) {
+        ASSERT(row >= 1 && row < effective_length.nodal_supports.row_count(), "Row must be in range <1-" + effective_length.nodal_supports.row_count().toString() + ">");
         var enable = isLateralTorsionalBucklingEnable();
         enable &= !IsCurrentCodeOfStandard("AISC") && !IsCurrentCodeOfStandard("IS");
         if (IsCurrentCodeOfStandard("BS")) {
@@ -557,28 +568,23 @@ function setSteelDesignEffectiveLengthsBuckling (effective_length,
         else if (IsCurrentCodeOfStandard("GB")) {
             enable &= effective_length.determination_mcr_gb50 === steel_effective_lengths.DETERMINATION_GB50_NOT_USED;
         }
-        else if (IsCurrentCodeOfStandard("CSA")) {
-            ASSERT(false, "Need check CSA format, bug 71428");
-        }
-        if (isSteelDesignNodalSupportEccentricityEnable(row, effective_length)) {
-            enable &= effective_length.nodal_supports[row].eccentricity_type === GetSteelDesignNodalSupportEccentricityType("AT_UPPER_FLANGE");
+        if (row !== 1 && isSteelDesignNodalSupportEccentricityEnable(row, effective_length)) {
+            enable &= (effective_length.nodal_supports[row].eccentricity_type === GetSteelDesignNodalSupportEccentricityType("AT_UPPER_FLANGE") || effective_length.nodal_supports[row].eccentricity_type === GetSteelDesignNodalSupportEccentricityType("NONE"));
         }
         return enable;
     }
-    function isLateralTorsionalBucklingEccentricityBottomEnable(effective_length) {
+    function isLateralTorsionalBucklingEccentricityBottomEnable(effective_length,
+        row) {
         var enable = isLateralTorsionalBucklingEnable();
-        enable &= !IsCurrentCodeOfStandard("AISC") && !IsCurrentCodeOfStandard("IS");
+        enable &= !IsCurrentCodeOfStandard("AISC") && !IsCurrentCodeOfStandard("IS") && !IsCurrentCodeOfStandard("CSA");
         if (IsCurrentCodeOfStandard("BS")) {
             enable &= effective_length.determination_mcr_bs5 === steel_effective_lengths.DETERMINATION_BS5_ACC_TO_ANNEX_B;
         }
         else if (IsCurrentCodeOfStandard("GB")) {
             enable &= effective_length.determination_mcr_gb50 === steel_effective_lengths.DETERMINATION_GB50_NOT_USED;
         }
-        else if (IsCurrentCodeOfStandard("CSA")) {
-            ASSERT(false, "Need check CSA format, bug 71428");
-        }
-        if (isSteelDesignNodalSupportEccentricityEnable(row, effective_length)) {
-            enable &= effective_length.nodal_supports[row].eccentricity_type === GetSteelDesignNodalSupportEccentricityType("AT_LOWER_FLANGE");
+        if (row !== 1 && isSteelDesignNodalSupportEccentricityEnable(row, effective_length)) {
+            enable &= (effective_length.nodal_supports[row].eccentricity_type === GetSteelDesignNodalSupportEccentricityType("AT_LOWER_FLANGE") || effective_length.nodal_supports[row].eccentricity_type === GetSteelDesignNodalSupportEccentricityType("NONE"));
         }
         return enable;
     }
@@ -764,11 +770,11 @@ function setSteelDesignEffectiveLengthsBuckling (effective_length,
         object_to_set[row].critical_moment = critical_moment;
     }
     if (typeof lateral_torsional_buckling_top !== "undefined") {
-        ASSERT(isLateralTorsionalBucklingEccentricityTopEnable(effective_length), "Lateral-torsional buckling " + getSymbolicName("lateral_torsional_buckling_top", absolute_values) + " cannot be set");
+        ASSERT(isLateralTorsionalBucklingEccentricityTopEnable(effective_length, row), "Lateral-torsional buckling " + getSymbolicName("lateral_torsional_buckling_top", absolute_values) + " cannot be set");
         object_to_set[row].lateral_torsional_buckling_top = lateral_torsional_buckling_top;
     }
     if (typeof lateral_torsional_buckling_bottom !== "undefined") {
-        ASSERT(isLateralTorsionalBucklingEccentricityBottomEnable(effective_length), "Lateral-torsional buckling " + getSymbolicName("lateral_torsional_buckling_bottom", absolute_values) + " cannot be set");
+        ASSERT(isLateralTorsionalBucklingEccentricityBottomEnable(effective_length, row), "Lateral-torsional buckling " + getSymbolicName("lateral_torsional_buckling_bottom", absolute_values) + " cannot be set");
         object_to_set[row].lateral_torsional_buckling_bottom = lateral_torsional_buckling_bottom;
     }
 };
@@ -1072,7 +1078,7 @@ function GetDeterminationOfElasticCriticalMoment (effective_length,
     if (mcr_type !== undefined) {
 		type = mcr_types[mcr_type];
 		if (type === undefined) {
-			console.log("Wrong type of elastic critical moment. Value was: " + mcr_type);
+			console.log("Wrong type of steel design elastic critical moment. Value was: " + mcr_type);
 			console.log("Correct values are: ( " + Object.keys(mcr_types) + ")");
 			type = mcr_types[Object.keys(mcr_types)[0]];
 		}
@@ -1139,7 +1145,7 @@ function GetSteelDesignBucklingFactorType (buckling_factor_type) {
     if (buckling_factor_type !== undefined) {
 		type = buckling_factor_types[buckling_factor_type];
 		if (type === undefined) {
-			console.log("Wrong buckling factor type. Value was: " + buckling_factor_type);
+			console.log("Wrong steel design buckling factor type. Value was: " + buckling_factor_type);
 			console.log("Correct values are: ( " + Object.keys(buckling_factor_types) + ")");
 			type = steel_effective_lengths.BUCKLING_FACTOR_VALUE_TYPE_THEORETICAL;
 		}
@@ -1159,7 +1165,7 @@ function GetSteelDesignEffectiveLengthAccToStandardType (standard_type) {
     if (standard_type !== undefined) {
 		type = standard_types[standard_type];
 		if (type === undefined) {
-			console.log("Wrong effective lengths acc. to standard type. Value was: " + standard_type);
+			console.log("Wrong steel design effective lengths acc. to standard type. Value was: " + standard_type);
 			console.log("Correct values are: ( " + Object.keys(standard_types) + ")");
 			type = steel_effective_lengths.STANDARD_OF_EFFECTIVE_LENGTHS_AISC_360;
 		}
@@ -1178,7 +1184,7 @@ function GetSteelDesignMemberType (member_type) {
     if (member_type !== undefined) {
 		type = member_types[member_type];
 		if (type === undefined) {
-			console.log("Wrong member type. Value was: " + member_type);
+			console.log("Wrong steel design member type. Value was: " + member_type);
 			console.log("Correct values are: ( " + Object.keys(member_types) + ")");
 			type = steel_effective_lengths.MEMBER_TYPE_BEAM;
 		}
@@ -1200,7 +1206,7 @@ function GetSteelDesignMomentModificationRestrainedType (moment_type) {
     if (moment_type !== undefined) {
 		type = moment_types[moment_type];
 		if (type === undefined) {
-			console.log("Wrong moment modification restrained type. Value was: " + moment_type);
+			console.log("Wrong steel design moment modification restrained type. Value was: " + moment_type);
 			console.log("Correct values are: ( " + Object.keys(moment_types) + ")");
 			type = steel_effective_lengths.MOMENT_ALPHA_BASIC_VALUE;
 		}
@@ -1220,7 +1226,7 @@ function GetSteelDesignMomentModificationUnrestrainedType (moment_type) {
     if (moment_type !== undefined) {
 		type = moment_types[moment_type];
 		if (type === undefined) {
-			console.log("Wrong moment modification unrestrained type. Value was: " + moment_type);
+			console.log("Wrong steel design moment modification unrestrained type. Value was: " + moment_type);
 			console.log("Correct values are: ( " + Object.keys(moment_types) + ")");
 			type = steel_effective_lengths.MOMENT_ALPHA_BASIC_VALUE;
 		}
@@ -1239,7 +1245,7 @@ function GetSteelDesignSlendernessReductionRestrainedType (slenderness_type) {
     if (slenderness_type !== undefined) {
 		type = slenderness_types[slenderness_type];
 		if (type === undefined) {
-			console.log("Wrong slenderness reduction restrained type. Value was: " + slenderness_type);
+			console.log("Wrong steel design slenderness reduction restrained type. Value was: " + slenderness_type);
 			console.log("Correct values are: ( " + Object.keys(slenderness_types) + ")");
 			type = steel_effective_lengths.SLENDERNESS_ALPHA_ACC_TO_5611;
 		}
@@ -1258,7 +1264,7 @@ function GetSteelDesignSlendernessReductionUnrestrainedType (slenderness_type) {
     if (slenderness_type !== undefined) {
 		type = slenderness_types[slenderness_type];
 		if (type === undefined) {
-			console.log("Wrong slenderness reduction restrained type. Value was: " + slenderness_type);
+			console.log("Wrong steel design slenderness reduction restrained type. Value was: " + slenderness_type);
 			console.log("Correct values are: ( " + Object.keys(slenderness_types) + ")");
 			type = steel_effective_lengths.SLENDERNESS_ALPHA_ACC_TO_5611;
 		}
@@ -1278,7 +1284,7 @@ function GetSteelDesignModificationFactorType (factor_type) {
     if (factor_type !== undefined) {
 		type = factor_types[factor_type];
 		if (type === undefined) {
-			console.log("Wrong modification factor type. Value was: " + factor_type);
+			console.log("Wrong steel design modification factor type. Value was: " + factor_type);
 			console.log("Correct values are: ( " + Object.keys(factor_types) + ")");
 			type = steel_effective_lengths.AISI_MODIFICATION_FACTOR_CB_BASIC_VALUE;
 		}
@@ -1306,7 +1312,7 @@ function GetSteelDesignEffectiveLengthSupportType(support_type) {
 	if (support_type !== undefined) {
 		var type = support_types_dict[support_type];
 		if (type === undefined) {
-			console.log("Wrong type of support. Value was: " + support_type);
+			console.log("Wrong steel design effective length support type. Value was: " + support_type);
 			console.log("Correct values are: ( " + Object.keys(support_types_dict) + ")");
 			type = steel_effective_lengths.SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION;
 		}
@@ -1327,7 +1333,7 @@ function GetSteelDesignSupportStatusType(support_status) {
 	if (support_status !== undefined) {
 		var type = support_status_dict[support_status];
 		if (type === undefined) {
-			console.log("Wrong type of support status. Value was: " + support_status);
+			console.log("Wrong steel design support status type. Value was: " + support_status);
 			console.log("Correct values are: ( " + Object.keys(support_status_dict) + ")");
 			type = steel_effective_lengths.SUPPORT_STATUS_NO;
 		}
@@ -1340,15 +1346,10 @@ function GetSteelDesignSupportStatusType(support_status) {
 
 function GetSteelDesignNodalSupportEccentricityType(eccentricity_type) {
 	const eccentricity_types_dict = {
-        /* Temporary comment, bug 72773
         "NONE": steel_effective_lengths.ECCENTRICITY_TYPE_NONE,
         "AT_UPPER_FLANGE": steel_effective_lengths.ECCENTRICITY_TYPE_AT_UPPER_FLANGE,
         "AT_LOWER_FLANGE": steel_effective_lengths.ECCENTRICITY_TYPE_AT_LOWER_FLANGE,
-        "USER_VALUE": steel_effective_lengths.ECCENTRICITY_TYPE_USER_VALUE*/
-        "NONE": 0,
-        "AT_UPPER_FLANGE": 1,
-        "AT_LOWER_FLANGE": 2,
-        "USER_VALUE": 3
+        "USER_VALUE": steel_effective_lengths.ECCENTRICITY_TYPE_USER_VALUE
 	};
 
 	if (eccentricity_type !== undefined) {

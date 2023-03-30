@@ -1,14 +1,12 @@
 /**
  * Creates Steel design Member local section reduction
  * @param {Number} no               Steel design member local section reduction index, can be undefined
- * @param {String} name             Name, can be undefined
  * @param {Array} members_no        List of members indexes, can be undefined
  * @param {Array} member_sets_no    List of member sets indexes, can be undefined
  * @param {String} comment          Comment, can be undefined
  * @param {Object} params           Additional parameters, can be undefined
  */
 function SteelDesignMemberLocalSectionReduction (no,
-    name,
     members_no,
     member_sets_no,
     comment,
@@ -19,10 +17,6 @@ function SteelDesignMemberLocalSectionReduction (no,
     }
     else {
         this.member_local_section_reduction = steel_member_local_section_reductions.create(no);
-    }
-    if (typeof name !== "undefined") {
-        this.member_local_section_reduction.user_defined_name_enabled = true;
-        this.member_local_section_reduction.name = name;
     }
     if (typeof members_no !== "undefined") {
         ASSERT(Array.isArray(members_no), "Member list must be array of member indexes");
@@ -70,6 +64,20 @@ SteelDesignMemberLocalSectionReduction.prototype.MemberLocalSectionReduction = f
 };
 
 /**
+ * Sets Name
+ * @param {String} name     Name, can be undefined (when undefined, generated name is used)
+ */
+SteelDesignMemberLocalSectionReduction.prototype.SetName = function (name) {
+    if (typeof name !== "undefined") {
+        this.member_local_section_reduction.user_defined_name_enabled = true;
+        this.member_local_section_reduction.name = name;
+    }
+    else {
+        this.member_local_section_reduction.user_defined_name_enabled = false;
+    }
+};
+
+/**
  * Adds reduction type and location
  * @param {String} reduction_type   Reduction type (DESIGN_PARAMETERS, SECTION_VALUES), can be undefined (DESIGN_PARAMETERS as default)
  * @param {Number} position         Position
@@ -103,7 +111,7 @@ SteelDesignMemberLocalSectionReduction.prototype.DesignParameters = function (ro
     reduction_area) {
     ASSERT(typeof row !== "undefined", "Row must be defined");
     ASSERT(this.member_local_section_reduction.components[row].reduction_type === steel_member_local_section_reductions.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, "Design parameters reduction type must be set");
-    ASSERT(row >= 1 && row <= this.member_local_section_reduction.components.row_count(), "Row must be in range 1-" + this.member_local_section_reduction.components.row_count());
+    ASSERT(row >= 1 && row <= this.member_local_section_reduction.components.row_count(), "Row must be in range 1-" + this.member_local_section_reduction.components.row_count().toString());
     ASSERT(typeof reduction_area !== "undefined", "Area of reduction must be defined, row " + row.toString());
     this.member_local_section_reduction.components[row].fastener_definition_type = GetSteelDesignDefinitionType(definition_type);
     if (this.member_local_section_reduction.components[row].fastener_definition_type === steel_member_local_section_reductions.DEFINITION_TYPE_ABSOLUTE) {
@@ -135,7 +143,7 @@ SteelDesignMemberLocalSectionReduction.prototype.SectionValues = function (row,
     moment_of_inertia_z,
     torsional_constant) {
     ASSERT(this.member_local_section_reduction.components[row].reduction_type === steel_member_local_section_reductions.REDUCTION_COMPONENT_TYPE_SECTION_VALUES, "Section values reduction type must be set");
-    ASSERT(row >= 1 && row <= this.member_local_section_reduction.components.row_count(), "Row must be in range 1-" + this.member_local_section_reduction.components.row_count());
+    ASSERT(row >= 1 && row <= this.member_local_section_reduction.components.row_count(), "Row must be in range 1-" + this.member_local_section_reduction.components.row_count().toString());
     this.member_local_section_reduction.components[row].definition_type = GetSteelDesignDefinitionType(definition_type);
     var definitionTypeAbsolute = this.member_local_section_reduction.components[row].definition_type === steel_member_local_section_reductions.DEFINITION_TYPE_ABSOLUTE;
     if (typeof sectional_area !== "undefined") {
@@ -199,7 +207,7 @@ SteelDesignMemberLocalSectionReduction.prototype.MultipleDefinition = function (
     multiple_number,
     multiple_offset_definition_type,
     multiple_offset) {
-    ASSERT(row >= 1 && row <= this.member_local_section_reduction.components.row_count(), "Row must be in range 1-" + this.member_local_section_reduction.components.row_count());
+    ASSERT(row >= 1 && row <= this.member_local_section_reduction.components.row_count(), "Row must be in range 1-" + this.member_local_section_reduction.components.row_count().toString());
     ASSERT(this.member_local_section_reduction.components[row].multiple, "Multiple must be on, row " + row.toString());
     if (typeof multiple_number !== "undefined") {
         this.member_local_section_reduction.components[row].multiple_number = multiple_number;
@@ -218,7 +226,7 @@ function GetSteelDesignReductionType(reduction_type) {
 	if (reduction_type !== undefined) {
 		var type = reduction_types_dict[reduction_type];
 		if (type === undefined) {
-			console.log("Wrong reduction type. Value was: " + reduction_type);
+			console.log("Wrong steel design reduction type. Value was: " + reduction_type);
 			console.log("Correct values are: ( " + Object.keys(reduction_types_dict) + ")");
 			type = steel_member_local_section_reductions.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS;
 		}
@@ -238,7 +246,7 @@ function GetSteelDesignDefinitionType(definition_type) {
 	if (definition_type !== undefined) {
 		var type = definition_types_dict[definition_type];
 		if (type === undefined) {
-			console.log("Wrong definition type. Value was: " + definition_type);
+			console.log("Wrong steel design definition type. Value was: " + definition_type);
 			console.log("Correct values are: ( " + Object.keys(definition_types_dict) + ")");
 			type = steel_member_local_section_reductions.DEFINITION_TYPE_ABSOLUTE;
 		}
@@ -258,7 +266,7 @@ function GetSteelDesignMultipleOffsetDefinitionType(definition_type) {
 	if (definition_type !== undefined) {
 		var type = definition_types_dict[definition_type];
 		if (type === undefined) {
-			console.log("Wrong definition type. Value was: " + definition_type);
+			console.log("Wrong steel design multiple offset definition type. Value was: " + definition_type);
 			console.log("Correct values are: ( " + Object.keys(definition_types_dict) + ")");
 			type = steel_member_local_section_reductions.OFFSET_DEFINITION_TYPE_ABSOLUTE;
 		}

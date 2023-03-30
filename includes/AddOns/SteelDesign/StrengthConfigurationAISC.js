@@ -1,20 +1,18 @@
 /**
- * Creates Steel Design Strength Configuration
+ * Creates Steel Design Strength Configuration for AISC code of standard
  * @param {Number} no               Strength Configuration index, can be undefined
- * @param {String} name             Strength Configuration name, can be undefined
  * @param {Array} members_no        List of members assigned, can be undefined
  * @param {Array} member_sets_no    List of member sets assigned, can be undefined
  * @param {String} comment          Comment, can be undefined
  * @param {Object} params           Additional parameters, can be undefined
  */
 function SteelDesignStrengthConfigurationAISC (no,
-    name,
     members_no,
     member_sets_no,
     comment,
     params) {
     ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
-    this.addon = createBaseSteelDesignConfiguration(STEEL_DESIGN.steel_design_uls_configurations, no, name, members_no, member_sets_no, comment, params);
+    this.addon = createBaseSteelDesignConfiguration(STEEL_DESIGN.steel_design_uls_configurations, no, members_no, member_sets_no, comment, params);
 }
 
 /**
@@ -32,13 +30,23 @@ SteelDesignStrengthConfigurationAISC.prototype.GetUltimateConfiguration = functi
 };
 
 /**
+ * Sets Name
+ * @param {String} name     Fire resistance Configuration name, can be undefined
+ */
+SteelDesignStrengthConfigurationAISC.prototype.SetName = function (name) {
+    ASSERT(typeof name !== "undefined", "Name must be specified");
+    this.addon.name = name;
+};
+
+/**
  * Sets general design parameters
- * @param {Boolean} property_perform_stability_analysis     Perform stability design, can be undefined (is not set, true as default)
+ * @param {Boolean} property_perform_stability_analysis     Perform stability design, can be undefined (true as default)
  */
 SteelDesignStrengthConfigurationAISC.prototype.General = function (property_perform_stability_analysis) {
-    if (typeof property_perform_stability_analysis !== "undefined") {
-        this.addon.settings_aisc.property_perform_stability_analysis = property_perform_stability_analysis;
+    if (typeof property_perform_stability_analysis === "undefined") {
+        property_perform_stability_analysis = true;
     }
+    this.addon.settings_aisc.property_perform_stability_analysis = property_perform_stability_analysis;
 };
 
 /**

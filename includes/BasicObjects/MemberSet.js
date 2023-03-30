@@ -198,13 +198,16 @@ MemberSet.prototype.SetDesignSupportAtInternalNodes = function () {
  * @param {String} deflection_check_direction 				Check direction (LOCAL_AXIS_Z, LOCAL_AXIS_Y, LOCAL_AXIS_Z_AND_Y, RESULTING_AXIS), can be undefined (LOCAL_AXIS_Z_AND_Y as default)
  * @param {String} deflection_check_displacement_reference 	Displacement reference (DEFORMED_SEGMENT_ENDS, DEFORMED_UNDEFORMED_SYSTEM), can be undefined (DEFORMED_SEGMENT_ENDS as default)
  * @param {Array} segments_in_z_axis 						Segments in z-axis ([[active_1, length_1, precamber_1], ... [active_n, length_n, precamber_n]]), can be undefined
+ * @param {Boolean} active_y 								Segment in y-axis - active, can be undefined (true as default)
+ * @param {Number} length_y 								Segment in y-axis - length, can be undefined (member length as default)
+ * @param {Number} precamber_y 								Segment in y-axis - precamber, can be undefined (0.0 as default)
  */
 MemberSet.prototype.SetDeflectionAnalysis = function (deflection_check_direction,
 	deflection_check_displacement_reference,
-	deflection_segments_z_axis_items/*,
+	deflection_segments_z_axis_items,
 	active_y,
 	length_y,
-	precamber_y*/) {
+	precamber_y) {
 	function GetDesignSupportsAtInternalNodesCount (member_set) {
 		var count = 0;
 		for (var i = 0; i < member_set.design_supports_on_internal_nodes.row_count(); ++i) {
@@ -243,8 +246,8 @@ MemberSet.prototype.SetDeflectionAnalysis = function (deflection_check_direction
 			this.member_set.deflection_segments_z_axis[i + 1].precamber = deflection_segments_z_axis_items[i][2];
 		}
 	}
-	/*if (typeof active_y !== "undefined") {
-		ASSERT(this.member.deflection_check_direction !== member_sets.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z, "Check direction can't be " + members_sets.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z);
+	if (typeof active_y !== "undefined") {
+		ASSERT(this.member_set.deflection_check_direction !== member_sets.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z, "Check direction can't be " + member_sets.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z);
 		this.member_set.deflection_segments_y_axis[1].active = active_y;
 	}
 	if (typeof length_y !== "undefined") {
@@ -258,7 +261,7 @@ MemberSet.prototype.SetDeflectionAnalysis = function (deflection_check_direction
 	if (typeof precamber_y !== "undefined") {
 		ASSERT(this.member_set.deflection_check_direction !== member_sets.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z, "Check direction can't be " + member_sets.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z);
 		this.member_set.deflection_segments_y_axis[1].precamber = precamber_y;
-	}*/
+	}
 };
 
 function GetMemberSetDesignSupportCheckDirection(direction_type) {

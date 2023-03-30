@@ -6,21 +6,19 @@
 /**
  * Creates Steel Design Fire resistance Configuration
  * @param {Number} no               Fire resistance Configuration index, can be undefined
- * @param {String} name             Fire resistance Configuration name, can be undefined
  * @param {Array} members_no        List of members assigned, can be undefined
  * @param {Array} member_sets_no    List of member sets assigned, can be undefined
  * @param {String} comment          Comment, can be undefined
  * @param {Object} params           Additional parameters, can be undefined
  */
 function SteelDesignFireResistanceConfiguration (no,
-    name,
     members_no,
     member_sets_no,
     comment,
     params) {
     ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
     ASSERT(IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC"), "Fire resistance configuration is available only for EN, NTC code of standards");
-    this.addon = createBaseSteelDesignConfiguration(STEEL_DESIGN.steel_design_fr_configurations, no, name, members_no, member_sets_no, comment, params);
+    this.addon = createBaseSteelDesignConfiguration(STEEL_DESIGN.steel_design_fr_configurations, no, members_no, member_sets_no, comment, params);
 }
 
 /**
@@ -38,6 +36,15 @@ SteelDesignFireResistanceConfiguration.prototype.GetFireResistanceConfiguration 
 };
 
 /**
+ * Sets Name
+ * @param {String} name     Fire resistance Configuration name, can be undefined
+ */
+SteelDesignFireResistanceConfiguration.prototype.SetName = function (name) {
+    ASSERT(typeof name !== "undefined", "Name must be specified");
+    this.addon.name = name;
+};
+
+/**
  * Defines final temperature
  * @param {String} property_define_final_temperature    Final temperature (MANUALLY, ANALYTICALLY), can be undefined (is not set, ANALYTICALLY as default)
  */
@@ -46,7 +53,7 @@ SteelDesignFireResistanceConfiguration.prototype.FinalTemperature = function (pr
         var container = this.addon.settings_ec3;
     }
     else if (IsCurrentCodeOfStandard("NTC")) {
-        ASSERT(false, "No API support fo NTC code of standard");
+        ASSERT(false, "No API support for NTC code of standard");
     }
     else {
         ASSERT(false, "Unsupported code of standard");
@@ -73,7 +80,7 @@ SteelDesignFireResistanceConfiguration.prototype.AnalyticallyDesignSettings = fu
         var container = this.addon.settings_ec3;
     }
     else if (IsCurrentCodeOfStandard("NTC")) {
-        ASSERT(false, "No API support fo NTC code of standard");
+        ASSERT(false, "No API support for NTC code of standard");
     }
     else {
         ASSERT(false, "Unsupported code of standard");
@@ -99,7 +106,7 @@ SteelDesignFireResistanceConfiguration.prototype.AnalyticallyFireProtection = fu
         var container = this.addon.settings_ec3;
     }
     else if (IsCurrentCodeOfStandard("NTC")) {
-        ASSERT(false, "No API support fo NTC code of standard");
+        ASSERT(false, "No API support for NTC code of standard");
     }
     else {
         ASSERT(false, "Unsupported code of standard");
@@ -149,7 +156,7 @@ SteelDesignFireResistanceConfiguration.prototype.AnalyticallyThermalActions = fu
         var container = this.addon.settings_ec3;
     }
     else if (IsCurrentCodeOfStandard("NTC")) {
-        ASSERT(false, "No API support fo NTC code of standard");
+        ASSERT(false, "No API support for NTC code of standard");
     }
     else {
         ASSERT(false, "Unsupported code of standard");
@@ -171,7 +178,7 @@ SteelDesignFireResistanceConfiguration.prototype.ManuallyFinalTemperature = func
         var container = this.addon.settings_ec3;
     }
     else if (IsCurrentCodeOfStandard("NTC")) {
-        ASSERT(false, "No API support fo NTC code of standard");
+        ASSERT(false, "No API support for NTC code of standard");
     }
     else {
         ASSERT(false, "Unsupported code of standard");

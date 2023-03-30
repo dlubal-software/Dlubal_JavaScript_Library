@@ -23,6 +23,10 @@ include("../../includes/Tools/high_level_functions_support.js");
 *********************************************************************************************/
 run("../includes/Tools/clearAll.js");
 
+function currentStandard () {
+    return general.current_standard_for_steel_design.match(/\w+/);
+}
+
 function IsCurrent (current_standard) {
     ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
 	var current = general.current_standard_for_steel_design.match(/\w+/);
@@ -65,10 +69,14 @@ general.current_standard_for_steel_design = steel_design_standards[standard_inde
 
 /********************************************** Ultimate, Serviceability, Fire resistance configurations *****************************************************************/
 if (RFEM) {
+    var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, [2]);
+    steelDesignServiceabilityConfiguration.SetName(currentStandard() + " Serviceability configuration for testing");
+
     switch (general.current_standard_for_steel_design)
     {
         case "EN 1993 | CEN | 2015-06": // 0
-            var steelDesignUltimateConfigurationEC3 = new SteelDesignUltimateConfigurationEC3(undefined, "EC3 Ultimate configuration for testing", [1]);
+            var steelDesignUltimateConfigurationEC3 = new SteelDesignUltimateConfigurationEC3(undefined, [1]);
+            steelDesignUltimateConfigurationEC3.SetName("EC3 Ultimate configuration for testing");
             steelDesignUltimateConfigurationEC3.General(true);
             steelDesignUltimateConfigurationEC3.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07);
             steelDesignUltimateConfigurationEC3.ThinWalledAnalysis(5, 0.015, true, true);
@@ -81,30 +89,32 @@ if (RFEM) {
             steelDesignUltimateConfigurationEC3.PositionOfPositiveTransverse(undefined, undefined, undefined, true);
             steelDesignUltimateConfigurationEC3.LateralTorsionalBuckling(true, undefined, false, false);
             steelDesignUltimateConfigurationEC3.Parameters(true);
-            var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "EC3 Serviceability configuration for testing", [2]);
             steelDesignServiceabilityConfiguration.DesignParametersEC3(400, 500, 600, 450, 550, 650, 0.006, true, undefined, true);
-            var steelDesignFireResistanceConfigurationEC3 = new SteelDesignFireResistanceConfiguration(undefined, "EC3 Fire resistance configuration for testing", [1], undefined, "Fire resistance configuration can be set now only for EC3 or NTC standard");
+            var steelDesignFireResistanceConfigurationEC3 = new SteelDesignFireResistanceConfiguration(undefined, [1], undefined, "Fire resistance configuration can be set now only for EC3 or NTC standard");
+            steelDesignFireResistanceConfigurationEC3.SetName("Fire resistance configuration EC3");
             steelDesignFireResistanceConfigurationEC3.FinalTemperature("ANALYTICALLY");
             steelDesignFireResistanceConfigurationEC3.AnalyticallyDesignSettings(1200, 6.5, "3_SIDES", undefined, true, 1.5);
             steelDesignFireResistanceConfigurationEC3.AnalyticallyFireProtection("HOLLOW", 333, 0.111, 1222, 0.011);
             steelDesignFireResistanceConfigurationEC3.AnalyticallyTemperatureCurve(undefined, true, undefined, 30);
             steelDesignFireResistanceConfigurationEC3.AnalyticallyThermalActions(0.999, 0.8, 0.5, 0.777, undefined, 0.888);
-            var steelDesignFireResistanceConfigurationEC3_2 = new SteelDesignFireResistanceConfiguration(undefined, "EC3 Fire resistance configuration for testing", [1], undefined, "Fire resistance configuration can be set now only for EC3 or NTC standard");
+            var steelDesignFireResistanceConfigurationEC3_2 = new SteelDesignFireResistanceConfiguration(undefined, [1], undefined, "Fire resistance configuration can be set now only for EC3 or NTC standard");
+            steelDesignFireResistanceConfigurationEC3.SetName("Fire resistance configuration EC3");
             steelDesignFireResistanceConfigurationEC3_2.FinalTemperature("MANUALLY");
             steelDesignFireResistanceConfigurationEC3_2.ManuallyFinalTemperature(undefined, "3_SIDES", true);
             break;
         case "AISC 360 | 2016": // 1
-            var steelDesignStrengthConfigurationAISC = new SteelDesignStrengthConfigurationAISC(undefined, "AICS Strength configuration for testing", [1]);
+            var steelDesignStrengthConfigurationAISC = new SteelDesignStrengthConfigurationAISC(undefined, [1]);
+            steelDesignStrengthConfigurationAISC.SetName("AICS Strength configuration for testing");
             steelDesignStrengthConfigurationAISC.General(true);
             steelDesignStrengthConfigurationAISC.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07);
             steelDesignStrengthConfigurationAISC.LocalBuckling(true);
             steelDesignStrengthConfigurationAISC.LocalBuckling(true, 13.5, 42.5);
             steelDesignStrengthConfigurationAISC.PositionOfPositiveTransverse(undefined, undefined, true);
-            var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "AISC Serviceability configuration for testing", [2]);
             steelDesignServiceabilityConfiguration.DesignParametersAISC(200, 300);
             break;
         case "IS 800 | 2007-12":    // 2
-            var steelDesignUltimateConfigurationIS = new SteelDesignUltimateConfigurationIS(undefined, "IS Ultimate configuration for testing", [1]);
+            var steelDesignUltimateConfigurationIS = new SteelDesignUltimateConfigurationIS(undefined, [1]);
+            steelDesignUltimateConfigurationIS.SetName("IS Ultimate configuration for testing");
             steelDesignUltimateConfigurationIS.General(true);
             steelDesignUltimateConfigurationIS.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07);
             steelDesignUltimateConfigurationIS.ElasticDesign(true);
@@ -112,21 +122,21 @@ if (RFEM) {
             steelDesignUltimateConfigurationIS.Combined(true);
             steelDesignUltimateConfigurationIS.CalculationMethod(true, true);
             steelDesignUltimateConfigurationIS.PositionOfPositiveTransverse(undefined, true);
-            var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "IS Serviceability configuration for testing", [2]);
             steelDesignServiceabilityConfiguration.DesignParametersIS(200, 300);
             break;
         case "BS 5950 | 2001-05":   // 3
-            var steelDesignUltimateConfigurationBS = new SteelDesignUltimateConfigurationBS(undefined, "BS Ultimate configuration for testing", [1]);
+            var steelDesignUltimateConfigurationBS = new SteelDesignUltimateConfigurationBS(undefined, [1]);
+            steelDesignUltimateConfigurationBS.SetName("BS Ultimate configuration for testing");
             steelDesignUltimateConfigurationBS.General(true);
             steelDesignUltimateConfigurationBS.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07);
             steelDesignUltimateConfigurationBS.Options(true,true);
             steelDesignUltimateConfigurationBS.PositionOfPositiveTransverse(undefined, undefined, true);
             steelDesignUltimateConfigurationBS.EquivalentUniformMomentFactors(undefined, true, 0.500, undefined, true, 0.600, true);
-            var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "BS Serviceability configuration for testing", [2]);
             steelDesignServiceabilityConfiguration.DesignParametersBS(300, 400, 0.01);
             break;
         case "GB 50017 | 2017-12":  // 4
-            var steelDesignUltimateConfigurationGB = new SteelDesignUltimateConfigurationGB(undefined, "GB Ultimate configuration for testing", [1]);
+            var steelDesignUltimateConfigurationGB = new SteelDesignUltimateConfigurationGB(undefined, [1]);
+            steelDesignUltimateConfigurationGB.SetName("GB Ultimate configuration for testing");
             steelDesignUltimateConfigurationGB.General(true);
             steelDesignUltimateConfigurationGB.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07);
             steelDesignUltimateConfigurationGB.Options(true, false, true);
@@ -138,33 +148,33 @@ if (RFEM) {
             steelDesignUltimateConfigurationGB.LocalStability(true);
             steelDesignUltimateConfigurationGB.WeldedSection(undefined, undefined, true);
             steelDesignUltimateConfigurationGB.GeneralSections("A", "B");
-            steelDesignUltimateConfigurationGB.ImaginaryAxis1(0.3);
+            steelDesignUltimateConfigurationGB.ImaginaryAxis(0.3);
             steelDesignUltimateConfigurationGB.EquivalentMomentFactors(true, true, 0.5, undefined, true, true, 0.4, undefined, 0.1, 0.2);
-            var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "GB Serviceability configuration for testing", [2]);
             steelDesignServiceabilityConfiguration.DesignParametersGB(1100, 1200, 501, 502);
             break;
         case "CSA S16 | 2019":  // 5
-            var steelDesignUltimateConfigurationCSA = new SteelDesignUltimateConfigurationCSA(undefined, "CSA Ultimate configuration for testing", [1])
+            var steelDesignUltimateConfigurationCSA = new SteelDesignUltimateConfigurationCSA(undefined, [1])
+            steelDesignUltimateConfigurationCSA.SetName("CSA Ultimate configuration for testing");
             steelDesignUltimateConfigurationCSA.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07);
             steelDesignUltimateConfigurationCSA.Options(true, undefined, true, undefined, true, 0.9, 0.95);
             steelDesignUltimateConfigurationCSA.StructureType(true, true);
             steelDesignUltimateConfigurationCSA.PositionOfPositiveTransverse(undefined, true);
-            var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "CSA Serviceability configuration for testing", [2]);
             steelDesignServiceabilityConfiguration.DesignParametersCSA(300, 400);
             break;
         case "AS 4100 | 2016-06":   // 6
-            var steelDesignUltimateConfigurationAS = new SteelDesignUltimateConfigurationAS(undefined, "AS Ultimate configuration for testing", [1]);
+            var steelDesignUltimateConfigurationAS = new SteelDesignUltimateConfigurationAS(undefined, [1]);
+            steelDesignUltimateConfigurationAS.SetName("AS Ultimate configuration for testing");
             steelDesignUltimateConfigurationAS.General(true);
             steelDesignUltimateConfigurationAS.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07);
             steelDesignUltimateConfigurationAS.Options(true, true, true);
             steelDesignUltimateConfigurationAS.SectionManufacture(true, "CF");
             steelDesignUltimateConfigurationAS.PositionOfPositiveTransverse(undefined, undefined, true);
             steelDesignUltimateConfigurationAS.FabricationOfWeldedSections(undefined, true);
-            var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "AS Serviceability configuration for testing", [2]);
             steelDesignServiceabilityConfiguration.DesignParametersAS(101, 102, 103, 104);
             break;
         case "SP 16.13330 | 2017-02":   // 7
-            var steelDesignUltimateConfigurationSP = new SteelDesignUltimateConfigurationSP(undefined, "SP Ultimate configuration for testing", [1]);
+            var steelDesignUltimateConfigurationSP = new SteelDesignUltimateConfigurationSP(undefined, [1]);
+            steelDesignUltimateConfigurationSP.SetName("SP Ultimate configuration for testing");
             steelDesignUltimateConfigurationSP.General(true);
             steelDesignUltimateConfigurationSP.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07);
             steelDesignUltimateConfigurationSP.ServiceFactor(0.95);
@@ -172,29 +182,31 @@ if (RFEM) {
             steelDesignUltimateConfigurationSP.Options(true);
             steelDesignUltimateConfigurationSP.LoadSafetyCoefficient(true, 1.1);
             steelDesignUltimateConfigurationSP.DesignParameters(0.06, 0.07, undefined, true);
-            var steelDesignServiceabilityConfiguration = new SteelDesignServiceabilityConfiguration(undefined, "SP Serviceability configuration for testing", [2], undefined, "Last test example");
             steelDesignServiceabilityConfiguration.DesignParametersSP(101, 102);
             break;
         case "NTC | 2018-01":   // 8 (API support is missing)
-            var steelDesignUltimateConfigurationNTC = new SteelDesignUltimateConfigurationNTC(undefined, "NTC Ultimate configuration for testing", [1]);
-            var steelDesignFireResistanceConfigurationNTC = new SteelDesignFireResistanceConfiguration(undefined, "NTC Fire resistance configuration for testing", [1], undefined, "Fire resistance configuration can be set now only for EC3 or NTC standard");
+            var steelDesignUltimateConfigurationNTC = new SteelDesignUltimateConfigurationNTC(undefined, [1]);
+            var steelDesignFireResistanceConfigurationNTC = new SteelDesignFireResistanceConfiguration(undefined, [1], undefined, "Fire resistance configuration can be set now only for EC3 or NTC standard");
+            steelDesignFireResistanceConfigurationNTC.SetName("NTC Fire resistance configuration for testing");
             steelDesignFireResistanceConfigurationNTC.FinalTemperature("ANALYTICALLY");
             steelDesignFireResistanceConfigurationNTC.AnalyticallyDesignSettings(1200, 6.5, "3_SIDES", undefined, true, 1.5);
             steelDesignFireResistanceConfigurationNTC.AnalyticallyFireProtection("HOLLOW", 333, 0.111, 1222, 0.011);
             steelDesignFireResistanceConfigurationNTC.AnalyticallyTemperatureCurve(undefined, true, undefined, 30);
             steelDesignFireResistanceConfigurationNTC.AnalyticallyThermalActions(0.999, 0.8, 0.5, 0.777, undefined, 0.888);
-            var steelDesignFireResistanceConfigurationNTC_2 = new SteelDesignFireResistanceConfiguration(undefined, "NTC Fire resistance configuration for testing", [1], undefined, "Fire resistance configuration can be set now only for EC3 or NTC standard");
+            var steelDesignFireResistanceConfigurationNTC_2 = new SteelDesignFireResistanceConfiguration(undefined, [1], undefined, "Fire resistance configuration can be set now only for EC3 or NTC standard");
             steelDesignFireResistanceConfigurationNTC_2.FinalTemperature("MANUALLY");
             steelDesignFireResistanceConfigurationNTC_2.ManuallyFinalTemperature(undefined, "3_SIDES", true);
             break;
         case "NBR 8800 | 2008-08":  // 9
-            var steelDesignUltimateConfigurationNBR = new SteelDesignUltimateConfigurationNBR(undefined, "NBR Ultimate configuration for testing", [1]);
+            var steelDesignUltimateConfigurationNBR = new SteelDesignUltimateConfigurationNBR(undefined, [1]);
+            steelDesignUltimateConfigurationNBR.SetName("NBR Ultimate configuration for testing");
             steelDesignUltimateConfigurationNBR.LimitValues(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08);
             steelDesignUltimateConfigurationNBR.Options(0.9, false);
             steelDesignUltimateConfigurationNBR.PositionOfPositiveTransverse(undefined, true);
             break;
         case "SIA 263 | 2013-01":   // 10
-            var steelDesignUltimateConfigurationSIA = new SteelDesignUltimateConfigurationSIA(undefined, "SIA Ultimate configuration for testing", [1]);
+            var steelDesignUltimateConfigurationSIA = new SteelDesignUltimateConfigurationSIA(undefined, [1]);
+            steelDesignUltimateConfigurationSIA.SetName("SIA Ultimate configuration for testing");
             steelDesignUltimateConfigurationSIA.LimitValues(0.002, 0.003, 0.004, 0.05, 0.006, 0.007);
             steelDesignUltimateConfigurationSIA.PositionOfPositiveTransverse(undefined, undefined, true);
             break;
@@ -205,7 +217,7 @@ if (RFEM) {
 
 if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC")) {
     /******************************************************* Types for Steel designs - Boundary conditions ********************************************************/
-    var boundaryCondition = new SteelDesignBoundaryCondition(undefined, undefined, [3], undefined, "Steel design boundary condition");
+    var boundaryCondition = new SteelDesignBoundaryCondition(undefined, [3], undefined, "Steel design boundary condition");
     boundaryCondition.DifferentPropertiesForNodalSupports();
     boundaryCondition.NodalSupportsStartWithSupportType("FIXED_IN_Y");                          // Node sequence Start
     boundaryCondition.SetAdditionalParametersForStart(0.1, "AT_UPPER_FLANGE", 0.05);
@@ -216,7 +228,8 @@ if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC")) {
     boundaryCondition.MemberHingesForEnd(false, true, false, true);
     boundaryCondition.DifferentPropertiesForMemberHinges(false);
 
-    var boundaryCondition2 = new SteelDesignBoundaryCondition(undefined, "User defined name", [4], undefined, "Steel design boundary condition with intermediate nodes");
+    var boundaryCondition2 = new SteelDesignBoundaryCondition(undefined, [4], undefined, "Steel design boundary condition with intermediate nodes");
+    boundaryCondition2.SetName("User defined name");
     boundaryCondition2.DifferentPropertiesForNodalSupports(false);
     boundaryCondition2.NodalSupportsStartWithSupportType("FIXED_IN_Y");                              // Node sequence Start
     boundaryCondition2.SetAdditionalParametersForStart(0.1, "AT_UPPER_FLANGE", 0.05);
@@ -237,7 +250,8 @@ if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC")) {
 switch (general.current_standard_for_steel_design)
 {
     case "EN 1993 | CEN | 2015-06": // 0
-        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (EN)");
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, [5], undefined, "Steel design effective length (EN)");
+        effectiveLength.SetName("User defined name for effective length");
         effectiveLength.DeterminationType(false, false, true, true, "EUROPE_USER_DEFINED");
         effectiveLength.BucklingAxes(false, true);
         effectiveLength.DifferentPropertiesForNodalSupports(false);
@@ -245,7 +259,8 @@ switch (general.current_standard_for_steel_design)
         effectiveLength.NodalSupportsEndWithSupportType("FIXED_ALL");
         break;
     case "AISC 360 | 2016": // 1
-        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (AISC)");
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, [5], undefined, "Steel design effective length (AISC)");
+        effectiveLength.SetName("User defined name for effective length");
         effectiveLength.BucklingFactorType("RECOMMENDED");
         effectiveLength.EffectiveLengthsAccToStandard("AISI_S100");
         effectiveLength.DeterminationType(true, false, false, true, "ACC_TO_CHAPTERS_E2_F21");
@@ -256,12 +271,14 @@ switch (general.current_standard_for_steel_design)
         effectiveLength.Eccentricity(4, "USER_VALUE", 0.055);
         break;
     case "IS 800 | 2007-12":    // 2
-        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (IS)");
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, [5], undefined, "Steel design effective length (IS)");
+        effectiveLength.SetName("User defined name for effective length");
         effectiveLength.DeterminationType(true, false, undefined, false);
         effectiveLength.InsertNodalSupportIntermediateNodeWithSupportType("NONE");
         break;
     case "BS 5950 | 2001-05":   // 3
-        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (BS)");
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, [5], undefined, "Steel design effective length (BS)");
+        effectiveLength.SetName("User defined name for effective length");
         effectiveLength.DeterminationType(true, true, undefined, true, "BS5_ACC_TO_ANNEX_B");
         effectiveLength.BucklingAxes(undefined, true);
         effectiveLength.NodalSupportsStartWithSupportType("FIXED_IN_Y");
@@ -278,7 +295,8 @@ switch (general.current_standard_for_steel_design)
         effectiveLength.OverwriteEffectiveLengths(2, 1.006, undefined, 1.007, undefined, undefined);
         break;
     case "GB 50017 | 2017-12":  // 4
-        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (GB)");
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, [5], undefined, "Steel design effective length (GB)");
+        effectiveLength.SetName("User defined name for effective length");
         effectiveLength.DeterminationType(false, false, false, true, "GB50_NOT_USED");
         effectiveLength.MemberType(undefined, "CANTILEVER", "CANTILEVER");
         effectiveLength.InsertNodalSupportIntermediateNodeWithSupportType("FIXED_IN_Y");
@@ -286,38 +304,45 @@ switch (general.current_standard_for_steel_design)
         // Start node sequence
         effectiveLength.EffectiveLengthFactors(1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, 1.01, 1.02);
         // Node seq. .1
-        effectiveLength.EffectiveLengthFactors(2, undefined, undefined, undefined, undefined, undefined, undefined, undefined, 1.5);
+        // Bug 78360
+        //effectiveLength.EffectiveLengthFactors(2, undefined, undefined, undefined, undefined, undefined, undefined, undefined, 1.5);
         break;
     case "CSA S16 | 2019":  // 5
-        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (CSA)");
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, [5], undefined, "Steel design effective length (CSA)");
+        effectiveLength.SetName("User defined name for effective length");
         effectiveLength.DeterminationType(undefined, undefined, undefined, undefined, "CSA_ACC_TO_CHAPTER_13_6");
         effectiveLength.MemberType("CANTILEVER");
         effectiveLength.BucklingFactorType("RECOMMENDED");
         //effectiveLength.ModificationFactor("CB_USER_DEFINED", 2.5); There is no support for Modification factor for CSA and NBR standards? Only for AISC?
         break;
     case "AS 4100 | 2016-06":   // 6
-        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (AS)");
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, [5], undefined, "Steel design effective length (AS)");
+        effectiveLength.SetName("User defined name for effective length");
         effectiveLength.BucklingFactorType("RECOMMENDED");
         effectiveLength.BucklingAxes(false, true);
         effectiveLength.SegmentsRestrainedBothEnds("USER_DEFINED", 2.0/*, "EIGENVALUE_METHOD"*/);   // API enum bug?
         effectiveLength.SegmentsUnrestrainedOneEnd("USER_DEFINED", 2.5);
         break;
     case "SP 16.13330 | 2017-02":   // 7
-        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (SP)");
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, [5], undefined, "Steel design effective length (SP)");
+        effectiveLength.SetName("User defined name for effective length");
         effectiveLength.DeterminationType(false, false, undefined, true);
         effectiveLength.MemberType("CANTILEVER");
         break;
     case "NTC | 2018-01":   // 8
-        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (NTC)");
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, [5], undefined, "Steel design effective length (NTC)");
+        effectiveLength.SetName("User defined name for effective length");
         effectiveLength.DeterminationType(undefined, undefined, undefined, undefined);  // No API enum for Determination of Mcr (NTC standard)
         break;
     case "NBR 8800 | 2008-08":  // 9
-        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (NBR)");
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, [5], undefined, "Steel design effective length (NBR)");
+        effectiveLength.SetName("User defined name for effective length");
         effectiveLength.DeterminationType(false, false, false);
         //effectiveLength.ModificationFactor("CB_USER_DEFINED", 1.8); There is no support for Modification factor for CSA and NBR standards? Only for AISC?
         break;
     case "SIA 263 | 2013-01":   // 10
-        var effectiveLength = new SteelDesignEffectiveLength(undefined, "User defined name for effective length", [5], undefined, "Steel design effective length (SIA)");
+        var effectiveLength = new SteelDesignEffectiveLength(undefined, [5], undefined, "Steel design effective length (SIA)");
+        effectiveLength.SetName("User defined name for effective length");
         effectiveLength.DifferentPropertiesForNodalSupports();
         effectiveLength.NodalSupportsStartWithSupportType("FIXED_IN_Z_Y_AND_TORSION");
         effectiveLength.NodalSupportsEndWithSupportType("RESTRAINT_ABOUT_X");
@@ -327,7 +352,8 @@ switch (general.current_standard_for_steel_design)
 }
 
 /******************************************************* Types for Steel designs - Member local section reduction ********************************************************/
-var memberLocalSectionReduction = new SteelDesignMemberLocalSectionReduction(undefined, "User defined name for member local section reduction", [6], undefined, "Member local section reduction");
+var memberLocalSectionReduction = new SteelDesignMemberLocalSectionReduction(undefined, [6], undefined, "Member local section reduction");
+memberLocalSectionReduction.SetName("User defined name for member local section reduction");
 memberLocalSectionReduction.AddReductionType("DESIGN_PARAMETERS", 1.5);
 memberLocalSectionReduction.AddReductionType("DESIGN_PARAMETERS", 1.6, true);
 memberLocalSectionReduction.AddReductionType("SECTION_VALUES", 2.5);
@@ -375,19 +401,18 @@ memberList[9].SteelDesignProperties();
 memberList[9].SetDesignSupport(memberDesignSupport.GetNo(), memberDesignSupport.GetNo());
 
 memberList[11].SetDesignSupport(memberDesignSupport.GetNo(), memberDesignSupport.GetNo());
-memberList[11].SetDeflectionAnalysis("LOCAL_AXIS_Z_AND_Y", "DEFORMED_UNDEFORMED_SYSTEM", false, 1.5, 0.02);
+memberList[11].SetDeflectionAnalysis("LOCAL_AXIS_Z_AND_Y", "DEFORMED_UNDEFORMED_SYSTEM", false, 1.5, 0.02, true, 2.5, 0.05);
 
 /**************************************************** Member Sets - Design support & deflection (Steel design add-on) **************************************************/
 var member = new Member();
 member.Beam(undefined, [26, 27], section.GetNo());
-member.SteelDesignPropertiesViaParentMemberSet(false);  // Can't be set?
 var member2 = new Member();
 member2.Beam(undefined, [28, 29], section.GetNo());
 memberSet.ContinuousMembers(undefined, [memberList[12].GetNo(), member.GetNo(), memberList[13].GetNo(), member2.GetNo(), memberList[14].GetNo()]);
 memberSet.SteelDesignProperties();
 memberSet.SetDesignSupport(memberDesignSupport.GetNo(), memberDesignSupport.GetNo());
 memberSet.SetDesignSupportAtInternalNodes(memberDesignSupport.GetNo(), undefined, undefined, memberDesignSupport.GetNo());
-memberSet.SetDeflectionAnalysis("LOCAL_AXIS_Z", "DEFORMED_SEGMENT_ENDS", [undefined, [undefined, 8.0, 0.02]]);
+memberSet.SetDeflectionAnalysis("LOCAL_AXIS_Z_AND_Y", "DEFORMED_SEGMENT_ENDS", [undefined, [undefined, 8.0, 0.02]], false, 10, 0.05);
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;

@@ -1,20 +1,18 @@
 /**
- * Creates Steel Design Ultimate Configuration
+ * Creates Steel Design Ultimate Configuration for GB code of standard
  * @param {Number} no               Ultimate Configuration index, can be undefined
- * @param {String} name             Ultimate Configuration name, can be undefined
  * @param {Array} members_no        List of members assigned, can be undefined
  * @param {Array} member_sets_no    List of member sets assigned, can be undefined
  * @param {String} comment          Comment, can be undefined
  * @param {Object} params           Additional parameters, can be undefined
  */
 function SteelDesignUltimateConfigurationGB (no,
-    name,
     members_no,
     member_sets_no,
     comment,
     params) {
     ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
-    this.addon = createBaseSteelDesignConfiguration(STEEL_DESIGN.steel_design_uls_configurations, no, name, members_no, member_sets_no, comment, params);
+    this.addon = createBaseSteelDesignConfiguration(STEEL_DESIGN.steel_design_uls_configurations, no, members_no, member_sets_no, comment, params);
 }
 
 /**
@@ -32,13 +30,23 @@ SteelDesignUltimateConfigurationGB.prototype.GetUltimateConfiguration = function
 };
 
 /**
+ * Sets Name
+ * @param {String} name     Fire resistance Configuration name, can be undefined
+ */
+SteelDesignUltimateConfigurationGB.prototype.SetName = function (name) {
+    ASSERT(typeof name !== "undefined", "Name must be specified");
+    this.addon.name = name;
+};
+
+/**
  * Sets general design parameters
- * @param {Boolean} property_perform_stability_analysis     Perform stability design, can be undefined (is not set, true as default)
+ * @param {Boolean} property_perform_stability_analysis     Perform stability design, can be undefined (true as default)
  */
 SteelDesignUltimateConfigurationGB.prototype.General = function (property_perform_stability_analysis) {
-    if (typeof property_perform_stability_analysis !== "undefined") {
-        this.addon.settings_gb50017.property_perform_stability_analysis = property_perform_stability_analysis;
+    if (typeof property_perform_stability_analysis === "undefined") {
+        property_perform_stability_analysis = true;
     }
+    this.addon.settings_gb50017.property_perform_stability_analysis = property_perform_stability_analysis;
 };
 
 /**
@@ -153,13 +161,14 @@ SteelDesignUltimateConfigurationGB.prototype.OverallStabilityFactor = function (
 
 /**
  * Sets Distorsional buckling of beams acc. to 6.2.7
- * @param {Boolean} property_check_compression_flange   Check compression of flange acc. to 6.2.7 for I-sections, can be undefined (is not set, false as default)
+ * @param {Boolean} property_check_compression_flange   Check compression of flange acc. to 6.2.7 for I-sections, can be undefined (true as default)
  */
 SteelDesignUltimateConfigurationGB.prototype.DistorsionalBucklingOfBeams = function (property_check_compression_flange) {
     ASSERT(this.addon.settings_gb50017.property_perform_stability_analysis, "Perform stability design must be on");
-    if (typeof property_check_compression_flange !== "undefined") {
-        this.addon.settings_gb50017.property_check_compression_flange = property_check_compression_flange;
+    if (typeof property_check_compression_flange === "undefined") {
+        property_check_compression_flange = true;
     }
+    this.addon.settings_gb50017.property_check_compression_flange = property_check_compression_flange;
 };
 
 /**
@@ -179,13 +188,14 @@ SteelDesignUltimateConfigurationGB.prototype.PositionOfPositiveTransverse = func
 
 /**
  * Sets Local stability acc. to 6.3
- * @param {Boolean} property_is_compression_flange_torsionally_restrained   Torsion of compression flange is restrained, can be undefined (is not set, false as default)
+ * @param {Boolean} property_is_compression_flange_torsionally_restrained   Torsion of compression flange is restrained, can be undefined (true as default)
  */
 SteelDesignUltimateConfigurationGB.prototype.LocalStability = function (property_is_compression_flange_torsionally_restrained) {
     ASSERT(this.addon.settings_gb50017.property_perform_stability_analysis, "Perform stability design must be on");
-    if (typeof property_is_compression_flange_torsionally_restrained !== "undefined") {
-        this.addon.settings_gb50017.property_is_compression_flange_torsionally_restrained = property_is_compression_flange_torsionally_restrained;
+    if (typeof property_is_compression_flange_torsionally_restrained === "undefined") {
+        property_is_compression_flange_torsionally_restrained = true;
     }
+    this.addon.settings_gb50017.property_is_compression_flange_torsionally_restrained = property_is_compression_flange_torsionally_restrained;
 };
 
 /**
@@ -229,7 +239,7 @@ SteelDesignUltimateConfigurationGB.prototype.GeneralSections = function (propert
  * Sets Connections of Built-up sections with imaginary axes acc. to 7.2.3
  * @param {Number} property_effective_length_of_built_up_part_l1    Longitudinal distance of built-up sections joints, can be undefined (is not set, 0.200 as default)
  */
-SteelDesignUltimateConfigurationGB.prototype.ImaginaryAxis1 = function (property_effective_length_of_built_up_part_l1) {
+SteelDesignUltimateConfigurationGB.prototype.ImaginaryAxis = function (property_effective_length_of_built_up_part_l1) {
     ASSERT(this.addon.settings_gb50017.property_perform_stability_analysis, "Perform stability design must be on");
     if (typeof property_effective_length_of_built_up_part_l1 !== "undefined") {
         this.addon.settings_gb50017.property_effective_length_of_built_up_part_l1 = property_effective_length_of_built_up_part_l1;

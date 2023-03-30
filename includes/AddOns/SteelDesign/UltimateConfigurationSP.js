@@ -1,20 +1,18 @@
 /**
  * Creates Steel Design Ultimate Configuration
  * @param {Number} no               Ultimate Configuration index, can be undefined
- * @param {String} name             Ultimate Configuration name, can be undefined
  * @param {Array} members_no        List of members assigned, can be undefined
  * @param {Array} member_sets_no    List of member sets assigned, can be undefined
  * @param {String} comment          Comment, can be undefined
  * @param {Object} params           Additional parameters, can be undefined
  */
 function SteelDesignUltimateConfigurationSP (no,
-    name,
     members_no,
     member_sets_no,
     comment,
     params) {
     ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
-    this.addon = createBaseSteelDesignConfiguration(STEEL_DESIGN.steel_design_uls_configurations, no, name, members_no, member_sets_no, comment, params);
+    this.addon = createBaseSteelDesignConfiguration(STEEL_DESIGN.steel_design_uls_configurations, no, members_no, member_sets_no, comment, params);
 }
 
 /**
@@ -29,6 +27,15 @@ SteelDesignUltimateConfigurationSP.prototype.GetNo = function () {
  */
 SteelDesignUltimateConfigurationSP.prototype.GetUltimateConfiguration = function () {
     return this.addon;
+};
+
+/**
+ * Sets Name
+ * @param {String} name     Fire resistance Configuration name, can be undefined
+ */
+SteelDesignUltimateConfigurationSP.prototype.SetName = function (name) {
+    ASSERT(typeof name !== "undefined", "Name must be specified");
+    this.addon.name = name;
 };
 
 /**

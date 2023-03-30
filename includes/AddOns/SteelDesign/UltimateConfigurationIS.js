@@ -1,20 +1,18 @@
 /**
- * Creates Steel Design Ultimate Configuration
+ * Creates Steel Design Ultimate Configuration for IS code of standard
  * @param {Number} no               Ultimate Configuration index, can be undefined
- * @param {String} name             Ultimate Configuration name, can be undefined
  * @param {Array} members_no        List of members assigned, can be undefined
  * @param {Array} member_sets_no    List of member sets assigned, can be undefined
  * @param {String} comment          Comment, can be undefined
  * @param {Object} params           Additional parameters, can be undefined
  */
 function SteelDesignUltimateConfigurationIS (no,
-    name,
     members_no,
     member_sets_no,
     comment,
     params) {
     ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
-    this.addon = createBaseSteelDesignConfiguration(STEEL_DESIGN.steel_design_uls_configurations, no, name, members_no, member_sets_no, comment, params);
+    this.addon = createBaseSteelDesignConfiguration(STEEL_DESIGN.steel_design_uls_configurations, no, members_no, member_sets_no, comment, params);
 }
 
 /**
@@ -32,13 +30,23 @@ SteelDesignUltimateConfigurationIS.prototype.GetUltimateConfiguration = function
 };
 
 /**
+ * Sets Name
+ * @param {String} name     Fire resistance Configuration name, can be undefined
+ */
+SteelDesignUltimateConfigurationIS.prototype.SetName = function (name) {
+    ASSERT(typeof name !== "undefined", "Name must be specified");
+    this.addon.name = name;
+};
+
+/**
  * Sets general design parameters
- * @param {Boolean} property_perform_stability_analysis     Perform stability design, can be undefined (is not set, true as default)
+ * @param {Boolean} property_perform_stability_analysis     Perform stability design, can be undefined (true as default)
  */
 SteelDesignUltimateConfigurationIS.prototype.General = function (property_perform_stability_analysis) {
-    if (typeof property_perform_stability_analysis !== "undefined") {
-        this.addon.settings_is.property_perform_stability_analysis = property_perform_stability_analysis;
+    if (typeof property_perform_stability_analysis === "undefined") {
+        property_perform_stability_analysis = true;
     }
+    this.addon.settings_is.property_perform_stability_analysis = property_perform_stability_analysis;
 };
 
 /**
@@ -64,12 +72,13 @@ SteelDesignUltimateConfigurationIS.prototype.LimitValues = function (property_li
 
 /**
  * Sets Elastic design
- * @param {Boolean} property_elastic_design     Elastic design (also for class 1 and class 2 sections), can be undefined (is not set, false as default)
+ * @param {Boolean} property_elastic_design     Elastic design (also for class 1 and class 2 sections), can be undefined (true as default)
  */
 SteelDesignUltimateConfigurationIS.prototype.ElasticDesign = function (property_elastic_design) {
-    if (typeof property_elastic_design !== "undefined") {
-        this.addon.settings_is.property_elastic_design = property_elastic_design;
+    if (typeof property_elastic_design === "undefined") {
+        property_elastic_design = true;
     }
+    this.addon.settings_is.property_elastic_design = property_elastic_design;
 };
 
 /**
@@ -96,12 +105,13 @@ SteelDesignUltimateConfigurationIS.prototype.DesignOfShearBuckling = function (p
 
 /**
  * Sets Combined axial force and bending moment acc. to 9.3.1.1
- * @param {Boolean} property_use_conservative_equation  Use conservative equation, can be undefined (is not set, false as default)
+ * @param {Boolean} property_use_conservative_equation  Use conservative equation, can be undefined (true as default)
  */
 SteelDesignUltimateConfigurationIS.prototype.Combined = function (property_use_conservative_equation) {
-    if (typeof property_use_conservative_equation !== "undefined") {
-        this.addon.settings_is.property_use_conservative_equation = property_use_conservative_equation;
+    if (typeof property_use_conservative_equation === "undefined") {
+        property_use_conservative_equation = true;
     }
+    this.addon.settings_is.property_use_conservative_equation = property_use_conservative_equation;
 };
 
 /**

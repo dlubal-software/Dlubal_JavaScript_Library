@@ -4,7 +4,6 @@ Member sets cannot be set?? What condition for member sets?
 
 function createBaseSteelDesignConfiguration (object_to_create,
     no,
-    name,
     members_no,
     member_sets_no,
     comment,
@@ -15,9 +14,6 @@ function createBaseSteelDesignConfiguration (object_to_create,
     }
     else {
         addon = object_to_create.create(no);
-    }
-    if (typeof name !== "undefined") {
-        addon.name = name;
     }
     setSteelDesign_Members(addon, members_no, member_sets_no);
     set_comment_and_parameters(addon, comment, params);

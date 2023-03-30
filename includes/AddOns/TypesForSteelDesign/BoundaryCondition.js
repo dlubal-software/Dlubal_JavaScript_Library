@@ -11,14 +11,12 @@ include("../SteelDesign/SteelDesignSupport.js");
 /**
  * Creates Steel design boundary condition
  * @param {Number} no               Steel design boundary condition index, can be undefined
- * @param {String}                  Name, can be undefined
  * @param {Array} members_no        List of members indexes, can be undefined
  * @param {Array} member_sets_no    List of member sets indexes, can be undefined
  * @param {String} comment          Comment, can be undefined
  * @param {Object} params           Additional parameters, can be undefined
  */
 function SteelDesignBoundaryCondition (no,
-    name,
     members_no,
     member_sets_no,
     comment,
@@ -30,10 +28,6 @@ function SteelDesignBoundaryCondition (no,
     }
     else {
         this.boundary_condition = steel_boundary_conditions.create(no);
-    }
-    if (typeof name !== "undefined") {
-        this.boundary_condition.user_defined_name_enabled = true;
-        this.boundary_condition.name = name;
     }
     if (typeof members_no !== "undefined") {
         ASSERT(Array.isArray(members_no), "Member list must be array of member indexes");
@@ -78,6 +72,20 @@ SteelDesignBoundaryCondition.prototype.GetNo = function () {
  */
 SteelDesignBoundaryCondition.prototype.BoundaryCondition = function () {
     return this.boundary_condition;
+};
+
+/**
+ * Sets name
+ * @param {String} name     Name, can be undefined (when undefined, generated name is used)
+ */
+SteelDesignBoundaryCondition.prototype.SetName = function (name) {
+    if (typeof name !== "undefined") {
+        this.boundary_condition.user_defined_name_enabled = true;
+        this.boundary_condition.name = name;
+    }
+    else {
+        this.boundary_condition.user_defined_name_enabled = false;
+    }
 };
 
 /**

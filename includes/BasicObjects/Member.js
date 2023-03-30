@@ -814,18 +814,18 @@ Member.prototype.SteelDesignProperties = function (enabled) {
 	this.member.design_properties_via_member = enabled;
 }
 
-Member.prototype.SteelDesignPropertiesViaParentMemberSet = function (design_properties_via_parent_member_set,
-	design_properties_parent_member_set_no) {
+/**
+ * Sets Via parent member set
+ * @param {Boolean} design_properties_via_parent_member_set 	Via parent member set, can be undefined (true as default)
+ */
+Member.prototype.SteelDesignPropertiesViaParentMemberSet = function (design_properties_via_parent_member_set) {
 	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
 	ASSERT(!this.member.is_deactivated_for_calculation, "Calculation must be deactivated");
 	ASSERT(typeof design_properties_via_parent_member_set !== "undefined", "Enable / disable must be defined");
-	this.member.design_properties_via_parent_member_set = design_properties_via_parent_member_set;
-	if (typeof design_properties_parent_member_set_no !== "undefined") {
-		ASSERT(this.member.design_properties_via_parent_member_set, "Via parent member set must be enabled");
-		if (__objectExists(design_properties_parent_member_set_no, "Member set", member_sets)) {
-			//this.member.design_properties_parent_member_set = design_properties_parent_member_set_no;		// Can't be set?
-		}
+	if (typeof design_properties_via_parent_member_set === "undefined") {
+		design_properties_via_parent_member_set = true;
 	}
+	this.member.design_properties_via_parent_member_set = design_properties_via_parent_member_set;
 };
 
 /**
@@ -906,15 +906,18 @@ Member.prototype.SetDesignSupport = function (design_support_on_member_start,
  * @param {Boolean} active_z 								Segment in z-axis - active, can be undefined (true as default)
  * @param {Number} length_z 								Segment in z-axis - length, can be undefined (member length as default)
  * @param {Number} precamber_z 								Segment in z-axis - precamber, can be undefined (0.0 as default)
+ * @param {Boolean} active_y 								Segment in y-axis - active, can be undefined (true as default)
+ * @param {Number} length_y 								Segment in y-axis - length, can be undefined (member length as default)
+ * @param {Number} precamber_y 								Segment in y-axis - precamber, can be undefined (0.0 as default)
  */
 Member.prototype.SetDeflectionAnalysis = function (deflection_check_direction,
 	deflection_check_displacement_reference,
 	active_z,
 	length_z,
-	precamber_z/*,
+	precamber_z,
 	active_y,
 	length_y,
-	precamber_y*/) {
+	precamber_y) {
 	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
 	this.member.deflection_check_direction = GetMemberDesignSupportCheckDirection(deflection_check_direction);
 	this.member.deflection_check_displacement_reference = GetMemberDesignCheckDisplacementDirection(deflection_check_displacement_reference);
@@ -934,7 +937,7 @@ Member.prototype.SetDeflectionAnalysis = function (deflection_check_direction,
 		ASSERT(this.member.deflection_check_direction !== members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Y, "Check direction can't be " + members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Y);
 		this.member.deflection_segments_z_axis[1].precamber = precamber_z;
 	}
-	/*if (typeof active_y !== "undefined") {
+	if (typeof active_y !== "undefined") {
 		ASSERT(this.member.deflection_check_direction !== members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z, "Check direction can't be " + members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z);
 		this.member.deflection_segments_y_axis[1].active = active_y;
 	}
@@ -949,7 +952,7 @@ Member.prototype.SetDeflectionAnalysis = function (deflection_check_direction,
 	if (typeof precamber_y !== "undefined") {
 		ASSERT(this.member.deflection_check_direction !== members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z, "Check direction can't be " + members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z);
 		this.member.deflection_segments_y_axis[1].precamber = precamber_y;
-	}*/
+	}
 };
 
 /**

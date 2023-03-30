@@ -6,22 +6,20 @@ SteelDesignUltimateConfigurationEC3.prototype.PlatedElements No API support?
 */
 
 /**
- * Creates Steel Design Ultimate Configuration
+ * Creates Steel Design Ultimate Configuration for EN code of standard
  * @param {Number} no               Ultimate Configuration index, can be undefined
- * @param {String} name             Ultimate Configuration name, can be undefined
  * @param {Array} members_no        List of members assigned, can be undefined
  * @param {Array} member_sets_no    List of member sets assigned, can be undefined
  * @param {String} comment          Comment, can be undefined
  * @param {Object} params           Additional parameters, can be undefined
  */
 function SteelDesignUltimateConfigurationEC3 (no,
-    name,
     members_no,
     member_sets_no,
     comment,
     params) {
     ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
-    this.addon = createBaseSteelDesignConfiguration(STEEL_DESIGN.steel_design_uls_configurations, no, name, members_no, member_sets_no, comment, params);
+    this.addon = createBaseSteelDesignConfiguration(STEEL_DESIGN.steel_design_uls_configurations, no, members_no, member_sets_no, comment, params);
 }
 
 /**
@@ -39,13 +37,23 @@ SteelDesignUltimateConfigurationEC3.prototype.GetUltimateConfiguration = functio
 };
 
 /**
+ * Sets name
+ * @param {String} name     Ultimate Configuration name, can be undefined
+ */
+SteelDesignUltimateConfigurationEC3.prototype.SetName = function (name) {
+    ASSERT(typeof name !== "undefined", "Name must be specified");
+    this.addon.name = name;
+};
+
+/**
  * Sets general design parameters
- * @param {Boolean} property_perform_stability_analysis     Perform stability design, can be undefined (is not set, true as default)
+ * @param {Boolean} property_perform_stability_analysis     Perform stability design, can be undefined (true as default)
  */
 SteelDesignUltimateConfigurationEC3.prototype.General = function (property_perform_stability_analysis) {
-    if (typeof property_perform_stability_analysis !== "undefined") {
-        this.addon.settings_ec3.property_perform_stability_analysis = property_perform_stability_analysis;
+    if (typeof property_perform_stability_analysis === "undefined") {
+        property_perform_stability_analysis = true;
     }
+    this.addon.settings_ec3.property_perform_stability_analysis = property_perform_stability_analysis;
 };
 
 /**
@@ -202,10 +210,10 @@ SteelDesignUltimateConfigurationEC3.prototype.CalculationMethod = function (prop
 
 /**
  * Include second-order effects Acc. to 5.2.2(4) by increasing bending moment about
- * @param {*} property_soe_major_y_axis                     Major x-axis, can be undefined (is not set, false as default)
- * @param {*} property_soe_major_y_axis_increasing_factor   Increasing factor for major x-axis, Major x-axis must be on, can be undefined (is not set, 1.150 as default)
- * @param {*} property_soe_minor_z_axis                     Major z-axis, can be undefined (is not set, false as default)
- * @param {*} property_soe_minor_z_axis_increasing_factor   Increasing factor for major z-axis, Major z-axis must be on, can be undefined (is not set, 1.150 as default)
+ * @param {Boolean} property_soe_major_y_axis                     Major x-axis, can be undefined (is not set, false as default)
+ * @param {Number} property_soe_major_y_axis_increasing_factor   Increasing factor for major x-axis, Major x-axis must be on, can be undefined (is not set, 1.150 as default)
+ * @param {String} property_soe_minor_z_axis                     Major z-axis, can be undefined (is not set, false as default)
+ * @param {Number} property_soe_minor_z_axis_increasing_factor   Increasing factor for major z-axis, Major z-axis must be on, can be undefined (is not set, 1.150 as default)
  */
 SteelDesignUltimateConfigurationEC3.prototype.SecondOrderEffects = function (property_soe_major_y_axis,
     property_soe_major_y_axis_increasing_factor,
@@ -286,19 +294,19 @@ SteelDesignUltimateConfigurationEC3.prototype.Parameters = function (property_pa
 }
 
 SteelDesignUltimateConfigurationEC3.prototype.GeneralRules = function () {
-    
+    ASSERT(false, "GeneralRules, no API support?");
 };
 
 SteelDesignUltimateConfigurationEC3.prototype.ColdFormDesign = function() {
-    
+    ASSERT(false, "ColdFormDesign, no API support?");
 };
 
 SteelDesignUltimateConfigurationEC3.prototype.StainlessSteel = function () {
-    
+    ASSERT(false, "StainlessSteel, no API support?");
 };
 
 SteelDesignUltimateConfigurationEC3.prototype.PlatedElements = function () {
-    
+    ASSERT(false, "PlatedElements, no API support?");
 };
 
 function EC3FormingFactor(factor) {
