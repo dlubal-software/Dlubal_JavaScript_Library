@@ -530,14 +530,14 @@ Surface.prototype.SpecificAxes = function (input_axes,
 *													Grid type cartesian: [nx+, nx-, ny+, ny-]
 *													Grid type polar: [nr+]
 * @param	{Boolean}	grid_adapt_automatically	Adapt automatically, can be undefined (true by default)
-* @param	{Array}		grid_distancies				Grid distancies ([b, h]), can be undefined
+* @param	{Array}		grid_distances				Grid distances ([b, h]), can be undefined
 * @param	{Array}		grid_rotation				Grid rotation ([α, β]), can be undefined
 * @param	{Array}		grid_origin					Grid origin ([X, Y, Z]), can be undefined
 */
 Surface.prototype.GridForResults = function (grid_type,
 	number_of_grid_points,
 	grid_adapt_automatically,
-	grid_distancies,
+	grid_distances,
 	grid_rotation,
 	grid_origin) {
 	ASSERT(typeof grid_type !== "undefined", "Grid type must be specified");
@@ -562,10 +562,10 @@ Surface.prototype.GridForResults = function (grid_type,
 		grid_adapt_automatically = true;
 	}
 	this.surface.grid_adapt_automatically = grid_adapt_automatically;
-	if (typeof grid_distancies !== "undefined") {
-		ASSERT(grid_distancies.length === 2, "Grid distancies: two values are required [b, h]");
+	if (typeof grid_distances !== "undefined") {
+		ASSERT(grid_distances.length === 2, "Grid distances: two values are required [b, h]");
 		this.surface.grid_distance_x = grid_distance_x[0];
-		this.surface.grid_distance_y = grid_distancies[1];
+		this.surface.grid_distance_y = grid_distances[1];
 	}
 	if (typeof grid_rotation !== "undefined") {
 		ASSERT(grid_rotation.length === 2, "Grid rotation: two values are required [α, β]");
@@ -606,6 +606,30 @@ Surface.prototype.IntegratedObjects = function (auto_detection_of_integrated_obj
 			this.surface.integrated_openings = integrated_openings;
 		}
 	}
+};
+
+/**
+ * Enable / disable Design properties for surface (Concrete design add-on)
+ * @param {Boolean} enabled 	Enable / disable Design properties, can be undefined (true as default)
+ */
+Surface.prototype.ConcreteDesignProperties = function (enabled) {
+	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design add-on must be active");
+	if (typeof enabled === "undefined") {
+		enabled = true;
+	}
+	this.surface.design_properties_via_surface = enabled;
+};
+
+/**
+ * Sets Via parent surface set
+ * @param {Boolean} design_properties_via_parent_surface_set 	Via parent surface set, can be undefined (true as default)
+ */
+Surface.prototype.ConcreteDesignPropertiesViaParentSurfaceSet = function (design_properties_via_parent_surface_set) {
+	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design add-on must be active");
+	if (typeof design_properties_via_parent_surface_set === "undefined") {
+		design_properties_via_parent_surface_set = true;
+	}
+	this.surface.design_properties_via_parent_surface_set = design_properties_via_parent_surface_set;
 };
 
 /**

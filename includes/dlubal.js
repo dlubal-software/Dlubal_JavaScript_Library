@@ -136,6 +136,12 @@ include("Loads/ImposedNodalDeformation.js");
 include("Loads/MemberLoad.js");
 include("Loads/MemberSetLoad.js");
 include("Loads/NodalLoad.js");
+// Addons
+include("AddOns/ConcreteDesign/ConcreteDesignSupport.js");
+include("AddOns/ConcreteDesign/UltimateConfigurationCSA.js");
+include("AddOns/ConcreteDesign/UltimateConfigurationEN.js");
+include("AddOns/ConcreteDesign/UltimateConfigurationNTC.js");
+include("AddOns/ConcreteDesign/UltimateConfigurationSP.js");
 // Guide objects
 include("GuideObjects/CoordinateSystem.js");
 // Dimensions
