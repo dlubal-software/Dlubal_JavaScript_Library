@@ -63,7 +63,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_ConsiderInternalForces =
     property_member_torsional_moments,
     property_member_shear_forces_vy,
     property_member_shear_forces_vz) {
-    Members_ConsiderInternalForces(this.addon.settings_member_ec2, property_member_axial_forces, property_member_bending_moments_my, property_member_bending_moments_mz, property_member_torsional_moments,
+    Members_ConcreteDesignConsiderInternalForces(this.addon.settings_member_ec2, property_member_axial_forces, property_member_bending_moments_my, property_member_bending_moments_mz, property_member_torsional_moments,
         property_member_shear_forces_vy, property_member_shear_forces_vz);
 };
 
@@ -80,7 +80,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_ReductionsOfInternalForc
     property_member_reduction_of_the_shear_forces_in_the_support_face_and_distance,
     property_member_reduction_of_the_shear_forces_with_concentrated_load,
     property_member_consideration_of_minimum_eccentricity) {
-    ASSERT(members.count() > 0, "There must exist t least one member in project");
+    ASSERT(members.count() > 0, "There must exist at least one member in project");
     if (typeof property_member_consideration_of_limited_moment_redistribution_of_the_supporting_moments !== "undefined") {
         this.addon.settings_member_ec2.property_member_consideration_of_limited_moment_redistribution_of_the_supporting_moments = property_member_consideration_of_limited_moment_redistribution_of_the_supporting_moments;
     }
@@ -106,36 +106,13 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_ReductionsOfInternalForc
  * @param {Number} property_member_reinforcement_distribute_over_slab_reduced_width                             Distribute reinforcement evenly over complete slab width - Distribute the tensile reinforcement in the slab over a width of, can be undefined (is not set, 100% as default)
  * @param {Boolean} property_member_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement   Include tensile force due to shear in required longitudinal reinforcement, can be undefined (is not set, true as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Members_LongitudinalReinforcement = function (property_member_reinforcement_layout,
+ConcreteDesignUltimateConfigurationEN.prototype.Members_RequiredLongitudinalReinforcement = function (property_member_reinforcement_layout,
     property_member_reinforcement_diameter_for_preliminary_design,
     property_member_reinforcement_distribute_over_slab,
     property_member_reinforcement_distribute_over_slab_reduced_width,
     property_member_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement) {
-    ASSERT(members.count() > 0, "There must exist at least one member in project");
-    this.addon.settings_member_ec2.property_member_reinforcement_layout = GetConcreteDesignPropertyMemberReinforcementLayout(property_member_reinforcement_layout);
-    if (typeof property_member_reinforcement_diameter_for_preliminary_design !== "undefined") {
-        ASSERT(this.addon.settings_member_ec2.property_member_reinforcement_layout !== ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT &&
-            this.addon.settings_member_ec2.property_member_reinforcement_layout !== ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT, "Reinforcement diameter for preliminary design can be set only if not set FACTORIZED_PROVIDED_REINFORCEMENT or OPTIMIZED_PROVIDED_REINFORCEMENT");
-        if (typeof property_member_reinforcement_diameter_for_preliminary_design === "string") {
-            ASSERT(property_member_reinforcement_diameter_for_preliminary_design === "MAX_OF_ALL", "Reinforcement diameter for preliminary design must be of MAX_OF_ALL type");
-            this.addon.settings_member_ec2.property_member_reinforcement_diameter_for_preliminary_design = ulsconfig_member_ec2.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL;
-        }
-        else {
-            ASSERT(typeof property_member_reinforcement_diameter_for_preliminary_design === "number", "Reinforcement diameter for preliminary design must be number");
-            this.addon.settings_member_ec2.property_member_reinforcement_diameter_for_preliminary_design = ulsconfig_member_ec2.E_REINFORCEMENT_DIAMETER_USER_DEFINED;
-            this.addon.settings_member_ec2.property_member_reinforcement_diameter_for_preliminary_design_user_value = property_member_reinforcement_diameter_for_preliminary_design;
-        }
-    }
-    if (typeof property_member_reinforcement_distribute_over_slab !== "undefined") {
-        this.addon.settings_member_ec2.property_member_reinforcement_distribute_over_slab = property_member_reinforcement_distribute_over_slab;
-    }
-    if (typeof property_member_reinforcement_distribute_over_slab_reduced_width !== "undefined") {
-        ASSERT(this.addon.settings_member_ec2.property_member_reinforcement_distribute_over_slab, "Distribute reinforcement evenly over complete slab with must be on");
-        this.addon.settings_member_ec2.property_member_reinforcement_distribute_over_slab_reduced_width = property_member_reinforcement_distribute_over_slab_reduced_width;
-    }
-    if (typeof property_member_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement !== "undefined") {
-        this.addon.settings_member_ec2.property_member_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement = property_member_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement;
-    }
+    Members_ConcreteDesignRequiredLongitudinalReinforcement(this.addon.settings_member_ec2, property_member_reinforcement_layout, property_member_reinforcement_diameter_for_preliminary_design, property_member_reinforcement_distribute_over_slab,
+        property_member_reinforcement_distribute_over_slab_reduced_width, property_member_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement);
 };
 
 /**
@@ -219,13 +196,13 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_DetailingAndParticularRu
 
 /**
  * Sets Required Shear Reinforcement - Shear Capacity
- * @param {String} shear_reinforcement  Use required longitudinal reinforcement (REQUIRED) or 
- *                                      Use provided longitudinal reinforcement (PROVIDED) or 
+ * @param {String} shear_reinforcement  Use required longitudinal reinforcement (REQUIRED) 
+ *                                      Use provided longitudinal reinforcement (PROVIDED)
  *                                      Automatically increase required longitudinal reinf. to avoid shear reinf. (AUTOMATICALLY)
  */
 ConcreteDesignUltimateConfigurationEN.prototype.Members_RequiredShearReinforcement = function (shear_reinforcement) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
-    SetConcreteDesignRequiredShearReinforcementType(this.addon.settings_member_ec2, "member", shear_reinforcement);
+    SetConcreteDesignRequiredShearReinforcementType(this.addon.settings_member_ec2, "member", ["REQUIRED", "PROVIDED", "AUTOMATICALLY"], shear_reinforcement);
 };
 
 /**
@@ -265,19 +242,12 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_ShearJoint = function (p
 
 /**
  * Sets Neutral Axis Depth Limitation
- * @param {Boolean} property_member_consider_neutral_axis_depth_limitation  Consider neutral axis depth limitation acc. to 5.6.2(2), 5.6.3(2), van be undefined (is not set, false as default)
+ * @param {Boolean} property_member_consider_neutral_axis_depth_limitation  Consider neutral axis depth limitation acc. to 5.6.2(2), 5.6.3(2), can be undefined (is not set, false as default)
  * @param {Number} property_member_value_of_neutral_axis_depth_limitation        Value of neutral axis depth limitation, can be undefined (is not set, 0.45 as default)
  */
 ConcreteDesignUltimateConfigurationEN.prototype.Members_NeutralAxisDepthLimitation = function(property_member_consider_neutral_axis_depth_limitation,
     property_member_value_of_neutral_axis_depth_limitation) {
-    ASSERT(members.count() > 0, "There must exist at least one member in project");
-    if (typeof property_member_consider_neutral_axis_depth_limitation !== "undefined") {
-        this.addon.settings_member_ec2.property_member_consider_neutral_axis_depth_limitation = property_member_consider_neutral_axis_depth_limitation;
-    }
-    if (typeof property_member_value_of_neutral_axis_depth_limitation !== "undefined") {
-        ASSERT(this.addon.settings_member_ec2.property_member_consider_neutral_axis_depth_limitation, "Consider neutral axis depth limitation must be on");
-        this.addon.settings_member_ec2.property_member_value_of_neutral_axis_depth_limitation = property_member_value_of_neutral_axis_depth_limitation;
-    }
+    SetConcreteDesignMembersNeutralAxisDepthLimitation(this.addon.settings_member_ec2, property_member_consider_neutral_axis_depth_limitation, property_member_value_of_neutral_axis_depth_limitation);
 };
 
 /**
@@ -285,11 +255,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_NeutralAxisDepthLimitati
  * @param {Boolean} property_member_nett_concrete_area  Net concrete area, can be undefined (true as default)
  */
 ConcreteDesignUltimateConfigurationEN.prototype.Members_CalculationSetting = function (property_member_nett_concrete_area) {
-    ASSERT(members.count() > 0, "There must exist at least one member in project");
-    if (typeof property_member_nett_concrete_area === "undefined") {
-        property_member_nett_concrete_area = true;
-    }
-    this.addon.settings_member_ec2.property_member_nett_concrete_area = property_member_nett_concrete_area;
+    SetConcreteDesignMembersCalculationSetting(this.addon.settings_member_ec2, property_member_nett_concrete_area);
 };
 
 /**
@@ -443,20 +409,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Stability_Curvature = function (
  */
 ConcreteDesignUltimateConfigurationEN.prototype.Stability_RequiredReinforcement = function (property_stability_reinforcement_layout,
     reinforcement_diameter_for_preliminary_design_user_value) {
-    ASSERT(members.count() > 0, "There must exist at least one member in project");
-    this.addon.settings_member_ec2.property_stability_reinforcement_layout = GetConcreteDesignReinforcementLayout(property_stability_reinforcement_layout);
-    if (typeof reinforcement_diameter_for_preliminary_design_user_value !== "undefined") {
-        ASSERT(this.addon.settings_member_ec2.property_stability_reinforcement_layout !== ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT, "Reinforcement layout can't be of Factorize provided reinforcement type");
-        if (typeof reinforcement_diameter_for_preliminary_design_user_value === "string") {
-            ASSERT(reinforcement_diameter_for_preliminary_design_user_value === "MAX_OF_ALL", "reinforcement_diameter_for_preliminary_design_user_value must be of MAX_OF_ALL string type");
-            this.addon.settings_member_ec2.property_stability_reinforcement_diameter_for_preliminary_design = ulsconfig_member_ec2.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL;
-        }
-        else {
-            ASSERT(typeof reinforcement_diameter_for_preliminary_design_user_value === "number", "reinforcement_diameter_for_preliminary_design_user_value must be number");
-            this.addon.settings_member_ec2.property_stability_reinforcement_diameter_for_preliminary_design = ulsconfig_member_ec2.E_REINFORCEMENT_DIAMETER_USER_DEFINED;
-            this.addon.settings_member_ec2.property_stability_reinforcement_diameter_for_preliminary_design_user_value = reinforcement_diameter_for_preliminary_design_user_value;
-        }
-    }
+    SetConcreteDesignStabilityRequiredReinforcement(this.addon.settings_member_ec2, property_stability_reinforcement_layout, reinforcement_diameter_for_preliminary_design_user_value);
 };
 
 /**
@@ -507,8 +460,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.FatigueDesign = function (fatigu
  *                                      - Optimization of design internal forces (YES)
  */
 ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_DesignMethod = function (optimization_type) {
-    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
-    SetConcreteDesignOptimizationType(this.addon, optimization_type);
+    SetConcreteDesignSurfacesDesignMethod(this.addon.settings_surface_ec2, optimization_type);
 };
 
 /**
@@ -516,11 +468,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_DesignMethod = function
  * @param {Boolean} property_subtraction_of_rib_components  Subtraction of rib components for the ULS calculation and for the analytic method of SLS calculation, can be undefined (true as default)
  */
 ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_InternalForcesDiagramUsedForDesign = function (property_subtraction_of_rib_components) {
-    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
-    if (typeof property_subtraction_of_rib_components === "undefined") {
-        property_subtraction_of_rib_components = true;
-    }
-    this.addon.settings_surface_ec2.property_subtraction_of_rib_components = property_subtraction_of_rib_components;
+    SetConcreteDesignSurfacesInternalForcesDiagramUsedForDesign(this.addon.settings_surface_ec2, property_subtraction_of_rib_components);
 };
 
 /**
@@ -545,41 +493,8 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_MinimumLongitudinalRein
     min_reinforcement_direction_user_values,
     main_compression_reinforcement_direction,
     property_surface_reinforcement_defined_direction_phi) {
-    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
-    if (typeof property_minimum_longitudinal_reinforcement_acc_to_standard !== "undefined") {
-        this.addon.settings_surface_ec2.property_minimum_longitudinal_reinforcement_acc_to_standard = property_minimum_longitudinal_reinforcement_acc_to_standard;
-    }
-    if (typeof reinforcement_type !== "undefined") {
-        ASSERT(this.addon.settings_surface_ec2.property_minimum_longitudinal_reinforcement_acc_to_standard, "Minimum longitudinal reinforcement acc. to standard must be on");
-        SetConcreteDesignMinimumLongitudinalReinforcementType(this.addon, reinforcement_type);
-    }
-    if (typeof min_reinforcement_direction !== "undefined") {
-        ASSERT(this.addon.settings_surface_ec2.property_minimum_longitudinal_reinforcement_for_plates, "Minimum longitudinal reinforcement for plates must be on");
-        SetConcreteDesignMinDirectionReinforcementType(this.addon, min_reinforcement_direction);
-    }
-    if (typeof min_reinforcement_direction_user_values !== "undefined") {
-        ASSERT(Array.isArray(min_reinforcement_direction_user_values), "User-defined minimum reinforcement direction values must be array of booleans ([φ1(-z), φ2(-z), φ1(+z), φ2(+z)])");
-        if (min_reinforcement_direction_user_values[0] !== undefined) {
-            this.addon.settings_surface_ec2.property_surface_top_reinforcement_direction_phi1 = min_reinforcement_direction_user_values[0];
-        }
-        if (min_reinforcement_direction_user_values[1] !== undefined) {
-            this.addon.settings_surface_ec2.property_surface_top_reinforcement_direction_phi2 = min_reinforcement_direction_user_values[1];
-        }
-        if (min_reinforcement_direction_user_values[2] !== undefined) {
-            this.addon.settings_surface_ec2.property_surface_bottom_reinforcement_direction_phi1 = min_reinforcement_direction_user_values[2];
-        }
-        if (min_reinforcement_direction_user_values[3] !== undefined) {
-            this.addon.settings_surface_ec2.property_surface_bottom_reinforcement_direction_phi2 = min_reinforcement_direction_user_values[3];
-        }
-    }
-    if (typeof main_compression_reinforcement_direction !== "undefined") {
-        ASSERT(this.addon.settings_surface_ec2.property_minimum_longitudinal_reinforcement_for_walls, "Minimum longitudinal reinforcement for walls must be on");
-        SetConcreteDesignMainCompressionReinforcementDirectionType(this.addon, main_compression_reinforcement_direction);
-    }
-    if (typeof property_surface_reinforcement_defined_direction_phi !== "undefined") {
-        ASSERT(this.addon.settings_surface_ec2.property_defined_in_reinforcement_direction, "Defined in reinforcement direction must be on");
-        this.addon.settings_surface_ec2.property_surface_reinforcement_defined_direction_phi = GetConcreteDesignReinforcementDefinedDirectionType(property_surface_reinforcement_defined_direction_phi);
-    }
+    SetConcreteDesignSurfacesMinimumLongitudinalReinforcement(this.addon.settings_surface_ec2, property_minimum_longitudinal_reinforcement_acc_to_standard, reinforcement_type, min_reinforcement_direction,
+        min_reinforcement_direction_user_values, main_compression_reinforcement_direction, property_surface_reinforcement_defined_direction_phi);
 };
 
 /**
@@ -595,26 +510,8 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_UserDefinedMinimumLongi
     property_minimum_secondary_reinforcement,
     property_minimum_tension_reinforcement,
     property_minimum_compression_reinforcement) {
-    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
-    if (typeof property_user_defined_minimum_longitudinal_reinforcement_percentage !== "undefined") {
-        this.addon.settings_surface_ec2.property_user_defined_minimum_longitudinal_reinforcement_percentage = property_user_defined_minimum_longitudinal_reinforcement_percentage;
-    }
-    if (typeof property_minimum_reinforcement !== "undefined") {
-        ASSERT(this.addon.settings_surface_ec2.property_user_defined_minimum_longitudinal_reinforcement_percentage, "User-defined minimum longitudinal reinforcement percentage must be on");
-        this.addon.settings_surface_ec2.property_minimum_reinforcement = property_minimum_reinforcement;
-    }
-    if (typeof property_minimum_secondary_reinforcement !== "undefined") {
-        ASSERT(this.addon.settings_surface_ec2.property_user_defined_minimum_longitudinal_reinforcement_percentage, "User-defined minimum longitudinal reinforcement percentage must be on");
-        this.addon.settings_surface_ec2.property_minimum_secondary_reinforcement = property_minimum_secondary_reinforcement;
-    }
-    if (typeof property_minimum_tension_reinforcement !== "undefined") {
-        ASSERT(this.addon.settings_surface_ec2.property_user_defined_minimum_longitudinal_reinforcement_percentage, "User-defined minimum longitudinal reinforcement percentage must be on");
-        this.addon.settings_surface_ec2.property_minimum_tension_reinforcement = property_minimum_tension_reinforcement;
-    }
-    if (typeof property_minimum_compression_reinforcement !== "undefined") {
-        ASSERT(this.addon.settings_surface_ec2.property_user_defined_minimum_longitudinal_reinforcement_percentage, "User-defined minimum longitudinal reinforcement percentage must be on");
-        this.addon.settings_surface_ec2.property_minimum_compression_reinforcement = property_minimum_compression_reinforcement;
-    }
+    SetConcreteDesignSurfacesUserDefinedMinimumLongitudinalReinforcementPercentage(this.addon.settings_surface_ec2, property_user_defined_minimum_longitudinal_reinforcement_percentage, property_minimum_reinforcement,
+        property_minimum_secondary_reinforcement, property_minimum_tension_reinforcement, property_minimum_compression_reinforcement);
 };
 
 /**
@@ -643,14 +540,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_MaximumLongitudinalRein
  */
 ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_UserDefinedMaximumLongitudinalReinforcementPercentage = function (property_user_defined_maximum_longitudinal_reinforcement_percentage,
     property_user_defined_maximum_longitudinal_reinforcement_percentage_value) {
-    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
-    if (typeof property_user_defined_maximum_longitudinal_reinforcement_percentage !== "undefined") {
-        this.addon.settings_surface_ec2.property_user_defined_maximum_longitudinal_reinforcement_percentage = property_user_defined_maximum_longitudinal_reinforcement_percentage;
-    }
-    if (typeof property_user_defined_maximum_longitudinal_reinforcement_percentage_value !== "undefined") {
-        ASSERT(this.addon.settings_surface_ec2.property_user_defined_maximum_longitudinal_reinforcement_percentage, "User-defined maximum longitudinal reinforcement percentage must be on");
-        this.addon.settings_surface_ec2.property_user_defined_maximum_longitudinal_reinforcement_percentage_value = property_user_defined_maximum_longitudinal_reinforcement_percentage_value;
-    }
+    SetConcreteDesignSurfacesUserDefinedMaximumLongitudinalReinforcementPercentage(this.addon.settings_surface_ec2, property_user_defined_maximum_longitudinal_reinforcement_percentage, property_user_defined_maximum_longitudinal_reinforcement_percentage_value);
 };
 
 /**
@@ -658,11 +548,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_UserDefinedMaximumLongi
  * @param {Boolean} property_minimum_shear_reinforcement    Minimum shear reinforcement, can be undefined (is not set, true as default)
  */
 ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_MinimumShearReinforcement = function (property_minimum_shear_reinforcement) {
-    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
-    if (typeof property_minimum_shear_reinforcement === "undefined") {
-        property_minimum_shear_reinforcement = true;
-    }
-    this.addon.settings_surface_ec2.property_minimum_shear_reinforcement = property_minimum_shear_reinforcement;
+    SetConcreteDesignSurfacesMinimumShearReinforcement(this.addon.settings_surface_ec2, property_minimum_shear_reinforcement);
 };
 
 /**
@@ -672,14 +558,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_MinimumShearReinforceme
  */
 ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_UserDefinedMinimumShearReinforcementPercentage = function (property_user_defined_minimum_shear_reinforcement_percentage,
     property_user_defined_minimum_shear_reinforcement_percentage_value) {
-    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
-    if (typeof property_user_defined_minimum_shear_reinforcement_percentage !== "undefined") {
-        this.addon.settings_surface_ec2.property_user_defined_minimum_shear_reinforcement_percentage = property_user_defined_minimum_shear_reinforcement_percentage;
-    }
-    if (typeof property_user_defined_minimum_shear_reinforcement_percentage_value !== "undefined") {
-        ASSERT(this.addon.settings_surface_ec2.property_user_defined_minimum_shear_reinforcement_percentage, "User-defined minimum shear reinforcement percentage must be on");
-        this.addon.settings_surface_ec2.property_user_defined_minimum_shear_reinforcement_percentage_value = property_user_defined_minimum_shear_reinforcement_percentage_value;
-    }
+    SetConcreteDesignSurfacesUserDefinedMinimumShearReinforcementPercentage(this.addon.settings_surface_ec2, property_user_defined_minimum_shear_reinforcement_percentage, property_user_defined_minimum_shear_reinforcement_percentage_value);
 };
 
 /**
@@ -703,25 +582,17 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_RequiredLongitudinalRei
  */
 ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_RequiredShearReinforcement = function (required_shear_reinforcement) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
-    SetConcreteDesignRequiredShearReinforcementType(this.addon.settings_surface_ec2, "surface", required_shear_reinforcement);
+    SetConcreteDesignRequiredShearReinforcementType(this.addon.settings_surface_ec2, "surface", ["REQUIRED", "PROVIDED", "AUTOMATICALLY"], required_shear_reinforcement);
 };
 
 /**
  * Sets Neutral Axis Depth Limitation
- * @param {*} property_surface_consider_neutral_axis_depth_limitation   Consider neutral axis depth limitation acc. to 5.6.2(2), 5.6.3(2), can be undefined (true as default)
- * @param {*} property_surface_value_of_neutral_axis_depth_limitation   Value of neutral axis depth limitation, can be undefined (is not set, 0.45 as default)
+ * @param {Boolean} property_surface_consider_neutral_axis_depth_limitation   Consider neutral axis depth limitation acc. to 5.6.2(2), 5.6.3(2), can be undefined (true as default)
+ * @param {Number} property_surface_value_of_neutral_axis_depth_limitation   Value of neutral axis depth limitation, can be undefined (is not set, 0.45 as default)
  */
 ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_NeutralAxisDepthLimitation = function (property_surface_consider_neutral_axis_depth_limitation,
     property_surface_value_of_neutral_axis_depth_limitation) {
-    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
-    if (typeof property_surface_consider_neutral_axis_depth_limitation === "undefined") {
-        property_surface_consider_neutral_axis_depth_limitation = true;
-    }
-    this.addon.settings_surface_ec2.property_surface_consider_neutral_axis_depth_limitation = property_surface_consider_neutral_axis_depth_limitation;
-    if (typeof property_surface_value_of_neutral_axis_depth_limitation !== "undefined") {
-        ASSERT(this.addon.settings_surface_ec2.property_surface_consider_neutral_axis_depth_limitation, "Consider neutral axis depth limitation must be on");
-        this.addon.settings_surface_ec2.property_surface_value_of_neutral_axis_depth_limitation = property_surface_value_of_neutral_axis_depth_limitation;
-    }
+    SetConcreteDesignSurfacesNeutralAxisDepthLimitation(this.addon.settings_surface_ec2, property_surface_consider_neutral_axis_depth_limitation, property_surface_value_of_neutral_axis_depth_limitation);
 };
 
 /**
@@ -748,7 +619,7 @@ function SetConcreteReinforcementMaximumLongitudinalReinforcementType(addon,
 	  if (reinforcement_types.indexOf(reinforcement_type) === -1)
       {
         console.log("Wrong maximum longitudinal reinforcement type. Value was: " + reinforcement_type);
-		console.log("Correct values are: ( " + reinforcement_types + ")");
+		console.log("Correct values are: " + reinforcement_types);
 		return;
       }
 	}
@@ -763,147 +634,7 @@ function SetConcreteReinforcementMaximumLongitudinalReinforcementType(addon,
             addon.settings_surface_ec2.property_maximum_longitudinal_reinforcement_for_walls = true;
             break;
         default:
-            ASSERT(false, "SetConcreteDesignMainCompressionReinforcementDirectionType - unknown maximum longitudinal reinforcement type");
-    }
-}
-
-function GetConcreteDesignReinforcementDefinedDirectionType(direction_type) {
-	const direction_types_dict = {
-        "PHI_1": concrete_design_surface_ulsconfig_concrete_design_ec2.E_DIRECTION_PHI_1,
-        "PHI_2": concrete_design_surface_ulsconfig_concrete_design_ec2.E_DIRECTION_PHI_2
-	};
-
-	if (direction_type !== undefined) {
-	  var type = direction_types_dict[direction_type];
-	  if (type === undefined) {
-		console.log("Wrong reinforcement defined direction type. Value was: " + direction_type);
-		console.log("Correct values are: ( " + Object.keys(direction_types_dict) + ")");
-		type = concrete_design_surface_ulsconfig_concrete_design_ec2.E_DIRECTION_PHI_1;
-	  }
-	  return type;
-	}
-	else {
-	  return concrete_design_surface_ulsconfig_concrete_design_ec2.E_DIRECTION_PHI_1;
-	}
-}
-
-function SetConcreteDesignMainCompressionReinforcementDirectionType(addon,
-    direction_type) {
-        direction_types = [
-            "WITH_MAIN_COMPRESSION_FORCE",
-            "DEFINED_IN_REINFORCEMENT_DIRECTION"
-    ];
-	if (direction_type !== undefined) {
-	  if (direction_types.indexOf(direction_type) === -1)
-      {
-        console.log("Wrong main compression reinforcement direction type. Value was: " + direction_type);
-		console.log("Correct values are: ( " + direction_types + ")");
-		return;
-      }
-	}
-	else {
-        direction_type = "WITH_MAIN_COMPRESSION_FORCE";
-	}
-    switch (direction_type) {
-        case "WITH_MAIN_COMPRESSION_FORCE":
-            addon.settings_surface_ec2.property_reinforcement_direction_with_the_main_compression_force = true;
-            break;
-        case "DEFINED_IN_REINFORCEMENT_DIRECTION":
-            addon.settings_surface_ec2.property_defined_in_reinforcement_direction = true;
-            break;
-        default:
-            ASSERT(false, "SetConcreteDesignMainCompressionReinforcementDirectionType - unknown main compression reinforcement direction type");
-    }
-}
-
-function SetConcreteDesignMinDirectionReinforcementType(addon,
-    reinforcement_type) {
-        reinforcement_types = [
-            "MAIN_TENSION_ELEMENT",
-            "MAIN_TENSION_SURFACE",
-            "DEFINED"
-    ];
-	if (reinforcement_type !== undefined) {
-	  if (reinforcement_types.indexOf(reinforcement_type) === -1)
-      {
-        console.log("Wrong minimum direction reinforcement type. Value was: " + reinforcement_type);
-		console.log("Correct values are: ( " + reinforcement_types + ")");
-		return;
-      }
-	}
-	else {
-        reinforcement_type = "MAIN_TENSION_ELEMENT";
-	}
-    switch (reinforcement_type) {
-        case "MAIN_TENSION_ELEMENT":
-            addon.settings_surface_ec2.property_direction_with_main_tension_in_the_element = true;
-            break;
-        case "MAIN_TENSION_SURFACE":
-            addon.settings_surface_ec2.property_direction_with_main_tension_in_the_surface = true;
-            break;
-        case "DEFINED":
-            addon.settings_surface_ec2.property_defined = true;
-            break;
-        default:
-            ASSERT(false, "SetConcreteDesignMinDirectionReinforcementType - unknown minimum direction reinforcement type");
-    }
-}
-
-function SetConcreteDesignMinimumLongitudinalReinforcementType(addon,
-    reinforcement_type) {
-        reinforcement_types = [
-            "PLATES",
-            "WALLS"
-    ];
-	if (reinforcement_type !== undefined) {
-	  if (reinforcement_types.indexOf(reinforcement_type) === -1)
-      {
-        console.log("Wrong longitudinal reinforcement type. Value was: " + reinforcement_type);
-		console.log("Correct values are: ( " + reinforcement_types + ")");
-		return;
-      }
-	}
-	else {
-        reinforcement_type = "PLATES";
-	}
-    switch (reinforcement_type) {
-        case "PLATES":
-            addon.settings_surface_ec2.property_minimum_longitudinal_reinforcement_for_plates = true;
-            break;
-        case "WALLS":
-            addon.settings_surface_ec2.property_minimum_longitudinal_reinforcement_for_walls = true;
-            break;
-        default:
-            ASSERT(false, "SetConcreteDesignMinimumLongitudinalReinforcementType - unknown longitudinal reinforcement type");
-    }
-}
-
-function SetConcreteDesignOptimizationType(addon,
-    optimization_type) {
-        optimization_types = [
-            "NO",
-            "YES"
-    ];
-	if (optimization_type !== undefined) {
-	  if (optimization_types.indexOf(optimization_type) === -1)
-      {
-        console.log("Wrong design method optimization type. Value was: " + optimization_type);
-		console.log("Correct values are: ( " + optimization_types + ")");
-		return;
-      }
-	}
-	else {
-        optimization_type = "YES";
-	}
-    switch (optimization_type) {
-        case "NO":
-            addon.settings_surface_ec2.property_surface_internal_forces_no_optimization = true;
-            break;
-        case "YES":
-            addon.settings_surface_ec2.property_surface_internal_forces_optimization = true;
-            break;
-        default:
-            ASSERT(false, "SetConcreteDesignOptimizationType - unknown design method optimization type");
+            ASSERT(false, "SetConcreteReinforcementMaximumLongitudinalReinforcementType - unknown maximum longitudinal reinforcement type");
     }
 }
 
@@ -917,7 +648,7 @@ function SetConcreteDesignFatigueDesignType(addon,
 	  if (fatigue_types.indexOf(fatigue_type) === -1)
       {
         console.log("Wrong fatigue design type. Value was: " + fatigue_type);
-		console.log("Correct values are: ( " + fatigue_types + ")");
+		console.log("Correct values are: " + fatigue_types);
 		return;
       }
 	}
@@ -946,7 +677,7 @@ function SetConcreteDesignModificationDesignCheckType(addon,
 	  if (modification_types.indexOf(modification_type) === -1)
       {
         console.log("Wrong modification of the design type. Value was: " + modification_type);
-		console.log("Correct values are: ( " + modification_types + ")");
+		console.log("Correct values are: " + modification_types);
 		return;
       }
 	}
@@ -965,28 +696,6 @@ function SetConcreteDesignModificationDesignCheckType(addon,
     }
 }
 
-function GetConcreteDesignReinforcementLayout(reinforcement_layout_type) {
-	const reinforcement_layout_types_dict = {
-       "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
-       "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
-       "UNIFORMLY_SURROUNDING": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
-       "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT
-	};
-
-	if (reinforcement_layout_type !== undefined) {
-	  var type = reinforcement_layout_types_dict[reinforcement_layout_type];
-	  if (type === undefined) {
-		console.log("Wrong reinforcement layout type. Value was: " + reinforcement_layout_type);
-		console.log("Correct values are: ( " + Object.keys(reinforcement_layout_types_dict) + ")");
-		type = ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING;
-	  }
-	  return type;
-	}
-	else {
-	  return ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING;
-	}
-}
-
 function SetConcreteDesignCurvatureForRequiredReinforcement(addon,
     curvature_type) {
 	const curvature_types = [
@@ -997,7 +706,7 @@ function SetConcreteDesignCurvatureForRequiredReinforcement(addon,
 	  if (curvature_types.indexOf(curvature_type) === -1)
       {
         console.log("Wrong curvature type. Value was: " + curvature_type);
-		console.log("Correct values are: ( " + curvature_types + ")");
+		console.log("Correct values are: " + curvature_types);
 		return;
       }
 	}
@@ -1044,7 +753,7 @@ function GetConcreteDesignMaterialModelForTensionStrain(property_type,
 	  var type = material_model_types_dict[material_model_type];
 	  if (type === undefined) {
 		console.log("Wrong member material model for tension strain type. Value was: " + material_model_type);
-		console.log("Correct values are: ( " + Object.keys(material_model_types_dict) + ")");
+		console.log("Correct values are: " + Object.keys(material_model_types_dict));
 		type = default_value;
 	  }
 	  return type;
@@ -1064,7 +773,7 @@ function SetConcreteDesignFiberConcreteEffect(addon,
 	  if (fiber_concrete_effect_types.indexOf(fiber_concrete_effect_type) === -1)
       {
         console.log("Wrong fiber concrete effect type. Value was: " + fiber_concrete_effect_type);
-		console.log("Correct values are: ( " + fiber_concrete_effect_types + ")");
+		console.log("Correct values are: " + fiber_concrete_effect_types);
 		return;
       }
 	}
@@ -1093,7 +802,7 @@ function SetConcreteDesignAnalysisMethodForShearStressInJoint(addon,
 	  if (analysis_method_types.indexOf(analysis_method_type) === -1)
       {
         console.log("Wrong analysis method for shear stress joint type. Value was: " + analysis_method_type);
-		console.log("Correct values are: ( " + analysis_method_types + ")");
+		console.log("Correct values are: " + analysis_method_types);
 		return;
       }
 	}
@@ -1112,88 +821,6 @@ function SetConcreteDesignAnalysisMethodForShearStressInJoint(addon,
     }
 }
 
-function SetConcreteDesignRequiredShearReinforcementType(addon_settings,
-    property_kind,
-    shear_reinforcement_type) {
-	const shear_reinforcement_types = [
-        "REQUIRED",
-        "PROVIDED",
-        "AUTOMATICALLY"
-    ];
-	if (shear_reinforcement_type !== undefined) {
-	  if (shear_reinforcement_types.indexOf(shear_reinforcement_type) === -1)
-      {
-        console.log("Wrong shear reinforcement type. Value was: " + shear_reinforcement_type);
-		console.log("Correct values are: ( " + shear_reinforcement_types + ")");
-		return;
-      }
-	}
-	else {
-        shear_reinforcement_type = "REQUIRED";
-	}
-    switch (shear_reinforcement_type) {
-        case "REQUIRED":
-            if (property_kind === "member") {
-                addon_settings.property_member_longitudinal_reinforcement_use_required = true;
-            }
-            else if (property_kind === "surface") {
-                addon_settings.property_surface_longitudinal_reinforcement_use_required = true;
-            }
-            else {
-                ASSERT(false, "SetConcreteDesignRequiredShearReinforcementType");
-            }
-            break;
-        case "PROVIDED":
-            if (property_kind === "member") {
-                addon_settings.property_member_longitudinal_reinforcement_use_provided = true;
-            }
-            else if (property_kind === "surface") {
-                addon_settings.property_surface_longitudinal_reinforcement_use_provided = true;
-            }
-            else {
-                ASSERT(false, "SetConcreteDesignRequiredShearReinforcementType");
-            }
-            break;
-        case "AUTOMATICALLY":
-            if (property_kind === "member") {
-                addon_settings.property_member_longitudinal_reinforcement_automatically_increase_required = true;
-            }
-            else if (property_kind === "surface") {
-                addon_settings.property_surface_longitudinal_reinforcement_automatically_increase_required = true;
-            }
-            else {
-                ASSERT(false, "SetConcreteDesignRequiredShearReinforcementType");
-            }
-            break;
-        default:
-            ASSERT(false, "SetConcreteDesignRequiredShearReinforcement - unknown shear reinforcement type");
-    }
-}
-
-function GetConcreteDesignPropertyMemberReinforcementLayout(layout_type) {
-	const layout_types_dict = {
-        "TOP_BOTTOM_OPTIMIZED_DISTRIBUTION": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_OPTIMIZED_DISTRIBUTION,
-        "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
-        "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
-        "UNIFORMLY_SURROUNDING": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
-        "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT,
-        "OPTIMIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT
-	};
-
-	if (layout_type !== undefined) {
-	  var type = layout_types_dict[layout_type];
-	  if (type === undefined) {
-		console.log("Wrong member reinforcement layout type. Value was: " + layout_type);
-		console.log("Correct values are: ( " + Object.keys(layout_types_dict) + ")");
-		type = ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT;
-	  }
-	  return type;
-	}
-	else {
-	  return ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT;
-	}
-}
-
 function GetConcreteDesignPropertyMemberLongitudinalReinforcement(longitudinal_reinforcement_type) {
 	const longitudinal_reinforcement_types_dict = {
         "MAXIMUM_STIRRUP_SPACING_REQUIRED": ulsconfig_member_ec2.E_COMPRESSION_LONGITUDINAL_REINFORCEMENT_FOR_MAXIMUM_STIRRUP_SPACING_REQUIRED,
@@ -1204,7 +831,7 @@ function GetConcreteDesignPropertyMemberLongitudinalReinforcement(longitudinal_r
 	  var type = longitudinal_reinforcement_types_dict[longitudinal_reinforcement_type];
 	  if (type === undefined) {
 		console.log("Wrong longitudinal reinforcement type. Value was: " + longitudinal_reinforcement_type);
-		console.log("Correct values are: ( " + Object.keys(longitudinal_reinforcement_types_dict) + ")");
+		console.log("Correct values are: " + Object.keys(longitudinal_reinforcement_types_dict));
 		type = ulsconfig_member_ec2.E_COMPRESSION_LONGITUDINAL_REINFORCEMENT_FOR_MAXIMUM_STIRRUP_SPACING_PROVIDED;
 	  }
 	  return type;

@@ -51,7 +51,7 @@ switch (general.current_standard_for_concrete_design)
         ultimateConfiguration.SetName("Ultimate configuration (EN)");
         ultimateConfiguration.Members_ConsiderInternalForces(false, undefined, true, false, false, false);
         ultimateConfiguration.Members_ReductionsOfInternalForcesInZ(true, true, false, true, true);
-        ultimateConfiguration.Members_LongitudinalReinforcement("UNIFORMLY_SURROUNDING", 0.01, true, 0.99, false);
+        ultimateConfiguration.Members_RequiredLongitudinalReinforcement("UNIFORMLY_SURROUNDING", 0.01, true, 0.99, false);
         ultimateConfiguration.Members_DetailingAndParticularRules(false, undefined, undefined, 0.0010, 0.0020, 0.0030, true, 0.05, undefined, true, "MAXIMUM_STIRRUP_SPACING_PROVIDED", false, false);
         ultimateConfiguration.Members_RequiredShearReinforcement("AUTOMATICALLY");
         ultimateConfiguration.Members_ShearJoint(undefined, "GENERAL_INTEGRATION_OF_AXIAL_STRESSES", true, 55000, true);
@@ -81,6 +81,35 @@ switch (general.current_standard_for_concrete_design)
         ultimateConfiguration.Surfaces_FiberConcrete("SDL2", false);
         break;
     case general.NATIONAL_ANNEX_AND_EDITION_ACI_318_2019_CONCRETE_DESIGN:
+        var strengthConfiguration = new ConcreteDesignStrengthConfigurationACI(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
+        strengthConfiguration.SetName("Strength configuration (ACI)");
+        strengthConfiguration.Members_ConsiderInternalForces(false, undefined, true, false, false, false);
+        strengthConfiguration.Members_InternalForceReductionZ(true, false);
+        strengthConfiguration.Members_RequiredLongitudinalReinforcement("IN_CORNERS_SYMMETRICAL_DISTRIBUTION", 0.05, false);
+        strengthConfiguration.Members_ProvidedLongitudinalReinforcement(false, true, true);
+        strengthConfiguration.Members_Factors(0.75, 0.95, 0.85);
+        strengthConfiguration.Members_MinimumReinforcement(false, false, false);
+        strengthConfiguration.Members_RequiredShearReinforcement("PROVIDED");
+        strengthConfiguration.Members_TorsionCapacity("TORSION_COMPATIBILITY");
+        strengthConfiguration.Members_ShearAndTorsionReinforcement("EQUATION_B", 0.8);
+        strengthConfiguration.Members_NeutralAxisDepthLimitation(true, 0.7);
+        strengthConfiguration.Members_CalculationSetting();
+        strengthConfiguration.Members_EpoxyFactor("EPOXY_COATED_OR_ZINC");
+        strengthConfiguration.Stability_UnbracedColumn(0.06, 0.07);
+        strengthConfiguration.Stability_StiffnessReductionCoefficientToConsiderCreep("CALCULATED", 0.15, 0.25);
+        strengthConfiguration.Stability_MomentMagnification("P_METHOD");
+        strengthConfiguration.Stability_RequiredReinforcement("UNIFORMLY_SURROUNDING", 0.015);
+        strengthConfiguration.Surfaces_DesignMethod("YES");
+        strengthConfiguration.Surfaces_InternalForcesDiagramUsedForDesign(false);
+        strengthConfiguration.Surfaces_Factors(0.75, 0.95, 0.85);
+        strengthConfiguration.Surfaces_MinimumLongitudinalReinforcement(undefined, "WALLS", undefined, undefined, "DEFINED_IN_REINFORCEMENT_DIRECTION", "PHI_2", 2.6);
+        strengthConfiguration.Surfaces_UserDefinedMinimumLongitudinalReinforcementPercentage(true, 0.1, 0.11, 0.12, 0.13);
+        strengthConfiguration.Surfaces_UserDefinedMaximumLongitudinalReinforcementPercentage(true, 0.15);
+        strengthConfiguration.Surfaces_MinimumShearReinforcement(false);
+        strengthConfiguration.Surfaces_UserDefinedMinimumShearReinforcementPercentage(true, 0.15);
+        strengthConfiguration.Surfaces_RequiredShearReinforcement("PROVIDED");
+        strengthConfiguration.Surfaces_ShearAndTorsionReinforcement("MAX_OF_A_B", Math.PI / 5);
+        strengthConfiguration.Surfaces_NeutralAxisDepthLimitation(true, 0.795);
         break;
     case general.NATIONAL_ANNEX_AND_EDITION_CSA_A23_3_2019:
         break;
@@ -94,4 +123,4 @@ switch (general.current_standard_for_concrete_design)
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;
-console.log("Elapsed time: " + time + "s");
+console.log("Elapsed time: " + time + "s");;

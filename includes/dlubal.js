@@ -138,6 +138,7 @@ include("Loads/MemberSetLoad.js");
 include("Loads/NodalLoad.js");
 // Addons
 include("AddOns/ConcreteDesign/ConcreteDesignSupport.js");
+include("AddOns/ConcreteDesign/StrengthConfigurationACI.js");
 include("AddOns/ConcreteDesign/UltimateConfigurationCSA.js");
 include("AddOns/ConcreteDesign/UltimateConfigurationEN.js");
 include("AddOns/ConcreteDesign/UltimateConfigurationNTC.js");
