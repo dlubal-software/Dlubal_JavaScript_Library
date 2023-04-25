@@ -3,10 +3,10 @@ Missing API support for Punching?
 */
 
 /**
- * Creates Concrete design ultimate configuration (ACI standard)
+ * Creates Concrete design strength configuration (ACI standard)
  * @class
  * @constructor
- * @param {Number} no           Ultimate configuration number, can be undefined
+ * @param {Number} no           Strength configuration number, can be undefined
  * @param {Array} surfaces_no   Assigned surfaces numbers, can be undefined
  * @param {Array} members_no    Assigned members numbers, can be undefined
  * @param {Array} nodes_no      Assigned nodes numbers, can be undefined
@@ -71,13 +71,7 @@ ConcreteDesignStrengthConfigurationACI.prototype.Members_ConsiderInternalForces 
  */
 ConcreteDesignStrengthConfigurationACI.prototype.Members_InternalForceReductionZ = function (property_member_redistribution_of_moments_in_continuous_flexural_members,
     property_member_reduction_of_shear_at_support) {
-    ASSERT(members.count() > 0, "There must exist at least one member in project");
-    if (typeof property_member_redistribution_of_moments_in_continuous_flexural_members !== "undefined") {
-        this.addon.settings_member_aci318.property_member_redistribution_of_moments_in_continuous_flexural_members = property_member_redistribution_of_moments_in_continuous_flexural_members;
-    }
-    if (typeof property_member_reduction_of_shear_at_support !== "undefined") {
-        this.addon.settings_member_aci318.property_member_reduction_of_shear_at_support = property_member_reduction_of_shear_at_support;
-    }
+    SetConcreteDesignMembersInternalForceReductionZ(this.addon.settings_member_aci318, property_member_redistribution_of_moments_in_continuous_flexural_members, undefined, property_member_reduction_of_shear_at_support);
 };
 
 /**
@@ -138,16 +132,8 @@ ConcreteDesignStrengthConfigurationACI.prototype.Members_Factors = function (pro
 ConcreteDesignStrengthConfigurationACI.prototype.Members_MinimumReinforcement = function (property_member_minimum_longitudinal_reinforcement,
     property_member_minimum_shear_reinforcement,
     property_member_minimum_construction_reinforcement) {
-    ASSERT(members.count() > 0, "There must exist at least one member in project");
-    if (typeof property_member_minimum_longitudinal_reinforcement !== "undefined") {
-        this.addon.settings_member_aci318.property_member_minimum_longitudinal_reinforcement = property_member_minimum_longitudinal_reinforcement;
-    }
-    if (typeof property_member_minimum_shear_reinforcement !== "undefined") {
-        this.addon.settings_member_aci318.property_member_minimum_shear_reinforcement = property_member_minimum_shear_reinforcement;
-    }
-    if (typeof property_member_minimum_construction_reinforcement !== "undefined") {
-        this.addon.settings_member_aci318.property_member_minimum_construction_reinforcement = property_member_minimum_construction_reinforcement;
-    }
+    SetConcreteDesignMembersMinimumReinforcement(this.addon.settings_member_aci318, property_member_minimum_longitudinal_reinforcement, property_member_minimum_shear_reinforcement,
+        property_member_minimum_construction_reinforcement);
 };
 
 /**
@@ -190,22 +176,7 @@ ConcreteDesignStrengthConfigurationACI.prototype.Members_ShearAndTorsionReinforc
  */
 ConcreteDesignStrengthConfigurationACI.prototype.Members_NeutralAxisDepthLimitation = function(property_member_consider_neutral_axis_depth_limitation,
     property_member_value_of_neutral_axis_depth_limitation_user_value) {
-    ASSERT(members.count() > 0, "There must exist at least one member in project");
-    if (typeof property_member_consider_neutral_axis_depth_limitation !== "undefined") {
-        this.addon.settings_member_aci318.property_member_consider_neutral_axis_depth_limitation = property_member_consider_neutral_axis_depth_limitation;
-    }
-    if (typeof property_member_consider_neutral_axis_depth_limitation !== "undefined") {
-        ASSERT(this.addon.settings_member_aci318.property_member_consider_neutral_axis_depth_limitation, "Consider depth limitation of neutral axis acc. to 9.3.3.1 must be on");
-        if (typeof property_member_value_of_neutral_axis_depth_limitation_user_value === "string") {
-            ASSERT(property_member_value_of_neutral_axis_depth_limitation_user_value === "AUTOMATICALLY", "Value of neutral axis depth limitation must equal ti AUTOMATICALLY");
-            this.addon.settings_member_aci318.property_member_value_of_neutral_axis_depth_limitation = ulsconfig_member_aci318.E_NEUTRAL_AXIS_DEPTH_LIMITATION_AUTOMATICALLY;
-        }
-        else {
-            ASSERT(typeof property_member_value_of_neutral_axis_depth_limitation_user_value === "number", "Value of neutral axis depth limitation must be number");
-            this.addon.settings_member_aci318.property_member_value_of_neutral_axis_depth_limitation = ulsconfig_member_aci318.E_NEUTRAL_AXIS_DEPTH_LIMITATION_USER_DEFINED;
-            this.addon.settings_member_aci318.property_member_value_of_neutral_axis_depth_limitation_user_value = property_member_value_of_neutral_axis_depth_limitation_user_value;
-        }
-    }
+    SetConcreteDesignNeutralAxisDepthLimitation(this.addon.settings_member_aci318, "member", property_member_consider_neutral_axis_depth_limitation, property_member_value_of_neutral_axis_depth_limitation_user_value);
 };
 
 /**
@@ -224,7 +195,7 @@ ConcreteDesignStrengthConfigurationACI.prototype.Members_CalculationSetting = fu
  */
 ConcreteDesignStrengthConfigurationACI.prototype.Members_EpoxyFactor = function (epoxy_factor_type) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
-    SetConcreteDesignMemberEpoxyFactorType(this.addon, epoxy_factor_type);
+    SetConcreteDesignMemberEpoxyFactorType(this.addon.settings_member_aci318, epoxy_factor_type);
 };
 
 /**
@@ -234,13 +205,7 @@ ConcreteDesignStrengthConfigurationACI.prototype.Members_EpoxyFactor = function 
  */
 ConcreteDesignStrengthConfigurationACI.prototype.Stability_UnbracedColumn = function (property_stability_index_qy,
     property_stability_index_qz) {
-    ASSERT(members.count() > 0, "There must exist at least one member in project");
-    if (typeof property_stability_index_qy !== "undefined") {
-        this.addon.settings_member_aci318.property_stability_index_qy = property_stability_index_qy;
-    }
-    if (typeof property_stability_index_qz !== "undefined") {
-        this.addon.settings_member_aci318.property_stability_index_qz = property_stability_index_qz;
-    }
+    SetConcreteDesignStabilityUnbracedColumn(this.addon.settings_member_aci318, property_stability_index_qy, property_stability_index_qz);
 };
 
 /**
@@ -369,7 +334,7 @@ ConcreteDesignStrengthConfigurationACI.prototype.Surfaces_InternalForcesDiagramU
 ConcreteDesignStrengthConfigurationACI.prototype.Surfaces_Factors = function (property_surface_strength_reduction_factor_compressive,
     property_surface_strength_reduction_factor_tensile,
     property_surface_strength_reduction_factor_shear_and_torsion) {
-    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");  
+    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
     if (typeof property_surface_strength_reduction_factor_compressive !== "undefined") {
         this.addon.settings_surface_aci318.property_surface_strength_reduction_factor_compressive = property_surface_strength_reduction_factor_compressive;
     }
@@ -385,11 +350,11 @@ ConcreteDesignStrengthConfigurationACI.prototype.Surfaces_Factors = function (pr
  * Sets Minimum longitudinal reinforcement acc. to standard
  * @param {Boolean} property_minimum_longitudinal_reinforcement_acc_to_standard     Minimum longitudinal reinforcement acc. to standard, can be undefined (is not set, true as default)
  * @param {String} reinforcement_type                                               Minimum longitudinal reinforcement acc. to standard type, can be undefined (is not set, PLATES as default)
- *                                                                                  - Minimum longitudinal reinforcement for plates acc. to 9.3.1 (PLATES)
-                                                                                    - Minimum longitudinal reinforcement for walls acc. to 9.6 (WALLS)
+ *                                                                                  - Minimum longitudinal reinforcement for plates acc. to Table 7.6.1.1, 8.6.1.1 (PLATES)
+                                                                                    - Minimum longitudinal reinforcement for walls acc. to Chapter 11 (WALLS)
  * @param {String} min_reinforcement_direction                                      Direction of minimum reinforcement, can be undefined (is not set, MAIN_TENSION_ELEMENT as default)
-                                                                                    - Direction with main tension in the element (MAIN_TENSION_ELEMENT)
-                                                                                    - Direction with main tension in the surface (MAIN_TENSION_SURFACE)
+                                                                                    - On main tension side (MAIN_TENSION_ELEMENT)
+                                                                                    - In tension direction (MAIN_TENSION_SURFACE)
                                                                                     - Defined (DEFINED)
  * @param {Array} min_reinforcement_direction_user_values                           User-defined direction of minimum reinforcement ([φ1(-z), φ2(-z), φ1(+z), φ2(+z)]), can be undefined (if not set, all values are true by default)
  * @param {String} main_compression_reinforcement_direction                         Direction of main compression reinforcement, can be undefined (is not set, WITH_MAIN_COMPRESSION_FORCE as default)
@@ -406,7 +371,7 @@ ConcreteDesignStrengthConfigurationACI.prototype.Surfaces_MinimumLongitudinalRei
     property_surface_reinforcement_defined_direction_phi,
     property_surface_ratio_b_div_h) {
     SetConcreteDesignSurfacesMinimumLongitudinalReinforcement(this.addon.settings_surface_aci318, property_minimum_longitudinal_reinforcement_acc_to_standard, reinforcement_type, min_reinforcement_direction,
-    min_reinforcement_direction_user_values, main_compression_reinforcement_direction, property_surface_reinforcement_defined_direction_phi, property_surface_ratio_b_div_h);
+        min_reinforcement_direction_user_values, main_compression_reinforcement_direction, property_surface_reinforcement_defined_direction_phi, property_surface_ratio_b_div_h);
 };
 
 /**
@@ -447,7 +412,7 @@ ConcreteDesignStrengthConfigurationACI.prototype.Surfaces_MinimumShearReinforcem
 /**
  * Sets User-defined minimum shear reinforcement percentage
  * @param {Boolean} property_user_defined_minimum_shear_reinforcement_percentage        Minimum shear reinforcement percentage, can be undefined (is not set, false as default)
- * @param {Number} property_user_defined_minimum_shear_reinforcement_percentage_value   Minimum reinforcement, can be undefined, can be undefined (is not set, 0% as default)
+ * @param {Number} property_user_defined_minimum_shear_reinforcement_percentage_value   Minimum reinforcement, can be undefined, (is not set, 0% as default)
  */
 ConcreteDesignStrengthConfigurationACI.prototype.Surfaces_UserDefinedMinimumShearReinforcementPercentage = function (property_user_defined_minimum_shear_reinforcement_percentage,
     property_user_defined_minimum_shear_reinforcement_percentage_value) {
@@ -481,22 +446,7 @@ ConcreteDesignStrengthConfigurationACI.prototype.Surfaces_ShearAndTorsionReinfor
  */
 ConcreteDesignStrengthConfigurationACI.prototype.Surfaces_NeutralAxisDepthLimitation = function (property_surface_consider_neutral_axis_depth_limitation,
     property_surface_value_of_neutral_axis_depth_limitation) {
-    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
-    if (typeof property_surface_consider_neutral_axis_depth_limitation !== "undefined") {
-        this.addon.settings_surface_aci318.property_surface_consider_neutral_axis_depth_limitation = property_surface_consider_neutral_axis_depth_limitation;
-    }
-    if (typeof property_surface_value_of_neutral_axis_depth_limitation !== "undefined") {
-        ASSERT(this.addon.settings_surface_aci318.property_surface_consider_neutral_axis_depth_limitation, "Consider depth limitation of neutral axis must be on");
-        if (typeof property_surface_value_of_neutral_axis_depth_limitation === "string") {
-            ASSERT(property_surface_value_of_neutral_axis_depth_limitation === "AUTOMATICALLY", "Value of neutral axis depth limitation must have AUTOMATICALLY string value");
-            this.addon.settings_surface_aci318.property_surface_value_of_neutral_axis_depth_limitation = concrete_design_surface_ulsconfig_concrete_design_aci318.E_NEUTRAL_AXIS_DEPTH_LIMITATION_AUTOMATICALLY;
-        }
-        else {
-            ASSERT(typeof property_surface_value_of_neutral_axis_depth_limitation === "number", "Value of neutral axis depth limitation must be defined as user-defined number value");
-            this.addon.settings_surface_aci318.property_surface_value_of_neutral_axis_depth_limitation = concrete_design_surface_ulsconfig_concrete_design_aci318.E_NEUTRAL_AXIS_DEPTH_LIMITATION_USER_DEFINED;
-            this.addon.settings_surface_aci318.property_surface_value_of_neutral_axis_depth_limitation_user_value = property_surface_value_of_neutral_axis_depth_limitation;
-        }
-    }
+    SetConcreteDesignNeutralAxisDepthLimitation(this.addon.settings_surface_aci318, "surface", property_surface_consider_neutral_axis_depth_limitation, property_surface_value_of_neutral_axis_depth_limitation);
 };
 
 function GetConcreteDesignNominalSherStrengthType(shear_strength_type) {
@@ -537,36 +487,6 @@ function GetConcreteDesignSwayMomentMagnifierType(magnifier_type) {
 	  return ulsconfig_member_aci318.E_SWAY_MOMENT_MAGNIFIER_Q_METHOD;
 	}
 }
-
-function SetConcreteDesignMemberEpoxyFactorType(addon,
-    epoxy_factor_type) {
-	const epoxy_factor_types = [
-        "EPOXY_COATED_OR_ZINC",
-        "UNCOATED_OR_ZINC_COATED"
-    ];
-	if (epoxy_factor_type !== undefined) {
-	  if (epoxy_factor_types.indexOf(epoxy_factor_type) === -1)
-      {
-        console.log("Wrong epoxy factor type. Value was: " + epoxy_factor_type);
-		console.log("Correct values are: " + epoxy_factor_types);
-		return;
-      }
-	}
-	else {
-        epoxy_factor_type = "UNCOATED_OR_ZINC_COATED";
-	}
-    switch (epoxy_factor_type) {
-        case "EPOXY_COATED_OR_ZINC":
-            addon.settings_member_aci318.property_epoxy_coated_or_zinc_and_epoxy_dual_coated_reinforcement = true;
-            break;
-        case "UNCOATED_OR_ZINC_COATED":
-            addon.settings_member_aci318.property_uncoated_or_zinc_coated_galvanized_reinforcement = true;
-            break;
-        default:
-            ASSERT(false, "SetConcreteDesignMemberEpoxyFactorType - unknown epoxy factor type");
-    }
-}
-
 
 function GetConcreteDesignPropertyNominalShearStrengthType(strength_type) {
     const strength_types_dict = {

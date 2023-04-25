@@ -120,7 +120,8 @@ function Members_ConcreteDesignRequiredLongitudinalReinforcement (addon_settings
     property_member_reinforcement_diameter_for_preliminary_design,
     property_member_reinforcement_distribute_over_slab,
     property_member_reinforcement_distribute_over_slab_reduced_width,
-    property_member_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement) {
+    property_member_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement,
+    property_member_increase_of_tension_required_reinforcement_due_to_shear) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
     addon_settings.property_member_reinforcement_layout = GetConcreteDesignPropertyMemberReinforcementLayout(property_member_reinforcement_layout);
     if (typeof property_member_reinforcement_diameter_for_preliminary_design !== "undefined") {
@@ -146,6 +147,9 @@ function Members_ConcreteDesignRequiredLongitudinalReinforcement (addon_settings
     if (typeof property_member_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement !== "undefined") {
         addon_settings.property_member_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement = property_member_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement;
     }
+    if (typeof property_member_increase_of_tension_required_reinforcement_due_to_shear !== "undefined") {
+        addon_settings.property_member_increase_of_tension_required_reinforcement_due_to_shear = property_member_increase_of_tension_required_reinforcement_due_to_shear;
+    }
 };
 
 function GetConcreteDesignPropertyMemberReinforcementDiameterForPreliminaryDesign(diameter_type) {
@@ -159,12 +163,18 @@ function GetConcreteDesignPropertyMemberReinforcementDiameterForPreliminaryDesig
         defaultValue = ulsconfig_member_ec2.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL;
     }
     else if (IsCurrentCodeOfStandard("ACI")) {
-
         diameter_types_dict = {
             "MAX_OF_ALL": ulsconfig_member_aci318.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL,
             "USER_DEFINED": ulsconfig_member_aci318.E_REINFORCEMENT_DIAMETER_USER_DEFINED
         };
         defaultValue = ulsconfig_member_aci318.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL;
+    }
+    else if (IsCurrentCodeOfStandard("CSA")) {
+        diameter_types_dict = {
+            "MAX_OF_ALL": ulsconfig_member_csaa233.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL,
+            "USER_DEFINED": ulsconfig_member_csaa233.E_REINFORCEMENT_DIAMETER_USER_DEFINED
+        };
+        defaultValue = ulsconfig_member_csaa233.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL;
     }
 	if (diameter_type !== undefined) {
 	  var type = diameter_types_dict[diameter_type];
@@ -204,6 +214,17 @@ function GetConcreteDesignPropertyMemberReinforcementLayout(layout_type) {
             "OPTIMIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT
         };
         defaultValue = ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT;
+    }
+    else if (IsCurrentCodeOfStandard("CSA")) {
+        layout_types_dict = {
+            "TOP_BOTTOM_OPTIMIZED_DISTRIBUTION": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_OPTIMIZED_DISTRIBUTION,
+            "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
+            "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
+            "UNIFORMLY_SURROUNDING": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
+            "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT,
+            "OPTIMIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT
+        };
+        defaultValue = ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT;
     }
     else {
         ASSERT(false, "GetConcreteDesignPropertyMemberReinforcementLayout: Unsupported standard");
@@ -279,24 +300,11 @@ function SetConcreteDesignRequiredShearReinforcementType(addon_settings,
 }
 
 function GetCurrentCodeOfStandard () {
-    return general.current_standard_for_steel_design.match(/\w+/);
+    return general.current_standard_for_concrete_design.match(/\w+/);
 }
 
 function IsCurrentCodeOfStandard (current_standard) {
     return GetCurrentCodeOfStandard() == current_standard;  // Don't use === (we don't want compare types of strings)
-}
-
-function SetConcreteDesignMembersNeutralAxisDepthLimitation (addon_settings,
-    property_member_consider_neutral_axis_depth_limitation,
-    property_member_value_of_neutral_axis_depth_limitation) {
-    ASSERT(members.count() > 0, "There must exist at least one member in project");
-    if (typeof property_member_consider_neutral_axis_depth_limitation !== "undefined") {
-        addon_settings.property_member_consider_neutral_axis_depth_limitation = property_member_consider_neutral_axis_depth_limitation;
-    }
-    if (typeof property_member_value_of_neutral_axis_depth_limitation !== "undefined") {
-        ASSERT(addon_settings.property_member_consider_neutral_axis_depth_limitation, "Consider neutral axis depth limitation must be on");
-        addon_settings.property_member_value_of_neutral_axis_depth_limitation = property_member_value_of_neutral_axis_depth_limitation;
-    }
 }
 
 function SetConcreteDesignMembersCalculationSetting (addon_settings,
@@ -314,14 +322,14 @@ function SetConcreteDesignStabilityRequiredReinforcement (addon_settings,
     ASSERT(members.count() > 0, "There must exist at least one member in project");
     addon_settings.property_stability_reinforcement_layout = GetConcreteDesignStabilityReinforcementLayout(property_stability_reinforcement_layout);
     if (typeof reinforcement_diameter_for_preliminary_design_user_value !== "undefined") {
-        ASSERT(addon_settings.property_stability_reinforcement_layout !== ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT, "Reinforcement layout can't be of Factorize provided reinforcement type");
+        ASSERT(addon_settings.property_stability_reinforcement_layout !== GetConcreteDesignStabilityReinforcementLayout("FACTORIZED_PROVIDED_REINFORCEMENT"), "Reinforcement layout can't be of Factorize provided reinforcement type");
         if (typeof reinforcement_diameter_for_preliminary_design_user_value === "string") {
             ASSERT(reinforcement_diameter_for_preliminary_design_user_value === "MAX_OF_ALL", "reinforcement_diameter_for_preliminary_design_user_value must be of MAX_OF_ALL string type");
-            addon_settings.property_stability_reinforcement_diameter_for_preliminary_design = ulsconfig_member_ec2.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL;
+            addon_settings.property_stability_reinforcement_diameter_for_preliminary_design = GetConcreteDesignPropertyMemberReinforcementDiameterForPreliminaryDesign("MAX_OF_ALL");
         }
         else {
             ASSERT(typeof reinforcement_diameter_for_preliminary_design_user_value === "number", "reinforcement_diameter_for_preliminary_design_user_value must be number");
-            addon_settings.property_stability_reinforcement_diameter_for_preliminary_design = ulsconfig_member_ec2.E_REINFORCEMENT_DIAMETER_USER_DEFINED;
+            addon_settings.property_stability_reinforcement_diameter_for_preliminary_design = GetConcreteDesignPropertyMemberReinforcementDiameterForPreliminaryDesign("USER_DEFINED");
             addon_settings.property_stability_reinforcement_diameter_for_preliminary_design_user_value = reinforcement_diameter_for_preliminary_design_user_value;
         }
     }
@@ -347,6 +355,15 @@ function GetConcreteDesignStabilityReinforcementLayout(reinforcement_layout_type
             "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT
         }
         default_value = ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING;
+    }
+    else if (IsCurrentCodeOfStandard("CSA")) {
+        reinforcement_layout_types_dict = {
+            "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
+            "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
+            "UNIFORMLY_SURROUNDING": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
+            "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT
+        }
+        default_value = ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING;
     }
     else {
         ASSERT(false, "GetConcreteDesignStabilityReinforcementLayout: Unsupported standard");
@@ -612,7 +629,7 @@ function SetConcreteDesignSurfacesUserDefinedMinimumLongitudinalReinforcementPer
         ASSERT(addon_settings.property_user_defined_minimum_longitudinal_reinforcement_percentage, "User-defined minimum longitudinal reinforcement percentage must be on");
         addon_settings.property_minimum_compression_reinforcement = property_minimum_compression_reinforcement;
     }
-};
+}
 
 function SetConcreteDesignSurfacesUserDefinedMaximumLongitudinalReinforcementPercentage (addon_settings,
     property_user_defined_maximum_longitudinal_reinforcement_percentage,
@@ -625,7 +642,7 @@ function SetConcreteDesignSurfacesUserDefinedMaximumLongitudinalReinforcementPer
         ASSERT(addon_settings.property_user_defined_maximum_longitudinal_reinforcement_percentage, "User-defined maximum longitudinal reinforcement percentage must be on");
         addon_settings.property_user_defined_maximum_longitudinal_reinforcement_percentage_value = property_user_defined_maximum_longitudinal_reinforcement_percentage_value;
     }
-};
+}
 
 function SetConcreteDesignSurfacesMinimumShearReinforcement (addon_settings,
     property_minimum_shear_reinforcement) {
@@ -634,7 +651,7 @@ function SetConcreteDesignSurfacesMinimumShearReinforcement (addon_settings,
         property_minimum_shear_reinforcement = true;
     }
     addon_settings.property_minimum_shear_reinforcement = property_minimum_shear_reinforcement;
-};
+}
 
 function SetConcreteDesignSurfacesUserDefinedMinimumShearReinforcementPercentage (addon_settings,
     property_user_defined_minimum_shear_reinforcement_percentage,
@@ -647,18 +664,172 @@ function SetConcreteDesignSurfacesUserDefinedMinimumShearReinforcementPercentage
         ASSERT(addon_settings.property_user_defined_minimum_shear_reinforcement_percentage, "User-defined minimum shear reinforcement percentage must be on");
         addon_settings.property_user_defined_minimum_shear_reinforcement_percentage_value = property_user_defined_minimum_shear_reinforcement_percentage_value;
     }
-};
+}
 
-function SetConcreteDesignSurfacesNeutralAxisDepthLimitation (addon_settings,
-    property_surface_consider_neutral_axis_depth_limitation,
-    property_surface_value_of_neutral_axis_depth_limitation) {
-    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
-    if (typeof property_surface_consider_neutral_axis_depth_limitation === "undefined") {
-        property_surface_consider_neutral_axis_depth_limitation = true;
+function SetConcreteDesignMembersInternalForceReductionZ (addon_settings,
+    property_member_redistribution_of_moments_in_continuous_flexural_members,
+    property_member_reduction_of_moments_or_dimensioning_for_moments_at_face_of_monolithic_support,
+    property_member_reduction_of_shear_at_support) {
+    ASSERT(members.count() > 0, "There must exist at least one member in project");
+    if (typeof property_member_redistribution_of_moments_in_continuous_flexural_members !== "undefined") {
+        addon_settings.property_member_redistribution_of_moments_in_continuous_flexural_members = property_member_redistribution_of_moments_in_continuous_flexural_members;
     }
-    addon_settings.property_surface_consider_neutral_axis_depth_limitation = property_surface_consider_neutral_axis_depth_limitation;
-    if (typeof property_surface_value_of_neutral_axis_depth_limitation !== "undefined") {
-        ASSERT(addon_settings.property_surface_consider_neutral_axis_depth_limitation, "Consider neutral axis depth limitation must be on");
-        addon_settings.property_surface_value_of_neutral_axis_depth_limitation = property_surface_value_of_neutral_axis_depth_limitation;
+    if (typeof property_member_reduction_of_shear_at_support !== "undefined") {
+        addon_settings.property_member_reduction_of_shear_at_support = property_member_reduction_of_shear_at_support;
     }
-};
+    if (typeof property_member_reduction_of_moments_or_dimensioning_for_moments_at_face_of_monolithic_support !== "undefined") {
+        addon_settings.property_member_reduction_of_moments_or_dimensioning_for_moments_at_face_of_monolithic_support = property_member_reduction_of_moments_or_dimensioning_for_moments_at_face_of_monolithic_support;
+    }
+}
+
+function SetConcreteDesignMembersMinimumReinforcement (addon_settings,
+    property_member_minimum_longitudinal_reinforcement,
+    property_member_minimum_shear_reinforcement,
+    property_member_minimum_construction_reinforcement) {
+    ASSERT(members.count() > 0, "There must exist at least one member in project");
+    if (typeof property_member_minimum_longitudinal_reinforcement !== "undefined") {
+        addon_settings.property_member_minimum_longitudinal_reinforcement = property_member_minimum_longitudinal_reinforcement;
+    }
+    if (typeof property_member_minimum_shear_reinforcement !== "undefined") {
+        addon_settings.property_member_minimum_shear_reinforcement = property_member_minimum_shear_reinforcement;
+    }
+    if (typeof property_member_minimum_construction_reinforcement !== "undefined") {
+        addon_settings.property_member_minimum_construction_reinforcement = property_member_minimum_construction_reinforcement;
+    }
+}
+
+function SetConcreteDesignNeutralAxisDepthLimitation (addon_settings,
+    addon_settings_type,
+    property_consider_neutral_axis_depth_limitation,
+    property_value_of_neutral_axis_depth_limitation_user_value) {
+    ASSERT(members.count() > 0, "There must exist at least one member in project");
+    if (IsCurrentCodeOfStandard("EN")) {
+        ;   // Only user-defined value set
+    }
+    else if (IsCurrentCodeOfStandard("ACI")) {
+        if (addon_settings_type === "member") {
+            var automaticallyValue = ulsconfig_member_aci318.E_NEUTRAL_AXIS_DEPTH_LIMITATION_AUTOMATICALLY;
+            var userDefinedValue = ulsconfig_member_aci318.E_NEUTRAL_AXIS_DEPTH_LIMITATION_USER_DEFINED;
+        }
+        else {
+            ASSERT(addon_settings_type === "surface", "SetConcreteDesignNeutralAxisDepthLimitation");
+            var automaticallyValue = concrete_design_surface_ulsconfig_concrete_design_aci318.E_NEUTRAL_AXIS_DEPTH_LIMITATION_AUTOMATICALLY;
+            var userDefinedValue = concrete_design_surface_ulsconfig_concrete_design_aci318.E_NEUTRAL_AXIS_DEPTH_LIMITATION_USER_DEFINED;
+        }
+    }
+    else if (IsCurrentCodeOfStandard("CSA")) {
+        if (addon_settings_type === "member") {
+            var automaticallyValue = ulsconfig_member_csaa233.E_NEUTRAL_AXIS_DEPTH_LIMITATION_AUTOMATICALLY;
+            var userDefinedValue = ulsconfig_member_csaa233.E_NEUTRAL_AXIS_DEPTH_LIMITATION_USER_DEFINED;
+        }
+        else {
+            ASSERT(addon_settings_type === "surface", "SetConcreteDesignNeutralAxisDepthLimitation");
+            var automaticallyValue = concrete_design_surface_ulsconfig_concrete_design_csaa233.E_NEUTRAL_AXIS_DEPTH_LIMITATION_AUTOMATICALLY;
+            var userDefinedValue = concrete_design_surface_ulsconfig_concrete_design_csaa233.E_NEUTRAL_AXIS_DEPTH_LIMITATION_USER_DEFINED;
+        }
+    }
+    else {
+        ASSERT(false, "SetConcreteDesignNeutralAxisDepthLimitation - unknown code of standard (" + GetCurrentCodeOfStandard() + ")");
+    }
+    if (typeof property_consider_neutral_axis_depth_limitation !== "undefined") {
+        if (addon_settings_type === "member") {
+            addon_settings.property_member_consider_neutral_axis_depth_limitation = property_consider_neutral_axis_depth_limitation;
+        }
+        else {
+            addon_settings.property_surface_consider_neutral_axis_depth_limitation = property_consider_neutral_axis_depth_limitation;
+        }
+    }
+    if (typeof property_value_of_neutral_axis_depth_limitation_user_value !== "undefined") {
+        ASSERT(addon_settings_type === "member" ? addon_settings.property_member_consider_neutral_axis_depth_limitation : addon_settings.property_surface_consider_neutral_axis_depth_limitation, "Consider depth limitation of neutral axis acc. to 9.3.3.1 must be on");
+        if (!IsCurrentCodeOfStandard("EN")) {
+            if (typeof property_value_of_neutral_axis_depth_limitation_user_value === "string") {
+                ASSERT(property_value_of_neutral_axis_depth_limitation_user_value === "AUTOMATICALLY", "Value of neutral axis depth limitation must equal ti AUTOMATICALLY");
+                if (addon_settings_type === "member") {
+                    addon_settings.property_member_value_of_neutral_axis_depth_limitation = automaticallyValue;
+                }
+                else {
+                    addon_settings.property_surface_value_of_neutral_axis_depth_limitation = automaticallyValue;
+                }
+            }
+            else {
+                ASSERT(typeof property_value_of_neutral_axis_depth_limitation_user_value === "number", "Value of neutral axis depth limitation must be number");
+                if (addon_settings_type === "member") {
+                    addon_settings.property_member_value_of_neutral_axis_depth_limitation = userDefinedValue;
+                    addon_settings.property_member_value_of_neutral_axis_depth_limitation_user_value = property_value_of_neutral_axis_depth_limitation_user_value;
+                }
+                else {
+                    addon_settings.property_surface_value_of_neutral_axis_depth_limitation = userDefinedValue;
+                    addon_settings.property_surface_value_of_neutral_axis_depth_limitation_user_value = property_value_of_neutral_axis_depth_limitation_user_value;
+                }
+            }
+        }
+        else {
+            if (addon_settings_type === "member") {
+                addon_settings.property_member_value_of_neutral_axis_depth_limitation = property_value_of_neutral_axis_depth_limitation_user_value;
+            }
+            else {
+                addon_settings.property_surface_value_of_neutral_axis_depth_limitation = property_value_of_neutral_axis_depth_limitation_user_value;
+            }
+        }
+    }
+}
+
+function SetConcreteDesignMemberEpoxyFactorType(addon_settings,
+    epoxy_factor_type) {
+    if (IsCurrentCodeOfStandard("ACI")) {
+        var epoxy_factor_types = [
+            "EPOXY_COATED_OR_ZINC",
+            "UNCOATED_OR_ZINC_COATED"
+        ];
+        var default_value = "UNCOATED_OR_ZINC_COATED";
+    }
+	else if (IsCurrentCodeOfStandard("CSA")) {
+        var epoxy_factor_types = [
+            "EPOXY_COATED",
+            "UNCOATED"
+        ];
+        var default_value = "UNCOATED";
+    }
+    else {
+        ASSERT(false, "SetConcreteDesignMemberEpoxyFactorType - unknown code of standard (" + GetCurrentCodeOfStandard() + ")");
+    }
+	if (epoxy_factor_type !== undefined) {
+	  if (epoxy_factor_types.indexOf(epoxy_factor_type) === -1)
+      {
+        console.log("Wrong epoxy factor type. Value was: " + epoxy_factor_type);
+		console.log("Correct values are: " + epoxy_factor_types);
+		return;
+      }
+	}
+	else {
+        epoxy_factor_type = default_value;
+	}
+    switch (epoxy_factor_type) {
+        case "EPOXY_COATED_OR_ZINC":
+            addon_settings.property_epoxy_coated_or_zinc_and_epoxy_dual_coated_reinforcement = true;
+            break;
+        case "UNCOATED_OR_ZINC_COATED":
+            addon_settings.property_uncoated_or_zinc_coated_galvanized_reinforcement = true;
+            break;
+        case "EPOXY_COATED":
+            addon_settings.property_epoxy_coated_reinforcement = true;
+            break;
+        case "UNCOATED":
+            addon_settings.property_uncoated_reinforcement = true;
+            break;
+        default:
+            ASSERT(false, "SetConcreteDesignMemberEpoxyFactorType - unknown epoxy factor type");
+    }
+}
+
+function SetConcreteDesignStabilityUnbracedColumn (addon_settings,
+    property_stability_index_qy,
+    property_stability_index_qz) {
+    ASSERT(members.count() > 0, "There must exist at least one member in project");
+    if (typeof property_stability_index_qy !== "undefined") {
+        addon_settings.property_stability_index_qy = property_stability_index_qy;
+    }
+    if (typeof property_stability_index_qz !== "undefined") {
+        addon_settings.property_stability_index_qz = property_stability_index_qz;
+    }
+}

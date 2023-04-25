@@ -243,11 +243,11 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_ShearJoint = function (p
 /**
  * Sets Neutral Axis Depth Limitation
  * @param {Boolean} property_member_consider_neutral_axis_depth_limitation  Consider neutral axis depth limitation acc. to 5.6.2(2), 5.6.3(2), can be undefined (is not set, false as default)
- * @param {Number} property_member_value_of_neutral_axis_depth_limitation        Value of neutral axis depth limitation, can be undefined (is not set, 0.45 as default)
+ * @param {Number} property_member_value_of_neutral_axis_depth_limitation   Value of neutral axis depth limitation, can be undefined (is not set, 0.45 as default)
  */
 ConcreteDesignUltimateConfigurationEN.prototype.Members_NeutralAxisDepthLimitation = function(property_member_consider_neutral_axis_depth_limitation,
     property_member_value_of_neutral_axis_depth_limitation) {
-    SetConcreteDesignMembersNeutralAxisDepthLimitation(this.addon.settings_member_ec2, property_member_consider_neutral_axis_depth_limitation, property_member_value_of_neutral_axis_depth_limitation);
+    SetConcreteDesignNeutralAxisDepthLimitation(this.addon.settings_member_ec2, "member", property_member_consider_neutral_axis_depth_limitation, property_member_value_of_neutral_axis_depth_limitation);
 };
 
 /**
@@ -592,7 +592,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_RequiredShearReinforcem
  */
 ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_NeutralAxisDepthLimitation = function (property_surface_consider_neutral_axis_depth_limitation,
     property_surface_value_of_neutral_axis_depth_limitation) {
-    SetConcreteDesignSurfacesNeutralAxisDepthLimitation(this.addon.settings_surface_ec2, property_surface_consider_neutral_axis_depth_limitation, property_surface_value_of_neutral_axis_depth_limitation);
+    SetConcreteDesignNeutralAxisDepthLimitation(this.addon.settings_surface_ec2, "surface", property_surface_consider_neutral_axis_depth_limitation, property_surface_value_of_neutral_axis_depth_limitation);
 };
 
 /**

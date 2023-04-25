@@ -81,6 +81,7 @@ switch (general.current_standard_for_concrete_design)
         ultimateConfiguration.Surfaces_FiberConcrete("SDL2", false);
         break;
     case general.NATIONAL_ANNEX_AND_EDITION_ACI_318_2019_CONCRETE_DESIGN:
+        console.log(GetCurrentCodeOfStandard());
         var strengthConfiguration = new ConcreteDesignStrengthConfigurationACI(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
         strengthConfiguration.SetName("Strength configuration (ACI)");
         strengthConfiguration.Members_ConsiderInternalForces(false, undefined, true, false, false, false);
@@ -112,6 +113,31 @@ switch (general.current_standard_for_concrete_design)
         strengthConfiguration.Surfaces_NeutralAxisDepthLimitation(true, 0.795);
         break;
     case general.NATIONAL_ANNEX_AND_EDITION_CSA_A23_3_2019:
+        var ultimateConfiguration = new ConcreteDesignUltimateConfigurationCSA(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
+        ultimateConfiguration.SetName("Ultimate configuration (CSA)");
+        ultimateConfiguration.Members_ConsiderInternalForces(undefined, undefined, undefined, undefined, false, false);
+        ultimateConfiguration.Members_InternalForceReductionZ(true, true, false);
+        ultimateConfiguration.Members_RequiredLongitudinalReinforcement("TOP_BOTTOM_OPTIMIZED_DISTRIBUTION", 0.06, false);
+        ultimateConfiguration.Members_Factors(0.75, 0.95, 0.96);
+        ultimateConfiguration.Members_MinimumReinforcement(false, undefined, false);
+        ultimateConfiguration.Members_RequiredShearReinforcement("REQUIRED");
+        ultimateConfiguration.Members_ShearAndTorsionReinforcement("SPECIAL_MEMBERS", 0.5, Math.PI / 4);
+        ultimateConfiguration.Members_NeutralAxisDepthLimitation(true, "AUTOMATICALLY");
+        ultimateConfiguration.Members_CalculationSetting(true);
+        ultimateConfiguration.Members_EpoxyFactor("EPOXY_COATED");
+        ultimateConfiguration.Stability_UnbracedColumn(0.09, 0.10);
+        ultimateConfiguration.Stability_RequiredReinforcement("IN_CORNERS_SYMMETRICAL_DISTRIBUTION", 0.035);
+        ultimateConfiguration.Surfaces_DesignMethod("YES");
+        ultimateConfiguration.Surfaces_InternalForcesDiagramUsedForDesign(false);
+        ultimateConfiguration.Surfaces_Factors(0.75, 0.95, 0.85);
+        ultimateConfiguration.Surfaces_MinimumLongitudinalReinforcement(true, "PLATES", "DEFINED", [true, false, true, false]);
+        ultimateConfiguration.Surfaces_UserDefinedMinimumLongitudinalReinforcementPercentage(true, 0.01, 0.02, 0.03, 0.04);
+        ultimateConfiguration.Surfaces_UserDefinedMaximumLongitudinalReinforcementPercentage(true, 0.15);
+        ultimateConfiguration.Surfaces_MinimumShearReinforcement(false);
+        ultimateConfiguration.Surfaces_UserDefinedMinimumShearReinforcementPercentage(true, 0.05);
+        ultimateConfiguration.Surfaces_RequiredShearReinforcement("PROVIDED");
+        ultimateConfiguration.Surfaces_ShearReinforcement("SPECIAL_SURFACES", 0.22, Math.PI / 4);
+        ultimateConfiguration.Surfaces_NeutralAxisDepthLimitation(true, 0.895);
         break;
     case general.NATIONAL_ANNEX_AND_EDITION_SP_63_13330_2018_12:
         break;
