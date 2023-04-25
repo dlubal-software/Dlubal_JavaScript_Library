@@ -142,6 +142,8 @@ switch (general.current_standard_for_concrete_design)
     case general.NATIONAL_ANNEX_AND_EDITION_SP_63_13330_2018_12:
         break;
     case general.NATIONAL_ANNEX_AND_EDITION_NTC_2018_01_CONCRETE_DESIGN:
+        var ultimateConfiguration = new ConcreteDesignUltimateConfigurationNTC(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
+        ultimateConfiguration.SetName("Ultimate configuration (NTC)");
         break;
     default:
         ASSERT(false, "Unknown code of standard");
