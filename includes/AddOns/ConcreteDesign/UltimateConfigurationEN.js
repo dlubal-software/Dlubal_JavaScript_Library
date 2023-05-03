@@ -2,8 +2,11 @@
 Bug 79355: property_member_total_minumum_percentage_reinforcement_area
 Bug 81749: property_member_nett_concrete_area
 Bug?: this.addon.settings_member_ec2.property_fatigue_design_time_of_start_of_cyclic_loading_on_concrete cannot be set
-Missing API support for Punching and Standard Parameters?
 */
+
+if (!PRERELEASE_MODE) {
+    throw new Error("This script is only for RFEM PRERELEASE.");
+}
 
 /**
  * Creates Concrete design ultimate configuration (EN standard)
@@ -63,7 +66,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_ConsiderInternalForces =
     property_member_torsional_moments,
     property_member_shear_forces_vy,
     property_member_shear_forces_vz) {
-    Members_ConcreteDesignConsiderInternalForces(this.addon.settings_member_ec2, property_member_axial_forces, property_member_bending_moments_my, property_member_bending_moments_mz, property_member_torsional_moments,
+    SetConcreteDesignMembersConsiderInternalForces(this.addon.settings_member_ec2, property_member_axial_forces, property_member_bending_moments_my, property_member_bending_moments_mz, property_member_torsional_moments,
         property_member_shear_forces_vy, property_member_shear_forces_vz);
 };
 
@@ -111,7 +114,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_RequiredLongitudinalRein
     property_member_reinforcement_distribute_over_slab,
     property_member_reinforcement_distribute_over_slab_reduced_width,
     property_member_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement) {
-    Members_ConcreteDesignRequiredLongitudinalReinforcement(this.addon.settings_member_ec2, property_member_reinforcement_layout, property_member_reinforcement_diameter_for_preliminary_design, property_member_reinforcement_distribute_over_slab,
+    SetConcreteDesignMembersRequiredLongitudinalReinforcement(this.addon.settings_member_ec2, property_member_reinforcement_layout, property_member_reinforcement_diameter_for_preliminary_design, property_member_reinforcement_distribute_over_slab,
         property_member_reinforcement_distribute_over_slab_reduced_width, property_member_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement);
 };
 
@@ -529,7 +532,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_MaximumLongitudinalRein
     }
     if (typeof reinforcement_type !== "undefined") {
         ASSERT(this.addon.settings_surface_ec2.property_maximum_longitudinal_reinforcement_acc_to_standard, "Maximum longitudinal reinforcement acc. to standard must be on");
-        SetConcreteReinforcementMaximumLongitudinalReinforcementType(this.addon, reinforcement_type);
+        SetConcreteDesignReinforcementMaximumLongitudinalReinforcementType(this.addon, reinforcement_type);
     }
 };
 
@@ -609,7 +612,603 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_FiberConcrete = functio
     }
 };
 
-function SetConcreteReinforcementMaximumLongitudinalReinforcementType(addon,
+/**
+ * Sets Structural Element
+ * @param {String} property_node_structure_element_type     Structural element type (AUTO, SLAB, FOUNDATION), can be undefined (is not set, AUTO as default)
+ */
+ConcreteDesignUltimateConfigurationEN.prototype.Punching_StructuralElement = function (property_node_structure_element_type) {
+    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
+    this.addon.settings_node_ec2.property_node_structure_element_type = GetConcreteDesignPunchingStructuralElementType(property_node_structure_element_type);
+};
+
+/**
+ * Sets Punching Load - Columns
+ * @param {String} property_node_used_punching_load_for_columns                                 Used punching load for columns (SINGLE_FORCE, SMOOTHED_SHEAR_FORCE, UNSMOOTHED_SHEAR_FORCE, USER_DEFINED), can be undefined (is not set, SINGLE_FORCE as default)
+ * @param {Number} property_node_used_defined_value_of_punching_force                           User defined value of punching force, can be undefined (is not set, 100 kN as default)
+ * @param {String} property_node_direction_of_punching_force                                    Direction of punching force (DETERMINE, PLUS_Z, MINUS_Z), can be undefined (is not set, DETERMINE as default)
+ * @param {Boolean} property_node_used_punching_load_inside_critical_perimeter_for_columns      Consider surface load inside critical perimeter, can be undefined (is not set, false as default)
+ * @param {Boolean} property_user_defined_load_inside_critical_perimeter_factor_for_columns     User-defined surface load inside critical perimeter, can be undefined (is not set, false as default)
+ * @param {Number} property_node_load_inside_critical_perimeter_factor_for_columns              User-defined Load inside critical perimeter factor for columns, can be undefined (is not set, 10 kn/m2 as default)
+ */
+ConcreteDesignUltimateConfigurationEN.prototype.Punching_PunchingLoadForColumns = function (property_node_used_punching_load_for_columns,
+    property_node_used_defined_value_of_punching_force,
+    property_node_direction_of_punching_force,
+    property_node_used_punching_load_inside_critical_perimeter_for_columns,
+    property_user_defined_load_inside_critical_perimeter_factor_for_columns,
+    property_node_load_inside_critical_perimeter_factor_for_columns) {
+    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
+    this.addon.settings_node_ec2.property_node_used_punching_load_for_columns = GetConcreteDesignPunchingLoadForColumnsType(property_node_used_punching_load_for_columns);
+    if (typeof property_node_used_defined_value_of_punching_force !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_used_punching_load_for_columns === concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_USER_DEFINED, "User-defined load for columns must be defined");
+        this.addon.settings_node_ec2.property_node_used_defined_value_of_punching_force = property_node_used_defined_value_of_punching_force;
+    }
+    this.addon.settings_node_ec2.property_node_direction_of_punching_force = GetConcreteDesignPunchingDirectionForceType(property_node_direction_of_punching_force);
+    if (typeof property_node_used_punching_load_inside_critical_perimeter_for_columns !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_used_punching_load_for_columns !== concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE, concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE + " must be not defined");
+        this.addon.settings_node_ec2.property_node_used_punching_load_inside_critical_perimeter_for_columns = property_node_used_punching_load_inside_critical_perimeter_for_columns;
+    }
+    if (typeof property_user_defined_load_inside_critical_perimeter_factor_for_columns !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_used_punching_load_inside_critical_perimeter_for_columns, "Consider surface load inside critical perimeter must be on");
+        this.addon.settings_node_ec2.property_user_defined_load_inside_critical_perimeter_factor_for_columns = property_user_defined_load_inside_critical_perimeter_factor_for_columns;
+    }
+    if (typeof property_node_load_inside_critical_perimeter_factor_for_columns !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_user_defined_load_inside_critical_perimeter_factor_for_columns, "User-defined surface load inside critical perimeter must be on");
+        this.addon.settings_node_ec2.property_node_load_inside_critical_perimeter_factor_for_columns = property_node_load_inside_critical_perimeter_factor_for_columns;
+    }
+};
+
+/**
+ * Sets Punching Load - Walls
+ * @param {String} property_node_used_punching_load_for_walls                                   Used punching load for walls, can be undefined (is not set, SMOOTHED_SHEAR_FORCE as default)
+ * @param {Boolean} property_node_used_punching_load_inside_critical_perimeter_for_walls        Consider surface load inside critical perimeter, can be undefined (is not set, false as default)
+ * @param {Boolean} property_user_defined_load_inside_critical_perimeter_factor_for_walls       User-defined surface load inside critical perimeter, can be undefined (is not set, false as default)
+ * @param {Number} property_node_load_inside_critical_perimeter_factor_for_walls                User-defined load inside critical perimeter factor for walls, can be undefined (is not set, 12 kN/m2 as default)
+ */
+ConcreteDesignUltimateConfigurationEN.prototype.Punching_PunchingLoadForWalls = function (property_node_used_punching_load_for_walls,
+    property_node_used_punching_load_inside_critical_perimeter_for_walls,
+    property_user_defined_load_inside_critical_perimeter_factor_for_walls,
+    property_node_load_inside_critical_perimeter_factor_for_walls) {
+    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
+    this.addon.settings_node_ec2.property_node_used_punching_load_for_walls = GetConcreteDesignPunchingLoadForWallsType(property_node_used_punching_load_for_walls);
+    if (typeof property_node_used_punching_load_inside_critical_perimeter_for_walls !== "undefined") {
+        this.addon.settings_node_ec2.property_node_used_punching_load_inside_critical_perimeter_for_walls = property_node_used_punching_load_inside_critical_perimeter_for_walls;
+    }
+    if (typeof property_user_defined_load_inside_critical_perimeter_factor_for_walls !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_used_punching_load_inside_critical_perimeter_for_columns, "Consider surface load inside critical perimeter must be on");
+        this.addon.settings_node_ec2.property_user_defined_load_inside_critical_perimeter_factor_for_walls = property_user_defined_load_inside_critical_perimeter_factor_for_walls;
+    }
+    if (typeof property_node_load_inside_critical_perimeter_factor_for_walls !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_user_defined_load_inside_critical_perimeter_factor_for_walls, "User-defined surface load inside critical perimeter must be on");
+        this.addon.settings_node_ec2.property_node_load_inside_critical_perimeter_factor_for_walls = property_node_load_inside_critical_perimeter_factor_for_walls;
+    }
+};
+
+/**
+ * Sets Punching load - Deductible surface load for slab
+ * @param {Boolean} property_node_deductible_surface_load_for_slab                  Deductible surface load for slab, can be undefined (is not set, false as default)
+ * @param {String} surface_load_for_slab_type                                       Used punching load for walls (AUTOMATICALLY, USER_DEFINED), can be undefined (is not set, AUTOMATICALLY as default)
+ * @param {Number} property_node_deductible_portion_for_slab                        Deductible portion, can be undefined (is not set, 100% as default)
+ * @param {Number} property_node_deductible_portion_for_slab_user_defined_value     User-defined deductible portion for slab value, can be undefined (is not set, 10 kN/m2 as default)
+ * @param {String} property_node_distance_deductible_surface                        Distance of deductible surface (L_W_OUT, K_D), can be undefined (is not set, L_W_OUT as default)
+ * @param {String} property_node_multiple_static_depth_for_slab                     Multiple static depth (k * d), can be undefined (is not set, 1 as default)
+ */
+ConcreteDesignUltimateConfigurationEN.prototype.Punching_DeductibleSurfaceLoadForSlab = function (property_node_deductible_surface_load_for_slab,
+    surface_load_for_slab_type,
+    property_node_deductible_portion_for_slab,
+    property_node_deductible_portion_for_slab_user_defined_value,
+    property_node_distance_deductible_surface,
+    property_node_multiple_static_depth_for_slab) {
+    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
+    if (typeof property_node_deductible_surface_load_for_slab !== "undefined") {
+        this.addon.settings_node_ec2.property_node_deductible_surface_load_for_slab = property_node_deductible_surface_load_for_slab;
+    }
+    if (typeof surface_load_for_slab_type !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_deductible_surface_load_for_slab, "Deductible surface load for slab must be on");
+        SetConcreteDesignDeductibleSurfaceLoadForSlabType(this.addon, surface_load_for_slab_type);
+    }
+    if (typeof property_node_deductible_portion_for_slab !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_deductible_surface_load_for_slab, "Deductible surface load for slab must be on");
+        ASSERT(this.addon.settings_node_ec2.property_node_deductible_surface_load_for_slab, "Punching load automatically must be set");
+        this.addon.settings_node_ec2.property_node_deductible_portion_for_slab = property_node_deductible_portion_for_slab;
+    }
+    if (typeof property_node_deductible_portion_for_slab_user_defined_value !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_deductible_surface_load_for_slab, "Deductible surface load for slab must be on");
+        ASSERT(this.addon.settings_node_ec2.property_node_deductible_portion_for_slab_user_defined, "Punching load user-defined must be set");
+        this.addon.settings_node_ec2.property_node_deductible_portion_for_slab_user_defined_value = property_node_deductible_portion_for_slab_user_defined_value;
+    }
+    if (typeof property_node_distance_deductible_surface !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_deductible_surface_load_for_slab, "Deductible surface load for slab must be on");
+        this.addon.settings_node_ec2.property_node_distance_deductible_surface = GetConcreteDesignDistanceOfDeductibleSurfaceType(property_node_distance_deductible_surface);
+    }
+    if (typeof property_node_multiple_static_depth_for_slab !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_distance_deductible_surface === GetConcreteDesignDistanceOfDeductibleSurfaceType("K_D"), "Distance of deductible surface must be of K_D type");
+        this.addon.settings_node_ec2.property_node_multiple_static_depth_for_slab = property_node_multiple_static_depth_for_slab;
+    }
+};
+
+ConcreteDesignUltimateConfigurationEN.prototype.Punching_FactorBeta = function (property_node_factor_beta_estimated_according_to_clause,
+    property_node_defined_factor_beta) {
+    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
+    this.addon.settings_node_ec2.property_node_factor_beta_estimated_according_to_clause = GetConcreteDesignMethodDeterminationFactorBetaType(property_node_factor_beta_estimated_according_to_clause);
+    if (typeof property_node_defined_factor_beta !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_factor_beta_estimated_according_to_clause === GetConcreteDesignMethodDeterminationFactorBetaType("USER_DEFINITION"), "Applied method for determining factor β must be of USER_DEFINITION type");
+        this.addon.settings_node_ec2.property_node_defined_factor_beta = property_node_defined_factor_beta;
+    }
+};
+
+/**
+ * Sets Loaded Area of Punching Node
+ * @param {Boolean} property_node_define_loaded_area_for_punching_node_type_column      Define loaded area for punching node type "Column", can be undefined (is not set, false as default)
+ * @param {String} property_node_shape_of_loaded_area                                   Shape of loaded area (RECTANGULAR, CIRCULAR), can be undefined (is not set, RECTANGULAR as default)
+ * @param {Array} shape_parameters                                                      - [Width in direction x, Width in direction y, Rotation] array for RECTANGULAR shape of loaded area
+ *                                                                                      - [Diameter] array for CIRCULAR shape of loaded area
+ * @param {Boolean} property_node_define_wall_thicknesses_for_punching_node_type_wall   Define wall thicknesses for punching node type "Wall", can be undefined (is not set, false as default) 
+ * @param {Number} property_node_wall_thickness_1                                       Wall thickness 1 (Wall End, Wall Corner), can be undefined (is not set, 0.24 m as default)
+ * @param {Number} property_node_wall_thickness_2                                       Wall thickness 2 (Wall Corner), can be undefined (is not set, 0.2 m as default)
+ */
+ConcreteDesignUltimateConfigurationEN.prototype.Punching_LoadedAreaOfPunchingNode = function (property_node_define_loaded_area_for_punching_node_type_column,
+    property_node_shape_of_loaded_area,
+    shape_parameters,
+    property_node_define_wall_thicknesses_for_punching_node_type_wall,
+    property_node_wall_thickness_1,
+    property_node_wall_thickness_2) {
+    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
+    if (typeof property_node_define_loaded_area_for_punching_node_type_column !== "undefined") {
+        this.addon.settings_node_ec2.property_node_define_loaded_area_for_punching_node_type_column = property_node_define_loaded_area_for_punching_node_type_column;
+    }
+    if (typeof property_node_shape_of_loaded_area !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_define_loaded_area_for_punching_node_type_column, "Define loaded area for punching node type \"Column\" must be on");
+        this.addon.settings_node_ec2.property_node_shape_of_loaded_area = GetConcreteDesignShapeOfLoadedAreaType(property_node_shape_of_loaded_area);
+    }
+    if (typeof shape_parameters !== "undefined") {
+        ASSERT(Array.isArray(shape_parameters), "shape_parameters must be defined as array of parameters");
+        if (this.addon.settings_node_ec2.property_node_shape_of_loaded_area === GetConcreteDesignShapeOfLoadedAreaType("RECTANGULAR")) {
+            ASSERT(shape_parameters.length == 3, "shape parameters must be specified as array: [width x, width y, rotation]");
+            this.addon.settings_node_ec2.property_node_rectangular_shape_width_in_direction_x = shape_parameters[0];
+            this.addon.settings_node_ec2.property_node_rectangular_shape_width_in_direction_y = shape_parameters[1];
+            this.addon.settings_node_ec2.property_node_rectangular_shape_rotation = shape_parameters[2];
+        }
+        else if (this.addon.settings_node_ec2.property_node_shape_of_loaded_area === GetConcreteDesignShapeOfLoadedAreaType("CIRCULAR")) {
+            ASSERT(shape_parameters.length == 1, "shape parameters must be specified as array: [diameter]");
+            this.addon.settings_node_ec2.property_node_circular_shape_diameter = shape_parameters[0];
+        }
+        else {
+            ASSERT(false, "Punching_LoadedAreaOfPunchingNode");
+        }
+    }
+    if (typeof property_node_define_wall_thicknesses_for_punching_node_type_wall !== "undefined") {
+        this.addon.settings_node_ec2.property_node_define_wall_thicknesses_for_punching_node_type_wall = property_node_define_wall_thicknesses_for_punching_node_type_wall;
+    }
+    if (typeof property_node_wall_thickness_1 !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_define_wall_thicknesses_for_punching_node_type_wall, "Define wall thicknesses for punching node type \"Wall\" must be on");
+        this.addon.settings_node_ec2.property_node_wall_thickness_1 = property_node_wall_thickness_1;
+    }
+    if (typeof property_node_wall_thickness_2 !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_define_wall_thicknesses_for_punching_node_type_wall, "Define wall thicknesses for punching node type \"Wall\" must be on");
+        this.addon.settings_node_ec2.property_node_wall_thickness_2 = property_node_wall_thickness_2;
+    }
+};
+
+/**
+ * Sets Basic control perimeter
+ * @param {Boolean} property_node_define_critical_section_for_slab  Define critical section for slab, can be undefined (is not set, false as default)
+ * @param {Number} property_node_distance                           Distance, can be undefined (is not set, 0.29 m as default)
+ */
+ConcreteDesignUltimateConfigurationEN.prototype.Punching_BasicControlPerimeter = function (property_node_define_critical_section_for_slab,
+    property_node_distance) {
+    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
+    if (typeof property_node_define_critical_section_for_slab !== "undefined") {
+        this.addon.settings_node_ec2.property_node_define_critical_section_for_slab = property_node_define_critical_section_for_slab;
+    }
+    if (typeof property_node_distance !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_define_critical_section_for_slab, "Define critical section for slab must be on");
+        this.addon.settings_node_ec2.property_node_distance = property_node_distance;
+    }
+};
+
+/**
+ * Sets Mean effective depth
+ * @param {Boolean} property_node_define_region_of_detection_of_effective_depth     The minimum effective depth is used for the calculation in this area, can be undefined (is not set, false as default)
+ * @param {Number} property_node_distance_from_loading_area                         Distance from loading area, can be undefined (is not set, 0.5 m as default)
+ * @param {Boolean} property_node_column_penetration                                Column penetration reduces mean effective depth, can be undefined (is not set, false as default)
+ * @param {Number} property_node_penetration_on_top_side                            Penetration on top side (-z), can be undefined (is not set, 0.02 m as default)
+ * @param {Number} property_node_penetration_on_bottom_side                         Penetration on bottom side (+z), can be undefined (is not set, 0.02 m as default)
+ */
+ConcreteDesignUltimateConfigurationEN.prototype.Punching_MeanEffectiveDepth = function (property_node_define_region_of_detection_of_effective_depth,
+    property_node_distance_from_loading_area,
+    property_node_column_penetration,
+    property_node_penetration_on_top_side,
+    property_node_penetration_on_bottom_side) {
+    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
+    if (typeof property_node_define_region_of_detection_of_effective_depth !== "undefined") {
+        this.addon.settings_node_ec2.property_node_define_region_of_detection_of_effective_depth = property_node_define_region_of_detection_of_effective_depth;
+    }
+    if (typeof property_node_distance_from_loading_area !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_define_region_of_detection_of_effective_depth, "The minimum effective depth is used for the calculation in this area must be on");
+        this.addon.settings_node_ec2.property_node_distance_from_loading_area = property_node_distance_from_loading_area;
+    }
+    if (typeof property_node_column_penetration !== "undefined") {
+        this.addon.settings_node_ec2.property_node_column_penetration = property_node_column_penetration;
+    }
+    if (typeof property_node_penetration_on_top_side !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_column_penetration, "Column penetration reduces mean effective depth must be on");
+        this.addon.settings_node_ec2.property_node_penetration_on_top_side = property_node_penetration_on_top_side;
+    }
+    if (typeof property_node_penetration_on_bottom_side !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_column_penetration, "Column penetration reduces mean effective depth must be on");
+        this.addon.settings_node_ec2.property_node_penetration_on_bottom_side = property_node_penetration_on_bottom_side;
+    }
+};
+
+/**
+ * Sets Punching shear reinforcement
+ * @param {Number} property_node_punch_s_r_min                                                      Minimum Spacing of Reinforcement Perimeters, can be undefined (is not set, 0.1 m as default)
+ * @param {Boolean} property_node_define_perimeter                                                  Define perimeter, can be undefined (is not set, false as default)
+ * @param {Boolean} property_node_define_sections_for_analysis_of_punching_shear_reinforcement      Define sections for analysis of punching shear reinforcement, can be undefined (is not set, false as default)
+ * @param {Number} property_node_number_of_inner_control_perimeters                                 Number of inner control perimeter, can be undefined (is not set, 2 as default)
+ * @param {Boolean} property_node_define_distance_to_loaded_area                                    Distance to load area, can be undefined (is not set, false as default)
+ * @param {Number} property_node_first_distance                                                     1st distance, can be undefined (is not set, 0.3 m as default)
+ * @param {Number} property_node_radial_spacing                                                     Radial spacing, can be undefined (is not set, 0.2 m as default)
+ * @param {Boolean} property_node_define_outer_control_perimeter                                    Define outer control perimeter, can be undefined (is not set, false as default)
+ * @param {Number} property_node_distance_of_outer_control_perimeter_to_loaded_area                 Distance to load area, can be undefined (is not set, 2 m as default)
+ */
+ConcreteDesignUltimateConfigurationEN.prototype.Punching_PunchingShearReinforcement = function (property_node_punch_s_r_min,
+    property_node_define_perimeter,
+    property_node_define_sections_for_analysis_of_punching_shear_reinforcement,
+    property_node_number_of_inner_control_perimeters,
+    property_node_define_distance_to_loaded_area,
+    property_node_first_distance,
+    property_node_radial_spacing,
+    property_node_define_outer_control_perimeter,
+    property_node_distance_of_outer_control_perimeter_to_loaded_area) {
+    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
+    if (typeof property_node_punch_s_r_min !== "undefined") {
+        this.addon.settings_node_ec2.property_node_punch_s_r_min = property_node_punch_s_r_min;
+    }
+    if (typeof property_node_define_perimeter !== "undefined") {
+        this.addon.settings_node_ec2.property_node_define_perimeter = property_node_define_perimeter;
+    }
+    if (typeof property_node_define_sections_for_analysis_of_punching_shear_reinforcement !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_define_perimeter, "Define perimeter must be on");
+        this.addon.settings_node_ec2.property_node_define_sections_for_analysis_of_punching_shear_reinforcement = property_node_define_sections_for_analysis_of_punching_shear_reinforcement;
+    }
+    if (typeof property_node_number_of_inner_control_perimeters !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_define_sections_for_analysis_of_punching_shear_reinforcement, "Define sections for analysis of punching shear reinforcement must be on");
+        this.addon.settings_node_ec2.property_node_number_of_inner_control_perimeters = property_node_number_of_inner_control_perimeters;
+    }
+    if (typeof property_node_define_distance_to_loaded_area !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_define_sections_for_analysis_of_punching_shear_reinforcement, "Define sections for analysis of punching shear reinforcement must be on");
+        this.addon.settings_node_ec2.property_node_define_distance_to_loaded_area = property_node_define_distance_to_loaded_area;
+    }
+    if (typeof property_node_first_distance !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_define_distance_to_loaded_area, "Distance to load area must be on");
+        this.addon.settings_node_ec2.property_node_first_distance = property_node_first_distance;
+    }
+    if (typeof property_node_radial_spacing !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_define_distance_to_loaded_area, "Distance to load area must be on");
+        this.addon.settings_node_ec2.property_node_radial_spacing = property_node_radial_spacing;
+    }
+    if (typeof property_node_define_outer_control_perimeter !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_define_perimeter, "Define perimeter must be on");
+        this.addon.settings_node_ec2.property_node_define_outer_control_perimeter = property_node_define_outer_control_perimeter;
+    }
+    if (typeof property_node_distance_of_outer_control_perimeter_to_loaded_area !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_define_outer_control_perimeter, "Define outer control perimeter must be on");
+        this.addon.settings_node_ec2.property_node_distance_of_outer_control_perimeter_to_loaded_area = property_node_distance_of_outer_control_perimeter_to_loaded_area;
+    }
+};
+
+/**
+ * Sets Additional Parameters
+ * @param {String/Number} property_node_variable_thickness_definition   Definition of variable thickness (AUTO or user-defined number), can be undefined (is not set, AUTO as default)
+ * @param {String/Number} property_node_reference_surfaces_thickness    Thickness of reference surfaces (MINIMUM_THICKNESS, MAXIMUM_THICKNESS, SELECTED or user-defined value), can be undefined (is not set, MINIMUM_THICKNESS as default)
+ * @param {Number} property_node_reference_surface_no                   Reference surface No., can be undefined (is not set, 1 as default)
+ */
+ConcreteDesignUltimateConfigurationEN.prototype.Punching_AdditionalParameters = function (property_node_variable_thickness_definition,
+    property_node_reference_surfaces_thickness,
+    property_node_reference_surface_no) {
+    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
+    if (typeof property_node_variable_thickness_definition !== "undefined") {
+        if (typeof property_node_variable_thickness_definition === "string") {
+            ASSERT(property_node_variable_thickness_definition === "AUTO", "Definition of variable thickness must be of AUTO type");
+            this.addon.settings_node_ec2.property_node_variable_thickness_definition = concrete_design_node_ulsconfig_concrete_design_ec2.E_VARIABLE_THICKNESS_DEFINITION_TYPE_AUTO;
+        }
+        else {
+            ASSERT(typeof property_node_variable_thickness_definition === "number", "Definition of variable thickness must be number");
+            this.addon.settings_node_ec2.property_node_variable_thickness_definition = concrete_design_node_ulsconfig_concrete_design_ec2.E_VARIABLE_THICKNESS_DEFINITION_TYPE_USER_DEFINED;
+            this.addon.settings_node_ec2.property_node_variable_thickness_definition_user_value = property_node_variable_thickness_definition;
+        }
+    }
+    if (typeof property_node_reference_surfaces_thickness !== "undefined") {
+        if (typeof property_node_reference_surfaces_thickness === "string") {
+            this.addon.settings_node_ec2.property_node_reference_surfaces_thickness = GetConcreteDesignReferenceSurfacesThicknessType(property_node_reference_surfaces_thickness);
+        }
+        else {
+            ASSERT(typeof property_node_reference_surfaces_thickness === "number", "Thickness of reference surfaces must be number");
+            this.addon.settings_node_ec2.property_node_reference_surfaces_thickness = GetConcreteDesignReferenceSurfacesThicknessType("USER_DEFINED");
+            this.addon.settings_node_ec2.property_node_reference_surfaces_thickness_user_value = property_node_reference_surfaces_thickness;
+        }
+    }
+    if (typeof property_node_reference_surface_no !== "undefined") {
+        ASSERT(this.addon.settings_node_ec2.property_node_reference_surfaces_thickness === GetConcreteDesignReferenceSurfacesThicknessType("SELECTED"), "Thickness of reference surfaces must be of SELECTED type");
+        this.addon.settings_node_ec2.property_node_reference_surface_no = property_node_reference_surface_no;
+    }
+};
+
+/**
+ * Sets Axial Force Definition
+ * @param {String/Number} property_node_axial_force     Axial force (DETERMINE or user-value magnitude), can be undefined (is not set, DETERMINE as default)
+ */
+ConcreteDesignUltimateConfigurationEN.prototype.Punching_AxialForceDefinition = function (property_node_axial_force) {
+    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
+    if (typeof property_node_axial_force !== "undefined") {
+        if (typeof property_node_axial_force === "string") {
+            ASSERT(property_node_axial_force === "DETERMINE", "Only DETERMINE string type is allowed");
+            this.addon.settings_node_ec2.property_node_axial_force = concrete_design_node_ulsconfig_concrete_design_ec2.E_AXIAL_FORCE_TYPE_DETERMINE;
+        }
+        else {
+            ASSERT(typeof property_node_axial_force === "number", "User-defined value is allowed");
+            this.addon.settings_node_ec2.property_node_axial_force = concrete_design_node_ulsconfig_concrete_design_ec2.E_AXIAL_FORCE_TYPE_ENTER;
+            this.addon.settings_node_ec2.property_node_magnitude = property_node_axial_force;
+        }
+    }
+};
+
+/**
+ * Sets Required Punching Reinforcement - Punching Shear Capacity
+ * @param {String} reinforcement_type   Required Punching Reinforcement - Punching Shear Capacity (REQUIRED, PROVIDED, CALCULATED), can be undefined (is not set, CALCULATED as default)
+ *                                      - Use required longitudinal reinforcement (REQUIRED)
+ *                                      - Use provided longitudinal reinforcement (PROVIDED)
+ *                                      - Calculate required longitudinal reinforcement to avoid punching reinforcement or fulfill Eq. 6.52 (CALCULATED)
+ */
+ConcreteDesignUltimateConfigurationEN.prototype.Punching_RequiredPunchingReinforcement_PunchingShareCapacity = function (reinforcement_type) {
+    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
+    SetConcreteDesignRequiredPunchingReinforcementPunchingShareCapacityType(this.addon, reinforcement_type);
+};
+
+/**
+ * Sets Minimum Reinforcement Acc. to Standard
+ * @param {Boolean} property_node_minimum_punching_reinforcement    Minimum punching reinforcement acc. to 9.4.3(2), can be undefined (true as default)
+ */
+ConcreteDesignUltimateConfigurationEN.prototype.Punching_MinimumReinforcement = function (property_node_minimum_punching_reinforcement) {
+    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
+    if (typeof property_node_minimum_punching_reinforcement === "undefined") {
+        property_node_minimum_punching_reinforcement = true;
+    }
+    this.addon.settings_node_ec2.property_node_minimum_punching_reinforcement = property_node_minimum_punching_reinforcement;
+};
+
+function SetConcreteDesignRequiredPunchingReinforcementPunchingShareCapacityType(addon,
+    reinforcement_type) {
+        reinforcement_types = [
+            "REQUIRED",
+            "PROVIDED",
+            "CALCULATED"
+    ];
+	if (reinforcement_type !== undefined) {
+	  if (reinforcement_types.indexOf(reinforcement_type) === -1)
+      {
+        console.log("Wrong punching reinforcement share capacity type. Value was: " + reinforcement_type);
+		console.log("Correct values are: " + reinforcement_types);
+		return;
+      }
+	}
+	else {
+        reinforcement_type = "CALCULATED";
+	}
+    switch (reinforcement_type) {
+        case "REQUIRED":
+            addon.settings_node_ec2.property_node_punching_shear_capacity_use_required = true;
+            break;
+        case "PROVIDED":
+            addon.settings_node_ec2.property_node_punching_shear_capacity_use_provided = true;
+            break;
+        case "CALCULATED":
+            addon.settings_node_ec2.property_node_punching_shear_capacity_automatically_increase_required = true;
+            break;
+        default:
+            ASSERT(false, "SetConcreteDesignRequiredPunchingReinforcementPunchingShareCapacityType - unknown punching reinforcement share capacity type");
+    }
+}
+
+function GetConcreteDesignReferenceSurfacesThicknessType(thickness_type) {
+	const thickness_types_dict = {
+        "MINIMUM_THICKNESS": concrete_design_node_ulsconfig_concrete_design_ec2.E_REFERENCE_SURFACES_THICKNESS_TYPE_MINIMUM_THICKNESS,
+        "MAXIMUM_THICKNESS": concrete_design_node_ulsconfig_concrete_design_ec2.E_REFERENCE_SURFACES_THICKNESS_TYPE_MAXIMUM_THICKNESS,
+        "USER_DEFINED": concrete_design_node_ulsconfig_concrete_design_ec2.E_REFERENCE_SURFACES_THICKNESS_TYPE_USER_DEFINED,
+        "SELECTED": concrete_design_node_ulsconfig_concrete_design_ec2.E_REFERENCE_SURFACES_THICKNESS_TYPE_SELECTED
+	};
+
+	if (thickness_type !== undefined) {
+	  var type = thickness_types_dict[thickness_type];
+	  if (type === undefined) {
+		console.log("Wrong reference surface thickness type. Value was: " + thickness_type);
+		console.log("Correct values are: " + Object.keys(thickness_types_dict));
+		type = concrete_design_node_ulsconfig_concrete_design_ec2.E_REFERENCE_SURFACES_THICKNESS_TYPE_MINIMUM_THICKNESS;
+	  }
+	  return type;
+	}
+	else {
+	  return concrete_design_node_ulsconfig_concrete_design_ec2.E_REFERENCE_SURFACES_THICKNESS_TYPE_MINIMUM_THICKNESS;
+	}
+}
+
+function GetConcreteDesignShapeOfLoadedAreaType(area_type) {
+	const area_types_dict = {
+        "RECTANGULAR": concrete_design_node_ulsconfig_concrete_design_ec2.E_SHAPE_OF_LOADED_AREA_RECTANGULAR,
+        "CIRCULAR": concrete_design_node_ulsconfig_concrete_design_ec2.E_SHAPE_OF_LOADED_AREA_CIRCULAR
+	};
+
+	if (area_type !== undefined) {
+	  var type = area_types_dict[area_type];
+	  if (type === undefined) {
+		console.log("Wrong shape of loaded area type. Value was: " + area_type);
+		console.log("Correct values are: " + Object.keys(area_types_dict));
+		type = concrete_design_node_ulsconfig_concrete_design_ec2.E_SHAPE_OF_LOADED_AREA_RECTANGULAR;
+	  }
+	  return type;
+	}
+	else {
+	  return concrete_design_node_ulsconfig_concrete_design_ec2.E_SHAPE_OF_LOADED_AREA_RECTANGULAR;
+	}
+}
+
+function GetConcreteDesignMethodDeterminationFactorBetaType(determination_method_type) {
+	const determination_method_types_dict = {
+        "FULL_PLASTIC_SHEAR_DISTRIBUTION": concrete_design_node_ulsconfig_concrete_design_ec2.E_FACTOR_BETA_ESTIMATED_ACCORDING_TO_CLAUSE_TYPE_FULL_PLASTIC_SHEAR_DISTRIBUTION,
+        "CONSTANT_FACTORS": concrete_design_node_ulsconfig_concrete_design_ec2.E_FACTOR_BETA_ESTIMATED_ACCORDING_TO_CLAUSE_TYPE_CONSTANT_FACTORS,
+        "DETERMINED_BY_SECTOR_METHOD": concrete_design_node_ulsconfig_concrete_design_ec2.E_FACTOR_BETA_ESTIMATED_ACCORDING_TO_CLAUSE_TYPE_DETERMINED_BY_SECTOR_METHOD,
+        "USER_DEFINITION": concrete_design_node_ulsconfig_concrete_design_ec2.E_FACTOR_BETA_ESTIMATED_ACCORDING_TO_CLAUSE_TYPE_USER_DEFINITION
+	};
+
+	if (determination_method_type !== undefined) {
+	  var type = determination_method_types_dict[determination_method_type];
+	  if (type === undefined) {
+		console.log("Wrong method determination factor beta type. Value was: " + determination_method_type);
+		console.log("Correct values are: " + Object.keys(determination_method_types_dict));
+		type = concrete_design_node_ulsconfig_concrete_design_ec2.E_FACTOR_BETA_ESTIMATED_ACCORDING_TO_CLAUSE_TYPE_FULL_PLASTIC_SHEAR_DISTRIBUTION;
+	  }
+	  return type;
+	}
+	else {
+	  return concrete_design_node_ulsconfig_concrete_design_ec2.E_FACTOR_BETA_ESTIMATED_ACCORDING_TO_CLAUSE_TYPE_FULL_PLASTIC_SHEAR_DISTRIBUTION;
+	}
+}
+
+function GetConcreteDesignDistanceOfDeductibleSurfaceType(deductible_surface_type) {
+	const deductible_surface_types_dict = {
+        "L_W_OUT": concrete_design_node_ulsconfig_concrete_design_ec2.E_DISTANCE_DEDUCTIBLE_SURFACE_L_W_OUT,
+        "K_D": concrete_design_node_ulsconfig_concrete_design_ec2.E_DISTANCE_DEDUCTIBLE_SURFACE_K_D
+	};
+
+	if (deductible_surface_type !== undefined) {
+	  var type = deductible_surface_types_dict[deductible_surface_type];
+	  if (type === undefined) {
+		console.log("Wrong distance deductible surface type. Value was: " + deductible_surface_types_dict);
+		console.log("Correct values are: " + Object.keys(deductible_surface_type));
+		type = concrete_design_node_ulsconfig_concrete_design_ec2.E_DISTANCE_DEDUCTIBLE_SURFACE_L_W_OUT;
+	  }
+	  return type;
+	}
+	else {
+	  return concrete_design_node_ulsconfig_concrete_design_ec2.E_DISTANCE_DEDUCTIBLE_SURFACE_L_W_OUT;
+	}
+}
+
+function SetConcreteDesignDeductibleSurfaceLoadForSlabType(addon,
+    surface_load_for_slab_type) {
+        surface_load_for_slab_types = [
+            "AUTOMATICALLY",
+            "USER_DEFINED"
+    ];
+	if (surface_load_for_slab_type !== undefined) {
+	  if (surface_load_for_slab_types.indexOf(surface_load_for_slab_type) === -1)
+      {
+        console.log("Wrong deductible surface load for slab type. Value was: " + surface_load_for_slab_type);
+		console.log("Correct values are: " + surface_load_for_slab_types);
+		return;
+      }
+	}
+	else {
+        surface_load_for_slab_type = "AUTOMATICALLY";
+	}
+    switch (surface_load_for_slab_type) {
+        case "AUTOMATICALLY":
+            addon.settings_node_ec2.property_node_deductible_surface_load_for_slab = true;
+            break;
+        case "USER_DEFINED":
+            addon.settings_node_ec2.property_node_deductible_portion_for_slab_user_defined = true;
+            break;
+        default:
+            ASSERT(false, "SetConcreteDesignDeductibleSurfaceLoadForSlabType - unknown deductible surface load for slab type");
+    }
+}
+
+function GetConcreteDesignPunchingLoadForWallsType(wall_type) {
+	const wall_types_dict = {
+        "SMOOTHED_SHEAR_FORCE": concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE,
+        "UNSMOOTHED_SHEAR_FORCE": concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_UNSMOOTHED_SHEAR_FORCE
+	};
+
+	if (wall_type !== undefined) {
+	  var type = wall_types_dict[wall_type];
+	  if (type === undefined) {
+		console.log("Wrong punching load for walls type. Value was: " + wall_type);
+		console.log("Correct values are: " + Object.keys(wall_types_dict));
+		type = concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE;
+	  }
+	  return type;
+	}
+	else {
+	  return concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE;
+	}
+}
+
+function GetConcreteDesignPunchingDirectionForceType(direction_type) {
+	const direction_types_dict = {
+        "DETERMINE": concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE,
+        "PLUS_Z": concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_PLUS_Z,
+        "MINUS_Z": concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_MINUS_Z
+	};
+
+	if (direction_type !== undefined) {
+	  var type = direction_types_dict[direction_type];
+	  if (type === undefined) {
+		console.log("Wrong punching direction force type. Value was: " + direction_type);
+		console.log("Correct values are: " + Object.keys(direction_types_dict));
+		type = concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE;
+	  }
+	  return type;
+	}
+	else {
+	  return concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE;
+	}
+}
+
+function GetConcreteDesignPunchingLoadForColumnsType(column_type) {
+	const column_types_dict = {
+        "SINGLE_FORCE": concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE,
+        "SMOOTHED_SHEAR_FORCE": concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE,
+        "UNSMOOTHED_SHEAR_FORCE": concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_UNSMOOTHED_SHEAR_FORCE,
+        "USER_DEFINED": concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_USER_DEFINED
+	};
+
+	if (column_type !== undefined) {
+	  var type = column_types_dict[column_type];
+	  if (type === undefined) {
+		console.log("Wrong punching load for columns type. Value was: " + column_type);
+		console.log("Correct values are: " + Object.keys(column_types_dict));
+		type = concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE;
+	  }
+	  return type;
+	}
+	else {
+	  return concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE;
+	}
+}
+
+function GetConcreteDesignPunchingStructuralElementType(element_type) {
+	const element_types_dict = {
+        "AUTO": concrete_design_node_ulsconfig_concrete_design_ec2.E_STRUCTURE_ELEMENT_TYPE_AUTO,
+        "SLAB": concrete_design_node_ulsconfig_concrete_design_ec2.E_STRUCTURE_ELEMENT_TYPE_SLAB,
+        "FOUNDATION": concrete_design_node_ulsconfig_concrete_design_ec2.E_STRUCTURE_ELEMENT_TYPE_FOUNDATION
+	};
+
+	if (element_type !== undefined) {
+	  var type = element_types_dict[element_type];
+	  if (type === undefined) {
+		console.log("Wrong structural element type. Value was: " + element_type);
+		console.log("Correct values are: " + Object.keys(element_types_dict));
+		type = concrete_design_node_ulsconfig_concrete_design_ec2.E_STRUCTURE_ELEMENT_TYPE_AUTO;
+	  }
+	  return type;
+	}
+	else {
+	  return concrete_design_node_ulsconfig_concrete_design_ec2.E_STRUCTURE_ELEMENT_TYPE_AUTO;
+	}
+}
+
+function SetConcreteDesignReinforcementMaximumLongitudinalReinforcementType(addon,
     reinforcement_type) {
         reinforcement_types = [
             "PLATES",
@@ -634,7 +1233,7 @@ function SetConcreteReinforcementMaximumLongitudinalReinforcementType(addon,
             addon.settings_surface_ec2.property_maximum_longitudinal_reinforcement_for_walls = true;
             break;
         default:
-            ASSERT(false, "SetConcreteReinforcementMaximumLongitudinalReinforcementType - unknown maximum longitudinal reinforcement type");
+            ASSERT(false, "SetConcreteDesignReinforcementMaximumLongitudinalReinforcementType - unknown maximum longitudinal reinforcement type");
     }
 }
 
