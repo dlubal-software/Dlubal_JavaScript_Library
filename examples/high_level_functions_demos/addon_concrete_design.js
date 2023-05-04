@@ -57,7 +57,9 @@ switch (general.current_standard_for_concrete_design)
         ultimateConfiguration.Members_ShearJoint(undefined, "GENERAL_INTEGRATION_OF_AXIAL_STRESSES", true, 55000, true);
         ultimateConfiguration.Members_NeutralAxisDepthLimitation(true, 0.55);
         ultimateConfiguration.Members_CalculationSetting();
-        ultimateConfiguration.Members_FiberConcrete("BENDING_AND_SHEAR_DESIGN", "SDL3", false);
+        if (PRERELEASE_MODE) {
+            ultimateConfiguration.Members_FiberConcrete("BENDING_AND_SHEAR_DESIGN", "SDL3", false);
+        }
         ultimateConfiguration.Stability_SlendernessAboutY(true, 0.8, true, 1.2, true, 0.9);
         ultimateConfiguration.Stability_SlendernessAboutZ(true, 0.8, true, 1.2, true, 0.9);
         ultimateConfiguration.Stability_LoadDistribution(false, 3);
@@ -76,18 +78,24 @@ switch (general.current_standard_for_concrete_design)
         ultimateConfiguration.Surfaces_RequiredLongitudinalReinforcement();
         ultimateConfiguration.Surfaces_RequiredShearReinforcement("PROVIDED");
         ultimateConfiguration.Surfaces_NeutralAxisDepthLimitation(true, 0.55);
-        ultimateConfiguration.Surfaces_FiberConcrete("SDL2", false);
+        if (PRERELEASE_MODE) {
+            ultimateConfiguration.Surfaces_FiberConcrete("SDL2", false);
+        }
         ultimateConfiguration.Punching_StructuralElement("SLAB");
-        ultimateConfiguration.Punching_PunchingLoadForColumns("USER_DEFINED", 110E3, "PLUS_Z", true, true, 12E3);
-        ultimateConfiguration.Punching_PunchingLoadForWalls("UNSMOOTHED_SHEAR_FORCE", true, true, 13E3);
+        if (PRERELEASE_MODE) {
+            ultimateConfiguration.Punching_PunchingLoadForColumns("USER_DEFINED", 110E3, "PLUS_Z", true, true, 12E3);
+            ultimateConfiguration.Punching_PunchingLoadForWalls("UNSMOOTHED_SHEAR_FORCE", true, true, 13E3);
+        }
         ultimateConfiguration.Punching_DeductibleSurfaceLoadForSlab(true, "USER_DEFINED", undefined, 12E3, "K_D", 2);
         ultimateConfiguration.Punching_FactorBeta("USER_DEFINITION", 2);
         ultimateConfiguration.Punching_LoadedAreaOfPunchingNode(true, "RECTANGULAR", [0.401, 0.402, Math.PI / 10], true, 0.241, 0.201);
         ultimateConfiguration.Punching_BasicControlPerimeter(true, 0.3);
         ultimateConfiguration.Punching_MeanEffectiveDepth(true, 0.501, true, 0.021, 0.022);
-        ultimateConfiguration.Punching_PunchingShearReinforcement(0.101, true, true, 3, true, 0.305, 0.302, true, 2.001);
-        ultimateConfiguration.Punching_AdditionalParameters(0.005, "SELECTED", 2);
-        ultimateConfiguration.Punching_AxialForceDefinition(15E3);
+        if (PRERELEASE_MODE) {
+            ultimateConfiguration.Punching_PunchingShearReinforcement(0.101, true, true, 3, true, 0.305, 0.302, true, 2.001);
+            ultimateConfiguration.Punching_AdditionalParameters(0.005, "SELECTED", 2);
+            ultimateConfiguration.Punching_AxialForceDefinition(15E3);
+        }
         ultimateConfiguration.Punching_RequiredPunchingReinforcement_PunchingShareCapacity("PROVIDED");
         ultimateConfiguration.Punching_MinimumReinforcement(false);
         break;
@@ -98,7 +106,9 @@ switch (general.current_standard_for_concrete_design)
         strengthConfiguration.Members_ConsiderInternalForces(false, undefined, true, false, false, false);
         strengthConfiguration.Members_InternalForceReductionZ(true, false);
         strengthConfiguration.Members_RequiredLongitudinalReinforcement("IN_CORNERS_SYMMETRICAL_DISTRIBUTION", 0.05, false);
-        strengthConfiguration.Members_ProvidedLongitudinalReinforcement(false, true, true);
+        if (PRERELEASE_MODE) {
+            strengthConfiguration.Members_ProvidedLongitudinalReinforcement(false, true, true);
+        }
         strengthConfiguration.Members_Factors(0.75, 0.95, 0.85);
         strengthConfiguration.Members_MinimumReinforcement(false, false, false);
         strengthConfiguration.Members_RequiredShearReinforcement("PROVIDED");
@@ -122,6 +132,11 @@ switch (general.current_standard_for_concrete_design)
         strengthConfiguration.Surfaces_RequiredShearReinforcement("PROVIDED");
         strengthConfiguration.Surfaces_ShearAndTorsionReinforcement("MAX_OF_A_B", Math.PI / 5);
         strengthConfiguration.Surfaces_NeutralAxisDepthLimitation(true, 0.795);
+        if (PRERELEASE_MODE) {
+            strengthConfiguration.Punching_PunchingLoad(110E3, "SMOOTHED_SHEAR_FORCE", undefined, 5);
+        }
+        strengthConfiguration.Punching_AdditionalParameters(0.2);
+        strengthConfiguration.Punching_Factors(1.0, 0.85);
         break;
     case general.NATIONAL_ANNEX_AND_EDITION_CSA_A23_3_2019:
         var ultimateConfiguration = new ConcreteDesignUltimateConfigurationCSA(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
@@ -149,6 +164,11 @@ switch (general.current_standard_for_concrete_design)
         ultimateConfiguration.Surfaces_RequiredShearReinforcement("PROVIDED");
         ultimateConfiguration.Surfaces_ShearReinforcement("SPECIAL_SURFACES", 0.22, Math.PI / 4);
         ultimateConfiguration.Surfaces_NeutralAxisDepthLimitation(true, 0.895);
+        if (PRERELEASE_MODE) {
+            ultimateConfiguration.Punching_PunchingLoad(110E3, "SMOOTHED_SHEAR_FORCE", undefined, 5);
+        }
+        ultimateConfiguration.Punching_AdditionalParameters(0.111);
+        ultimateConfiguration.Punching_Factors(0.651, 0.851);
         break;
     case general.NATIONAL_ANNEX_AND_EDITION_SP_63_13330_2018_12:
         var ultimateConfiguration = new ConcreteDesignUltimateConfigurationSP(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
@@ -176,6 +196,12 @@ switch (general.current_standard_for_concrete_design)
         ultimateConfiguration.Surfaces_MinimumShearReinforcement(false);
         ultimateConfiguration.Surfaces_UserDefinedMinimumShearReinforcementPercentage(true, 0.05);
         ultimateConfiguration.Surfaces_NeutralAxisDepthLimitation(true, "AUTOMATICALLY");
+        if (PRERELEASE_MODE) {
+            ultimateConfiguration.Punching_PunchingLoad("SMOOTHED_SHEAR_FORCE", "PLUS_Z", 120E3, "MINUS_Z");
+            ultimateConfiguration.Punching_AdditionalParameters_Perimeter(true, 0.39, true, 0.49, true, 3, true, 0.31, 0.21, true, 2.01);
+            ultimateConfiguration.Punching_AdditionalParameters_Thickness(0.02, "SELECTED", 2);
+        }
+        ultimateConfiguration.Punching_NeutralAxisDepthLimitation(true, 0.81);
         break;
     case general.NATIONAL_ANNEX_AND_EDITION_NTC_2018_01_CONCRETE_DESIGN:
         var ultimateConfiguration = new ConcreteDesignUltimateConfigurationNTC(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);

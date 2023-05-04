@@ -4,10 +4,6 @@ Bug 81749: property_member_nett_concrete_area
 Bug?: this.addon.settings_member_ec2.property_fatigue_design_time_of_start_of_cyclic_loading_on_concrete cannot be set
 */
 
-if (!PRERELEASE_MODE) {
-    throw new Error("This script is only for RFEM PRERELEASE.");
-}
-
 /**
  * Creates Concrete design ultimate configuration (EN standard)
  * @class
@@ -1141,27 +1137,6 @@ function GetConcreteDesignPunchingLoadForWallsType(wall_type) {
 	}
 	else {
 	  return concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE;
-	}
-}
-
-function GetConcreteDesignPunchingDirectionForceType(direction_type) {
-	const direction_types_dict = {
-        "DETERMINE": concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE,
-        "PLUS_Z": concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_PLUS_Z,
-        "MINUS_Z": concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_MINUS_Z
-	};
-
-	if (direction_type !== undefined) {
-	  var type = direction_types_dict[direction_type];
-	  if (type === undefined) {
-		console.log("Wrong punching direction force type. Value was: " + direction_type);
-		console.log("Correct values are: " + Object.keys(direction_types_dict));
-		type = concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE;
-	  }
-	  return type;
-	}
-	else {
-	  return concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE;
 	}
 }
 

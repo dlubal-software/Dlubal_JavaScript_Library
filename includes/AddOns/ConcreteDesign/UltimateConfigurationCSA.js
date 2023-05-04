@@ -1,3 +1,7 @@
+/*
+Missing API support for Punching?
+*/
+
 /**
  * Creates Concrete design ultimate configuration (ACI standard)
  * @class
@@ -56,7 +60,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Members_ConsiderInternalForces 
     property_member_torsional_moments,
     property_member_shear_forces_vy,
     property_member_shear_forces_vz) {
-    Members_ConcreteDesignConsiderInternalForces(this.addon.settings_member_csaa233, property_member_axial_forces, property_member_bending_moments_my, property_member_bending_moments_mz, property_member_torsional_moments,
+    SetConcreteDesignMembersConsiderInternalForces(this.addon.settings_member_csaa233, property_member_axial_forces, property_member_bending_moments_my, property_member_bending_moments_mz, property_member_torsional_moments,
         property_member_shear_forces_vy, property_member_shear_forces_vz);
 };
 
@@ -82,7 +86,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Members_InternalForceReductionZ
 ConcreteDesignUltimateConfigurationCSA.prototype.Members_RequiredLongitudinalReinforcement = function (property_member_reinforcement_layout,
     property_member_reinforcement_diameter_for_preliminary_design,
     property_member_increase_of_tension_required_reinforcement_due_to_shear) {
-    Members_ConcreteDesignRequiredLongitudinalReinforcement(this.addon.settings_member_csaa233, property_member_reinforcement_layout, property_member_reinforcement_diameter_for_preliminary_design, 
+    SetConcreteDesignMembersRequiredLongitudinalReinforcement(this.addon.settings_member_csaa233, property_member_reinforcement_layout, property_member_reinforcement_diameter_for_preliminary_design, 
         undefined, undefined, undefined, property_member_increase_of_tension_required_reinforcement_due_to_shear);
 };
 
@@ -341,13 +345,55 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_ShearReinforcement = f
 };
 
 /**
- * Sets Sets Depth Limitation of Neutral Axis
+ * Sets Depth Limitation of Neutral Axis
  * @param {Boolean} property_member_consider_neutral_axis_depth_limitation                      Consider depth limitation of neutral axis acc. to 10.5.2, can be undefined (is not set, false as default)
  * @param {String/Number} property_member_value_of_neutral_axis_depth_limitation_user_value     Value of neutral axis depth limitation (AUTOMATICALLY or user number value), can be undefined (is not set, AUTOMATICALLY as default)
  */
 ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_NeutralAxisDepthLimitation = function(property_member_consider_neutral_axis_depth_limitation,
     property_member_value_of_neutral_axis_depth_limitation_user_value) {
     SetConcreteDesignNeutralAxisDepthLimitation(this.addon.settings_surface_csaa233, "surface", property_member_consider_neutral_axis_depth_limitation, property_member_value_of_neutral_axis_depth_limitation_user_value);
+};
+
+/**
+ * Sets Punching Load
+ * @param {String/Number} property_node_used_punching_load_for_columns                      Used punching load for columns (SINGLE_FORCE, SMOOTHED_SHEAR_FORCE or user-defined value), can be undefined (is not set, SINGLE_FORCE as default)
+ *                                                                                          - Single force from column / load / nodal support (SINGLE_FORCE)
+ *                                                                                          - Smoothed shear force over the defined perimeter (SMOOTHED_SHEAR_FORCE)
+ * @param {String/Number} property_node_used_punching_load_for_walls                        Used punching load for walls (SMOOTHED_SHEAR_FORCE or user-defined value), can be undefined (is not set, SMOOTHED_SHEAR_FORCE as default)     
+ *                                                                                          - Smoothed shear force over the defined perimeter (SMOOTHED_SHEAR_FORCE)
+ * @param {Number} property_node_distance_to_perimeter_used_for_integration_for_columns     Distance to perimeter used for integration (k * d), can be undefined (is not set, 2.0 as default)
+ * @param {Number} property_node_distance_to_perimeter_used_for_integration_for_walls       Distance to perimeter used for integration (k * d), can be undefined (is not set, 2.0 as default)
+ */
+ConcreteDesignUltimateConfigurationCSA.prototype.Punching_PunchingLoad = function (property_node_used_punching_load_for_columns,
+    property_node_used_punching_load_for_walls,
+    property_node_distance_to_perimeter_used_for_integration_for_columns,
+    property_node_distance_to_perimeter_used_for_integration_for_walls) {
+    SetConcreteDesignPunchingPunchingLoad(this.addon.settings_node_csaa233, property_node_used_punching_load_for_columns, property_node_used_punching_load_for_walls,
+        property_node_distance_to_perimeter_used_for_integration_for_columns, property_node_distance_to_perimeter_used_for_integration_for_walls);
+};
+
+/**
+ * Sets Additional Parameters
+ * @param {Number} property_node_minimum_spacing_of_reinforcement_perometers    Minimum spacing of reinforcement perimeters, can be undefined (is not set, 0.1 as default)
+ */
+ConcreteDesignUltimateConfigurationCSA.prototype.Punching_AdditionalParameters = function (property_node_minimum_spacing_of_reinforcement_perometers) {
+    SetConcreteDesignPunchingAdditionalParameters(this.addon.settings_node_csaa233, property_node_minimum_spacing_of_reinforcement_perometers);
+};
+
+/**
+ * Sets Factors
+ * @param {Number} property_node_strength_reduction_factor_concrete       Strength reduction factors acc. to 8.4 - Concrete factor, can be undefined (is not set, 0.65 as default)
+ * @param {Number} property_node_strength_reduction_factor_reinforcing    Strength reduction factors acc. to 8.4 - Shear and torsion, can be undefined (is not set, 0.85 as default)
+ */
+ConcreteDesignUltimateConfigurationCSA.prototype.Punching_Factors = function (property_node_strength_reduction_factor_concrete,
+    property_node_strength_reduction_factor_reinforcing) {
+    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
+    if (typeof property_node_strength_reduction_factor_concrete !== "undefined") {
+        this.addon.settings_node_csaa233.property_node_strength_reduction_factor_concrete = property_node_strength_reduction_factor_concrete;
+    }
+    if (typeof property_node_strength_reduction_factor_reinforcing !== "undefined") {
+        this.addon.settings_node_csaa233.property_node_strength_reduction_factor_reinforcing = property_node_strength_reduction_factor_reinforcing;
+    }
 };
 
 function SetConcreteDesignSurfaceDeterminationType(addon,

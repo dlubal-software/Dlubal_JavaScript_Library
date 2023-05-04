@@ -87,7 +87,7 @@ function assignConcreteDesignObjects (object_to_set,
     }
 }
 
-function Members_ConcreteDesignConsiderInternalForces (addon_settings,
+function SetConcreteDesignMembersConsiderInternalForces (addon_settings,
     property_member_axial_forces,
     property_member_bending_moments_my,
     property_member_bending_moments_mz,
@@ -115,7 +115,7 @@ function Members_ConcreteDesignConsiderInternalForces (addon_settings,
     }
 };
 
-function Members_ConcreteDesignRequiredLongitudinalReinforcement (addon_settings,
+function SetConcreteDesignMembersRequiredLongitudinalReinforcement (addon_settings,
     property_member_reinforcement_layout,
     property_member_reinforcement_diameter_for_preliminary_design,
     property_member_reinforcement_distribute_over_slab,
@@ -176,11 +176,18 @@ function GetConcreteDesignPropertyMemberReinforcementDiameterForPreliminaryDesig
         };
         defaultValue = ulsconfig_member_csaa233.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL;
     }
+    else if (IsCurrentCodeOfStandard("SP")) {
+        diameter_types_dict = {
+            "MAX_OF_ALL": ulsconfig_member_sp63.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL,
+            "USER_DEFINED": ulsconfig_member_sp63.E_REINFORCEMENT_DIAMETER_USER_DEFINED
+        };
+        defaultValue = ulsconfig_member_sp63.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL;
+    }
 	if (diameter_type !== undefined) {
 	  var type = diameter_types_dict[diameter_type];
 	  if (type === undefined) {
 		console.log("Wrong member reinforcement diameter for preliminary design type. Value was: " + diameter_type);
-		console.log("Correct values are: ( " + Object.keys(diameter_type) + ")");
+		console.log("Correct values are: ( " + Object.keys(diameter_types_dict) + ")");
 		type = defaultValue;
 	  }
 	  return type;
@@ -225,6 +232,17 @@ function GetConcreteDesignPropertyMemberReinforcementLayout(layout_type) {
             "OPTIMIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT
         };
         defaultValue = ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT;
+    }
+    else if (IsCurrentCodeOfStandard("SP")) {
+        layout_types_dict = {
+            "TOP_BOTTOM_OPTIMIZED_DISTRIBUTION": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_OPTIMIZED_DISTRIBUTION,
+            "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
+            "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
+            "UNIFORMLY_SURROUNDING": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
+            "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT,
+            "OPTIMIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT
+        };
+        defaultValue = ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT;
     }
     else {
         ASSERT(false, "GetConcreteDesignPropertyMemberReinforcementLayout: Unsupported standard");
@@ -364,6 +382,15 @@ function GetConcreteDesignStabilityReinforcementLayout(reinforcement_layout_type
             "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT
         }
         default_value = ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING;
+    }
+    else if (IsCurrentCodeOfStandard("SP")) {
+        reinforcement_layout_types_dict = {
+            "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
+            "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
+            "UNIFORMLY_SURROUNDING": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
+            "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT
+        }
+        default_value = ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING;
     }
     else {
         ASSERT(false, "GetConcreteDesignStabilityReinforcementLayout: Unsupported standard");
@@ -728,6 +755,17 @@ function SetConcreteDesignNeutralAxisDepthLimitation (addon_settings,
             var userDefinedValue = concrete_design_surface_ulsconfig_concrete_design_csaa233.E_NEUTRAL_AXIS_DEPTH_LIMITATION_USER_DEFINED;
         }
     }
+    else if (IsCurrentCodeOfStandard("SP")) {
+        if (addon_settings_type === "member") {
+            var automaticallyValue = ulsconfig_member_sp63.E_NEUTRAL_AXIS_DEPTH_LIMITATION_AUTOMATICALLY;
+            var userDefinedValue = ulsconfig_member_sp63.E_NEUTRAL_AXIS_DEPTH_LIMITATION_USER_DEFINED;
+        }
+        else {
+            ASSERT(addon_settings_type === "surface", "SetConcreteDesignNeutralAxisDepthLimitation");
+            var automaticallyValue = concrete_design_surface_concrete_ulsconfig_sp63.E_NEUTRAL_AXIS_DEPTH_LIMITATION_AUTOMATICALLY;
+            var userDefinedValue = concrete_design_surface_concrete_ulsconfig_sp63.E_NEUTRAL_AXIS_DEPTH_LIMITATION_USER_DEFINED;
+        }
+    }
     else {
         ASSERT(false, "SetConcreteDesignNeutralAxisDepthLimitation - unknown code of standard (" + GetCurrentCodeOfStandard() + ")");
     }
@@ -832,4 +870,154 @@ function SetConcreteDesignStabilityUnbracedColumn (addon_settings,
     if (typeof property_stability_index_qz !== "undefined") {
         addon_settings.property_stability_index_qz = property_stability_index_qz;
     }
+}
+
+function SetConcreteDesignPunchingPunchingLoad (addon_settings,
+    property_node_used_punching_load_for_columns,
+    property_node_used_punching_load_for_walls,
+    property_node_distance_to_perimeter_used_for_integration_for_columns,
+    property_node_distance_to_perimeter_used_for_integration_for_walls) {
+    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
+    if (typeof property_node_used_punching_load_for_columns !== "undefined") {
+        if (typeof property_node_used_punching_load_for_columns === "string") {
+            addon_settings.property_node_used_punching_load_for_columns = GetConcreteDesignPunchingLoadType(property_node_used_punching_load_for_columns, "columns");
+        }
+        else {
+            ASSERT(typeof property_node_used_punching_load_for_columns === "number", "User-defined value is required");
+            addon_settings.property_node_used_punching_load_for_columns = concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_USER_DEFINED;
+            addon_settings.property_node_used_defined_value_of_punching_force_for_columns = property_node_used_punching_load_for_columns;
+        }
+    }
+    if (typeof property_node_used_punching_load_for_walls !== "undefined") {
+        if (typeof property_node_used_punching_load_for_walls === "string") {
+            addon_settings.property_node_used_punching_load_for_walls = GetConcreteDesignPunchingLoadType(property_node_used_punching_load_for_walls, "walls");
+        }
+        else {
+            ASSERT(typeof property_node_used_punching_load_for_walls === "number", "User-defined value is required");
+            addon_settings.property_node_used_punching_load_for_walls = concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_USER_DEFINED;
+            addon_settings.property_node_used_defined_value_of_punching_force_for_walls = property_node_used_punching_load_for_walls;
+        }
+    }
+    if (typeof property_node_distance_to_perimeter_used_for_integration_for_columns !== "undefined") {
+        ASSERT(addon_settings.property_node_used_punching_load_for_columns === GetConcreteDesignPunchingLoadType("SMOOTHED_SHEAR_FORCE", "columns"), "SMOOTHED_SHEAR_FORCE is required");
+        addon_settings.property_node_distance_to_perimeter_used_for_integration_for_columns = property_node_distance_to_perimeter_used_for_integration_for_columns;
+    }
+    if (typeof property_node_distance_to_perimeter_used_for_integration_for_walls !== "undefined") {
+        ASSERT(addon_settings.property_node_used_punching_load_for_walls === GetConcreteDesignPunchingLoadType("SMOOTHED_SHEAR_FORCE", "walls"), "SMOOTHED_SHEAR_FORCE is required");
+        addon_settings.property_node_distance_to_perimeter_used_for_integration_for_walls = property_node_distance_to_perimeter_used_for_integration_for_walls;
+    }
+};
+
+function GetConcreteDesignPunchingLoadType(punching_load_type,
+    punching_load_for) {
+    var punching_load_types_dict = {};
+    var default_type = "";
+    if (punching_load_for === "walls") {
+        if (IsCurrentCodeOfStandard("ACI")) {
+            punching_load_types_dict = {
+                "SMOOTHED_SHEAR_FORCE": concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE
+            };
+            default_type = concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE;
+        }
+        else if (IsCurrentCodeOfStandard("CSA")) {
+            punching_load_types_dict = {
+                "SMOOTHED_SHEAR_FORCE": concrete_design_node_concrete_ulsconfig_csaa233.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE
+            };
+            default_type = concrete_design_node_concrete_ulsconfig_csaa233.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE;
+        }
+        else if (IsCurrentCodeOfStandard("SP")) {
+            punching_load_types_dict = {
+                "SMOOTHED_SHEAR_FORCE": concrete_design_node_concrete_ulsconfig_sp63.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE
+            };
+            default_type = concrete_design_node_concrete_ulsconfig_sp63.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE;
+        }
+        else {
+            ASSERT(false, "GetConcreteDesignPunchingLoadType - unsupported code of standard (" + GetCurrentCodeOfStandard() + ")");
+        }
+    }
+    else if (punching_load_for === "columns") {
+        if (IsCurrentCodeOfStandard("ACI")) {
+            punching_load_types_dict = {
+                "SINGLE_FORCE": concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE,
+                "SMOOTHED_SHEAR_FORCE": concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE
+            };
+            default_type = concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE;
+        }
+        else if (IsCurrentCodeOfStandard("CSA")) {
+            punching_load_types_dict = {
+                "SINGLE_FORCE": concrete_design_node_concrete_ulsconfig_csaa233.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE,
+                "SMOOTHED_SHEAR_FORCE": concrete_design_node_concrete_ulsconfig_csaa233.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE
+            };
+            default_type = concrete_design_node_concrete_ulsconfig_csaa233.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE;
+        }
+        else if (IsCurrentCodeOfStandard("SP")) {
+            punching_load_types_dict = {
+                "SINGLE_FORCE": concrete_design_node_concrete_ulsconfig_sp63.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE,
+                "SMOOTHED_SHEAR_FORCE": concrete_design_node_concrete_ulsconfig_sp63.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE
+            };
+            default_type = concrete_design_node_concrete_ulsconfig_sp63.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE;
+        }
+        else {
+            ASSERT(false, "GetConcreteDesignPunchingLoadType - unsupported code of standard (" + GetCurrentCodeOfStandard() + ")");
+        }
+    }
+    else {
+        ASSERT(false);
+    }
+
+	if (punching_load_type !== undefined) {
+	  var type = punching_load_types_dict[punching_load_type];
+	  if (type === undefined) {
+		console.log("Wrong punching load type. Value was: " + punching_load_type);
+		console.log("Correct values are: " + Object.keys(punching_load_types_dict));
+		type = default_type;
+	  }
+	  return type;
+	}
+	else {
+	  return default_type;
+	}
+}
+
+function SetConcreteDesignPunchingAdditionalParameters (addon_settings,
+    property_node_minimum_spacing_of_reinforcement_perometers) {
+    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
+    if (typeof property_node_minimum_spacing_of_reinforcement_perometers !== "undefined") {
+        addon_settings.property_node_minimum_spacing_of_reinforcement_perometers = property_node_minimum_spacing_of_reinforcement_perometers;
+    }
+};
+
+function GetConcreteDesignPunchingDirectionForceType(direction_type) {
+    if (IsCurrentCodeOfStandard("EN")) {
+        var direction_types_dict = {
+            "DETERMINE": concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE,
+            "PLUS_Z": concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_PLUS_Z,
+            "MINUS_Z": concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_MINUS_Z
+        };
+        var default_type = concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE;
+    }
+    else if (IsCurrentCodeOfStandard("SP")) {
+        var direction_types_dict = {
+            "DETERMINE": concrete_design_node_concrete_ulsconfig_sp63.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE,
+            "PLUS_Z": concrete_design_node_concrete_ulsconfig_sp63.E_DIRECTION_OF_PUNCHING_FORCE_PLUS_Z,
+            "MINUS_Z": concrete_design_node_concrete_ulsconfig_sp63.E_DIRECTION_OF_PUNCHING_FORCE_MINUS_Z
+        };
+        var default_type = concrete_design_node_concrete_ulsconfig_sp63.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE;
+    }
+    else {
+        ASSERT(false, "GetConcreteDesignPunchingDirectionForceType - unsupported code standard (" + GetCurrentCodeOfStandard() + ")");
+    }
+
+	if (direction_type !== undefined) {
+	  var type = direction_types_dict[direction_type];
+	  if (type === undefined) {
+		console.log("Wrong punching direction force type. Value was: " + direction_type);
+		console.log("Correct values are: " + Object.keys(direction_types_dict));
+		type = default_type;
+	  }
+	  return type;
+	}
+	else {
+	  return default_type;
+	}
 }

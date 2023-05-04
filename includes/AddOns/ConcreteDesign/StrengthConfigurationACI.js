@@ -1,5 +1,6 @@
 /*
 Missing API support for Punching?
+Bug 88653: property_node_minimum_spacing_of_reinforcement_perometers
 */
 
 /**
@@ -60,7 +61,7 @@ ConcreteDesignStrengthConfigurationACI.prototype.Members_ConsiderInternalForces 
     property_member_torsional_moments,
     property_member_shear_forces_vy,
     property_member_shear_forces_vz) {
-    Members_ConcreteDesignConsiderInternalForces(this.addon.settings_member_aci318, property_member_axial_forces, property_member_bending_moments_my, property_member_bending_moments_mz, property_member_torsional_moments,
+    SetConcreteDesignMembersConsiderInternalForces(this.addon.settings_member_aci318, property_member_axial_forces, property_member_bending_moments_my, property_member_bending_moments_mz, property_member_torsional_moments,
         property_member_shear_forces_vy, property_member_shear_forces_vz);
 };
 
@@ -83,7 +84,7 @@ ConcreteDesignStrengthConfigurationACI.prototype.Members_InternalForceReductionZ
 ConcreteDesignStrengthConfigurationACI.prototype.Members_RequiredLongitudinalReinforcement = function (property_member_reinforcement_layout,
     property_member_reinforcement_diameter_for_preliminary_design,
     property_member_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement) {
-    Members_ConcreteDesignRequiredLongitudinalReinforcement(this.addon.settings_member_aci318, property_member_reinforcement_layout, property_member_reinforcement_diameter_for_preliminary_design, 
+    SetConcreteDesignMembersRequiredLongitudinalReinforcement(this.addon.settings_member_aci318, property_member_reinforcement_layout, property_member_reinforcement_diameter_for_preliminary_design, 
         undefined, undefined, property_member_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement);
 };
 
@@ -447,6 +448,48 @@ ConcreteDesignStrengthConfigurationACI.prototype.Surfaces_ShearAndTorsionReinfor
 ConcreteDesignStrengthConfigurationACI.prototype.Surfaces_NeutralAxisDepthLimitation = function (property_surface_consider_neutral_axis_depth_limitation,
     property_surface_value_of_neutral_axis_depth_limitation) {
     SetConcreteDesignNeutralAxisDepthLimitation(this.addon.settings_surface_aci318, "surface", property_surface_consider_neutral_axis_depth_limitation, property_surface_value_of_neutral_axis_depth_limitation);
+};
+
+/**
+ * Sets Punching Load
+ * @param {String/Number} property_node_used_punching_load_for_columns                      Used punching load for columns (SINGLE_FORCE, SMOOTHED_SHEAR_FORCE or user-defined value), can be undefined (is not set, SINGLE_FORCE as default)
+ *                                                                                          - Single force from column / load / nodal support (SINGLE_FORCE)
+ *                                                                                          - Smoothed shear force over the defined perimeter (SMOOTHED_SHEAR_FORCE)
+ * @param {String/Number} property_node_used_punching_load_for_walls                        Used punching load for walls (SMOOTHED_SHEAR_FORCE or user-defined value), can be undefined (is not set, SMOOTHED_SHEAR_FORCE as default)     
+ *                                                                                          - Smoothed shear force over the defined perimeter (SMOOTHED_SHEAR_FORCE)
+ * @param {Number} property_node_distance_to_perimeter_used_for_integration_for_columns     Distance to perimeter used for integration (k * d), can be undefined (is not set, 2.0 as default)
+ * @param {Number} property_node_distance_to_perimeter_used_for_integration_for_walls       Distance to perimeter used for integration (k * d), can be undefined (is not set, 2.0 as default)
+ */
+ConcreteDesignStrengthConfigurationACI.prototype.Punching_PunchingLoad = function (property_node_used_punching_load_for_columns,
+    property_node_used_punching_load_for_walls,
+    property_node_distance_to_perimeter_used_for_integration_for_columns,
+    property_node_distance_to_perimeter_used_for_integration_for_walls) {
+    SetConcreteDesignPunchingPunchingLoad(this.addon.settings_node_aci318, property_node_used_punching_load_for_columns, property_node_used_punching_load_for_walls,
+        property_node_distance_to_perimeter_used_for_integration_for_columns, property_node_distance_to_perimeter_used_for_integration_for_walls);
+};
+
+/**
+ * Sets Additional Parameters
+ * @param {Number} property_node_minimum_spacing_of_reinforcement_perometers    Minimum spacing of reinforcement perimeters, can be undefined (is not set, 0.1 as default)
+ */
+ConcreteDesignStrengthConfigurationACI.prototype.Punching_AdditionalParameters = function (property_node_minimum_spacing_of_reinforcement_perometers) {
+    SetConcreteDesignPunchingAdditionalParameters(this.addon.settings_node_aci318, property_node_minimum_spacing_of_reinforcement_perometers);
+};
+
+/**
+ * Sets Factors
+ * @param {Number} property_node_strength_reduction_factor_tensile              Strength reduction factors according to 21.2.1 - Tensile strength, can be undefined (is not set, 0.9 as default)
+ * @param {Number} property_node_strength_reduction_factor_shear_and_torsion    Strength reduction factors according to 21.2.1 - Shear and torsion, can be undefined (is not set, 0.75 as default)
+ */
+ConcreteDesignStrengthConfigurationACI.prototype.Punching_Factors = function (property_node_strength_reduction_factor_tensile,
+    property_node_strength_reduction_factor_shear_and_torsion) {
+    ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
+    if (typeof property_node_strength_reduction_factor_tensile !== "undefined") {
+        this.addon.settings_node_aci318.property_node_strength_reduction_factor_tensile = property_node_strength_reduction_factor_tensile;
+    }
+    if (typeof property_node_strength_reduction_factor_shear_and_torsion !== "undefined") {
+        this.addon.settings_node_aci318.property_node_strength_reduction_factor_shear_and_torsion = property_node_strength_reduction_factor_shear_and_torsion;
+    }
 };
 
 function GetConcreteDesignNominalSherStrengthType(shear_strength_type) {
