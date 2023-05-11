@@ -143,6 +143,10 @@ include("AddOns/ConcreteDesign/UltimateConfigurationCSA.js");
 include("AddOns/ConcreteDesign/UltimateConfigurationEN.js");
 include("AddOns/ConcreteDesign/UltimateConfigurationNTC.js");
 include("AddOns/ConcreteDesign/UltimateConfigurationSP.js");
+include("AddOns/ConcreteDesign/ServiceabilityConfigurationACI.js");
+include("AddOns/ConcreteDesign/ServiceabilityConfigurationCSA.js");
+include("AddOns/ConcreteDesign/ServiceabilityConfigurationEN.js");
+include("AddOns/ConcreteDesign/ServiceabilityConfigurationSP.js");
 // Guide objects
 include("GuideObjects/CoordinateSystem.js");
 // Dimensions

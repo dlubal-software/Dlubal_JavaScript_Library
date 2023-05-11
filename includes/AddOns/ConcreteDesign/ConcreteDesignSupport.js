@@ -6,6 +6,7 @@ function createBaseConcreteDesignConfiguration (object_to_create,
     comment,
     params) {
     ASSERT(CONCRETE_DESIGN.isActive(), "Steel design must be active");
+    ASSERT(members.count() > 0 || surfaces.count() > 0, "There must exist at least one member or surface in project");
     if (typeof no === "undefined") {
         addon = object_to_create.create();
     }
@@ -1020,4 +1021,42 @@ function GetConcreteDesignPunchingDirectionForceType(direction_type) {
 	else {
 	  return default_type;
 	}
+}
+
+function SetConcreteDesignServiceabilityConfigurationCrackStateDetection (addon_settings,
+    crack_state_detection) {
+    SetConcreteDesignCrackStateDetectionType(addon_settings, crack_state_detection);
+};
+
+function SetConcreteDesignCrackStateDetectionType (addon_settings,
+    crack_state_detection_type) {
+    const crack_state_detection_types = [
+        "CALCULATED_FROM_ASSOCIATED_LOAD",
+        "DETERMINED_AS_ENVELOPE_FROM_ALL_DESIGN_SITUATIONS",
+        "INDEPENDENT_OF_LOAD"
+    ];
+	if (crack_state_detection_type !== undefined) {
+	  if (crack_state_detection_types.indexOf(crack_state_detection_type) === -1)
+      {
+        console.log("Wrong crack state detection type. Value was: " + crack_state_detection_type);
+		console.log("Correct values are: " + crack_state_detection_types);
+		return;
+      }
+	}
+	else {
+        crack_state_detection_type = "CALCULATED_FROM_ASSOCIATED_LOAD";
+	}
+    switch (crack_state_detection_type) {
+        case "CALCULATED_FROM_ASSOCIATED_LOAD":
+            addon_settings.property_crack_state_from_associated_design_situation = true;
+            break;
+        case "DETERMINED_AS_ENVELOPE_FROM_ALL_DESIGN_SITUATIONS":
+            addon_settings.property_crack_state_from_all_sls_design_situations = true;
+            break;
+        case "INDEPENDENT_OF_LOAD":
+            addon_settings.property_crack_state_independent_of_load = true;
+            break;
+        default:
+            ASSERT(false, "SetConcreteDesignCrackStateDetectionType - unknown crack state detection type");
+    }
 }

@@ -43,10 +43,10 @@ general.current_standard_for_concrete_design = concrete_design_standards[standar
 nodes[31].punching_design = true;
 nodes[32].punching_design = true;
 
-/****************************************************************** Ultimate configuration ***************************************************************************/
 switch (general.current_standard_for_concrete_design)
 {
     case general.NATIONAL_ANNEX_AND_EDITION_EN_1992_CEN_2014_11:
+    /****************************************************************** Ultimate configuration ***************************************************************************/
         var ultimateConfiguration = new ConcreteDesignUltimateConfigurationEN(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
         ultimateConfiguration.SetName("Ultimate configuration (EN)");
         ultimateConfiguration.Members_ConsiderInternalForces(false, undefined, true, false, false, false);
@@ -98,9 +98,21 @@ switch (general.current_standard_for_concrete_design)
         }
         ultimateConfiguration.Punching_RequiredPunchingReinforcement_PunchingShareCapacity("PROVIDED");
         ultimateConfiguration.Punching_MinimumReinforcement(false);
+    /****************************************************************** Serviceability configuration ***********************************************************************/
+        var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationEN(undefined, [surfaceList[1].no], [memberList[1].GetNo()]);
+        serviceabilityConfiguration.SetName("Serviceability configuration (EN)");
+        serviceabilityConfiguration.StressAnaLysis(true, false);
+        // Bug 90054
+        serviceabilityConfiguration.CrackAnalysisLimitValues(true, "02_EXPOSURE_CLASS_FROM_XC2_TO_XC4_STRUCTURAL_ELEMENT_PRESTRESSING", "03_EXPOSURE_CLASS_FROM_XS1_TO_XS3_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING");
+        serviceabilityConfiguration.DesignWithoutDirectCrackWidthCalculation(false, false);
+        serviceabilityConfiguration.CrackAnalysisOther(0.99, true);
+        serviceabilityConfiguration.EffectsDueToRestraint(true, "APPROACH_BENDING_RESTRAINT", "AREA_TOP_BOTTOM", false, false, false, true, true, 0.98);
+        serviceabilityConfiguration.DeflectionAnalysis(true, 251, 252, false, true, 0.501);
+        serviceabilityConfiguration.CrackStateDetection("INDEPENDENT_OF_LOAD");
+        serviceabilityConfiguration.FiberConcrete("SDL2", false);
         break;
     case general.NATIONAL_ANNEX_AND_EDITION_ACI_318_2019_CONCRETE_DESIGN:
-        console.log(GetCurrentCodeOfStandard());
+    /****************************************************************** Strength configuration ***************************************************************************/
         var strengthConfiguration = new ConcreteDesignStrengthConfigurationACI(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
         strengthConfiguration.SetName("Strength configuration (ACI)");
         strengthConfiguration.Members_ConsiderInternalForces(false, undefined, true, false, false, false);
@@ -137,8 +149,15 @@ switch (general.current_standard_for_concrete_design)
         }
         strengthConfiguration.Punching_AdditionalParameters(0.2);
         strengthConfiguration.Punching_Factors(1.0, 0.85);
+    /****************************************************************** Serviceability configuration ***********************************************************************/
+        var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationACI(undefined, [surfaceList[1].no], [memberList[1].GetNo()]);
+        serviceabilityConfiguration.SetName("Serviceability configuration (ACI)");
+        serviceabilityConfiguration.CrackAnalysis(true, false, true, true, "01_USE_IN_WATER_RETAINING_STRUCTURES", "04_DRY_AIR_OR_PROTECTIVE_MEMBRANE", undefined, undefined, undefined, true, false, false, false, false);
+        serviceabilityConfiguration.DeflectionAnalysis(true, 241, 242, false, true, 0.501, undefined, undefined, 137788000); // 52 months in seconds
+        serviceabilityConfiguration.CrackStateDetection("INDEPENDENT_OF_LOAD");
         break;
     case general.NATIONAL_ANNEX_AND_EDITION_CSA_A23_3_2019:
+    /****************************************************************** Ultimate configuration ***************************************************************************/
         var ultimateConfiguration = new ConcreteDesignUltimateConfigurationCSA(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
         ultimateConfiguration.SetName("Ultimate configuration (CSA)");
         ultimateConfiguration.Members_ConsiderInternalForces(undefined, undefined, undefined, undefined, false, false);
@@ -169,8 +188,10 @@ switch (general.current_standard_for_concrete_design)
         }
         ultimateConfiguration.Punching_AdditionalParameters(0.111);
         ultimateConfiguration.Punching_Factors(0.651, 0.851);
+    /****************************************************************** Serviceability configuration ***********************************************************************/
         break;
     case general.NATIONAL_ANNEX_AND_EDITION_SP_63_13330_2018_12:
+    /****************************************************************** Ultimate configuration ***************************************************************************/
         var ultimateConfiguration = new ConcreteDesignUltimateConfigurationSP(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
         ultimateConfiguration.SetName("Ultimate configuration (SP)");
         ultimateConfiguration.Members_ConsiderInternalForces(false, false, true, false, false, false);
@@ -202,11 +223,14 @@ switch (general.current_standard_for_concrete_design)
             ultimateConfiguration.Punching_AdditionalParameters_Thickness(0.02, "SELECTED", 2);
         }
         ultimateConfiguration.Punching_NeutralAxisDepthLimitation(true, 0.81);
+    /****************************************************************** Serviceability configuration ***********************************************************************/
         break;
     case general.NATIONAL_ANNEX_AND_EDITION_NTC_2018_01_CONCRETE_DESIGN:
+    /****************************************************************** Ultimate configuration ***************************************************************************/
         var ultimateConfiguration = new ConcreteDesignUltimateConfigurationNTC(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
         ultimateConfiguration.SetName("Ultimate configuration (NTC)");
         break;
+    /****************************************************************** Serviceability configuration ***********************************************************************/
     default:
         ASSERT(false, "Unknown code of standard");
 }
