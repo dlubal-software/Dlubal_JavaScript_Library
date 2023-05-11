@@ -1060,3 +1060,55 @@ function SetConcreteDesignCrackStateDetectionType (addon_settings,
             ASSERT(false, "SetConcreteDesignCrackStateDetectionType - unknown crack state detection type");
     }
 }
+
+function SetConcreteDesignServiceabilityConfigurationDeflectionAnalysis (addon_settings,
+    property_limitation_of_deflection_enabled,
+    property_deflection_limit_support_on_both_sides,
+    property_deflection_limit_one_sided_support,
+    property_tension_stiffening_effect_enabled,
+    property_minimum_zeta_enabled,
+    property_minimum_zeta_value,
+    property_activate_time_dependent_deflections,
+    property_time_dependent_factor,
+    property_deflection_duration_of_load,
+    property_time_dependent_material_properties) {
+    if (typeof property_limitation_of_deflection_enabled !== "undefined") {
+        addon_settings.property_limitation_of_deflection_enabled = property_limitation_of_deflection_enabled;
+    }
+    if (typeof property_deflection_limit_support_on_both_sides !== "undefined") {
+        ASSERT(addon_settings.property_limitation_of_deflection_enabled, "Limitation of deflection must be on");
+        addon_settings.property_deflection_limit_support_on_both_sides = property_deflection_limit_support_on_both_sides;
+    }
+    if (typeof property_deflection_limit_one_sided_support !== "undefined") {
+        ASSERT(addon_settings.property_limitation_of_deflection_enabled, "Limitation of deflection must be on");
+        addon_settings.property_deflection_limit_one_sided_support = property_deflection_limit_one_sided_support;
+    }
+    if (typeof property_tension_stiffening_effect_enabled !== "undefined") {
+        ASSERT(addon_settings.property_limitation_of_deflection_enabled, "Limitation of deflection must be on");
+        addon_settings.property_tension_stiffening_effect_enabled = property_tension_stiffening_effect_enabled;
+    }
+    if (typeof property_minimum_zeta_enabled !== "undefined") {
+        ASSERT(addon_settings.property_limitation_of_deflection_enabled, "Limitation of deflection must be on");
+        addon_settings.property_minimum_zeta_enabled = property_minimum_zeta_enabled;
+    }
+    if (typeof property_minimum_zeta_value !== "undefined") {
+        ASSERT(addon_settings.property_minimum_zeta_enabled, "Consider minimum value of distribution factor must be on");
+        addon_settings.property_minimum_zeta_value = property_minimum_zeta_value;
+    }
+    if (typeof property_activate_time_dependent_deflections !== "undefined") {
+        ASSERT(addon_settings.property_limitation_of_deflection_enabled, "Limitation of deflection must be on");
+        addon_settings.property_activate_time_dependent_deflections = property_activate_time_dependent_deflections;
+    }
+    if (typeof property_time_dependent_factor !== "undefined") {
+        ASSERT(addon_settings.property_activate_time_dependent_deflections, "Calculation of time-dependent deflections must be on");
+        addon_settings.property_time_dependent_factor = property_time_dependent_factor;
+    }
+    if (typeof property_deflection_duration_of_load !== "undefined") {
+        ASSERT(addon_settings.property_time_dependent_factor, "Time-dependent factor acc. to table 24.2.4.1.3 must be on");
+        addon_settings.property_deflection_duration_of_load = property_deflection_duration_of_load;
+    }
+    if (typeof property_time_dependent_material_properties !== "undefined") {
+        ASSERT(addon_settings.property_activate_time_dependent_deflections, "Calculation of time-dependent deflections must be on");
+        addon_settings.property_time_dependent_material_properties = property_time_dependent_material_properties;
+    }
+};

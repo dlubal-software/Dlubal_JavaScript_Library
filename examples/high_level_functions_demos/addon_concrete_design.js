@@ -189,6 +189,13 @@ switch (general.current_standard_for_concrete_design)
         ultimateConfiguration.Punching_AdditionalParameters(0.111);
         ultimateConfiguration.Punching_Factors(0.651, 0.851);
     /****************************************************************** Serviceability configuration ***********************************************************************/
+        var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationCSA(undefined, [surfaceList[1].no], [memberList[1].GetNo()]);
+        serviceabilityConfiguration.SetName("Serviceability configuration (CSA)");
+        serviceabilityConfiguration.Exposure("EXTERIOR", "EXTERIOR", "EXTERIOR", "EXTERIOR", "EXTERIOR", "EXTERIOR");
+        serviceabilityConfiguration.CrackAnalysis(false);
+        serviceabilityConfiguration.SkinReinforcement();
+        serviceabilityConfiguration.DeflectionAnalysis(true, 241, 242, false, true, 0.501, undefined, undefined, 137788000); // 52 months in seconds
+        serviceabilityConfiguration.CrackStateDetection("DETERMINED_AS_ENVELOPE_FROM_ALL_DESIGN_SITUATIONS");
         break;
     case general.NATIONAL_ANNEX_AND_EDITION_SP_63_13330_2018_12:
     /****************************************************************** Ultimate configuration ***************************************************************************/

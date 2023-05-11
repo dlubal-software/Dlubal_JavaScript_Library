@@ -120,8 +120,8 @@ ConcreteDesignServiceabilityConfigurationACI.prototype.CrackAnalysis = function 
 /**
  * Sets Deflection Analysis
  * @param {Boolean} property_limitation_of_deflection_enabled           Limitation of deflection, can be undefined (is not set, true as default)
- * @param {Number} property_deflection_limit_support_on_both_sides      Limit - Support on both sides, can be undefined (is not set, 240 as default)
- * @param {Number} property_deflection_limit_one_sided_support          Limit - One-sided support, can be undefined (is not set, 240 as default)
+ * @param {Number} property_deflection_limit_support_on_both_sides      Limit values of allowable deflection - Support on both sides, can be undefined (is not set, 240 as default)
+ * @param {Number} property_deflection_limit_one_sided_support          Limit values of allowable deflection - One-sided support, can be undefined (is not set, 240 as default)
  * @param {Boolean} property_tension_stiffening_effect_enabled          Consider resistance of concrete between cracks (tension stiffening effect), can be undefined (is not set, true as default)
  * @param {Boolean} property_minimum_zeta_enabled                       Consider minimum value of distribution factor, can be undefined (is not set, false as default)
  * @param {Number} property_minimum_zeta_value                          Minimum value of distribution factor, can be undefined (is not set, 0.5 as default)
@@ -140,52 +140,16 @@ ConcreteDesignServiceabilityConfigurationACI.prototype.DeflectionAnalysis = func
     property_time_dependent_factor,
     property_deflection_duration_of_load,
     property_time_dependent_material_properties) {
-    if (typeof property_limitation_of_deflection_enabled !== "undefined") {
-        this.addon.settings_main_aci318.property_limitation_of_deflection_enabled = property_limitation_of_deflection_enabled;
-    }
-    if (typeof property_deflection_limit_support_on_both_sides !== "undefined") {
-        ASSERT(this.addon.settings_main_aci318.property_limitation_of_deflection_enabled, "Limitation of deflection must be on");
-        this.addon.settings_main_aci318.property_deflection_limit_support_on_both_sides = property_deflection_limit_support_on_both_sides;
-    }
-    if (typeof property_deflection_limit_one_sided_support !== "undefined") {
-        ASSERT(this.addon.settings_main_aci318.property_limitation_of_deflection_enabled, "Limitation of deflection must be on");
-        this.addon.settings_main_aci318.property_deflection_limit_one_sided_support = property_deflection_limit_one_sided_support;
-    }
-    if (typeof property_tension_stiffening_effect_enabled !== "undefined") {
-        ASSERT(this.addon.settings_main_aci318.property_limitation_of_deflection_enabled, "Limitation of deflection must be on");
-        this.addon.settings_main_aci318.property_tension_stiffening_effect_enabled = property_tension_stiffening_effect_enabled;
-    }
-    if (typeof property_minimum_zeta_enabled !== "undefined") {
-        ASSERT(this.addon.settings_main_aci318.property_limitation_of_deflection_enabled, "Limitation of deflection must be on");
-        this.addon.settings_main_aci318.property_minimum_zeta_enabled = property_minimum_zeta_enabled;
-    }
-    if (typeof property_minimum_zeta_value !== "undefined") {
-        ASSERT(this.addon.settings_main_aci318.property_minimum_zeta_enabled, "Consider minimum value of distribution factor must be on");
-        this.addon.settings_main_aci318.property_minimum_zeta_value = property_minimum_zeta_value;
-    }
-    if (typeof property_activate_time_dependent_deflections !== "undefined") {
-        ASSERT(this.addon.settings_main_aci318.property_limitation_of_deflection_enabled, "Limitation of deflection must be on");
-        this.addon.settings_main_aci318.property_activate_time_dependent_deflections = property_activate_time_dependent_deflections;
-    }
-    if (typeof property_time_dependent_factor !== "undefined") {
-        ASSERT(this.addon.settings_main_aci318.property_activate_time_dependent_deflections, "Calculation of time-dependent deflections must be on");
-        this.addon.settings_main_aci318.property_time_dependent_factor = property_time_dependent_factor;
-    }
-    if (typeof property_deflection_duration_of_load !== "undefined") {
-        ASSERT(this.addon.settings_main_aci318.property_time_dependent_factor, "Time-dependent factor acc. to table 24.2.4.1.3 must be on");
-        this.addon.settings_main_aci318.property_deflection_duration_of_load = property_deflection_duration_of_load;
-    }
-    if (typeof property_time_dependent_material_properties !== "undefined") {
-        ASSERT(this.addon.settings_main_aci318.property_activate_time_dependent_deflections, "Calculation of time-dependent deflections must be on");
-        this.addon.settings_main_aci318.property_time_dependent_material_properties = property_time_dependent_material_properties;
-    }
+    SetConcreteDesignServiceabilityConfigurationDeflectionAnalysis(this.addon.settings_main_aci318, property_limitation_of_deflection_enabled, property_deflection_limit_support_on_both_sides, 
+        property_deflection_limit_one_sided_support, property_tension_stiffening_effect_enabled, property_minimum_zeta_enabled, property_minimum_zeta_value, property_activate_time_dependent_deflections, 
+        property_time_dependent_factor, property_deflection_duration_of_load, property_time_dependent_material_properties)
 };
 
 /**
  * Sets Crack state detection
  * @param {String} crack_state_detection    Crack state detection (
  *                                              CALCULATED_FROM_ASSOCIATED_LOAD (Crack state calculated from associated load),
- *                                              DETERMINED_AS_ENVELOPE_FROM_ALL_DESIGN_SITUATIONS (Crack state determined as envelope from all SLS design situations),
+ *                                              DETERMINED_AS_ENVELOPE_FROM_ALL_DESIGN_SITUATIONS (Crack state determined as envelope from all serviceability design situations),
  *                                              INDEPENDENT_OF_LOAD (Crack state independent of load)) can be undefined (is not set, CALCULATED_FROM_ASSOCIATED_LOAD as default)
  */
 ConcreteDesignServiceabilityConfigurationACI.prototype.CrackStateDetection = function (crack_state_detection) {
