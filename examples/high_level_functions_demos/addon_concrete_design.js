@@ -241,8 +241,10 @@ switch (general.current_standard_for_concrete_design)
     /****************************************************************** Ultimate configuration ***************************************************************************/
         var ultimateConfiguration = new ConcreteDesignUltimateConfigurationNTC(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
         ultimateConfiguration.SetName("Ultimate configuration (NTC)");
-        break;
     /****************************************************************** Serviceability configuration ***********************************************************************/
+        var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationNTC(undefined, [surfaceList[1].no], [memberList[1].GetNo()]);
+        serviceabilityConfiguration.SetName("Serviceability configuration (NTC)");
+        break;
     default:
         ASSERT(false, "Unknown code of standard");
 }
