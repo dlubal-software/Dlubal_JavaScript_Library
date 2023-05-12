@@ -231,6 +231,11 @@ switch (general.current_standard_for_concrete_design)
         }
         ultimateConfiguration.Punching_NeutralAxisDepthLimitation(true, 0.81);
     /****************************************************************** Serviceability configuration ***********************************************************************/
+        var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationSP(undefined, [surfaceList[1].no], [memberList[1].GetNo()]);
+        serviceabilityConfiguration.SetName("Serviceability configuration (SP)");
+        serviceabilityConfiguration.CrackStateDetection("ELASTIC");
+        serviceabilityConfiguration.CrackWidthAnalysis(0.000201, 0.000202, 0.000203, 0.000204);
+        serviceabilityConfiguration.DeflectionAnalysis(true, 121, 122, false, undefined, undefined, 0.70);
         break;
     case general.NATIONAL_ANNEX_AND_EDITION_NTC_2018_01_CONCRETE_DESIGN:
     /****************************************************************** Ultimate configuration ***************************************************************************/

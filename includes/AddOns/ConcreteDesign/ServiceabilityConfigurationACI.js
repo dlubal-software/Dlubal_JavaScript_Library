@@ -141,8 +141,8 @@ ConcreteDesignServiceabilityConfigurationACI.prototype.DeflectionAnalysis = func
     property_deflection_duration_of_load,
     property_time_dependent_material_properties) {
     SetConcreteDesignServiceabilityConfigurationDeflectionAnalysis(this.addon.settings_main_aci318, property_limitation_of_deflection_enabled, property_deflection_limit_support_on_both_sides, 
-        property_deflection_limit_one_sided_support, property_tension_stiffening_effect_enabled, property_minimum_zeta_enabled, property_minimum_zeta_value, property_activate_time_dependent_deflections, 
-        property_time_dependent_factor, property_deflection_duration_of_load, property_time_dependent_material_properties)
+        property_deflection_limit_one_sided_support, property_tension_stiffening_effect_enabled, undefined, property_minimum_zeta_enabled, property_minimum_zeta_value, property_activate_time_dependent_deflections, 
+        property_time_dependent_factor, property_deflection_duration_of_load, undefined, property_time_dependent_material_properties)
 };
 
 /**

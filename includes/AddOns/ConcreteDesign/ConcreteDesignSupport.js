@@ -1066,11 +1066,13 @@ function SetConcreteDesignServiceabilityConfigurationDeflectionAnalysis (addon_s
     property_deflection_limit_support_on_both_sides,
     property_deflection_limit_one_sided_support,
     property_tension_stiffening_effect_enabled,
+    property_tension_stiffening_effect,
     property_minimum_zeta_enabled,
     property_minimum_zeta_value,
     property_activate_time_dependent_deflections,
     property_time_dependent_factor,
     property_deflection_duration_of_load,
+    property_deflection_relative_humidity,
     property_time_dependent_material_properties) {
     if (typeof property_limitation_of_deflection_enabled !== "undefined") {
         addon_settings.property_limitation_of_deflection_enabled = property_limitation_of_deflection_enabled;
@@ -1086,6 +1088,10 @@ function SetConcreteDesignServiceabilityConfigurationDeflectionAnalysis (addon_s
     if (typeof property_tension_stiffening_effect_enabled !== "undefined") {
         ASSERT(addon_settings.property_limitation_of_deflection_enabled, "Limitation of deflection must be on");
         addon_settings.property_tension_stiffening_effect_enabled = property_tension_stiffening_effect_enabled;
+    }
+    if (typeof property_tension_stiffening_effect !== "undefined") {
+        ASSERT(addon_settings.property_limitation_of_deflection_enabled, "Limitation of deflection must be on");
+        addon_settings.property_tension_stiffening_effect = property_tension_stiffening_effect;
     }
     if (typeof property_minimum_zeta_enabled !== "undefined") {
         ASSERT(addon_settings.property_limitation_of_deflection_enabled, "Limitation of deflection must be on");
@@ -1106,6 +1112,10 @@ function SetConcreteDesignServiceabilityConfigurationDeflectionAnalysis (addon_s
     if (typeof property_deflection_duration_of_load !== "undefined") {
         ASSERT(addon_settings.property_time_dependent_factor, "Time-dependent factor acc. to table 24.2.4.1.3 must be on");
         addon_settings.property_deflection_duration_of_load = property_deflection_duration_of_load;
+    }
+    if (typeof property_deflection_relative_humidity !== "undefined") {
+        ASSERT(addon_settings.property_time_dependent_factor, "Use of creep factor acc. to table 6.12 and time-dependent concrete strain acc. to table 6.10 acc. to SP63.13330.2018 must be on");
+        addon_settings.property_deflection_relative_humidity = property_deflection_relative_humidity;
     }
     if (typeof property_time_dependent_material_properties !== "undefined") {
         ASSERT(addon_settings.property_activate_time_dependent_deflections, "Calculation of time-dependent deflections must be on");
