@@ -109,7 +109,9 @@ switch (general.current_standard_for_concrete_design)
         serviceabilityConfiguration.EffectsDueToRestraint(true, "APPROACH_BENDING_RESTRAINT", "AREA_TOP_BOTTOM", false, false, false, true, true, 0.98);
         serviceabilityConfiguration.DeflectionAnalysis(true, 251, 252, false, true, 0.501);
         serviceabilityConfiguration.CrackStateDetection("INDEPENDENT_OF_LOAD");
-        serviceabilityConfiguration.FiberConcrete("SDL2", false);
+        if (PRERELEASE_MODE) {
+            serviceabilityConfiguration.FiberConcrete("SDL2", false);
+        }
         break;
     case general.NATIONAL_ANNEX_AND_EDITION_ACI_318_2019_CONCRETE_DESIGN:
     /****************************************************************** Strength configuration ***************************************************************************/
