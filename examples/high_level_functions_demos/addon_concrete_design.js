@@ -251,6 +251,26 @@ switch (general.current_standard_for_concrete_design)
         ASSERT(false, "Unknown code of standard");
 }
 
+var memberForSetOfMembers = new Member();
+memberForSetOfMembers.Beam(undefined, [14, 15], section.GetNo());
+var memberSet = new MemberSet();
+memberSet.ContinuousMembers(undefined, [memberList[6].GetNo(), memberForSetOfMembers.GetNo(), memberList[7].GetNo()]);
+
+/*************************************** Types for concrete design - Effective length ********************************************************/
+var effectiveLength = new ConcreteDesignEffectiveLength(undefined, [memberList[5].GetNo()], [memberSet.GetNo()], "Concrete design effective length");
+effectiveLength.SetName("Test effective length");
+effectiveLength.DeterminationType(true, true);
+effectiveLength.StructureType("BRACED");
+effectiveLength.NodalSupportsStartWithSupportType("FIXED_IN_Z");
+effectiveLength.NodalSupportsEndWithSupportType("FIXED_IN_Y");
+effectiveLength.InsertNodalSupportIntermediateNodeWithSupportType("FIXED_IN_Z");
+effectiveLength.InsertNodalSupportIntermediateNodeWithSupportType("FIXED_IN_Y");
+effectiveLength.InsertNodalSupportIntermediateNodeWithSupportType("FIXED_ALL");
+effectiveLength.OverwriteEffectiveLengths(1, 1.01, 1.02);
+effectiveLength.OverwriteEffectiveLengths(2, undefined, 1.02);
+effectiveLength.OverwriteEffectiveLengths(3, 1.03);
+effectiveLength.OverwriteEffectiveLengths(4, 1.04, 1.05);
+
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;
-console.log("Elapsed time: " + time + "s");;
+console.log("Elapsed time: " + time + "s");
