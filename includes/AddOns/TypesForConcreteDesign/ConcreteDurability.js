@@ -17,7 +17,7 @@ function ConcreteDesignConcreteDurability (no,
     comment,
     params) {
     ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design add-on must be active");
-    ASSERT(IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC"), "Concrete durabilities is enabled only for EN and NTSC ")
+    ASSERT(IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC"), "Concrete durabilities is enabled only for EN and NTC")
     if (typeof no === "undefined") {
         this.durability = concrete_durabilities.create();
     }
@@ -68,6 +68,34 @@ function ConcreteDesignConcreteDurability (no,
     }
     set_comment_and_parameters(this.durability, comment, params);
 }
+
+/**
+ * @returns Concrete durability number
+ */
+ConcreteDesignConcreteDurability.prototype.GetNo = function () {
+    return this.durability.no;
+};
+
+/**
+ * @returns Concrete durability object
+ */
+ConcreteDesignConcreteDurability.prototype.ConcreteDurability = function () {
+    return this.durability;
+};
+
+/**
+ * Sets Name
+ * @param {String} name     Name, can be undefined (when undefined, generated name is used)
+ */
+ConcreteDesignConcreteDurability.prototype.SetName = function (name) {
+    if (typeof name !== "undefined") {
+        this.durability.user_defined_name_enabled = true;
+        this.durability.name = name;
+    }
+    else {
+        this.durability.user_defined_name_enabled = false;
+    }
+};
 
 /**
  * Sets no risk of corrosion or attack

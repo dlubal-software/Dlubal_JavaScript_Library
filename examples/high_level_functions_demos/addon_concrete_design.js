@@ -1,4 +1,5 @@
 include("../../includes/Tools/high_level_functions_support.js");
+include("../../includes/AddOns/ConcreteDesign/ConcreteDesignSupport.js");
 /*********************************************************************************************
 ****************************************** Main **********************************************
 *********************************************************************************************/
@@ -271,23 +272,35 @@ effectiveLength.OverwriteEffectiveLengths(2, undefined, 1.02);
 effectiveLength.OverwriteEffectiveLengths(3, 1.03);
 effectiveLength.OverwriteEffectiveLengths(4, 1.04, 1.05);
 
-/********************************************** Types for concrete design - Durabilities ********************************************************/
-var memberForSetOfMembers2 = new Member();
-memberForSetOfMembers2.Beam(undefined, [18, 19], section.GetNo());
-var memberSet2 = new MemberSet();
-memberSet2.ContinuousMembers(undefined, [memberList[8].GetNo(), memberForSetOfMembers2.GetNo(), memberList[9].GetNo()]);
-var concreteDurability = new ConcreteDesignConcreteDurability(undefined, undefined, [surfaceList[3].no, surfaceList[4].no], undefined, "Concrete design concrete durabilities")
-concreteDurability.NoRiskOfCorrosionOrAttack(undefined, false);
-concreteDurability.CorrosionInducedByCarbonation("MODERATE_HUMIDITY");
-concreteDurability.CorrosionInducedByChlorides("CYCLIC_WET_AND_DRY");
-concreteDurability.CorrosionInducedByChloridesFromSeaWater("SPLASH_AND_SPRAY_ZONES");
-concreteDurability.FreezeThawAttack("HIGH_SATURATION_NO_DEICING");
-concreteDurability.ChemicalAttack("HIGHLY_AGGRESSIVE");
-concreteDurability.ConcreteCorrosionInducedByWear("HIGH");
-concreteDurability.StructuralClassAccordingTo4_4_1_2(true, true, true, true);
-concreteDurability.StainlessSteel("STANDARD");
-concreteDurability.AdditionalProtection(0.005);
-concreteDurability.AllowanceForDeviation("STANDARD", true, "DIRECTLY_AGAINST_SOIL");
+if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC")) {
+    /********************************************** Types for concrete design - Durabilities ********************************************************/
+    var memberForSetOfMembers2 = new Member();
+    memberForSetOfMembers2.Beam(undefined, [18, 19], section.GetNo());
+    var memberSet2 = new MemberSet();
+    memberSet2.ContinuousMembers(undefined, [memberList[8].GetNo(), memberForSetOfMembers2.GetNo(), memberList[9].GetNo()]);
+    var concreteDurability = new ConcreteDesignConcreteDurability(undefined, undefined, [surfaceList[3].no, surfaceList[4].no], undefined, "Concrete design concrete durabilities")
+    concreteDurability.SetName("Testing concrete durability object");
+    concreteDurability.NoRiskOfCorrosionOrAttack(undefined, false);
+    concreteDurability.CorrosionInducedByCarbonation("MODERATE_HUMIDITY");
+    concreteDurability.CorrosionInducedByChlorides("CYCLIC_WET_AND_DRY");
+    concreteDurability.CorrosionInducedByChloridesFromSeaWater("SPLASH_AND_SPRAY_ZONES");
+    concreteDurability.FreezeThawAttack("HIGH_SATURATION_NO_DEICING");
+    concreteDurability.ChemicalAttack("HIGHLY_AGGRESSIVE");
+    concreteDurability.ConcreteCorrosionInducedByWear("HIGH");
+    concreteDurability.StructuralClassAccordingTo4_4_1_2(true, true, true, true);
+    concreteDurability.StainlessSteel("STANDARD");
+    concreteDurability.AdditionalProtection(0.005);
+    concreteDurability.AllowanceForDeviation("STANDARD", true, "DIRECTLY_AGAINST_SOIL");
+}
+else {
+    console.log("Concrete durabilities is enabled only for EN and NTC");
+}
+
+/***************************************** Types for concrete design - Reinforcement direction ****************************************************/
+var reinforcementDirection = new ConcreteDesignReinforcementDirection(undefined, [surfaceList[5].no, surfaceList[6].no], "Concrete design Reinforcement direction");
+reinforcementDirection.SetName("Reinforcement direction for test");
+reinforcementDirection.DirectionType("ROTATED");
+reinforcementDirection.DirectionRotations(Math.PI / 4, Math.PI / 2);
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;
