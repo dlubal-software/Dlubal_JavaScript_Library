@@ -251,12 +251,12 @@ switch (general.current_standard_for_concrete_design)
         ASSERT(false, "Unknown code of standard");
 }
 
+/********************************************** Types for concrete design - Effective length ********************************************************/
 var memberForSetOfMembers = new Member();
 memberForSetOfMembers.Beam(undefined, [14, 15], section.GetNo());
 var memberSet = new MemberSet();
 memberSet.ContinuousMembers(undefined, [memberList[6].GetNo(), memberForSetOfMembers.GetNo(), memberList[7].GetNo()]);
 
-/*************************************** Types for concrete design - Effective length ********************************************************/
 var effectiveLength = new ConcreteDesignEffectiveLength(undefined, [memberList[5].GetNo()], [memberSet.GetNo()], "Concrete design effective length");
 effectiveLength.SetName("Test effective length");
 effectiveLength.DeterminationType(true, true);
@@ -270,6 +270,24 @@ effectiveLength.OverwriteEffectiveLengths(1, 1.01, 1.02);
 effectiveLength.OverwriteEffectiveLengths(2, undefined, 1.02);
 effectiveLength.OverwriteEffectiveLengths(3, 1.03);
 effectiveLength.OverwriteEffectiveLengths(4, 1.04, 1.05);
+
+/********************************************** Types for concrete design - Durabilities ********************************************************/
+var memberForSetOfMembers2 = new Member();
+memberForSetOfMembers2.Beam(undefined, [18, 19], section.GetNo());
+var memberSet2 = new MemberSet();
+memberSet2.ContinuousMembers(undefined, [memberList[8].GetNo(), memberForSetOfMembers2.GetNo(), memberList[9].GetNo()]);
+var concreteDurability = new ConcreteDesignConcreteDurability(undefined, undefined, [surfaceList[3].no, surfaceList[4].no], undefined, "Concrete design concrete durabilities")
+concreteDurability.NoRiskOfCorrosionOrAttack(undefined, false);
+concreteDurability.CorrosionInducedByCarbonation("MODERATE_HUMIDITY");
+concreteDurability.CorrosionInducedByChlorides("CYCLIC_WET_AND_DRY");
+concreteDurability.CorrosionInducedByChloridesFromSeaWater("SPLASH_AND_SPRAY_ZONES");
+concreteDurability.FreezeThawAttack("HIGH_SATURATION_NO_DEICING");
+concreteDurability.ChemicalAttack("HIGHLY_AGGRESSIVE");
+concreteDurability.ConcreteCorrosionInducedByWear("HIGH");
+concreteDurability.StructuralClassAccordingTo4_4_1_2(true, true, true, true);
+concreteDurability.StainlessSteel("STANDARD");
+concreteDurability.AdditionalProtection(0.005);
+concreteDurability.AllowanceForDeviation("STANDARD", true, "DIRECTLY_AGAINST_SOIL");
 
 var t2 = new Date().getTime();
 var time = (t2 - t1) / 1000;

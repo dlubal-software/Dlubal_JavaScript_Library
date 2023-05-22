@@ -149,6 +149,7 @@ include("AddOns/ConcreteDesign/ServiceabilityConfigurationEN.js");
 include("AddOns/ConcreteDesign/ServiceabilityConfigurationSP.js");
 include("AddOns/ConcreteDesign/ServiceabilityConfigurationNTC.js");
 include("AddOns/TypesForConcreteDesign/EffectiveLength.js");
+include("AddOns/TypesForConcreteDesign/ConcreteDurability.js");
 // Guide objects
 include("GuideObjects/CoordinateSystem.js");
 // Dimensions

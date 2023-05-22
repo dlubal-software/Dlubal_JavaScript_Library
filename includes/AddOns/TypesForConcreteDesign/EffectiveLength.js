@@ -420,7 +420,6 @@ function setConcreteDesignEffectiveLengthsBuckling (effective_length,
     if (typeof flexural_buckling_y !== "undefined") {
         ASSERT(isFlexuralBucklingYEnable(), "Row " + row.toString() + ": Flexural buckling " + getSymbolicName("flexural_buckling_y", absolute_values) + " is not enabled");
         ASSERT(effective_length.nodal_supports[row].support_in_z === support_true || row === 1 || row === effective_length.nodal_supports.row_count(), "Row " + row.toString() + ": Flexural buckling " + getSymbolicName("flexural_buckling_y", absolute_values) + " is not enabled");
-        console.log(row);
         object_to_set[row].flexural_buckling_y = flexural_buckling_y;
     }
     if (typeof flexural_buckling_z !== "undefined") {
