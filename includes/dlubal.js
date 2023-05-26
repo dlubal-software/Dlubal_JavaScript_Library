@@ -151,6 +151,7 @@ include("AddOns/ConcreteDesign/ServiceabilityConfigurationNTC.js");
 include("AddOns/TypesForConcreteDesign/EffectiveLength.js");
 include("AddOns/TypesForConcreteDesign/ConcreteDurability.js");
 include("AddOns/TypesForConcreteDesign/ReinforcementDirection.js");
+include("AddOns/TypesForConcreteDesign/SurfaceReinforcement.js");
 // Guide objects
 include("GuideObjects/CoordinateSystem.js");
 // Dimensions
