@@ -245,7 +245,7 @@ if (RFEM) {
 	surface.Membrane(undefined, linesForSurfaces[4][0], 1, "With default plane geometry type");
 	surface.WithoutMembraneTension(undefined, linesForSurfaces[5][0], 1, "With default plane geometry type");
 	var surfaceLoadTransfer = new Surface();
-	surfaceLoadTransfer.LoadTransfer(undefined, linesForSurfaces[6][0], "DIRECTION_IN_Y", "Uniform", "With default plane geometry type");
+	surfaceLoadTransfer.LoadTransfer(undefined, linesForSurfaces[6][0], "DIRECTION_IN_Y", "UNIFORM", "With default plane geometry type");
 	// Load transfer surface options
 	surfaceLoadTransfer.RemoveInfluenceFrom(undefined, undefined, [13, 14, 15, 16], undefined, [189,190,199,200]);	// with lines and nodes defined
 	surfaceLoadTransfer.SurfaceWeight(2000);

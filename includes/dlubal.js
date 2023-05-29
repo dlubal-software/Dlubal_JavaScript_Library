@@ -152,6 +152,7 @@ include("AddOns/TypesForConcreteDesign/EffectiveLength.js");
 include("AddOns/TypesForConcreteDesign/ConcreteDurability.js");
 include("AddOns/TypesForConcreteDesign/ReinforcementDirection.js");
 include("AddOns/TypesForConcreteDesign/SurfaceReinforcement.js");
+include("AddOns/TypesForConcreteDesign/PunchingReinforcement.js");
 // Guide objects
 include("GuideObjects/CoordinateSystem.js");
 // Dimensions

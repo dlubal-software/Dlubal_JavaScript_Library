@@ -3,6 +3,7 @@ Bug 93213 - Un-complete enums (values are missing): mesh_product_range, mesh_sha
 */
 
 include("../../Tools/jshlf_common_functions.js");
+include ("../ConcreteDesign/ConcreteDesignSupport.js");
 
 function ConcreteDesignSurfaceReinforcement (no,
     surfaces_no,
@@ -17,7 +18,7 @@ function ConcreteDesignSurfaceReinforcement (no,
         this.surface_reinforcement = this.surface_reinforcements.create(no);
     }
     if (typeof surfaces_no !== "undefined") {
-        ASSERT(Array.isArray(surfaces_no), "Surfaces list must be array of member indexes");
+        ASSERT(Array.isArray(surfaces_no), "Surfaces list must be array of surface indexes");
         surfaces_list = surfaces_no;
         surfaces_no = [];
         for (var i = 0; i < surfaces_list.length; ++i) {
@@ -106,11 +107,20 @@ ConcreteDesignSurfaceReinforcement.prototype.Mesh = function (reinforcement_type
  * Sets Rebar diameter
  * @param {Number} rebar_diameter    Rebar diameter
  */
-ConcreteDesignSurfaceReinforcement.prototype.RebarDiameter = function (rebar_diameter) {
-    ASSERT(typeof rebar_diameter !== "undefined", "Rebar diameter must be specified");
+ConcreteDesignSurfaceReinforcement.prototype.RebarDiameter = function (value_1,
+    value_2) {
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_REBAR, "Reinforcement type must be of rebar type");
-    this.surface_reinforcement.rebar_diameter_auto_enabled = false;
-    this.surface_reinforcement.rebar_diameter = rebar_diameter;
+    if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("SP")) {
+        ASSERT(typeof value_1 !== "undefined", "Rebar diameter must be specified");
+        this.surface_reinforcement.rebar_diameter_auto_enabled = false;
+        this.surface_reinforcement.rebar_diameter = value_1;
+    }
+    else if (IsCurrentCodeOfStandard("ACI") || IsCurrentCodeOfStandard("CSA")) {
+
+    }
+    else {
+        ASSERT("Code of standard " + GetCurrentCodeOfStandard() + " is not supported");
+    }
 };
 
 /**
@@ -195,12 +205,20 @@ ConcreteDesignSurfaceReinforcement.prototype.AdditionalTransverseReinforcement =
  * Sets Additional rebar diameter
  * @param {Number} additional_rebar_diameter    Additional rebar diameter
  */
-ConcreteDesignSurfaceReinforcement.prototype.AdditionalRebarDiameter = function (additional_rebar_diameter) {
-    ASSERT(typeof additional_rebar_diameter !== "undefined", "Additional rebar diameter must be specified");
+ConcreteDesignSurfaceReinforcement.prototype.AdditionalRebarDiameter = function (value_1) {
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_REBAR, "Reinforcement type must be of rebar type");
-    this.surface_reinforcement.additional_transverse_reinforcement_enabled = true;
-    this.surface_reinforcement.additional_rebar_diameter_auto_enabled = false;
-    this.surface_reinforcement.additional_rebar_diameter = additional_rebar_diameter;
+    if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("SP")) {
+        ASSERT(typeof value_1 !== "undefined", "Additional rebar diameter must be specified");
+        this.surface_reinforcement.additional_transverse_reinforcement_enabled = true;
+        this.surface_reinforcement.additional_rebar_diameter_auto_enabled = false;
+        this.surface_reinforcement.additional_rebar_diameter = value_1;
+    }
+    else if (IsCurrentCodeOfStandard("ACI") || IsCurrentCodeOfStandard("CSA")) {
+
+    }
+    else {
+        ASSERT("Code of standard " + GetCurrentCodeOfStandard() + " is not supported");
+    }
 };
 
 /**
@@ -276,11 +294,19 @@ ConcreteDesignSurfaceReinforcement.prototype.AdditionalRebarSpacingAuto = functi
  * Sets Stirrups diameter
  * @param {Number} stirrup_diameter     Stirrups diameter
  */
-ConcreteDesignSurfaceReinforcement.prototype.StirrupsDiameter = function (stirrup_diameter) {
-    ASSERT(typeof stirrup_diameter !== "undefined", "Stirrups diameter must be specified");
+ConcreteDesignSurfaceReinforcement.prototype.StirrupsDiameter = function (value_1) {
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_STIRRUPS, "Reinforcement must be of stirrups type");
-    this.surface_reinforcement.stirrup_diameter_auto_enabled = false;
-    this.surface_reinforcement.stirrup_diameter = stirrup_diameter;
+    if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("SP")) {
+        ASSERT(typeof value_1 !== "undefined", "Stirrups diameter must be specified");    
+        this.surface_reinforcement.stirrup_diameter_auto_enabled = false;
+        this.surface_reinforcement.stirrup_diameter = value_1;
+    }
+    else if (IsCurrentCodeOfStandard("ACI") || IsCurrentCodeOfStandard("CSA")) {
+
+    }
+    else {
+        ASSERT("Code of standard " + GetCurrentCodeOfStandard() + " is not supported");
+    }
 };
 
 /**

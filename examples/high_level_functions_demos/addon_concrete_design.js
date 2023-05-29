@@ -20,9 +20,9 @@ for (var i = 0; i < nodeForMembers.length; i+=2) {
     member.Beam(undefined, [i + 1, i + 2], section.GetNo());
 }
 
-var nodesForSurfaces = createNodesGrid(-28, -18, [10, 8], [3, 2]);
+var nodesForSurfaces = createNodesGrid(-28, -18, [10, 6], [3, 2]);
 if (RFEM) {
-    surface_dict = createSurfacesFromNodesGrid(nodesForSurfaces, [5, 4], surfaces.TYPE_STANDARD, thickness);
+    surface_dict = createSurfacesFromNodesGrid(nodesForSurfaces, [5, 3], surfaces.TYPE_STANDARD, thickness);
     for (var key in surface_dict) {
         surfaceList.push(surface_dict[key][0]);
     }
@@ -311,13 +311,13 @@ else {
 }
 
 if (RFEM) {
-    /***************************************** Types for concrete design - Reinforcement direction ****************************************************/
+    /*************************************************** Types for concrete design - Reinforcement direction ****************************************************/
     var reinforcementDirection = new ConcreteDesignReinforcementDirection(undefined, [surfaceList[4].no, surfaceList[5].no], "Concrete design Reinforcement direction");
     reinforcementDirection.SetName("Reinforcement direction for test");
     reinforcementDirection.DirectionType("ROTATED");
     reinforcementDirection.DirectionRotations(Math.PI / 4, Math.PI / 2);
 
-    /***************************************** Types for concrete design - Surface reinforcement ****************************************************/
+    /**************************************************** Types for concrete design - Surface reinforcement ****************************************************/
     var reinforcementMaterial = new Material(undefined, "Grade 40");
     var coordinateSystem = new CoordinateSystem();
     coordinateSystem.Offset(undefined, [1, 1, 0]);
@@ -333,13 +333,18 @@ if (RFEM) {
     surfaceReinforcement2.SetName("Surface reinforcement - rebar");
     surfaceReinforcement2.ReinforcementType("REBAR");
     surfaceReinforcement2.LocationType("FREE_RECTANGULAR");
-    surfaceReinforcement2.RebarDiameter(0.015);
+    if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("SP")) {
+        surfaceReinforcement2.RebarDiameter(0.015);
+        surfaceReinforcement2.AdditionalRebarDiameter(0.009);
+    }
+    else {
+
+    }
     surfaceReinforcement2.RebarSpacingAuto(0.101, 0.301, 0.011, 2);
-    surfaceReinforcement2.AdditionalRebarDiameter(0.009);
     surfaceReinforcement2.AdditionalRebarSpacingAuto(0.012, 0.022, 0.016, 2);
     surfaceReinforcement2.Assignment(0);
     surfaceReinforcement2.ReinforcementDirection("IN_DESIGN_REINFORCEMENT_DIRECTION", "A_S_2");
-    surfaceReinforcement2.ReinforcementLocationFreeRectangular("CORNER_POINTS", 0.5, 0.6, 1.0, 1.1, Math.PI / 4);
+    surfaceReinforcement2.ReinforcementLocationFreeRectangular("CORNER_POINTS", -15.65, -13.63, -13.36, -12.5, Math.PI / 4);
     var surfaceReinforcement3 = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[8].no], reinforcementMaterial.GetNo(), "Concrete design Surface reinforcement - rebar (2)");
     surfaceReinforcement3.SetName("Surface reinforcement - rebar (2)");
     surfaceReinforcement3.LocationType("FREE_RECTANGULAR");
@@ -354,7 +359,12 @@ if (RFEM) {
     var surfaceReinforcement4 = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[9].no], reinforcementMaterial.GetNo(), "Concrete design Surface reinforcement - stirrups");
     surfaceReinforcement4.SetName("Surface reinforcement - stirrups")
     surfaceReinforcement4.ReinforcementType("STIRRUPS");
-    surfaceReinforcement4.StirrupsDiameter(0.021);
+    if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("SP")) {
+        surfaceReinforcement4.StirrupsDiameter(0.021);
+    }
+    else {
+
+    }
     surfaceReinforcement4.StirrupsSpacingAuto(0.101, 0.301, 0.011, 3);
     var surfaceReinforcement5 = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[10].no], reinforcementMaterial.GetNo(), "Concrete design Surface reinforcement - stirrups (2)");
     surfaceReinforcement5.SetName("Surface reinforcement - stirrups (2)")
@@ -364,11 +374,34 @@ if (RFEM) {
     var surfaceReinforcement6 = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[8].no], reinforcementMaterial.GetNo(), "Concrete design Surface reinforcement - rebar (3)");
     surfaceReinforcement6.SetName("Surface reinforcement - rebar (3)");
     surfaceReinforcement6.LocationType("FREE_CIRCULAR");
-    surfaceReinforcement6.ReinforcementLocationFreeCircular(2.5, 3.5, 2);
+    surfaceReinforcement6.ReinforcementLocationFreeCircular(-8.5, -13.0, 0.8);
     var surfaceReinforcement7 = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[10].no], reinforcementMaterial.GetNo(), "Concrete design Surface reinforcement - rebar (4)");
     surfaceReinforcement7.SetName("Surface reinforcement - rebar (4)");
     surfaceReinforcement7.LocationType("FREE_POLYGON");
     surfaceReinforcement7.ReinforcementLocationFreePolygon([[-28.0, -10.0, "Comment 1"], [-25.0, -10.0], [-26.5, -8.0, "Comment 2"]]);
+
+    if (PRERELEASE_MODE) {
+        /**************************************************** Types for concrete design - Punching reinforcement ****************************************************/
+        var materialForPunching = new Material(undefined, "Grade 40");
+
+        var punchingReinforcement = new ConcreteDesignPunchingReinforcement(undefined, [75, 76, 85, 86], materialForPunching.GetNo(), "Punching reinforcement for test");
+        punchingReinforcement.SetName("Punching reinforcement 1");
+        punchingReinforcement.Type("VERTICAL");
+        punchingReinforcement.Placement("AUTOMATICALLY");
+        punchingReinforcement.Options(true, false);
+        punchingReinforcement.BendUpDiameter(true);
+    }
+
+    /***************************************** Concrete design for surfaces ****************************************************/
+    var nodesForSurfaces2 = createNodesGrid(-28, -4, [10, 2], [3, 2]);
+    var surface_dict2 = createSurfacesFromNodesGrid(nodesForSurfaces2, [5, 1], undefined, undefined, true);
+    var surfaceList2 = [];
+    for (var i = 0; i < Object.keys(surface_dict2).length; ++i) {
+        var surface = new Surface();
+        surface.Standard(undefined, surface_dict2[i + 1][0], thickness.no);
+        surfaceList2.push(surface);
+    }
+    surfaceList2[0].UserDefinedConcreteCover(0.035, 0.036);
 }
 
 var t2 = new Date().getTime();

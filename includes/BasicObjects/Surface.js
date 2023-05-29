@@ -2,6 +2,8 @@ if (!RFEM) {
 	throw new Error("This script is only for RFEM, it creates surfaces.");
 }
 
+include ("../Tools/jshlf_common_functions.js");
+
 /**
 * Creates surface
 * @class
@@ -140,10 +142,25 @@ Surface.prototype.LoadTransfer = function (no,
 	params) {
 	this.surface = createSurfaceWithType(no, boundary_lines, GetSurfaceStiffnessType("LOAD_TRANSFER"), undefined, comment, params);
 	if (typeof load_transfer_direction !== "undefined") {
-		this.surface.load_transfer_direction = GetSurfaceLoadTransferDirection(load_transfer_direction);
+		this.surface.load_transfer_direction = EnumValueFromJSHLFTypeName(
+			load_transfer_direction,
+			"load transfer direction",
+			{
+				"DIRECTION_IN_X": surfaces.LOAD_TRANSFER_DIRECTION_IN_X,
+				"DIRECTION_IN_Y": surfaces.LOAD_TRANSFER_DIRECTION_IN_Y,
+				"DIRECTION_IN_BOTH": surfaces.LOAD_TRANSFER_DIRECTION_IN_BOTH
+			},
+			surfaces.LOAD_TRANSFER_DIRECTION_IN_X);
 	}
 	if (typeof load_distribution !== "undefined") {
-		this.surface.load_distribution = GetSurfaceTransferLoadDistribution(load_distribution);
+		this.surface.load_distribution = EnumValueFromJSHLFTypeName(
+			load_distribution,
+			"load distribution",
+			{
+				"UNIFORM": surfaces.LOAD_DISTRIBUTION_UNIFORM,
+				"UNIFORM": surfaces.LOAD_DISTRIBUTION_VARYING
+			},
+			surfaces.LOAD_DISTRIBUTION_VARYING);
 	}
 };
 
@@ -666,91 +683,32 @@ var createSurfaceWithType = function (no,
 	return surface;
 };
 
-function GetSurfaceLoadTransferDirection(load_transfer_direction) {
-	const load_transfer_directions_dict = {
-		"DIRECTION_IN_X": surfaces.LOAD_TRANSFER_DIRECTION_IN_X,
-		"DIRECTION_IN_Y": surfaces.LOAD_TRANSFER_DIRECTION_IN_Y,
-		"DIRECTION_IN_BOTH": surfaces.LOAD_TRANSFER_DIRECTION_IN_BOTH
-	};
-
-	if (load_transfer_direction !== undefined) {
-		var loadTransferDirection = load_transfer_directions_dict[load_transfer_direction];
-		if (loadTransferDirection === undefined) {
-			console.log("Wrong load transfer direction. Value was: " + load_transfer_direction);
-			console.log("Correct values are: ( " + Object.keys(load_transfer_directions_dict) + ")");
-			loadTransferDirection = surfaces.LOAD_TRANSFER_DIRECTION_IN_X;
-		}
-		return loadTransferDirection;
-	}
-	else {
-		return surfaces.LOAD_TRANSFER_DIRECTION_IN_X;
-	}
-}
-
-function GetSurfaceTransferLoadDistribution(load_distribution) {
-	const load_distributions_dict = {
-		"Uniform": surfaces.LOAD_DISTRIBUTION_UNIFORM,
-		"Varying": surfaces.LOAD_DISTRIBUTION_VARYING
-	};
-
-	if (load_distribution !== undefined) {
-		var loadDistribution = load_distributions_dict[load_distribution];
-		if (loadDistribution === undefined) {
-			console.log("Wrong load distribution. Value was: " + load_distribution);
-			console.log("Correct values are: ( " + Object.keys(load_distributions_dict) + ")");
-			loadDistribution = surfaces.LOAD_DISTRIBUTION_VARYING;
-		}
-		return loadDistribution;
-	}
-	else {
-		return surfaces.LOAD_DISTRIBUTION_VARYING;
-	}
-}
-
   function GetSurfaceInputAxesAxis(axis_type) {
-	const axis_types_dict = {
-	  "AXIS_X": surfaces.AXIS_X,
-	  "AXIS_Y": surfaces.AXIS_Y
-	};
-
-	if (axis_type !== undefined) {
-	  var axisType = axis_types_dict[axis_type];
-	  if (axisType === undefined) {
-		console.log("Wrong input axes axis type. Value was: " + axis_type);
-		console.log("Correct values are: ( " + Object.keys(axis_types_dict) + ")");
-		loadDistribution = surfaces.AXIS_X;
-	  }
-	  return axisType;
-	}
-	else {
-	  return surfaces.AXIS_X;
-	}
+	return EnumValueFromJSHLFTypeName(
+		axis_type,
+		"axis type",
+		{
+			"AXIS_X": surfaces.AXIS_X,
+	  		"AXIS_Y": surfaces.AXIS_Y
+		},
+		surfaces.AXIS_X);
   }
 
   function GetSurfaceStiffnessType(stiffness_type) {
-	const stiffness_types_dict = {
-		"STANDARD": surfaces.TYPE_STANDARD,
-		"WITHOUT_THICKNESS": surfaces.TYPE_WITHOUT_THICKNESS,
-		"RIGID": surfaces.TYPE_RIGID,
-		"MEMBRANE": surfaces.TYPE_MEMBRANE,
-		"WITHOUT_MEMBRANE_TENSION": surfaces.TYPE_WITHOUT_MEMBRANE_TENSION,
-		"LOAD_TRANSFER": surfaces.TYPE_LOAD_TRANSFER,
-		"GROUNDWATER": surfaces.TYPE_GROUNDWATER,
-		"FLOOR": surfaces.TYPE_FLOOR,
-		"FLOOR_DIAPHRAGM": surfaces.TYPE_FLOOR_DIAPHRAGM,
-		"FLOOR_SEMIRIGID": surfaces.TYPE_FLOOR_SEMIRIGID
-	};
-
-	if (stiffness_type !== undefined) {
-	  var type = stiffness_types_dict[stiffness_type];
-	  if (type === undefined) {
-		console.log("Wrong stiffness type. Value was: " + stiffness_type);
-		console.log("Correct values are: ( " + Object.keys(stiffness_types_dict) + ")");
-		type = surfaces.TYPE_STANDARD;
-	  }
-	  return type;
-	}
-	else {
-	  return surfaces.TYPE_STANDARD;
-	}
+	return EnumValueFromJSHLFTypeName (
+		stiffness_type,
+		"stiffness type",
+		{
+			"STANDARD": surfaces.TYPE_STANDARD,
+			"WITHOUT_THICKNESS": surfaces.TYPE_WITHOUT_THICKNESS,
+			"RIGID": surfaces.TYPE_RIGID,
+			"MEMBRANE": surfaces.TYPE_MEMBRANE,
+			"WITHOUT_MEMBRANE_TENSION": surfaces.TYPE_WITHOUT_MEMBRANE_TENSION,
+			"LOAD_TRANSFER": surfaces.TYPE_LOAD_TRANSFER,
+			"GROUNDWATER": surfaces.TYPE_GROUNDWATER,
+			"FLOOR": surfaces.TYPE_FLOOR,
+			"FLOOR_DIAPHRAGM": surfaces.TYPE_FLOOR_DIAPHRAGM,
+			"FLOOR_SEMIRIGID": surfaces.TYPE_FLOOR_SEMIRIGID
+		},
+		surfaces.TYPE_STANDARD);
   }
