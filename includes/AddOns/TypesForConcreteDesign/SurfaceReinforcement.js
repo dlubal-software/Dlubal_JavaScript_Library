@@ -1,5 +1,6 @@
 /*
 Bug 93213 - Un-complete enums (values are missing): mesh_product_range, mesh_shape
+Bug 94787 - Missing enums for Diameter bar no. (ACI, CSA standards)
 */
 
 include("../../Tools/jshlf_common_functions.js");
@@ -116,7 +117,7 @@ ConcreteDesignSurfaceReinforcement.prototype.RebarDiameter = function (value_1,
         this.surface_reinforcement.rebar_diameter = value_1;
     }
     else if (IsCurrentCodeOfStandard("ACI") || IsCurrentCodeOfStandard("CSA")) {
-
+        // Missing enum (bug 94787)
     }
     else {
         ASSERT("Code of standard " + GetCurrentCodeOfStandard() + " is not supported");
@@ -214,7 +215,7 @@ ConcreteDesignSurfaceReinforcement.prototype.AdditionalRebarDiameter = function 
         this.surface_reinforcement.additional_rebar_diameter = value_1;
     }
     else if (IsCurrentCodeOfStandard("ACI") || IsCurrentCodeOfStandard("CSA")) {
-
+        // Missing enum (bug 94787)
     }
     else {
         ASSERT("Code of standard " + GetCurrentCodeOfStandard() + " is not supported");
@@ -302,7 +303,7 @@ ConcreteDesignSurfaceReinforcement.prototype.StirrupsDiameter = function (value_
         this.surface_reinforcement.stirrup_diameter = value_1;
     }
     else if (IsCurrentCodeOfStandard("ACI") || IsCurrentCodeOfStandard("CSA")) {
-
+        // Missing enum (bug 94787)
     }
     else {
         ASSERT("Code of standard " + GetCurrentCodeOfStandard() + " is not supported");

@@ -382,7 +382,12 @@ if (RFEM) {
 
     if (PRERELEASE_MODE) {
         /**************************************************** Types for concrete design - Punching reinforcement ****************************************************/
-        var materialForPunching = new Material(undefined, "Grade 40");
+        if (!IsCurrentCodeOfStandard("SP")) {
+            var materialForPunching = new Material(undefined, "Grade 40");
+        }
+        else {
+            var materialForPunching = new Material(undefined, "B500 (transverse reinforcement)");
+        }
 
         var punchingReinforcement = new ConcreteDesignPunchingReinforcement(undefined, [75, 76, 85, 86], materialForPunching.GetNo(), "Punching reinforcement for test");
         punchingReinforcement.SetName("Punching reinforcement 1");
@@ -393,15 +398,32 @@ if (RFEM) {
     }
 
     /***************************************** Concrete design for surfaces ****************************************************/
-    var nodesForSurfaces2 = createNodesGrid(-28, -4, [10, 2], [3, 2]);
-    var surface_dict2 = createSurfacesFromNodesGrid(nodesForSurfaces2, [5, 1], undefined, undefined, true);
+    var nodesForSurfaces2 = createNodesGrid(-28, -4, [4, 2], [3, 2]);
+    var surface_dict2 = createSurfacesFromNodesGrid(nodesForSurfaces2, [2, 1], undefined, undefined, true);
     var surfaceList2 = [];
     for (var i = 0; i < Object.keys(surface_dict2).length; ++i) {
         var surface = new Surface();
         surface.Standard(undefined, surface_dict2[i + 1][0], thickness.no);
+        surface.ConcreteDesignProperties();
         surfaceList2.push(surface);
     }
+
     surfaceList2[0].UserDefinedConcreteCover(0.035, 0.036);
+    if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC")) {
+        surfaceList2[0].ConcreteDesignConcreteDurability(1, 2);
+    }
+    surfaceList2[0].ConcreteDesignReinforcementDirections(1, 2);
+    surfaceList2[0].ConcreteDesignSurfaceReinforcement([1, 3, 5, 7]);
+
+    surfaceList2[1].ConcreteCoverAccToEn1992();
+    if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC")) {
+        surfaceList2[1].ConcreteDesignConcreteDurability(2, 1);
+    }
+    surfaceList2[1].ConcreteDesignReinforcementDirections(2, 1);
+    surfaceList2[1].ConcreteDesignSurfaceReinforcement([2, 4, 6]);
+    surfaceList2[1].Assignments(2, 1);
+    surfaceList2[1].DeflectionAnalysis("CANTILEVER", "DEFORMED_USER_DEFINED_REFERENCE_PLANE", "MANUALLY", 5.0);
+    surfaceList2[1].UserDefinedReferencePlane([-21.6, -3.7, 0, -19.6, -3.5, 0, -20.5, -2.5, 0]);
 }
 
 var t2 = new Date().getTime();
