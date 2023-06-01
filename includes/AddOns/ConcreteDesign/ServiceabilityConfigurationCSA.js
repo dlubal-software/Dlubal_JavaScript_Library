@@ -1,3 +1,5 @@
+include("../../Tools/jshlf_common_functions.js");
+
 function ConcreteDesignServiceabilityConfigurationCSA (no,
     surfaces_no,
     members_no,
@@ -85,7 +87,7 @@ ConcreteDesignServiceabilityConfigurationCSA.prototype.SkinReinforcement = funct
  * @param {Boolean} property_activate_time_dependent_deflections        Calculation of time-dependent deflections, can be undefined (is not set, true as default)
  * @param {Boolean} property_time_dependent_factor                      Time-dependent factor acc. to 9.8.2.5, can be undefined (is not set, true as default)
  * @param {Number} property_deflection_duration_of_load                 Duration of load, can be undefined (is not set, 60 months as default)
- * @param {Boolean} property_time_dependent_material_properties         Time-dependent material properties (creep, shrinkage) acc. to ACI 435, can be undefined (is not set, false as default)
+ * @param {Boolean} property_time_dependent_material_properties         Time-dependent material properties (creep, shrinkage), can be undefined (is not set, false as default)
  */
 ConcreteDesignServiceabilityConfigurationCSA.prototype.DeflectionAnalysis = function (property_limitation_of_deflection_enabled,
     property_deflection_limit_support_on_both_sides,
@@ -114,21 +116,12 @@ ConcreteDesignServiceabilityConfigurationCSA.prototype.CrackStateDetection = fun
 };
 
 function GetConcreteDesignExposureSideType(exposure_side_type) {
-    const exposure_side_types_dict = {
-        "INTERIOR": main_concrete_slsconfig_csaa233.E_EXPOSURE_SIDE_INTERIOR,
-        "EXTERIOR": main_concrete_slsconfig_csaa233.E_EXPOSURE_SIDE_EXTERIOR
-    };
-    
-	if (exposure_side_type !== undefined) {
-	  var type = exposure_side_types_dict[exposure_side_type];
-	  if (type === undefined) {
-		console.log("Wrong exposure side type. Value was: " + exposure_side_type);
-		console.log("Correct values are: " + Object.keys(exposure_side_types_dict));
-		type = main_concrete_slsconfig_csaa233.E_EXPOSURE_SIDE_INTERIOR;
-	  }
-	  return type;
-	}
-	else {
-	  return main_concrete_slsconfig_csaa233.E_EXPOSURE_SIDE_INTERIOR;
-	}
+    return EnumValueFromJSHLFTypeName(
+        exposure_side_type,
+        "exposure side",
+        {
+            "INTERIOR": main_concrete_slsconfig_csaa233.E_EXPOSURE_SIDE_INTERIOR,
+            "EXTERIOR": main_concrete_slsconfig_csaa233.E_EXPOSURE_SIDE_EXTERIOR
+        },
+        main_concrete_slsconfig_csaa233.E_EXPOSURE_SIDE_INTERIOR);
 }

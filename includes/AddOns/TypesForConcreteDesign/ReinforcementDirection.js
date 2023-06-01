@@ -1,5 +1,12 @@
 include("../../Tools/jshlf_common_functions.js");
 
+/**
+ * Creates Concrete design reinforcement direction
+ * @param {Number} no               Concrete design reinforcement direction index, can be undefined
+ * @param {Array} surfaces_no       List of surfaces indexes, can be undefined
+ * @param {String} comment          Comment, can be undefined
+ * @param {Object} params           Additional parameters, can be undefined
+ */
 function ConcreteDesignReinforcementDirection (no,
     surfaces_no,
     comment,

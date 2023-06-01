@@ -1,3 +1,5 @@
+include("../../Tools/jshlf_common_functions.js");
+
 function createBaseConcreteDesignConfiguration (object_to_create,
     no,
     surfaces_no,
@@ -48,7 +50,7 @@ function assignConcreteDesignObjects (object_to_set,
         object_to_set.assigned_to_surfaces = surfaces_no;
     }
     if (typeof members_no !== "undefined") {
-        ASSERT(Array.isArray(members_no), "Member list must be array if member indexes");
+        ASSERT(Array.isArray(members_no), "Member list must be array of member indexes");
         member_list = members_no;
         members_no = [];
         for (var i = 0; i < member_list.length; ++i) {
@@ -68,7 +70,7 @@ function assignConcreteDesignObjects (object_to_set,
         object_to_set.assigned_to_members = members_no;
     }
     if (typeof nodes_no !== "undefined") {
-        ASSERT(Array.isArray(nodes_no), "Nodes list must be array on nodes indexes");
+        ASSERT(Array.isArray(nodes_no), "Nodes list must be array of nodes indexes");
         nodes_list = nodes_no;
         nodes_no = [];
         for (var i = 0; i < nodes_list.length; ++i) {
@@ -142,7 +144,7 @@ function SetConcreteDesignMembersRequiredLongitudinalReinforcement (addon_settin
         addon_settings.property_member_reinforcement_distribute_over_slab = property_member_reinforcement_distribute_over_slab;
     }
     if (typeof property_member_reinforcement_distribute_over_slab_reduced_width !== "undefined") {
-        ASSERT(addon_settings.property_member_reinforcement_distribute_over_slab, "Distribute reinforcement evenly over complete slab with must be on");
+        ASSERT(addon_settings.property_member_reinforcement_distribute_over_slab, "Member reinforcement distribute over slab must be on");
         addon_settings.property_member_reinforcement_distribute_over_slab_reduced_width = property_member_reinforcement_distribute_over_slab_reduced_width;
     }
     if (typeof property_member_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement !== "undefined") {
@@ -154,114 +156,113 @@ function SetConcreteDesignMembersRequiredLongitudinalReinforcement (addon_settin
 };
 
 function GetConcreteDesignPropertyMemberReinforcementDiameterForPreliminaryDesign(diameter_type) {
-	var diameter_types_dict = {};
-    var defaultValue;
     if (IsCurrentCodeOfStandard("EN")) {
-        diameter_types_dict = {
-            "MAX_OF_ALL": ulsconfig_member_ec2.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL,
-            "USER_DEFINED": ulsconfig_member_ec2.E_REINFORCEMENT_DIAMETER_USER_DEFINED
-        };
-        defaultValue = ulsconfig_member_ec2.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL;
+        return EnumValueFromJSHLFTypeName(
+            diameter_type,
+            "diameter",
+            {
+                "MAX_OF_ALL": ulsconfig_member_ec2.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL,
+                "USER_DEFINED": ulsconfig_member_ec2.E_REINFORCEMENT_DIAMETER_USER_DEFINED
+            },
+            ulsconfig_member_ec2.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL);
     }
     else if (IsCurrentCodeOfStandard("ACI")) {
-        diameter_types_dict = {
-            "MAX_OF_ALL": ulsconfig_member_aci318.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL,
-            "USER_DEFINED": ulsconfig_member_aci318.E_REINFORCEMENT_DIAMETER_USER_DEFINED
-        };
-        defaultValue = ulsconfig_member_aci318.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL;
+        return EnumValueFromJSHLFTypeName(
+            diameter_type,
+            "diameter",
+            {
+                "MAX_OF_ALL": ulsconfig_member_aci318.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL,
+                "USER_DEFINED": ulsconfig_member_aci318.E_REINFORCEMENT_DIAMETER_USER_DEFINED
+            },
+            ulsconfig_member_aci318.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL);
     }
     else if (IsCurrentCodeOfStandard("CSA")) {
-        diameter_types_dict = {
-            "MAX_OF_ALL": ulsconfig_member_csaa233.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL,
-            "USER_DEFINED": ulsconfig_member_csaa233.E_REINFORCEMENT_DIAMETER_USER_DEFINED
-        };
-        defaultValue = ulsconfig_member_csaa233.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL;
+        return EnumValueFromJSHLFTypeName(
+            diameter_type,
+            "diameter",
+            {
+                "MAX_OF_ALL": ulsconfig_member_csaa233.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL,
+                "USER_DEFINED": ulsconfig_member_csaa233.E_REINFORCEMENT_DIAMETER_USER_DEFINED
+            },
+            ulsconfig_member_csaa233.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL);
     }
     else if (IsCurrentCodeOfStandard("SP")) {
-        diameter_types_dict = {
-            "MAX_OF_ALL": ulsconfig_member_sp63.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL,
-            "USER_DEFINED": ulsconfig_member_sp63.E_REINFORCEMENT_DIAMETER_USER_DEFINED
-        };
-        defaultValue = ulsconfig_member_sp63.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL;
+        return EnumValueFromJSHLFTypeName(
+            diameter_type,
+            "diameter",
+            {
+                "MAX_OF_ALL": ulsconfig_member_sp63.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL,
+                "USER_DEFINED": ulsconfig_member_sp63.E_REINFORCEMENT_DIAMETER_USER_DEFINED
+            },
+            ulsconfig_member_sp63.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL);
     }
-	if (diameter_type !== undefined) {
-	  var type = diameter_types_dict[diameter_type];
-	  if (type === undefined) {
-		console.log("Wrong member reinforcement diameter for preliminary design type. Value was: " + diameter_type);
-		console.log("Correct values are: ( " + Object.keys(diameter_types_dict) + ")");
-		type = defaultValue;
-	  }
-	  return type;
-	}
-	else {
-	  return defaultValue;
-	}
+    else {
+        ASSERT(false, "GetConcreteDesignPropertyMemberReinforcementDiameterForPreliminaryDesign: unsupported standard");
+        return;
+    }
 }
 
 function GetConcreteDesignPropertyMemberReinforcementLayout(layout_type) {
-    var layout_types_dict = {};
-    var defaultValue;
     if (IsCurrentCodeOfStandard("EN")) {
-        layout_types_dict = {
-            "TOP_BOTTOM_OPTIMIZED_DISTRIBUTION": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_OPTIMIZED_DISTRIBUTION,
-            "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
-            "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
-            "UNIFORMLY_SURROUNDING": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
-            "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT,
-            "OPTIMIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT
-        };
-        defaultValue = ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT;
+        return EnumValueFromJSHLFTypeName(
+            layout_type,
+            "layout",
+            {
+                "TOP_BOTTOM_OPTIMIZED_DISTRIBUTION": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_OPTIMIZED_DISTRIBUTION,
+                "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
+                "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
+                "UNIFORMLY_SURROUNDING": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
+                "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT,
+                "OPTIMIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT
+            },
+            ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT);
     }
     else if (IsCurrentCodeOfStandard("ACI")) {
-        layout_types_dict = {
-            "TOP_BOTTOM_OPTIMIZED_DISTRIBUTION": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_OPTIMIZED_DISTRIBUTION,
-            "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
-            "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
-            "UNIFORMLY_SURROUNDING": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
-            "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT,
-            "OPTIMIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT
-        };
-        defaultValue = ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT;
+        return EnumValueFromJSHLFTypeName(
+            layout_type,
+            "layout",
+            {
+                "TOP_BOTTOM_OPTIMIZED_DISTRIBUTION": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_OPTIMIZED_DISTRIBUTION,
+                "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
+                "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
+                "UNIFORMLY_SURROUNDING": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
+                "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT,
+                "OPTIMIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT
+            },
+            ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT);
     }
     else if (IsCurrentCodeOfStandard("CSA")) {
-        layout_types_dict = {
-            "TOP_BOTTOM_OPTIMIZED_DISTRIBUTION": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_OPTIMIZED_DISTRIBUTION,
-            "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
-            "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
-            "UNIFORMLY_SURROUNDING": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
-            "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT,
-            "OPTIMIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT
-        };
-        defaultValue = ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT;
+        return EnumValueFromJSHLFTypeName(
+            layout_type,
+            "layout",
+            {
+                "TOP_BOTTOM_OPTIMIZED_DISTRIBUTION": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_OPTIMIZED_DISTRIBUTION,
+                "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
+                "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
+                "UNIFORMLY_SURROUNDING": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
+                "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT,
+                "OPTIMIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT
+            },
+            ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT);
     }
     else if (IsCurrentCodeOfStandard("SP")) {
-        layout_types_dict = {
-            "TOP_BOTTOM_OPTIMIZED_DISTRIBUTION": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_OPTIMIZED_DISTRIBUTION,
-            "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
-            "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
-            "UNIFORMLY_SURROUNDING": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
-            "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT,
-            "OPTIMIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT
-        };
-        defaultValue = ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT;
+        return EnumValueFromJSHLFTypeName(
+            layout_type,
+            "layout",
+            {
+                "TOP_BOTTOM_OPTIMIZED_DISTRIBUTION": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_OPTIMIZED_DISTRIBUTION,
+                "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
+                "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
+                "UNIFORMLY_SURROUNDING": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
+                "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT,
+                "OPTIMIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT
+            },
+            ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT);
     }
     else {
-        ASSERT(false, "GetConcreteDesignPropertyMemberReinforcementLayout: Unsupported standard");
+        ASSERT(false, "GetConcreteDesignPropertyMemberReinforcementLayout: unsupported standard");
         return;
     }
-
-	if (layout_type !== undefined) {
-	  var type = layout_types_dict[layout_type];
-	  if (type === undefined) {
-		console.log("Wrong member reinforcement layout type. Value was: " + layout_type);
-		console.log("Correct values are: ( " + Object.keys(layout_types_dict) + ")");
-		type = defaultValue
-	  }
-	  return type;
-	}
-	else {
-	  return defaultValue;
-	}
 }
 
 function SetConcreteDesignRequiredShearReinforcementType(addon_settings,
@@ -314,7 +315,7 @@ function SetConcreteDesignRequiredShearReinforcementType(addon_settings,
             }
             break;
         default:
-            ASSERT(false, "SetConcreteDesignRequiredShearReinforcement - unknown shear reinforcement type");
+            ASSERT(false, "SetConcreteDesignRequiredShearReinforcement: unknown shear reinforcement type");
     }
 }
 
@@ -355,60 +356,58 @@ function SetConcreteDesignStabilityRequiredReinforcement (addon_settings,
 }
 
 function GetConcreteDesignStabilityReinforcementLayout(reinforcement_layout_type) {
-	var reinforcement_layout_types_dict = {};
-    var default_value = "";
     if (IsCurrentCodeOfStandard("EN")) {
-        reinforcement_layout_types_dict = {
-            "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
-            "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
-            "UNIFORMLY_SURROUNDING": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
-            "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT
-        };
-        default_value = ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING;
+        return EnumValueFromJSHLFTypeName(
+            reinforcement_layout_type,
+            "reinforcement layout",
+            {
+                "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
+                "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
+                "UNIFORMLY_SURROUNDING": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
+                "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT
+            },
+            ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING);
     }
     else if (IsCurrentCodeOfStandard("ACI")) {
-        reinforcement_layout_types_dict = {
-            "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
-            "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
-            "UNIFORMLY_SURROUNDING": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
-            "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT
-        }
-        default_value = ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING;
+        return EnumValueFromJSHLFTypeName(
+            reinforcement_layout_type,
+            "reinforcement layout",
+            {
+                "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
+                "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
+                "UNIFORMLY_SURROUNDING": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
+                "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT
+            },
+            ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING);
     }
     else if (IsCurrentCodeOfStandard("CSA")) {
-        reinforcement_layout_types_dict = {
-            "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
-            "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
-            "UNIFORMLY_SURROUNDING": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
-            "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT
-        }
-        default_value = ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING;
+        return EnumValueFromJSHLFTypeName(
+            reinforcement_layout_type,
+            "reinforcement layout",
+            {
+                "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
+                "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
+                "UNIFORMLY_SURROUNDING": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
+                "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT
+            },
+            ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING);
     }
     else if (IsCurrentCodeOfStandard("SP")) {
-        reinforcement_layout_types_dict = {
-            "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
-            "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
-            "UNIFORMLY_SURROUNDING": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
-            "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT
-        }
-        default_value = ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING;
+        return EnumValueFromJSHLFTypeName(
+            reinforcement_layout_type,
+            "reinforcement layout",
+            {
+                "TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION,
+                "IN_CORNERS_SYMMETRICAL_DISTRIBUTION": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_IN_CORNERS_SYMMETRICAL_DISTRIBUTION,
+                "UNIFORMLY_SURROUNDING": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING,
+                "FACTORIZED_PROVIDED_REINFORCEMENT": ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_FACTORIZED_PROVIDED_REINFORCEMENT
+            },
+            ulsconfig_member_sp63.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING);
     }
     else {
         ASSERT(false, "GetConcreteDesignStabilityReinforcementLayout: Unsupported standard");
         return;
     }
-	if (reinforcement_layout_type !== undefined) {
-	  var type = reinforcement_layout_types_dict[reinforcement_layout_type];
-	  if (type === undefined) {
-		console.log("Wrong reinforcement layout type. Value was: " + reinforcement_layout_type);
-		console.log("Correct values are: " + Object.keys(reinforcement_layout_types_dict));
-		type = default_value;
-	  }
-	  return type;
-	}
-	else {
-	  return default_value;
-	}
 }
 
 function SetConcreteDesignSurfacesDesignMethod (settings_addon,
@@ -442,7 +441,7 @@ function SetConcreteDesignSurfacesOptimizationType(settings_addon,
             settings_addon.property_surface_internal_forces_optimization = true;
             break;
         default:
-            ASSERT(false, "SetConcreteDesignOptimizationType - unknown design method optimization type");
+            ASSERT(false, "SetConcreteDesignOptimizationType: unknown design method optimization type");
     }
 }
 
@@ -529,7 +528,7 @@ function SetConcreteDesignSurfacesMinimumLongitudinalReinforcementType(addon_set
             addon_settings.property_minimum_longitudinal_reinforcement_for_walls = true;
             break;
         default:
-            ASSERT(false, "SetConcreteDesignMinimumLongitudinalReinforcementType - unknown longitudinal reinforcement type");
+            ASSERT(false, "SetConcreteDesignMinimumLongitudinalReinforcementType: unknown longitudinal reinforcement type");
     }
 }
 
@@ -596,39 +595,30 @@ function SetConcreteDesignSurfacesMainCompressionReinforcementDirectionType(addo
 }
 
 function GetConcreteDesignSurfacesReinforcementDefinedDirectionType(direction_type) {
-    var direction_types_dict = {};
-    var default_value = "";
     if (IsCurrentCodeOfStandard("EN")) {
-	    direction_types_dict = {
-            "PHI_1": concrete_design_surface_ulsconfig_concrete_design_ec2.E_DIRECTION_PHI_1,
-            "PHI_2": concrete_design_surface_ulsconfig_concrete_design_ec2.E_DIRECTION_PHI_2
-	    };
-        default_value = concrete_design_surface_ulsconfig_concrete_design_ec2.E_DIRECTION_PHI_1;
+        return EnumValueFromJSHLFTypeName(
+            direction_type,
+            "direction",
+            {
+                "PHI_1": concrete_design_surface_ulsconfig_concrete_design_ec2.E_DIRECTION_PHI_1,
+                "PHI_2": concrete_design_surface_ulsconfig_concrete_design_ec2.E_DIRECTION_PHI_2
+            },
+            concrete_design_surface_ulsconfig_concrete_design_ec2.E_DIRECTION_PHI_1);
     }
     else if (IsCurrentCodeOfStandard("ACI")) {
-        direction_types_dict = {
-            "PHI_1": concrete_design_surface_ulsconfig_concrete_design_aci318.E_DIRECTION_PHI_1,
-            "PHI_2": concrete_design_surface_ulsconfig_concrete_design_aci318.E_DIRECTION_PHI_2
-        };
-        default_value = concrete_design_surface_ulsconfig_concrete_design_aci318.E_DIRECTION_PHI_1;
+        return EnumValueFromJSHLFTypeName(
+            direction_type,
+            "direction",
+            {
+                "PHI_1": concrete_design_surface_ulsconfig_concrete_design_aci318.E_DIRECTION_PHI_1,
+                "PHI_2": concrete_design_surface_ulsconfig_concrete_design_aci318.E_DIRECTION_PHI_2
+            },
+            concrete_design_surface_ulsconfig_concrete_design_aci318.E_DIRECTION_PHI_1);
     }
     else {
         ASSERT(false, "GetConcreteDesignSurfacesReinforcementDefinedDirectionType: Unsupported standard");
         return;
     }
-
-	if (direction_type !== undefined) {
-	  var type = direction_types_dict[direction_type];
-	  if (type === undefined) {
-		console.log("Wrong reinforcement defined direction type. Value was: " + direction_type);
-		console.log("Correct values are: " + Object.keys(direction_types_dict));
-		type = default_value;
-	  }
-	  return type;
-	}
-	else {
-	  return default_value;
-	}
 }
 
 function SetConcreteDesignSurfacesUserDefinedMinimumLongitudinalReinforcementPercentage (addon_settings,
@@ -911,73 +901,76 @@ function SetConcreteDesignPunchingPunchingLoad (addon_settings,
 
 function GetConcreteDesignPunchingLoadType(punching_load_type,
     punching_load_for) {
-    var punching_load_types_dict = {};
-    var default_type = "";
     if (punching_load_for === "walls") {
         if (IsCurrentCodeOfStandard("ACI")) {
-            punching_load_types_dict = {
-                "SMOOTHED_SHEAR_FORCE": concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE
-            };
-            default_type = concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE;
+            return EnumValueFromJSHLFTypeName(
+                punching_load_type,
+                "punching load",
+                {
+                    "SMOOTHED_SHEAR_FORCE": concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE
+                },
+                concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE);
         }
         else if (IsCurrentCodeOfStandard("CSA")) {
-            punching_load_types_dict = {
-                "SMOOTHED_SHEAR_FORCE": concrete_design_node_concrete_ulsconfig_csaa233.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE
-            };
-            default_type = concrete_design_node_concrete_ulsconfig_csaa233.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE;
+            return EnumValueFromJSHLFTypeName(
+                punching_load_type,
+                "punching load",
+                {
+                    "SMOOTHED_SHEAR_FORCE": concrete_design_node_concrete_ulsconfig_csaa233.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE
+                },
+                concrete_design_node_concrete_ulsconfig_csaa233.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE);
         }
         else if (IsCurrentCodeOfStandard("SP")) {
-            punching_load_types_dict = {
-                "SMOOTHED_SHEAR_FORCE": concrete_design_node_concrete_ulsconfig_sp63.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE
-            };
-            default_type = concrete_design_node_concrete_ulsconfig_sp63.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE;
+            return EnumValueFromJSHLFTypeName(
+                punching_load_type,
+                "punching load",
+                {
+                    "SMOOTHED_SHEAR_FORCE": concrete_design_node_concrete_ulsconfig_sp63.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE
+                },
+                concrete_design_node_concrete_ulsconfig_sp63.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE);
         }
         else {
-            ASSERT(false, "GetConcreteDesignPunchingLoadType - unsupported code of standard (" + GetCurrentCodeOfStandard() + ")");
+            ASSERT(false, "GetConcreteDesignPunchingLoadType: unsupported code of standard (" + GetCurrentCodeOfStandard() + ")");
         }
     }
     else if (punching_load_for === "columns") {
         if (IsCurrentCodeOfStandard("ACI")) {
-            punching_load_types_dict = {
-                "SINGLE_FORCE": concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE,
-                "SMOOTHED_SHEAR_FORCE": concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE
-            };
-            default_type = concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE;
+            return EnumValueFromJSHLFTypeName(
+                punching_load_type,
+                "punching load",
+                {
+                    "SINGLE_FORCE": concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE,
+                    "SMOOTHED_SHEAR_FORCE": concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE
+                },
+                concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE);
         }
         else if (IsCurrentCodeOfStandard("CSA")) {
-            punching_load_types_dict = {
-                "SINGLE_FORCE": concrete_design_node_concrete_ulsconfig_csaa233.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE,
-                "SMOOTHED_SHEAR_FORCE": concrete_design_node_concrete_ulsconfig_csaa233.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE
-            };
-            default_type = concrete_design_node_concrete_ulsconfig_csaa233.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE;
+            return EnumValueFromJSHLFTypeName(
+                punching_load_type,
+                "punching load",
+                {
+                    "SINGLE_FORCE": concrete_design_node_concrete_ulsconfig_csaa233.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE,
+                    "SMOOTHED_SHEAR_FORCE": concrete_design_node_concrete_ulsconfig_csaa233.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE
+                },
+                concrete_design_node_concrete_ulsconfig_csaa233.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE);
         }
         else if (IsCurrentCodeOfStandard("SP")) {
-            punching_load_types_dict = {
-                "SINGLE_FORCE": concrete_design_node_concrete_ulsconfig_sp63.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE,
-                "SMOOTHED_SHEAR_FORCE": concrete_design_node_concrete_ulsconfig_sp63.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE
-            };
-            default_type = concrete_design_node_concrete_ulsconfig_sp63.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE;
+            return EnumValueFromJSHLFTypeName(
+                punching_load_type,
+                "punching load",
+                {
+                    "SINGLE_FORCE": concrete_design_node_concrete_ulsconfig_sp63.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE,
+                    "SMOOTHED_SHEAR_FORCE": concrete_design_node_concrete_ulsconfig_sp63.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE
+                },
+                concrete_design_node_concrete_ulsconfig_sp63.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE);
         }
         else {
-            ASSERT(false, "GetConcreteDesignPunchingLoadType - unsupported code of standard (" + GetCurrentCodeOfStandard() + ")");
+            ASSERT(false, "GetConcreteDesignPunchingLoadType: unsupported code of standard (" + GetCurrentCodeOfStandard() + ")");
         }
     }
     else {
         ASSERT(false);
     }
-
-	if (punching_load_type !== undefined) {
-	  var type = punching_load_types_dict[punching_load_type];
-	  if (type === undefined) {
-		console.log("Wrong punching load type. Value was: " + punching_load_type);
-		console.log("Correct values are: " + Object.keys(punching_load_types_dict));
-		type = default_type;
-	  }
-	  return type;
-	}
-	else {
-	  return default_type;
-	}
 }
 
 function SetConcreteDesignPunchingAdditionalParameters (addon_settings,
@@ -990,37 +983,30 @@ function SetConcreteDesignPunchingAdditionalParameters (addon_settings,
 
 function GetConcreteDesignPunchingDirectionForceType(direction_type) {
     if (IsCurrentCodeOfStandard("EN")) {
-        var direction_types_dict = {
-            "DETERMINE": concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE,
-            "PLUS_Z": concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_PLUS_Z,
-            "MINUS_Z": concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_MINUS_Z
-        };
-        var default_type = concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE;
+        return EnumValueFromJSHLFTypeName(
+            direction_type,
+            "punching direction force",
+            {
+                "DETERMINE": concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE,
+                "PLUS_Z": concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_PLUS_Z,
+                "MINUS_Z": concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_MINUS_Z
+            },
+            concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE);
     }
     else if (IsCurrentCodeOfStandard("SP")) {
-        var direction_types_dict = {
-            "DETERMINE": concrete_design_node_concrete_ulsconfig_sp63.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE,
-            "PLUS_Z": concrete_design_node_concrete_ulsconfig_sp63.E_DIRECTION_OF_PUNCHING_FORCE_PLUS_Z,
-            "MINUS_Z": concrete_design_node_concrete_ulsconfig_sp63.E_DIRECTION_OF_PUNCHING_FORCE_MINUS_Z
-        };
-        var default_type = concrete_design_node_concrete_ulsconfig_sp63.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE;
+        return EnumValueFromJSHLFTypeName(
+            direction_type,
+            "punching direction force",
+            {
+                "DETERMINE": concrete_design_node_concrete_ulsconfig_sp63.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE,
+                "PLUS_Z": concrete_design_node_concrete_ulsconfig_sp63.E_DIRECTION_OF_PUNCHING_FORCE_PLUS_Z,
+                "MINUS_Z": concrete_design_node_concrete_ulsconfig_sp63.E_DIRECTION_OF_PUNCHING_FORCE_MINUS_Z
+            },
+            concrete_design_node_concrete_ulsconfig_sp63.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE);
     }
     else {
-        ASSERT(false, "GetConcreteDesignPunchingDirectionForceType - unsupported code standard (" + GetCurrentCodeOfStandard() + ")");
+        ASSERT(false, "GetConcreteDesignPunchingDirectionForceType: unsupported code standard (" + GetCurrentCodeOfStandard() + ")");
     }
-
-	if (direction_type !== undefined) {
-	  var type = direction_types_dict[direction_type];
-	  if (type === undefined) {
-		console.log("Wrong punching direction force type. Value was: " + direction_type);
-		console.log("Correct values are: " + Object.keys(direction_types_dict));
-		type = default_type;
-	  }
-	  return type;
-	}
-	else {
-	  return default_type;
-	}
 }
 
 function SetConcreteDesignServiceabilityConfigurationCrackStateDetection (addon_settings,
@@ -1057,7 +1043,7 @@ function SetConcreteDesignCrackStateDetectionType (addon_settings,
             addon_settings.property_crack_state_independent_of_load = true;
             break;
         default:
-            ASSERT(false, "SetConcreteDesignCrackStateDetectionType - unknown crack state detection type");
+            ASSERT(false, "SetConcreteDesignCrackStateDetectionType: unknown crack state detection type");
     }
 }
 

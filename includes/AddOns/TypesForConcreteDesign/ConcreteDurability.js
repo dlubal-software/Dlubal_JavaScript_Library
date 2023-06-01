@@ -1,9 +1,13 @@
+if (RSECTION) {
+	throw new Error("This script is only for RFEM or RSTAB.");
+}
+
 include("../ConcreteDesign/ConcreteDesignSupport.js");
 include("../../Tools/jshlf_common_functions.js");
 
 /**
  * Creates Concrete design Concrete durability
- * @param {Number} no               Concrete design effective length index, can be undefined
+ * @param {Number} no               Concrete durability index, can be undefined
  * @param {Array} members_no        List of members indexes, can be undefined
  * @param {Array} surfaces_no       List of surfaces indexes, can be undefined
  * @param {Array} member_sets_no    List of member sets indexes, can be undefined
@@ -17,7 +21,7 @@ function ConcreteDesignConcreteDurability (no,
     comment,
     params) {
     ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design add-on must be active");
-    ASSERT(IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC"), "Concrete durabilities is enabled only for EN and NTC")
+    ASSERT(IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC"), "Concrete durability is enabled only for EN and NTC")
     if (typeof no === "undefined") {
         this.durability = concrete_durabilities.create();
     }

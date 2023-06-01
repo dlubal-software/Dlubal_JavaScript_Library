@@ -1,6 +1,14 @@
 include("../../Tools/jshlf_common_functions.js");
 include ("../ConcreteDesign/ConcreteDesignSupport.js");
 
+/**
+ * Creates Concrete design punching reinforcement
+ * @param {Number} no               Concrete design punching reinforcement index, can be undefined
+ * @param {Array} nodes_no          List of nodes indexes, can be undefined
+ * @param {Array} material_no       Material number, can be undefined
+ * @param {String} comment          Comment, can be undefined
+ * @param {Object} params           Additional parameters, can be undefined
+ */
 function ConcreteDesignPunchingReinforcement (no,
     nodes_no,
     material_no,

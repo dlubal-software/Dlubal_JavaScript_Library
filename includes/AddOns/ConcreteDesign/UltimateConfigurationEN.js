@@ -1,3 +1,5 @@
+include("../../Tools/jshlf_common_functions.js");
+
 /*
 Bug 79355: property_member_total_minumum_percentage_reinforcement_area
 Bug 81749: property_member_nett_concrete_area
@@ -183,7 +185,14 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_DetailingAndParticularRu
     }
     if (typeof property_member_compression_longitudinal_reinforcement_for_maximum_stirrup_spacing !== "undefined") {
         ASSERT(this.addon.settings_member_ec2.property_member_use_compression_longitudinal_reinforcement_for_maximum_stirrup_spacing, "Compression longitudinal reinforcement for maximum stirrup spacing acc. to 9.2.1.2(3) must be on");
-        this.addon.settings_member_ec2.property_member_compression_longitudinal_reinforcement_for_maximum_stirrup_spacing = GetConcreteDesignPropertyMemberLongitudinalReinforcement(property_member_compression_longitudinal_reinforcement_for_maximum_stirrup_spacing);
+        this.addon.settings_member_ec2.property_member_compression_longitudinal_reinforcement_for_maximum_stirrup_spacing = EnumValueFromJSHLFTypeName(
+            property_member_compression_longitudinal_reinforcement_for_maximum_stirrup_spacing,
+            "longitudinal reinforcement",
+            {
+                "MAXIMUM_STIRRUP_SPACING_REQUIRED": ulsconfig_member_ec2.E_COMPRESSION_LONGITUDINAL_REINFORCEMENT_FOR_MAXIMUM_STIRRUP_SPACING_REQUIRED,
+                "MAXIMUM_STIRRUP_SPACING_PROVIDED": ulsconfig_member_ec2.E_COMPRESSION_LONGITUDINAL_REINFORCEMENT_FOR_MAXIMUM_STIRRUP_SPACING_PROVIDED
+            },
+            ulsconfig_member_ec2.E_COMPRESSION_LONGITUDINAL_REINFORCEMENT_FOR_MAXIMUM_STIRRUP_SPACING_PROVIDED);
     }
     if (typeof property_member_minimum_construction_reinforcement !== "undefined") {
         this.addon.settings_member_ec2.property_member_minimum_construction_reinforcement = property_member_minimum_construction_reinforcement;
@@ -614,7 +623,15 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_FiberConcrete = functio
  */
 ConcreteDesignUltimateConfigurationEN.prototype.Punching_StructuralElement = function (property_node_structure_element_type) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
-    this.addon.settings_node_ec2.property_node_structure_element_type = GetConcreteDesignPunchingStructuralElementType(property_node_structure_element_type);
+    this.addon.settings_node_ec2.property_node_structure_element_type = EnumValueFromJSHLFTypeName(
+        property_node_structure_element_type,
+        "structural element",
+        {
+            "AUTO": concrete_design_node_ulsconfig_concrete_design_ec2.E_STRUCTURE_ELEMENT_TYPE_AUTO,
+            "SLAB": concrete_design_node_ulsconfig_concrete_design_ec2.E_STRUCTURE_ELEMENT_TYPE_SLAB,
+            "FOUNDATION": concrete_design_node_ulsconfig_concrete_design_ec2.E_STRUCTURE_ELEMENT_TYPE_FOUNDATION
+        },
+        concrete_design_node_ulsconfig_concrete_design_ec2.E_STRUCTURE_ELEMENT_TYPE_AUTO);
 };
 
 /**
@@ -633,7 +650,16 @@ ConcreteDesignUltimateConfigurationEN.prototype.Punching_PunchingLoadForColumns 
     property_user_defined_load_inside_critical_perimeter_factor_for_columns,
     property_node_load_inside_critical_perimeter_factor_for_columns) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
-    this.addon.settings_node_ec2.property_node_used_punching_load_for_columns = GetConcreteDesignPunchingLoadForColumnsType(property_node_used_punching_load_for_columns);
+    this.addon.settings_node_ec2.property_node_used_punching_load_for_columns = EnumValueFromJSHLFTypeName(
+        property_node_used_punching_load_for_columns,
+        "punching load for column",
+        {
+            "SINGLE_FORCE": concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE,
+            "SMOOTHED_SHEAR_FORCE": concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE,
+            "UNSMOOTHED_SHEAR_FORCE": concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_UNSMOOTHED_SHEAR_FORCE,
+            "USER_DEFINED": concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_USER_DEFINED
+        },
+        concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE);
     if (typeof property_node_used_defined_value_of_punching_force !== "undefined") {
         ASSERT(this.addon.settings_node_ec2.property_node_used_punching_load_for_columns === concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_USER_DEFINED, "User-defined load for columns must be defined");
         this.addon.settings_node_ec2.property_node_used_defined_value_of_punching_force = property_node_used_defined_value_of_punching_force;
@@ -665,7 +691,14 @@ ConcreteDesignUltimateConfigurationEN.prototype.Punching_PunchingLoadForWalls = 
     property_user_defined_load_inside_critical_perimeter_factor_for_walls,
     property_node_load_inside_critical_perimeter_factor_for_walls) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
-    this.addon.settings_node_ec2.property_node_used_punching_load_for_walls = GetConcreteDesignPunchingLoadForWallsType(property_node_used_punching_load_for_walls);
+    this.addon.settings_node_ec2.property_node_used_punching_load_for_walls = EnumValueFromJSHLFTypeName(
+        property_node_used_punching_load_for_walls,
+        "punching load for walls",
+        {
+            "SMOOTHED_SHEAR_FORCE": concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE,
+            "UNSMOOTHED_SHEAR_FORCE": concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_UNSMOOTHED_SHEAR_FORCE
+        },
+        concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE);
     if (typeof property_node_used_punching_load_inside_critical_perimeter_for_walls !== "undefined") {
         this.addon.settings_node_ec2.property_node_used_punching_load_inside_critical_perimeter_for_walls = property_node_used_punching_load_inside_critical_perimeter_for_walls;
     }
@@ -714,10 +747,17 @@ ConcreteDesignUltimateConfigurationEN.prototype.Punching_DeductibleSurfaceLoadFo
     }
     if (typeof property_node_distance_deductible_surface !== "undefined") {
         ASSERT(this.addon.settings_node_ec2.property_node_deductible_surface_load_for_slab, "Deductible surface load for slab must be on");
-        this.addon.settings_node_ec2.property_node_distance_deductible_surface = GetConcreteDesignDistanceOfDeductibleSurfaceType(property_node_distance_deductible_surface);
+        this.addon.settings_node_ec2.property_node_distance_deductible_surface = EnumValueFromJSHLFTypeName(
+            property_node_distance_deductible_surface,
+            "distance deductible surface",
+            {
+                "L_W_OUT": concrete_design_node_ulsconfig_concrete_design_ec2.E_DISTANCE_DEDUCTIBLE_SURFACE_L_W_OUT,
+                "K_D": concrete_design_node_ulsconfig_concrete_design_ec2.E_DISTANCE_DEDUCTIBLE_SURFACE_K_D
+            },
+            concrete_design_node_ulsconfig_concrete_design_ec2.E_DISTANCE_DEDUCTIBLE_SURFACE_L_W_OUT);
     }
     if (typeof property_node_multiple_static_depth_for_slab !== "undefined") {
-        ASSERT(this.addon.settings_node_ec2.property_node_distance_deductible_surface === GetConcreteDesignDistanceOfDeductibleSurfaceType("K_D"), "Distance of deductible surface must be of K_D type");
+        ASSERT(this.addon.settings_node_ec2.property_node_distance_deductible_surface === concrete_design_node_ulsconfig_concrete_design_ec2.E_DISTANCE_DEDUCTIBLE_SURFACE_K_D, "Distance of deductible surface must be of K_D type");
         this.addon.settings_node_ec2.property_node_multiple_static_depth_for_slab = property_node_multiple_static_depth_for_slab;
     }
 };
@@ -725,9 +765,18 @@ ConcreteDesignUltimateConfigurationEN.prototype.Punching_DeductibleSurfaceLoadFo
 ConcreteDesignUltimateConfigurationEN.prototype.Punching_FactorBeta = function (property_node_factor_beta_estimated_according_to_clause,
     property_node_defined_factor_beta) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
-    this.addon.settings_node_ec2.property_node_factor_beta_estimated_according_to_clause = GetConcreteDesignMethodDeterminationFactorBetaType(property_node_factor_beta_estimated_according_to_clause);
+    this.addon.settings_node_ec2.property_node_factor_beta_estimated_according_to_clause = EnumValueFromJSHLFTypeName(
+        property_node_factor_beta_estimated_according_to_clause,
+        "method determination factor beta",
+        {
+            "FULL_PLASTIC_SHEAR_DISTRIBUTION": concrete_design_node_ulsconfig_concrete_design_ec2.E_FACTOR_BETA_ESTIMATED_ACCORDING_TO_CLAUSE_TYPE_FULL_PLASTIC_SHEAR_DISTRIBUTION,
+            "CONSTANT_FACTORS": concrete_design_node_ulsconfig_concrete_design_ec2.E_FACTOR_BETA_ESTIMATED_ACCORDING_TO_CLAUSE_TYPE_CONSTANT_FACTORS,
+            "DETERMINED_BY_SECTOR_METHOD": concrete_design_node_ulsconfig_concrete_design_ec2.E_FACTOR_BETA_ESTIMATED_ACCORDING_TO_CLAUSE_TYPE_DETERMINED_BY_SECTOR_METHOD,
+            "USER_DEFINITION": concrete_design_node_ulsconfig_concrete_design_ec2.E_FACTOR_BETA_ESTIMATED_ACCORDING_TO_CLAUSE_TYPE_USER_DEFINITION
+        },
+        concrete_design_node_ulsconfig_concrete_design_ec2.E_FACTOR_BETA_ESTIMATED_ACCORDING_TO_CLAUSE_TYPE_FULL_PLASTIC_SHEAR_DISTRIBUTION);
     if (typeof property_node_defined_factor_beta !== "undefined") {
-        ASSERT(this.addon.settings_node_ec2.property_node_factor_beta_estimated_according_to_clause === GetConcreteDesignMethodDeterminationFactorBetaType("USER_DEFINITION"), "Applied method for determining factor β must be of USER_DEFINITION type");
+        ASSERT(this.addon.settings_node_ec2.property_node_factor_beta_estimated_according_to_clause === concrete_design_node_ulsconfig_concrete_design_ec2.E_FACTOR_BETA_ESTIMATED_ACCORDING_TO_CLAUSE_TYPE_USER_DEFINITION, "Applied method for determining factor β must be of USER_DEFINITION type");
         this.addon.settings_node_ec2.property_node_defined_factor_beta = property_node_defined_factor_beta;
     }
 };
@@ -1003,92 +1052,32 @@ function SetConcreteDesignRequiredPunchingReinforcementPunchingShareCapacityType
             addon.settings_node_ec2.property_node_punching_shear_capacity_automatically_increase_required = true;
             break;
         default:
-            ASSERT(false, "SetConcreteDesignRequiredPunchingReinforcementPunchingShareCapacityType - unknown punching reinforcement share capacity type");
+            ASSERT(false, "SetConcreteDesignRequiredPunchingReinforcementPunchingShareCapacityType: unknown punching reinforcement share capacity type");
     }
 }
 
 function GetConcreteDesignReferenceSurfacesThicknessType(thickness_type) {
-	const thickness_types_dict = {
-        "MINIMUM_THICKNESS": concrete_design_node_ulsconfig_concrete_design_ec2.E_REFERENCE_SURFACES_THICKNESS_TYPE_MINIMUM_THICKNESS,
-        "MAXIMUM_THICKNESS": concrete_design_node_ulsconfig_concrete_design_ec2.E_REFERENCE_SURFACES_THICKNESS_TYPE_MAXIMUM_THICKNESS,
-        "USER_DEFINED": concrete_design_node_ulsconfig_concrete_design_ec2.E_REFERENCE_SURFACES_THICKNESS_TYPE_USER_DEFINED,
-        "SELECTED": concrete_design_node_ulsconfig_concrete_design_ec2.E_REFERENCE_SURFACES_THICKNESS_TYPE_SELECTED
-	};
-
-	if (thickness_type !== undefined) {
-	  var type = thickness_types_dict[thickness_type];
-	  if (type === undefined) {
-		console.log("Wrong reference surface thickness type. Value was: " + thickness_type);
-		console.log("Correct values are: " + Object.keys(thickness_types_dict));
-		type = concrete_design_node_ulsconfig_concrete_design_ec2.E_REFERENCE_SURFACES_THICKNESS_TYPE_MINIMUM_THICKNESS;
-	  }
-	  return type;
-	}
-	else {
-	  return concrete_design_node_ulsconfig_concrete_design_ec2.E_REFERENCE_SURFACES_THICKNESS_TYPE_MINIMUM_THICKNESS;
-	}
+    return EnumValueFromJSHLFTypeName(
+        thickness_type,
+        "reference surface thickness",
+        {
+            "MINIMUM_THICKNESS": concrete_design_node_ulsconfig_concrete_design_ec2.E_REFERENCE_SURFACES_THICKNESS_TYPE_MINIMUM_THICKNESS,
+            "MAXIMUM_THICKNESS": concrete_design_node_ulsconfig_concrete_design_ec2.E_REFERENCE_SURFACES_THICKNESS_TYPE_MAXIMUM_THICKNESS,
+            "USER_DEFINED": concrete_design_node_ulsconfig_concrete_design_ec2.E_REFERENCE_SURFACES_THICKNESS_TYPE_USER_DEFINED,
+            "SELECTED": concrete_design_node_ulsconfig_concrete_design_ec2.E_REFERENCE_SURFACES_THICKNESS_TYPE_SELECTED
+        },
+        concrete_design_node_ulsconfig_concrete_design_ec2.E_REFERENCE_SURFACES_THICKNESS_TYPE_MINIMUM_THICKNESS);
 }
 
 function GetConcreteDesignShapeOfLoadedAreaType(area_type) {
-	const area_types_dict = {
-        "RECTANGULAR": concrete_design_node_ulsconfig_concrete_design_ec2.E_SHAPE_OF_LOADED_AREA_RECTANGULAR,
-        "CIRCULAR": concrete_design_node_ulsconfig_concrete_design_ec2.E_SHAPE_OF_LOADED_AREA_CIRCULAR
-	};
-
-	if (area_type !== undefined) {
-	  var type = area_types_dict[area_type];
-	  if (type === undefined) {
-		console.log("Wrong shape of loaded area type. Value was: " + area_type);
-		console.log("Correct values are: " + Object.keys(area_types_dict));
-		type = concrete_design_node_ulsconfig_concrete_design_ec2.E_SHAPE_OF_LOADED_AREA_RECTANGULAR;
-	  }
-	  return type;
-	}
-	else {
-	  return concrete_design_node_ulsconfig_concrete_design_ec2.E_SHAPE_OF_LOADED_AREA_RECTANGULAR;
-	}
-}
-
-function GetConcreteDesignMethodDeterminationFactorBetaType(determination_method_type) {
-	const determination_method_types_dict = {
-        "FULL_PLASTIC_SHEAR_DISTRIBUTION": concrete_design_node_ulsconfig_concrete_design_ec2.E_FACTOR_BETA_ESTIMATED_ACCORDING_TO_CLAUSE_TYPE_FULL_PLASTIC_SHEAR_DISTRIBUTION,
-        "CONSTANT_FACTORS": concrete_design_node_ulsconfig_concrete_design_ec2.E_FACTOR_BETA_ESTIMATED_ACCORDING_TO_CLAUSE_TYPE_CONSTANT_FACTORS,
-        "DETERMINED_BY_SECTOR_METHOD": concrete_design_node_ulsconfig_concrete_design_ec2.E_FACTOR_BETA_ESTIMATED_ACCORDING_TO_CLAUSE_TYPE_DETERMINED_BY_SECTOR_METHOD,
-        "USER_DEFINITION": concrete_design_node_ulsconfig_concrete_design_ec2.E_FACTOR_BETA_ESTIMATED_ACCORDING_TO_CLAUSE_TYPE_USER_DEFINITION
-	};
-
-	if (determination_method_type !== undefined) {
-	  var type = determination_method_types_dict[determination_method_type];
-	  if (type === undefined) {
-		console.log("Wrong method determination factor beta type. Value was: " + determination_method_type);
-		console.log("Correct values are: " + Object.keys(determination_method_types_dict));
-		type = concrete_design_node_ulsconfig_concrete_design_ec2.E_FACTOR_BETA_ESTIMATED_ACCORDING_TO_CLAUSE_TYPE_FULL_PLASTIC_SHEAR_DISTRIBUTION;
-	  }
-	  return type;
-	}
-	else {
-	  return concrete_design_node_ulsconfig_concrete_design_ec2.E_FACTOR_BETA_ESTIMATED_ACCORDING_TO_CLAUSE_TYPE_FULL_PLASTIC_SHEAR_DISTRIBUTION;
-	}
-}
-
-function GetConcreteDesignDistanceOfDeductibleSurfaceType(deductible_surface_type) {
-	const deductible_surface_types_dict = {
-        "L_W_OUT": concrete_design_node_ulsconfig_concrete_design_ec2.E_DISTANCE_DEDUCTIBLE_SURFACE_L_W_OUT,
-        "K_D": concrete_design_node_ulsconfig_concrete_design_ec2.E_DISTANCE_DEDUCTIBLE_SURFACE_K_D
-	};
-
-	if (deductible_surface_type !== undefined) {
-	  var type = deductible_surface_types_dict[deductible_surface_type];
-	  if (type === undefined) {
-		console.log("Wrong distance deductible surface type. Value was: " + deductible_surface_types_dict);
-		console.log("Correct values are: " + Object.keys(deductible_surface_type));
-		type = concrete_design_node_ulsconfig_concrete_design_ec2.E_DISTANCE_DEDUCTIBLE_SURFACE_L_W_OUT;
-	  }
-	  return type;
-	}
-	else {
-	  return concrete_design_node_ulsconfig_concrete_design_ec2.E_DISTANCE_DEDUCTIBLE_SURFACE_L_W_OUT;
-	}
+    return EnumValueFromJSHLFTypeName(
+        area_type,
+        "shape of loaded area",
+        {
+            "RECTANGULAR": concrete_design_node_ulsconfig_concrete_design_ec2.E_SHAPE_OF_LOADED_AREA_RECTANGULAR,
+            "CIRCULAR": concrete_design_node_ulsconfig_concrete_design_ec2.E_SHAPE_OF_LOADED_AREA_CIRCULAR
+        },
+        concrete_design_node_ulsconfig_concrete_design_ec2.E_SHAPE_OF_LOADED_AREA_RECTANGULAR);
 }
 
 function SetConcreteDesignDeductibleSurfaceLoadForSlabType(addon,
@@ -1116,71 +1105,8 @@ function SetConcreteDesignDeductibleSurfaceLoadForSlabType(addon,
             addon.settings_node_ec2.property_node_deductible_portion_for_slab_user_defined = true;
             break;
         default:
-            ASSERT(false, "SetConcreteDesignDeductibleSurfaceLoadForSlabType - unknown deductible surface load for slab type");
+            ASSERT(false, "SetConcreteDesignDeductibleSurfaceLoadForSlabType: unknown deductible surface load for slab type");
     }
-}
-
-function GetConcreteDesignPunchingLoadForWallsType(wall_type) {
-	const wall_types_dict = {
-        "SMOOTHED_SHEAR_FORCE": concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE,
-        "UNSMOOTHED_SHEAR_FORCE": concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_UNSMOOTHED_SHEAR_FORCE
-	};
-
-	if (wall_type !== undefined) {
-	  var type = wall_types_dict[wall_type];
-	  if (type === undefined) {
-		console.log("Wrong punching load for walls type. Value was: " + wall_type);
-		console.log("Correct values are: " + Object.keys(wall_types_dict));
-		type = concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE;
-	  }
-	  return type;
-	}
-	else {
-	  return concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE;
-	}
-}
-
-function GetConcreteDesignPunchingLoadForColumnsType(column_type) {
-	const column_types_dict = {
-        "SINGLE_FORCE": concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE,
-        "SMOOTHED_SHEAR_FORCE": concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE,
-        "UNSMOOTHED_SHEAR_FORCE": concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_UNSMOOTHED_SHEAR_FORCE,
-        "USER_DEFINED": concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_USER_DEFINED
-	};
-
-	if (column_type !== undefined) {
-	  var type = column_types_dict[column_type];
-	  if (type === undefined) {
-		console.log("Wrong punching load for columns type. Value was: " + column_type);
-		console.log("Correct values are: " + Object.keys(column_types_dict));
-		type = concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE;
-	  }
-	  return type;
-	}
-	else {
-	  return concrete_design_node_ulsconfig_concrete_design_ec2.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE;
-	}
-}
-
-function GetConcreteDesignPunchingStructuralElementType(element_type) {
-	const element_types_dict = {
-        "AUTO": concrete_design_node_ulsconfig_concrete_design_ec2.E_STRUCTURE_ELEMENT_TYPE_AUTO,
-        "SLAB": concrete_design_node_ulsconfig_concrete_design_ec2.E_STRUCTURE_ELEMENT_TYPE_SLAB,
-        "FOUNDATION": concrete_design_node_ulsconfig_concrete_design_ec2.E_STRUCTURE_ELEMENT_TYPE_FOUNDATION
-	};
-
-	if (element_type !== undefined) {
-	  var type = element_types_dict[element_type];
-	  if (type === undefined) {
-		console.log("Wrong structural element type. Value was: " + element_type);
-		console.log("Correct values are: " + Object.keys(element_types_dict));
-		type = concrete_design_node_ulsconfig_concrete_design_ec2.E_STRUCTURE_ELEMENT_TYPE_AUTO;
-	  }
-	  return type;
-	}
-	else {
-	  return concrete_design_node_ulsconfig_concrete_design_ec2.E_STRUCTURE_ELEMENT_TYPE_AUTO;
-	}
 }
 
 function SetConcreteDesignReinforcementMaximumLongitudinalReinforcementType(addon,
@@ -1208,7 +1134,7 @@ function SetConcreteDesignReinforcementMaximumLongitudinalReinforcementType(addo
             addon.settings_surface_ec2.property_maximum_longitudinal_reinforcement_for_walls = true;
             break;
         default:
-            ASSERT(false, "SetConcreteDesignReinforcementMaximumLongitudinalReinforcementType - unknown maximum longitudinal reinforcement type");
+            ASSERT(false, "SetConcreteDesignReinforcementMaximumLongitudinalReinforcementType: unknown maximum longitudinal reinforcement type");
     }
 }
 
@@ -1237,7 +1163,7 @@ function SetConcreteDesignFatigueDesignType(addon,
             addon.settings_member_ec2.property_fatigue_design_method_of_damage_equivalent_stress_range = true;
             break;
         default:
-            ASSERT(false, "SetConcreteDesignFatigueDesignType - unknown fatigue design type");
+            ASSERT(false, "SetConcreteDesignFatigueDesignType: unknown fatigue design type");
     }
 }
 
@@ -1266,7 +1192,7 @@ function SetConcreteDesignModificationDesignCheckType(addon,
             addon.settings_member_ec2.property_fatigue_design_use_one_interval_with_defined_number_of_cycles_for_a_stress_range = true;
             break;
         default:
-            ASSERT(false, "SetConcreteDesignModificationDesignCheck - unknown modification of the design type");
+            ASSERT(false, "SetConcreteDesignModificationDesignCheck: unknown modification of the design type");
     }
 }
 
@@ -1295,46 +1221,38 @@ function SetConcreteDesignCurvatureForRequiredReinforcement(addon,
             addon.settings_member_ec2.property_stability_curvature_user_define = true;
             break;
         default:
-            ASSERT(false, "SetConcreteDesignCurvatureForRequiredReinforcement - unknown curvature type");
+            ASSERT(false, "SetConcreteDesignCurvatureForRequiredReinforcement: unknown curvature type");
     }
 }
 
 function GetConcreteDesignMaterialModelForTensionStrain(property_type,
     material_model_type) {
-    var material_model_types_dict = {};
-    var default_value;
     if (property_type === "member") {
-        material_model_types_dict = {
-            "SDL1": ulsconfig_member_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL1,
-            "SDL2": ulsconfig_member_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL2,
-            "SDL3": ulsconfig_member_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL3
-         };
-         default_value = ulsconfig_member_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL1;
+        return EnumValueFromJSHLFTypeName(
+            material_model_type,
+            "material model for tension strain",
+            {
+                "SDL1": ulsconfig_member_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL1,
+                "SDL2": ulsconfig_member_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL2,
+                "SDL3": ulsconfig_member_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL3
+            },
+            ulsconfig_member_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL1);
     }
     else if (property_type === "surface") {
-        material_model_types_dict = {
-            "SDL1": concrete_design_surface_ulsconfig_concrete_design_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL1,
-            "SDL2": concrete_design_surface_ulsconfig_concrete_design_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL2,
-            "SDL3": concrete_design_surface_ulsconfig_concrete_design_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL3
-        };
-        default_value = concrete_design_surface_ulsconfig_concrete_design_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL1;
+        return EnumValueFromJSHLFTypeName(
+            material_model_type,
+            "material model for tension strain",
+            {
+                "SDL1": concrete_design_surface_ulsconfig_concrete_design_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL1,
+                "SDL2": concrete_design_surface_ulsconfig_concrete_design_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL2,
+                "SDL3": concrete_design_surface_ulsconfig_concrete_design_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL3
+            },
+            concrete_design_surface_ulsconfig_concrete_design_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL1);
     }
     else {
         ASSERT(false, "GetConcreteDesignMaterialModelForTensionStrain");
+        return "unsupported property type";
     }
-
-	if (material_model_type !== undefined) {
-	  var type = material_model_types_dict[material_model_type];
-	  if (type === undefined) {
-		console.log("Wrong member material model for tension strain type. Value was: " + material_model_type);
-		console.log("Correct values are: " + Object.keys(material_model_types_dict));
-		type = default_value;
-	  }
-	  return type;
-	}
-	else {
-	  return default_value;
-	}
 }
 
 function SetConcreteDesignFiberConcreteEffect(addon,
@@ -1362,7 +1280,7 @@ function SetConcreteDesignFiberConcreteEffect(addon,
             addon.settings_member_ec2.property_member_fiber_concrete_effect_in_torsion_design = true;
             break;
         default:
-            ASSERT(false, "SetConcreteDesignFiberConcreteEffect - unknown fiber concrete effect type");
+            ASSERT(false, "SetConcreteDesignFiberConcreteEffect: unknown fiber concrete effect type");
     }
 }
 
@@ -1391,26 +1309,6 @@ function SetConcreteDesignAnalysisMethodForShearStressInJoint(addon,
             addon.settings_member_ec2.property_member_shear_joint_analysis_method_general = true;
             break;
         default:
-            ASSERT(false, "SetConcreteDesignAnalysisMethodForShearStressInJoint - unknown analysis method for shear stress joint type");
+            ASSERT(false, "SetConcreteDesignAnalysisMethodForShearStressInJoint: unknown analysis method for shear stress joint type");
     }
-}
-
-function GetConcreteDesignPropertyMemberLongitudinalReinforcement(longitudinal_reinforcement_type) {
-	const longitudinal_reinforcement_types_dict = {
-        "MAXIMUM_STIRRUP_SPACING_REQUIRED": ulsconfig_member_ec2.E_COMPRESSION_LONGITUDINAL_REINFORCEMENT_FOR_MAXIMUM_STIRRUP_SPACING_REQUIRED,
-        "MAXIMUM_STIRRUP_SPACING_PROVIDED": ulsconfig_member_ec2.E_COMPRESSION_LONGITUDINAL_REINFORCEMENT_FOR_MAXIMUM_STIRRUP_SPACING_PROVIDED
-	};
-
-	if (longitudinal_reinforcement_type !== undefined) {
-	  var type = longitudinal_reinforcement_types_dict[longitudinal_reinforcement_type];
-	  if (type === undefined) {
-		console.log("Wrong longitudinal reinforcement type. Value was: " + longitudinal_reinforcement_type);
-		console.log("Correct values are: " + Object.keys(longitudinal_reinforcement_types_dict));
-		type = ulsconfig_member_ec2.E_COMPRESSION_LONGITUDINAL_REINFORCEMENT_FOR_MAXIMUM_STIRRUP_SPACING_PROVIDED;
-	  }
-	  return type;
-	}
-	else {
-	  return ulsconfig_member_ec2.E_COMPRESSION_LONGITUDINAL_REINFORCEMENT_FOR_MAXIMUM_STIRRUP_SPACING_PROVIDED;
-	}
 }

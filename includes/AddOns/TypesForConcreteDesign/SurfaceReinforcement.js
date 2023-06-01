@@ -6,6 +6,14 @@ Bug 94787 - Missing enums for Diameter bar no. (ACI, CSA standards)
 include("../../Tools/jshlf_common_functions.js");
 include ("../ConcreteDesign/ConcreteDesignSupport.js");
 
+/**
+ * Creates Concrete design surface reinforcement
+ * @param {Number} no               Concrete design surface reinforcement index, can be undefined
+ * @param {Array} surfaces_no_no    List of surfaces indexes, can be undefined
+ * @param {Array} material_no       Material number, can be undefined
+ * @param {String} comment          Comment, can be undefined
+ * @param {Object} params           Additional parameters, can be undefined
+ */
 function ConcreteDesignSurfaceReinforcement (no,
     surfaces_no,
     material_no,
@@ -108,8 +116,7 @@ ConcreteDesignSurfaceReinforcement.prototype.Mesh = function (reinforcement_type
  * Sets Rebar diameter
  * @param {Number} rebar_diameter    Rebar diameter
  */
-ConcreteDesignSurfaceReinforcement.prototype.RebarDiameter = function (value_1,
-    value_2) {
+ConcreteDesignSurfaceReinforcement.prototype.RebarDiameter = function (value_1) {
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_REBAR, "Reinforcement type must be of rebar type");
     if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("SP")) {
         ASSERT(typeof value_1 !== "undefined", "Rebar diameter must be specified");
@@ -468,7 +475,7 @@ ConcreteDesignSurfaceReinforcement.prototype.Projection = function (projection_c
             this.surface_reinforcement.projection_coordinate_system = projection_coordinate_system;
         }
         else {
-            console.log("Coordination system no. " + projection_coordinate_system + " doesnt exist");
+            console.log("Coordination system no. " + projection_coordinate_system + " doesn't exist");
         }
     }
     this.surface_reinforcement.projection_plane = EnumValueFromJSHLFTypeName(
@@ -557,11 +564,11 @@ ConcreteDesignSurfaceReinforcement.prototype.ReinforcementLocationFreeCircular =
 
 /**
  * Sets Reinforcement location
- * @param {Array} polygon_points    Polygon points ([[X1, Y1, (Comment1)], [X2, Y2, (Comment2)], ... [Xn, Yn, (Commentn)]]), at least coordinations must be specified
+ * @param {Array} polygon_points    Polygon points ([[X1, Y1, (Comment1)], [X2, Y2, (Comment2)], ... [Xn, Yn, (Comment)]]), at least coordinations must be specified
  */
 ConcreteDesignSurfaceReinforcement.prototype.ReinforcementLocationFreePolygon = function (polygon_points) {
     ASSERT(this.surface_reinforcement.location_type === surface_reinforcements.LOCATION_TYPE_FREE_POLYGON, "Reinforcement location can be set only for FREE_POLYGON location type");
-    ASSERT(typeof polygon_points !== "undefined", "Polygon points must be specified ([[X1, Y1, (Comment1)], [X2, Y2, (Comment2)], ... [Xn, Yn, (Commentn)]])");
+    ASSERT(typeof polygon_points !== "undefined", "Polygon points must be specified ([[X1, Y1, (Comment1)], [X2, Y2, (Comment2)], ... [Xn, Yn, (Comment)]])");
     ASSERT(polygon_points.length >= 3, "At least three coordinates must be specified");
     for (var i = 0; i < polygon_points.length; ++i) {
         ASSERT(polygon_points.length >= 2, "At least coordination (X1, Y1) must be specified");

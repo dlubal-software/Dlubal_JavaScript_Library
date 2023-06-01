@@ -1,3 +1,5 @@
+include("../../Tools/jshlf_common_functions.js");
+
 /**
  * Creates Concrete design ultimate configuration (SP standard)
  * @class
@@ -131,8 +133,22 @@ ConcreteDesignUltimateConfigurationSP.prototype.Members_DesignSectionsTypesForSh
 ConcreteDesignUltimateConfigurationSP.prototype.Members_RequiredReinforcementMomentInInclinedSection = function (property_member_designed_type_of_reinforcement,
     property_member_used_reinforcement_for_moment_resistance) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
-    this.addon.settings_member_sp63.property_member_designed_type_of_reinforcement = GetConcreteDesignMemberReinforcementDesignType(property_member_designed_type_of_reinforcement);
-    this.addon.settings_member_sp63.property_member_used_reinforcement_for_moment_resistance = GetConcreteDesignMemberReinforcementForMomentResistanceType(property_member_used_reinforcement_for_moment_resistance);
+    this.addon.settings_member_sp63.property_member_designed_type_of_reinforcement = EnumValueFromJSHLFTypeName(
+        property_member_designed_type_of_reinforcement,
+        "reinforcement design",
+        {
+            "LONGITUDINAL": ulsconfig_member_sp63.E_REINFORCEMENT_DESIGNED_TYPE_LONGITUDINAL,
+            "TRANSVERSE": ulsconfig_member_sp63.E_REINFORCEMENT_DESIGNED_TYPE_TRANSVERSE
+        },
+        ulsconfig_member_sp63.E_REINFORCEMENT_DESIGNED_TYPE_LONGITUDINAL);
+    this.addon.settings_member_sp63.property_member_used_reinforcement_for_moment_resistance = EnumValueFromJSHLFTypeName(
+        property_member_used_reinforcement_for_moment_resistance,
+        "moment resistance",
+        {
+            "REQUIRED": ulsconfig_member_sp63.E_REINFORCEMENT_TYPE_REQUIRED,
+            "PROVIDED": ulsconfig_member_sp63.E_REINFORCEMENT_TYPE_PROVIDED
+        },
+        ulsconfig_member_sp63.E_REINFORCEMENT_TYPE_REQUIRED);
 };
 
 /**
@@ -510,7 +526,7 @@ ConcreteDesignUltimateConfigurationSP.prototype.Punching_AdditionalParameters_Pe
  * Sets Additional Parameters - Thickness
  * @param {String/Number} property_node_variable_thickness_definition   Definition of variable thickness (AUTO or user-defined value), can be undefined (is not set, AUTO as default)
  * @param {String/Number} property_node_reference_surfaces_thickness    Thickness of reference surfaces (MINIMUM_THICKNESS, MAXIMUM_THICKNESS, SELECTED or user-defined value), can be undefined (is not set, MINIMUM_THICKNESS as default)
- * @param {Number} property_node_reference_surface_no                        Reference surface No., can be undefined (is not set, 1 as default)
+ * @param {Number} property_node_reference_surface_no                   Reference surface No., can be undefined (is not set, 1 as default)
  */
 ConcreteDesignUltimateConfigurationSP.prototype.Punching_AdditionalParameters_Thickness = function (property_node_variable_thickness_definition,
     property_node_reference_surfaces_thickness,
@@ -529,7 +545,15 @@ ConcreteDesignUltimateConfigurationSP.prototype.Punching_AdditionalParameters_Th
     }
     if (typeof property_node_reference_surfaces_thickness !== "undefined") {
         if (typeof property_node_reference_surfaces_thickness === "string") {
-            this.addon.settings_node_sp63.property_node_reference_surfaces_thickness = GetConcreteDesignSPPunchingThicknessType(property_node_reference_surfaces_thickness);
+            this.addon.settings_node_sp63.property_node_reference_surfaces_thickness = EnumValueFromJSHLFTypeName(
+                property_node_reference_surfaces_thickness,
+                "punching thickness",
+                {
+                    "MINIMUM_THICKNESS": concrete_design_node_concrete_ulsconfig_sp63.E_REFERENCE_SURFACES_THICKNESS_TYPE_MINIMUM_THICKNESS,
+                    "MAXIMUM_THICKNESS": concrete_design_node_concrete_ulsconfig_sp63.E_REFERENCE_SURFACES_THICKNESS_TYPE_MAXIMUM_THICKNESS,
+                    "SELECTED": concrete_design_node_concrete_ulsconfig_sp63.E_REFERENCE_SURFACES_THICKNESS_TYPE_SELECTED
+                },
+                concrete_design_node_concrete_ulsconfig_sp63.E_REFERENCE_SURFACES_THICKNESS_TYPE_MINIMUM_THICKNESS);
         }
         else {
             ASSERT(typeof property_node_reference_surfaces_thickness === "number", "User-defined thickness must be specified");
@@ -538,7 +562,7 @@ ConcreteDesignUltimateConfigurationSP.prototype.Punching_AdditionalParameters_Th
         }
     }
     if (typeof property_node_reference_surface_no !== "undefined") {
-        ASSERT(this.addon.settings_node_sp63.property_node_reference_surfaces_thickness === GetConcreteDesignSPPunchingThicknessType("SELECTED"), "SELECTED type must be specified");
+        ASSERT(this.addon.settings_node_sp63.property_node_reference_surfaces_thickness === concrete_design_node_concrete_ulsconfig_sp63.E_REFERENCE_SURFACES_THICKNESS_TYPE_SELECTED, "SELECTED type must be specified");
         this.addon.settings_node_sp63.property_node_reference_surface_no = property_node_reference_surface_no;
     }
 };
@@ -567,64 +591,6 @@ ConcreteDesignUltimateConfigurationSP.prototype.Punching_NeutralAxisDepthLimitat
         }
     }
 };
-
-function GetConcreteDesignSPPunchingThicknessType(thickness_type) {
-    const thickness_types_dict = {
-        "MINIMUM_THICKNESS": concrete_design_node_concrete_ulsconfig_sp63.E_REFERENCE_SURFACES_THICKNESS_TYPE_MINIMUM_THICKNESS,
-        "MAXIMUM_THICKNESS": concrete_design_node_concrete_ulsconfig_sp63.E_REFERENCE_SURFACES_THICKNESS_TYPE_MAXIMUM_THICKNESS,
-        "SELECTED": concrete_design_node_concrete_ulsconfig_sp63.E_REFERENCE_SURFACES_THICKNESS_TYPE_SELECTED
-    };
-	if (thickness_type !== undefined) {
-	  var type = thickness_types_dict[thickness_type];
-	  if (type === undefined) {
-		console.log("Wrong punching thickness type. Value was: " + thickness_type);
-		console.log("Correct values are: ( " + Object.keys(thickness_types_dict) + ")");
-		type = concrete_design_node_concrete_ulsconfig_sp63.E_REFERENCE_SURFACES_THICKNESS_TYPE_MINIMUM_THICKNESS;
-	  }
-	  return type;
-	}
-	else {
-	  return concrete_design_node_concrete_ulsconfig_sp63.E_REFERENCE_SURFACES_THICKNESS_TYPE_MINIMUM_THICKNESS;
-	}
-}
-
-function GetConcreteDesignMemberReinforcementForMomentResistanceType(moment_resistance_type) {
-    const moment_resistance_types_dict = {
-        "REQUIRED": ulsconfig_member_sp63.E_REINFORCEMENT_TYPE_REQUIRED,
-        "PROVIDED": ulsconfig_member_sp63.E_REINFORCEMENT_TYPE_PROVIDED
-    };
-	if (moment_resistance_type !== undefined) {
-	  var type = moment_resistance_types_dict[moment_resistance_type];
-	  if (type === undefined) {
-		console.log("Wrong moment resistance type. Value was: " + moment_resistance_type);
-		console.log("Correct values are: ( " + Object.keys(moment_resistance_types_dict) + ")");
-		type = ulsconfig_member_sp63.E_REINFORCEMENT_TYPE_REQUIRED;
-	  }
-	  return type;
-	}
-	else {
-	  return ulsconfig_member_sp63.E_REINFORCEMENT_TYPE_REQUIRED;
-	}
-}
-
-function GetConcreteDesignMemberReinforcementDesignType(design_type) {
-    const design_types_dict = {
-        "LONGITUDINAL": ulsconfig_member_sp63.E_REINFORCEMENT_DESIGNED_TYPE_LONGITUDINAL,
-        "TRANSVERSE": ulsconfig_member_sp63.E_REINFORCEMENT_DESIGNED_TYPE_TRANSVERSE
-    };
-	if (design_type !== undefined) {
-	  var type = design_types_dict[design_type];
-	  if (type === undefined) {
-		console.log("Wrong reinforcement design type. Value was: " + design_type);
-		console.log("Correct values are: ( " + Object.keys(design_types_dict) + ")");
-		type = ulsconfig_member_sp63.E_REINFORCEMENT_DESIGNED_TYPE_LONGITUDINAL;
-	  }
-	  return type;
-	}
-	else {
-	  return ulsconfig_member_sp63.E_REINFORCEMENT_DESIGNED_TYPE_LONGITUDINAL;
-	}
-}
 
 function SetConcreteDesignMembersDesignSectionsType(addon_settings,
     sections_type) {

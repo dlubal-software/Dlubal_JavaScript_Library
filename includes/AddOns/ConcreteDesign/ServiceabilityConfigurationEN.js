@@ -1,3 +1,5 @@
+include("../../Tools/jshlf_common_functions.js");
+
 /*
 Bug 90054: GetConcreteDesignCrackWidthLimitValues function (some values of enum have the same text representation)
 Bug 90372: property_quasi_permament_support_on_both_sides, property_quasi_permament_one_sided_support
@@ -276,23 +278,15 @@ ConcreteDesignServiceabilityConfigurationEN.prototype.FiberConcrete = function (
 };
 
 function GetConcreteDesignMaterialModelForTensionStrainsType(material_model_type) {
-    const material_model_types_dict = {
-        "SDL1": main_slsconfig_concrete_design_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL1,
-        "SDL2": main_slsconfig_concrete_design_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL2,
-        "SDL3": main_slsconfig_concrete_design_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL3
-    };
-	if (material_model_type !== undefined) {
-	  var type = material_model_types_dict[material_model_type];
-	  if (type === undefined) {
-		console.log("Wrong material model for tension strains type. Value was: " + material_model_type);
-		console.log("Correct values are: " + Object.keys(material_model_types_dict));
-		type = main_slsconfig_concrete_design_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL1;
-	  }
-	  return type;
-	}
-	else {
-	  return main_slsconfig_concrete_design_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL1;
-	}
+    return EnumValueFromJSHLFTypeName(
+        material_model_type,
+        "material model for tension strains",
+        {
+            "SDL1": main_slsconfig_concrete_design_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL1,
+            "SDL2": main_slsconfig_concrete_design_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL2,
+            "SDL3": main_slsconfig_concrete_design_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL3
+        },
+        main_slsconfig_concrete_design_ec2.E_FIBER_CONCRETE_TENSION_MATERIAL_MODEL_SDL1);
 }
 
 function SetConcreteDesignStressDistributionWithinSectionPriorToCrackingType (addon,
@@ -329,47 +323,31 @@ function SetConcreteDesignStressDistributionWithinSectionPriorToCrackingType (ad
 }
 
 function GetConcreteDesignMinimalReinforcementAreaType(minimal_reinforcement_type) {
-    const minimal_reinforcement_types_dict = {
-        "AREA_TOP_BOTTOM": main_slsconfig_concrete_design_ec2.E_MINIMAL_REINFORCEMENT_AREA_TOP_BOTTOM,
-        "AREA_TOP": main_slsconfig_concrete_design_ec2.E_MINIMAL_REINFORCEMENT_AREA_TOP,
-        "AREA_BOTTOM": main_slsconfig_concrete_design_ec2.E_MINIMAL_REINFORCEMENT_AREA_BOTTOM,
-        "AREA_TENSION_SIDE": main_slsconfig_concrete_design_ec2.E_MINIMAL_REINFORCEMENT_AREA_TENSION_SIDE
-    };
-	if (minimal_reinforcement_type !== undefined) {
-	  var type = minimal_reinforcement_types_dict[minimal_reinforcement_type];
-	  if (type === undefined) {
-		console.log("Wrong minimal reinforcement area type. Value was: " + minimal_reinforcement_type);
-		console.log("Correct values are: " + Object.keys(minimal_reinforcement_types_dict));
-		type = main_slsconfig_concrete_design_ec2.E_MINIMAL_REINFORCEMENT_AREA_TENSION_SIDE;
-	  }
-	  return type;
-	}
-	else {
-	  return main_slsconfig_concrete_design_ec2.E_MINIMAL_REINFORCEMENT_AREA_TENSION_SIDE;
-	}
+    return EnumValueFromJSHLFTypeName(
+        minimal_reinforcement_type,
+        "minimal reinforcement area",
+        {
+            "AREA_TOP_BOTTOM": main_slsconfig_concrete_design_ec2.E_MINIMAL_REINFORCEMENT_AREA_TOP_BOTTOM,
+            "AREA_TOP": main_slsconfig_concrete_design_ec2.E_MINIMAL_REINFORCEMENT_AREA_TOP,
+            "AREA_BOTTOM": main_slsconfig_concrete_design_ec2.E_MINIMAL_REINFORCEMENT_AREA_BOTTOM,
+            "AREA_TENSION_SIDE": main_slsconfig_concrete_design_ec2.E_MINIMAL_REINFORCEMENT_AREA_TENSION_SIDE
+        },
+        main_slsconfig_concrete_design_ec2.E_MINIMAL_REINFORCEMENT_AREA_TENSION_SIDE);
 }
 
 function GetConcreteDesignCrackWidthLimitValues(limit_values_type) {
-    const limit_values_types_dict = {
-        "AUTOMATICALLY": main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_AUTOMATICALLY,
-        "02_EXPOSURE_CLASS_X0_AND_XC1_STRUCTURAL_ELEMENT_PRESTRESSING": main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_02_EXPOSURE_CLASS_X0_AND_XC1_STRUCTURAL_ELEMENT_PRESTRESSING,
-        "02_EXPOSURE_CLASS_FROM_XC2_TO_XC4_STRUCTURAL_ELEMENT_PRESTRESSING": main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_02_EXPOSURE_CLASS_FROM_XC2_TO_XC4_STRUCTURAL_ELEMENT_PRESTRESSING,
-        "04_EXPOSURE_CLASS_X0_AND_XC1_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING": main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_04_EXPOSURE_CLASS_X0_AND_XC1_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING,
-        "03_EXPOSURE_CLASS_FROM_XC2_TO_XC4_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING": main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_03_EXPOSURE_CLASS_FROM_XC2_TO_XC4_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING,
-        "03_EXPOSURE_CLASS_FROM_XD1_TO_XD3_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING": main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_03_EXPOSURE_CLASS_FROM_XD1_TO_XD3_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING,
-        "03_EXPOSURE_CLASS_FROM_XS1_TO_XS3_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING": main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_03_EXPOSURE_CLASS_FROM_XS1_TO_XS3_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING,
-        "HEADER": main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_HEADER
-    };
-	if (limit_values_type !== undefined) {
-	  var type = limit_values_types_dict[limit_values_type];
-	  if (type === undefined) {
-		console.log("Wrong crack width limit type. Value was: " + limit_values_type);
-		console.log("Correct values are: " + Object.keys(limit_values_types_dict));
-		type = main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_AUTOMATICALLY;
-	  }
-	  return type;
-	}
-	else {
-	  return main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_AUTOMATICALLY;
-	}
+    return EnumValueFromJSHLFTypeName(
+        limit_values_type,
+        "crack width limit",
+        {
+            "AUTOMATICALLY": main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_AUTOMATICALLY,
+            "02_EXPOSURE_CLASS_X0_AND_XC1_STRUCTURAL_ELEMENT_PRESTRESSING": main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_02_EXPOSURE_CLASS_X0_AND_XC1_STRUCTURAL_ELEMENT_PRESTRESSING,
+            "02_EXPOSURE_CLASS_FROM_XC2_TO_XC4_STRUCTURAL_ELEMENT_PRESTRESSING": main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_02_EXPOSURE_CLASS_FROM_XC2_TO_XC4_STRUCTURAL_ELEMENT_PRESTRESSING,
+            "04_EXPOSURE_CLASS_X0_AND_XC1_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING": main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_04_EXPOSURE_CLASS_X0_AND_XC1_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING,
+            "03_EXPOSURE_CLASS_FROM_XC2_TO_XC4_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING": main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_03_EXPOSURE_CLASS_FROM_XC2_TO_XC4_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING,
+            "03_EXPOSURE_CLASS_FROM_XD1_TO_XD3_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING": main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_03_EXPOSURE_CLASS_FROM_XD1_TO_XD3_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING,
+            "03_EXPOSURE_CLASS_FROM_XS1_TO_XS3_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING": main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_03_EXPOSURE_CLASS_FROM_XS1_TO_XS3_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING,
+            "HEADER": main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_HEADER
+        },
+        main_slsconfig_concrete_design_ec2.E_CRACK_WIDTH_AUTOMATICALLY);
 }

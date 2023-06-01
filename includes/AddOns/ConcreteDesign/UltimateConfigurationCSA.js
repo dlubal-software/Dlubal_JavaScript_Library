@@ -1,9 +1,5 @@
-/*
-Missing API support for Punching?
-*/
-
 /**
- * Creates Concrete design ultimate configuration (ACI standard)
+ * Creates Concrete design ultimate configuration (CSA standard)
  * @class
  * @constructor
  * @param {Number} no           Ultimate configuration number, can be undefined
@@ -23,14 +19,14 @@ function ConcreteDesignUltimateConfigurationCSA (no,
 }
 
 /**
- * @returns Ultimate Configuration index
+ * @returns Ultimate configuration index
  */
 ConcreteDesignUltimateConfigurationCSA.prototype.GetNo = function () {
     return this.addon.no;
 };
 
 /**
- * @returns Ultimate Configuration object
+ * @returns Ultimate configuration object
  */
 ConcreteDesignUltimateConfigurationCSA.prototype.GetUltimateConfiguration = function () {
     return this.addon;
@@ -224,6 +220,12 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_InternalForcesDiagramU
     SetConcreteDesignSurfacesInternalForcesDiagramUsedForDesign(this.addon.settings_surface_csaa233, property_subtraction_of_rib_components);
 };
 
+/**
+ * Sets Factors
+ * @param {Number} property_surface_strength_reduction_factor_concrete                              Strength reduction factors acc. to 8.4 - Concrete factor, can be undefined (is not set, 0.65 as default)
+ * @param {Number} property_surface_strength_reduction_factor_reinforcing                           Strength reduction factors acc. to 8.4 - Reinforcing factor, can be undefined (is not set, 0.85 as default)
+ * @param {Number} property_surface_strength_reduction_factor_concrete_stress_strain_relationship   Strength reduction factors acc. to 8.4 - Concrete stress-strain relationship factor acc. to 10.1.6, can be undefined (is not set, 0.90 as default)
+ */
 ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_Factors = function (property_surface_strength_reduction_factor_concrete,
     property_surface_strength_reduction_factor_reinforcing,
     property_surface_strength_reduction_factor_concrete_stress_strain_relationship) {
@@ -293,7 +295,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_UserDefinedMaximumLong
 };
 
 /**
- * Sets Minimum shear reinforcement acc. to 9.3.2
+ * Sets Minimum shear reinforcement acc. to 11.2.8.1
  * @param {Boolean} property_minimum_shear_reinforcement    Minimum shear reinforcement, can be undefined (is not set, true as default)
  */
 ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_MinimumShearReinforcement = function (property_minimum_shear_reinforcement) {

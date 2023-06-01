@@ -1,3 +1,5 @@
+include("../../Tools/jshlf_common_functions.js");
+
 function ConcreteDesignServiceabilityConfigurationSP (no,
     surfaces_no,
     members_no,
@@ -7,14 +9,14 @@ function ConcreteDesignServiceabilityConfigurationSP (no,
 }
 
 /**
- * @returns Serviceability Configuration index
+ * @returns Serviceability configuration index
  */
 ConcreteDesignServiceabilityConfigurationSP.prototype.GetNo = function () {
     return this.addon.no;
 };
 
 /**
- * @returns Serviceability Configuration object
+ * @returns Serviceability configuration object
  */
 ConcreteDesignServiceabilityConfigurationSP.prototype.GetUltimateConfiguration = function () {
     return this.addon;
@@ -71,7 +73,7 @@ ConcreteDesignServiceabilityConfigurationSP.prototype.CrackWidthAnalysis = funct
  * @param {Boolean} property_activate_time_dependent_deflections        Calculation of time-dependent deflections, can be undefined (is not set, true as default)
  * @param {Boolean} property_time_dependent_factor                      Use of creep factor acc. to table 6.12 and time-dependent concrete strain acc. to table 6.10 acc. to SP63.13330.2018 (is not set, true as default)
  * @param {Number} property_deflection_relative_humidity                Relative humidity of air, can be undefined (is not set, 65% as default)
- * @param {Boolean} property_time_dependent_material_properties         Time-dependent material properties (creep, shrinkage) acc. to ACI 435, can be undefined (is not set, false as default)
+ * @param {Boolean} property_time_dependent_material_properties         Time-dependent material properties (creep, shrinkage) acc. to Eurocode 2
  */
 ConcreteDesignServiceabilityConfigurationSP.prototype.DeflectionAnalysis = function (property_limitation_of_deflection_enabled,
     property_deflection_limit_support_on_both_sides,
@@ -87,21 +89,12 @@ ConcreteDesignServiceabilityConfigurationSP.prototype.DeflectionAnalysis = funct
 };
 
 function GetConcreteDesignStressStrainDiagramType(diagram_type) {
-    const diagram_types_dict = {
-        "INELASTIC": main_concrete_slsconfig_sp63.E_STRESS_STRAIN_DIAGRAM_TYPE_INELASTIC,
-        "ELASTIC": main_concrete_slsconfig_sp63.E_STRESS_STRAIN_DIAGRAM_TYPE_ELASTIC
-    };
-    
-	if (diagram_type !== undefined) {
-	  var type = diagram_types_dict[diagram_type];
-	  if (type === undefined) {
-		console.log("Wrong stress strain diagram type. Value was: " + diagram_type);
-		console.log("Correct values are: " + Object.keys(diagram_types_dict));
-		type = main_concrete_slsconfig_sp63.E_STRESS_STRAIN_DIAGRAM_TYPE_INELASTIC;
-	  }
-	  return type;
-	}
-	else {
-	  return main_concrete_slsconfig_sp63.E_STRESS_STRAIN_DIAGRAM_TYPE_INELASTIC;
-	}
+    return EnumValueFromJSHLFTypeName(
+        diagram_type,
+        "diagram",
+        {
+            "INELASTIC": main_concrete_slsconfig_sp63.E_STRESS_STRAIN_DIAGRAM_TYPE_INELASTIC,
+            "ELASTIC": main_concrete_slsconfig_sp63.E_STRESS_STRAIN_DIAGRAM_TYPE_ELASTIC
+        },
+        main_concrete_slsconfig_sp63.E_STRESS_STRAIN_DIAGRAM_TYPE_INELASTIC);
 }

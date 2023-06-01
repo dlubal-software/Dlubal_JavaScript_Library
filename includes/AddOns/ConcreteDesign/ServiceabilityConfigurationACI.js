@@ -1,3 +1,5 @@
+include("../../Tools/jshlf_common_functions.js");
+
 function ConcreteDesignServiceabilityConfigurationACI (no,
     surfaces_no,
     members_no,
@@ -157,24 +159,15 @@ ConcreteDesignServiceabilityConfigurationACI.prototype.CrackStateDetection = fun
 };
 
 function GetConcreteDesignLimitCrackWidthValueType(crack_width_type) {
-    const crack_width_types_dict = {
-        "01_USE_IN_WATER_RETAINING_STRUCTURES": main_slsconfig_concrete_design_aci318.E_CRACK_WIDTH_01_USE_IN_WATER_RETAINING_STRUCTURES,
-        "02_SEAWATER_AND_SEAWATER_SPRAY": main_slsconfig_concrete_design_aci318.E_CRACK_WIDTH_02_SEAWATER_AND_SEAWATER_SPRAY,
-        "02_DEICING_CHEMICALS": main_slsconfig_concrete_design_aci318.E_CRACK_WIDTH_02_DEICING_CHEMICALS,
-        "03_HUMIDITY_MOIST_AIR_SOIL": main_slsconfig_concrete_design_aci318.E_CRACK_WIDTH_03_HUMIDITY_MOIST_AIR_SOIL,
-        "04_DRY_AIR_OR_PROTECTIVE_MEMBRANE": main_slsconfig_concrete_design_aci318.E_CRACK_WIDTH_04_DRY_AIR_OR_PROTECTIVE_MEMBRANE
-    };
-    
-	if (crack_width_type !== undefined) {
-	  var type = crack_width_types_dict[crack_width_type];
-	  if (type === undefined) {
-		console.log("Wrong crack width type. Value was: " + crack_width_type);
-		console.log("Correct values are: " + Object.keys(crack_width_types_dict));
-		type = main_slsconfig_concrete_design_aci318.E_CRACK_WIDTH_03_HUMIDITY_MOIST_AIR_SOIL;
-	  }
-	  return type;
-	}
-	else {
-	  return main_slsconfig_concrete_design_aci318.E_CRACK_WIDTH_03_HUMIDITY_MOIST_AIR_SOIL;
-	}
+    return EnumValueFromJSHLFTypeName(
+        crack_width_type,
+        "crack width",
+        {
+            "01_USE_IN_WATER_RETAINING_STRUCTURES": main_slsconfig_concrete_design_aci318.E_CRACK_WIDTH_01_USE_IN_WATER_RETAINING_STRUCTURES,
+            "02_SEAWATER_AND_SEAWATER_SPRAY": main_slsconfig_concrete_design_aci318.E_CRACK_WIDTH_02_SEAWATER_AND_SEAWATER_SPRAY,
+            "02_DEICING_CHEMICALS": main_slsconfig_concrete_design_aci318.E_CRACK_WIDTH_02_DEICING_CHEMICALS,
+            "03_HUMIDITY_MOIST_AIR_SOIL": main_slsconfig_concrete_design_aci318.E_CRACK_WIDTH_03_HUMIDITY_MOIST_AIR_SOIL,
+            "04_DRY_AIR_OR_PROTECTIVE_MEMBRANE": main_slsconfig_concrete_design_aci318.E_CRACK_WIDTH_04_DRY_AIR_OR_PROTECTIVE_MEMBRANE
+        },
+        main_slsconfig_concrete_design_aci318.E_CRACK_WIDTH_03_HUMIDITY_MOIST_AIR_SOIL);
 }

@@ -2,7 +2,12 @@
 Bug 92009: Un-complete enum for structure_type_about_axis_y and structure_type_about_axis_z
 */
 
+if (RSECTION) {
+	throw new Error("This script is only for RFEM or RSTAB.");
+}
+
 include("../ConcreteDesign/ConcreteDesignSupport.js");
+include("../../Tools/jshlf_common_functions.js");
 
 /**
  * Creates Concrete design effective length
@@ -179,33 +184,26 @@ ConcreteDesignEffectiveLength.prototype.OverwriteEffectiveLengths = function (ro
 
 function GetConcreteDesignStructureType(structure_type) {
     if (!IsCurrentCodeOfStandard("SP")) {
-        var structure_types_dict = {
-            "UNBRACED": concrete_effective_lengths.STRUCTURE_TYPE_UNBRACED,
-            "BRACED": concrete_effective_lengths.STRUCTURE_TYPE_BRACED
-        };
-        var default_type = concrete_effective_lengths.STRUCTURE_TYPE_UNBRACED;
+        return EnumValueFromJSHLFTypeName(
+            structure_type,
+            "structure",
+            {
+                "UNBRACED": concrete_effective_lengths.STRUCTURE_TYPE_UNBRACED,
+                "BRACED": concrete_effective_lengths.STRUCTURE_TYPE_BRACED
+            },
+            concrete_effective_lengths.STRUCTURE_TYPE_UNBRACED);
     }
     else {
         // Bug 92009: un-complete enum (Combined type is missing)
-        var structure_types_dict = {
-            "UNBRACED": concrete_effective_lengths.STRUCTURE_TYPE_UNBRACED,
-            "BRACED": concrete_effective_lengths.STRUCTURE_TYPE_BRACED
-        };
-        var default_type = concrete_effective_lengths.STRUCTURE_TYPE_UNBRACED;
+        return EnumValueFromJSHLFTypeName(
+            structure_type,
+            "structure",
+            {
+                "UNBRACED": concrete_effective_lengths.STRUCTURE_TYPE_UNBRACED,
+                "BRACED": concrete_effective_lengths.STRUCTURE_TYPE_BRACED
+            },
+            concrete_effective_lengths.STRUCTURE_TYPE_UNBRACED);
     }
-
-	if (structure_type !== undefined) {
-		var type = structure_types_dict[structure_type];
-		if (type === undefined) {
-			console.log("Wrong structure type. Value was: " + structure_type);
-			console.log("Correct values are: ( " + Object.keys(structure_types_dict) + ")");
-			type = default_type;
-		}
-		return type;
-	}
-	else {
-		return default_type;
-	}
 }
 
 function setConcreteDesignEffectiveLengthsNodalSupports (effective_length,
@@ -345,47 +343,29 @@ function setConcreteDesignEffectiveLengthsNodalSupports (effective_length,
 }
 
 function GetConcreteDesignSupportStatusType(support_status) {
-	const support_status_dict = {
-        "SUPPORT_STATUS_NO": concrete_effective_lengths.SUPPORT_STATUS_NO,
-        "SUPPORT_STATUS_SPRING": concrete_effective_lengths.SUPPORT_STATUS_SPRING,
-        "SUPPORT_STATUS_YES": concrete_effective_lengths.SUPPORT_STATUS_YES
-	};
-
-	if (support_status !== undefined) {
-		var type = support_status_dict[support_status];
-		if (type === undefined) {
-			console.log("Wrong concrete design support status type. Value was: " + support_status);
-			console.log("Correct values are: ( " + Object.keys(support_status_dict) + ")");
-			type = concrete_effective_lengths.SUPPORT_STATUS_NO;
-		}
-		return type;
-	}
-	else {
-		return concrete_effective_lengths.SUPPORT_STATUS_NO;
-	}
+    return EnumValueFromJSHLFTypeName(
+        support_status,
+        "support status",
+        {
+            "SUPPORT_STATUS_NO": concrete_effective_lengths.SUPPORT_STATUS_NO,
+            "SUPPORT_STATUS_SPRING": concrete_effective_lengths.SUPPORT_STATUS_SPRING,
+            "SUPPORT_STATUS_YES": concrete_effective_lengths.SUPPORT_STATUS_YES
+        },
+        concrete_effective_lengths.SUPPORT_STATUS_NO);
 }
 
 function GetConcreteDesignEffectiveLengthSupportType(support_type) {
-	const support_types_dict = {
-        "NONE": concrete_effective_lengths.SUPPORT_TYPE_NONE,
-        "FIXED_IN_Z": concrete_effective_lengths.SUPPORT_TYPE_FIXED_IN_Z,
-        "FIXED_IN_Y": concrete_effective_lengths.SUPPORT_TYPE_FIXED_IN_Y,
-        "FIXED_ALL": concrete_effective_lengths.SUPPORT_TYPE_FIXED_ALL,
-        "INDIVIDUALLY": concrete_effective_lengths.SUPPORT_TYPE_INDIVIDUALLY
-	};
-
-    if (support_type !== undefined) {
-		var type = support_types_dict[support_type];
-		if (type === undefined) {
-			console.log("Wrong concrete design effective length support type. Value was: " + support_type);
-			console.log("Correct values are: ( " + Object.keys(support_types_dict) + ")");
-			type = concrete_effective_lengths.SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION;
-		}
-		return type;
-	}
-	else {
-		return concrete_effective_lengths.SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION;
-	}
+    return EnumValueFromJSHLFTypeName(
+        support_type,
+        "effective length support",
+        {
+            "NONE": concrete_effective_lengths.SUPPORT_TYPE_NONE,
+            "FIXED_IN_Z": concrete_effective_lengths.SUPPORT_TYPE_FIXED_IN_Z,
+            "FIXED_IN_Y": concrete_effective_lengths.SUPPORT_TYPE_FIXED_IN_Y,
+            "FIXED_ALL": concrete_effective_lengths.SUPPORT_TYPE_FIXED_ALL,
+            "INDIVIDUALLY": concrete_effective_lengths.SUPPORT_TYPE_INDIVIDUALLY
+        },
+        concrete_effective_lengths.SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION);
 }
 
 function setConcreteDesignEffectiveLengthsBuckling (effective_length,

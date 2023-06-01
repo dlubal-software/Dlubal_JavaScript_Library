@@ -1,5 +1,6 @@
+include("../../Tools/jshlf_common_functions.js");
+
 /*
-Missing API support for Punching?
 Bug 88653: property_node_minimum_spacing_of_reinforcement_perometers
 */
 
@@ -24,14 +25,14 @@ function ConcreteDesignStrengthConfigurationACI (no,
 }
 
 /**
- * @returns Ultimate Configuration index
+ * @returns Strength configuration index
  */
 ConcreteDesignStrengthConfigurationACI.prototype.GetNo = function () {
     return this.addon.no;
 };
 
 /**
- * @returns Ultimate Configuration object
+ * @returns Strength configuration object
  */
 ConcreteDesignStrengthConfigurationACI.prototype.GetUltimateConfiguration = function () {
     return this.addon;
@@ -39,7 +40,7 @@ ConcreteDesignStrengthConfigurationACI.prototype.GetUltimateConfiguration = func
 
 /**
  * Sets Name
- * @param {String} name     Ultimate configuration name, can be undefined
+ * @param {String} name     Strength configuration name, can be undefined
  */
 ConcreteDesignStrengthConfigurationACI.prototype.SetName = function (name) {
     ASSERT(typeof name !== "undefined", "Name must be specified");
@@ -153,7 +154,14 @@ ConcreteDesignStrengthConfigurationACI.prototype.Members_RequiredShearReinforcem
  */
 ConcreteDesignStrengthConfigurationACI.prototype.Members_TorsionCapacity = function (property_member_type_of_torsion) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
-    this.addon.settings_member_aci318.property_member_type_of_torsion = GetConcreteDesignPropertyMemberTypeOfTorsion(property_member_type_of_torsion);
+    this.addon.settings_member_aci318.property_member_type_of_torsion = EnumValueFromJSHLFTypeName(
+        property_member_type_of_torsion,
+        "torsion",
+        {
+            "TORSION_EQUILIBRIUM": ulsconfig_member_aci318.E_TYPE_OF_TORSION_EQUILIBRIUM,
+            "TORSION_COMPATIBILITY": ulsconfig_member_aci318.E_TYPE_OF_TORSION_COMPATIBILITY
+        },
+        ulsconfig_member_aci318.E_TYPE_OF_TORSION_EQUILIBRIUM);
 };
 
 /**
@@ -164,7 +172,15 @@ ConcreteDesignStrengthConfigurationACI.prototype.Members_TorsionCapacity = funct
 ConcreteDesignStrengthConfigurationACI.prototype.Members_ShearAndTorsionReinforcement = function (property_member_nominal_shear_strength_vc,
     property_member_inclination_of_concrete_strut) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
-    this.addon.settings_member_aci318.property_member_nominal_shear_strength_vc = GetConcreteDesignPropertyNominalShearStrengthType(property_member_nominal_shear_strength_vc);
+    this.addon.settings_member_aci318.property_member_nominal_shear_strength_vc = EnumValueFromJSHLFTypeName(
+        property_member_nominal_shear_strength_vc,
+        "strength",
+        {
+            "EQUATION_A": ulsconfig_member_aci318.E_NOMINAL_SHEAR_STRENGTH_EQUATION_A,
+            "EQUATION_B": ulsconfig_member_aci318.E_NOMINAL_SHEAR_STRENGTH_EQUATION_B,
+            "MAX_OF_A_B": ulsconfig_member_aci318.E_NOMINAL_SHEAR_STRENGTH_MAX_OF_A_B
+        },
+        ulsconfig_member_aci318.E_NOMINAL_SHEAR_STRENGTH_MAX_OF_A_B);
     if (typeof property_member_inclination_of_concrete_strut !== "undefined") {
         this.addon.settings_member_aci318.property_member_inclination_of_concrete_strut = property_member_inclination_of_concrete_strut;
     }
@@ -301,7 +317,14 @@ ConcreteDesignStrengthConfigurationACI.prototype.Stability_StiffnessReductionCoe
  */
 ConcreteDesignStrengthConfigurationACI.prototype.Stability_MomentMagnification = function (property_sway_moment_magnifier_method) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
-    this.addon.settings_member_aci318.property_sway_moment_magnifier_method = GetConcreteDesignSwayMomentMagnifierType(property_sway_moment_magnifier_method);
+    this.addon.settings_member_aci318.property_sway_moment_magnifier_method = EnumValueFromJSHLFTypeName(
+        property_sway_moment_magnifier_method,
+        "sway moment magnifier",
+        {
+            "Q_METHOD": ulsconfig_member_aci318.E_SWAY_MOMENT_MAGNIFIER_Q_METHOD,
+            "P_METHOD": ulsconfig_member_aci318.E_SWAY_MOMENT_MAGNIFIER_P_METHOD
+        },
+        ulsconfig_member_aci318.E_SWAY_MOMENT_MAGNIFIER_Q_METHOD);
 };
 
 /**
@@ -431,10 +454,23 @@ ConcreteDesignStrengthConfigurationACI.prototype.Surfaces_RequiredShearReinforce
     SetConcreteDesignRequiredShearReinforcementType(this.addon.settings_surface_aci318, "surface", ["REQUIRED", "PROVIDED"], required_shear_reinforcement);
 };
 
+/**
+ * Sets Shear and torsion reinforcement
+ * @param {String} property_surface_nominal_shear_strength_vc       Nominal shear strength Vc acc. to Table 22.5.5.1 (EQUATION_A, EQUATION_B, MAX_OF_A_B), can be undefined (EQUATION_A as default)
+ * @param {Number} property_surface_inclination_of_concrete_strut   Inclination of concrete strut acc. to 22.7.6.1, can be undefined (is not set, 36.0 deg as default)
+ */
 ConcreteDesignStrengthConfigurationACI.prototype.Surfaces_ShearAndTorsionReinforcement = function (property_surface_nominal_shear_strength_vc,
     property_surface_inclination_of_concrete_strut) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
-    this.addon.settings_surface_aci318.property_surface_nominal_shear_strength_vc = GetConcreteDesignNominalSherStrengthType(property_surface_nominal_shear_strength_vc);
+    this.addon.settings_surface_aci318.property_surface_nominal_shear_strength_vc = EnumValueFromJSHLFTypeName(
+        property_surface_nominal_shear_strength_vc,
+        "nominal shear strength",
+        {
+            "EQUATION_A": concrete_design_surface_ulsconfig_concrete_design_aci318.E_NOMINAL_SHEAR_STRENGTH_EQUATION_A,
+            "EQUATION_B": concrete_design_surface_ulsconfig_concrete_design_aci318.E_NOMINAL_SHEAR_STRENGTH_EQUATION_B,
+            "MAX_OF_A_B": concrete_design_surface_ulsconfig_concrete_design_aci318.E_NOMINAL_SHEAR_STRENGTH_MAX_OF_A_B
+        },
+        concrete_design_surface_ulsconfig_concrete_design_aci318.E_NOMINAL_SHEAR_STRENGTH_EQUATION_A);
     if (typeof property_surface_inclination_of_concrete_strut !== "undefined") {
         this.addon.settings_surface_aci318.property_surface_inclination_of_concrete_strut = property_surface_inclination_of_concrete_strut;
     }
@@ -442,8 +478,8 @@ ConcreteDesignStrengthConfigurationACI.prototype.Surfaces_ShearAndTorsionReinfor
 
 /**
  * Sets Neutral Axis Depth Limitation
- * @param {Boolean} property_surface_consider_neutral_axis_depth_limitation   Consider neutral axis depth limitation acc. to 5.6.2(2), 5.6.3(2), can be undefined (true as default)
- * @param {Number} property_surface_value_of_neutral_axis_depth_limitation   Value of neutral axis depth limitation, can be undefined (is not set, 0.45 as default)
+ * @param {Boolean} property_surface_consider_neutral_axis_depth_limitation     Consider depth limitation of neutral axis acc. to 9.3.3.1, can be undefined (true as default)
+ * @param {Number} property_surface_value_of_neutral_axis_depth_limitation      Value of neutral axis depth limitation, can be undefined (is not set, 0.45 as default)
  */
 ConcreteDesignStrengthConfigurationACI.prototype.Surfaces_NeutralAxisDepthLimitation = function (property_surface_consider_neutral_axis_depth_limitation,
     property_surface_value_of_neutral_axis_depth_limitation) {
@@ -491,81 +527,3 @@ ConcreteDesignStrengthConfigurationACI.prototype.Punching_Factors = function (pr
         this.addon.settings_node_aci318.property_node_strength_reduction_factor_shear_and_torsion = property_node_strength_reduction_factor_shear_and_torsion;
     }
 };
-
-function GetConcreteDesignNominalSherStrengthType(shear_strength_type) {
-    const shear_strength_types_dict = {
-        "EQUATION_A": concrete_design_surface_ulsconfig_concrete_design_aci318.E_NOMINAL_SHEAR_STRENGTH_EQUATION_A,
-        "EQUATION_B": concrete_design_surface_ulsconfig_concrete_design_aci318.E_NOMINAL_SHEAR_STRENGTH_EQUATION_B,
-        "MAX_OF_A_B": concrete_design_surface_ulsconfig_concrete_design_aci318.E_NOMINAL_SHEAR_STRENGTH_MAX_OF_A_B
-    };
-	if (shear_strength_type !== undefined) {
-	  var type = shear_strength_types_dict[shear_strength_type];
-	  if (type === undefined) {
-		console.log("Wrong nominal shear strength type. Value was: " + shear_strength_type);
-		console.log("Correct values are: ( " + Object.keys(shear_strength_types_dict) + ")");
-		type = concrete_design_surface_ulsconfig_concrete_design_aci318.E_NOMINAL_SHEAR_STRENGTH_EQUATION_A;
-	  }
-	  return type;
-	}
-	else {
-	  return concrete_design_surface_ulsconfig_concrete_design_aci318.E_NOMINAL_SHEAR_STRENGTH_EQUATION_A;
-	}
-}
-
-function GetConcreteDesignSwayMomentMagnifierType(magnifier_type) {
-    const magnifier_types_dict = {
-        "Q_METHOD": ulsconfig_member_aci318.E_SWAY_MOMENT_MAGNIFIER_Q_METHOD,
-        "P_METHOD": ulsconfig_member_aci318.E_SWAY_MOMENT_MAGNIFIER_P_METHOD
-    };
-	if (magnifier_type !== undefined) {
-	  var type = magnifier_types_dict[magnifier_type];
-	  if (type === undefined) {
-		console.log("Wrong sway moment magnifier type. Value was: " + magnifier_type);
-		console.log("Correct values are: ( " + Object.keys(magnifier_types_dict) + ")");
-		type = ulsconfig_member_aci318.E_SWAY_MOMENT_MAGNIFIER_Q_METHOD;
-	  }
-	  return type;
-	}
-	else {
-	  return ulsconfig_member_aci318.E_SWAY_MOMENT_MAGNIFIER_Q_METHOD;
-	}
-}
-
-function GetConcreteDesignPropertyNominalShearStrengthType(strength_type) {
-    const strength_types_dict = {
-        "EQUATION_A": ulsconfig_member_aci318.E_NOMINAL_SHEAR_STRENGTH_EQUATION_A,
-        "EQUATION_B": ulsconfig_member_aci318.E_NOMINAL_SHEAR_STRENGTH_EQUATION_B,
-        "MAX_OF_A_B": ulsconfig_member_aci318.E_NOMINAL_SHEAR_STRENGTH_MAX_OF_A_B
-    };
-	if (strength_type !== undefined) {
-	  var type = strength_types_dict[strength_type];
-	  if (type === undefined) {
-		console.log("Wrong nominal shear strength type. Value was: " + strength_type);
-		console.log("Correct values are: ( " + Object.keys(strength_types_dict) + ")");
-		type = ulsconfig_member_aci318.E_NOMINAL_SHEAR_STRENGTH_MAX_OF_A_B;
-	  }
-	  return type;
-	}
-	else {
-	  return ulsconfig_member_aci318.E_NOMINAL_SHEAR_STRENGTH_MAX_OF_A_B;
-	}
-}
-
-function GetConcreteDesignPropertyMemberTypeOfTorsion(torsion_type) {
-    const torsion_types_dict = {
-        "TORSION_EQUILIBRIUM": ulsconfig_member_aci318.E_TYPE_OF_TORSION_EQUILIBRIUM,
-        "TORSION_COMPATIBILITY": ulsconfig_member_aci318.E_TYPE_OF_TORSION_COMPATIBILITY
-    };
-	if (torsion_type !== undefined) {
-	  var type = torsion_types_dict[torsion_type];
-	  if (type === undefined) {
-		console.log("Wrong member type of torsion. Value was: " + torsion_type);
-		console.log("Correct values are: ( " + Object.keys(torsion_types_dict) + ")");
-		type = ulsconfig_member_aci318.E_TYPE_OF_TORSION_EQUILIBRIUM;
-	  }
-	  return type;
-	}
-	else {
-	  return ulsconfig_member_aci318.E_TYPE_OF_TORSION_EQUILIBRIUM;
-	}
-}
