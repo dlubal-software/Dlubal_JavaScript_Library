@@ -8,6 +8,9 @@ function createBaseConcreteDesignConfiguration (object_to_create,
     comment,
     params) {
     ASSERT(CONCRETE_DESIGN.isActive(), "Steel design must be active");
+    if ((typeof surfaces_no !== "undefined" || typeof nodes_no !== "undefined") && RSTAB) {
+        ASSERT(false, "Surfaces or nodes are supported in RFEM only");
+    }
     ASSERT(members.count() > 0 || surfaces.count() > 0, "There must exist at least one member or surface in project");
     if (typeof no === "undefined") {
         addon = object_to_create.create();

@@ -157,10 +157,10 @@ ConcreteDesignServiceabilityConfigurationEN.prototype.CrackAnalysisOther = funct
  *                                                                                                                  APPROACH_PURE_RESTRAINT (Approach of pure tension restraint (kc = 1.0))
  *                                                                                                                  APPROACH_BENDING_RESTRAINT (Approach of bending restraint (kc = 0.4))), can be undefined (is not set, DEPENDING_ON_LOAD as default)
  * @param {String} property_a_s_min_layout_on_member                                                            As,min layout on member (AREA_TOP_BOTTOM, AREA_TOP, AREA_BOTTOM, AREA_TENSION_SIDE), can be undefined (is not set, AREA_TENSION_SIDE as default)
- * @param {Boolean} property_top_reinforcement_in_direction_fi1                                                 Top (-z) reinforcement φ1, can be undefined (is not set, true as default)
- * @param {Boolean} property_top_reinforcement_in_direction_fi2                                                 Top (-z) reinforcement φ2, can be undefined (is not set, true as default)
- * @param {Boolean} property_bottom_reinforcement_in_direction_fi1                                              Bottom (+z) reinforcement φ1, can be undefined (is not set, true as default)
- * @param {Boolean} property_bottom_reinforcement_in_direction_fi2                                              Bottom (+z) reinforcement φ2, can be undefined (is not set, true as default)
+ * @param {Boolean} property_top_reinforcement_in_direction_fi1                                                 Layout on surface - Top (-z) reinforcement φ1, can be undefined (is not set, true as default) - not in RSTAB (must be undefined)
+ * @param {Boolean} property_top_reinforcement_in_direction_fi2                                                 Layout on surface - Top (-z) reinforcement φ2, can be undefined (is not set, true as default) - not in RSTAB (must be undefined)
+ * @param {Boolean} property_bottom_reinforcement_in_direction_fi1                                              Layout on surface - Bottom (+z) reinforcement φ1, can be undefined (is not set, true as default) - not in RSTAB (must be undefined)
+ * @param {Boolean} property_bottom_reinforcement_in_direction_fi2                                              Layout on surface - Bottom (+z) reinforcement φ2, can be undefined (is not set, true as default) - not in RSTAB (must be undefined)
  * @param {Boolean} property_crack_formation_within_the_first_28_days                                           Crack formation within the first 28 days, can be undefined (is not set, false as default)
  * @param {Number} property_effective_concrete_tensile_strength_at_time_of_cracking_within_the_first_28_days    Effective concrete tensile strength at time of cracking, can be undefined (is not set, 1.0 as default)
  */
@@ -173,6 +173,9 @@ ConcreteDesignServiceabilityConfigurationEN.prototype.EffectsDueToRestraint = fu
     property_bottom_reinforcement_in_direction_fi2,
     property_crack_formation_within_the_first_28_days,
     property_effective_concrete_tensile_strength_at_time_of_cracking_within_the_first_28_days) {
+    if (typeof property_top_reinforcement_in_direction_fi1 !== "undefined" || typeof property_top_reinforcement_in_direction_fi2 !== "undefined" || typeof property_bottom_reinforcement_in_direction_fi1 !== "undefined" || typeof property_bottom_reinforcement_in_direction_fi1 !== "undefined") {
+        ASSERT(false, "Layout on surface is enabled only for RFEM");
+    }
     if (typeof property_calculation_of_minimal_reinforcement_area_a_s_min !== "undefined") {
         this.addon.settings_main_ec2.property_calculation_of_minimal_reinforcement_area_a_s_min = property_calculation_of_minimal_reinforcement_area_a_s_min;
     }

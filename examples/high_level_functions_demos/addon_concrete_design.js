@@ -34,13 +34,27 @@ if (standard_index === undefined) {
     standard_index = 0; // EN standard
 }
 
-const concrete_design_standards = {
-    0: general.NATIONAL_ANNEX_AND_EDITION_EN_1992_CEN_2014_11,
-    1: general.NATIONAL_ANNEX_AND_EDITION_ACI_318_2019_CONCRETE_DESIGN,
-    2: general.NATIONAL_ANNEX_AND_EDITION_CSA_A23_3_2019,
-    3: general.NATIONAL_ANNEX_AND_EDITION_SP_63_13330_2018_12,
-    4: general.NATIONAL_ANNEX_AND_EDITION_NTC_2018_01_CONCRETE_DESIGN
-};
+if (!PRERELEASE_MODE) {
+    var concrete_design_standards = {
+        0: general.NATIONAL_ANNEX_AND_EDITION_EN_1992_CEN_2014_11,
+        1: general.NATIONAL_ANNEX_AND_EDITION_ACI_318_2019_CONCRETE_DESIGN,
+        2: general.NATIONAL_ANNEX_AND_EDITION_CSA_A23_3_2019,
+        3: general.NATIONAL_ANNEX_AND_EDITION_SP_63_13330_2018_12
+    };
+}
+else {
+    var concrete_design_standards = {
+        0: general.NATIONAL_ANNEX_AND_EDITION_EN_1992_CEN_2014_11,
+        1: general.NATIONAL_ANNEX_AND_EDITION_ACI_318_2019_CONCRETE_DESIGN,
+        2: general.NATIONAL_ANNEX_AND_EDITION_CSA_A23_3_2019,
+        3: general.NATIONAL_ANNEX_AND_EDITION_SP_63_13330_2018_12,
+        4: general.NATIONAL_ANNEX_AND_EDITION_NTC_2018_01_CONCRETE_DESIGN
+    };
+}
+
+if (standard_index >= Object.keys(concrete_design_standards).length) {
+    console.log("start_index must be from range 0-" + (Object.keys(concrete_design_standards).length - 1).toString());
+}
 
 CONCRETE_DESIGN.setActive(true);
 general.current_standard_for_concrete_design = concrete_design_standards[standard_index];
@@ -50,30 +64,35 @@ if (RFEM) {
     nodes[32].punching_design = true;
 }
 
-if (RFEM) {
-    switch (general.current_standard_for_concrete_design)
-    {
-        case general.NATIONAL_ANNEX_AND_EDITION_EN_1992_CEN_2014_11:
-        /****************************************************************** Ultimate configuration ***************************************************************************/
+switch (general.current_standard_for_concrete_design)
+{
+    case general.NATIONAL_ANNEX_AND_EDITION_EN_1992_CEN_2014_11:
+    /****************************************************************** Ultimate configuration ***************************************************************************/
+        if (RFEM) {
             var ultimateConfiguration = new ConcreteDesignUltimateConfigurationEN(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
-            ultimateConfiguration.SetName("Ultimate configuration (EN)");
-            ultimateConfiguration.Members_ConsiderInternalForces(false, undefined, true, false, false, false);
-            ultimateConfiguration.Members_ReductionsOfInternalForcesInZ(true, true, false, true, true);
-            ultimateConfiguration.Members_RequiredLongitudinalReinforcement("UNIFORMLY_SURROUNDING", 0.01, true, 0.99, false);
-            ultimateConfiguration.Members_DetailingAndParticularRules(false, undefined, undefined, 0.0010, 0.0020, 0.0030, true, 0.05, undefined, true, "MAXIMUM_STIRRUP_SPACING_PROVIDED", false, false);
-            ultimateConfiguration.Members_RequiredShearReinforcement("AUTOMATICALLY");
-            ultimateConfiguration.Members_ShearJoint(undefined, "GENERAL_INTEGRATION_OF_AXIAL_STRESSES", true, 55000, true);
-            ultimateConfiguration.Members_NeutralAxisDepthLimitation(true, 0.55);
-            ultimateConfiguration.Members_CalculationSetting();
-            if (PRERELEASE_MODE) {
-                ultimateConfiguration.Members_FiberConcrete("BENDING_AND_SHEAR_DESIGN", "SDL3", false);
-            }
-            ultimateConfiguration.Stability_SlendernessAboutY(true, 0.8, true, 1.2, true, 0.9);
-            ultimateConfiguration.Stability_SlendernessAboutZ(true, 0.8, true, 1.2, true, 0.9);
-            ultimateConfiguration.Stability_LoadDistribution(false, 3);
-            ultimateConfiguration.Stability_BiaxialBending(true, true);
-            ultimateConfiguration.Stability_Curvature("USER_DEFINED", 0.9);
-            ultimateConfiguration.Stability_RequiredReinforcement("UNIFORMLY_SURROUNDING", 0.005);
+        }
+        else {
+            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationEN(undefined, undefined, [memberList[0].GetNo()]);
+        }
+        ultimateConfiguration.SetName("Ultimate configuration (EN)");
+        ultimateConfiguration.Members_ConsiderInternalForces(false, undefined, true, false, false, false);
+        ultimateConfiguration.Members_ReductionsOfInternalForcesInZ(true, true, false, true, true);
+        ultimateConfiguration.Members_RequiredLongitudinalReinforcement("UNIFORMLY_SURROUNDING", 0.01, true, 0.99, false);
+        ultimateConfiguration.Members_DetailingAndParticularRules(false, undefined, undefined, 0.0010, 0.0020, 0.0030, true, 0.05, undefined, true, "MAXIMUM_STIRRUP_SPACING_PROVIDED", false, false);
+        ultimateConfiguration.Members_RequiredShearReinforcement("AUTOMATICALLY");
+        ultimateConfiguration.Members_ShearJoint(undefined, "GENERAL_INTEGRATION_OF_AXIAL_STRESSES", true, 55000, true);
+        ultimateConfiguration.Members_NeutralAxisDepthLimitation(true, 0.55);
+        ultimateConfiguration.Members_CalculationSetting();
+        if (PRERELEASE_MODE) {
+            ultimateConfiguration.Members_FiberConcrete("BENDING_AND_SHEAR_DESIGN", "SDL3", false);
+        }
+        ultimateConfiguration.Stability_SlendernessAboutY(true, 0.8, true, 1.2, true, 0.9);
+        ultimateConfiguration.Stability_SlendernessAboutZ(true, 0.8, true, 1.2, true, 0.9);
+        ultimateConfiguration.Stability_LoadDistribution(false, 3);
+        ultimateConfiguration.Stability_BiaxialBending(true, true);
+        ultimateConfiguration.Stability_Curvature("USER_DEFINED", 0.9);
+        ultimateConfiguration.Stability_RequiredReinforcement("UNIFORMLY_SURROUNDING", 0.005);
+        if (RFEM) {
             ultimateConfiguration.FatigueDesign("DAMAGE_METHOD", true, "CORRECTION_FACTOR", 1.05);
             ultimateConfiguration.Surfaces_DesignMethod("NO");
             ultimateConfiguration.Surfaces_InternalForcesDiagramUsedForDesign(false);
@@ -106,43 +125,60 @@ if (RFEM) {
             }
             ultimateConfiguration.Punching_RequiredPunchingReinforcement_PunchingShareCapacity("PROVIDED");
             ultimateConfiguration.Punching_MinimumReinforcement(false);
-        /****************************************************************** Serviceability configuration ***********************************************************************/
+        }
+    /****************************************************************** Serviceability configuration ***********************************************************************/
+        if (RFEM) {
             var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationEN(undefined, [surfaceList[1].no], [memberList[1].GetNo()]);
-            serviceabilityConfiguration.SetName("Serviceability configuration (EN)");
-            serviceabilityConfiguration.StressAnaLysis(true, false);
-            // Bug 90054
-            serviceabilityConfiguration.CrackAnalysisLimitValues(true, "02_EXPOSURE_CLASS_FROM_XC2_TO_XC4_STRUCTURAL_ELEMENT_PRESTRESSING", "03_EXPOSURE_CLASS_FROM_XS1_TO_XS3_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING");
-            serviceabilityConfiguration.DesignWithoutDirectCrackWidthCalculation(false, false);
-            serviceabilityConfiguration.CrackAnalysisOther(0.99, true);
+        }
+        else {
+            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationEN(undefined, undefined, [memberList[1].GetNo()]);
+        }
+        serviceabilityConfiguration.SetName("Serviceability configuration (EN)");
+        serviceabilityConfiguration.StressAnaLysis(true, false);
+        // Bug 90054
+        serviceabilityConfiguration.CrackAnalysisLimitValues(true, "02_EXPOSURE_CLASS_FROM_XC2_TO_XC4_STRUCTURAL_ELEMENT_PRESTRESSING", "03_EXPOSURE_CLASS_FROM_XS1_TO_XS3_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING");
+        serviceabilityConfiguration.DesignWithoutDirectCrackWidthCalculation(false, false);
+        serviceabilityConfiguration.CrackAnalysisOther(0.99, true);
+        if (RFEM) {
             serviceabilityConfiguration.EffectsDueToRestraint(true, "APPROACH_BENDING_RESTRAINT", "AREA_TOP_BOTTOM", false, false, false, true, true, 0.98);
-            serviceabilityConfiguration.DeflectionAnalysis(true, 251, 252, false, true, 0.501);
-            serviceabilityConfiguration.CrackStateDetection("INDEPENDENT_OF_LOAD");
-            if (PRERELEASE_MODE) {
-                serviceabilityConfiguration.FiberConcrete("SDL2", false);
-            }
-            break;
-        case general.NATIONAL_ANNEX_AND_EDITION_ACI_318_2019_CONCRETE_DESIGN:
+        }
+        else {
+            serviceabilityConfiguration.EffectsDueToRestraint(true, "APPROACH_BENDING_RESTRAINT", "AREA_TOP_BOTTOM", undefined, undefined, undefined, undefined, true, 0.98);
+        }
+        serviceabilityConfiguration.DeflectionAnalysis(true, 251, 252, false, true, 0.501);
+        serviceabilityConfiguration.CrackStateDetection("INDEPENDENT_OF_LOAD");
+        if (PRERELEASE_MODE) {
+            serviceabilityConfiguration.FiberConcrete("SDL2", false);
+        }
+        break;
+    case general.NATIONAL_ANNEX_AND_EDITION_ACI_318_2019_CONCRETE_DESIGN:
         /****************************************************************** Strength configuration ***************************************************************************/
+        if (RFEM) {
             var strengthConfiguration = new ConcreteDesignStrengthConfigurationACI(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
-            strengthConfiguration.SetName("Strength configuration (ACI)");
-            strengthConfiguration.Members_ConsiderInternalForces(false, undefined, true, false, false, false);
-            strengthConfiguration.Members_InternalForceReductionZ(true, false);
-            strengthConfiguration.Members_RequiredLongitudinalReinforcement("IN_CORNERS_SYMMETRICAL_DISTRIBUTION", 0.05, false);
-            if (PRERELEASE_MODE) {
-                strengthConfiguration.Members_ProvidedLongitudinalReinforcement(false, true, true);
-            }
-            strengthConfiguration.Members_Factors(0.75, 0.95, 0.85);
-            strengthConfiguration.Members_MinimumReinforcement(false, false, false);
-            strengthConfiguration.Members_RequiredShearReinforcement("PROVIDED");
-            strengthConfiguration.Members_TorsionCapacity("TORSION_COMPATIBILITY");
-            strengthConfiguration.Members_ShearAndTorsionReinforcement("EQUATION_B", 0.8);
-            strengthConfiguration.Members_NeutralAxisDepthLimitation(true, 0.7);
-            strengthConfiguration.Members_CalculationSetting();
-            strengthConfiguration.Members_EpoxyFactor("EPOXY_COATED_OR_ZINC");
-            strengthConfiguration.Stability_UnbracedColumn(0.06, 0.07);
-            strengthConfiguration.Stability_StiffnessReductionCoefficientToConsiderCreep("CALCULATED", 0.15, 0.25);
-            strengthConfiguration.Stability_MomentMagnification("P_METHOD");
-            strengthConfiguration.Stability_RequiredReinforcement("UNIFORMLY_SURROUNDING", 0.015);
+        }
+        else {
+            var strengthConfiguration = new ConcreteDesignStrengthConfigurationACI(undefined, undefined, [memberList[0].GetNo()]);
+        }
+        strengthConfiguration.SetName("Strength configuration (ACI)");
+        strengthConfiguration.Members_ConsiderInternalForces(false, undefined, true, false, false, false);
+        strengthConfiguration.Members_InternalForceReductionZ(true, false);
+        strengthConfiguration.Members_RequiredLongitudinalReinforcement("IN_CORNERS_SYMMETRICAL_DISTRIBUTION", 0.05, false);
+        if (PRERELEASE_MODE) {
+            strengthConfiguration.Members_ProvidedLongitudinalReinforcement(false, true, true);
+        }
+        strengthConfiguration.Members_Factors(0.75, 0.95, 0.85);
+        strengthConfiguration.Members_MinimumReinforcement(false, false, false);
+        strengthConfiguration.Members_RequiredShearReinforcement("PROVIDED");
+        strengthConfiguration.Members_TorsionCapacity("TORSION_COMPATIBILITY");
+        strengthConfiguration.Members_ShearAndTorsionReinforcement("EQUATION_B", 0.8);
+        strengthConfiguration.Members_NeutralAxisDepthLimitation(true, 0.7);
+        strengthConfiguration.Members_CalculationSetting();
+        strengthConfiguration.Members_EpoxyFactor("EPOXY_COATED_OR_ZINC");
+        strengthConfiguration.Stability_UnbracedColumn(0.06, 0.07);
+        strengthConfiguration.Stability_StiffnessReductionCoefficientToConsiderCreep("CALCULATED", 0.15, 0.25);
+        strengthConfiguration.Stability_MomentMagnification("P_METHOD");
+        strengthConfiguration.Stability_RequiredReinforcement("UNIFORMLY_SURROUNDING", 0.015);
+        if (RFEM) {
             strengthConfiguration.Surfaces_DesignMethod("YES");
             strengthConfiguration.Surfaces_InternalForcesDiagramUsedForDesign(false);
             strengthConfiguration.Surfaces_Factors(0.75, 0.95, 0.85);
@@ -159,29 +195,41 @@ if (RFEM) {
             }
             strengthConfiguration.Punching_AdditionalParameters(0.2);
             strengthConfiguration.Punching_Factors(1.0, 0.85);
-        /****************************************************************** Serviceability configuration ***********************************************************************/
+        }
+    /****************************************************************** Serviceability configuration ***********************************************************************/
+        if (RFEM) {
             var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationACI(undefined, [surfaceList[1].no], [memberList[1].GetNo()]);
-            serviceabilityConfiguration.SetName("Serviceability configuration (ACI)");
-            serviceabilityConfiguration.CrackAnalysis(true, false, true, true, "01_USE_IN_WATER_RETAINING_STRUCTURES", "04_DRY_AIR_OR_PROTECTIVE_MEMBRANE", undefined, undefined, undefined, true, false, false, false, false);
-            serviceabilityConfiguration.DeflectionAnalysis(true, 241, 242, false, true, 0.501, undefined, undefined, 137788000); // 52 months in seconds
-            serviceabilityConfiguration.CrackStateDetection("INDEPENDENT_OF_LOAD");
-            break;
-        case general.NATIONAL_ANNEX_AND_EDITION_CSA_A23_3_2019:
-        /****************************************************************** Ultimate configuration ***************************************************************************/
+        }
+        else {
+            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationACI(undefined, undefined, [memberList[1].GetNo()]);
+        }
+        serviceabilityConfiguration.SetName("Serviceability configuration (ACI)");
+        serviceabilityConfiguration.CrackAnalysis(true, false, true, true, "01_USE_IN_WATER_RETAINING_STRUCTURES", "04_DRY_AIR_OR_PROTECTIVE_MEMBRANE", undefined, undefined, undefined, true, false, false, false, false);
+        serviceabilityConfiguration.DeflectionAnalysis(true, 241, 242, false, true, 0.501, undefined, undefined, 137788000); // 52 months in seconds
+        serviceabilityConfiguration.CrackStateDetection("INDEPENDENT_OF_LOAD");
+        break;
+    case general.NATIONAL_ANNEX_AND_EDITION_CSA_A23_3_2019:
+    /****************************************************************** Ultimate configuration ***************************************************************************/
+        if (RFEM) {
             var ultimateConfiguration = new ConcreteDesignUltimateConfigurationCSA(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
-            ultimateConfiguration.SetName("Ultimate configuration (CSA)");
-            ultimateConfiguration.Members_ConsiderInternalForces(undefined, undefined, undefined, undefined, false, false);
-            ultimateConfiguration.Members_InternalForceReductionZ(true, true, false);
-            ultimateConfiguration.Members_RequiredLongitudinalReinforcement("TOP_BOTTOM_OPTIMIZED_DISTRIBUTION", 0.06, false);
-            ultimateConfiguration.Members_Factors(0.75, 0.95, 0.96);
-            ultimateConfiguration.Members_MinimumReinforcement(false, undefined, false);
-            ultimateConfiguration.Members_RequiredShearReinforcement("REQUIRED");
-            ultimateConfiguration.Members_ShearAndTorsionReinforcement("SPECIAL_MEMBERS", 0.5, Math.PI / 4);
-            ultimateConfiguration.Members_NeutralAxisDepthLimitation(true, "AUTOMATICALLY");
-            ultimateConfiguration.Members_CalculationSetting(true);
-            ultimateConfiguration.Members_EpoxyFactor("EPOXY_COATED");
-            ultimateConfiguration.Stability_UnbracedColumn(0.09, 0.10);
-            ultimateConfiguration.Stability_RequiredReinforcement("IN_CORNERS_SYMMETRICAL_DISTRIBUTION", 0.035);
+        }
+        else {
+            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationCSA(undefined, undefined, [memberList[0].GetNo()]);
+        }
+        ultimateConfiguration.SetName("Ultimate configuration (CSA)");
+        ultimateConfiguration.Members_ConsiderInternalForces(undefined, undefined, undefined, undefined, false, false);
+        ultimateConfiguration.Members_InternalForceReductionZ(true, true, false);
+        ultimateConfiguration.Members_RequiredLongitudinalReinforcement("TOP_BOTTOM_OPTIMIZED_DISTRIBUTION", 0.06, false);
+        ultimateConfiguration.Members_Factors(0.75, 0.95, 0.96);
+        ultimateConfiguration.Members_MinimumReinforcement(false, undefined, false);
+        ultimateConfiguration.Members_RequiredShearReinforcement("REQUIRED");
+        ultimateConfiguration.Members_ShearAndTorsionReinforcement("SPECIAL_MEMBERS", 0.5, Math.PI / 4);
+        ultimateConfiguration.Members_NeutralAxisDepthLimitation(true, "AUTOMATICALLY");
+        ultimateConfiguration.Members_CalculationSetting(true);
+        ultimateConfiguration.Members_EpoxyFactor("EPOXY_COATED");
+        ultimateConfiguration.Stability_UnbracedColumn(0.09, 0.10);
+        ultimateConfiguration.Stability_RequiredReinforcement("IN_CORNERS_SYMMETRICAL_DISTRIBUTION", 0.035);
+        if (RFEM) {
             ultimateConfiguration.Surfaces_DesignMethod("YES");
             ultimateConfiguration.Surfaces_InternalForcesDiagramUsedForDesign(false);
             ultimateConfiguration.Surfaces_Factors(0.75, 0.95, 0.85);
@@ -198,34 +246,46 @@ if (RFEM) {
             }
             ultimateConfiguration.Punching_AdditionalParameters(0.111);
             ultimateConfiguration.Punching_Factors(0.651, 0.851);
-        /****************************************************************** Serviceability configuration ***********************************************************************/
+        }
+    /****************************************************************** Serviceability configuration ***********************************************************************/
+        if (RFEM) {
             var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationCSA(undefined, [surfaceList[1].no], [memberList[1].GetNo()]);
-            serviceabilityConfiguration.SetName("Serviceability configuration (CSA)");
-            serviceabilityConfiguration.Exposure("EXTERIOR", "EXTERIOR", "EXTERIOR", "EXTERIOR", "EXTERIOR", "EXTERIOR");
-            serviceabilityConfiguration.CrackAnalysis(false);
-            serviceabilityConfiguration.SkinReinforcement();
-            serviceabilityConfiguration.DeflectionAnalysis(true, 241, 242, false, true, 0.501, undefined, undefined, 137788000); // 52 months in seconds
-            serviceabilityConfiguration.CrackStateDetection("DETERMINED_AS_ENVELOPE_FROM_ALL_DESIGN_SITUATIONS");
-            break;
-        case general.NATIONAL_ANNEX_AND_EDITION_SP_63_13330_2018_12:
-        /****************************************************************** Ultimate configuration ***************************************************************************/
+        }
+        else {
+            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationCSA(undefined, undefined, [memberList[1].GetNo()]);
+        }
+        serviceabilityConfiguration.SetName("Serviceability configuration (CSA)");
+        serviceabilityConfiguration.Exposure("EXTERIOR", "EXTERIOR", "EXTERIOR", "EXTERIOR", "EXTERIOR", "EXTERIOR");
+        serviceabilityConfiguration.CrackAnalysis(false);
+        serviceabilityConfiguration.SkinReinforcement();
+        serviceabilityConfiguration.DeflectionAnalysis(true, 241, 242, false, true, 0.501, undefined, undefined, 137788000); // 52 months in seconds
+        serviceabilityConfiguration.CrackStateDetection("DETERMINED_AS_ENVELOPE_FROM_ALL_DESIGN_SITUATIONS");
+        break;
+    case general.NATIONAL_ANNEX_AND_EDITION_SP_63_13330_2018_12:
+    /****************************************************************** Ultimate configuration ***************************************************************************/
+        if (RFEM) {
             var ultimateConfiguration = new ConcreteDesignUltimateConfigurationSP(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
-            ultimateConfiguration.SetName("Ultimate configuration (SP)");
-            ultimateConfiguration.Members_ConsiderInternalForces(false, false, true, false, false, false);
-            ultimateConfiguration.Members_FactorsOfConcreteServiceConditions(true, true, true, true);
-            ultimateConfiguration.Members_InternalForceReductionZ(false, true);
-            ultimateConfiguration.Members_RequiredLongitudinalReinforcement("IN_CORNERS_SYMMETRICAL_DISTRIBUTION", 0.030);
-            ultimateConfiguration.Members_DesignSectionsTypesForShearAndTorsionDesignChecks("NORMAL_SECTION");
-            ultimateConfiguration.Members_RequiredReinforcementMomentInInclinedSection("TRANSVERSE", "PROVIDED");
-            ultimateConfiguration.Members_MinimumReinforcement(false, false);
-            ultimateConfiguration.Members_NeutralAxisDepthLimitation(true, 0.595);
-            ultimateConfiguration.Members_CalculationSetting(false);
-            ultimateConfiguration.Stability_Slenderness(201, 202);
-            ultimateConfiguration.Stability_MembersWithRectangularSectionAndLowSlenderness();
-            ultimateConfiguration.Stability_BiaxialBending(true, true, true);
-            ultimateConfiguration.Stability_LoadDirections(0.51, 0.52);
-            ultimateConfiguration.Stability_LongTermLoadComponent(0.53, 0.54);
-            ultimateConfiguration.Stability_RequiredReinforcement("TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION", 0.036);
+        }
+        else {
+            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationSP(undefined, undefined, [memberList[0].GetNo()]);
+        }
+        ultimateConfiguration.SetName("Ultimate configuration (SP)");
+        ultimateConfiguration.Members_ConsiderInternalForces(false, false, true, false, false, false);
+        ultimateConfiguration.Members_FactorsOfConcreteServiceConditions(true, true, true, true);
+        ultimateConfiguration.Members_InternalForceReductionZ(false, true);
+        ultimateConfiguration.Members_RequiredLongitudinalReinforcement("IN_CORNERS_SYMMETRICAL_DISTRIBUTION", 0.030);
+        ultimateConfiguration.Members_DesignSectionsTypesForShearAndTorsionDesignChecks("NORMAL_SECTION");
+        ultimateConfiguration.Members_RequiredReinforcementMomentInInclinedSection("TRANSVERSE", "PROVIDED");
+        ultimateConfiguration.Members_MinimumReinforcement(false, false);
+        ultimateConfiguration.Members_NeutralAxisDepthLimitation(true, 0.595);
+        ultimateConfiguration.Members_CalculationSetting(false);
+        ultimateConfiguration.Stability_Slenderness(201, 202);
+        ultimateConfiguration.Stability_MembersWithRectangularSectionAndLowSlenderness();
+        ultimateConfiguration.Stability_BiaxialBending(true, true, true);
+        ultimateConfiguration.Stability_LoadDirections(0.51, 0.52);
+        ultimateConfiguration.Stability_LongTermLoadComponent(0.53, 0.54);
+        ultimateConfiguration.Stability_RequiredReinforcement("TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION", 0.036);
+        if (RFEM) {
             ultimateConfiguration.Surfaces_DesignMethod("NO");
             ultimateConfiguration.Surfaces_InternalForcesDiagramUsedForDesign(false);
             ultimateConfiguration.Surfaces_MinimumLongitudinalReinforcement(true, "PLATES", "DEFINED", [false, false, false, false]);
@@ -240,24 +300,39 @@ if (RFEM) {
                 ultimateConfiguration.Punching_AdditionalParameters_Thickness(0.02, "SELECTED", 2);
             }
             ultimateConfiguration.Punching_NeutralAxisDepthLimitation(true, 0.81);
-        /****************************************************************** Serviceability configuration ***********************************************************************/
+        }
+    /****************************************************************** Serviceability configuration ***********************************************************************/
+        if (RFEM) {
             var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationSP(undefined, [surfaceList[1].no], [memberList[1].GetNo()]);
-            serviceabilityConfiguration.SetName("Serviceability configuration (SP)");
-            serviceabilityConfiguration.CrackStateDetection("ELASTIC");
-            serviceabilityConfiguration.CrackWidthAnalysis(0.000201, 0.000202, 0.000203, 0.000204);
-            serviceabilityConfiguration.DeflectionAnalysis(true, 121, 122, false, undefined, undefined, 0.70);
-            break;
-        case general.NATIONAL_ANNEX_AND_EDITION_NTC_2018_01_CONCRETE_DESIGN:
-        /****************************************************************** Ultimate configuration ***************************************************************************/
+        }
+        else {
+            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationSP(undefined, undefined, [memberList[1].GetNo()]);
+        }
+        serviceabilityConfiguration.SetName("Serviceability configuration (SP)");
+        serviceabilityConfiguration.CrackStateDetection("ELASTIC");
+        serviceabilityConfiguration.CrackWidthAnalysis(0.000201, 0.000202, 0.000203, 0.000204);
+        serviceabilityConfiguration.DeflectionAnalysis(true, 121, 122, false, undefined, undefined, 0.70);
+        break;
+    case general.NATIONAL_ANNEX_AND_EDITION_NTC_2018_01_CONCRETE_DESIGN:
+    /****************************************************************** Ultimate configuration ***************************************************************************/
+        if (RFEM) {
             var ultimateConfiguration = new ConcreteDesignUltimateConfigurationNTC(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
-            ultimateConfiguration.SetName("Ultimate configuration (NTC)");
-        /****************************************************************** Serviceability configuration ***********************************************************************/
+        }
+        else {
+            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationNTC(undefined, undefined, [memberList[0].GetNo()]);
+        }
+        ultimateConfiguration.SetName("Ultimate configuration (NTC)");
+    /****************************************************************** Serviceability configuration ***********************************************************************/
+        if (RFEM) {
             var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationNTC(undefined, [surfaceList[1].no], [memberList[1].GetNo()]);
-            serviceabilityConfiguration.SetName("Serviceability configuration (NTC)");
-            break;
-        default:
-            ASSERT(false, "Unknown code of standard");
-    }
+        }
+        else {
+            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationNTC(undefined, undefined, [memberList[1].GetNo()]);
+        }
+        serviceabilityConfiguration.SetName("Serviceability configuration (NTC)");
+        break;
+    default:
+        ASSERT(false, "Unknown code of standard");
 }
 
 /********************************************** Types for concrete design - Effective length ********************************************************/
