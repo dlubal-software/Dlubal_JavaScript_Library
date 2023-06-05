@@ -50,7 +50,7 @@ ConcreteDesignServiceabilityConfigurationACI.prototype.SetName = function (name)
  * @param {Boolean} property_surface_bottom_reinforcement_direction_phi1                    Bottom +z reinforcement direction - Reinforcement direction φ1, can be undefined (is not set, true as default)
  * @param {Boolean} property_surface_bottom_reinforcement_direction_phi2                    Bottom +z reinforcement direction - Reinforcement direction φ2, can be undefined (is not set, true as default)
  */
-ConcreteDesignServiceabilityConfigurationACI.prototype.CrackAnalysis = function (property_design_without_direct_crack_width_calculation,
+ConcreteDesignServiceabilityConfigurationACI.prototype.SetCrackAnalysis = function (property_design_without_direct_crack_width_calculation,
     property_calculation_of_maximum_member_spacing,
     property_design_with_direct_crack_width_calculation,
     property_reasonable_crack_width,
@@ -132,7 +132,7 @@ ConcreteDesignServiceabilityConfigurationACI.prototype.CrackAnalysis = function 
  * @param {Number} property_deflection_duration_of_load                 Duration of load, can be undefined (is not set, 60 months as default)
  * @param {Boolean} property_time_dependent_material_properties         Time-dependent material properties (creep, shrinkage) acc. to ACI 435, can be undefined (is not set, false as default)
  */
-ConcreteDesignServiceabilityConfigurationACI.prototype.DeflectionAnalysis = function (property_limitation_of_deflection_enabled,
+ConcreteDesignServiceabilityConfigurationACI.prototype.SetDeflectionAnalysis = function (property_limitation_of_deflection_enabled,
     property_deflection_limit_support_on_both_sides,
     property_deflection_limit_one_sided_support,
     property_tension_stiffening_effect_enabled,
@@ -154,7 +154,7 @@ ConcreteDesignServiceabilityConfigurationACI.prototype.DeflectionAnalysis = func
  *                                              DETERMINED_AS_ENVELOPE_FROM_ALL_DESIGN_SITUATIONS (Crack state determined as envelope from all serviceability design situations),
  *                                              INDEPENDENT_OF_LOAD (Crack state independent of load)) can be undefined (is not set, CALCULATED_FROM_ASSOCIATED_LOAD as default)
  */
-ConcreteDesignServiceabilityConfigurationACI.prototype.CrackStateDetection = function (crack_state_detection) {
+ConcreteDesignServiceabilityConfigurationACI.prototype.SetCrackStateDetection = function (crack_state_detection) {
     SetConcreteDesignServiceabilityConfigurationCrackStateDetection(this.addon.settings_main_aci318, crack_state_detection);
 };
 

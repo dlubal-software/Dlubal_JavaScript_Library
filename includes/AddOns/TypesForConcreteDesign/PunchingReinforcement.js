@@ -49,7 +49,7 @@ ConcreteDesignPunchingReinforcement.prototype.GetNo = function () {
 /**
  * @returns Punching reinforcement object
  */
-ConcreteDesignPunchingReinforcement.prototype.SurfaceReinforcement = function () {
+ConcreteDesignPunchingReinforcement.prototype.GetSurfaceReinforcement = function () {
     return this.punching_reinforcement;
 };
 
@@ -71,7 +71,7 @@ ConcreteDesignPunchingReinforcement.prototype.SetName = function (name) {
  * Sets type
  * @param {String} type     Type (VERTICAL)
  */
-ConcreteDesignPunchingReinforcement.prototype.Type = function (type) {
+ConcreteDesignPunchingReinforcement.prototype.SetType = function (type) {
     ASSERT(typeof type !== "undefined", "Type must be specified");
     this.punching_reinforcement.type = EnumValueFromJSHLFTypeName(
         type,
@@ -86,7 +86,7 @@ ConcreteDesignPunchingReinforcement.prototype.Type = function (type) {
  * Sets Placement
  * @param {String} placement_type   Placement (UNIFORM, AUTOMATICALLY)
  */
-ConcreteDesignPunchingReinforcement.prototype.Placement = function (placement_type) {
+ConcreteDesignPunchingReinforcement.prototype.SetPlacement = function (placement_type) {
     ASSERT(typeof placement_type !== "undefined", "Placement type must be specified");
     this.punching_reinforcement.placement_type = EnumValueFromJSHLFTypeName(
         placement_type,
@@ -103,7 +103,7 @@ ConcreteDesignPunchingReinforcement.prototype.Placement = function (placement_ty
  * @param {Boolean} loading_area_for_single_forces_enabled              Load area for single forces, can be undefined (is not set, false as default)
  * @param {Boolean} longitudinal_reinforcement_from_surface_enabled     Longitudinal reinforcement from surface, can be undefined (is not set, true as default)
  */
-ConcreteDesignPunchingReinforcement.prototype.Options = function (loading_area_for_single_forces_enabled,
+ConcreteDesignPunchingReinforcement.prototype.SetOptions = function (loading_area_for_single_forces_enabled,
     longitudinal_reinforcement_from_surface_enabled) {
     if (typeof loading_area_for_single_forces_enabled !== "undefined") {
         this.punching_reinforcement.loading_area_for_single_forces_enabled = loading_area_for_single_forces_enabled;
@@ -113,7 +113,7 @@ ConcreteDesignPunchingReinforcement.prototype.Options = function (loading_area_f
     }
 };
 
-ConcreteDesignPunchingReinforcement.prototype.BendUpDiameter = function (bend_up_diameter) {
+ConcreteDesignPunchingReinforcement.prototype.SetBendUpDiameter = function (bend_up_diameter) {
     ASSERT(typeof bend_up_diameter !== "undefined", "Bend-up diameter must be specified");
     if (typeof bend_up_diameter === "number") {
         this.punching_reinforcement.bend_up_diameter = bend_up_diameter;

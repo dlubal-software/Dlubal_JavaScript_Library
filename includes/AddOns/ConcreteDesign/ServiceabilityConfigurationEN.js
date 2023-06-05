@@ -2,7 +2,6 @@ include("../../Tools/jshlf_common_functions.js");
 
 /*
 Bug 90054: GetConcreteDesignCrackWidthLimitValues function (some values of enum have the same text representation)
-Bug 90372: property_quasi_permament_support_on_both_sides, property_quasi_permament_one_sided_support
 */
 
 function ConcreteDesignServiceabilityConfigurationEN (no,
@@ -41,7 +40,7 @@ ConcreteDesignServiceabilityConfigurationEN.prototype.SetName = function (name) 
  * @param {Boolean} property_limitation_of_concrete_pressure_stress_sigma_c     Limitation of concrete pressure stress σc, can be undefined (is not set, false as default)
  * @param {Boolean} property_limitation_of_steel_stress_sigma_s                 Limitation of steel stress σs, can be undefined (is not set, true as default)
  */
-ConcreteDesignServiceabilityConfigurationEN.prototype.StressAnaLysis = function (property_limitation_of_concrete_pressure_stress_sigma_c,
+ConcreteDesignServiceabilityConfigurationEN.prototype.SetStressAnaLysis = function (property_limitation_of_concrete_pressure_stress_sigma_c,
     property_limitation_of_steel_stress_sigma_s) {
     if (typeof property_limitation_of_concrete_pressure_stress_sigma_c !== "undefined") {
         this.addon.settings_main_ec2.property_limitation_of_concrete_pressure_stress_sigma_c = property_limitation_of_concrete_pressure_stress_sigma_c;
@@ -76,7 +75,7 @@ ConcreteDesignServiceabilityConfigurationEN.prototype.StressAnaLysis = function 
  * @param {Number} property_user_defined_top_limit_values_of_allowable_crack                    Limit values of allowable crack width (top), can be undefined (is not set, 0.3 mm as default)
  * @param {Number} property_user_defined_bottom_limit_values_of_allowable_crack                 Limit values of allowable crack width (bottom), can be undefined (is not set, 0.3 mm as default)
  */
-ConcreteDesignServiceabilityConfigurationEN.prototype.CrackAnalysisLimitValues = function (property_limit_values_of_allowable_crack_width_acc_to_standard,
+ConcreteDesignServiceabilityConfigurationEN.prototype.SetCrackAnalysisLimitValues = function (property_limit_values_of_allowable_crack_width_acc_to_standard,
     property_top_limit_values_of_allowable_crack_width_acc_to_standard,
     property_bottom_limit_values_of_allowable_crack_width_acc_to_standard,
     property_user_defined_limit_values_of_allowable_crack_width,
@@ -113,7 +112,7 @@ ConcreteDesignServiceabilityConfigurationEN.prototype.CrackAnalysisLimitValues =
  * @param {Boolean} property_calculation_of_limit_diameter          Calculation of limit diameter lim ds, can be undefined (is not set, true as default)
  * @param {Boolean} property_calculation_of_maximum_member_spacing  Calculation of maximum reinforcement spacing lim sl, can be undefined (is not set, true as default)
  */
-ConcreteDesignServiceabilityConfigurationEN.prototype.DesignWithoutDirectCrackWidthCalculation = function (property_calculation_of_limit_diameter,
+ConcreteDesignServiceabilityConfigurationEN.prototype.SetDesignWithoutDirectCrackWidthCalculation = function (property_calculation_of_limit_diameter,
     property_calculation_of_maximum_member_spacing) {
     if (typeof property_calculation_of_limit_diameter !== "undefined") {
         this.addon.settings_main_ec2.property_calculation_of_limit_diameter = property_calculation_of_limit_diameter;
@@ -127,7 +126,7 @@ ConcreteDesignServiceabilityConfigurationEN.prototype.DesignWithoutDirectCrackWi
  * Sets Design with direct crack width calculation
  * @param {Boolean} property_use_equation_for_s_r_max   Use Eq. (7.14) for sr,max, can be undefined (true as default)
  */
-ConcreteDesignServiceabilityConfigurationEN.prototype.DesignWithDirectCrackWidthCalculation = function (property_use_equation_for_s_r_max) {
+ConcreteDesignServiceabilityConfigurationEN.prototype.SetDesignWithDirectCrackWidthCalculation = function (property_use_equation_for_s_r_max) {
     if (typeof property_use_equation_for_s_r_max === "undefined") {
         property_use_equation_for_s_r_max = true;
     }
@@ -139,7 +138,7 @@ ConcreteDesignServiceabilityConfigurationEN.prototype.DesignWithDirectCrackWidth
  * @param {Number} property_effective_concrete_tensile_strength_at_time_of_cracking                 Effective concrete tensile strength at time of cracking, can be undefined (is not set, 1.0 as default)
  * @param {Boolean} property_crack_width_control_for_sig_c_l_ed_less_or_equal_than_f_ct_eff_wk      Crack width control for σc,l,Ed ≤ fct,eff,wk, can be undefined (is not set, false as default)
  */
-ConcreteDesignServiceabilityConfigurationEN.prototype.CrackAnalysisOther = function (property_effective_concrete_tensile_strength_at_time_of_cracking,
+ConcreteDesignServiceabilityConfigurationEN.prototype.SetCrackAnalysisOther = function (property_effective_concrete_tensile_strength_at_time_of_cracking,
     property_crack_width_control_for_sig_c_l_ed_less_or_equal_than_f_ct_eff_wk) {
     if (typeof property_effective_concrete_tensile_strength_at_time_of_cracking !== "undefined") {
         this.addon.settings_main_ec2.property_effective_concrete_tensile_strength_at_time_of_cracking  =property_effective_concrete_tensile_strength_at_time_of_cracking;
@@ -164,7 +163,7 @@ ConcreteDesignServiceabilityConfigurationEN.prototype.CrackAnalysisOther = funct
  * @param {Boolean} property_crack_formation_within_the_first_28_days                                           Crack formation within the first 28 days, can be undefined (is not set, false as default)
  * @param {Number} property_effective_concrete_tensile_strength_at_time_of_cracking_within_the_first_28_days    Effective concrete tensile strength at time of cracking, can be undefined (is not set, 1.0 as default)
  */
-ConcreteDesignServiceabilityConfigurationEN.prototype.EffectsDueToRestraint = function (property_calculation_of_minimal_reinforcement_area_a_s_min,
+ConcreteDesignServiceabilityConfigurationEN.prototype.SetEffectsDueToRestraint = function (property_calculation_of_minimal_reinforcement_area_a_s_min,
     stress_distribution_within_section_prior_to_cracking,
     property_a_s_min_layout_on_member,
     property_top_reinforcement_in_direction_fi1,
@@ -173,7 +172,7 @@ ConcreteDesignServiceabilityConfigurationEN.prototype.EffectsDueToRestraint = fu
     property_bottom_reinforcement_in_direction_fi2,
     property_crack_formation_within_the_first_28_days,
     property_effective_concrete_tensile_strength_at_time_of_cracking_within_the_first_28_days) {
-    if (typeof property_top_reinforcement_in_direction_fi1 !== "undefined" || typeof property_top_reinforcement_in_direction_fi2 !== "undefined" || typeof property_bottom_reinforcement_in_direction_fi1 !== "undefined" || typeof property_bottom_reinforcement_in_direction_fi1 !== "undefined") {
+    if ((typeof property_top_reinforcement_in_direction_fi1 !== "undefined" || typeof property_top_reinforcement_in_direction_fi2 !== "undefined" || typeof property_bottom_reinforcement_in_direction_fi1 !== "undefined" || typeof property_bottom_reinforcement_in_direction_fi1 !== "undefined") && RSTAB) {
         ASSERT(false, "Layout on surface is enabled only for RFEM");
     }
     if (typeof property_calculation_of_minimal_reinforcement_area_a_s_min !== "undefined") {
@@ -219,28 +218,28 @@ ConcreteDesignServiceabilityConfigurationEN.prototype.EffectsDueToRestraint = fu
 /**
  * Sets Deflection Analysis
  * @param {Boolean} property_limitation_of_deflection_enabled       Limitation of deflection, can be undefined (is not set, true as default)
- * @param {Number} property_quasi_permament_support_on_both_sides   Quasi-permanent - Support on both sides, can be undefined (is not set, 250 as default)
- * @param {Number} property_quasi_permament_one_sided_support       Quasi-permanent - One-sided support, can be undefined (is not set, 250 as default)
+ * @param {Number} property_quasi_permanent_support_on_both_sides   Quasi-permanent - Support on both sides, can be undefined (is not set, 250 as default)
+ * @param {Number} property_quasi_permanent_one_sided_support       Quasi-permanent - One-sided support, can be undefined (is not set, 250 as default)
  * @param {Boolean} property_tension_stiffening_effect_enabled      Consider resistance of concrete between cracks (tension stiffening effect), can be undefined (is not set, true as default)
  * @param {Boolean} property_minimum_zeta_enabled                   Consider minimum value of distribution factor, can be undefined (is not set, false as default)
  * @param {Number} property_minimum_zeta_value                      Minimum value of distribution factor, can be undefined (is not set, 0.5 as default)
  */
-ConcreteDesignServiceabilityConfigurationEN.prototype.DeflectionAnalysis = function (property_limitation_of_deflection_enabled,
-    property_quasi_permament_support_on_both_sides,     // Bug 90372
-    property_quasi_permament_one_sided_support,         // Bug 90372
+ConcreteDesignServiceabilityConfigurationEN.prototype.SetDeflectionAnalysis = function (property_limitation_of_deflection_enabled,
+    property_quasi_permanent_support_on_both_sides,     // Bug 90372
+    property_quasi_permanent_one_sided_support,         // Bug 90372
     property_tension_stiffening_effect_enabled,
     property_minimum_zeta_enabled,
     property_minimum_zeta_value) {
     if (typeof property_limitation_of_deflection_enabled !== "undefined") {
         this.addon.settings_main_ec2.property_limitation_of_deflection_enabled = property_limitation_of_deflection_enabled;
     }
-    if (typeof property_quasi_permament_support_on_both_sides !== "undefined") {
+    if (typeof property_quasi_permanent_support_on_both_sides !== "undefined") {
         ASSERT(this.addon.settings_main_ec2.property_limitation_of_deflection_enabled, "Limitation of deflection must be on");
-        this.addon.settings_main_ec2.property_quasi_permament_support_on_both_sides = property_quasi_permament_support_on_both_sides;
+        this.addon.settings_main_ec2.property_quasi_permanent_support_on_both_sides = property_quasi_permanent_support_on_both_sides;
     }
-    if (typeof property_quasi_permament_one_sided_support !== "undefined") {
+    if (typeof property_quasi_permanent_one_sided_support !== "undefined") {
         ASSERT(this.addon.settings_main_ec2.property_limitation_of_deflection_enabled, "Limitation of deflection must be on");
-        this.addon.settings_main_ec2.property_quasi_permament_one_sided_support = property_quasi_permament_one_sided_support;
+        this.addon.settings_main_ec2.property_quasi_permanent_one_sided_support = property_quasi_permanent_one_sided_support;
     }
     if (typeof property_tension_stiffening_effect_enabled !== "undefined") {
         ASSERT(this.addon.settings_main_ec2.property_limitation_of_deflection_enabled, "Limitation of deflection must be on");
@@ -263,7 +262,7 @@ ConcreteDesignServiceabilityConfigurationEN.prototype.DeflectionAnalysis = funct
  *                                              DETERMINED_AS_ENVELOPE_FROM_ALL_DESIGN_SITUATIONS (Crack state determined as envelope from all SLS design situations),
  *                                              INDEPENDENT_OF_LOAD (Crack state independent of load)) can be undefined (is not set, CALCULATED_FROM_ASSOCIATED_LOAD as default)
  */
-ConcreteDesignServiceabilityConfigurationEN.prototype.CrackStateDetection = function (crack_state_detection) {
+ConcreteDesignServiceabilityConfigurationEN.prototype.SetCrackStateDetection = function (crack_state_detection) {
     SetConcreteDesignServiceabilityConfigurationCrackStateDetection(this.addon.settings_main_ec2, crack_state_detection);
 };
 
@@ -272,7 +271,7 @@ ConcreteDesignServiceabilityConfigurationEN.prototype.CrackStateDetection = func
  * @param {String} property_fiber_concrete_material_model_for_tension_strains               Material model for tension strains (SDL1, SDL2, SDL3), can be undefined (is not set, SDL1 as default)
  * @param {Boolean} property_fiber_concrete_size_factor_kfg_calculate_from_tension_area     Size factor κfG calculated from tension area Afct, can be undefined (is not set, true as default)
  */
-ConcreteDesignServiceabilityConfigurationEN.prototype.FiberConcrete = function (property_fiber_concrete_material_model_for_tension_strains,
+ConcreteDesignServiceabilityConfigurationEN.prototype.SetFiberConcrete = function (property_fiber_concrete_material_model_for_tension_strains,
     property_fiber_concrete_size_factor_kfg_calculate_from_tension_area) {
     this.addon.settings_main_ec2.property_fiber_concrete_material_model_for_tension_strains = GetConcreteDesignMaterialModelForTensionStrainsType(property_fiber_concrete_material_model_for_tension_strains);
     if (typeof property_fiber_concrete_size_factor_kfg_calculate_from_tension_area !== "undefined") {

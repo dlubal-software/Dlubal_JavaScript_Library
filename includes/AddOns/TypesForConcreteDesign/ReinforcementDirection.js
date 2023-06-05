@@ -45,7 +45,7 @@ ConcreteDesignReinforcementDirection.prototype.GetNo = function () {
 /**
  * @returns Reinforcement direction object
  */
-ConcreteDesignReinforcementDirection.prototype.ReinforcementDirection = function () {
+ConcreteDesignReinforcementDirection.prototype.GetReinforcementDirection = function () {
     return this.reinforcement_direction;
 };
 
@@ -67,7 +67,7 @@ ConcreteDesignReinforcementDirection.prototype.SetName = function (name) {
  * Sets Direction type
  * @param {String} reinforcement_direction_type     Direction type (FIRST_REINFORCEMENT_IN_X, FIRST_REINFORCEMENT_IN_Y, ROTATED)
  */
-ConcreteDesignReinforcementDirection.prototype.DirectionType = function (reinforcement_direction_type) {
+ConcreteDesignReinforcementDirection.prototype.SetDirectionType = function (reinforcement_direction_type) {
     ASSERT(typeof reinforcement_direction_type !== "undefined", "Reinforcement direction type must be specified");
     this.reinforcement_direction.reinforcement_direction_type = EnumValueFromJSHLFTypeName(
         reinforcement_direction_type,
@@ -85,7 +85,7 @@ ConcreteDesignReinforcementDirection.prototype.DirectionType = function (reinfor
  * @param {Number} first_reinforcement_angle    First reinforcement angle
  * @param {Number} second_reinforcement_angle   Second reinforcement angle
  */
-ConcreteDesignReinforcementDirection.prototype.DirectionRotations = function (first_reinforcement_angle,
+ConcreteDesignReinforcementDirection.prototype.SetDirectionRotations = function (first_reinforcement_angle,
     second_reinforcement_angle) {
     if (typeof first_reinforcement_angle !== "undefined") {
         ASSERT(this.reinforcement_direction.reinforcement_direction_type === reinforcement_directions.REINFORCEMENT_DIRECTION_TYPE_ROTATED, "Direction type must be of ROTATED type.");

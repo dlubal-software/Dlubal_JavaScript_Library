@@ -35,7 +35,7 @@ ConcreteDesignServiceabilityConfigurationSP.prototype.SetName = function (name) 
  * Sets Crack State Detection
  * @param {String} property_type_of_stress_strain_diagram_of_tensile_concrete_strength  Type of stress-strain diagram of tensile concrete strength (INELASTIC, ELASTIC), can be undefined (INELASTIC as default)
  */
-ConcreteDesignServiceabilityConfigurationSP.prototype.CrackStateDetection = function (property_type_of_stress_strain_diagram_of_tensile_concrete_strength) {
+ConcreteDesignServiceabilityConfigurationSP.prototype.SetCrackStateDetection = function (property_type_of_stress_strain_diagram_of_tensile_concrete_strength) {
     this.addon.settings_main_sp63.property_type_of_stress_strain_diagram_of_tensile_concrete_strength = GetConcreteDesignStressStrainDiagramType(property_type_of_stress_strain_diagram_of_tensile_concrete_strength);
 };
 
@@ -46,7 +46,7 @@ ConcreteDesignServiceabilityConfigurationSP.prototype.CrackStateDetection = func
  * @param {Boolean} property_user_defined_top_short_term_limit_values_of_allowable_crack        Limit values of allowable crack width (short-term loading, top), can be undefined (0.3 mm as default)
  * @param {Boolean} property_user_defined_bottom_short_term_limit_values_of_allowable_crack     Limit values of allowable crack width (short-term loading, bottom), can be undefined (0.3 mm as default)
  */
-ConcreteDesignServiceabilityConfigurationSP.prototype.CrackWidthAnalysis = function (property_user_defined_top_long_term_limit_values_of_allowable_crack,
+ConcreteDesignServiceabilityConfigurationSP.prototype.SetCrackWidthAnalysis = function (property_user_defined_top_long_term_limit_values_of_allowable_crack,
     property_user_defined_bottom_long_term_limit_values_of_allowable_crack,
     property_user_defined_top_short_term_limit_values_of_allowable_crack,
     property_user_defined_bottom_short_term_limit_values_of_allowable_crack) {
@@ -75,7 +75,7 @@ ConcreteDesignServiceabilityConfigurationSP.prototype.CrackWidthAnalysis = funct
  * @param {Number} property_deflection_relative_humidity                Relative humidity of air, can be undefined (is not set, 65% as default)
  * @param {Boolean} property_time_dependent_material_properties         Time-dependent material properties (creep, shrinkage) acc. to Eurocode 2
  */
-ConcreteDesignServiceabilityConfigurationSP.prototype.DeflectionAnalysis = function (property_limitation_of_deflection_enabled,
+ConcreteDesignServiceabilityConfigurationSP.prototype.SetDeflectionAnalysis = function (property_limitation_of_deflection_enabled,
     property_deflection_limit_support_on_both_sides,
     property_deflection_limit_one_sided_support,
     property_tension_stiffening_effect,

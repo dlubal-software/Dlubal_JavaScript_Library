@@ -40,7 +40,7 @@ ConcreteDesignServiceabilityConfigurationCSA.prototype.SetName = function (name)
  * @param {String} property_exposure_surfaces_top_side      Surfaces - Top surface side (INTERIOR, EXTERIOR), can be undefined (is not set, INTERIOR as default)
  * @param {String} property_exposure_surfaces_bottom_side   Surfaces - Bottom surface side (INTERIOR, EXTERIOR), can be undefined (is not set, INTERIOR as default)
  */
-ConcreteDesignServiceabilityConfigurationCSA.prototype.Exposure = function (property_exposure_members_top_side,
+ConcreteDesignServiceabilityConfigurationCSA.prototype.SetExposure = function (property_exposure_members_top_side,
     property_exposure_members_left_side,
     property_exposure_members_right_side,
     property_exposure_members_bottom_side,
@@ -58,7 +58,7 @@ ConcreteDesignServiceabilityConfigurationCSA.prototype.Exposure = function (prop
  * Sets Crack Analysis
  * @param {Boolean} property_crack_control  Crack control acc. to 10.6.1, can be undefined (true as default)
  */
-ConcreteDesignServiceabilityConfigurationCSA.prototype.CrackAnalysis = function (property_crack_control) {
+ConcreteDesignServiceabilityConfigurationCSA.prototype.SetCrackAnalysis = function (property_crack_control) {
     if (typeof property_crack_control === "undefined") {
         property_crack_control = true;
     }
@@ -69,7 +69,7 @@ ConcreteDesignServiceabilityConfigurationCSA.prototype.CrackAnalysis = function 
  * Sets Skin Reinforcement
  * @param {Boolean} property_minimum_skin_reinforcement     Minimum skin reinforcement acc. to 10.6.2, can be undefined (true as default)
  */
-ConcreteDesignServiceabilityConfigurationCSA.prototype.SkinReinforcement = function (property_minimum_skin_reinforcement) {
+ConcreteDesignServiceabilityConfigurationCSA.prototype.SetSkinReinforcement = function (property_minimum_skin_reinforcement) {
     if (typeof property_minimum_skin_reinforcement === "undefined") {
         property_minimum_skin_reinforcement = true;
     }
@@ -89,7 +89,7 @@ ConcreteDesignServiceabilityConfigurationCSA.prototype.SkinReinforcement = funct
  * @param {Number} property_deflection_duration_of_load                 Duration of load, can be undefined (is not set, 60 months as default)
  * @param {Boolean} property_time_dependent_material_properties         Time-dependent material properties (creep, shrinkage), can be undefined (is not set, false as default)
  */
-ConcreteDesignServiceabilityConfigurationCSA.prototype.DeflectionAnalysis = function (property_limitation_of_deflection_enabled,
+ConcreteDesignServiceabilityConfigurationCSA.prototype.SetDeflectionAnalysis = function (property_limitation_of_deflection_enabled,
     property_deflection_limit_support_on_both_sides,
     property_deflection_limit_one_sided_support,
     property_tension_stiffening_effect_enabled,
@@ -111,7 +111,7 @@ ConcreteDesignServiceabilityConfigurationCSA.prototype.DeflectionAnalysis = func
  *                                              DETERMINED_AS_ENVELOPE_FROM_ALL_DESIGN_SITUATIONS (Cracked state calculated from all SLS design situations),
  *                                              INDEPENDENT_OF_LOAD (Crack state independent of load)) can be undefined (is not set, CALCULATED_FROM_ASSOCIATED_LOAD as default)
  */
-ConcreteDesignServiceabilityConfigurationCSA.prototype.CrackStateDetection = function (crack_state_detection) {
+ConcreteDesignServiceabilityConfigurationCSA.prototype.SetCrackStateDetection = function (crack_state_detection) {
     SetConcreteDesignServiceabilityConfigurationCrackStateDetection(this.addon.settings_main_csaa233, crack_state_detection);
 };
 

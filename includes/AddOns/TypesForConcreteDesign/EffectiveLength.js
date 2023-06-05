@@ -70,7 +70,7 @@ ConcreteDesignEffectiveLength.prototype.GetNo = function () {
 /**
  * @returns Effective length object
  */
-ConcreteDesignEffectiveLength.prototype.EffectiveLength = function () {
+ConcreteDesignEffectiveLength.prototype.GetEffectiveLength = function () {
     return this.effective_length;
 };
 
@@ -93,7 +93,7 @@ ConcreteDesignEffectiveLength.prototype.SetName = function (name) {
  * @param {Boolean} flexural_buckling_about_y   Consider effective length for flexural buckling about y (major axis), can be undefined (is not set, true as default)
  * @param {Boolean} flexural_buckling_about_z   Consider effective length for flexural buckling about z (minor axis), can be undefined (is not set, true as default)
  */
-ConcreteDesignEffectiveLength.prototype.DeterminationType = function (flexural_buckling_about_y,
+ConcreteDesignEffectiveLength.prototype.SetDeterminationType = function (flexural_buckling_about_y,
     flexural_buckling_about_z) {
     if (typeof flexural_buckling_about_y !== "undefined") {
         this.effective_length.flexural_buckling_about_y = flexural_buckling_about_y;
@@ -108,7 +108,7 @@ ConcreteDesignEffectiveLength.prototype.DeterminationType = function (flexural_b
  * @param {String} structure_type_about_axis_y  About y-axis (UNBRACED, BRACED), can be undefined (is not set, UNBRACED as default)
  * @param {String} structure_type_about_axis_z  About z-axis (UNBRACED, BRACED), can be undefined (is not set, UNBRACED as default)
  */
-ConcreteDesignEffectiveLength.prototype.StructureType = function (structure_type_about_axis_y,
+ConcreteDesignEffectiveLength.prototype.SetStructureType = function (structure_type_about_axis_y,
     structure_type_about_axis_z) {
     if (typeof structure_type_about_axis_y !== "undefined") {
         ASSERT(this.effective_length.flexural_buckling_about_y, "Flexural buckling about y must be on");
@@ -124,7 +124,7 @@ ConcreteDesignEffectiveLength.prototype.StructureType = function (structure_type
  * Sets Nodal supports type for start sequence node
  * @param {String} support_type     Support type (NONE, FIXED_IN_Z, FIXED_IN_Y, FIXED_ALL), can be undefined (if not set, FIXED_IN_Z as default)
  */
-ConcreteDesignEffectiveLength.prototype.NodalSupportsStartWithSupportType = function (support_type) {
+ConcreteDesignEffectiveLength.prototype.SetNodalSupportsStartWithSupportType = function (support_type) {
     setConcreteDesignEffectiveLengthsNodalSupports(this.effective_length, 1, support_type);
 };
 
@@ -132,7 +132,7 @@ ConcreteDesignEffectiveLength.prototype.NodalSupportsStartWithSupportType = func
  * Sets Nodal supports type for end sequence node
  * @param {String} support_type     Support type (NONE, FIXED_IN_Z, FIXED_IN_Y, FIXED_ALL), can be undefined (if not set, FIXED_IN_Z as default)
  */
-ConcreteDesignEffectiveLength.prototype.NodalSupportsEndWithSupportType = function (support_type) {
+ConcreteDesignEffectiveLength.prototype.SetNodalSupportsEndWithSupportType = function (support_type) {
     setConcreteDesignEffectiveLengthsNodalSupports(this.effective_length, this.effective_length.nodal_supports.row_count(), support_type);
 };
 
@@ -162,7 +162,7 @@ ConcreteDesignEffectiveLength.prototype.InsertNodalSupportIntermediateNodeWithSu
  * @param {Number} flexural_buckling_y                  Flexural buckling y, can be undefined (1.00 as default if it's enabled)
  * @param {Number} flexural_buckling_z                  Flexural axes z, can be undefined (1.00 as default if it's enabled)
  */
-ConcreteDesignEffectiveLength.prototype.EffectiveLengthFactors = function (row,
+ConcreteDesignEffectiveLength.prototype.SetEffectiveLengthFactors = function (row,
     flexural_buckling_y,
     flexural_buckling_z) {
     this.effective_length.factors_definition_absolute = false;
@@ -175,7 +175,7 @@ ConcreteDesignEffectiveLength.prototype.EffectiveLengthFactors = function (row,
  * @param {Number} flexural_buckling_y                  Flexural buckling y, can be undefined (1.00 as default if it's enabled)
  * @param {Number} flexural_buckling_z                  Flexural axes z, can be undefined (1.00 as default if it's enabled)
  */
-ConcreteDesignEffectiveLength.prototype.OverwriteEffectiveLengths = function (row,
+ConcreteDesignEffectiveLength.prototype.SetOverwriteEffectiveLengths = function (row,
     flexural_buckling_y,
     flexural_buckling_z) {
     this.effective_length.factors_definition_absolute = true;

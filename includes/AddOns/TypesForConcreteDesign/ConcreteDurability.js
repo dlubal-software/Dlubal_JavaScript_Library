@@ -83,7 +83,7 @@ ConcreteDesignConcreteDurability.prototype.GetNo = function () {
 /**
  * @returns Concrete durability object
  */
-ConcreteDesignConcreteDurability.prototype.ConcreteDurability = function () {
+ConcreteDesignConcreteDurability.prototype.GetConcreteDurability = function () {
     return this.durability;
 };
 
@@ -106,7 +106,7 @@ ConcreteDesignConcreteDurability.prototype.SetName = function (name) {
  * @param {String} no_risk_of_corrosion_or_attack           No risk of corrosion or attack type (VERY_DRY), can be undefined (is not set, VERY_DRY as default)
  * @param {Boolean} no_risk_of_corrosion_or_attack_enabled  Enable/disable, can be undefined (true as default)
  */
-ConcreteDesignConcreteDurability.prototype.NoRiskOfCorrosionOrAttack = function (no_risk_of_corrosion_or_attack,
+ConcreteDesignConcreteDurability.prototype.SetNoRiskOfCorrosionOrAttack = function (no_risk_of_corrosion_or_attack,
     no_risk_of_corrosion_or_attack_enabled) {
     if (typeof no_risk_of_corrosion_or_attack_enabled === "undefined") {
         no_risk_of_corrosion_or_attack_enabled = true;
@@ -129,7 +129,7 @@ ConcreteDesignConcreteDurability.prototype.NoRiskOfCorrosionOrAttack = function 
  * @param {String} corrosion_induced_by_carbonation             Corrosion induced by carbonation type (DRY_OR_PERMANENTLY_WET, WET_RARELY_DRY, MODERATE_HUMIDITY, CYCLIC_WET_AND_DRY), can be undefined (is not set, DRY_OR_PERMANENTLY_WET as default)
  * @param {Boolean} corrosion_induced_by_carbonation_enabled    Enable/disable, can be undefined (true as default)
  */
-ConcreteDesignConcreteDurability.prototype.CorrosionInducedByCarbonation = function (corrosion_induced_by_carbonation,
+ConcreteDesignConcreteDurability.prototype.SetCorrosionInducedByCarbonation = function (corrosion_induced_by_carbonation,
     corrosion_induced_by_carbonation_enabled) {
     ASSERT(!this.durability.no_risk_of_corrosion_or_attack_enabled, "No risk of corrosion or attack must be off");
     if (typeof corrosion_induced_by_carbonation_enabled === "undefined") {
@@ -156,7 +156,7 @@ ConcreteDesignConcreteDurability.prototype.CorrosionInducedByCarbonation = funct
  * @param {String} corrosion_induced_by_chlorides           Corrosion induced by chlorides (MODERATE_HUMIDITY, WET_RARELY_DRY, CYCLIC_WET_AND_DRY), can be undefined (is not set, MODERATE_HUMIDITY as default)
  * @param {Boolean} corrosion_induced_by_chlorides_enabled  Enable/disable, can be undefined (true as default)
  */
-ConcreteDesignConcreteDurability.prototype.CorrosionInducedByChlorides = function (corrosion_induced_by_chlorides,
+ConcreteDesignConcreteDurability.prototype.SetCorrosionInducedByChlorides = function (corrosion_induced_by_chlorides,
     corrosion_induced_by_chlorides_enabled) {
     ASSERT(!this.durability.no_risk_of_corrosion_or_attack_enabled, "No risk of corrosion or attack must be off");
     if (typeof corrosion_induced_by_chlorides_enabled === "undefined") {
@@ -182,7 +182,7 @@ ConcreteDesignConcreteDurability.prototype.CorrosionInducedByChlorides = functio
  * @param {String} corrosion_induced_by_chlorides_from_sea_water            Corrosion induced by chlorides from sea water (AIRBORNE_SALT, PERMANENTLY_SUBMERGED, SPLASH_AND_SPRAY_ZONES), can be undefined (is not set, AIRBORNE_SALT as default)
  * @param {Boolean} corrosion_induced_by_chlorides_from_sea_water_enabled   Enable/disable, can be undefined (true as default)
  */
-ConcreteDesignConcreteDurability.prototype.CorrosionInducedByChloridesFromSeaWater = function (corrosion_induced_by_chlorides_from_sea_water,
+ConcreteDesignConcreteDurability.prototype.SetCorrosionInducedByChloridesFromSeaWater = function (corrosion_induced_by_chlorides_from_sea_water,
     corrosion_induced_by_chlorides_from_sea_water_enabled) {
     ASSERT(!this.durability.no_risk_of_corrosion_or_attack_enabled, "No risk of corrosion or attack must be off");
     if (typeof corrosion_induced_by_chlorides_from_sea_water_enabled === "undefined") {
@@ -208,7 +208,7 @@ ConcreteDesignConcreteDurability.prototype.CorrosionInducedByChloridesFromSeaWat
  * @param {String} freeze_thaw_attack           Freeze/thaw attack (MODERATE_SATURATION_NO_DEICING, MODERATE_SATURATION_DEICING, HIGH_SATURATION_NO_DEICING, HIGH_SATURATION_DEICING), can be undefined (is not set, MODERATE_SATURATION_NO_DEICING as default)
  * @param {Boolean} freeze_thaw_attack_enabled  Enable/disable, can be undefined (true as default)
  */
-ConcreteDesignConcreteDurability.prototype.FreezeThawAttack = function (freeze_thaw_attack,
+ConcreteDesignConcreteDurability.prototype.SetFreezeThawAttack = function (freeze_thaw_attack,
     freeze_thaw_attack_enabled) {
     if (typeof freeze_thaw_attack_enabled === "undefined") {
         freeze_thaw_attack_enabled = true;
@@ -234,7 +234,7 @@ ConcreteDesignConcreteDurability.prototype.FreezeThawAttack = function (freeze_t
  * @param {String} chemical_attack              Chemical attack (SLIGHTLY_AGGRESSIVE, MODERATELY_AGGRESSIVE, HIGHLY_AGGRESSIVE), can be undefined (is not set, SLIGHTLY_AGGRESSIVE as default)
  * @param {Boolean} chemical_attack_enabled     Enable/disable, can be undefined (true as default)
  */
-ConcreteDesignConcreteDurability.prototype.ChemicalAttack = function (chemical_attack,
+ConcreteDesignConcreteDurability.prototype.SetChemicalAttack = function (chemical_attack,
     chemical_attack_enabled) {
     if (typeof chemical_attack_enabled === "undefined") {
         chemical_attack_enabled = true;
@@ -259,7 +259,7 @@ ConcreteDesignConcreteDurability.prototype.ChemicalAttack = function (chemical_a
  * @param {String} concrete_corrosion_induced_by_wear               Concrete corrosion induced ba wear (MODERATE, HIGH, VERY_HIGH), can be undefined (is not set, MODERATE as default)
  * @param {Boolean} concrete_corrosion_induced_by_wear_enabled      Enable/disable, can be undefined (true as default)
  */
-ConcreteDesignConcreteDurability.prototype.ConcreteCorrosionInducedByWear = function (concrete_corrosion_induced_by_wear,
+ConcreteDesignConcreteDurability.prototype.SetConcreteCorrosionInducedByWear = function (concrete_corrosion_induced_by_wear,
     concrete_corrosion_induced_by_wear_enabled) {
     if (typeof concrete_corrosion_induced_by_wear_enabled === "undefined") {
         concrete_corrosion_induced_by_wear_enabled = true;
@@ -286,7 +286,7 @@ ConcreteDesignConcreteDurability.prototype.ConcreteCorrosionInducedByWear = func
  * @param {Boolean} special_quality_control_of_production_enabled                               Special quality control of the concrete production, can be undefined (is not set, false as default)
  * @param {Boolean} air_entrainment_of_more_than_4_percent_enabled                              Air entrainment of more then 4% according to 4.4.1.2(5), can be undefined (is not set, false as default)
  */
-ConcreteDesignConcreteDurability.prototype.StructuralClassAccordingTo4_4_1_2 = function (increase_design_working_life_from_50_to_100_years_enabled,
+ConcreteDesignConcreteDurability.prototype.SetStructuralClassAccordingTo4_4_1_2 = function (increase_design_working_life_from_50_to_100_years_enabled,
     position_of_reinforcement_not_affected_by_construction_process_enabled,
     special_quality_control_of_production_enabled,
     air_entrainment_of_more_than_4_percent_enabled) {
@@ -309,7 +309,7 @@ ConcreteDesignConcreteDurability.prototype.StructuralClassAccordingTo4_4_1_2 = f
  * Sets User-defined structural class
  * @param {String} userdefined_structural_class     User-defined structural class (S1, S2, S3, S4, S5, S6), can be undefined  (is not set, S4 as default)
  */
-ConcreteDesignConcreteDurability.prototype.StructuralClassUserDefined = function (userdefined_structural_class) {
+ConcreteDesignConcreteDurability.prototype.SetStructuralClassUserDefined = function (userdefined_structural_class) {
     this.durability.structural_class_type = concrete_durabilities.DEFINED;
     this.durability.userdefined_structural_class = EnumValueFromJSHLFTypeName(
         userdefined_structural_class,
@@ -330,7 +330,7 @@ ConcreteDesignConcreteDurability.prototype.StructuralClassUserDefined = function
  * @param {String/Number} stainless_steel       Stainless steel (STANDARD - According to standard, or user-defined value), can be undefined (is not set, STANDARD as default)
  * @param {Boolean} stainless_steel_enabled     Enable/disable, can be undefined (true as default)
  */
-ConcreteDesignConcreteDurability.prototype.StainlessSteel = function (stainless_steel,
+ConcreteDesignConcreteDurability.prototype.SetStainlessSteel = function (stainless_steel,
     stainless_steel_enabled) {
     if (typeof stainless_steel_enabled === "undefined") {
         stainless_steel_enabled = true;
@@ -355,7 +355,7 @@ ConcreteDesignConcreteDurability.prototype.StainlessSteel = function (stainless_
  * @param {String/Number} additional_protection       Additional protection (STANDARD - According to standard, or user-defined value), can be undefined (is not set, STANDARD as default)
  * @param {Boolean} additional_protection_enabled     Enable/disable, can be undefined (true as default)
  */
-ConcreteDesignConcreteDurability.prototype.AdditionalProtection = function (additional_protection,
+ConcreteDesignConcreteDurability.prototype.SetAdditionalProtection = function (additional_protection,
     additional_protection_enabled) {
     if (typeof additional_protection_enabled === "undefined") {
         additional_protection_enabled = true;
@@ -382,7 +382,7 @@ ConcreteDesignConcreteDurability.prototype.AdditionalProtection = function (addi
  * @param {String} concrete_cast                                Concrete cast (AGAINST_PREPARED_GROUND, DIRECTLY_AGAINST_SOIL), can be undefined (is not set, AGAINST_PREPARED_GROUND as default)
  * @param {Number} userdefined_allowance_of_deviation_factor    User-defined allowance of deviation factor, can be undefined (is not set, 10 mm as default)
  */
-ConcreteDesignConcreteDurability.prototype.AllowanceForDeviation = function (allowance_of_deviation_type,
+ConcreteDesignConcreteDurability.prototype.SetAllowanceForDeviation = function (allowance_of_deviation_type,
     concrete_cast_enabled,
     concrete_cast,
     userdefined_allowance_of_deviation_factor) {

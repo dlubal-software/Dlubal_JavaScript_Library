@@ -331,12 +331,12 @@ function IsCurrentCodeOfStandard (current_standard) {
 }
 
 function SetConcreteDesignMembersCalculationSetting (addon_settings,
-    property_member_nett_concrete_area) {
+    property_member_net_concrete_area) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
-    if (typeof property_member_nett_concrete_area === "undefined") {
-        property_member_nett_concrete_area = true;
+    if (typeof property_member_net_concrete_area === "undefined") {
+        property_member_net_concrete_area = true;
     }
-    addon_settings.property_member_nett_concrete_area = property_member_nett_concrete_area;
+    addon_settings.property_member_net_concrete_area = property_member_net_concrete_area;
 }
 
 function SetConcreteDesignStabilityRequiredReinforcement (addon_settings,
@@ -977,10 +977,10 @@ function GetConcreteDesignPunchingLoadType(punching_load_type,
 }
 
 function SetConcreteDesignPunchingAdditionalParameters (addon_settings,
-    property_node_minimum_spacing_of_reinforcement_perometers) {
+    property_node_minimum_spacing_of_reinforcement_perimeters) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
-    if (typeof property_node_minimum_spacing_of_reinforcement_perometers !== "undefined") {
-        addon_settings.property_node_minimum_spacing_of_reinforcement_perometers = property_node_minimum_spacing_of_reinforcement_perometers;
+    if (typeof property_node_minimum_spacing_of_reinforcement_perimeters !== "undefined") {
+        addon_settings.property_node_minimum_spacing_of_reinforcement_perimeters = property_node_minimum_spacing_of_reinforcement_perimeters;
     }
 };
 

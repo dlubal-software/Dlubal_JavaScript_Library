@@ -656,7 +656,7 @@ Surface.prototype.ConcreteDesignPropertiesViaParentSurfaceSet = function (design
  * @param {Number} concrete_cover_bottom 						Concrete cover bottom, can be undefined (is not set, 30 mm as default). For EN must be is_user_defined_concrete_cover_enabled set true
  * @param {Boolean} is_user_defined_concrete_cover_enabled 		Enable/disable user-defined values, can be undefined (true as default). Has meaning only for EN standard.
  */
-Surface.prototype.UserDefinedConcreteCover = function (concrete_cover_top,
+Surface.prototype.SetUserDefinedConcreteCover = function (concrete_cover_top,
 	concrete_cover_bottom,
 	is_user_defined_concrete_cover_enabled) {
 	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design must be active");
@@ -680,7 +680,7 @@ Surface.prototype.UserDefinedConcreteCover = function (concrete_cover_top,
 /**
  * Sets Concrete Cover Acc. to EN 1992 | CEN | 2014-11
  */
-Surface.prototype.ConcreteCoverAccToEn1992 = function () {
+Surface.prototype.SetConcreteCoverAccToEn1992 = function () {
 	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design must be active");
 	ASSERT(this.surface.design_properties_via_surface, "Design properties must be on");
 	this.surface.is_user_defined_concrete_cover_enabled = false;
@@ -690,7 +690,7 @@ Surface.prototype.ConcreteCoverAccToEn1992 = function () {
  * @param {Number} surface_concrete_design_uls_configuration 	Ultimate configuration, can be undefined (empty by default)
  * @param {Number} surface_concrete_design_sls_configuration 	Serviceability configuration, can be undefined (empty by default)
  */
-Surface.prototype.Assignments = function (surface_concrete_design_uls_configuration,
+Surface.prototype.SetAssignments = function (surface_concrete_design_uls_configuration,
 	surface_concrete_design_sls_configuration) {
 	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design must be active");
 	ASSERT(this.surface.design_properties_via_surface, "Design properties must be on");
@@ -730,7 +730,7 @@ Surface.prototype.Assignments = function (surface_concrete_design_uls_configurat
  * @param {Number} reinforcement_direction_top 			Reinforcement direction number for top surface side
  * @param {Number} reinforcement_direction_bottom 		Reinforcement direction number for bottom surface side
  */
-Surface.prototype.ConcreteDesignReinforcementDirections = function (reinforcement_direction_top,
+Surface.prototype.SetConcreteDesignReinforcementDirections = function (reinforcement_direction_top,
 	reinforcement_direction_bottom) {
 	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design must be active");
 	ASSERT(this.surface.design_properties_via_surface, "Design properties must be on");
@@ -760,7 +760,7 @@ Surface.prototype.ConcreteDesignReinforcementDirections = function (reinforcemen
  * @param {Number} concrete_durability_top 		Concrete durability number for top surface side
  * @param {Number} concrete_durability_bottom 	Concrete durability number for bottom surface side
  */
-Surface.prototype.ConcreteDesignConcreteDurability = function (concrete_durability_top,
+Surface.prototype.SetConcreteDesignConcreteDurability = function (concrete_durability_top,
 	concrete_durability_bottom) {
 	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design must be active");
 	ASSERT(this.surface.design_properties_via_surface, "Design properties must be on");
@@ -790,7 +790,7 @@ Surface.prototype.ConcreteDesignConcreteDurability = function (concrete_durabili
  * Sets Surface reinforcements
  * @param {Array} surface_reinforcement_nos 	Array of surface reinforcements numbers
  */
-Surface.prototype.ConcreteDesignSurfaceReinforcement = function (surface_reinforcement_nos) {
+Surface.prototype.SetConcreteDesignSurfaceReinforcement = function (surface_reinforcement_nos) {
 	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design must be active");
 	ASSERT(this.surface.design_properties_via_surface, "Design properties must be on");
 	ASSERT(typeof surface_reinforcement_nos !== "undefined", "Surface reinforcement must be specified");
@@ -815,7 +815,7 @@ Surface.prototype.ConcreteDesignSurfaceReinforcement = function (surface_reinfor
  * @param {String} deflection_check_reference_length_z_definition_type 	Definition type (MANUALLY, BY_MAXIMUM_BOUNDARY_LINE, BY_MINIMUM_BOUNDARY_LINE), can be undefined (is not set, BY_MAXIMUM_BOUNDARY_LINE as default)
  * @param {Number} deflection_check_reference_length_z					Reference length, can be undefined
  */
-Surface.prototype.DeflectionAnalysis = function (deflection_check_surface_type,
+Surface.prototype.SetDeflectionAnalysis = function (deflection_check_surface_type,
 	deflection_check_displacement_reference,
 	deflection_check_reference_length_z_definition_type,
 	deflection_check_reference_length_z) {
@@ -853,7 +853,7 @@ Surface.prototype.DeflectionAnalysis = function (deflection_check_surface_type,
 	}
 };
 
-Surface.prototype.UserDefinedReferencePlane = function (reference_plane) {
+Surface.prototype.SetUserDefinedReferencePlane = function (reference_plane) {
 	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design must be active");
 	ASSERT(this.surface.deflection_check_displacement_reference === surfaces.DEFLECTION_CHECK_DISPLACEMENT_REFERENCE_DEFORMED_USER_DEFINED_REFERENCE_PLANE, "Displacement reference must be of DEFORMED_USER_DEFINED_REFERENCE_PLANE type");
 	ASSERT(typeof reference_plane !== "undefined", "reference_plane must be specified");

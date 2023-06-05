@@ -1,12 +1,11 @@
 /*
-Bug 93213 - Un-complete enums (values are missing): mesh_product_range, mesh_shape
-Bug 94787 - Missing enums for Diameter bar no. (ACI, CSA standards)
+There are problems with automatic rebar spacing, rebar diameter (comment for bug 94787). This code is un-complet for now.
 */
 
 include("../../Tools/jshlf_common_functions.js");
 include ("../ConcreteDesign/ConcreteDesignSupport.js");
 
-/**
+/** 
  * Creates Concrete design surface reinforcement
  * @param {Number} no               Concrete design surface reinforcement index, can be undefined
  * @param {Array} surfaces_no_no    List of surfaces indexes, can be undefined
@@ -54,7 +53,7 @@ ConcreteDesignSurfaceReinforcement.prototype.GetNo = function () {
 /**
  * @returns Surface reinforcement object
  */
-ConcreteDesignSurfaceReinforcement.prototype.SurfaceReinforcement = function () {
+ConcreteDesignSurfaceReinforcement.prototype.GetSurfaceReinforcement = function () {
     return this.surface_reinforcement;
 };
 
@@ -76,7 +75,7 @@ ConcreteDesignSurfaceReinforcement.prototype.SetName = function (name) {
  * Sets location type
  * @param {String} location_type    Location type (ON_SURFACE, FREE_RECTANGULAR, FREE_CIRCULAR, FREE_POLYGON)
  */
-ConcreteDesignSurfaceReinforcement.prototype.LocationType = function (location_type) {
+ConcreteDesignSurfaceReinforcement.prototype.SetLocationType = function (location_type) {
     ASSERT(typeof location_type !== "undefined", "Location type must be defined");
     this.surface_reinforcement.location_type = EnumValueFromJSHLFTypeName (
         location_type,
@@ -94,7 +93,7 @@ ConcreteDesignSurfaceReinforcement.prototype.LocationType = function (location_t
  * Sets Reinforcement type
  * @param {String} reinforcement_type   Reinforcement type (MESH, REBAR, STIRRUPS)
  */
-ConcreteDesignSurfaceReinforcement.prototype.ReinforcementType = function (reinforcement_type) {
+ConcreteDesignSurfaceReinforcement.prototype.SetReinforcementType = function (reinforcement_type) {
     ASSERT(typeof reinforcement_type !== "undefined", "Reinforcement type must be defined");
     this.surface_reinforcement.reinforcement_type = EnumValueFromJSHLFTypeName(
         reinforcement_type,
@@ -107,24 +106,77 @@ ConcreteDesignSurfaceReinforcement.prototype.ReinforcementType = function (reinf
         surface_reinforcements.REINFORCEMENT_TYPE_REBAR);
 };
 
-ConcreteDesignSurfaceReinforcement.prototype.Mesh = function (reinforcement_type) {
+ConcreteDesignSurfaceReinforcement.prototype.SetMesh = function (mesh_product_range,
+    mesh_shape,
+    mesh_name) {
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_MESH, "Reinforcement type must be of mesh type");
-    // Bug 93213 - Un-complete enums (values are missing): mesh_product_range, mesh_shape
+    this.surface_reinforcement.mesh_product_range = EnumValueFromJSHLFTypeName(
+        mesh_product_range,
+        "mesh product range",
+        {
+            "GERMANY_2001_10_01": surface_reinforcements.MESHSTANDARD_GERMANY_2001_10_01,
+            "GERMANY_2008_01_01": surface_reinforcements.MESHSTANDARD_GERMANY_2008_01_01,
+            "GERMANY_1997_01_01": surface_reinforcements.MESHSTANDARD_GERMANY_1997_01_01,
+            "AUSTRIA_2002_01_01": surface_reinforcements.MESHSTANDARD_AUSTRIA_2002_01_01,
+            "CZECH_REPUBLIC": surface_reinforcements.MESHSTANDARD_CZECH_REPUBLIC,
+            "NETHERLANDS": surface_reinforcements.MESHSTANDARD_NETHERLANDS,
+            "UNITED_STATES": surface_reinforcements.MESHSTANDARD_UNITED_STATES,
+            "FRANCE": surface_reinforcements.MESHSTANDARD_FRANCE
+        },
+        surface_reinforcements.MESHSTANDARD_GERMANY_2001_10_01);
+    this.surface_reinforcement.mesh_shape = EnumValueFromJSHLFTypeName(
+        mesh_shape,
+        "mesh shape",
+        {
+            "Q_MESH": surface_reinforcements.MESHSHAPE_Q_MESH,
+            "R_MESH": surface_reinforcements.MESHSHAPE_R_MESH,
+            "K_MESH": surface_reinforcements.MESHSHAPE_K_MESH,
+            "A_MESH": surface_reinforcements.MESHSHAPE_A_MESH,
+            "AQ_MESH": surface_reinforcements.MESHSHAPE_AQ_MESH,
+            "CS_MESH": surface_reinforcements.MESHSHAPE_CS_MESH,
+            "AS_MESH": surface_reinforcements.MESHSHAPE_AS_MESH,
+            "CQS_MESH": surface_reinforcements.MESHSHAPE_CQS_MESH,
+            "AQS_MESH": surface_reinforcements.MESHSHAPE_AQS_MESH,
+            "B_MESH": surface_reinforcements.MESHSHAPE_B_MESH,
+            "E_MESH": surface_reinforcements.MESHSHAPE_E_MESH,
+            "G_MESH": surface_reinforcements.MESHSHAPE_G_MESH,
+            "KA_MESH": surface_reinforcements.MESHSHAPE_KA_MESH,
+            "KD_MESH": surface_reinforcements.MESHSHAPE_KD_MESH,
+            "KH_MESH": surface_reinforcements.MESHSHAPE_KH_MESH,
+            "KY_MESH": surface_reinforcements.MESHSHAPE_KY_MESH,
+            "L_MESH": surface_reinforcements.MESHSHAPE_L_MESH,
+            "P_MESH": surface_reinforcements.MESHSHAPE_P_MESH,
+            "W_MESH": surface_reinforcements.MESHSHAPE_W_MESH,
+            "Z_MESH": surface_reinforcements.MESHSHAPE_Z_MESH,
+            "ROLLS": surface_reinforcements.MESHSHAPE_ROLLS,
+            "SHEETS": surface_reinforcements.MESHSHAPE_SHEETS,
+            "PAF": surface_reinforcements.MESHSHAPE_PAF,
+            "ST": surface_reinforcements.MESHSHAPE_ST
+        },
+        surface_reinforcements.MESHSHAPE_Q_MESH);
+    if (typeof mesh_name !== "undefined") {
+        this.surface_reinforcement.mesh_name = mesh_name;
+    }
 };
 
 /**
  * Sets Rebar diameter
- * @param {Number} rebar_diameter    Rebar diameter
+ * @param {Number/String} rebar_diameter    Rebar diameter
  */
-ConcreteDesignSurfaceReinforcement.prototype.RebarDiameter = function (value_1) {
+ConcreteDesignSurfaceReinforcement.prototype.SetRebarDiameter = function (rebar_diameter) {
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_REBAR, "Reinforcement type must be of rebar type");
+    //this.surface_reinforcement.rebar_diameter_auto_enabled = false;   // Can't set (bug 94787 - comment)?
+    ASSERT(typeof rebar_diameter !== "undefined", "Rebar diameter must be specified");
     if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("SP")) {
-        ASSERT(typeof value_1 !== "undefined", "Rebar diameter must be specified");
-        this.surface_reinforcement.rebar_diameter_auto_enabled = false;
-        this.surface_reinforcement.rebar_diameter = value_1;
+        ASSERT(typeof rebar_diameter === "number", "Rebar diameter value must be a number");
+        this.surface_reinforcement.rebar_diameter = rebar_diameter;
     }
-    else if (IsCurrentCodeOfStandard("ACI") || IsCurrentCodeOfStandard("CSA")) {
-        // Missing enum (bug 94787)
+    else if (IsCurrentCodeOfStandard("ACI")) {
+        ASSERT(typeof rebar_diameter === "string", "Rebar diameter value must be a string");
+        this.surface_reinforcement.rebar_diameter_auto_sizes = GetConcreteDesignBarNoForAciStandard(rebar_diameter);
+    }
+    else if (IsCurrentCodeOfStandard("CSA")) {
+        ASSERT(typeof rebar_diameter === "string", "Rebar diameter value must be a string");
     }
     else {
         ASSERT("Code of standard " + GetCurrentCodeOfStandard() + " is not supported");
@@ -135,11 +187,24 @@ ConcreteDesignSurfaceReinforcement.prototype.RebarDiameter = function (value_1) 
  * Sets Rebar diameter
  * @param {Number} rebar_spacing    Rebar spacing
  */
-ConcreteDesignSurfaceReinforcement.prototype.RebarSpacing = function (rebar_spacing) {
+ConcreteDesignSurfaceReinforcement.prototype.SetRebarSpacing = function (rebar_spacing) {
     ASSERT(typeof rebar_spacing !== "undefined", "Rebar spacing must be specified");
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_REBAR, "Reinforcement type must be of rebar type");
-    this.surface_reinforcement.rebar_spacing_auto_enabled = false;
-    this.surface_reinforcement.rebar_spacing = rebar_spacing;
+    //this.surface_reinforcement.rebar_spacing_auto_enabled = false;    // Can't set (bug 94787 - comment)?
+    if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("SP")) {
+        ASSERT(typeof rebar_spacing === "number", "Rebar diameter value must be a number");
+        this.surface_reinforcement.rebar_spacing = rebar_spacing;
+    }
+    else if (IsCurrentCodeOfStandard("ACI")) {
+        ASSERT(typeof rebar_spacing === "string", "Rebar diameter value must be a string");
+        this.surface_reinforcement.rebar_diameter_auto_sizes = GetConcreteDesignBarNoForAciStandard(rebar_spacing);
+    }
+    else if (IsCurrentCodeOfStandard("CSA")) {
+        ASSERT(typeof rebar_spacing === "string", "Rebar diameter value must be a string");
+    }
+    else {
+        ASSERT("Code of standard " + GetCurrentCodeOfStandard() + " is not supported");
+    }
 };
 
 /**
@@ -149,24 +214,36 @@ ConcreteDesignSurfaceReinforcement.prototype.RebarSpacing = function (rebar_spac
  * @param {String} rebar_diameter_auto_diameters     Diameters for reinforcement (e.g. '8.0, 10.0, 12.0 ...'), can be undefined
  * @param {Number} rebar_diameter_auto_priority      Priority, can be undefined (is not set, 1 as default)
  */
-ConcreteDesignSurfaceReinforcement.prototype.RebarDiameterAuto = function (rebar_diameter_auto_minimum,
+ConcreteDesignSurfaceReinforcement.prototype.SetRebarDiameterAuto = function (rebar_diameter_auto_minimum,
     rebar_diameter_auto_maximum,
     rebar_diameter_auto_diameters,
     rebar_diameter_auto_priority) {
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_REBAR, "Reinforcement type must be of rebar type");
-    this.surface_reinforcement.rebar_diameter_auto_enabled = true;
-    if (typeof rebar_diameter_auto_minimum !== "undefined") {
-        this.surface_reinforcement.rebar_diameter_auto_minimum = rebar_diameter_auto_minimum;
+    this.surface_reinforcement.rebar_diameter_auto_enabled = true;    // Can't set (bug 94787 - comment)?
+    if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("SP")) {
+        if (typeof rebar_diameter_auto_minimum !== "undefined") {
+            this.surface_reinforcement.rebar_diameter_auto_minimum = rebar_diameter_auto_minimum;
+        }
+        if (typeof rebar_diameter_auto_maximum !== "undefined") {
+            this.surface_reinforcement.rebar_diameter_auto_maximum = rebar_diameter_auto_maximum;
+        }
+        if (typeof rebar_diameter_auto_diameters !== "undefined") {
+            this.surface_reinforcement.rebar_diameter_auto_diameters_enabled = true;
+            this.surface_reinforcement.rebar_diameter_auto_diameters = rebar_diameter_auto_diameters;
+        }
+        if (typeof rebar_diameter_auto_priority !== "undefined") {
+            this.surface_reinforcement.rebar_diameter_auto_priority = rebar_diameter_auto_priority;
+        }
     }
-    if (typeof rebar_diameter_auto_maximum !== "undefined") {
-        this.surface_reinforcement.rebar_diameter_auto_maximum = rebar_diameter_auto_maximum;
+    else if (IsCurrentCodeOfStandard("ACI")) {
+        
     }
-    if (typeof rebar_diameter_auto_diameters !== "undefined") {
-        this.surface_reinforcement.rebar_diameter_auto_diameters_enabled = true;
-        this.surface_reinforcement.rebar_diameter_auto_diameters = rebar_diameter_auto_diameters;
+    else if (IsCurrentCodeOfStandard("CSA"))
+    {
+
     }
-    if (typeof rebar_diameter_auto_priority !== "undefined") {
-        this.surface_reinforcement.rebar_diameter_auto_priority = rebar_diameter_auto_priority;
+    else {
+        ASSERT("Code of standard " + GetCurrentCodeOfStandard() + " is not supported");
     }
 };
 
@@ -177,23 +254,34 @@ ConcreteDesignSurfaceReinforcement.prototype.RebarDiameterAuto = function (rebar
  * @param {Number} rebar_spacing_auto_increment     Increment, can be undefined (is not set, 0.1 m as default)
  * @param {Number} rebar_spacing_auto_priority      Priority, can be undefined (is not set, 1 as default)
  */
-ConcreteDesignSurfaceReinforcement.prototype.RebarSpacingAuto = function (rebar_spacing_auto_minimum,
+ConcreteDesignSurfaceReinforcement.prototype.SetRebarSpacingAuto = function (rebar_spacing_auto_minimum,
     rebar_spacing_auto_maximum,
     rebar_spacing_auto_increment,
     rebar_spacing_auto_priority) {
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_REBAR, "Reinforcement type must be of rebar type");
-    this.surface_reinforcement.rebar_spacing_auto_enabled = true;
-    if (typeof rebar_spacing_auto_minimum !== "undefined") {
-        this.surface_reinforcement.rebar_spacing_auto_minimum = rebar_spacing_auto_minimum;
+    this.surface_reinforcement.rebar_spacing_auto_enabled = true;   // Can't set (bug 94787 - comment)?
+    if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("SP")) {
+        if (typeof rebar_spacing_auto_minimum !== "undefined") {
+            this.surface_reinforcement.rebar_spacing_auto_minimum = rebar_spacing_auto_minimum;
+        }
+        if (typeof rebar_spacing_auto_maximum !== "undefined") {
+            this.surface_reinforcement.rebar_spacing_auto_maximum = rebar_spacing_auto_maximum;
+        }
+        if (typeof rebar_spacing_auto_increment !== "undefined") {
+            this.surface_reinforcement.rebar_spacing_auto_increment = rebar_spacing_auto_increment;
+        }
+        if (typeof rebar_spacing_auto_priority !== "undefined") {
+            this.surface_reinforcement.rebar_spacing_auto_priority = rebar_spacing_auto_priority;
+        }
     }
-    if (typeof rebar_spacing_auto_maximum !== "undefined") {
-        this.surface_reinforcement.rebar_spacing_auto_maximum = rebar_spacing_auto_maximum;
+    else if (IsCurrentCodeOfStandard("ACI")) {
+
     }
-    if (typeof rebar_spacing_auto_increment !== "undefined") {
-        this.surface_reinforcement.rebar_spacing_auto_increment = rebar_spacing_auto_increment;
+    else if (IsCurrentCodeOfStandard("CSA")) {
+
     }
-    if (typeof rebar_spacing_auto_priority !== "undefined") {
-        this.surface_reinforcement.rebar_spacing_auto_priority = rebar_spacing_auto_priority;
+    else {
+        ASSERT("Code of standard " + GetCurrentCodeOfStandard() + " is not supported");
     }
 };
 
@@ -201,7 +289,7 @@ ConcreteDesignSurfaceReinforcement.prototype.RebarSpacingAuto = function (rebar_
  * Enabled/disabled Additional transverse reinforcement
  * @param {Boolean} additional_transverse_reinforcement_enabled     Enabled/disabled, can be undefined (true as default);
  */
-ConcreteDesignSurfaceReinforcement.prototype.AdditionalTransverseReinforcement = function (additional_transverse_reinforcement_enabled) {
+ConcreteDesignSurfaceReinforcement.prototype.SetAdditionalTransverseReinforcement = function (additional_transverse_reinforcement_enabled) {
     if (typeof additional_transverse_reinforcement_enabled === "undefined") {
         additional_transverse_reinforcement_enabled = true;
     }
@@ -213,16 +301,19 @@ ConcreteDesignSurfaceReinforcement.prototype.AdditionalTransverseReinforcement =
  * Sets Additional rebar diameter
  * @param {Number} additional_rebar_diameter    Additional rebar diameter
  */
-ConcreteDesignSurfaceReinforcement.prototype.AdditionalRebarDiameter = function (value_1) {
+ConcreteDesignSurfaceReinforcement.prototype.SetAdditionalRebarDiameter = function (value_1) {
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_REBAR, "Reinforcement type must be of rebar type");
+    //this.surface_reinforcement.additional_rebar_diameter_auto_enabled = false;  // Can't set (bug 94787 - comment)?
     if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("SP")) {
         ASSERT(typeof value_1 !== "undefined", "Additional rebar diameter must be specified");
         this.surface_reinforcement.additional_transverse_reinforcement_enabled = true;
-        this.surface_reinforcement.additional_rebar_diameter_auto_enabled = false;
         this.surface_reinforcement.additional_rebar_diameter = value_1;
     }
-    else if (IsCurrentCodeOfStandard("ACI") || IsCurrentCodeOfStandard("CSA")) {
-        // Missing enum (bug 94787)
+    else if (IsCurrentCodeOfStandard("ACI")) {
+
+    }
+    else if (IsCurrentCodeOfStandard("CSA")) {
+
     }
     else {
         ASSERT("Code of standard " + GetCurrentCodeOfStandard() + " is not supported");
@@ -233,11 +324,11 @@ ConcreteDesignSurfaceReinforcement.prototype.AdditionalRebarDiameter = function 
  * Sets Additional rebar spacing
  * @param {Number} additional_rebar_spacing     Additional rebar spacing
  */
-ConcreteDesignSurfaceReinforcement.prototype.AdditionalRebarSpacing = function (additional_rebar_spacing) {
+ConcreteDesignSurfaceReinforcement.prototype.SetAdditionalRebarSpacing = function (additional_rebar_spacing) {
     ASSERT(typeof additional_rebar_spacing !== "undefined", "Additional rebar spacing must be specified");
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_REBAR, "Reinforcement type must be of rebar type");
     this.surface_reinforcement.additional_transverse_reinforcement_enabled = true;
-    this.surface_reinforcement.additional_rebar_spacing_auto_enabled = false;
+    //this.surface_reinforcement.additional_rebar_spacing_auto_enabled = false;   // Can't set (bug 94787 - comment)?
     this.surface_reinforcement.additional_rebar_spacing = additional_rebar_spacing;
 };
 
@@ -248,25 +339,36 @@ ConcreteDesignSurfaceReinforcement.prototype.AdditionalRebarSpacing = function (
  * @param {String} additional_rebar_diameter_auto_diameters     Diameters for reinforcement (e.g. '8.0, 10.0, 12.0, 14.0')
  * @param {Number} additional_rebar_diameter_auto_priority      Priority, can be undefined (is not set, 1 as default)
  */
-ConcreteDesignSurfaceReinforcement.prototype.AdditionalRebarDiameterAuto = function (additional_rebar_diameter_auto_minimum,
+ConcreteDesignSurfaceReinforcement.prototype.SetAdditionalRebarDiameterAuto = function (additional_rebar_diameter_auto_minimum,
     additional_rebar_diameter_auto_maximum,
     additional_rebar_diameter_auto_diameters,
     additional_rebar_diameter_auto_priority) {
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_REBAR, "Reinforcement type must be of rebar type");
     this.surface_reinforcement.additional_transverse_reinforcement_enabled = true;
-    this.surface_reinforcement.additional_rebar_diameter_auto_enabled = true;
-    if (typeof additional_rebar_diameter_auto_minimum !== "undefined") {
-        this.surface_reinforcement.additional_rebar_diameter_auto_minimum = additional_rebar_diameter_auto_minimum;
+    this.surface_reinforcement.additional_rebar_diameter_auto_enabled = true;   // Can't set (bug 94787 - comment)?
+    if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("SP")) {
+        if (typeof additional_rebar_diameter_auto_minimum !== "undefined") {
+            this.surface_reinforcement.additional_rebar_diameter_auto_minimum = additional_rebar_diameter_auto_minimum;
+        }
+        if (typeof additional_rebar_diameter_auto_maximum !== "undefined") {
+            this.surface_reinforcement.additional_rebar_diameter_auto_maximum = additional_rebar_diameter_auto_maximum;
+        }
+        if (typeof additional_rebar_diameter_auto_diameters !== "undefined") {
+            this.surface_reinforcement.additional_rebar_diameter_auto_diameters_enabled = true;
+            this.surface_reinforcement.additional_rebar_diameter_auto_diameters = additional_rebar_diameter_auto_diameters;
+        }
+        if (typeof additional_rebar_diameter_auto_priority !== "undefined") {
+            this.surface_reinforcement.additional_rebar_diameter_auto_priority = additional_rebar_diameter_auto_priority;
+        }
     }
-    if (typeof additional_rebar_diameter_auto_maximum !== "undefined") {
-        this.surface_reinforcement.additional_rebar_diameter_auto_maximum = additional_rebar_diameter_auto_maximum;
+    else if (IsCurrentCodeOfStandard("ACI")) {
+
     }
-    if (typeof additional_rebar_diameter_auto_diameters !== "undefined") {
-        this.surface_reinforcement.additional_rebar_diameter_auto_diameters_enabled = true;
-        this.surface_reinforcement.additional_rebar_diameter_auto_diameters = additional_rebar_diameter_auto_diameters;
+    else if (IsCurrentCodeOfStandard("CSA")) {
+
     }
-    if (typeof additional_rebar_diameter_auto_priority !== "undefined") {
-        this.surface_reinforcement.additional_rebar_diameter_auto_priority = additional_rebar_diameter_auto_priority;
+    else {
+        ASSERT("Code of standard " + GetCurrentCodeOfStandard() + " is not supported");
     }
 };
 
@@ -277,13 +379,13 @@ ConcreteDesignSurfaceReinforcement.prototype.AdditionalRebarDiameterAuto = funct
  * @param {Number} additional_rebar_spacing_auto_increment     Increment, can be undefined (is not set, 0.010 m as default)
  * @param {Number} additional_rebar_spacing_auto_priority      Priority, can be undefined (is not set, 1 as default)
  */
-ConcreteDesignSurfaceReinforcement.prototype.AdditionalRebarSpacingAuto = function (additional_rebar_spacing_auto_minimum,
+ConcreteDesignSurfaceReinforcement.prototype.SetAdditionalRebarSpacingAuto = function (additional_rebar_spacing_auto_minimum,
     additional_rebar_spacing_auto_maximum,
     additional_rebar_spacing_auto_increment,
     additional_rebar_spacing_auto_priority) {
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_REBAR, "Reinforcement type must be of rebar type");
     this.surface_reinforcement.additional_transverse_reinforcement_enabled = true;
-    this.surface_reinforcement.additional_rebar_spacing_auto_enabled = true;
+    this.surface_reinforcement.additional_rebar_spacing_auto_enabled = true;    // Can't set (bug 94787 - comment)?
     if (typeof additional_rebar_spacing_auto_minimum !== "undefined") {
         this.surface_reinforcement.additional_rebar_spacing_auto_minimum = additional_rebar_spacing_auto_minimum;
     }
@@ -302,15 +404,18 @@ ConcreteDesignSurfaceReinforcement.prototype.AdditionalRebarSpacingAuto = functi
  * Sets Stirrups diameter
  * @param {Number} stirrup_diameter     Stirrups diameter
  */
-ConcreteDesignSurfaceReinforcement.prototype.StirrupsDiameter = function (value_1) {
+ConcreteDesignSurfaceReinforcement.prototype.SetStirrupsDiameter = function (value_1) {
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_STIRRUPS, "Reinforcement must be of stirrups type");
+    //this.surface_reinforcement.stirrup_diameter_auto_enabled = false;   // Can't set (bug 94787 - comment)?
     if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("SP")) {
         ASSERT(typeof value_1 !== "undefined", "Stirrups diameter must be specified");    
-        this.surface_reinforcement.stirrup_diameter_auto_enabled = false;
         this.surface_reinforcement.stirrup_diameter = value_1;
     }
-    else if (IsCurrentCodeOfStandard("ACI") || IsCurrentCodeOfStandard("CSA")) {
-        // Missing enum (bug 94787)
+    else if (IsCurrentCodeOfStandard("ACI")) {
+        
+    }
+    else if (IsCurrentCodeOfStandard("CSA")) {
+
     }
     else {
         ASSERT("Code of standard " + GetCurrentCodeOfStandard() + " is not supported");
@@ -321,10 +426,10 @@ ConcreteDesignSurfaceReinforcement.prototype.StirrupsDiameter = function (value_
  * Sets Stirrups spacing
  * @param {Number} stirrup_spacing  Stirrups spacing
  */
-ConcreteDesignSurfaceReinforcement.prototype.StirrupsSpacing = function (stirrup_spacing) {
+ConcreteDesignSurfaceReinforcement.prototype.SetStirrupsSpacing = function (stirrup_spacing) {
     ASSERT(typeof stirrup_spacing !== "undefined", "Stirrups spacing must be specified");
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_STIRRUPS, "Reinforcement must be of stirrups type");
-    this.surface_reinforcement.stirrup_spacing_auto_enabled = false;
+    //this.surface_reinforcement.stirrup_spacing_auto_enabled = false;    // Can't set (bug 94787 - comment)?
     this.surface_reinforcement.stirrup_spacing = stirrup_spacing;
 };
 
@@ -335,12 +440,12 @@ ConcreteDesignSurfaceReinforcement.prototype.StirrupsSpacing = function (stirrup
  * @param {String} stirrup_diameter_auto_diameters      Diameters for reinforcement (e.g. '8.0, 10.0, 12.0 ...'), can be undefined
  * @param {Number} stirrup_diameter_auto_priority       Priority, can be undefined (is not set, 1 as default)
  */
-ConcreteDesignSurfaceReinforcement.prototype.StirrupsDiameterAuto = function (stirrup_diameter_auto_minimum,
+ConcreteDesignSurfaceReinforcement.prototype.SetStirrupsDiameterAuto = function (stirrup_diameter_auto_minimum,
     stirrup_diameter_auto_maximum,
     stirrup_diameter_auto_diameters,
     stirrup_diameter_auto_priority) {
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_STIRRUPS, "Reinforcement must be of stirrups type");
-    this.surface_reinforcement.stirrup_diameter_auto_enabled = true;
+    this.surface_reinforcement.stirrup_diameter_auto_enabled = true;    // Can't set (bug 94787 - comment)?
     if (typeof stirrup_diameter_auto_minimum !== "undefined") {
         this.surface_reinforcement.stirrup_diameter_auto_minimum = stirrup_diameter_auto_minimum;
     }
@@ -363,12 +468,12 @@ ConcreteDesignSurfaceReinforcement.prototype.StirrupsDiameterAuto = function (st
  * @param {Number} stirrup_spacing_auto_increment       Increment, can be undefined (is not set, 0.01 m as default)
  * @param {Number} stirrup_spacing_auto_priority        Priority, can be undefined (is not set, 1 as default)
  */
-ConcreteDesignSurfaceReinforcement.prototype.StirrupsSpacingAuto = function (stirrup_spacing_auto_minimum,
+ConcreteDesignSurfaceReinforcement.prototype.SetStirrupsSpacingAuto = function (stirrup_spacing_auto_minimum,
     stirrup_spacing_auto_maximum,
     stirrup_spacing_auto_increment,
     stirrup_spacing_auto_priority) {
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_STIRRUPS, "Reinforcement must be of stirrups type");
-    this.surface_reinforcement.stirrup_spacing_auto_enabled = true;
+    this.surface_reinforcement.stirrup_spacing_auto_enabled = true; // Can't set (bug 94787 - comment)?
     if (typeof stirrup_spacing_auto_minimum !== "undefined") {
         this.surface_reinforcement.stirrup_spacing_auto_minimum = stirrup_spacing_auto_minimum;
     }
@@ -388,7 +493,7 @@ ConcreteDesignSurfaceReinforcement.prototype.StirrupsSpacingAuto = function (sti
  * @param {Number} additional_offset_to_concrete_cover_top      Additional offset to concrete cover, Top (-z), can be undefined (if not set, top (-z) and 0.0 mm are set)
  * @param {Number} additional_offset_to_concrete_cover_bottom   Additional offset to concrete cover, Top (-z), can be undefined (if not set, top (-z) and 0.0 mm are set)
  */
-ConcreteDesignSurfaceReinforcement.prototype.Assignment = function (additional_offset_to_concrete_cover_top,
+ConcreteDesignSurfaceReinforcement.prototype.SetAssignment = function (additional_offset_to_concrete_cover_top,
     additional_offset_to_concrete_cover_bottom) {
     ASSERT(this.surface_reinforcement.reinforcement_type !== surface_reinforcements.REINFORCEMENT_TYPE_STIRRUPS, "Assignment can't be set for stirrups reinforcement type");
     ASSERT(typeof additional_offset_to_concrete_cover_top !== "undefined" || typeof additional_offset_to_concrete_cover_bottom !== "undefined", "Offset to concrete top or bottom must be specified");
@@ -421,7 +526,7 @@ ConcreteDesignSurfaceReinforcement.prototype.Assignment = function (additional_o
  * @param {Number} second_direction_point_1         Parallel to two points - BX, can be undefined
  * @param {Number} second_direction_point_2         Parallel to two points - BY, can be undefined
  */
-ConcreteDesignSurfaceReinforcement.prototype.ReinforcementDirection = function (reinforcement_direction_type,
+ConcreteDesignSurfaceReinforcement.prototype.SetReinforcementDirection = function (reinforcement_direction_type,
     design_reinforcement_direction,
     first_direction_point_1,
     first_direction_point_2,
@@ -468,7 +573,7 @@ ConcreteDesignSurfaceReinforcement.prototype.ReinforcementDirection = function (
  * @param {Number} projection_coordinate_system     Coordination system, can be undefined (is not set, 1 as default - if any)
  * @param {String} projection_plane                 Projection (XY_OR_UV, YZ_OR_VW, XZ_OR_UW), can be undefined (is ot set, XY_OR_UV as default)
  */
-ConcreteDesignSurfaceReinforcement.prototype.Projection = function (projection_coordinate_system,
+ConcreteDesignSurfaceReinforcement.prototype.SetProjection = function (projection_coordinate_system,
     projection_plane) {
     if (typeof projection_coordinate_system !== "undefined") {
         if (coordinate_systems.exist(projection_coordinate_system)) {
@@ -498,7 +603,7 @@ ConcreteDesignSurfaceReinforcement.prototype.Projection = function (projection_c
  * @param {Number} value_4                  Y2 (CORNER_POINTS) / center side b (CENTER_AND_SIDES)
  * @param {Number} location_rotation        Rectangle rotation about Z
  */
-ConcreteDesignSurfaceReinforcement.prototype.ReinforcementLocationFreeRectangular = function (location_rectangle_type,
+ConcreteDesignSurfaceReinforcement.prototype.SetReinforcementLocationFreeRectangular = function (location_rectangle_type,
     value_1,
     value_2,
     value_3,
@@ -537,7 +642,7 @@ ConcreteDesignSurfaceReinforcement.prototype.ReinforcementLocationFreeRectangula
  * @param {Number} acting_region_from   From, can be undefined (is not set, infinity as default)
  * @param {Number} acting_region_to     To, can be undefined (is not set, infinity as default)
  */
-ConcreteDesignSurfaceReinforcement.prototype.ReinforcementActionRegion = function (acting_region_from,
+ConcreteDesignSurfaceReinforcement.prototype.SetReinforcementActionRegion = function (acting_region_from,
     acting_region_to) {
     ASSERT(this.surface_reinforcement.location_type !== surface_reinforcements.LOCATION_TYPE_ON_SURFACE, "Reinforcement action region can't be set for ON_SURFACE location type");
     if (typeof acting_region_from !== "undefined") {
@@ -548,7 +653,7 @@ ConcreteDesignSurfaceReinforcement.prototype.ReinforcementActionRegion = functio
     }
 };
 
-ConcreteDesignSurfaceReinforcement.prototype.ReinforcementLocationFreeCircular = function (location_center_x,
+ConcreteDesignSurfaceReinforcement.prototype.SetReinforcementLocationFreeCircular = function (location_center_x,
     location_center_y,
     location_radius) {
     ASSERT(this.surface_reinforcement.location_type === surface_reinforcements.LOCATION_TYPE_FREE_CIRCULAR, "Reinforcement location can be set only for FREE_CIRCULAR location type");
@@ -566,7 +671,7 @@ ConcreteDesignSurfaceReinforcement.prototype.ReinforcementLocationFreeCircular =
  * Sets Reinforcement location
  * @param {Array} polygon_points    Polygon points ([[X1, Y1, (Comment1)], [X2, Y2, (Comment2)], ... [Xn, Yn, (Comment)]]), at least coordinations must be specified
  */
-ConcreteDesignSurfaceReinforcement.prototype.ReinforcementLocationFreePolygon = function (polygon_points) {
+ConcreteDesignSurfaceReinforcement.prototype.SetReinforcementLocationFreePolygon = function (polygon_points) {
     ASSERT(this.surface_reinforcement.location_type === surface_reinforcements.LOCATION_TYPE_FREE_POLYGON, "Reinforcement location can be set only for FREE_POLYGON location type");
     ASSERT(typeof polygon_points !== "undefined", "Polygon points must be specified ([[X1, Y1, (Comment1)], [X2, Y2, (Comment2)], ... [Xn, Yn, (Comment)]])");
     ASSERT(polygon_points.length >= 3, "At least three coordinates must be specified");
@@ -579,3 +684,43 @@ ConcreteDesignSurfaceReinforcement.prototype.ReinforcementLocationFreePolygon = 
         }
     }
 };
+
+function GetConcreteDesignBarNoForAciStandard (rebar_size_calculated) {
+    return EnumValueFromJSHLFTypeName(
+        rebar_size_calculated,
+        "rebar size calculated",
+        {
+            "#1": "#1",
+            "#1.5": "#1.5",
+            "#2": "#2",
+            "#2.5": "#2.5",
+            "#3": "#3",
+            "#4": "#4",
+            "#5": "#5",
+            "#6": "#6",
+            "#7": "#7",
+            "#8": "#8",
+            "#9": "#9",
+            "#10": "#10",
+            "#11": "#11",
+            "#14": "#14",
+            "#18": "#18"
+        },
+        "#3");
+}
+
+function GetConcreteDesignBarNoForAscStandard (rebar_size_calculated) {
+    return EnumValueFromJSHLFTypeName(
+        rebar_size_calculated,
+        "rebar size calculated",
+        {
+            "15M": "15M",
+            "20M": "20M",
+            "25M": "25M",
+            "30M": "30M",
+            "35M": "35M",
+            "45M": "45M",
+            "55M": "55M"
+        },
+        "15M");
+}

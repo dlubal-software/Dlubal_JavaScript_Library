@@ -1,8 +1,6 @@
 include("../../Tools/jshlf_common_functions.js");
 
 /*
-Bug 79355: property_member_total_minumum_percentage_reinforcement_area
-Bug 81749: property_member_nett_concrete_area
 Bug?: this.addon.settings_member_ec2.property_fatigue_design_time_of_start_of_cyclic_loading_on_concrete cannot be set
 */
 
@@ -58,7 +56,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.SetName = function (name) {
  * @param {Boolean} property_member_shear_forces_vy         Shear forces in Y, can be undefined (is not set, true as default)
  * @param {Boolean} property_member_shear_forces_vz         Shear forces in Z, can be undefined (is not set, true as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Members_ConsiderInternalForces = function (property_member_axial_forces,
+ConcreteDesignUltimateConfigurationEN.prototype.SetMembers_ConsiderInternalForces = function (property_member_axial_forces,
     property_member_bending_moments_my,
     property_member_bending_moments_mz,
     property_member_torsional_moments,
@@ -76,7 +74,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_ConsiderInternalForces =
  * @param {Boolean} property_member_reduction_of_the_shear_forces_with_concentrated_load                                            Reduction of the shear forces with concentrated load acc. to 6.2.2(6) and 6.2.3(8), can be undefined (is not set, false as default)
  * @param {Boolean} property_member_consideration_of_minimum_eccentricity                                                           Consideration of minimum eccentricity acc. to 6.1(4), can be undefined (is not set, false as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Members_ReductionsOfInternalForcesInZ = function (property_member_consideration_of_limited_moment_redistribution_of_the_supporting_moments,
+ConcreteDesignUltimateConfigurationEN.prototype.SetMembers_ReductionsOfInternalForcesInZ = function (property_member_consideration_of_limited_moment_redistribution_of_the_supporting_moments,
     property_member_reduction_of_the_moments_or_dimensioning_for_the_moments_at_the_face_of_a_monolithic_support,
     property_member_reduction_of_the_shear_forces_in_the_support_face_and_distance,
     property_member_reduction_of_the_shear_forces_with_concentrated_load,
@@ -107,7 +105,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_ReductionsOfInternalForc
  * @param {Number} property_member_reinforcement_distribute_over_slab_reduced_width                             Distribute reinforcement evenly over complete slab width - Distribute the tensile reinforcement in the slab over a width of, can be undefined (is not set, 100% as default)
  * @param {Boolean} property_member_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement   Include tensile force due to shear in required longitudinal reinforcement, can be undefined (is not set, true as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Members_RequiredLongitudinalReinforcement = function (property_member_reinforcement_layout,
+ConcreteDesignUltimateConfigurationEN.prototype.SetMembers_RequiredLongitudinalReinforcement = function (property_member_reinforcement_layout,
     property_member_reinforcement_diameter_for_preliminary_design,
     property_member_reinforcement_distribute_over_slab,
     property_member_reinforcement_distribute_over_slab_reduced_width,
@@ -125,21 +123,21 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_RequiredLongitudinalRein
  * @param {Number} property_member_bottom_minimum_reinforcement_area                                            Bottom reinforcement area, can be undefined (is not set, 0.0 as default)
  * @param {Number} property_member_total_minimum_reinforcement_area                                             Total reinforcement area, can be undefined (is not set, 0.0 as default)
  * @param {Boolean} property_member_minimum_reinforcement_percentage                                            Minimum reinforcement percentage
- * @param {Number} property_member_total_minumum_percentage_reinforcement_area                                  Total reinforcement area, can be undefined (is not set, 0.0 as default)                                            
+ * @param {Number} property_member_total_minimum_percentage_reinforcement_area                                  Total reinforcement area, can be undefined (is not set, 0.0 as default)                                            
  * @param {Boolean} property_member_minimum_shear_reinforcement                                                 Minimum shear reinforcement acc. to standard, can be undefined (is not set, true as default)
  * @param {Boolean} property_member_use_compression_longitudinal_reinforcement_for_maximum_stirrup_spacing      Compression longitudinal reinforcement for maximum stirrup spacing acc. to 9.2.1.2(3), can be undefined (is not set, false as default)
  * @param {String} property_member_compression_longitudinal_reinforcement_for_maximum_stirrup_spacing           Considered longitudinal reinforcement (MAXIMUM_STIRRUP_SPACING_REQUIRED, MAXIMUM_STIRRUP_SPACING_PROVIDED), can be undefined (is not set, MAXIMUM_STIRRUP_SPACING_REQUIRED as default)
  * @param {Boolean} property_member_minimum_construction_reinforcement                                          Minimum construction reinforcement acc. to 9.2.1.2(1), 9.2.1.4(1). Requires design support of the type ‘Concrete’ with a monolithic connection to calculate the design check. Can be undefined (is not set, true as default)
  * @param {Boolean} property_member_design_check_for_tensile_force_in_longitudinal_reinforcement                Design check for tensile force in longitudinal reinforcement, including tension due to shear acc. to 9.2.1.3(2), can be undefined (is not set, true as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Members_DetailingAndParticularRules = function (property_member_minimum_longitudinal_reinforcement,
+ConcreteDesignUltimateConfigurationEN.prototype.SetMembers_DetailingAndParticularRules = function (property_member_minimum_longitudinal_reinforcement,
     property_member_user_defined_minimum_longitudinal_reinforcement_area,
     property_member_minimum_reinforcement_area,
     property_member_top_minimum_reinforcement_area,
     property_member_bottom_minimum_reinforcement_area,
     property_member_total_minimum_reinforcement_area,
     property_member_minimum_reinforcement_percentage,
-    property_member_total_minumum_percentage_reinforcement_area,
+    property_member_total_minimum_percentage_reinforcement_area,
     property_member_minimum_shear_reinforcement,
     property_member_use_compression_longitudinal_reinforcement_for_maximum_stirrup_spacing,
     property_member_compression_longitudinal_reinforcement_for_maximum_stirrup_spacing,
@@ -172,9 +170,9 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_DetailingAndParticularRu
         ASSERT(this.addon.settings_member_ec2.property_member_user_defined_minimum_longitudinal_reinforcement_area, "User-defined min. longitudinal reinforcement area must be on");
         this.addon.settings_member_ec2.property_member_minimum_reinforcement_percentage = property_member_minimum_reinforcement_percentage;
     }
-    if (typeof property_member_total_minumum_percentage_reinforcement_area !== "undefined") {
+    if (typeof property_member_total_minimum_percentage_reinforcement_area !== "undefined") {
         ASSERT(this.addon.settings_member_ec2.property_member_minimum_reinforcement_percentage, "Minimum reinforcement percentage must be on");
-        this.addon.settings_member_ec2.property_member_total_minumum_percentage_reinforcement_area = property_member_total_minumum_percentage_reinforcement_area;
+        this.addon.settings_member_ec2.property_member_total_minimum_percentage_reinforcement_area = property_member_total_minimum_percentage_reinforcement_area;
     }
     if (typeof property_member_minimum_shear_reinforcement !== "undefined") {
         this.addon.settings_member_ec2.property_member_minimum_shear_reinforcement = property_member_minimum_shear_reinforcement;
@@ -208,7 +206,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_DetailingAndParticularRu
  *                                      Use provided longitudinal reinforcement (PROVIDED)
  *                                      Automatically increase required longitudinal reinf. to avoid shear reinf. (AUTOMATICALLY)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Members_RequiredShearReinforcement = function (shear_reinforcement) {
+ConcreteDesignUltimateConfigurationEN.prototype.SetMembers_RequiredShearReinforcement = function (shear_reinforcement) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
     SetConcreteDesignRequiredShearReinforcementType(this.addon.settings_member_ec2, "member", ["REQUIRED", "PROVIDED", "AUTOMATICALLY"], shear_reinforcement);
 };
@@ -222,7 +220,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_RequiredShearReinforceme
  * @param {Number} property_member_shear_joint_normal_stress_across_joint_surfaces                          Normal stress across joint surfaces (tension negative), can be undefined (0.0 as default)
  * @param {Boolean} property_member_shear_joint_design_of_flange_connections_on_segmented_cross_sections    Design of flange connections on segmented cross-sections, can be undefined (false as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Members_ShearJoint = function (property_member_shear_joint_design,
+ConcreteDesignUltimateConfigurationEN.prototype.SetMembers_ShearJoint = function (property_member_shear_joint_design,
     analysis_method,
     property_member_shear_joint_fatigue_or_dynamic_loads,
     property_member_shear_joint_normal_stress_across_joint_surfaces,
@@ -253,17 +251,17 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_ShearJoint = function (p
  * @param {Boolean} property_member_consider_neutral_axis_depth_limitation  Consider neutral axis depth limitation acc. to 5.6.2(2), 5.6.3(2), can be undefined (is not set, false as default)
  * @param {Number} property_member_value_of_neutral_axis_depth_limitation   Value of neutral axis depth limitation, can be undefined (is not set, 0.45 as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Members_NeutralAxisDepthLimitation = function(property_member_consider_neutral_axis_depth_limitation,
+ConcreteDesignUltimateConfigurationEN.prototype.SetMembers_NeutralAxisDepthLimitation = function(property_member_consider_neutral_axis_depth_limitation,
     property_member_value_of_neutral_axis_depth_limitation) {
     SetConcreteDesignNeutralAxisDepthLimitation(this.addon.settings_member_ec2, "member", property_member_consider_neutral_axis_depth_limitation, property_member_value_of_neutral_axis_depth_limitation);
 };
 
 /**
  * Sets Calculation setting
- * @param {Boolean} property_member_nett_concrete_area  Net concrete area, can be undefined (true as default)
+ * @param {Boolean} property_member_net_concrete_area  Net concrete area, can be undefined (true as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Members_CalculationSetting = function (property_member_nett_concrete_area) {
-    SetConcreteDesignMembersCalculationSetting(this.addon.settings_member_ec2, property_member_nett_concrete_area);
+ConcreteDesignUltimateConfigurationEN.prototype.SetMembers_CalculationSetting = function (property_member_net_concrete_area) {
+    SetConcreteDesignMembersCalculationSetting(this.addon.settings_member_ec2, property_member_net_concrete_area);
 };
 
 /**
@@ -274,7 +272,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_CalculationSetting = fun
  * @param {*} property_member_fiber_concrete_material_model_for_tension_strains             Material model for tension strains (SDL1, SDL2, SDL3), can be undefined (is not set, SDL1 as default)
  * @param {*} property_member_fiber_concrete_size_factor_kfg_calculate_from_tension_area    Size factor κfG calculated from tension area Afct, can be undefined (is not set, true as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Members_FiberConcrete = function (fiber_concrete_effect,
+ConcreteDesignUltimateConfigurationEN.prototype.SetMembers_FiberConcrete = function (fiber_concrete_effect,
     property_member_fiber_concrete_material_model_for_tension_strains,
     property_member_fiber_concrete_size_factor_kfg_calculate_from_tension_area) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
@@ -298,7 +296,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Members_FiberConcrete = function
  * @param {Boolean} property_stability_determine_factor_cy      Determine factor Cy, can be undefined (is not set, false as default)
  * @param {Number} property_stability_determined_factor_cy      Determined factor Cy, can be undefined (is not set, 0.7 as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Stability_SlendernessAboutY = function (property_stability_determine_factor_ay,
+ConcreteDesignUltimateConfigurationEN.prototype.SetStability_SlendernessAboutY = function (property_stability_determine_factor_ay,
     property_stability_determined_factor_ay,
     property_stability_determine_factor_by,
     property_stability_determined_factor_by,
@@ -337,7 +335,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Stability_SlendernessAboutY = fu
  * @param {Boolean} property_stability_determine_factor_cz      Determine factor Cz, can be undefined (is not set, false as default)
  * @param {Number} property_stability_determined_factor_cz      Determined factor Cz, can be undefined (is not set, 0.7 as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Stability_SlendernessAboutZ = function (property_stability_determine_factor_az,
+ConcreteDesignUltimateConfigurationEN.prototype.SetStability_SlendernessAboutZ = function (property_stability_determine_factor_az,
     property_stability_determined_factor_az,
     property_stability_determine_factor_bz,
     property_stability_determined_factor_bz,
@@ -372,7 +370,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Stability_SlendernessAboutZ = fu
  * @param {Boolean} property_stability_structural_system_of_isolated_columns    Structural system of isolated columns, can be undefined (is not set, true as default)
  * @param {Boolean} property_stability_number_of_effective_columns              Number of effective columns, can be undefined (is not set, 2 as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Stability_LoadDistribution = function (property_stability_structural_system_of_isolated_columns,
+ConcreteDesignUltimateConfigurationEN.prototype.SetStability_LoadDistribution = function (property_stability_structural_system_of_isolated_columns,
     property_stability_number_of_effective_columns) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
     if (typeof property_stability_structural_system_of_isolated_columns !== "undefined") {
@@ -389,7 +387,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Stability_LoadDistribution = fun
  * @param {Boolean} property_stability_separate_design_in_each_principal_direction_acc_5_8_9    Separate design in each principal direction acc. to 5.8.9, can be undefined (is not set, false as default)
  * @param {Boolean} property_stability_use_simplified_criterion_acc_5_39                        Use simplified criterion acc. to Equation 5.39, can be undefined (is not set, false as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Stability_BiaxialBending = function (property_stability_separate_design_in_each_principal_direction_acc_5_8_9,
+ConcreteDesignUltimateConfigurationEN.prototype.SetStability_BiaxialBending = function (property_stability_separate_design_in_each_principal_direction_acc_5_8_9,
     property_stability_use_simplified_criterion_acc_5_39) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
     if (typeof property_stability_separate_design_in_each_principal_direction_acc_5_8_9 !== "undefined") {
@@ -400,7 +398,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Stability_BiaxialBending = funct
     }
 };
 
-ConcreteDesignUltimateConfigurationEN.prototype.Stability_Curvature = function (curvature_type,
+ConcreteDesignUltimateConfigurationEN.prototype.SetStability_Curvature = function (curvature_type,
     property_stability_curvature_user_defined) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
     SetConcreteDesignCurvatureForRequiredReinforcement(this.addon, curvature_type);
@@ -415,11 +413,13 @@ ConcreteDesignUltimateConfigurationEN.prototype.Stability_Curvature = function (
  * @param {String} property_stability_reinforcement_layout                              Reinforcement layout (TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION, IN_CORNERS_SYMMETRICAL_DISTRIBUTION, UNIFORMLY_SURROUNDING, FACTORIZED_PROVIDED_REINFORCEMENT), can be undefined (is not set, UNIFORMLY_SURROUNDING as default)
  * @param {String/Number} reinforcement_diameter_for_preliminary_design_user_value      Reinforcement diameter for preliminary design (MAX_OF_ALL or user number value), can be undefined (is not set, MAX_OF_ALL as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Stability_RequiredReinforcement = function (property_stability_reinforcement_layout,
+ConcreteDesignUltimateConfigurationEN.prototype.SetStability_RequiredReinforcement = function (property_stability_reinforcement_layout,
     reinforcement_diameter_for_preliminary_design_user_value) {
     SetConcreteDesignStabilityRequiredReinforcement(this.addon.settings_member_ec2, property_stability_reinforcement_layout, reinforcement_diameter_for_preliminary_design_user_value);
 };
 
+//Grandmaster version newly not supports this
+/*
 /**
  * Sets Fatigue Design
  * @param {String} fatigue_design_type                                                                              Fatigue design type, can be undefined (is not set, SIMPLIFIED_DESIGN_METHOD)
@@ -433,7 +433,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Stability_RequiredReinforcement 
  *                                                                                                                  - Factor λs / Number of cycles (is not set, 1.0 / 1000000 as default)
  * @param {Number} property_fatigue_design_time_of_start_of_cyclic_loading_on_concrete                              Time of start of cyclic loading on concrete in days, can be undefined (is not set, 28 days as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.FatigueDesign = function (fatigue_design_type,
+/*ConcreteDesignUltimateConfigurationEN.prototype.SetFatigueDesign = function (fatigue_design_type,
     property_fatigue_design_modification_of_the_design_check_of_the_equivalent_steel_stress_range,
     modification_type,
     modification_value,
@@ -459,7 +459,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.FatigueDesign = function (fatigu
     if (typeof property_fatigue_design_time_of_start_of_cyclic_loading_on_concrete !== "undefined") {
         this.addon.settings_member_ec2.property_fatigue_design_time_of_start_of_cyclic_loading_on_concrete = property_fatigue_design_time_of_start_of_cyclic_loading_on_concrete;
     }
-};
+};*/
 
 /**
  * Sets Design method
@@ -467,7 +467,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.FatigueDesign = function (fatigu
  *                                      - No optimization of design internal forces (NO)
  *                                      - Optimization of design internal forces (YES)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_DesignMethod = function (optimization_type) {
+ConcreteDesignUltimateConfigurationEN.prototype.SetSurfaces_DesignMethod = function (optimization_type) {
     SetConcreteDesignSurfacesDesignMethod(this.addon.settings_surface_ec2, optimization_type);
 };
 
@@ -475,7 +475,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_DesignMethod = function
  * Sets Internal Forces Diagram Used for Design
  * @param {Boolean} property_subtraction_of_rib_components  Subtraction of rib components for the ULS calculation and for the analytic method of SLS calculation, can be undefined (true as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_InternalForcesDiagramUsedForDesign = function (property_subtraction_of_rib_components) {
+ConcreteDesignUltimateConfigurationEN.prototype.SetSurfaces_InternalForcesDiagramUsedForDesign = function (property_subtraction_of_rib_components) {
     SetConcreteDesignSurfacesInternalForcesDiagramUsedForDesign(this.addon.settings_surface_ec2, property_subtraction_of_rib_components);
 };
 
@@ -495,7 +495,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_InternalForcesDiagramUs
  *                                                                                  - Defined in reinforcement direction (DEFINED_IN_REINFORCEMENT_DIRECTION)
  * @param {String} property_surface_reinforcement_defined_direction_phi             Reinforcement direction (PHI_1, PHI_2)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_MinimumLongitudinalReinforcement = function (property_minimum_longitudinal_reinforcement_acc_to_standard,
+ConcreteDesignUltimateConfigurationEN.prototype.SetSurfaces_MinimumLongitudinalReinforcement = function (property_minimum_longitudinal_reinforcement_acc_to_standard,
     reinforcement_type,
     min_reinforcement_direction,
     min_reinforcement_direction_user_values,
@@ -513,7 +513,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_MinimumLongitudinalRein
  * @param {Number} property_minimum_tension_reinforcement                                   Minimum tension reinforcement, can be undefined (is not set, 0% as default)
  * @param {Number} property_minimum_compression_reinforcement                               Minimum compression reinforcement, can be undefined (is not set, 0% as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_UserDefinedMinimumLongitudinalReinforcementPercentage = function (property_user_defined_minimum_longitudinal_reinforcement_percentage,
+ConcreteDesignUltimateConfigurationEN.prototype.SetSurfaces_UserDefinedMinimumLongitudinalReinforcementPercentage = function (property_user_defined_minimum_longitudinal_reinforcement_percentage,
     property_minimum_reinforcement,
     property_minimum_secondary_reinforcement,
     property_minimum_tension_reinforcement,
@@ -529,7 +529,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_UserDefinedMinimumLongi
  *                                                                                  - Maximum longitudinal reinforcement for plates acc. to 9.3.1 (PLATES)
  *                                                                                  - Maximum longitudinal reinforcement for walls acc. to 9.6 (WALLS)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_MaximumLongitudinalReinforcement = function (property_maximum_longitudinal_reinforcement_acc_to_standard,
+ConcreteDesignUltimateConfigurationEN.prototype.SetSurfaces_MaximumLongitudinalReinforcement = function (property_maximum_longitudinal_reinforcement_acc_to_standard,
     reinforcement_type) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
     if (typeof property_maximum_longitudinal_reinforcement_acc_to_standard !== "undefined") {
@@ -546,7 +546,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_MaximumLongitudinalRein
  * @param {Boolean} property_user_defined_maximum_longitudinal_reinforcement_percentage         User-defined maximum longitudinal reinforcement percentage, can be undefined (is not set, true as default)
  * @param {Number} property_user_defined_maximum_longitudinal_reinforcement_percentage_value    Maximum reinforcement, can be undefined (is not set, 4% as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_UserDefinedMaximumLongitudinalReinforcementPercentage = function (property_user_defined_maximum_longitudinal_reinforcement_percentage,
+ConcreteDesignUltimateConfigurationEN.prototype.SetSurfaces_UserDefinedMaximumLongitudinalReinforcementPercentage = function (property_user_defined_maximum_longitudinal_reinforcement_percentage,
     property_user_defined_maximum_longitudinal_reinforcement_percentage_value) {
     SetConcreteDesignSurfacesUserDefinedMaximumLongitudinalReinforcementPercentage(this.addon.settings_surface_ec2, property_user_defined_maximum_longitudinal_reinforcement_percentage, property_user_defined_maximum_longitudinal_reinforcement_percentage_value);
 };
@@ -555,7 +555,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_UserDefinedMaximumLongi
  * Sets Minimum shear reinforcement acc. to 9.3.2
  * @param {Boolean} property_minimum_shear_reinforcement    Minimum shear reinforcement, can be undefined (is not set, true as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_MinimumShearReinforcement = function (property_minimum_shear_reinforcement) {
+ConcreteDesignUltimateConfigurationEN.prototype.SetSurfaces_MinimumShearReinforcement = function (property_minimum_shear_reinforcement) {
     SetConcreteDesignSurfacesMinimumShearReinforcement(this.addon.settings_surface_ec2, property_minimum_shear_reinforcement);
 };
 
@@ -564,7 +564,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_MinimumShearReinforceme
  * @param {Boolean} property_user_defined_minimum_shear_reinforcement_percentage        Minimum shear reinforcement percentage, can be undefined (is not set, false as default)
  * @param {Number} property_user_defined_minimum_shear_reinforcement_percentage_value   Minimum reinforcement, can be undefined, can be undefined (is not set, 0% as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_UserDefinedMinimumShearReinforcementPercentage = function (property_user_defined_minimum_shear_reinforcement_percentage,
+ConcreteDesignUltimateConfigurationEN.prototype.SetSurfaces_UserDefinedMinimumShearReinforcementPercentage = function (property_user_defined_minimum_shear_reinforcement_percentage,
     property_user_defined_minimum_shear_reinforcement_percentage_value) {
     SetConcreteDesignSurfacesUserDefinedMinimumShearReinforcementPercentage(this.addon.settings_surface_ec2, property_user_defined_minimum_shear_reinforcement_percentage, property_user_defined_minimum_shear_reinforcement_percentage_value);
 };
@@ -573,7 +573,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_UserDefinedMinimumShear
  * Sets Required Longitudinal Reinforcement
  * @param {Boolean} property_surface_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement  Include tensile force due to shear in required longitudinal reinforcement, can be undefined (true as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_RequiredLongitudinalReinforcement = function (property_surface_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement) {
+ConcreteDesignUltimateConfigurationEN.prototype.SetSurfaces_RequiredLongitudinalReinforcement = function (property_surface_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
     if (typeof property_surface_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement === "undefined") {
         property_surface_include_tensile_force_due_to_shear_in_required_longitudinal_reinforcement = true;
@@ -588,7 +588,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_RequiredLongitudinalRei
  *                                                  - Use provided longitudinal reinforcement (PROVIDED)
  *                                                  - Automatically increase required longitudinal reinf. to avoid shear reinf. (AUTOMATICALLY)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_RequiredShearReinforcement = function (required_shear_reinforcement) {
+ConcreteDesignUltimateConfigurationEN.prototype.SetSurfaces_RequiredShearReinforcement = function (required_shear_reinforcement) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
     SetConcreteDesignRequiredShearReinforcementType(this.addon.settings_surface_ec2, "surface", ["REQUIRED", "PROVIDED", "AUTOMATICALLY"], required_shear_reinforcement);
 };
@@ -598,30 +598,45 @@ ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_RequiredShearReinforcem
  * @param {Boolean} property_surface_consider_neutral_axis_depth_limitation   Consider neutral axis depth limitation acc. to 5.6.2(2), 5.6.3(2), can be undefined (true as default)
  * @param {Number} property_surface_value_of_neutral_axis_depth_limitation   Value of neutral axis depth limitation, can be undefined (is not set, 0.45 as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_NeutralAxisDepthLimitation = function (property_surface_consider_neutral_axis_depth_limitation,
+ConcreteDesignUltimateConfigurationEN.prototype.SetSurfaces_NeutralAxisDepthLimitation = function (property_surface_consider_neutral_axis_depth_limitation,
     property_surface_value_of_neutral_axis_depth_limitation) {
     SetConcreteDesignNeutralAxisDepthLimitation(this.addon.settings_surface_ec2, "surface", property_surface_consider_neutral_axis_depth_limitation, property_surface_value_of_neutral_axis_depth_limitation);
 };
 
 /**
  * Sets Fiber Concrete
- * @param {String} property_surface_fiber_concrete_material_model_for_tension_strains               Material model for tension strains (SDL1, SDL2, SDL3), can be undefined (is not set, SDL1 as default)
- * @param {Boolean} property_surface_fiber_concrete_size_factor_kfg_calculate_from_tension_area     Size factor κfG calculated from tension area Afct, can be undefined (is not set, true as default)
+ * @param {String} property_surface_fiber_concrete_material_model_for_tension_strains   Concrete - Material model for tension strains (SDL1, SDL2, SDL3), can be undefined (is not set, SDL1 as default)
+ * @param {String} property_surface_fiber_concrete_model_for_compression                Concrete - Model for compression (PARABOLIC_RECTANGULAR, MODEL_PARABOLIC), can be undefined (is not set, PARABOLIC_RECTANGULAR as default)
+ * @param {String} property_surface_fiber_concrete_material_model                       Reinforcement - Material model (BILINEAR_HARDENING, BILINEAR_YIELDING), can be undefined (is not set, BILINEAR_HARDENING as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Surfaces_FiberConcrete = function (property_surface_fiber_concrete_material_model_for_tension_strains,
-    property_surface_fiber_concrete_size_factor_kfg_calculate_from_tension_area) {
+ConcreteDesignUltimateConfigurationEN.prototype.SetSurfaces_FiberConcrete = function (property_surface_fiber_concrete_material_model_for_tension_strains,
+    property_surface_fiber_concrete_model_for_compression,
+    property_surface_fiber_concrete_material_model) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
     this.addon.settings_surface_ec2.property_surface_fiber_concrete_material_model_for_tension_strains = GetConcreteDesignMaterialModelForTensionStrain("surface", property_surface_fiber_concrete_material_model_for_tension_strains);
-    if (typeof property_surface_fiber_concrete_size_factor_kfg_calculate_from_tension_area !== "undefined") {
-        this.addon.settings_surface_ec2.property_surface_fiber_concrete_size_factor_kfg_calculate_from_tension_area = property_surface_fiber_concrete_size_factor_kfg_calculate_from_tension_area;
-    }
+    this.addon.settings_surface_ec2.property_surface_fiber_concrete_model_for_compression = EnumValueFromJSHLFTypeName(
+        property_surface_fiber_concrete_model_for_compression,
+        "model for compression",
+        {
+            "PARABOLIC_RECTANGULAR": concrete_design_surface_ulsconfig_concrete_design_ec2.E_FIBER_CONCRETE_COMPRESSION_MATERIAL_MODEL_PARABOLIC_RECTANGULAR,
+            "MODEL_PARABOLIC": concrete_design_surface_ulsconfig_concrete_design_ec2.E_FIBER_CONCRETE_COMPRESSION_MATERIAL_MODEL_PARABOLIC
+        },
+        concrete_design_surface_ulsconfig_concrete_design_ec2.E_FIBER_CONCRETE_COMPRESSION_MATERIAL_MODEL_PARABOLIC_RECTANGULAR);
+    this.addon.settings_surface_ec2.property_surface_fiber_concrete_material_model = EnumValueFromJSHLFTypeName(
+        property_surface_fiber_concrete_material_model,
+        "material model",
+        {
+            "BILINEAR_HARDENING": concrete_design_surface_ulsconfig_concrete_design_ec2.E_FIBER_CONCRETE_REINFORCEMENT_MATERIAL_MODEL_BILINEAR_HARDENING,
+            "BILINEAR_YIELDING": concrete_design_surface_ulsconfig_concrete_design_ec2.E_FIBER_CONCRETE_REINFORCEMENT_MATERIAL_MODEL_BILINEAR_YIELDING
+        },
+        concrete_design_surface_ulsconfig_concrete_design_ec2.E_FIBER_CONCRETE_REINFORCEMENT_MATERIAL_MODEL_BILINEAR_HARDENING);
 };
 
 /**
  * Sets Structural Element
  * @param {String} property_node_structure_element_type     Structural element type (AUTO, SLAB, FOUNDATION), can be undefined (is not set, AUTO as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Punching_StructuralElement = function (property_node_structure_element_type) {
+ConcreteDesignUltimateConfigurationEN.prototype.SetPunching_StructuralElement = function (property_node_structure_element_type) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
     this.addon.settings_node_ec2.property_node_structure_element_type = EnumValueFromJSHLFTypeName(
         property_node_structure_element_type,
@@ -643,7 +658,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Punching_StructuralElement = fun
  * @param {Boolean} property_user_defined_load_inside_critical_perimeter_factor_for_columns     User-defined surface load inside critical perimeter, can be undefined (is not set, false as default)
  * @param {Number} property_node_load_inside_critical_perimeter_factor_for_columns              User-defined Load inside critical perimeter factor for columns, can be undefined (is not set, 10 kn/m2 as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Punching_PunchingLoadForColumns = function (property_node_used_punching_load_for_columns,
+ConcreteDesignUltimateConfigurationEN.prototype.SetPunching_PunchingLoadForColumns = function (property_node_used_punching_load_for_columns,
     property_node_used_defined_value_of_punching_force,
     property_node_direction_of_punching_force,
     property_node_used_punching_load_inside_critical_perimeter_for_columns,
@@ -686,7 +701,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Punching_PunchingLoadForColumns 
  * @param {Boolean} property_user_defined_load_inside_critical_perimeter_factor_for_walls       User-defined surface load inside critical perimeter, can be undefined (is not set, false as default)
  * @param {Number} property_node_load_inside_critical_perimeter_factor_for_walls                User-defined load inside critical perimeter factor for walls, can be undefined (is not set, 12 kN/m2 as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Punching_PunchingLoadForWalls = function (property_node_used_punching_load_for_walls,
+ConcreteDesignUltimateConfigurationEN.prototype.SetPunching_PunchingLoadForWalls = function (property_node_used_punching_load_for_walls,
     property_node_used_punching_load_inside_critical_perimeter_for_walls,
     property_user_defined_load_inside_critical_perimeter_factor_for_walls,
     property_node_load_inside_critical_perimeter_factor_for_walls) {
@@ -721,7 +736,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Punching_PunchingLoadForWalls = 
  * @param {String} property_node_distance_deductible_surface                        Distance of deductible surface (L_W_OUT, K_D), can be undefined (is not set, L_W_OUT as default)
  * @param {String} property_node_multiple_static_depth_for_slab                     Multiple static depth (k * d), can be undefined (is not set, 1 as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Punching_DeductibleSurfaceLoadForSlab = function (property_node_deductible_surface_load_for_slab,
+ConcreteDesignUltimateConfigurationEN.prototype.SetPunching_DeductibleSurfaceLoadForSlab = function (property_node_deductible_surface_load_for_slab,
     surface_load_for_slab_type,
     property_node_deductible_portion_for_slab,
     property_node_deductible_portion_for_slab_user_defined_value,
@@ -762,7 +777,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Punching_DeductibleSurfaceLoadFo
     }
 };
 
-ConcreteDesignUltimateConfigurationEN.prototype.Punching_FactorBeta = function (property_node_factor_beta_estimated_according_to_clause,
+ConcreteDesignUltimateConfigurationEN.prototype.SetPunching_FactorBeta = function (property_node_factor_beta_estimated_according_to_clause,
     property_node_defined_factor_beta) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
     this.addon.settings_node_ec2.property_node_factor_beta_estimated_according_to_clause = EnumValueFromJSHLFTypeName(
@@ -791,7 +806,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Punching_FactorBeta = function (
  * @param {Number} property_node_wall_thickness_1                                       Wall thickness 1 (Wall End, Wall Corner), can be undefined (is not set, 0.24 m as default)
  * @param {Number} property_node_wall_thickness_2                                       Wall thickness 2 (Wall Corner), can be undefined (is not set, 0.2 m as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Punching_LoadedAreaOfPunchingNode = function (property_node_define_loaded_area_for_punching_node_type_column,
+ConcreteDesignUltimateConfigurationEN.prototype.SetPunching_LoadedAreaOfPunchingNode = function (property_node_define_loaded_area_for_punching_node_type_column,
     property_node_shape_of_loaded_area,
     shape_parameters,
     property_node_define_wall_thicknesses_for_punching_node_type_wall,
@@ -839,7 +854,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Punching_LoadedAreaOfPunchingNod
  * @param {Boolean} property_node_define_critical_section_for_slab  Define critical section for slab, can be undefined (is not set, false as default)
  * @param {Number} property_node_distance                           Distance, can be undefined (is not set, 0.29 m as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Punching_BasicControlPerimeter = function (property_node_define_critical_section_for_slab,
+ConcreteDesignUltimateConfigurationEN.prototype.SetPunching_BasicControlPerimeter = function (property_node_define_critical_section_for_slab,
     property_node_distance) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
     if (typeof property_node_define_critical_section_for_slab !== "undefined") {
@@ -859,7 +874,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Punching_BasicControlPerimeter =
  * @param {Number} property_node_penetration_on_top_side                            Penetration on top side (-z), can be undefined (is not set, 0.02 m as default)
  * @param {Number} property_node_penetration_on_bottom_side                         Penetration on bottom side (+z), can be undefined (is not set, 0.02 m as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Punching_MeanEffectiveDepth = function (property_node_define_region_of_detection_of_effective_depth,
+ConcreteDesignUltimateConfigurationEN.prototype.SetPunching_MeanEffectiveDepth = function (property_node_define_region_of_detection_of_effective_depth,
     property_node_distance_from_loading_area,
     property_node_column_penetration,
     property_node_penetration_on_top_side,
@@ -897,7 +912,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Punching_MeanEffectiveDepth = fu
  * @param {Boolean} property_node_define_outer_control_perimeter                                    Define outer control perimeter, can be undefined (is not set, false as default)
  * @param {Number} property_node_distance_of_outer_control_perimeter_to_loaded_area                 Distance to load area, can be undefined (is not set, 2 m as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Punching_PunchingShearReinforcement = function (property_node_punch_s_r_min,
+ConcreteDesignUltimateConfigurationEN.prototype.SetPunching_PunchingShearReinforcement = function (property_node_punch_s_r_min,
     property_node_define_perimeter,
     property_node_define_sections_for_analysis_of_punching_shear_reinforcement,
     property_node_number_of_inner_control_perimeters,
@@ -949,7 +964,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Punching_PunchingShearReinforcem
  * @param {String/Number} property_node_reference_surfaces_thickness    Thickness of reference surfaces (MINIMUM_THICKNESS, MAXIMUM_THICKNESS, SELECTED or user-defined value), can be undefined (is not set, MINIMUM_THICKNESS as default)
  * @param {Number} property_node_reference_surface_no                   Reference surface No., can be undefined (is not set, 1 as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Punching_AdditionalParameters = function (property_node_variable_thickness_definition,
+ConcreteDesignUltimateConfigurationEN.prototype.SetPunching_AdditionalParameters = function (property_node_variable_thickness_definition,
     property_node_reference_surfaces_thickness,
     property_node_reference_surface_no) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
@@ -984,7 +999,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Punching_AdditionalParameters = 
  * Sets Axial Force Definition
  * @param {String/Number} property_node_axial_force     Axial force (DETERMINE or user-value magnitude), can be undefined (is not set, DETERMINE as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Punching_AxialForceDefinition = function (property_node_axial_force) {
+ConcreteDesignUltimateConfigurationEN.prototype.SetPunching_AxialForceDefinition = function (property_node_axial_force) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
     if (typeof property_node_axial_force !== "undefined") {
         if (typeof property_node_axial_force === "string") {
@@ -1006,7 +1021,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Punching_AxialForceDefinition = 
  *                                      - Use provided longitudinal reinforcement (PROVIDED)
  *                                      - Calculate required longitudinal reinforcement to avoid punching reinforcement or fulfill Eq. 6.52 (CALCULATED)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Punching_RequiredPunchingReinforcement_PunchingShareCapacity = function (reinforcement_type) {
+ConcreteDesignUltimateConfigurationEN.prototype.SetPunching_RequiredPunchingReinforcement_PunchingShareCapacity = function (reinforcement_type) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
     SetConcreteDesignRequiredPunchingReinforcementPunchingShareCapacityType(this.addon, reinforcement_type);
 };
@@ -1015,7 +1030,7 @@ ConcreteDesignUltimateConfigurationEN.prototype.Punching_RequiredPunchingReinfor
  * Sets Minimum Reinforcement Acc. to Standard
  * @param {Boolean} property_node_minimum_punching_reinforcement    Minimum punching reinforcement acc. to 9.4.3(2), can be undefined (true as default)
  */
-ConcreteDesignUltimateConfigurationEN.prototype.Punching_MinimumReinforcement = function (property_node_minimum_punching_reinforcement) {
+ConcreteDesignUltimateConfigurationEN.prototype.SetPunching_MinimumReinforcement = function (property_node_minimum_punching_reinforcement) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
     if (typeof property_node_minimum_punching_reinforcement === "undefined") {
         property_node_minimum_punching_reinforcement = true;
@@ -1138,7 +1153,8 @@ function SetConcreteDesignReinforcementMaximumLongitudinalReinforcementType(addo
     }
 }
 
-function SetConcreteDesignFatigueDesignType(addon,
+//Grandmaster version newly not supports this
+/*function SetConcreteDesignFatigueDesignType(addon,
     fatigue_type) {
 	const fatigue_types = [
         "SIMPLIFIED_DESIGN_METHOD",
@@ -1165,7 +1181,7 @@ function SetConcreteDesignFatigueDesignType(addon,
         default:
             ASSERT(false, "SetConcreteDesignFatigueDesignType: unknown fatigue design type");
     }
-}
+}*/
 
 function SetConcreteDesignModificationDesignCheckType(addon,
     modification_type) {

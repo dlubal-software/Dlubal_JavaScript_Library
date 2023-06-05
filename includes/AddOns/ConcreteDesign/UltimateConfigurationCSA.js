@@ -50,7 +50,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.SetName = function (name) {
  * @param {Boolean} property_member_shear_forces_vy         Shear forces in Y, can be undefined (is not set, true as default)
  * @param {Boolean} property_member_shear_forces_vz         Shear forces in Z, can be undefined (is not set, true as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Members_ConsiderInternalForces = function (property_member_axial_forces,
+ConcreteDesignUltimateConfigurationCSA.prototype.SetMembers_ConsiderInternalForces = function (property_member_axial_forces,
     property_member_bending_moments_my,
     property_member_bending_moments_mz,
     property_member_torsional_moments,
@@ -66,7 +66,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Members_ConsiderInternalForces 
  * @param {Boolean} property_member_reduction_of_moments_or_dimensioning_for_moments_at_face_of_monolithic_support  Reduction of moments or dimensioning for moments at face of a monolithic support, can be undefined (is not set, false as default)
  * @param {Boolean} property_member_reduction_of_shear_at_support                                                   Reduction of shear at the support acc. to 11.3.2, can be undefined (is not set, true as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Members_InternalForceReductionZ = function (property_member_redistribution_of_moments_in_continuous_flexural_members,
+ConcreteDesignUltimateConfigurationCSA.prototype.SetMembers_InternalForceReductionZ = function (property_member_redistribution_of_moments_in_continuous_flexural_members,
     property_member_reduction_of_moments_or_dimensioning_for_moments_at_face_of_monolithic_support,
     property_member_reduction_of_shear_at_support) {
     SetConcreteDesignMembersInternalForceReductionZ(this.addon.settings_member_csaa233, property_member_redistribution_of_moments_in_continuous_flexural_members, 
@@ -79,7 +79,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Members_InternalForceReductionZ
  * @param {String/Number} property_member_reinforcement_diameter_for_preliminary_design                         Reinforcement diameter for preliminary design (MAX_OF_ALL or user-defined value), can be undefined (is not set as default, otherwise MAX_OF_ALL as default)
  * @param {Boolean} property_member_increase_of_tension_required_reinforcement_due_to_shear                     Increase of required tension reinforcement due to shear acc. to 11.3.9.2, can be undefined (is not set, true as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Members_RequiredLongitudinalReinforcement = function (property_member_reinforcement_layout,
+ConcreteDesignUltimateConfigurationCSA.prototype.SetMembers_RequiredLongitudinalReinforcement = function (property_member_reinforcement_layout,
     property_member_reinforcement_diameter_for_preliminary_design,
     property_member_increase_of_tension_required_reinforcement_due_to_shear) {
     SetConcreteDesignMembersRequiredLongitudinalReinforcement(this.addon.settings_member_csaa233, property_member_reinforcement_layout, property_member_reinforcement_diameter_for_preliminary_design, 
@@ -92,7 +92,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Members_RequiredLongitudinalRei
  * @param {Number} property_member_strength_reduction_factor_reinforcing                            Strength reduction factors acc. to 8.4 - Reinforcing factor, can be undefined (is not set, 0.85 as default)
  * @param {Number} property_member_strength_reduction_factor_concrete_stress_strain_relationship    Strength reduction factors acc. to 8.4 - Concrete stress-strain relationship factor acc. to 10.1.6, can be undefined (is not set, 0.9 as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Members_Factors = function (property_member_strength_reduction_factor_concrete,
+ConcreteDesignUltimateConfigurationCSA.prototype.SetMembers_Factors = function (property_member_strength_reduction_factor_concrete,
     property_member_strength_reduction_factor_reinforcing,
     property_member_strength_reduction_factor_concrete_stress_strain_relationship) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
@@ -113,7 +113,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Members_Factors = function (pro
  * @param {Boolean} property_member_minimum_shear_reinforcement         Minimum shear reinforcement acc. to standard, can be undefined (is not set, true as default)
  * @param {Boolean} property_member_minimum_construction_reinforcement  Minimum construction reinforcement, can be undefined (is not set, true as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Members_MinimumReinforcement = function (property_member_minimum_longitudinal_reinforcement,
+ConcreteDesignUltimateConfigurationCSA.prototype.SetMembers_MinimumReinforcement = function (property_member_minimum_longitudinal_reinforcement,
     property_member_minimum_shear_reinforcement,
     property_member_minimum_construction_reinforcement) {
     SetConcreteDesignMembersMinimumReinforcement(this.addon.settings_member_csaa233, property_member_minimum_longitudinal_reinforcement, property_member_minimum_shear_reinforcement,
@@ -125,7 +125,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Members_MinimumReinforcement = 
  * @param {String} shear_reinforcement  Use required longitudinal reinforcement (REQUIRED)
  *                                      Use provided longitudinal reinforcement (PROVIDED)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Members_RequiredShearReinforcement = function (shear_reinforcement) {
+ConcreteDesignUltimateConfigurationCSA.prototype.SetMembers_RequiredShearReinforcement = function (shear_reinforcement) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
     SetConcreteDesignRequiredShearReinforcementType(this.addon.settings_member_csaa233, "member", ["REQUIRED", "PROVIDED"], shear_reinforcement);
 };
@@ -138,7 +138,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Members_RequiredShearReinforcem
  * @param {Number} property_member_beta     Factor accounting for shear resistance of cracked concrete, can be undefined (is not set, 0.21 as default)
  * @param {Number} property_member_theta    Angle of inclination of diagonal compressive stresses to longitudinal axis of member, can be undefined (is not set, 0.42 as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Members_ShearAndTorsionReinforcement = function (determination_type,
+ConcreteDesignUltimateConfigurationCSA.prototype.SetMembers_ShearAndTorsionReinforcement = function (determination_type,
     property_member_beta,
     property_member_theta) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
@@ -158,7 +158,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Members_ShearAndTorsionReinforc
  * @param {Boolean} property_member_consider_neutral_axis_depth_limitation                      Consider depth limitation of neutral axis acc. to 10.5.2, can be undefined (is not set, false as default)
  * @param {String/Number} property_member_value_of_neutral_axis_depth_limitation_user_value     Value of neutral axis depth limitation (AUTOMATICALLY or user number value), can be undefined (is not set, AUTOMATICALLY as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Members_NeutralAxisDepthLimitation = function(property_member_consider_neutral_axis_depth_limitation,
+ConcreteDesignUltimateConfigurationCSA.prototype.SetMembers_NeutralAxisDepthLimitation = function(property_member_consider_neutral_axis_depth_limitation,
     property_member_value_of_neutral_axis_depth_limitation_user_value) {
     SetConcreteDesignNeutralAxisDepthLimitation(this.addon.settings_member_csaa233, "member", property_member_consider_neutral_axis_depth_limitation, property_member_value_of_neutral_axis_depth_limitation_user_value);
 };
@@ -167,7 +167,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Members_NeutralAxisDepthLimitat
  * Sets Calculation setting
  * @param {Boolean} property_member_nett_concrete_area  Net concrete area, can be undefined (true as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Members_CalculationSetting = function (property_member_nett_concrete_area) {
+ConcreteDesignUltimateConfigurationCSA.prototype.SetMembers_CalculationSetting = function (property_member_nett_concrete_area) {
     SetConcreteDesignMembersCalculationSetting(this.addon.settings_member_csaa233, property_member_nett_concrete_area);
 };
 
@@ -177,7 +177,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Members_CalculationSetting = fu
  *                                      - Epoxy-coated reinforcement (EPOXY_COATED_OR_ZINC)
  *                                      - Uncoated reinforcement (UNCOATED_OR_ZINC_COATED)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Members_EpoxyFactor = function (epoxy_factor_type) {
+ConcreteDesignUltimateConfigurationCSA.prototype.SetMembers_EpoxyFactor = function (epoxy_factor_type) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
     SetConcreteDesignMemberEpoxyFactorType(this.addon.settings_member_csaa233, epoxy_factor_type);
 };
@@ -187,7 +187,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Members_EpoxyFactor = function 
  * @param {Number} property_stability_index_qy  Stability index for story in y-direction, can be undefined (is not set, 0.05 as default)
  * @param {Number} property_stability_index_qz  Stability index for story in z-direction, can be undefined (is not set, 0.05 as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Stability_UnbracedColumn = function (property_stability_index_qy,
+ConcreteDesignUltimateConfigurationCSA.prototype.SetStability_UnbracedColumn = function (property_stability_index_qy,
     property_stability_index_qz) {
     SetConcreteDesignStabilityUnbracedColumn(this.addon.settings_member_csaa233, property_stability_index_qy, property_stability_index_qz);
 };
@@ -197,7 +197,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Stability_UnbracedColumn = func
  * @param {String} property_stability_reinforcement_layout                              Reinforcement layout (TOP_BOTTOM_SYMMETRICAL_DISTRIBUTION, IN_CORNERS_SYMMETRICAL_DISTRIBUTION, UNIFORMLY_SURROUNDING, FACTORIZED_PROVIDED_REINFORCEMENT), can be undefined (is not set, UNIFORMLY_SURROUNDING as default)
  * @param {String/Number} reinforcement_diameter_for_preliminary_design_user_value      Reinforcement diameter for preliminary design (MAX_OF_ALL or user number value), can be undefined (is not set, MAX_OF_ALL as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Stability_RequiredReinforcement = function (property_stability_reinforcement_layout,
+ConcreteDesignUltimateConfigurationCSA.prototype.SetStability_RequiredReinforcement = function (property_stability_reinforcement_layout,
     reinforcement_diameter_for_preliminary_design_user_value) {
     SetConcreteDesignStabilityRequiredReinforcement(this.addon.settings_member_csaa233, property_stability_reinforcement_layout, reinforcement_diameter_for_preliminary_design_user_value);
 };
@@ -208,7 +208,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Stability_RequiredReinforcement
  *                                      - No optimization of design internal forces (NO)
  *                                      - Optimization of design internal forces (YES)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_DesignMethod = function (optimization_type) {
+ConcreteDesignUltimateConfigurationCSA.prototype.SetSurfaces_DesignMethod = function (optimization_type) {
     SetConcreteDesignSurfacesDesignMethod(this.addon.settings_surface_csaa233, optimization_type);
 };
 
@@ -216,7 +216,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_DesignMethod = functio
  * Sets Internal Forces Diagram Used for Design
  * @param {Boolean} property_subtraction_of_rib_components  Subtraction of rib components for the ULS calculation and for the analytic method of SLS calculation, can be undefined (true as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_InternalForcesDiagramUsedForDesign = function (property_subtraction_of_rib_components) {
+ConcreteDesignUltimateConfigurationCSA.prototype.SetSurfaces_InternalForcesDiagramUsedForDesign = function (property_subtraction_of_rib_components) {
     SetConcreteDesignSurfacesInternalForcesDiagramUsedForDesign(this.addon.settings_surface_csaa233, property_subtraction_of_rib_components);
 };
 
@@ -226,7 +226,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_InternalForcesDiagramU
  * @param {Number} property_surface_strength_reduction_factor_reinforcing                           Strength reduction factors acc. to 8.4 - Reinforcing factor, can be undefined (is not set, 0.85 as default)
  * @param {Number} property_surface_strength_reduction_factor_concrete_stress_strain_relationship   Strength reduction factors acc. to 8.4 - Concrete stress-strain relationship factor acc. to 10.1.6, can be undefined (is not set, 0.90 as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_Factors = function (property_surface_strength_reduction_factor_concrete,
+ConcreteDesignUltimateConfigurationCSA.prototype.SetSurfaces_Factors = function (property_surface_strength_reduction_factor_concrete,
     property_surface_strength_reduction_factor_reinforcing,
     property_surface_strength_reduction_factor_concrete_stress_strain_relationship) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
@@ -257,7 +257,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_Factors = function (pr
  *                                                                                  - Defined in reinforcement direction (DEFINED_IN_REINFORCEMENT_DIRECTION)
  * @param {String} property_surface_reinforcement_defined_direction_phi             Reinforcement direction (PHI_1, PHI_2)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_MinimumLongitudinalReinforcement = function (property_minimum_longitudinal_reinforcement_acc_to_standard,
+ConcreteDesignUltimateConfigurationCSA.prototype.SetSurfaces_MinimumLongitudinalReinforcement = function (property_minimum_longitudinal_reinforcement_acc_to_standard,
     reinforcement_type,
     min_reinforcement_direction,
     min_reinforcement_direction_user_values,
@@ -275,7 +275,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_MinimumLongitudinalRei
  * @param {Number} property_minimum_tension_reinforcement                                   Minimum tension reinforcement, can be undefined (is not set, 0% as default)
  * @param {Number} property_minimum_compression_reinforcement                               Minimum compression reinforcement, can be undefined (is not set, 0% as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_UserDefinedMinimumLongitudinalReinforcementPercentage = function (property_user_defined_minimum_longitudinal_reinforcement_percentage,
+ConcreteDesignUltimateConfigurationCSA.prototype.SetSurfaces_UserDefinedMinimumLongitudinalReinforcementPercentage = function (property_user_defined_minimum_longitudinal_reinforcement_percentage,
     property_minimum_reinforcement,
     property_minimum_secondary_reinforcement,
     property_minimum_tension_reinforcement,
@@ -289,7 +289,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_UserDefinedMinimumLong
  * @param {Boolean} property_user_defined_maximum_longitudinal_reinforcement_percentage         User-defined maximum longitudinal reinforcement percentage, can be undefined (is not set, true as default)
  * @param {Number} property_user_defined_maximum_longitudinal_reinforcement_percentage_value    Maximum reinforcement, can be undefined (is not set, 4% as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_UserDefinedMaximumLongitudinalReinforcementPercentage = function (property_user_defined_maximum_longitudinal_reinforcement_percentage,
+ConcreteDesignUltimateConfigurationCSA.prototype.SetSurfaces_UserDefinedMaximumLongitudinalReinforcementPercentage = function (property_user_defined_maximum_longitudinal_reinforcement_percentage,
     property_user_defined_maximum_longitudinal_reinforcement_percentage_value) {
     SetConcreteDesignSurfacesUserDefinedMaximumLongitudinalReinforcementPercentage(this.addon.settings_surface_csaa233, property_user_defined_maximum_longitudinal_reinforcement_percentage, property_user_defined_maximum_longitudinal_reinforcement_percentage_value);
 };
@@ -298,7 +298,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_UserDefinedMaximumLong
  * Sets Minimum shear reinforcement acc. to 11.2.8.1
  * @param {Boolean} property_minimum_shear_reinforcement    Minimum shear reinforcement, can be undefined (is not set, true as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_MinimumShearReinforcement = function (property_minimum_shear_reinforcement) {
+ConcreteDesignUltimateConfigurationCSA.prototype.SetSurfaces_MinimumShearReinforcement = function (property_minimum_shear_reinforcement) {
     SetConcreteDesignSurfacesMinimumShearReinforcement(this.addon.settings_surface_csaa233, property_minimum_shear_reinforcement);
 };
 
@@ -307,7 +307,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_MinimumShearReinforcem
  * @param {Boolean} property_user_defined_minimum_shear_reinforcement_percentage        Minimum shear reinforcement percentage, can be undefined (is not set, false as default)
  * @param {Number} property_user_defined_minimum_shear_reinforcement_percentage_value   Minimum reinforcement, can be undefined, (is not set, 0% as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_UserDefinedMinimumShearReinforcementPercentage = function (property_user_defined_minimum_shear_reinforcement_percentage,
+ConcreteDesignUltimateConfigurationCSA.prototype.SetSurfaces_UserDefinedMinimumShearReinforcementPercentage = function (property_user_defined_minimum_shear_reinforcement_percentage,
     property_user_defined_minimum_shear_reinforcement_percentage_value) {
     SetConcreteDesignSurfacesUserDefinedMinimumShearReinforcementPercentage(this.addon.settings_surface_csaa233, property_user_defined_minimum_shear_reinforcement_percentage, property_user_defined_minimum_shear_reinforcement_percentage_value);
 };
@@ -319,7 +319,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_UserDefinedMinimumShea
  *                                                  - Use provided longitudinal reinforcement (PROVIDED)
  *                                                  - Automatically increase required longitudinal reinf. to avoid shear reinf. (AUTOMATICALLY)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_RequiredShearReinforcement = function (required_shear_reinforcement) {
+ConcreteDesignUltimateConfigurationCSA.prototype.SetSurfaces_RequiredShearReinforcement = function (required_shear_reinforcement) {
     SetConcreteDesignRequiredShearReinforcementType(this.addon.settings_surface_csaa233, "surface", ["REQUIRED", "PROVIDED"], required_shear_reinforcement);
 };
 
@@ -331,7 +331,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_RequiredShearReinforce
  * @param {Number} property_surface_beta    β, can be undefined (is not set, 0.21 as default)
  * @param {Number} property_surface_theta   θ, can be undefined (is not set, 42 as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_ShearReinforcement = function (determination_method,
+ConcreteDesignUltimateConfigurationCSA.prototype.SetSurfaces_ShearReinforcement = function (determination_method,
     property_surface_beta,
     property_surface_theta) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
@@ -351,7 +351,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_ShearReinforcement = f
  * @param {Boolean} property_member_consider_neutral_axis_depth_limitation                      Consider depth limitation of neutral axis acc. to 10.5.2, can be undefined (is not set, false as default)
  * @param {String/Number} property_member_value_of_neutral_axis_depth_limitation_user_value     Value of neutral axis depth limitation (AUTOMATICALLY or user number value), can be undefined (is not set, AUTOMATICALLY as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_NeutralAxisDepthLimitation = function(property_member_consider_neutral_axis_depth_limitation,
+ConcreteDesignUltimateConfigurationCSA.prototype.SetSurfaces_NeutralAxisDepthLimitation = function(property_member_consider_neutral_axis_depth_limitation,
     property_member_value_of_neutral_axis_depth_limitation_user_value) {
     SetConcreteDesignNeutralAxisDepthLimitation(this.addon.settings_surface_csaa233, "surface", property_member_consider_neutral_axis_depth_limitation, property_member_value_of_neutral_axis_depth_limitation_user_value);
 };
@@ -366,7 +366,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Surfaces_NeutralAxisDepthLimita
  * @param {Number} property_node_distance_to_perimeter_used_for_integration_for_columns     Distance to perimeter used for integration (k * d), can be undefined (is not set, 2.0 as default)
  * @param {Number} property_node_distance_to_perimeter_used_for_integration_for_walls       Distance to perimeter used for integration (k * d), can be undefined (is not set, 2.0 as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Punching_PunchingLoad = function (property_node_used_punching_load_for_columns,
+ConcreteDesignUltimateConfigurationCSA.prototype.SetPunching_PunchingLoad = function (property_node_used_punching_load_for_columns,
     property_node_used_punching_load_for_walls,
     property_node_distance_to_perimeter_used_for_integration_for_columns,
     property_node_distance_to_perimeter_used_for_integration_for_walls) {
@@ -378,7 +378,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Punching_PunchingLoad = functio
  * Sets Additional Parameters
  * @param {Number} property_node_minimum_spacing_of_reinforcement_perometers    Minimum spacing of reinforcement perimeters, can be undefined (is not set, 0.1 as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Punching_AdditionalParameters = function (property_node_minimum_spacing_of_reinforcement_perometers) {
+ConcreteDesignUltimateConfigurationCSA.prototype.SetPunching_AdditionalParameters = function (property_node_minimum_spacing_of_reinforcement_perometers) {
     SetConcreteDesignPunchingAdditionalParameters(this.addon.settings_node_csaa233, property_node_minimum_spacing_of_reinforcement_perometers);
 };
 
@@ -387,7 +387,7 @@ ConcreteDesignUltimateConfigurationCSA.prototype.Punching_AdditionalParameters =
  * @param {Number} property_node_strength_reduction_factor_concrete       Strength reduction factors acc. to 8.4 - Concrete factor, can be undefined (is not set, 0.65 as default)
  * @param {Number} property_node_strength_reduction_factor_reinforcing    Strength reduction factors acc. to 8.4 - Shear and torsion, can be undefined (is not set, 0.85 as default)
  */
-ConcreteDesignUltimateConfigurationCSA.prototype.Punching_Factors = function (property_node_strength_reduction_factor_concrete,
+ConcreteDesignUltimateConfigurationCSA.prototype.SetPunching_Factors = function (property_node_strength_reduction_factor_concrete,
     property_node_strength_reduction_factor_reinforcing) {
     ASSERT(surfaces.count() > 0, "There must exist at least one surface in project");
     if (typeof property_node_strength_reduction_factor_concrete !== "undefined") {
