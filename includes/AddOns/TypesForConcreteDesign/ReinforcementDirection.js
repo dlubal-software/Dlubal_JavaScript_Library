@@ -11,6 +11,7 @@ function ConcreteDesignReinforcementDirection (no,
     surfaces_no,
     comment,
     params) {
+    ASSERT(!RSECTION, "This script is only for RFEM or RSTAB");
     ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design add-on must be active");
     if (typeof no === "undefined") {
         this.reinforcement_direction = reinforcement_directions.create();

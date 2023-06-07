@@ -7,6 +7,7 @@ function createBaseConcreteDesignConfiguration (object_to_create,
     nodes_no,
     comment,
     params) {
+    ASSERT(!RSECTION, "This script is only for RFEM or RSTAB");
     ASSERT(CONCRETE_DESIGN.isActive(), "Steel design must be active");
     if ((typeof surfaces_no !== "undefined" || typeof nodes_no !== "undefined") && RSTAB) {
         ASSERT(false, "Surfaces or nodes are supported in RFEM only");

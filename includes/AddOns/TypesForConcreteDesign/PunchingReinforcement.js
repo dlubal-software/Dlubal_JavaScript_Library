@@ -14,6 +14,7 @@ function ConcreteDesignPunchingReinforcement (no,
     material_no,
     comment,
     params) {
+    ASSERT(!RSECTION, "This script is only for RFEM or RSTAB");
     ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design add-on must be active");
     if (typeof no === "undefined") {
         this.punching_reinforcement = punching_reinforcements.create();

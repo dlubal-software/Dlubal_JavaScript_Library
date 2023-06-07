@@ -1,7 +1,3 @@
-if (RSECTION) {
-	throw new Error("This script is only for RFEM or RSTAB.");
-}
-
 include("../ConcreteDesign/ConcreteDesignSupport.js");
 include("../../Tools/jshlf_common_functions.js");
 
@@ -20,6 +16,7 @@ function ConcreteDesignConcreteDurability (no,
     member_sets_no,
     comment,
     params) {
+    ASSERT(!RSECTION, "This script is only for RFEM or RSTAB");
     ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design add-on must be active");
     ASSERT(IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC"), "Concrete durability is enabled only for EN and NTC")
     if (typeof no === "undefined") {

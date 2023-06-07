@@ -6,7 +6,7 @@ include("../../includes/AddOns/ConcreteDesign/ConcreteDesignSupport.js");
 run("../includes/Tools/clearAll.js");
 
 var material = new Material(undefined, "C12/15");
-var section = new Section(undefined, "IPE 80", material.GetNo());
+var section = new Section(undefined, "R_M1 0.5/1.0", material.GetNo());
 if (RFEM) {
     var thickness = createThickness("0.250", material.GetNo(), thicknesses.TYPE_UNIFORM);
 }
@@ -392,7 +392,7 @@ if (RFEM) {
     reinforcementDirection.SetDirectionRotations(Math.PI / 4, Math.PI / 2);
 
     /**************************************************** Types for concrete design - Surface reinforcement ****************************************************/
-    var reinforcementMaterial = new Material(undefined, "Grade 40");
+    var reinforcementMaterial = new Material(undefined, "B500B");
     var coordinateSystem = new CoordinateSystem();
     coordinateSystem.Offset(undefined, [1, 1, 0]);
 

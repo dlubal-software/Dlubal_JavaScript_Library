@@ -5,7 +5,7 @@ There are problems with automatic rebar spacing, rebar diameter (comment for bug
 include("../../Tools/jshlf_common_functions.js");
 include ("../ConcreteDesign/ConcreteDesignSupport.js");
 
-/** 
+/**
  * Creates Concrete design surface reinforcement
  * @param {Number} no               Concrete design surface reinforcement index, can be undefined
  * @param {Array} surfaces_no_no    List of surfaces indexes, can be undefined
@@ -18,6 +18,7 @@ function ConcreteDesignSurfaceReinforcement (no,
     material_no,
     comment,
     params) {
+    ASSERT(!RSECTION, "This script is only for RFEM or RSTAB");
     ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design add-on must be active");
     if (typeof no === "undefined") {
         this.surface_reinforcement = surface_reinforcements.create();
@@ -236,7 +237,7 @@ ConcreteDesignSurfaceReinforcement.prototype.SetRebarDiameterAuto = function (re
         }
     }
     else if (IsCurrentCodeOfStandard("ACI")) {
-        
+
     }
     else if (IsCurrentCodeOfStandard("CSA"))
     {
@@ -408,11 +409,11 @@ ConcreteDesignSurfaceReinforcement.prototype.SetStirrupsDiameter = function (val
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_STIRRUPS, "Reinforcement must be of stirrups type");
     //this.surface_reinforcement.stirrup_diameter_auto_enabled = false;   // Can't set (bug 94787 - comment)?
     if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("SP")) {
-        ASSERT(typeof value_1 !== "undefined", "Stirrups diameter must be specified");    
+        ASSERT(typeof value_1 !== "undefined", "Stirrups diameter must be specified");
         this.surface_reinforcement.stirrup_diameter = value_1;
     }
     else if (IsCurrentCodeOfStandard("ACI")) {
-        
+
     }
     else if (IsCurrentCodeOfStandard("CSA")) {
 

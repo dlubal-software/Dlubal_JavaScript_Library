@@ -2,10 +2,6 @@
 Bug 92009: Un-complete enum for structure_type_about_axis_y and structure_type_about_axis_z
 */
 
-if (RSECTION) {
-	throw new Error("This script is only for RFEM or RSTAB.");
-}
-
 include("../ConcreteDesign/ConcreteDesignSupport.js");
 include("../../Tools/jshlf_common_functions.js");
 
@@ -22,6 +18,7 @@ function ConcreteDesignEffectiveLength (no,
     member_sets_no,
     comment,
     params) {
+    ASSERT(!RSECTION, "This script is only for RFEM or RSTAB");
     ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design add-on must be active");
     if (typeof no === "undefined") {
         this.effective_length = concrete_effective_lengths.create();
