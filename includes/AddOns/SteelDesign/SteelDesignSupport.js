@@ -2,6 +2,8 @@
 Member sets cannot be set?? What condition for member sets?
 */
 
+include("../../Tools/global.js");
+
 function createBaseSteelDesignConfiguration (object_to_create,
     no,
     members_no,
@@ -29,6 +31,7 @@ setSteelDesign_Members = function (object_to_set,
         members_no = [];
         for (var i = 0; i < member_list.length; ++i) {
             if (members.exist(member_list[i])) {
+                ASSERT(__hasSteelSection(members[member_list[i]].section_start) && __hasSteelSection(members[member_list[i]].section_end), "Member no. " + member_list[i] + " must have section with " + materials.TYPE_STEEL + " material type");
                 members_no.push(member_list[i]);
             }
             else {
@@ -43,6 +46,9 @@ setSteelDesign_Members = function (object_to_set,
         member_sets_no = [];
         for (var i = 0; i < member_sets_list.length; ++i) {
             if (member_sets.exist(member_sets_list[i])) {
+                for (var j = 0; j < member_sets[member_sets_list[i]].members.length; ++j) {
+                    ASSERT(__hasSteelSection(member_sets[member_sets_list[i]].members[j].section_start) && __hasSteelSection(member_sets[member_sets_list[i]].members[j].section_end), "Member no. " + member_sets_list[i].members[j] + " (member set no. " + member_sets_list[i] + ") must have section with " + materials.TYPE_STEEL + " material type");
+                }
                 member_sets_no.push(member_sets_list[i]);
             }
             else {

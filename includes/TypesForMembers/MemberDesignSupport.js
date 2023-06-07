@@ -56,7 +56,7 @@ MemberDesignSupport.prototype.GetNo = function () {
 /**
  * @returns Member design support object
  */
-MemberDesignSupport.prototype.GetMember = function () {
+MemberDesignSupport.prototype.GetMemberDesignSupport = function () {
 	return this.member_design_support;
 };
 
@@ -69,7 +69,7 @@ MemberDesignSupport.prototype.Name = function (name) {
     this.member_design_support.name = name;
 };
 
-MemberDesignSupport.prototype.GeneralInZ = function (activate_in_z,
+MemberDesignSupport.prototype.SetGeneralInZ = function (activate_in_z,
     support_width_z,
     support_depth_by_section_width_of_member_z_enabled,
     support_depth_z,
@@ -100,7 +100,7 @@ MemberDesignSupport.prototype.GeneralInZ = function (activate_in_z,
     }
 };
 
-MemberDesignSupport.prototype.GeneralInY = function (activate_in_y,
+MemberDesignSupport.prototype.SetGeneralInY = function (activate_in_y,
     support_width_y,
     support_depth_by_section_width_of_member_y_enabled,
     support_depth_y,

@@ -42,7 +42,7 @@ SteelDesignUltimateConfigurationSIA.prototype.SetName = function (name) {
  * Sets general design parameters
  * @param {Boolean} property_perform_stability_analysis     Perform stability design, can be undefined (true as default)
  */
-SteelDesignUltimateConfigurationSIA.prototype.General = function (property_perform_stability_analysis) {
+SteelDesignUltimateConfigurationSIA.prototype.SetGeneral = function (property_perform_stability_analysis) {
     if (typeof property_perform_stability_analysis === "undefined") {
         property_perform_stability_analysis = true;
     }
@@ -59,7 +59,7 @@ SteelDesignUltimateConfigurationSIA.prototype.General = function (property_perfo
  * @param {Number} property_limit_values_bending_about_major_axis_y     Bending about major axis Y, can be undefined (is not set, 0.001 as default)
  * @param {Number} property_limit_values_bending_about_minor_axis_z     Bending about minor axis Z, can be undefined (is not set, 0.001 as default)
  */
-SteelDesignUltimateConfigurationSIA.prototype.LimitValues = function (property_limit_values_axial_force,
+SteelDesignUltimateConfigurationSIA.prototype.SetLimitValues = function (property_limit_values_axial_force,
     property_limit_values_shear_y,
     property_limit_values_shear_z,
     property_limit_values_torsion,
@@ -77,7 +77,7 @@ SteelDesignUltimateConfigurationSIA.prototype.LimitValues = function (property_l
  * @param {Boolean} property_options_consider_shear_area_acc_to_5_2_4   Consider shear area acc. to 5.2.4, can be undefined (is not set, false as default)
  * @param {Boolean} property_options_consider_shear_buckling            Consider shear buckling design, can be undefined (is not set, true as default)
  */
-SteelDesignUltimateConfigurationSIA.prototype.Options = function (property_options_consider_shear_area_acc_to_5_2_4,
+SteelDesignUltimateConfigurationSIA.prototype.SetOptions = function (property_options_consider_shear_area_acc_to_5_2_4,
     property_options_consider_shear_buckling) {
     if (typeof property_options_consider_shear_area_acc_to_5_2_4 !== "undefined") {
         this.addon.settings_sia.property_options_consider_shear_area_acc_to_5_2_4 = property_options_consider_shear_area_acc_to_5_2_4;
@@ -94,7 +94,7 @@ SteelDesignUltimateConfigurationSIA.prototype.Options = function (property_optio
  * @param {Boolean} property_load_acts_vp_at_center_point                   At center point, can be undefined (is not set, false as default)
  * @param {Boolean} property_load_acts_vp_downwards_on_bottom_flange        On profile edge (is not set, stabilizing effect)
  */
-SteelDesignUltimateConfigurationSIA.prototype.PositionOfPositiveTransverse = function (property_load_acts_vp_downwards_on_top_flange,
+SteelDesignUltimateConfigurationSIA.prototype.SetPositionOfPositiveTransverse = function (property_load_acts_vp_downwards_on_top_flange,
     property_load_acts_vp_at_shear_point,
     property_load_acts_vp_at_center_point,
     property_load_acts_vp_downwards_on_bottom_flange) {

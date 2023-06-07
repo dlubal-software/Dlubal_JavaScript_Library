@@ -42,7 +42,7 @@ SteelDesignUltimateConfigurationBS.prototype.SetName = function (name) {
  * Sets general design parameters
  * @param {Boolean} property_perform_stability_analysis     Perform stability design, can be undefined (true as default)
  */
-SteelDesignUltimateConfigurationBS.prototype.General = function (property_perform_stability_analysis) {
+SteelDesignUltimateConfigurationBS.prototype.SetGeneral = function (property_perform_stability_analysis) {
     if (typeof property_perform_stability_analysis === "undefined") {
         property_perform_stability_analysis = true;
     }
@@ -59,7 +59,7 @@ SteelDesignUltimateConfigurationBS.prototype.General = function (property_perfor
  * @param {Number} property_limit_values_bending_about_major_axis_y     Bending about major axis Y, can be undefined (is not set, 0.001 as default)
  * @param {Number} property_limit_values_bending_about_minor_axis_z     Bending about minor axis Z, can be undefined (is not set, 0.001 as default)
  */
-SteelDesignUltimateConfigurationBS.prototype.LimitValues = function (property_limit_values_tension,
+SteelDesignUltimateConfigurationBS.prototype.SetLimitValues = function (property_limit_values_tension,
     property_limit_values_compression,
     property_limit_values_shear_y,
     property_limit_values_shear_z,
@@ -94,7 +94,7 @@ SteelDesignUltimateConfigurationBS.prototype.LimitValues = function (property_li
  * @param {Boolean} property_options_forced_semi_compact_design             Forced semi-compact design, can be undefined (is not set, false as default)
  * @param {Boolean} property_options_more_exact_method_for_shear_buckling   More exact method for shear buckling resistance, can be undefined (is not set, false as default)
  */
-SteelDesignUltimateConfigurationBS.prototype.Options = function (property_options_forced_semi_compact_design,
+SteelDesignUltimateConfigurationBS.prototype.SetOptions = function (property_options_forced_semi_compact_design,
     property_options_more_exact_method_for_shear_buckling) {
     if (typeof property_options_forced_semi_compact_design !== "undefined") {
         this.addon.settings_bs5.property_options_forced_semi_compact_design = property_options_forced_semi_compact_design;
@@ -111,7 +111,7 @@ SteelDesignUltimateConfigurationBS.prototype.Options = function (property_option
  * @param {Boolean} property_load_acts_vp_at_center_point                   At center point, can be undefined (is not set, false as default)
  * @param {Boolean} property_load_acts_vp_downwards_on_bottom_flange        On profile edge (stabilizing effect)
  */
-SteelDesignUltimateConfigurationBS.prototype.PositionOfPositiveTransverse = function (property_load_acts_vp_downwards_on_top_flange,
+SteelDesignUltimateConfigurationBS.prototype.SetPositionOfPositiveTransverse = function (property_load_acts_vp_downwards_on_top_flange,
     property_load_acts_vp_at_shear_point,
     property_load_acts_vp_at_center_point,
     property_load_acts_vp_downwards_on_bottom_flange) {
@@ -131,7 +131,7 @@ SteelDesignUltimateConfigurationBS.prototype.PositionOfPositiveTransverse = func
  * @param {Boolean} property_moment_factors_flexural_buckling_minor_user_defined            Factor mz (user-defined), can be undefined (is not set, true as default), must be undefined if property_moment_factors_flexural_buckling_minor_calculated is defined
  * @param {Number} property_moment_factors_flexural_buckling_minor_user_defined_value       User-defined factor mz, can be undefined (is not set, 1.000 as default)
  */
-SteelDesignUltimateConfigurationBS.prototype.EquivalentUniformMomentFactors = function (property_moment_factors_lateral_torsional_buckling_calculated,
+SteelDesignUltimateConfigurationBS.prototype.SetEquivalentUniformMomentFactors = function (property_moment_factors_lateral_torsional_buckling_calculated,
     property_moment_factors_lateral_torsional_buckling_user_defined,
     property_moment_factors_lateral_torsional_buckling_user_defined_value,
     property_moment_factors_flexural_buckling_major_calculated,

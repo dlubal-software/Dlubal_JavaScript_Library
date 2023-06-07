@@ -42,7 +42,7 @@ SteelDesignUltimateConfigurationGB.prototype.SetName = function (name) {
  * Sets general design parameters
  * @param {Boolean} property_perform_stability_analysis     Perform stability design, can be undefined (true as default)
  */
-SteelDesignUltimateConfigurationGB.prototype.General = function (property_perform_stability_analysis) {
+SteelDesignUltimateConfigurationGB.prototype.SetGeneral = function (property_perform_stability_analysis) {
     if (typeof property_perform_stability_analysis === "undefined") {
         property_perform_stability_analysis = true;
     }
@@ -59,7 +59,7 @@ SteelDesignUltimateConfigurationGB.prototype.General = function (property_perfor
  * @param {Number} property_limit_values_bending_about_major_axis_y     Bending about major axis Y, can be undefined (is not set, 0.001 as default)
  * @param {Number} property_limit_values_bending_about_minor_axis_z     Bending about minor axis Z, can be undefined (is not set, 0.001 as default)
  */
-SteelDesignUltimateConfigurationGB.prototype.LimitValues = function (property_limit_values_tension,
+SteelDesignUltimateConfigurationGB.prototype.SetLimitValues = function (property_limit_values_tension,
     property_limit_values_compression,
     property_limit_values_shear_y,
     property_limit_values_shear_z,
@@ -76,7 +76,7 @@ SteelDesignUltimateConfigurationGB.prototype.LimitValues = function (property_li
  * @param {Boolean} property_options_take_post_buckling_strength_of_web     Post-buckling strength of web for l-shape section acc. to 6.4.1, can be undefined (is not set, false as default)
  * @param {Boolean} property_options_plastic_design                         Plastic resistance of section acc. to 10.1, 10.3 and 10.4, can be undefined (is not set, false as default)
  */
-SteelDesignUltimateConfigurationGB.prototype.Options = function (property_options_elastic_or_fatigue_design,
+SteelDesignUltimateConfigurationGB.prototype.SetOptions = function (property_options_elastic_or_fatigue_design,
     property_options_take_post_buckling_strength_of_web,
     property_options_plastic_design) {
     if (typeof property_options_elastic_or_fatigue_design !== "undefined") {
@@ -95,7 +95,7 @@ SteelDesignUltimateConfigurationGB.prototype.Options = function (property_option
  * @param {Boolean} property_importance_factor_is_used  Use the importance factor of structure for all load combinations, can be undefined (is not set, true as default)
  * @param {Number} property_importance_factor_value     Importance factor acc. to 3.1.9, can be undefined (is not set, 1.000 as default)
  */
-SteelDesignUltimateConfigurationGB.prototype.ImportanceFactorOfStructure = function (property_importance_factor_is_used,
+SteelDesignUltimateConfigurationGB.prototype.SetImportanceFactorOfStructure = function (property_importance_factor_is_used,
     property_importance_factor_value) {
     if (typeof property_importance_factor_is_used !== "undefined") {
         this.addon.settings_gb50017.property_importance_factor_is_used = property_importance_factor_is_used;
@@ -111,7 +111,7 @@ SteelDesignUltimateConfigurationGB.prototype.ImportanceFactorOfStructure = funct
  * @param {Boolean} property_partial_safety_factor_is_user_defined  User-defined factor, can be undefined (is not set, false as default)
  * @param {Number} property_partial_safety_factor_value             Partial safety factor, can be undefined (is not set, 1.000 as default)
  */
-SteelDesignUltimateConfigurationGB.prototype.AnotherStandard = function (property_partial_safety_factor_is_user_defined,
+SteelDesignUltimateConfigurationGB.prototype.SetAnotherStandard = function (property_partial_safety_factor_is_user_defined,
     property_partial_safety_factor_value) {
     if (typeof property_partial_safety_factor_is_user_defined !== "undefined") {
         this.addon.settings_gb50017.property_partial_safety_factor_is_user_defined = property_partial_safety_factor_is_user_defined;
@@ -128,7 +128,7 @@ SteelDesignUltimateConfigurationGB.prototype.AnotherStandard = function (propert
  * @param {Boolean} property_stability_analysis_p_delta_second_order    Elastic second-order P-Delta method acc. to 5.4, can be undefined (is not set, false as default)
  * @param {Boolean} property_stability_analysis_direct_method           Direct method acc. to 5.5, can be undefined (is not set, false as default)
  */
-SteelDesignUltimateConfigurationGB.prototype.StabilityAnalysis = function (property_stability_analysis_equivalent_member,
+SteelDesignUltimateConfigurationGB.prototype.SetStabilityAnalysis = function (property_stability_analysis_equivalent_member,
     property_stability_analysis_p_delta_second_order,
     property_stability_analysis_direct_method) {
     ASSERT(this.addon.settings_gb50017.property_perform_stability_analysis, "Perform stability design must be on");
@@ -148,7 +148,7 @@ SteelDesignUltimateConfigurationGB.prototype.StabilityAnalysis = function (prope
  * @param {Boolean} property_determination_of_overall_stability_use_approximate_calculation     Use approximate calculation acc. to C.0.5 for I- and H-sections, can be undefined (is not set, false as default)
  * @param {Number} property_tolerance_of_ltb_support_distribution                               Tolerance for uniform distribution of side supports for tab. C.0.1, can be undefined (is not set, 0.05 as default)
  */
-SteelDesignUltimateConfigurationGB.prototype.OverallStabilityFactor = function (property_determination_of_overall_stability_use_approximate_calculation,
+SteelDesignUltimateConfigurationGB.prototype.SetOverallStabilityFactor = function (property_determination_of_overall_stability_use_approximate_calculation,
     property_tolerance_of_ltb_support_distribution) {
     ASSERT(this.addon.settings_gb50017.property_perform_stability_analysis, "Perform stability design must be on");
     if (typeof property_determination_of_overall_stability_use_approximate_calculation !== "undefined") {
@@ -163,7 +163,7 @@ SteelDesignUltimateConfigurationGB.prototype.OverallStabilityFactor = function (
  * Sets Distorsional buckling of beams acc. to 6.2.7
  * @param {Boolean} property_check_compression_flange   Check compression of flange acc. to 6.2.7 for I-sections, can be undefined (true as default)
  */
-SteelDesignUltimateConfigurationGB.prototype.DistorsionalBucklingOfBeams = function (property_check_compression_flange) {
+SteelDesignUltimateConfigurationGB.prototype.SetDistorsionalBucklingOfBeams = function (property_check_compression_flange) {
     ASSERT(this.addon.settings_gb50017.property_perform_stability_analysis, "Perform stability design must be on");
     if (typeof property_check_compression_flange === "undefined") {
         property_check_compression_flange = true;
@@ -178,7 +178,7 @@ SteelDesignUltimateConfigurationGB.prototype.DistorsionalBucklingOfBeams = funct
  * @param {Boolean} property_load_acts_vp_at_center_point                   At center point, can be undefined (is not set, false as default)
  * @param {Boolean} property_load_acts_vp_downwards_on_bottom_flange        On profile edge (stabilizing effect)
  */
-SteelDesignUltimateConfigurationGB.prototype.PositionOfPositiveTransverse = function (property_load_acts_vp_downwards_on_top_flange,
+SteelDesignUltimateConfigurationGB.prototype.SetPositionOfPositiveTransverse = function (property_load_acts_vp_downwards_on_top_flange,
     property_load_acts_vp_at_shear_point,
     property_load_acts_vp_at_center_point,
     property_load_acts_vp_downwards_on_bottom_flange) {
@@ -190,7 +190,7 @@ SteelDesignUltimateConfigurationGB.prototype.PositionOfPositiveTransverse = func
  * Sets Local stability acc. to 6.3
  * @param {Boolean} property_is_compression_flange_torsionally_restrained   Torsion of compression flange is restrained, can be undefined (true as default)
  */
-SteelDesignUltimateConfigurationGB.prototype.LocalStability = function (property_is_compression_flange_torsionally_restrained) {
+SteelDesignUltimateConfigurationGB.prototype.SetLocalStability = function (property_is_compression_flange_torsionally_restrained) {
     ASSERT(this.addon.settings_gb50017.property_perform_stability_analysis, "Perform stability design must be on");
     if (typeof property_is_compression_flange_torsionally_restrained === "undefined") {
         property_is_compression_flange_torsionally_restrained = true;
@@ -204,7 +204,7 @@ SteelDesignUltimateConfigurationGB.prototype.LocalStability = function (property
  * @param {Boolean} property_welded_cross_sections_classification_flame_cut     Flame-cut flange edge, can be undefined (is not set, false as default)
  * @param {Boolean} property_welded_cross_sections_classification_sheared       Shared flange edges, can be undefined (is not set, false as default)
  */
-SteelDesignUltimateConfigurationGB.prototype.WeldedSection = function (property_welded_cross_sections_classification_rolled,
+SteelDesignUltimateConfigurationGB.prototype.SetWeldedSection = function (property_welded_cross_sections_classification_rolled,
     property_welded_cross_sections_classification_flame_cut,
     property_welded_cross_sections_classification_sheared) {
     ASSERT(this.addon.settings_gb50017.property_perform_stability_analysis, "Perform stability design must be on");
@@ -224,7 +224,7 @@ SteelDesignUltimateConfigurationGB.prototype.WeldedSection = function (property_
  * @param {String} property_general_cross_sections_buckling_about_y_u   Buckling about y/u axis, can be undefined (is not set, C as default)
  * @param {String} property_general_cross_sections_buckling_about_z_v   Buckling about z/v axis, can be undefined (is not set, D as default)
  */
-SteelDesignUltimateConfigurationGB.prototype.GeneralSections = function (property_general_cross_sections_buckling_about_y_u,
+SteelDesignUltimateConfigurationGB.prototype.SetGeneralSections = function (property_general_cross_sections_buckling_about_y_u,
     property_general_cross_sections_buckling_about_z_v) {
     ASSERT(this.addon.settings_gb50017.property_perform_stability_analysis, "Perform stability design must be on");
     if (typeof property_general_cross_sections_buckling_about_y_u !== "undefined") {
@@ -239,14 +239,27 @@ SteelDesignUltimateConfigurationGB.prototype.GeneralSections = function (propert
  * Sets Connections of Built-up sections with imaginary axes acc. to 7.2.3
  * @param {Number} property_effective_length_of_built_up_part_l1    Longitudinal distance of built-up sections joints, can be undefined (is not set, 0.200 as default)
  */
-SteelDesignUltimateConfigurationGB.prototype.ImaginaryAxis = function (property_effective_length_of_built_up_part_l1) {
+SteelDesignUltimateConfigurationGB.prototype.SetImaginaryAxis = function (property_effective_length_of_built_up_part_l1) {
     ASSERT(this.addon.settings_gb50017.property_perform_stability_analysis, "Perform stability design must be on");
     if (typeof property_effective_length_of_built_up_part_l1 !== "undefined") {
         this.addon.settings_gb50017.property_effective_length_of_built_up_part_l1 = property_effective_length_of_built_up_part_l1;
     }
 };
 
-SteelDesignUltimateConfigurationGB.prototype.EquivalentMomentFactors = function (property_frame_column_y_u,
+/**
+ * Sets Equivalent Moment Factors Acc. to 8.2
+ * @param {Boolean} property_frame_column_y_u                   Equivalent Moment Factors Acc. to 8.2, can be undefined (is not set, false as default)
+ * @param {Boolean} property_frame_column_y_u_unbraced          The member is considered an unbraced frame column for the calculation of equivalent moment factors acc. to 8.2, can be undefined (is nit set, true as default)
+ * @param {NUmber} property_unbraced_frame_column_beta_m_y_u    The user-defined value of the factor is used for the calculation, can be undefined (is not set, 1.0 as default)
+ * @param {Boolean} property_frame_column_y_u_braced            The member is considered a braced frame column for the calculation of equivalent moment factors acc. to 8.2, can be undefined (is not set, false as default)
+ * @param {Boolean} property_frame_column_z_v                   Equivalent Moment Factors Acc. to 8.2, can be undefined (is not set, false as default)
+ * @param {Boolean} property_frame_column_z_v_unbraced          The member is considered an unbraced frame column for the calculation of equivalent moment factors acc. to 8.2, can be undefined (is not set, true as default)
+ * @param {Number} property_unbraced_frame_column_beta_m_z_v    The user-defined value of the factor set here is used for the calculation, the recommended value is 1.0, can be undefined (is not set, 1.0 as default)
+ * @param {Boolean} property_frame_column_z_v_braced            The member is considered a braced frame column for the calculation of equivalent moment factors acc. to 8.2, can be undefined (is not set, false as default)
+ * @param {Number} property_cantilever_beta_m_y_u               The equivalent moment factor acc. to 8.2 for calculation of cantilever (settings in effective lengths, βmy), can be undefined (is not set, 1.0 as default)
+ * @param {Number} property_cantilever_beta_m_z_v               The equivalent moment factor acc. to 8.2 for calculation of cantilever (settings in effective lengths, βmz), can be undefined (is not set, 1.0 as default)
+ */
+SteelDesignUltimateConfigurationGB.prototype.SetEquivalentMomentFactors = function (property_frame_column_y_u,
     property_frame_column_y_u_unbraced,
     property_unbraced_frame_column_beta_m_y_u,
     property_frame_column_y_u_braced,

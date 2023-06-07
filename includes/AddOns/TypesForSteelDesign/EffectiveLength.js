@@ -6,6 +6,7 @@
 5. There is found bug 71428 with radio buttons view, check condition after it is fixed! The isLateralTorsionalBucklingEnable sub-function.
 6. nodal_supports[row].eccentricity_type: there is API support, but returned value is index instead of enum string. Bug 78360.
 7. ModificationFactor: NBR standard, user-value cannot be set?
+8. Bug 97157: Steel design addon, effective length: two enums have same constants. These ones should be changed to make them unambiguous.
 */
 
 /*
@@ -75,7 +76,7 @@ SteelDesignEffectiveLength.prototype.GetNo = function () {
 /**
  * @returns Effective length object
  */
-SteelDesignEffectiveLength.prototype.EffectiveLength = function () {
+SteelDesignEffectiveLength.prototype.GetEffectiveLength = function () {
     return this.effective_length;
 };
 
@@ -101,7 +102,7 @@ SteelDesignEffectiveLength.prototype.SetName = function (name) {
  * @param {Boolean} lateral_torsional_buckling  Consider effective lengths for lateral-torsional buckling, can be undefined (if not set, true as default)
  * @param {String}  determination_mcr           Determination of elastic critical moment Mcr (for all standards except SP one), values are different along to current code for standard, can be undefined
  */
-SteelDesignEffectiveLength.prototype.DeterminationType = function (flexural_buckling_about_y,
+SteelDesignEffectiveLength.prototype.SetDeterminationType = function (flexural_buckling_about_y,
     flexural_buckling_about_z,
     torsional_buckling,
     lateral_torsional_buckling,
@@ -113,13 +114,15 @@ SteelDesignEffectiveLength.prototype.DeterminationType = function (flexural_buck
         this.effective_length.flexural_buckling_about_z = flexural_buckling_about_z;
     }
     if (typeof torsional_buckling !== "undefined") {
-        ASSERT(!IsCurrentCodeOfStandard("IS") && !IsCurrentCodeOfStandard("BS") && !IsCurrentCodeOfStandard("SP"), "Can't set torsional buckling, it is disabled for IS, BS and SP standards");
+        ASSERT(!IsCurrentCodeOfStandard("IS") && !IsCurrentCodeOfStandard("BS") && !IsCurrentCodeOfStandard("SP"),
+            "Can't set torsional buckling, it is disabled for IS, BS and SP standards");
         this.effective_length.torsional_buckling = torsional_buckling;
     }
     if (typeof lateral_torsional_buckling !== "undefined") {
         this.effective_length.lateral_torsional_buckling = lateral_torsional_buckling;
     }
-    ASSERT(this.effective_length.flexural_buckling_about_y || this.effective_length.flexural_buckling_about_z || this.effective_length.lateral_torsional_buckling,"At least one buckling must be enabled");
+    ASSERT(this.effective_length.flexural_buckling_about_y || this.effective_length.flexural_buckling_about_z || this.effective_length.lateral_torsional_buckling, 
+        "At least one buckling must be enabled");
     if (typeof determination_mcr !== "undefined") {
         ASSERT(!IsCurrentCodeOfStandard("SP"), "Can't set determination of elastic critical moment, it is disabled for SP standard");
         ASSERT(this.effective_length.lateral_torsional_buckling, "Lateral torsional buckling must be on");
@@ -132,7 +135,7 @@ SteelDesignEffectiveLength.prototype.DeterminationType = function (flexural_buck
  * @param {Boolean} principal_section_axes  Principal section axes y/u and z/v, can be undefined (if not set, true as default)
  * @param {Boolean} geometric_section_axes  Geometric section axes y and z, can be undefined (if not set, false as default)
  */
-SteelDesignEffectiveLength.prototype.BucklingAxes = function (principal_section_axes,
+SteelDesignEffectiveLength.prototype.SetBucklingAxes = function (principal_section_axes,
     geometric_section_axes) {
     if (typeof principal_section_axes !== "undefined") {
         this.effective_length.principal_section_axes = principal_section_axes;
@@ -146,8 +149,9 @@ SteelDesignEffectiveLength.prototype.BucklingAxes = function (principal_section_
  * Sets Buckling factor type
  * @param {String} buckling_factor_type     Buckling factor type (THEORETICAL, RECOMMENDED), can be undefined (if not set, THEORETICAL as default)
  */
-SteelDesignEffectiveLength.prototype.BucklingFactorType = function (buckling_factor_type) {
-    ASSERT(IsCurrentCodeOfStandard("AISC") || IsCurrentCodeOfStandard("CSA") || IsCurrentCodeOfStandard("SIA") || IsCurrentCodeOfStandard("NBR") || IsCurrentCodeOfStandard("AS"), "Can't set buckling factor type, it is enabled for AISC, CSA, SIA, NBR, AS");
+SteelDesignEffectiveLength.prototype.SetBucklingFactorType = function (buckling_factor_type) {
+    ASSERT(IsCurrentCodeOfStandard("AISC") || IsCurrentCodeOfStandard("CSA") || IsCurrentCodeOfStandard("SIA") || IsCurrentCodeOfStandard("NBR") || IsCurrentCodeOfStandard("AS"), 
+        "Can't set buckling factor type, it is supported only for AISC, CSA, SIA, NBR, AS");
     this.effective_length.buckling_factor_value_type = GetSteelDesignBucklingFactorType(buckling_factor_type);
 };
 
@@ -157,15 +161,15 @@ SteelDesignEffectiveLength.prototype.BucklingFactorType = function (buckling_fac
  * @param {String} member_type_yy   Member type y-y (BEAM, CANTILEVER), can be undefined (if not set, BEAM as default)
  * @param {String} member_type_zz   Member type z-z (BEAM, CANTILEVER), can be undefined (if not set, BEAM as default)
  */
-SteelDesignEffectiveLength.prototype.MemberType = function (member_type,
+SteelDesignEffectiveLength.prototype.SetMemberType = function (member_type,
     member_type_yy,
     member_type_zz) {
     if (typeof member_type_yy !== "undefined") {
-        ASSERT(IsCurrentCodeOfStandard("GB"), "Can't set member type (yy), it is enabled for GB standard");
+        ASSERT(IsCurrentCodeOfStandard("GB"), "Can't set member type (yy), it is enabled for GB standard only");
         this.effective_length.member_type_yy = GetSteelDesignMemberType(member_type_yy);
     }
     if (typeof member_type_zz !== "undefined") {
-        ASSERT(IsCurrentCodeOfStandard("GB"), "Can't set member type (zz), it is enabled for GB standard");
+        ASSERT(IsCurrentCodeOfStandard("GB"), "Can't set member type (zz), it is enabled for GB standard only");
         this.effective_length.member_type_zz = GetSteelDesignMemberType(member_type_zz);
     }
     if (typeof member_type !== "undefined") {
@@ -184,9 +188,9 @@ SteelDesignEffectiveLength.prototype.MemberType = function (member_type,
 
 /**
  * Sets Effective lengths acc. to standard
- * @param {String} standard_of_effective_lengths    Standard (AISC_360, AISI_S100), can be undedined (if not set, AISC_360 as default)
+ * @param {String} standard_of_effective_lengths    Standard (AISC_360, AISI_S100), can be undefined (if not set, AISC_360 as default)
  */
-SteelDesignEffectiveLength.prototype.EffectiveLengthsAccToStandard = function (standard_of_effective_lengths) {
+SteelDesignEffectiveLength.prototype.SetEffectiveLengthsAccToStandard = function (standard_of_effective_lengths) {
     ASSERT(IsCurrentCodeOfStandard("AISC"), "Effective length acc. to standard can be set only for AISC code of standard");
     this.effective_length.standard_of_effective_lengths = GetSteelDesignEffectiveLengthAccToStandardType(standard_of_effective_lengths);
 };
@@ -197,7 +201,7 @@ SteelDesignEffectiveLength.prototype.EffectiveLengthsAccToStandard = function (s
  * @param {Number} modification_factor_alpha_restrained_segments_as     User defined αm, can be undefined (if not set, 1.00 as default)
  * @param {String} slenderness_reduction_restrained_segments_as         Slenderness reduction factor αs acc. to Eq. 5.6.1.1(2) (ACC_TO_5611, EIGENVALUE_METHOD), can be undefined (if not set, ACC_TO_5611 as default)
  */
-SteelDesignEffectiveLength.prototype.SegmentsRestrainedBothEnds = function (moment_modification_restrained_segments_as,
+SteelDesignEffectiveLength.prototype.SetSegmentsRestrainedBothEnds = function (moment_modification_restrained_segments_as,
     modification_factor_alpha_restrained_segments_as,
     slenderness_reduction_restrained_segments_as) {
     ASSERT(IsCurrentCodeOfStandard("AS"), "Segments fully or partially restrained at both ends can be set only with AS standard");
@@ -207,7 +211,7 @@ SteelDesignEffectiveLength.prototype.SegmentsRestrainedBothEnds = function (mome
         this.effective_length.modification_factor_alpha_restrained_segments_as = modification_factor_alpha_restrained_segments_as;
     }
     if (typeof slenderness_reduction_restrained_segments_as !== "undefined") {
-        // API enum bug? Same values as for slenderness_reduction_unrestrained_segments_as. Cannot be set.
+        // Bug 97157
         //this.effective_length.slenderness_reduction_restrained_segments_as = GetSteelDesignSlendernessReductionRestrainedType(slenderness_reduction_restrained_segments_as);
         ASSERT(false, "TODO: SteelDesignEffectiveLength.prototype.SegmentsRestrainedBothEnds");
     }
@@ -219,7 +223,7 @@ SteelDesignEffectiveLength.prototype.SegmentsRestrainedBothEnds = function (mome
  * @param {Number} modification_factor_alpha_unrestrained_segments_as   User defined αm, can be undefined (if not set, 1.00 as default)
  * @param {String} slenderness_reduction_unrestrained_segments_as       Slenderness reduction factor αs acc. to 5.6.2 (ACC_TO_5611, EIGENVALUE_METHOD), can be undefined (if not set, ACC_TO_5611 as default)
  */
-SteelDesignEffectiveLength.prototype.SegmentsUnrestrainedOneEnd = function (moment_modification_unrestrained_segments_as,
+SteelDesignEffectiveLength.prototype.SetSegmentsUnrestrainedOneEnd = function (moment_modification_unrestrained_segments_as,
     modification_factor_alpha_unrestrained_segments_as,
     slenderness_reduction_unrestrained_segments_as) {
     ASSERT(IsCurrentCodeOfStandard("AS"), "Segments fully or partially restrained at both ends can be set only with AS standard");
@@ -241,7 +245,7 @@ SteelDesignEffectiveLength.prototype.SegmentsUnrestrainedOneEnd = function (mome
  * @param {String} modification_factor_cb_aisi                      Factor type (CB_BASIC_VALUE, AUTOMATICALLY_ACC_TO_EQ_F2112, CB_USER_DEFINED), can be undefined (if not set, CB_BASIC_VALUE as default)
  * @param {Number} modification_factor_cb_aisi_user_defined_value   User-defined value, can be undefined (if not set, 1.5 (Cb), 1.0 (ω2) as default)
  */
-SteelDesignEffectiveLength.prototype.ModificationFactor = function (modification_factor_cb_aisi,
+SteelDesignEffectiveLength.prototype.SetModificationFactor = function (modification_factor_cb_aisi,
     modification_factor_cb_aisi_user_defined_value) {
     ASSERT(IsCurrentCodeOfStandard("AISC") || IsCurrentCodeOfStandard("CSA") || IsCurrentCodeOfStandard("NBR"), "Modification factor type can be set only for AISC, NBR and CSA standards");
     if (typeof modification_factor_cb_aisi !== "undefined") {
@@ -261,7 +265,7 @@ SteelDesignEffectiveLength.prototype.ModificationFactor = function (modification
  * Sets Nodal supports type for start sequence node
  * @param {String} support_type     Support type (NONE, FIXED_IN_Z, FIXED_IN_Y, RESTRAINT_ABOUT_X, FIXED_IN_Z_AND_TORSION, FIXED_IN_Z_Y_AND_TORSION, FIXED_IN_Z_AND_TORSION_AND_WARPING, FIXED_IN_Z_Y_AND_TORSION_AND_WARPING, FIXED_ALL, INDIVIDUALLY), can be undefined (if not set, FIXED_IN_Z_Y_AND_TORSION as default)
  */
-SteelDesignEffectiveLength.prototype.NodalSupportsStartWithSupportType = function (support_type) {
+SteelDesignEffectiveLength.prototype.SetNodalSupportsStartWithSupportType = function (support_type) {
     setSteelDesignEffectiveLengthsNodalSupports(this.effective_length, 1, support_type);
 };
 
@@ -269,7 +273,7 @@ SteelDesignEffectiveLength.prototype.NodalSupportsStartWithSupportType = functio
  * Sets Nodal supports type for end sequence node
  * @param {String} support_type     Support type (NONE, FIXED_IN_Z, FIXED_IN_Y, RESTRAINT_ABOUT_X, FIXED_IN_Z_AND_TORSION, FIXED_IN_Z_Y_AND_TORSION, FIXED_IN_Z_AND_TORSION_AND_WARPING, FIXED_IN_Z_Y_AND_TORSION_AND_WARPING, FIXED_ALL, INDIVIDUALLY), can be undefined (if not set, FIXED_IN_Z_Y_AND_TORSION as default)
  */
-SteelDesignEffectiveLength.prototype.NodalSupportsEndWithSupportType = function (support_type) {
+SteelDesignEffectiveLength.prototype.SetNodalSupportsEndWithSupportType = function (support_type) {
     setSteelDesignEffectiveLengthsNodalSupports(this.effective_length, this.effective_length.nodal_supports.row_count(), support_type);
 };
 
@@ -281,7 +285,7 @@ SteelDesignEffectiveLength.prototype.NodalSupportsEndWithSupportType = function 
  * @param {Boolean} restraint_about_z     Restraint about z, can be undefined (if not set, false as default)
  * @param {Boolean} restraint_warping     Warping ω, can be undefined (if not set, false as default)
  */
-SteelDesignEffectiveLength.prototype.NodalSupportsStartWithIndividuallySupportType = function (support_in_y,
+SteelDesignEffectiveLength.prototype.SetNodalSupportsStartWithIndividuallySupportType = function (support_in_y,
     support_in_z,
     restraint_about_x,
     restraint_about_z,
@@ -297,12 +301,13 @@ SteelDesignEffectiveLength.prototype.NodalSupportsStartWithIndividuallySupportTy
  * @param {Boolean} restraint_about_z     Restraint about z, can be undefined (if not set, false as default)
  * @param {Boolean} restraint_warping     Warping ω, can be undefined (if not set, false as default)
  */
-SteelDesignEffectiveLength.prototype.NodalSupportsEndWithIndividuallySupportType = function (support_in_y,
+SteelDesignEffectiveLength.prototype.SetNodalSupportsEndWithIndividuallySupportType = function (support_in_y,
     support_in_z,
     restraint_about_x,
     restraint_about_z,
     restraint_warping) {
-    setSteelDesignEffectiveLengthsNodalSupports(this.effective_length, this.effective_length.nodal_supports.row_count(), "INDIVIDUALLY", support_in_y, support_in_z, restraint_about_x, restraint_about_z, restraint_warping);
+    setSteelDesignEffectiveLengthsNodalSupports(this.effective_length, this.effective_length.nodal_supports.row_count(), "INDIVIDUALLY", support_in_y, support_in_z, 
+        restraint_about_x, restraint_about_z, restraint_warping);
 };
 
 /**
@@ -335,7 +340,7 @@ SteelDesignEffectiveLength.prototype.InsertNodalIndividuallySupportIntermediateN
  * Sets Different properties state for nodal supports
  * @param {Boolean} different_properties   Different properties, can be undefined (true as default)
  */
-SteelDesignEffectiveLength.prototype.DifferentPropertiesForNodalSupports = function (different_properties) {
+SteelDesignEffectiveLength.prototype.SetDifferentPropertiesForNodalSupports = function (different_properties) {
     if (typeof different_properties === "undefined") {
         different_properties = true;
     }
@@ -355,7 +360,7 @@ SteelDesignEffectiveLength.prototype.DifferentPropertiesForNodalSupports = funct
  * @param {Number} lateral_torsional_buckling_top       Lateral-torsional buckling top, can be undefined (1.00 as default if it's enabled)
  * @param {Number} lateral_torsional_buckling_bottom    Lateral-torsional buckling bottom, can be undefined (1.00 as default if it's enabled)
  */
-SteelDesignEffectiveLength.prototype.EffectiveLengthFactors = function (row,
+SteelDesignEffectiveLength.prototype.SetEffectiveLengthFactors = function (row,
     flexural_buckling_u,
     flexural_buckling_v,
     flexural_buckling_y,
@@ -384,7 +389,7 @@ SteelDesignEffectiveLength.prototype.EffectiveLengthFactors = function (row,
  * @param {Number} lateral_torsional_buckling_top       Lateral-torsional buckling top, can be undefined (1.00 as default if it's enabled)
  * @param {Number} lateral_torsional_buckling_bottom    Lateral-torsional buckling bottom, can be undefined (1.00 as default if it's enabled)
  */
-SteelDesignEffectiveLength.prototype.OverwriteEffectiveLengths = function (row,
+SteelDesignEffectiveLength.prototype.SetOverwriteEffectiveLengths = function (row,
     flexural_buckling_u,
     flexural_buckling_v,
     flexural_buckling_y,
@@ -406,7 +411,7 @@ SteelDesignEffectiveLength.prototype.OverwriteEffectiveLengths = function (row,
  * @param {String} eccentricity_type    Eccentricity type (NONE, AT_UPPER_FLANGE, AT_LOWER_FLANGE, USER_VALUE), can be undefined (if not set, NONE as default)
  * @param {Number} eccentricity_ez      User-defined eccentricity value
  */
-SteelDesignEffectiveLength.prototype.Eccentricity = function (row,
+SteelDesignEffectiveLength.prototype.SetEccentricity = function (row,
     eccentricity_type,
     eccentricity_ez) {
     ASSERT(row >= 1 && row < this.effective_length.nodal_supports.row_count(), "Row must be in range 1-" + (this.effective_length.nodal_supports.row_count() - 1).toString());
@@ -787,7 +792,8 @@ function setSteelDesignEffectiveLengthsNodalSupports (effective_length,
     restraint_about_x,
     restraint_about_z,
     restraint_warping) {
-    ASSERT(effective_length.flexural_buckling_about_y || effective_length.flexural_buckling_about_z || effective_length.torsional_buckling || effective_length.lateral_torsional_buckling, "No buckling is specified");
+    ASSERT(effective_length.flexural_buckling_about_y || effective_length.flexural_buckling_about_z || effective_length.torsional_buckling 
+        || effective_length.lateral_torsional_buckling, "No buckling is specified");
     // Check if all options in column have same value (different_properties_supports is false)
     function checkUniqueValues (value_to_set, value_name) {
         if (!effective_length.different_properties) {

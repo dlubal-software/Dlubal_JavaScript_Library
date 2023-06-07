@@ -1,5 +1,3 @@
-include("../Tools/high_level_functions_support.js");
-
 /**
  * Create Member Set
  * @class
@@ -14,7 +12,6 @@ function MemberSet(no,
     members,
     comment,
     params) {
-
     if (arguments.length !== 0) {
         members = typeof members !== 'undefined' ? members : [];
 
@@ -42,10 +39,14 @@ MemberSet.prototype.GetMemberSet = function() {
  * Enable / disable Design properties for member set (Steel design add-on)
  * @param {Boolean} enabled     Enable / disable Design properties, can be undefined (true as default)
  */
-MemberSet.prototype.SteelDesignProperties = function (enabled) {
+MemberSet.prototype.SetSteelDesignProperties = function (enabled) {
 	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
 	if (typeof enabled === "undefined") {
 		enabled = true;
+	}
+	for (var i = 0; i < this.member_set.members.length; ++i) {
+		var member = this.member_set.members[i];
+		ASSERT(__hasSteelSection(member.section_start) && __hasSteelSection(member.section_end), "Member no. " + member.no + " must have section with " + materials.TYPE_STEEL + " material type");
 	}
 	this.member_set.design_properties_activated = enabled;
 }
@@ -145,18 +146,6 @@ MemberSet.prototype.GetNo = function(){
 
 MemberSet.prototype.GetMember = function (){
 	return this.member_set;
-};
-
-/**
- * Enable / disable Design properties for member set (Steel design add-on)
- * @param {Boolean} enabled 	Enable / disable Design properties, can be undefined (true as default)
- */
-MemberSet.prototype.SteelDesignProperties = function (enabled) {
-	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
-	if (typeof enabled === "undefined") {
-		enabled = true;
-	}
-	this.member_set.design_properties_activated = enabled;
 };
 
 /**

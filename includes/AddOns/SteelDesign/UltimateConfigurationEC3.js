@@ -49,7 +49,7 @@ SteelDesignUltimateConfigurationEC3.prototype.SetName = function (name) {
  * Sets general design parameters
  * @param {Boolean} property_perform_stability_analysis     Perform stability design, can be undefined (true as default)
  */
-SteelDesignUltimateConfigurationEC3.prototype.General = function (property_perform_stability_analysis) {
+SteelDesignUltimateConfigurationEC3.prototype.SetGeneral = function (property_perform_stability_analysis) {
     if (typeof property_perform_stability_analysis === "undefined") {
         property_perform_stability_analysis = true;
     }
@@ -66,7 +66,7 @@ SteelDesignUltimateConfigurationEC3.prototype.General = function (property_perfo
  * @param {Number} property_limit_values_bending_about_major_axis_y     Bending about major axis Y, can be undefined (is not set, 0.001 as default)
  * @param {Number} property_limit_values_bending_about_minor_axis_z     Bending about minor axis Z, can be undefined (is not set, 0.001 as default)
  */
-SteelDesignUltimateConfigurationEC3.prototype.LimitValues = function (property_limit_values_tension,
+SteelDesignUltimateConfigurationEC3.prototype.SetLimitValues = function (property_limit_values_tension,
     property_limit_values_compression,
     property_limit_values_shear_y,
     property_limit_values_shear_z,
@@ -85,7 +85,7 @@ SteelDesignUltimateConfigurationEC3.prototype.LimitValues = function (property_l
  * @param {Boolean} property_thin_walled_analysis_consider_annex_e                      Consider effective widths according to EN 1993-1-5, Annex E, can be undefined (is not set, false as default)
  * @param {Boolean} property_thin_walled_analysis_increase_material_factor              For limit c/t of class 3, increase material factor epsilon acc. to 5.5.2(9), can be undefined (is not set, true as default), only when Perform stability design is on
  */
-SteelDesignUltimateConfigurationEC3.prototype.ThinWalledAnalysis = function (property_thin_walled_analysis_maximum_number_of_iterations,
+SteelDesignUltimateConfigurationEC3.prototype.SetThinWalledAnalysis = function (property_thin_walled_analysis_maximum_number_of_iterations,
     property_thin_walled_analysis_maximum_difference_between_iterations,
     property_thin_walled_analysis_neglect_bending_moments_due_to_shift,
     property_thin_walled_analysis_consider_annex_e,
@@ -114,7 +114,7 @@ SteelDesignUltimateConfigurationEC3.prototype.ThinWalledAnalysis = function (pro
  * @param {Boolean} property_options_use_verification_for_elastic_design    Use verification acc. to equation 6.1 for elastic design, can be undefined (is not set, false as default)
  * @param {Boolean} property_options_use_linear_interaction                 Use linear interaction acc. to 6.2.1(7) for section check for M+N, can be undefined (is not set, false as default)
  */
-SteelDesignUltimateConfigurationEC3.prototype.Options = function (property_options_elastic_design,
+SteelDesignUltimateConfigurationEC3.prototype.SetOptions = function (property_options_elastic_design,
     property_options_use_verification_for_elastic_design,
     property_options_use_linear_interaction) {
     if (typeof property_options_elastic_design !== "undefined") {
@@ -133,7 +133,7 @@ SteelDesignUltimateConfigurationEC3.prototype.Options = function (property_optio
  * @param {Boolean} property_design_of_cold_formed_sections_activate    Perform design of cold-formed sections, can be undefined (is not set, true as default)
  * @param {String} property_forming_factor_k                            Forming factor k acc. to 3.2.2(3) (ROLL_FORMING, OTHER_METHODS_OF_FORMING), can be undefined (is not set, ROLL_FORMING as default)
  */
-SteelDesignUltimateConfigurationEC3.prototype.DesignOfColdFormedSection = function (property_design_of_cold_formed_sections_activate,
+SteelDesignUltimateConfigurationEC3.prototype.SetDesignOfColdFormedSection = function (property_design_of_cold_formed_sections_activate,
     property_forming_factor_k) {
     if (typeof property_design_of_cold_formed_sections_activate !== "undefined") {
         this.addon.settings_ec3.property_design_of_cold_formed_sections_activate = property_design_of_cold_formed_sections_activate;
@@ -148,7 +148,7 @@ SteelDesignUltimateConfigurationEC3.prototype.DesignOfColdFormedSection = functi
  * Sets design of share buckling Acc. to EN 1993-1-5
  * @param {Boolean} property_design_of_shear_buckling_activate  Perform design of shear buckling, can be undefined (is not set, true as default)
  */
-SteelDesignUltimateConfigurationEC3.prototype.DesignOfShearBuckling = function (property_design_of_shear_buckling_activate) {
+SteelDesignUltimateConfigurationEC3.prototype.SetDesignOfShearBuckling = function (property_design_of_shear_buckling_activate) {
     if (typeof property_design_of_shear_buckling_activate !== "undefined") {
         this.addon.settings_ec3.property_design_of_shear_buckling_activate = property_design_of_shear_buckling_activate;
     }
@@ -158,7 +158,7 @@ SteelDesignUltimateConfigurationEC3.prototype.DesignOfShearBuckling = function (
  * Sets stability analyses with second-order internal forces
  * @param {Boolean} property_use_gamma_m1   Use gama M1 for determination of the section resistance, can be undefined (is not set, false as default)
  */
-SteelDesignUltimateConfigurationEC3.prototype.StabilityAnalyses = function (property_use_gamma_m1) {
+SteelDesignUltimateConfigurationEC3.prototype.SetStabilityAnalyses = function (property_use_gamma_m1) {
     if (typeof property_use_gamma_m1 !== "undefined") {
         this.addon.settings_ec3.property_use_gamma_m1 = property_use_gamma_m1;
     }
@@ -174,7 +174,7 @@ SteelDesignUltimateConfigurationEC3.prototype.StabilityAnalyses = function (prop
  * @param {Boolean} property_european_lateral_torsional_buckling_curves     European lateral-torsional buckling curve, Extension method must be on (in case interpolation is defined must be undefined)
  * @param {Boolean} property_adapted_method                                 Adapted method (enable double bending), European lateral-torsional buckling curve must be on, can be undefined (is not set, false as default)
  */
-SteelDesignUltimateConfigurationEC3.prototype.CalculationMethod = function (property_structure_type_sway_yy,
+SteelDesignUltimateConfigurationEC3.prototype.SetCalculationMethod = function (property_structure_type_sway_yy,
     property_structure_type_sway_zz,
     property_gm_enable_also_for_non_i_sections,
     property_extensional_methods,
@@ -215,7 +215,7 @@ SteelDesignUltimateConfigurationEC3.prototype.CalculationMethod = function (prop
  * @param {String} property_soe_minor_z_axis                     Major z-axis, can be undefined (is not set, false as default)
  * @param {Number} property_soe_minor_z_axis_increasing_factor   Increasing factor for major z-axis, Major z-axis must be on, can be undefined (is not set, 1.150 as default)
  */
-SteelDesignUltimateConfigurationEC3.prototype.SecondOrderEffects = function (property_soe_major_y_axis,
+SteelDesignUltimateConfigurationEC3.prototype.SetSecondOrderEffects = function (property_soe_major_y_axis,
     property_soe_major_y_axis_increasing_factor,
     property_soe_minor_z_axis,
     property_soe_minor_z_axis_increasing_factor) {
@@ -243,7 +243,7 @@ SteelDesignUltimateConfigurationEC3.prototype.SecondOrderEffects = function (pro
  * @param {Boolean} property_load_acts_vp_at_center_point                   At center point, can be undefined (is not set, false as default)
  * @param {Boolean} property_load_acts_vp_downwards_on_bottom_flange        On profile edge (is not set, stabilizing effect)
  */
-SteelDesignUltimateConfigurationEC3.prototype.PositionOfPositiveTransverse = function (property_load_acts_vp_downwards_on_top_flange,
+SteelDesignUltimateConfigurationEC3.prototype.SetPositionOfPositiveTransverse = function (property_load_acts_vp_downwards_on_top_flange,
     property_load_acts_vp_at_shear_point,
     property_load_acts_vp_at_center_point,
     property_load_acts_vp_downwards_on_bottom_flange) {
@@ -258,7 +258,7 @@ SteelDesignUltimateConfigurationEC3.prototype.PositionOfPositiveTransverse = fun
  * @param {Boolean} property_determine_lateral_torsion_f_factor                     Use factor f for modification of chi L, T acc. to 6.3.2.3(2), can be undefined (is not set, true as default)
  * @param {Boolean} property_perform_design_for_doubly_symmetric_hollow_sections    Perform design for non-circular doubly symmetric hollow sections, can be undefined (is not set, true as default)
  */
-SteelDesignUltimateConfigurationEC3.prototype.LateralTorsionalBuckling = function (property_determine_lateral_torsion_eq_6_56,
+SteelDesignUltimateConfigurationEC3.prototype.SetLateralTorsionalBuckling = function (property_determine_lateral_torsion_eq_6_56,
     property_determine_lateral_torsion_eq_6_56_or_6_57,
     property_determine_lateral_torsion_f_factor,
     property_perform_design_for_doubly_symmetric_hollow_sections) {
@@ -282,7 +282,7 @@ SteelDesignUltimateConfigurationEC3.prototype.LateralTorsionalBuckling = functio
  * @param {Boolean} property_param_k_annex_a    Method 1 acc. to Annex A, can be undefined (is not set, false as default)
  * @param {Boolean} property_param_k_annex_b    Method 2 acc. to Annex B, can be undefined (is not set, true as default)
  */
-SteelDesignUltimateConfigurationEC3.prototype.Parameters = function (property_param_k_annex_a,
+SteelDesignUltimateConfigurationEC3.prototype.SetParameters = function (property_param_k_annex_a,
     property_param_k_annex_b) {
     ASSERT(this.addon.settings_ec3.property_perform_stability_analysis, "Perform stability design must be on");
     if (typeof property_param_k_annex_a !== "undefined") {
@@ -292,22 +292,6 @@ SteelDesignUltimateConfigurationEC3.prototype.Parameters = function (property_pa
         this.addon.settings_ec3.property_param_k_annex_b = property_param_k_annex_b;
     }
 }
-
-SteelDesignUltimateConfigurationEC3.prototype.GeneralRules = function () {
-    ASSERT(false, "GeneralRules, no API support?");
-};
-
-SteelDesignUltimateConfigurationEC3.prototype.ColdFormDesign = function() {
-    ASSERT(false, "ColdFormDesign, no API support?");
-};
-
-SteelDesignUltimateConfigurationEC3.prototype.StainlessSteel = function () {
-    ASSERT(false, "StainlessSteel, no API support?");
-};
-
-SteelDesignUltimateConfigurationEC3.prototype.PlatedElements = function () {
-    ASSERT(false, "PlatedElements, no API support?");
-};
 
 function EC3FormingFactor(factor) {
 	const factor_types_dict = {

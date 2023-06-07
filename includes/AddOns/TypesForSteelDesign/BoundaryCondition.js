@@ -70,7 +70,7 @@ SteelDesignBoundaryCondition.prototype.GetNo = function () {
 /**
  * @returns Boundary condition internal object
  */
-SteelDesignBoundaryCondition.prototype.BoundaryCondition = function () {
+SteelDesignBoundaryCondition.prototype.GetBoundaryCondition = function () {
     return this.boundary_condition;
 };
 
@@ -92,7 +92,7 @@ SteelDesignBoundaryCondition.prototype.SetName = function (name) {
  * Sets Nodal supports for start node sequence
  * @param {String} support_type     Support type (NONE, FIXED_IN_Y, TORSION, FIXED_IN_Y_AND_TORSION, FIXED_IN_Y_AND_WARPING, TORSION_AND_WARPING, FIXED_IN_Y_AND_TORSION_AND_WARPING, FIXED_ALL), can be undefined (FIXED_IN_Y_AND_TORSION as default)
  */
-SteelDesignBoundaryCondition.prototype.NodalSupportsStartWithSupportType = function (support_type) {
+SteelDesignBoundaryCondition.prototype.SetNodalSupportsStartWithSupportType = function (support_type) {
     setSteelDesignBoundaryConditionNodalSupports(this.boundary_condition, 1, support_type);
 };
 
@@ -100,7 +100,7 @@ SteelDesignBoundaryCondition.prototype.NodalSupportsStartWithSupportType = funct
  * Sets Nodal supports for end node sequence
  * @param {String} support_type     Support type (NONE, FIXED_IN_Y, TORSION, FIXED_IN_Y_AND_TORSION, FIXED_IN_Y_AND_WARPING, TORSION_AND_WARPING, FIXED_IN_Y_AND_TORSION_AND_WARPING, FIXED_ALL), can be undefined (FIXED_IN_Y_AND_TORSION as default)
  */
-SteelDesignBoundaryCondition.prototype.NodalSupportsEndWithSupportType = function (support_type) {
+SteelDesignBoundaryCondition.prototype.SetNodalSupportsEndWithSupportType = function (support_type) {
     setSteelDesignBoundaryConditionNodalSupports(this.boundary_condition, this.boundary_condition.nodal_supports.row_count(), support_type);
 };
 
@@ -111,7 +111,7 @@ SteelDesignBoundaryCondition.prototype.NodalSupportsEndWithSupportType = functio
  * @param {Boolean} restraint_about_z   Restraint about z', can be undefined (is not set, false as default)
  * @param {Boolean} restraint_warping   Warping, can be undefined (is not set, false as default)
  */
-SteelDesignBoundaryCondition.prototype.NodalSupportsStartWithIndividuallySupportType = function (support_in_y,
+SteelDesignBoundaryCondition.prototype.SetNodalSupportsStartWithIndividuallySupportType = function (support_in_y,
     restraint_about_x,
     restraint_about_z,
     restraint_warping) {
@@ -125,7 +125,7 @@ SteelDesignBoundaryCondition.prototype.NodalSupportsStartWithIndividuallySupport
  * @param {Boolean} restraint_about_z   Restraint about z', can be undefined (is not set, false as default)
  * @param {Boolean} restraint_warping   Warping, can be undefined (is not set, false as default)
  */
-SteelDesignBoundaryCondition.prototype.NodalSupportsEndWithIndividuallySupportType = function (support_in_y,
+SteelDesignBoundaryCondition.prototype.SetNodalSupportsEndWithIndividuallySupportType = function (support_in_y,
     restraint_about_x,
     restraint_about_z,
     restraint_warping) {
@@ -195,7 +195,7 @@ SteelDesignBoundaryCondition.prototype.SetAdditionalParametersForIntermediateRow
  * Sets Intermediate nodes state
  * @param {Boolean} intermediate_nodes  Intermediate nodes, can be undefined (true as default)
  */
-SteelDesignBoundaryCondition.prototype.IntermediateNodes = function (intermediate_nodes) {
+SteelDesignBoundaryCondition.prototype.SetIntermediateNodes = function (intermediate_nodes) {
     if (typeof intermediate_nodes === "undefined") {
         intermediate_nodes = true;
     }
@@ -206,7 +206,7 @@ SteelDesignBoundaryCondition.prototype.IntermediateNodes = function (intermediat
  * Sets Different properties state for nodal supports
  * @param {Boolean} different_properties_supports   Different properties, can be undefined (true as default)
  */
-SteelDesignBoundaryCondition.prototype.DifferentPropertiesForNodalSupports = function (different_properties_supports) {
+SteelDesignBoundaryCondition.prototype.SetDifferentPropertiesForNodalSupports = function (different_properties_supports) {
     if (typeof different_properties_supports === "undefined") {
         different_properties_supports = true;
     }
@@ -220,7 +220,7 @@ SteelDesignBoundaryCondition.prototype.DifferentPropertiesForNodalSupports = fun
  * @param {Number} release_about_z      Release about z, can be undefined (is not set, false as default)
  * @param {Number} release_warping      Release of warping, can be undefined (is not set, false as default)
  */
-SteelDesignBoundaryCondition.prototype.MemberHingesForStart = function (release_in_y,
+SteelDesignBoundaryCondition.prototype.SetMemberHingesForStart = function (release_in_y,
     release_about_x,
     release_about_z,
     release_warping) {
@@ -234,7 +234,7 @@ SteelDesignBoundaryCondition.prototype.MemberHingesForStart = function (release_
  * @param {Number} release_about_z      Release about z, can be undefined (is not set, false as default)
  * @param {Number} release_warping      Release of warping, can be undefined (is not set, false as default)
  */
-SteelDesignBoundaryCondition.prototype.MemberHingesForEnd = function (release_in_y,
+SteelDesignBoundaryCondition.prototype.SetMemberHingesForEnd = function (release_in_y,
     release_about_x,
     release_about_z,
     restraint_warping) {
@@ -263,7 +263,7 @@ SteelDesignBoundaryCondition.prototype.SetMemberHingeIntermediateNode = function
  * Sets Different properties state for member hinges
  * @param {Boolean} different_properties_hinges     Different properties, can be undefined (true as default)
  */
-SteelDesignBoundaryCondition.prototype.DifferentPropertiesForMemberHinges = function (different_properties_hinges) {
+SteelDesignBoundaryCondition.prototype.SetDifferentPropertiesForMemberHinges = function (different_properties_hinges) {
     if (typeof different_properties_hinges === "undefined") {
         different_properties_hinges = true;
     }
@@ -273,7 +273,7 @@ SteelDesignBoundaryCondition.prototype.DifferentPropertiesForMemberHinges = func
 /**
  * @returns Nodal supports are set correctly
  */
-SteelDesignBoundaryCondition.prototype.NodalSupportsEndEdit = function () {
+SteelDesignBoundaryCondition.prototype.IsNodalSupportsEndEdit = function () {
     var support_in_y = false;
     var restraint_about_x = false;
     
@@ -308,7 +308,10 @@ function setSteelDesignBoundaryConditionNodalSupports (boundary_condition,
         if (!boundary_condition.different_properties_supports) {
             var values = [];
             for (var row = 1; row <= boundary_condition.nodal_supports.row_count(); ++row) {
-                values.push(value_name === "support_in_y" ? boundary_condition.nodal_supports[row].support_in_y : (value_name === "restraint_about_x" ? boundary_condition.nodal_supports[row].restraint_about_x : (value_name === "restraint_about_z" ? boundary_condition.nodal_supports[row].restraint_about_z : boundary_condition.nodal_supports[row].restraint_warping)));
+                values.push(value_name === "support_in_y" ? boundary_condition.nodal_supports[row].support_in_y : 
+                (value_name === "restraint_about_x" ? boundary_condition.nodal_supports[row].restraint_about_x : 
+                (value_name === "restraint_about_z" ? boundary_condition.nodal_supports[row].restraint_about_z : 
+                boundary_condition.nodal_supports[row].restraint_warping)));
             }
             function uniqueValues() {
                 for (var i = 0; i < values.length; ++i) {
@@ -416,7 +419,10 @@ function setSteelDesignBoundaryConditionMemberHinges (boundary_condition,
         if (!boundary_condition.different_properties_hinges) {
             var values = [];
             for (var row = 1; row <= boundary_condition.member_hinges.row_count(); ++row) {
-                values.push(value_name === "release_in_y" ? boundary_condition.member_hinges[row].release_in_y : (value_name === "release_about_x" ? boundary_condition.member_hinges[row].release_about_x : (value_name === "release_about_z" ? boundary_condition.member_hinges[row].release_about_z : boundary_condition.member_hinges[row].release_warping)));
+                values.push(value_name === "release_in_y" ? boundary_condition.member_hinges[row].release_in_y : 
+                    (value_name === "release_about_x" ? boundary_condition.member_hinges[row].release_about_x : 
+                    (value_name === "release_about_z" ? boundary_condition.member_hinges[row].release_about_z : 
+                    boundary_condition.member_hinges[row].release_warping)));
             }
             function uniqueValues() {
                 for (var i = 0; i < values.length; ++i) {

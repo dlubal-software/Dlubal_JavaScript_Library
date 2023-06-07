@@ -59,7 +59,7 @@ SteelDesignMemberLocalSectionReduction.prototype.GetNo = function () {
 /**
  * @returns Member local section reduction object
  */
-SteelDesignMemberLocalSectionReduction.prototype.MemberLocalSectionReduction = function () {
+SteelDesignMemberLocalSectionReduction.prototype.GetMemberLocalSectionReduction = function () {
     return this.member_local_section_reduction;
 };
 
@@ -106,14 +106,16 @@ SteelDesignMemberLocalSectionReduction.prototype.AddReductionType = function (re
  * @param {String} definition_type      Definition type (ABSOLUTE, RELATIVE), can be undefined (ABSOLUTE as default)
  * @param {Number} reduction_area       Area of reduction
  */
-SteelDesignMemberLocalSectionReduction.prototype.DesignParameters = function (row,
+SteelDesignMemberLocalSectionReduction.prototype.SetDesignParameters = function (row,
     definition_type,
     reduction_area) {
     ASSERT(typeof row !== "undefined", "Row must be defined");
     ASSERT(this.member_local_section_reduction.components[row].reduction_type === steel_member_local_section_reductions.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, "Design parameters reduction type must be set");
     ASSERT(row >= 1 && row <= this.member_local_section_reduction.components.row_count(), "Row must be in range 1-" + this.member_local_section_reduction.components.row_count().toString());
     ASSERT(typeof reduction_area !== "undefined", "Area of reduction must be defined, row " + row.toString());
+    
     this.member_local_section_reduction.components[row].fastener_definition_type = GetSteelDesignDefinitionType(definition_type);
+    
     if (this.member_local_section_reduction.components[row].fastener_definition_type === steel_member_local_section_reductions.DEFINITION_TYPE_ABSOLUTE) {
         this.member_local_section_reduction.components[row].reduction_area = reduction_area;
     }
@@ -134,7 +136,7 @@ SteelDesignMemberLocalSectionReduction.prototype.DesignParameters = function (ro
  * @param {Number} moment_of_inertia_z      Net moment of inertia z / Moment of inertia z factor, can be undefined (is not set, 0.1 / 100 as default)
  * @param {Number} torsional_constant       Net torsional constant / Torsional constant factor, can be undefined (is not set, 0.1 / 100 as default)
  */
-SteelDesignMemberLocalSectionReduction.prototype.SectionValues = function (row,
+SteelDesignMemberLocalSectionReduction.prototype.SetSectionValues = function (row,
     definition_type,
     sectional_area,
     shear_area_y,
@@ -203,7 +205,7 @@ SteelDesignMemberLocalSectionReduction.prototype.SectionValues = function (row,
  * @param {String} multiple_offset_definition_type      Offset definition type (ABSOLUTE, RELATIVE), can be undefined (is not set, ABSOLUTE as default)
  * @param {Number} multiple_offset                      Offset
  */
-SteelDesignMemberLocalSectionReduction.prototype.MultipleDefinition = function (row,
+SteelDesignMemberLocalSectionReduction.prototype.SetMultipleDefinition = function (row,
     multiple_number,
     multiple_offset_definition_type,
     multiple_offset) {

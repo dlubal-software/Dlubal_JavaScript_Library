@@ -42,7 +42,7 @@ SteelDesignUltimateConfigurationIS.prototype.SetName = function (name) {
  * Sets general design parameters
  * @param {Boolean} property_perform_stability_analysis     Perform stability design, can be undefined (true as default)
  */
-SteelDesignUltimateConfigurationIS.prototype.General = function (property_perform_stability_analysis) {
+SteelDesignUltimateConfigurationIS.prototype.SetGeneral = function (property_perform_stability_analysis) {
     if (typeof property_perform_stability_analysis === "undefined") {
         property_perform_stability_analysis = true;
     }
@@ -59,7 +59,7 @@ SteelDesignUltimateConfigurationIS.prototype.General = function (property_perfor
  * @param {Number} property_limit_values_bending_about_major_axis_y     Bending about major axis Y, can be undefined (is not set, 0.001 as default)
  * @param {Number} property_limit_values_bending_about_minor_axis_z     Bending about minor axis Z, can be undefined (is not set, 0.001 as default)
  */
-SteelDesignUltimateConfigurationIS.prototype.LimitValues = function (property_limit_values_tension,
+SteelDesignUltimateConfigurationIS.prototype.SetLimitValues = function (property_limit_values_tension,
     property_limit_values_compression,
     property_limit_values_shear_y,
     property_limit_values_shear_z,
@@ -74,7 +74,7 @@ SteelDesignUltimateConfigurationIS.prototype.LimitValues = function (property_li
  * Sets Elastic design
  * @param {Boolean} property_elastic_design     Elastic design (also for class 1 and class 2 sections), can be undefined (true as default)
  */
-SteelDesignUltimateConfigurationIS.prototype.ElasticDesign = function (property_elastic_design) {
+SteelDesignUltimateConfigurationIS.prototype.SetElasticDesign = function (property_elastic_design) {
     if (typeof property_elastic_design === "undefined") {
         property_elastic_design = true;
     }
@@ -87,7 +87,7 @@ SteelDesignUltimateConfigurationIS.prototype.ElasticDesign = function (property_
  * @param {Boolean} property_design_of_shear_buckling_method_a  Design of shear buckling acc. to 8.4.2.2(a), can be undefined (is not set, true as default)
  * @param {Boolean} property_design_of_shear_buckling_method_b  If possible, design of shear buckling acc. to 8.4.2.2(b), otherwise acc. to 8.4.2.2(a), can be undefined (is not set, false as default)
  */
-SteelDesignUltimateConfigurationIS.prototype.DesignOfShearBuckling = function (property_activate_shear_buckling,
+SteelDesignUltimateConfigurationIS.prototype.SetDesignOfShearBuckling = function (property_activate_shear_buckling,
     property_design_of_shear_buckling_method_a,
     property_design_of_shear_buckling_method_b) {
     if (typeof property_activate_shear_buckling !== "undefined") {
@@ -107,7 +107,7 @@ SteelDesignUltimateConfigurationIS.prototype.DesignOfShearBuckling = function (p
  * Sets Combined axial force and bending moment acc. to 9.3.1.1
  * @param {Boolean} property_use_conservative_equation  Use conservative equation, can be undefined (true as default)
  */
-SteelDesignUltimateConfigurationIS.prototype.Combined = function (property_use_conservative_equation) {
+SteelDesignUltimateConfigurationIS.prototype.SetCombined = function (property_use_conservative_equation) {
     if (typeof property_use_conservative_equation === "undefined") {
         property_use_conservative_equation = true;
     }
@@ -119,7 +119,7 @@ SteelDesignUltimateConfigurationIS.prototype.Combined = function (property_use_c
  * @param {Boolean} property_structure_type_sway_yy                         Sway y-y, can be undefined (is not set, false as default)
  * @param {Boolean} property_structure_type_sway_zz                         Sway z-z, can be undefined (is not set, false as default)
  */
-SteelDesignUltimateConfigurationIS.prototype.CalculationMethod = function (property_structure_type_sway_yy,
+SteelDesignUltimateConfigurationIS.prototype.SetCalculationMethod = function (property_structure_type_sway_yy,
     property_structure_type_sway_zz) {
     ASSERT(this.addon.settings_is.property_perform_stability_analysis, "Perform stability design must be on");
     if (typeof property_structure_type_sway_yy !== "undefined") {
@@ -137,7 +137,7 @@ SteelDesignUltimateConfigurationIS.prototype.CalculationMethod = function (prope
  * @param {Boolean} property_vertical_position_at_center_point                   At center point, can be undefined (is not set, false as default)
  * @param {Boolean} property_vertical_position_downwards_on_bottom_flange        On profile edge (stabilizing effect)
  */
-SteelDesignUltimateConfigurationIS.prototype.PositionOfPositiveTransverse = function (property_vertical_position_downwards_on_top_flange,
+SteelDesignUltimateConfigurationIS.prototype.SetPositionOfPositiveTransverse = function (property_vertical_position_downwards_on_top_flange,
     property_vertical_position_at_shear_point,
     property_vertical_position_at_center_point,
     property_vertical_position_downwards_on_bottom_flange) {

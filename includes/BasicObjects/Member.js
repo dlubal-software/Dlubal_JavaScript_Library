@@ -4,8 +4,6 @@
 3. design_properties_parent_member_set cam't be set?
 */
 
-include("../Tools/high_level_functions_support.js");
-
 /**
  * Creates member
  * @class
@@ -788,25 +786,12 @@ Member.prototype.SectionDistributionOffsetAtEnd = function (section_start, secti
 };
 
 /**
- * @returns Number of Member
- */
-Member.prototype.GetNo = function(){
-	return this.member.no;
-};
-
-/**
- * @returns Member object
- */
-Member.prototype.GetMember = function (){
-	return this.member;
-};
-
-/**
  * Enable / disable Design properties for member (Steel design add-on)
  * @param {Boolean} enabled 	Enable / disable Design properties, can be undefined (true as default)
  */
-Member.prototype.SteelDesignProperties = function (enabled) {
+Member.prototype.SetSteelDesignProperties = function (enabled) {
 	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
+	ASSERT(__hasSteelSection(this.member.section_start) && __hasSteelSection(this.member.section_end), "Member no. " + this.member.no + " must have section with " + materials.TYPE_STEEL + " material type");
 	ASSERT(!this.member.is_deactivated_for_calculation, "Calculation must be deactivated");
 	if (typeof enabled === "undefined") {
 		enabled = true;
@@ -818,8 +803,9 @@ Member.prototype.SteelDesignProperties = function (enabled) {
  * Sets Via parent member set
  * @param {Boolean} design_properties_via_parent_member_set 	Via parent member set, can be undefined (true as default)
  */
-Member.prototype.SteelDesignPropertiesViaParentMemberSet = function (design_properties_via_parent_member_set) {
+Member.prototype.SetSteelDesignPropertiesViaParentMemberSet = function (design_properties_via_parent_member_set) {
 	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
+	ASSERT(__hasSteelSection(this.member.section_start) && __hasSteelSection(this.member.section_end), "Member no. " + this.member.no + " must have section with " + materials.TYPE_STEEL + " material type");
 	ASSERT(!this.member.is_deactivated_for_calculation, "Calculation must be deactivated");
 	ASSERT(typeof design_properties_via_parent_member_set !== "undefined", "Enable / disable must be defined");
 	if (typeof design_properties_via_parent_member_set === "undefined") {

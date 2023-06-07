@@ -42,7 +42,7 @@ SteelDesignUltimateConfigurationCSA.prototype.SetName = function (name) {
  * Sets general design parameters
  * @param {Boolean} property_perform_stability_analysis     Perform stability design, can be undefined (true as default)
  */
-SteelDesignUltimateConfigurationCSA.prototype.General = function (property_perform_stability_analysis) {
+SteelDesignUltimateConfigurationCSA.prototype.SetGeneral = function (property_perform_stability_analysis) {
     if (typeof property_perform_stability_analysis === "undefined") {
         property_perform_stability_analysis = true;
     }
@@ -59,7 +59,7 @@ SteelDesignUltimateConfigurationCSA.prototype.General = function (property_perfo
  * @param {Number} property_limit_values_bending_about_major_axis_y     Bending about major axis Y, can be undefined (is not set, 0.001 as default)
  * @param {Number} property_limit_values_bending_about_minor_axis_z     Bending about minor axis Z, can be undefined (is not set, 0.001 as default)
  */
-SteelDesignUltimateConfigurationCSA.prototype.LimitValues = function (property_limit_values_tension,
+SteelDesignUltimateConfigurationCSA.prototype.SetLimitValues = function (property_limit_values_tension,
     property_limit_values_compression,
     property_limit_values_shear_y,
     property_limit_values_shear_z,
@@ -80,7 +80,7 @@ SteelDesignUltimateConfigurationCSA.prototype.LimitValues = function (property_l
  * @param {Number} property_options_omega_1_xu_user_defined_value           Value of omega1 in y-direction, can be undefined (is not set, 1.00 as default)
  * @param {Number} property_options_omega_1_yv_user_defined_value           Value of omega1 in z-direction, can be undefined (is not set, 1.00 as default)
  */
-SteelDesignUltimateConfigurationCSA.prototype.Options = function (property_options_elastic_design,
+SteelDesignUltimateConfigurationCSA.prototype.SetOptions = function (property_options_elastic_design,
     property_options_consider_n_equal_to_1_34,
     property_options_consider_n_equal_to_2_24,
     property_options_calculate_omega_1_according_to_13_8_6,
@@ -117,7 +117,7 @@ SteelDesignUltimateConfigurationCSA.prototype.Options = function (property_optio
  * @param {Boolean} property_structure_type_unbraced_frame_y_direction  Unbraced frame in y-direction, can be undefined (is not set, false as default)
  * @param {Boolean} property_structure_type_unbraced_frame_z_direction  Unbraced frame in z-direction, can be undefined (is not set, false as default)
  */
-SteelDesignUltimateConfigurationCSA.prototype.StructureType = function (property_structure_type_unbraced_frame_y_direction,
+SteelDesignUltimateConfigurationCSA.prototype.SetStructureType = function (property_structure_type_unbraced_frame_y_direction,
     property_structure_type_unbraced_frame_z_direction) {
     ASSERT(this.addon.settings_csa.property_perform_stability_analysis, "Perform stability design must be on");
     if (typeof property_structure_type_unbraced_frame_y_direction !== "undefined") {
@@ -135,7 +135,7 @@ SteelDesignUltimateConfigurationCSA.prototype.StructureType = function (property
  * @param {Boolean} property_load_act_vp_at_center_point                   At center point, can be undefined (is not set, false as default)
  * @param {Boolean} property_load_act_vp_downwards_on_bottom_flange        On profile edge (stabilizing effect)
  */
-SteelDesignUltimateConfigurationCSA.prototype.PositionOfPositiveTransverse = function (property_load_act_vp_downwards_on_top_flange,
+SteelDesignUltimateConfigurationCSA.prototype.SetPositionOfPositiveTransverse = function (property_load_act_vp_downwards_on_top_flange,
     property_load_act_vp_at_shear_point,
     property_load_act_vp_at_center_point,
     property_load_act_vp_downwards_on_bottom_flange) {

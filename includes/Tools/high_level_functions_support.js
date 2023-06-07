@@ -278,11 +278,3 @@ function makeSolid(boundaryNodes, type, materialName)
 
 	return solid;
 }
-
-function __objectExists(object_no, object_name, object_container) {
-	if (object_container.exist(object_no)) {
-		return true;
-	}
-	console.log(object_name + " no. " + object_no + " doesn't exist");
-	return false;
-}

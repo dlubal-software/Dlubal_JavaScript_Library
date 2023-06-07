@@ -42,7 +42,7 @@ SteelDesignUltimateConfigurationAS.prototype.SetName = function (name) {
  * Sets general design parameters
  * @param {Boolean} property_perform_stability_analysis     Perform stability design, can be undefined (true as default)
  */
-SteelDesignUltimateConfigurationAS.prototype.General = function (property_perform_stability_analysis) {
+SteelDesignUltimateConfigurationAS.prototype.SetGeneral = function (property_perform_stability_analysis) {
     if (typeof property_perform_stability_analysis === "undefined") {
         property_perform_stability_analysis = true;
     }
@@ -59,7 +59,7 @@ SteelDesignUltimateConfigurationAS.prototype.General = function (property_perfor
  * @param {Number} property_limit_values_bending_about_major_axis_y     Bending about major axis Y, can be undefined (is not set, 0.001 as default)
  * @param {Number} property_limit_values_bending_about_minor_axis_z     Bending about minor axis Z, can be undefined (is not set, 0.001 as default)
  */
-SteelDesignUltimateConfigurationAS.prototype.LimitValues = function (property_limit_values_tension,
+SteelDesignUltimateConfigurationAS.prototype.SetLimitValues = function (property_limit_values_tension,
     property_limit_values_compression,
     property_limit_values_shear_y,
     property_limit_values_shear_z,
@@ -76,7 +76,7 @@ SteelDesignUltimateConfigurationAS.prototype.LimitValues = function (property_li
  * @param {Boolean} property_options_use_proportioning_method           Use proportioning method acc. to 5.12.2, can be undefined (is not set, false as default)
  * @param {Boolean} property_options_use_alternative_calculation        Use alternative calculation acc. to 8.3 and 8.4, can be undefined (is not set, false as default)
  */
-SteelDesignUltimateConfigurationAS.prototype.Options = function (property_options_plastic_design_acc_to_45_and_843,
+SteelDesignUltimateConfigurationAS.prototype.SetOptions = function (property_options_plastic_design_acc_to_45_and_843,
     property_options_use_proportioning_method,
     property_options_use_alternative_calculation) {
     if (typeof property_options_plastic_design_acc_to_45_and_843 !== "undefined") {
@@ -95,7 +95,7 @@ SteelDesignUltimateConfigurationAS.prototype.Options = function (property_option
  * @param {Boolean} property_residual_stresses_user_defined     User-defined residual stresses to calculate slenderness limits acc. to tab. 5.2 or tab. 6.2.4, can be undefined (is not set, false as default)
  * @param {String} property_residual_stresses_type              Residual stress (SR - stress relieved, HR - hot-rolled or hot -finished, CF - cold-formed, LW - lightly welded longitudinally, HW - heavily welded longitudinally), can be undefined (is not set, Sr as default)
  */
-SteelDesignUltimateConfigurationAS.prototype.SectionManufacture = function (property_residual_stresses_user_defined,
+SteelDesignUltimateConfigurationAS.prototype.SetSectionManufacture = function (property_residual_stresses_user_defined,
     property_residual_stresses_type) {
     if (typeof property_residual_stresses_user_defined != "undefined") {
         this.addon.settings_as4100.property_residual_stresses_user_defined = property_residual_stresses_user_defined;
@@ -110,7 +110,7 @@ SteelDesignUltimateConfigurationAS.prototype.SectionManufacture = function (prop
  * @param {Boolean} property_vertical_position_at_center_point                   At center point, can be undefined (is not set, false as default)
  * @param {Boolean} property_vertical_position_downwards_on_bottom_flange        On profile edge (stabilizing effect)
  */
-SteelDesignUltimateConfigurationAS.prototype.PositionOfPositiveTransverse = function (property_vertical_position_downwards_on_top_flange,
+SteelDesignUltimateConfigurationAS.prototype.SetPositionOfPositiveTransverse = function (property_vertical_position_downwards_on_top_flange,
     property_vertical_position_at_shear_point,
     property_vertical_position_at_center_point,
     property_vertical_position_downwards_on_bottom_flange) {
@@ -134,7 +134,7 @@ SteelDesignUltimateConfigurationAS.prototype.PositionOfPositiveTransverse = func
  * @param {Boolean} property_welded_sections_rolled_flange      Rolled flange edges, can be undefined (is not set, true as default)
  * @param {Boolean} property_welded_sections_flame_cut_flange   Flame-cut flange edges, can be undefined (is not set, false as default)
  */
-SteelDesignUltimateConfigurationAS.prototype.FabricationOfWeldedSections = function (property_welded_sections_rolled_flange,
+SteelDesignUltimateConfigurationAS.prototype.SetFabricationOfWeldedSections = function (property_welded_sections_rolled_flange,
     property_welded_sections_flame_cut_flange) {
     ASSERT(this.addon.settings_as4100.property_perform_stability_analysis, "Perform stability design must be on");
     if (typeof property_welded_sections_rolled_flange !== "undefined") {

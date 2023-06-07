@@ -42,7 +42,7 @@ SteelDesignStrengthConfigurationAISC.prototype.SetName = function (name) {
  * Sets general design parameters
  * @param {Boolean} property_perform_stability_analysis     Perform stability design, can be undefined (true as default)
  */
-SteelDesignStrengthConfigurationAISC.prototype.General = function (property_perform_stability_analysis) {
+SteelDesignStrengthConfigurationAISC.prototype.SetGeneral = function (property_perform_stability_analysis) {
     if (typeof property_perform_stability_analysis === "undefined") {
         property_perform_stability_analysis = true;
     }
@@ -59,7 +59,7 @@ SteelDesignStrengthConfigurationAISC.prototype.General = function (property_perf
  * @param {Number} property_limit_values_bending_about_major_axis_y     Bending about major axis Y, can be undefined (is not set, 0.001 as default)
  * @param {Number} property_limit_values_bending_about_minor_axis_z     Bending about minor axis Z, can be undefined (is not set, 0.001 as default)
  */
-SteelDesignStrengthConfigurationAISC.prototype.LimitValues = function (property_limit_values_tension,
+SteelDesignStrengthConfigurationAISC.prototype.SetLimitValues = function (property_limit_values_tension,
     property_limit_values_compression,
     property_limit_values_shear_y,
     property_limit_values_shear_z,
@@ -76,7 +76,7 @@ SteelDesignStrengthConfigurationAISC.prototype.LimitValues = function (property_
  * @param {Number} property_unstiffened_elements                                                Unstiffened elements, can be undefined (is not set, 12.500)
  * @param {Number} property_stiffened_elements                                                  Stiffened elements, can be undefined (is not set, 42.000 as default)
  */
-SteelDesignStrengthConfigurationAISC.prototype.LocalBuckling = function (property_check_width_thickness_ratio_of_elements_not_defined_in_tab_b4_1b,
+SteelDesignStrengthConfigurationAISC.prototype.SetLocalBuckling = function (property_check_width_thickness_ratio_of_elements_not_defined_in_tab_b4_1b,
     property_unstiffened_elements,
     property_stiffened_elements) {
     if (typeof property_check_width_thickness_ratio_of_elements_not_defined_in_tab_b4_1b !== "undefined") {
@@ -99,7 +99,7 @@ SteelDesignStrengthConfigurationAISC.prototype.LocalBuckling = function (propert
  * @param {Boolean} property_load_acts_vp_at_center_point                   At center point, can be undefined (is not set, false as default)
  * @param {Boolean} property_load_acts_vp_downwards_on_bottom_flange        On profile edge (stabilizing effect)
  */
-SteelDesignStrengthConfigurationAISC.prototype.PositionOfPositiveTransverse = function (property_load_acts_vp_downwards_on_top_flange,
+SteelDesignStrengthConfigurationAISC.prototype.SetPositionOfPositiveTransverse = function (property_load_acts_vp_downwards_on_top_flange,
     property_load_acts_vp_at_shear_point,
     property_load_acts_vp_at_center_point,
     property_load_acts_vp_downwards_on_bottom_flange) {

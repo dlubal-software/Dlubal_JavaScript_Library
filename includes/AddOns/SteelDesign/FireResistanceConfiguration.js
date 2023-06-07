@@ -48,7 +48,7 @@ SteelDesignFireResistanceConfiguration.prototype.SetName = function (name) {
  * Defines final temperature
  * @param {String} property_define_final_temperature    Final temperature (MANUALLY, ANALYTICALLY), can be undefined (is not set, ANALYTICALLY as default)
  */
-SteelDesignFireResistanceConfiguration.prototype.FinalTemperature = function (property_define_final_temperature) {
+SteelDesignFireResistanceConfiguration.prototype.SetFinalTemperature = function (property_define_final_temperature) {
     if (IsCurrentCodeOfStandard("EN")) {
         var container = this.addon.settings_ec3;
     }
@@ -70,7 +70,7 @@ SteelDesignFireResistanceConfiguration.prototype.FinalTemperature = function (pr
  * @param {Boolean} property_fire_exposure_3_sides_covered_width_user_defined       Assume user-defined width of section as covered, can be undefined (is not set, false as default)
  * @param {Number} property_fire_exposure_3_sides_covered_width_user_defined_value  User-defined width, can be undefined (is not set, 0 s. as default)
  */
-SteelDesignFireResistanceConfiguration.prototype.AnalyticallyDesignSettings = function (property_required_time_of_fire_resistance,
+SteelDesignFireResistanceConfiguration.prototype.SetAnalyticallyDesignSettings = function (property_required_time_of_fire_resistance,
     property_time_interval_of_analysis,
     property_fire_exposure,
     property_fire_exposure_3_sides_covered_width_calculated,
@@ -97,7 +97,7 @@ SteelDesignFireResistanceConfiguration.prototype.AnalyticallyDesignSettings = fu
  * @param {Number} property_specific_heat           Specific heat, can be undefined (is not set, 1200.0 as default)
  * @param {Number} property_thickness               Thickness, can be undefined (is not set, 10.0 as default)
  */
-SteelDesignFireResistanceConfiguration.prototype.AnalyticallyFireProtection = function (property_protection_type,
+SteelDesignFireResistanceConfiguration.prototype.SetAnalyticallyFireProtection = function (property_protection_type,
     property_unit_mass,
     property_thermal_conductivity,
     property_specific_heat,
@@ -121,7 +121,7 @@ SteelDesignFireResistanceConfiguration.prototype.AnalyticallyFireProtection = fu
  * @param {Boolean} property_hydrocarbon_curve                              Hydrocarbon curve, can be undefined (is not set, false as default)
  * @param {Number} property_coefficient_of_heat_transfer_by_convention      Coefficient of heat transfer by convection, can be undefined (is not set, 25 as default)
  */
-SteelDesignFireResistanceConfiguration.prototype.AnalyticallyTemperatureCurve = function (property_standard_temperature_time_curve,
+SteelDesignFireResistanceConfiguration.prototype.SetAnalyticallyTemperatureCurve = function (property_standard_temperature_time_curve,
     property_external_fire_curve,
     property_hydrocarbon_curve,
     property_coefficient_of_heat_transfer_by_convention) {
@@ -146,7 +146,7 @@ SteelDesignFireResistanceConfiguration.prototype.AnalyticallyTemperatureCurve = 
  * @param {Number} property_temperature_limit_of_galvanization_effect                               Galvanized surface of carbon steel member, Temperature limit of galvanization effect, can be undefined (is not set, 500 as default)
  * @param {Number} property_surface_emissivity_of_carbon_steel_member_with_temperature_below_limit  Galvanized surface of carbon steel member, Surface emissivity of carbon steel member with temperature below, can be undefined (is not set, 0.350 as default)
  */
-SteelDesignFireResistanceConfiguration.prototype.AnalyticallyThermalActions = function (property_configuration_factor,
+SteelDesignFireResistanceConfiguration.prototype.SetAnalyticallyThermalActions = function (property_configuration_factor,
     property_surface_emissivity_of_carbon_steel_member,
     property_surface_emissivity_of_stainless_steel_member,
     property_emissivity_of_fire,
@@ -171,7 +171,7 @@ SteelDesignFireResistanceConfiguration.prototype.AnalyticallyThermalActions = fu
  * @param {String} property_fire_exposure                   Fire exposure (3_SIDES, ALL_SIDES), can be undefined (is not set, ALL_SIDES as default)
  * @param {Boolean} property_member_with_fire_protection    Member with fire protection, can be undefined (is not set, false as default)
  */
-SteelDesignFireResistanceConfiguration.prototype.ManuallyFinalTemperature = function (property_material_final_temperature,
+SteelDesignFireResistanceConfiguration.prototype.SetManuallyFinalTemperature = function (property_material_final_temperature,
     property_fire_exposure,
     property_member_with_fire_protection) {
     if (IsCurrentCodeOfStandard("EN")) {

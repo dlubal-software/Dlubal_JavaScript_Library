@@ -42,7 +42,7 @@ SteelDesignUltimateConfigurationNBR.prototype.SetName = function (name) {
  * Sets general design parameters
  * @param {Boolean} property_perform_stability_analysis     Perform stability design, can be undefined (true as default)
  */
-SteelDesignUltimateConfigurationNBR.prototype.General = function (property_perform_stability_analysis) {
+SteelDesignUltimateConfigurationNBR.prototype.SetGeneral = function (property_perform_stability_analysis) {
     if (typeof property_perform_stability_analysis === "undefined") {
         property_perform_stability_analysis = true;
     }
@@ -59,7 +59,7 @@ SteelDesignUltimateConfigurationNBR.prototype.General = function (property_perfo
  * @param {Number} property_limit_values_bending_about_major_axis_y     Bending about major axis Y, can be undefined (is not set, 0.001 as default)
  * @param {Number} property_limit_values_bending_about_minor_axis_z     Bending about minor axis Z, can be undefined (is not set, 0.001 as default)
  */
-SteelDesignUltimateConfigurationNBR.prototype.LimitValues = function (property_limit_values_tension,
+SteelDesignUltimateConfigurationNBR.prototype.SetLimitValues = function (property_limit_values_tension,
     property_limit_values_compression,
     property_limit_values_torsion_shear_stress,
     property_limit_values_shear_y,
@@ -78,7 +78,7 @@ SteelDesignUltimateConfigurationNBR.prototype.LimitValues = function (property_l
  * @param {Number} property_reduction_coefficient_c_t   Net area reduction coefficient, can be undefined (is not set, 1.0 as default)
  * @param {Boolean} property_wall_thickness_reduction   Use reduced wall thickness for circular pipes in shear acc. to 5.4.3.6, can be undefined (is not set, true as default)
  */
-SteelDesignUltimateConfigurationNBR.prototype.Options = function (property_reduction_coefficient_c_t,
+SteelDesignUltimateConfigurationNBR.prototype.SetOptions = function (property_reduction_coefficient_c_t,
     property_wall_thickness_reduction) {
     if (typeof property_reduction_coefficient_c_t !== "undefined") {
         this.addon.settings_nbr.property_reduction_coefficient_c_t = property_reduction_coefficient_c_t;
@@ -95,7 +95,7 @@ SteelDesignUltimateConfigurationNBR.prototype.Options = function (property_reduc
  * @param {Boolean} property_vertical_position_at_center_point              At center point, can be undefined (is not set, false as default)
  * @param {Boolean} property_vertical_position_downwards_on_bottom_flange   On profile edge (stabilizing effect), can be undefined (is not set, false as default)
  */
-SteelDesignUltimateConfigurationNBR.prototype.PositionOfPositiveTransverse = function (property_vertical_position_downwards_on_top_flange,
+SteelDesignUltimateConfigurationNBR.prototype.SetPositionOfPositiveTransverse = function (property_vertical_position_downwards_on_top_flange,
     property_vertical_position_at_shear_point,
     property_vertical_position_at_center_point,
     property_vertical_position_downwards_on_bottom_flange) {

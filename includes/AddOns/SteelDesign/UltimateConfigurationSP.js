@@ -42,7 +42,7 @@ SteelDesignUltimateConfigurationSP.prototype.SetName = function (name) {
  * Sets general design parameters
  * @param {Boolean} property_perform_stability_analysis     Perform stability design, can be undefined (is not set, true as default)
  */
-SteelDesignUltimateConfigurationSP.prototype.General = function (property_perform_stability_analysis) {
+SteelDesignUltimateConfigurationSP.prototype.SetGeneral = function (property_perform_stability_analysis) {
     if (typeof property_perform_stability_analysis !== "undefined") {
         this.addon.settings_sp16.property_perform_stability_analysis = property_perform_stability_analysis;
     }
@@ -58,7 +58,7 @@ SteelDesignUltimateConfigurationSP.prototype.General = function (property_perfor
  * @param {Number} property_limit_values_bending_about_major_axis_yu        Bending about major axis Y, can be undefined (is not set, 0.001 as default)
  * @param {Number} property_limit_values_bending_about_minor_axis_zv        Bending about minor axis Z, can be undefined (is not set, 0.001 as default)
  */
-SteelDesignUltimateConfigurationSP.prototype.LimitValues = function (property_limit_values_tension,
+SteelDesignUltimateConfigurationSP.prototype.SetLimitValues = function (property_limit_values_tension,
     property_limit_values_compression,
     property_limit_values_shear_perpendicular_to_axis_yu,
     property_limit_values_shear_perpendicular_to_axis_zv,
@@ -92,7 +92,7 @@ SteelDesignUltimateConfigurationSP.prototype.LimitValues = function (property_li
  * Sets Service factor
  * @param {Number} property_service_factor_acc_to_table_1   Factor acc. to table 1, can be undefined (is not set, 0.90 as default)
  */
-SteelDesignUltimateConfigurationSP.prototype.ServiceFactor = function (property_service_factor_acc_to_table_1) {
+SteelDesignUltimateConfigurationSP.prototype.SetServiceFactor = function (property_service_factor_acc_to_table_1) {
     if (typeof property_service_factor_acc_to_table_1 !== "undefined") {
         this.addon.settings_sp16.property_service_factor_acc_to_table_1 = property_service_factor_acc_to_table_1;
     }
@@ -102,7 +102,7 @@ SteelDesignUltimateConfigurationSP.prototype.ServiceFactor = function (property_
  * Sets Partial safety factor for material
  * @param {Number} property_partial_safety_factor_acc_to_table_3    Factor acc. to table 3, can be undefined (is not set, 1.02 as default)
  */
-SteelDesignUltimateConfigurationSP.prototype.PartialSafetyFactor = function (property_partial_safety_factor_acc_to_table_3) {
+SteelDesignUltimateConfigurationSP.prototype.SetPartialSafetyFactor = function (property_partial_safety_factor_acc_to_table_3) {
     if (typeof property_partial_safety_factor_acc_to_table_3 !== "undefined") {
         this.addon.settings_sp16.property_partial_safety_factor_acc_to_table_3 = property_partial_safety_factor_acc_to_table_3;
     }
@@ -112,7 +112,7 @@ SteelDesignUltimateConfigurationSP.prototype.PartialSafetyFactor = function (pro
  * Sets Options
  * @param {Boolean} property_options_plastic_design     Plastic design (class 2 and 3 acc. to SNIP II-23-81), can be undefined (is not set, false as default)
  */
-SteelDesignUltimateConfigurationSP.prototype.Options = function (property_options_plastic_design) {
+SteelDesignUltimateConfigurationSP.prototype.SetOptions = function (property_options_plastic_design) {
     if (typeof property_options_plastic_design !== "undefined") {
         this.addon.settings_sp16.property_options_plastic_design = property_options_plastic_design;
     }
@@ -123,7 +123,7 @@ SteelDesignUltimateConfigurationSP.prototype.Options = function (property_option
  * @param {Boolean} property_load_safety_coefficient_is_used    Use load safety coefficient gama-f as limit for coefficients cy and cz from tab. E.1, can be undefined (is not set, true as default)
  * @param {Number} property_load_safety_coefficient_value       Load safety coefficient gama-f used in tab. E.1, can be undefined (is not set, 1.100 as default)
  */
-SteelDesignUltimateConfigurationSP.prototype.LoadSafetyCoefficient = function (property_load_safety_coefficient_is_used,
+SteelDesignUltimateConfigurationSP.prototype.SetLoadSafetyCoefficient = function (property_load_safety_coefficient_is_used,
     property_load_safety_coefficient_value) {
     if (typeof property_load_safety_coefficient_is_used !== "undefined") {
         this.addon.settings_sp16.property_load_safety_coefficient_is_used = property_load_safety_coefficient_is_used;
@@ -141,7 +141,7 @@ SteelDesignUltimateConfigurationSP.prototype.LoadSafetyCoefficient = function (p
  * @param {Boolean} property_vertical_position_downwards_on_top_flange      Vertical position on profile edge (destabilizing effect), can be undefined (is not set, true as default)
  * @param {Boolean} property_vertical_position_downwards_on_bottom_flange   Vertical position on profile edge (stabilizing effect), can be undefined (false as default)
  */
-SteelDesignUltimateConfigurationSP.prototype.DesignParameters = function (property_tolerance_of_ltb_support_distribution,
+SteelDesignUltimateConfigurationSP.prototype.SetDesignParameters = function (property_tolerance_of_ltb_support_distribution,
     property_tolerance_of_concentrated_load_position,
     property_vertical_position_downwards_on_top_flange,
     property_vertical_position_downwards_on_bottom_flange) {

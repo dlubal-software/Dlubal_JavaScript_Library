@@ -51,7 +51,7 @@ SteelDesignServiceabilityConfiguration.prototype.SetName = function (name) {
  * @param {Boolean} property_lowb_road_bridge                       Limitation of web breathing, Road bridge, can be undefined (is not set, true as default) 
  * @param {Boolean} property_lowb_railway_bridge                    Limitation of web breathing, Railway bridge, can be undefined (is not set, false as default)
  */
-SteelDesignServiceabilityConfiguration.prototype.DesignParametersEC3 = function (property_sl_beam_limit_characteristic,
+SteelDesignServiceabilityConfiguration.prototype.SetDesignParametersEC3 = function (property_sl_beam_limit_characteristic,
     property_sl_beam_limit_frequent,
     property_sl_beam_limit_quasi_permanent,
     property_sl_cantilever_limit_characteristic,
@@ -100,7 +100,7 @@ SteelDesignServiceabilityConfiguration.prototype.DesignParametersEC3 = function 
  * @param {Number} property_sl_beam_limit           Beam limits, can be undefined (is not set, 360 as default)
  * @param {Number} property_sl_cantilever_limit     Cantilever limits, can be undefined (is not set, 180 as default)
  */
-SteelDesignServiceabilityConfiguration.prototype.DesignParametersAISC = function (property_sl_beam_limit,
+SteelDesignServiceabilityConfiguration.prototype.SetDesignParametersAISC = function (property_sl_beam_limit,
     property_sl_cantilever_limit) {
     if (typeof property_sl_beam_limit !== "undefined") {
         this.addon.settings_aisc.property_sl_beam_limit = property_sl_beam_limit;
@@ -115,7 +115,7 @@ SteelDesignServiceabilityConfiguration.prototype.DesignParametersAISC = function
  * @param {Number} property_sl_beam_limit           Beam limits, can be undefined (is not set, 360 as default)
  * @param {Number} property_sl_cantilever_limit     Cantilever limits, can be undefined (is not set, 180 as default)
  */
-SteelDesignServiceabilityConfiguration.prototype.DesignParametersIS = function (property_sl_beam_limit,
+SteelDesignServiceabilityConfiguration.prototype.SetDesignParametersIS = function (property_sl_beam_limit,
     property_sl_cantilever_limit) {
     if (typeof property_sl_beam_limit !== "undefined") {
         this.addon.settings_is.property_sl_beam_limit = property_sl_beam_limit;
@@ -131,7 +131,7 @@ SteelDesignServiceabilityConfiguration.prototype.DesignParametersIS = function (
  * @param {Number} property_sl_cantilever_limit_value   Cantilever limits, can be undefined (is not set, 180 as default)
  * @param {Number} property_vibration_design            Vibration design, can be undefined (is not set, 5 mm as default)
  */
-SteelDesignServiceabilityConfiguration.prototype.DesignParametersBS = function (property_sl_beam_limit_value,
+SteelDesignServiceabilityConfiguration.prototype.SetDesignParametersBS = function (property_sl_beam_limit_value,
     property_sl_cantilever_limit_value,
     property_vibration_design) {
     if (typeof property_sl_beam_limit_value !== "undefined") {
@@ -152,7 +152,7 @@ SteelDesignServiceabilityConfiguration.prototype.DesignParametersBS = function (
  * @param {Number} property_sl_cantilever_limit_characteristic_permanent_and_variable    Cantilever limits acc. to GB 50017, Annex B, permanent and variable, can be undefined (is not set, 500 as default)
  * @param {Number} property_sl_cantilever_limit_characteristic_variable                  Cantilever limits acc. to GB 50017, Annex B, variable, can be undefined (is not set, 500 as default)
  */
-SteelDesignServiceabilityConfiguration.prototype.DesignParametersGB = function (property_sl_beam_limit_characteristic_permanent_and_variable,
+SteelDesignServiceabilityConfiguration.prototype.SetDesignParametersGB = function (property_sl_beam_limit_characteristic_permanent_and_variable,
     property_sl_beam_limit_characteristic_variable,
     property_sl_cantilever_limit_characteristic_permanent_and_variable,
     property_sl_cantilever_limit_characteristic_variable) {
@@ -175,7 +175,7 @@ SteelDesignServiceabilityConfiguration.prototype.DesignParametersGB = function (
  * @param {Number} property_sl_beam_limit           Beam limits, can be undefined (is not set, 360 as default)
  * @param {Number} property_sl_cantilever_limit     Cantilever limits, can be undefined (is not set, 180 as default)
  */
-SteelDesignServiceabilityConfiguration.prototype.DesignParametersCSA = function (property_sl_beam_limit,
+SteelDesignServiceabilityConfiguration.prototype.SetDesignParametersCSA = function (property_sl_beam_limit,
     property_sl_cantilever_limit) {
     if (typeof property_sl_beam_limit !== "undefined") {
         this.addon.settings_csa.property_sl_beam_limit = property_sl_beam_limit;
@@ -192,7 +192,7 @@ SteelDesignServiceabilityConfiguration.prototype.DesignParametersCSA = function 
  * @param {Number} property_sl_cantilever_limit_short_term_effects      Cantilever limits, short-term effects, can be undefined (is not set, 250 as default)
  * @param {Number} property_sl_cantilever_limit_long_term_effects       Cantilever effects, long-term effects, can be undefined (is not set, 125 as default)
  */
-SteelDesignServiceabilityConfiguration.prototype.DesignParametersAS = function (property_sl_beam_limit_short_term_effects,
+SteelDesignServiceabilityConfiguration.prototype.SetDesignParametersAS = function (property_sl_beam_limit_short_term_effects,
     property_sl_beam_limit_long_term_effects,
     property_sl_cantilever_limit_short_term_effects,
     property_sl_cantilever_limit_long_term_effects) {
@@ -215,7 +215,7 @@ SteelDesignServiceabilityConfiguration.prototype.DesignParametersAS = function (
  * @param {Number} property_sl_beam_limit           Beam limits, can be undefined (is not set, 360 as default)
  * @param {Number} property_sl_cantilever_limit     Cantilever limits, can be undefined (is not set, 180 as default)
  */
-SteelDesignServiceabilityConfiguration.prototype.DesignParametersSP = function (property_sl_beam_limit,
+SteelDesignServiceabilityConfiguration.prototype.SetDesignParametersSP = function (property_sl_beam_limit,
     property_sl_cantilever_limit) {
     if (typeof property_sl_beam_limit !== "undefined") {
         this.addon.settings_sp16.property_sl_beam_limit = property_sl_beam_limit;
