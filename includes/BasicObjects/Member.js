@@ -1,3 +1,9 @@
+/*
+1. SetSteeleDesignConfigurations - no API support for Strength configuration?
+2. SetSteeleDesignConfigurations - no API support for Seismic configuration?
+3. design_properties_parent_member_set cam't be set?
+*/
+
 /**
  * Creates member
  * @class
@@ -779,12 +785,174 @@ Member.prototype.SectionDistributionOffsetAtEnd = function (section_start, secti
 	}
 };
 
-Member.prototype.GetNo = function () {
+/**
+ * @returns Number of Member
+ */
+Member.prototype.GetNo = function(){
 	return this.member.no;
 };
 
-Member.prototype.GetMember = function () {
+/**
+ * @returns Member object
+ */
+Member.prototype.GetMember = function (){
 	return this.member;
+};
+
+/**
+ * Enable / disable Design properties for member (Steel design add-on)
+ * @param {Boolean} enabled 	Enable / disable Design properties, can be undefined (true as default)
+ */
+Member.prototype.SetSteelDesignProperties = function (enabled) {
+	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
+	ASSERT(__hasSteelSection(this.member.section_start) && __hasSteelSection(this.member.section_end), "Member no. " + this.member.no + " must have section with " + materials.TYPE_STEEL + " material type");
+	ASSERT(!this.member.is_deactivated_for_calculation, "Calculation must be deactivated");
+	if (typeof enabled === "undefined") {
+		enabled = true;
+	}
+	this.member.design_properties_via_member = enabled;
+}
+
+/**
+ * Sets Via parent member set
+ * @param {Boolean} design_properties_via_parent_member_set 	Via parent member set, can be undefined (true as default)
+ */
+Member.prototype.SetSteelDesignPropertiesViaParentMemberSet = function (design_properties_via_parent_member_set) {
+	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
+	ASSERT(__hasSteelSection(this.member.section_start) && __hasSteelSection(this.member.section_end), "Member no. " + this.member.no + " must have section with " + materials.TYPE_STEEL + " material type");
+	ASSERT(!this.member.is_deactivated_for_calculation, "Calculation must be deactivated");
+	ASSERT(typeof design_properties_via_parent_member_set !== "undefined", "Enable / disable must be defined");
+	if (typeof design_properties_via_parent_member_set === "undefined") {
+		design_properties_via_parent_member_set = true;
+	}
+	this.member.design_properties_via_parent_member_set = design_properties_via_parent_member_set;
+};
+
+/**
+ * Sets Steel design types (Steel design add-on)
+ * @param {Number} steel_effective_lengths_no 					Effective length number, can be undefined
+ * @param {Number} steel_boundary_conditions_no 				Boundary condition number, can be undefined
+ * @param {Number} steel_member_local_section_reduction_no 		Member local section reduction number, can be undefined
+ */
+Member.prototype.SetSteelDesignTypes = function (steel_effective_lengths_no,
+	steel_boundary_conditions_no,
+	steel_member_local_section_reduction_no) {
+	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
+	if (typeof steel_effective_lengths_no !== "undefined" && __objectExists(steel_effective_lengths_no, "Effective length", steel_effective_lengths)) {
+		this.member.steel_effective_lengths = steel_effective_lengths_no;
+	}
+	if (typeof steel_boundary_conditions_no !== "undefined") {
+		ASSERT(Member_IsCurrentCodeOfStandard("EN") || Member_IsCurrentCodeOfStandard("NTC"), "Boundary condition can be set only for EN, NTC code of standards");
+		if (__objectExists(steel_boundary_conditions_no, "Boundary condition", steel_boundary_conditions)) {
+			this.member.steel_boundary_conditions = steel_boundary_conditions_no;
+		}
+	}
+	if (typeof steel_member_local_section_reduction_no !== "undefined" && __objectExists(steel_member_local_section_reduction_no, "Member local section reduction", steel_member_local_section_reductions)) {
+		this.member.steel_member_local_section_reduction = steel_member_local_section_reduction_no;
+	}
+};
+
+/**
+ * Sets Steel design configurations (Steel design add-on)
+ * @param {Number} member_steel_design_uls_configuration_no 	Ultimate configuration number, can be undefined
+ * @param {Number} member_steel_design_sls_configuration_no 	Serviceability configuration number, can be undefined
+ * @param {Number} member_steel_design_fr_configuration_no 		Fire resistance configuration number, can be undefined
+ */
+Member.prototype.SetSteeleDesignConfigurations = function (member_steel_design_uls_configuration_no,
+	member_steel_design_sls_configuration_no,
+	member_steel_design_fr_configuration_no) {
+	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
+	if (typeof member_steel_design_uls_configuration_no !== "undefined") {
+		ASSERT(!Member_IsCurrentCodeOfStandard("AISC"), "Ultimate configuration can't be set for AISC code of standard");
+		if (__objectExists(member_steel_design_uls_configuration_no, "Ultimate configuration", STEEL_DESIGN.steel_design_uls_configurations)) {
+			this.member.member_steel_design_uls_configuration = member_steel_design_uls_configuration_no;
+		}
+	}
+	if (typeof member_steel_design_sls_configuration_no !== "undefined" && __objectExists(member_steel_design_sls_configuration_no, "Serviceability configuration", STEEL_DESIGN.steel_design_sls_configurations)) {
+		this.member.member_steel_design_sls_configuration = member_steel_design_sls_configuration_no;
+	}
+	if (typeof member_steel_design_fr_configuration_no !== "undefined") {
+		ASSERT(Member_IsCurrentCodeOfStandard("EN") || Member_IsCurrentCodeOfStandard("NTC"), "Fire resistance configuration can be set only for EN, NTC code of standards");
+		if (__objectExists(member_steel_design_fr_configuration_no, "Fire resistance configuration", STEEL_DESIGN.steel_design_fr_configurations)) {
+			this.member.member_steel_design_fr_configuration = member_steel_design_fr_configuration_no;
+		}
+	}
+};
+
+/**
+ * Sets Design supports
+ * @param {Number} design_support_on_member_start 	Design support at member start, can be undefined
+ * @param {Number} design_support_on_member_end 	Design support at member end, can be undefined
+ */
+Member.prototype.SetDesignSupport = function (design_support_on_member_start,
+	design_support_on_member_end) {
+	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
+	if (typeof design_support_on_member_start !== "undefined") {
+		if (__objectExists(design_support_on_member_start, "Design support", design_supports)) {
+			this.member.design_support_on_member_start = design_support_on_member_start;
+		}
+	}
+	if (typeof design_support_on_member_end !== "undefined") {
+		if (__objectExists(design_support_on_member_end, "Design support", design_supports)) {
+			this.member.design_support_on_member_end = design_support_on_member_end;
+		}
+	}
+};
+
+/**
+ * Sets Deflection analysis
+ * @param {String} deflection_check_direction 				Check direction (LOCAL_AXIS_Z, LOCAL_AXIS_Y, LOCAL_AXIS_Z_AND_Y, RESULTING_AXIS), can be undefined (LOCAL_AXIS_Z_AND_Y as default)
+ * @param {String} deflection_check_displacement_reference 	Displacement reference (DEFORMED_SEGMENT_ENDS, DEFORMED_UNDEFORMED_SYSTEM), can be undefined (DEFORMED_SEGMENT_ENDS as default)
+ * @param {Boolean} active_z 								Segment in z-axis - active, can be undefined (true as default)
+ * @param {Number} length_z 								Segment in z-axis - length, can be undefined (member length as default)
+ * @param {Number} precamber_z 								Segment in z-axis - precamber, can be undefined (0.0 as default)
+ * @param {Boolean} active_y 								Segment in y-axis - active, can be undefined (true as default)
+ * @param {Number} length_y 								Segment in y-axis - length, can be undefined (member length as default)
+ * @param {Number} precamber_y 								Segment in y-axis - precamber, can be undefined (0.0 as default)
+ */
+Member.prototype.SetDeflectionAnalysis = function (deflection_check_direction,
+	deflection_check_displacement_reference,
+	active_z,
+	length_z,
+	precamber_z,
+	active_y,
+	length_y,
+	precamber_y) {
+	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
+	this.member.deflection_check_direction = GetMemberDesignSupportCheckDirection(deflection_check_direction);
+	this.member.deflection_check_displacement_reference = GetMemberDesignCheckDisplacementDirection(deflection_check_displacement_reference);
+	if (typeof active_z !== "undefined") {
+		ASSERT(this.member.deflection_check_direction !== members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Y, "Check direction can't be " + members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Y);
+		this.member.deflection_segments_z_axis[1].active = active_z;
+	}
+	if (typeof length_z !== "undefined") {
+		ASSERT(this.member.deflection_check_direction !== members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Y, "Check direction can't be " + members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Y);
+		this.member.deflection_segments_defined_length_z_axis_enabled = true;
+		this.member.deflection_segments_z_axis[1].length = length_z;
+	}
+	else {
+		this.member.deflection_segments_defined_length_z_axis_enabled = false;
+	}
+	if (typeof precamber_z !== "undefined") {
+		ASSERT(this.member.deflection_check_direction !== members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Y, "Check direction can't be " + members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Y);
+		this.member.deflection_segments_z_axis[1].precamber = precamber_z;
+	}
+	if (typeof active_y !== "undefined") {
+		ASSERT(this.member.deflection_check_direction !== members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z, "Check direction can't be " + members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z);
+		this.member.deflection_segments_y_axis[1].active = active_y;
+	}
+	if (typeof length_y !== "undefined") {
+		ASSERT(this.member.deflection_check_direction !== members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z, "Check direction can't be " + members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z);
+		this.member.deflection_segments_defined_length_y_axis_enabled = true;
+		this.member.deflection_segments_y_axis[1].length = length_y;
+	}
+	else {
+		this.member.deflection_segments_defined_length_y_axis_enabled = false;
+	}
+	if (typeof precamber_y !== "undefined") {
+		ASSERT(this.member.deflection_check_direction !== members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z, "Check direction can't be " + members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z);
+		this.member.deflection_segments_y_axis[1].precamber = precamber_y;
+	}
 };
 
 /**
@@ -1002,9 +1170,7 @@ function GetReferenceWidthType(width) {
 }
 
 function SetFlangeDimensions(member, flange_dimensions) {
-
 	if (flange_dimensions !== undefined) {
-
 		for (var index = 0; index < flange_dimensions.length; index++) {
 			const row = flange_dimensions[index];
 			member.flange_dimensions[index + 1].end_ordinate = row[0];
@@ -1037,6 +1203,16 @@ function SetFlangeDimensions(member, flange_dimensions) {
 	}
 }
 
+function Member_GetCurrentCodeOfStandard () {
+	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
+    return general.current_standard_for_steel_design.match(/\w+/);
+}
+
+function Member_IsCurrentCodeOfStandard (current_standard) {
+	ASSERT(STEEL_DESIGN.isActive(), "Steel design add-on must be active");
+    return GetCurrentCodeOfStandard() == current_standard;  // Don't use === (we don't want compare types of strings)
+}
+
 function GetMemberSectionAlignment(section_alignment) {
 	const section_alignments_dict = {
         "TOP": members.SECTION_ALIGNMENT_TOP,
@@ -1059,5 +1235,47 @@ function GetMemberSectionAlignment(section_alignment) {
 	}
 	else {
 	  return members.SECTION_ALIGNMENT_TOP;
+	}
+}
+
+function GetMemberDesignSupportCheckDirection(direction_type) {
+	const direction_types_dict = {
+        "LOCAL_AXIS_Z": members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z,
+		"LOCAL_AXIS_Y": members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Y,
+		"LOCAL_AXIS_Z_AND_Y": members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z_AND_Y,
+		"RESULTING_AXIS": members.DEFLECTION_CHECK_DIRECTION_RESULTING_AXIS
+	};
+
+	if (direction_type !== undefined) {
+		var type = direction_types_dict[direction_type];
+		if (type === undefined) {
+			console.log("Wrong design support check direction type. Value was: " + direction_type);
+			console.log("Correct values are: ( " + Object.keys(direction_types_dict) + ")");
+			type = members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z_AND_Y;
+		}
+		return type;
+	}
+	else {
+		return members.DEFLECTION_CHECK_DIRECTION_LOCAL_AXIS_Z_AND_Y;
+	}
+}
+
+function GetMemberDesignCheckDisplacementDirection(direction_type) {
+	const direction_types_dict = {
+        "DEFORMED_SEGMENT_ENDS": members.DEFLECTION_CHECK_DISPLACEMENT_REFERENCE_DEFORMED_SEGMENT_ENDS,
+		"DEFORMED_UNDEFORMED_SYSTEM": members.DEFLECTION_CHECK_DISPLACEMENT_REFERENCE_DEFORMED_UNDEFORMED_SYSTEM
+	};
+
+	if (direction_type !== undefined) {
+		var type = direction_types_dict[direction_type];
+		if (type === undefined) {
+			console.log("Wrong design support check displacement type. Value was: " + direction_type);
+			console.log("Correct values are: ( " + Object.keys(direction_types_dict) + ")");
+			type = members.DEFLECTION_CHECK_DISPLACEMENT_REFERENCE_DEFORMED_SEGMENT_ENDS;
+		}
+		return type;
+	}
+	else {
+		return members.DEFLECTION_CHECK_DISPLACEMENT_REFERENCE_DEFORMED_SEGMENT_ENDS;
 	}
 }

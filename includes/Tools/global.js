@@ -1289,3 +1289,15 @@ function radians2Degrees(value) {
 function degrees2Radians(value) {
     return value * Math.PI / 180;
 }
+
+function __objectExists(object_no, object_name, object_container) {
+	if (object_container.exist(object_no)) {
+		return true;
+	}
+	console.log(object_name + " no. " + object_no + " doesn't exist");
+	return false;
+}
+
+function __hasSteelSection (section) {
+	return section.material.material_type === materials.TYPE_STEEL;
+}

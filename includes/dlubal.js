@@ -87,6 +87,7 @@ include("TypesForMembers/MemberResultIntermediatePoint.js");
 include("TypesForMembers/MemberStiffnessModification.js");
 include("TypesForMembers/MemberSupport.js");
 include("TypesForMembers/MemberTransverseStiffener.js");
+include("TypesForMembers/MemberDesignSupport.js");
 include("TypesForMembers/MemberOpening.js");
 include("TypesForMembers/MemberRotationalRestraint.js");
 include("TypesForMembers/MemberShearPanel.js");
@@ -136,23 +137,6 @@ include("Loads/ImposedNodalDeformation.js");
 include("Loads/MemberLoad.js");
 include("Loads/MemberSetLoad.js");
 include("Loads/NodalLoad.js");
-// Addons
-include("AddOns/ConcreteDesign/ConcreteDesignSupport.js");
-include("AddOns/ConcreteDesign/StrengthConfigurationACI.js");
-include("AddOns/ConcreteDesign/UltimateConfigurationCSA.js");
-include("AddOns/ConcreteDesign/UltimateConfigurationEN.js");
-include("AddOns/ConcreteDesign/UltimateConfigurationNTC.js");
-include("AddOns/ConcreteDesign/UltimateConfigurationSP.js");
-include("AddOns/ConcreteDesign/ServiceabilityConfigurationACI.js");
-include("AddOns/ConcreteDesign/ServiceabilityConfigurationCSA.js");
-include("AddOns/ConcreteDesign/ServiceabilityConfigurationEN.js");
-include("AddOns/ConcreteDesign/ServiceabilityConfigurationSP.js");
-include("AddOns/ConcreteDesign/ServiceabilityConfigurationNTC.js");
-include("AddOns/TypesForConcreteDesign/EffectiveLength.js");
-include("AddOns/TypesForConcreteDesign/ConcreteDurability.js");
-include("AddOns/TypesForConcreteDesign/ReinforcementDirection.js");
-include("AddOns/TypesForConcreteDesign/SurfaceReinforcement.js");
-include("AddOns/TypesForConcreteDesign/PunchingReinforcement.js");
 // Guide objects
 include("GuideObjects/CoordinateSystem.js");
 // Dimensions
@@ -162,4 +146,3 @@ include("Dimensions/DiameterDimension.js");
 include("Dimensions/LinearDimension.js");
 include("Dimensions/RadiusDimension.js");
 include("Dimensions/SlopeDimension.js");
-
