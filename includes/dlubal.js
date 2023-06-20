@@ -137,6 +137,41 @@ include("Loads/ImposedNodalDeformation.js");
 include("Loads/MemberLoad.js");
 include("Loads/MemberSetLoad.js");
 include("Loads/NodalLoad.js");
+// Addons
+include("AddOns/SteelDesign/SteelDesignSupport.js");
+include("AddOns/SteelDesign/StrengthConfigurationAISC.js");
+include("AddOns/SteelDesign/UltimateConfigurationAS.js");
+include("AddOns/SteelDesign/UltimateConfigurationBS.js");
+include("AddOns/SteelDesign/UltimateConfigurationCSA.js");
+include("AddOns/SteelDesign/UltimateConfigurationEC3.js");
+include("AddOns/SteelDesign/UltimateConfigurationGB.js");
+include("AddOns/SteelDesign/UltimateConfigurationIS.js");
+include("AddOns/SteelDesign/UltimateConfigurationSP.js");
+include("AddOns/SteelDesign/UltimateConfigurationNTC.js");
+include("AddOns/SteelDesign/UltimateConfigurationNBR.js");
+include("AddOns/SteelDesign/UltimateConfigurationSIA.js");
+include("AddOns/SteelDesign/ServiceabilityConfiguration.js");
+include("AddOns/SteelDesign/FireResistanceConfiguration.js");
+include("AddOns/ConcreteDesign/ConcreteDesignSupport.js");
+include("AddOns/ConcreteDesign/StrengthConfigurationACI.js");
+include("AddOns/ConcreteDesign/UltimateConfigurationCSA.js");
+include("AddOns/ConcreteDesign/UltimateConfigurationEN.js");
+include("AddOns/ConcreteDesign/UltimateConfigurationNTC.js");
+include("AddOns/ConcreteDesign/UltimateConfigurationSP.js");
+include("AddOns/ConcreteDesign/ServiceabilityConfigurationACI.js");
+include("AddOns/ConcreteDesign/ServiceabilityConfigurationCSA.js");
+include("AddOns/ConcreteDesign/ServiceabilityConfigurationEN.js");
+include("AddOns/ConcreteDesign/ServiceabilityConfigurationSP.js");
+include("AddOns/ConcreteDesign/ServiceabilityConfigurationNTC.js");
+// Addons - Types for
+include("AddOns/TypesForSteelDesign/BoundaryCondition.js");
+include("AddOns/TypesForSteelDesign/EffectiveLength.js");
+include("AddOns/TypesForSteelDesign/MemberLocalSectionReduction.js");
+include("AddOns/TypesForConcreteDesign/EffectiveLength.js");
+include("AddOns/TypesForConcreteDesign/ConcreteDurability.js");
+include("AddOns/TypesForConcreteDesign/ReinforcementDirection.js");
+include("AddOns/TypesForConcreteDesign/SurfaceReinforcement.js");
+include("AddOns/TypesForConcreteDesign/PunchingReinforcement.js");
 // Guide objects
 include("GuideObjects/CoordinateSystem.js");
 // Dimensions
