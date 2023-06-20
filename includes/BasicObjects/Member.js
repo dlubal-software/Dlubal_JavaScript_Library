@@ -786,6 +786,20 @@ Member.prototype.SectionDistributionOffsetAtEnd = function (section_start, secti
 };
 
 /**
+ * @returns Number of Member
+ */
+Member.prototype.GetNo = function(){
+	return this.member.no;
+};
+
+/**
+ * @returns Member object
+ */
+Member.prototype.GetMember = function (){
+	return this.member;
+};
+
+/**
  * Enable / disable Design properties for member (Steel design add-on)
  * @param {Boolean} enabled 	Enable / disable Design properties, can be undefined (true as default)
  */
