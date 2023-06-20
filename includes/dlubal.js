@@ -87,6 +87,7 @@ include("TypesForMembers/MemberResultIntermediatePoint.js");
 include("TypesForMembers/MemberStiffnessModification.js");
 include("TypesForMembers/MemberSupport.js");
 include("TypesForMembers/MemberTransverseStiffener.js");
+include("TypesForMembers/MemberDesignSupport.js");
 include("TypesForMembers/MemberOpening.js");
 include("TypesForMembers/MemberRotationalRestraint.js");
 include("TypesForMembers/MemberShearPanel.js");
@@ -136,6 +137,25 @@ include("Loads/ImposedNodalDeformation.js");
 include("Loads/MemberLoad.js");
 include("Loads/MemberSetLoad.js");
 include("Loads/NodalLoad.js");
+// Addons
+include("AddOns/SteelDesign/SteelDesignSupport.js");
+include("AddOns/SteelDesign/StrengthConfigurationAISC.js");
+include("AddOns/SteelDesign/UltimateConfigurationAS.js");
+include("AddOns/SteelDesign/UltimateConfigurationBS.js");
+include("AddOns/SteelDesign/UltimateConfigurationCSA.js");
+include("AddOns/SteelDesign/UltimateConfigurationEC3.js");
+include("AddOns/SteelDesign/UltimateConfigurationGB.js");
+include("AddOns/SteelDesign/UltimateConfigurationIS.js");
+include("AddOns/SteelDesign/UltimateConfigurationSP.js");
+include("AddOns/SteelDesign/UltimateConfigurationNTC.js");
+include("AddOns/SteelDesign/UltimateConfigurationNBR.js");
+include("AddOns/SteelDesign/UltimateConfigurationSIA.js");
+include("AddOns/SteelDesign/ServiceabilityConfiguration.js");
+include("AddOns/SteelDesign/FireResistanceConfiguration.js");
+// Addons - Types for
+include("AddOns/TypesForSteelDesign/BoundaryCondition.js");
+include("AddOns/TypesForSteelDesign/EffectiveLength.js");
+include("AddOns/TypesForSteelDesign/MemberLocalSectionReduction.js");
 // Guide objects
 include("GuideObjects/CoordinateSystem.js");
 // Dimensions
@@ -145,4 +165,3 @@ include("Dimensions/DiameterDimension.js");
 include("Dimensions/LinearDimension.js");
 include("Dimensions/RadiusDimension.js");
 include("Dimensions/SlopeDimension.js");
-
