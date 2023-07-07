@@ -35,23 +35,12 @@ if (standard_index === undefined) {
     standard_index = 0; // EN standard
 }
 
-if (!PRERELEASE_MODE) {
-    var concrete_design_standards = {
-        0: general.NATIONAL_ANNEX_AND_EDITION_EN_1992_CEN_2014_11,
-        1: general.NATIONAL_ANNEX_AND_EDITION_ACI_318_2019_CONCRETE_DESIGN,
-        2: general.NATIONAL_ANNEX_AND_EDITION_CSA_A23_3_2019,
-        3: general.NATIONAL_ANNEX_AND_EDITION_SP_63_13330_2018_12
-    };
-}
-else {
-    var concrete_design_standards = {
-        0: general.NATIONAL_ANNEX_AND_EDITION_EN_1992_CEN_2014_11,
-        1: general.NATIONAL_ANNEX_AND_EDITION_ACI_318_2019_CONCRETE_DESIGN,
-        2: general.NATIONAL_ANNEX_AND_EDITION_CSA_A23_3_2019,
-        3: general.NATIONAL_ANNEX_AND_EDITION_SP_63_13330_2018_12,
-        4: general.NATIONAL_ANNEX_AND_EDITION_NTC_2018_01_CONCRETE_DESIGN
-    };
-}
+var concrete_design_standards = {
+    0: general.NATIONAL_ANNEX_AND_EDITION_EN_1992_CEN_2014_11,
+    1: general.NATIONAL_ANNEX_AND_EDITION_ACI_318_2019_CONCRETE_DESIGN,
+    2: general.NATIONAL_ANNEX_AND_EDITION_CSA_A23_3_2019,
+    3: general.NATIONAL_ANNEX_AND_EDITION_SP_63_13330_2018_12
+};
 
 if (standard_index >= Object.keys(concrete_design_standards).length) {
     console.log("start_index must be from range 0-" + (Object.keys(concrete_design_standards).length - 1).toString());
@@ -311,24 +300,6 @@ switch (general.current_standard_for_concrete_design)
         serviceabilityConfiguration.SetCrackStateDetection("ELASTIC");
         serviceabilityConfiguration.SetCrackWidthAnalysis(0.000201, 0.000202, 0.000203, 0.000204);
         serviceabilityConfiguration.SetDeflectionAnalysis(true, 121, 122, false, undefined, undefined, 0.70);
-        break;
-    case general.NATIONAL_ANNEX_AND_EDITION_NTC_2018_01_CONCRETE_DESIGN:
-    /****************************************************************** Ultimate configuration ***************************************************************************/
-        if (RFEM) {
-            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationNTC(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
-        }
-        else {
-            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationNTC(undefined, undefined, [memberList[0].GetNo()]);
-        }
-        ultimateConfiguration.SetName("Ultimate configuration (NTC)");
-    /****************************************************************** Serviceability configuration ***********************************************************************/
-        if (RFEM) {
-            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationNTC(undefined, [surfaceList[1].no], [memberList[1].GetNo()]);
-        }
-        else {
-            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationNTC(undefined, undefined, [memberList[1].GetNo()]);
-        }
-        serviceabilityConfiguration.SetName("Serviceability configuration (NTC)");
         break;
     default:
         ASSERT(false, "Unknown code of standard");

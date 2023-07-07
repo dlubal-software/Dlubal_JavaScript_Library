@@ -1,4 +1,3 @@
-include("../../Tools/jshlf_common_functions.js");
 include ("../ConcreteDesign/ConcreteDesignSupport.js");
 
 /**

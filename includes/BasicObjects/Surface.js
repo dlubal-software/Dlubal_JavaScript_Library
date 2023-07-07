@@ -2,7 +2,6 @@ if (!RFEM) {
 	throw new Error("This script is only for RFEM, it creates surfaces.");
 }
 
-include ("../Tools/jshlf_common_functions.js");
 include ("../AddOns/ConcreteDesign/ConcreteDesignSupport.js");
 
 /**

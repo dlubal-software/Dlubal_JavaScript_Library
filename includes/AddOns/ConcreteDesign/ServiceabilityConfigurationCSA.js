@@ -1,4 +1,4 @@
-include("../../Tools/jshlf_common_functions.js");
+include("../../Tools/high_level_functions_support.js");
 
 function ConcreteDesignServiceabilityConfigurationCSA (no,
     surfaces_no,

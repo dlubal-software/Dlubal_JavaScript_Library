@@ -1,4 +1,4 @@
-include("../../Tools/jshlf_common_functions.js");
+include("../../Tools/high_level_functions_support.js");
 
 /*
 Bug?: this.addon.settings_member_ec2.property_fatigue_design_time_of_start_of_cyclic_loading_on_concrete cannot be set
@@ -417,49 +417,6 @@ ConcreteDesignUltimateConfigurationEN.prototype.SetStability_RequiredReinforceme
     reinforcement_diameter_for_preliminary_design_user_value) {
     SetConcreteDesignStabilityRequiredReinforcement(this.addon.settings_member_ec2, property_stability_reinforcement_layout, reinforcement_diameter_for_preliminary_design_user_value);
 };
-
-//Grandmaster version newly not supports this
-/*
-/**
- * Sets Fatigue Design
- * @param {String} fatigue_design_type                                                                              Fatigue design type, can be undefined (is not set, SIMPLIFIED_DESIGN_METHOD)
- *                                                                                                                  - Simplified design method acc. to 6.8.6 and 6.8.7(2) (SIMPLIFIED_DESIGN_METHOD)
- *                                                                                                                  - Method of damage equivalent stress range acc. to 6.8.5 and 6.8.7(1) (DAMAGE_METHOD)
- * @param {Boolean} property_fatigue_design_modification_of_the_design_check_of_the_equivalent_steel_stress_range   Modification of the design check of the equivalent steel stress range, can be undefined (is not set, false as default)
- * @param {String} modification_type                                                                                Modification of the design check type, can be undefined (is not set, CYCLES_INTERVAL)
- *                                                                                                                  - Correction factor for calculated equivalent damage stress range (CORRECTION_FACTOR)
- *                                                                                                                  - Use one interval with defined number of cycles for a stress range (CYCLES_INTERVAL)
- * @param {Number} modification_value                                                                               Modification of the design check value, can be undefined
- *                                                                                                                  - Factor λs / Number of cycles (is not set, 1.0 / 1000000 as default)
- * @param {Number} property_fatigue_design_time_of_start_of_cyclic_loading_on_concrete                              Time of start of cyclic loading on concrete in days, can be undefined (is not set, 28 days as default)
- */
-/*ConcreteDesignUltimateConfigurationEN.prototype.SetFatigueDesign = function (fatigue_design_type,
-    property_fatigue_design_modification_of_the_design_check_of_the_equivalent_steel_stress_range,
-    modification_type,
-    modification_value,
-    property_fatigue_design_time_of_start_of_cyclic_loading_on_concrete) {
-    ASSERT(members.count() > 0, "There must exist at least one member in project");
-    SetConcreteDesignFatigueDesignType(this.addon, fatigue_design_type);
-    if (typeof property_fatigue_design_modification_of_the_design_check_of_the_equivalent_steel_stress_range !== "undefined") {
-        ASSERT(this.addon.settings_member_ec2.property_fatigue_design_method_of_damage_equivalent_stress_range, "Method of damage equivalent stress range must be on");
-        this.addon.settings_member_ec2.property_fatigue_design_modification_of_the_design_check_of_the_equivalent_steel_stress_range = property_fatigue_design_modification_of_the_design_check_of_the_equivalent_steel_stress_range;
-    }
-    SetConcreteDesignModificationDesignCheckType(this.addon, modification_type);
-    if (modification_value !== "undefined") {
-        if (this.addon.settings_member_ec2.property_fatigue_design_use_correction_factor_for_calculated_equivalent_damage_stress_range) {
-            this.addon.settings_member_ec2.property_fatigue_design_correction_factor_for_calculated_equivalent_damage_stress_range = modification_value;
-        }
-        else if (this.addon.settings_member_ec2.property_fatigue_design_use_one_interval_with_defined_number_of_cycles_for_a_stress_range) {
-            this.addon.settings_member_ec2.property_fatigue_design_one_interval_with_defined_number_of_cycles_for_a_stress_range = modification_value;
-        }
-        else {
-            ASSERT(false, "Unknown fatigue design modification type");
-        }
-    }
-    if (typeof property_fatigue_design_time_of_start_of_cyclic_loading_on_concrete !== "undefined") {
-        this.addon.settings_member_ec2.property_fatigue_design_time_of_start_of_cyclic_loading_on_concrete = property_fatigue_design_time_of_start_of_cyclic_loading_on_concrete;
-    }
-};*/
 
 /**
  * Sets Design method
@@ -1152,36 +1109,6 @@ function SetConcreteDesignReinforcementMaximumLongitudinalReinforcementType(addo
             ASSERT(false, "SetConcreteDesignReinforcementMaximumLongitudinalReinforcementType: unknown maximum longitudinal reinforcement type");
     }
 }
-
-//Grandmaster version newly not supports this
-/*function SetConcreteDesignFatigueDesignType(addon,
-    fatigue_type) {
-	const fatigue_types = [
-        "SIMPLIFIED_DESIGN_METHOD",
-        "DAMAGE_METHOD"
-    ];
-	if (fatigue_type !== undefined) {
-	  if (fatigue_types.indexOf(fatigue_type) === -1)
-      {
-        console.log("Wrong fatigue design type. Value was: " + fatigue_type);
-		console.log("Correct values are: " + fatigue_types);
-		return;
-      }
-	}
-	else {
-        fatigue_type = "CYCLES_INTERVAL";
-	}
-    switch (fatigue_type) {
-        case "SIMPLIFIED_DESIGN_METHOD":
-            addon.settings_member_ec2.property_fatigue_design_simplified_design_method = true;
-            break;
-        case "DAMAGE_METHOD":
-            addon.settings_member_ec2.property_fatigue_design_method_of_damage_equivalent_stress_range = true;
-            break;
-        default:
-            ASSERT(false, "SetConcreteDesignFatigueDesignType: unknown fatigue design type");
-    }
-}*/
 
 function SetConcreteDesignModificationDesignCheckType(addon,
     modification_type) {

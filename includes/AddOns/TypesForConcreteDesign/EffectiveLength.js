@@ -3,7 +3,6 @@ Bug 92009: Un-complete enum for structure_type_about_axis_y and structure_type_a
 */
 
 include("../ConcreteDesign/ConcreteDesignSupport.js");
-include("../../Tools/jshlf_common_functions.js");
 
 /**
  * Creates Concrete design effective length

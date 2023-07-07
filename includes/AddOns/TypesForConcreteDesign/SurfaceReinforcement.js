@@ -2,7 +2,6 @@
 There are problems with automatic rebar spacing, rebar diameter (comment for bug 94787). This code is un-complet for now.
 */
 
-include("../../Tools/jshlf_common_functions.js");
 include ("../ConcreteDesign/ConcreteDesignSupport.js");
 
 /**

@@ -1,4 +1,4 @@
-include("../../Tools/jshlf_common_functions.js");
+include("../../Tools/high_level_functions_support.js");
 
 /**
  * Creates Concrete design strength configuration (ACI standard)

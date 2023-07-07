@@ -156,13 +156,11 @@ include("AddOns/ConcreteDesign/ConcreteDesignSupport.js");
 include("AddOns/ConcreteDesign/StrengthConfigurationACI.js");
 include("AddOns/ConcreteDesign/UltimateConfigurationCSA.js");
 include("AddOns/ConcreteDesign/UltimateConfigurationEN.js");
-include("AddOns/ConcreteDesign/UltimateConfigurationNTC.js");
 include("AddOns/ConcreteDesign/UltimateConfigurationSP.js");
 include("AddOns/ConcreteDesign/ServiceabilityConfigurationACI.js");
 include("AddOns/ConcreteDesign/ServiceabilityConfigurationCSA.js");
 include("AddOns/ConcreteDesign/ServiceabilityConfigurationEN.js");
 include("AddOns/ConcreteDesign/ServiceabilityConfigurationSP.js");
-include("AddOns/ConcreteDesign/ServiceabilityConfigurationNTC.js");
 // Addons - Types for
 include("AddOns/TypesForSteelDesign/BoundaryCondition.js");
 include("AddOns/TypesForSteelDesign/EffectiveLength.js");

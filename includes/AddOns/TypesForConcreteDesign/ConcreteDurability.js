@@ -1,5 +1,4 @@
 include("../ConcreteDesign/ConcreteDesignSupport.js");
-include("../../Tools/jshlf_common_functions.js");
 
 /**
  * Creates Concrete design Concrete durability
