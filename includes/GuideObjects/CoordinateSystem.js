@@ -45,7 +45,7 @@
 /**
  * @returns Coordinate system object
  */
-CoordinateSystem.prototype.CoordinateSystem = function () {
+CoordinateSystem.prototype.GetCoordinateSystem = function () {
 	return this.coordinate_system;
 };
 

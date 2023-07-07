@@ -1,9 +1,5 @@
 include("../../Tools/jshlf_common_functions.js");
 
-/*
-Bug 90054: GetConcreteDesignCrackWidthLimitValues function (some values of enum have the same text representation)
-*/
-
 function ConcreteDesignServiceabilityConfigurationEN (no,
     surfaces_no,
     members_no,
@@ -86,12 +82,10 @@ ConcreteDesignServiceabilityConfigurationEN.prototype.SetCrackAnalysisLimitValue
     }
     if (typeof property_top_limit_values_of_allowable_crack_width_acc_to_standard !== "undefined") {
         ASSERT(this.addon.settings_main_ec2.property_limit_values_of_allowable_crack_width_acc_to_standard, "Limit values of allowable crack width must be on");
-        // Bug 90054
         this.addon.settings_main_ec2.property_top_limit_values_of_allowable_crack_width_acc_to_standard = GetConcreteDesignCrackWidthLimitValues(property_top_limit_values_of_allowable_crack_width_acc_to_standard);
     }
     if (typeof property_bottom_limit_values_of_allowable_crack_width_acc_to_standard !== "undefined") {
         ASSERT(this.addon.settings_main_ec2.property_limit_values_of_allowable_crack_width_acc_to_standard, "Limit values of allowable crack width must be on");
-        // Bug 90054
         this.addon.settings_main_ec2.property_bottom_limit_values_of_allowable_crack_width_acc_to_standard = GetConcreteDesignCrackWidthLimitValues(property_bottom_limit_values_of_allowable_crack_width_acc_to_standard);
     }
     if (typeof property_user_defined_limit_values_of_allowable_crack_width !== "undefined") {

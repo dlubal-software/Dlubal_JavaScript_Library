@@ -159,7 +159,7 @@ Surface.prototype.LoadTransfer = function (no,
 			"load distribution",
 			{
 				"UNIFORM": surfaces.LOAD_DISTRIBUTION_UNIFORM,
-				"UNIFORM": surfaces.LOAD_DISTRIBUTION_VARYING
+				"VARYING": surfaces.LOAD_DISTRIBUTION_VARYING
 			},
 			surfaces.LOAD_DISTRIBUTION_VARYING);
 	}
@@ -642,7 +642,7 @@ Surface.prototype.ConcreteDesignProperties = function (enabled) {
  * Sets Via parent surface set
  * @param {Boolean} design_properties_via_parent_surface_set 	Via parent surface set, can be undefined (true as default)
  */
-Surface.prototype.ConcreteDesignPropertiesViaParentSurfaceSet = function (design_properties_via_parent_surface_set) {
+Surface.prototype.SetConcreteDesignPropertiesViaParentSurfaceSet = function (design_properties_via_parent_surface_set) {
 	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design add-on must be active");
 	if (typeof design_properties_via_parent_surface_set === "undefined") {
 		design_properties_via_parent_surface_set = true;

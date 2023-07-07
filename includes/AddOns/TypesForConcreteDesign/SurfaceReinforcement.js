@@ -405,12 +405,12 @@ ConcreteDesignSurfaceReinforcement.prototype.SetAdditionalRebarSpacingAuto = fun
  * Sets Stirrups diameter
  * @param {Number} stirrup_diameter     Stirrups diameter
  */
-ConcreteDesignSurfaceReinforcement.prototype.SetStirrupsDiameter = function (value_1) {
+ConcreteDesignSurfaceReinforcement.prototype.SetStirrupsDiameter = function (diameter) {
     ASSERT(this.surface_reinforcement.reinforcement_type === surface_reinforcements.REINFORCEMENT_TYPE_STIRRUPS, "Reinforcement must be of stirrups type");
     //this.surface_reinforcement.stirrup_diameter_auto_enabled = false;   // Can't set (bug 94787 - comment)?
     if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("SP")) {
-        ASSERT(typeof value_1 !== "undefined", "Stirrups diameter must be specified");
-        this.surface_reinforcement.stirrup_diameter = value_1;
+        ASSERT(typeof diameter !== "undefined", "Stirrups diameter must be specified");
+        this.surface_reinforcement.stirrup_diameter = diameter;
     }
     else if (IsCurrentCodeOfStandard("ACI")) {
 

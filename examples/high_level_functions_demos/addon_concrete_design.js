@@ -8,7 +8,8 @@ run("../includes/Tools/clearAll.js");
 var material = new Material(undefined, "C12/15");
 var section = new Section(undefined, "R_M1 0.5/1.0", material.GetNo());
 if (RFEM) {
-    var thickness = createThickness("0.250", material.GetNo(), thicknesses.TYPE_UNIFORM);
+    var thickness = new Thickness();
+    thickness.Uniform(1, "Uniform thickness", material.GetNo(), 0.250);
 }
 var memberList = [];
 var surfaceList = [];
@@ -22,7 +23,7 @@ for (var i = 0; i < nodeForMembers.length; i+=2) {
 
 var nodesForSurfaces = createNodesGrid(-28, -18, [10, 6], [3, 2]);
 if (RFEM) {
-    surface_dict = createSurfacesFromNodesGrid(nodesForSurfaces, [5, 3], surfaces.TYPE_STANDARD, thickness);
+    surface_dict = createSurfacesFromNodesGrid(nodesForSurfaces, [5, 3], surfaces.TYPE_STANDARD, thickness.GetNo());
     for (var key in surface_dict) {
         surfaceList.push(surface_dict[key][0]);
     }
@@ -134,7 +135,6 @@ switch (general.current_standard_for_concrete_design)
         }
         serviceabilityConfiguration.SetName("Serviceability configuration (EN)");
         serviceabilityConfiguration.SetStressAnaLysis(true, false);
-        // Bug 90054
         serviceabilityConfiguration.SetCrackAnalysisLimitValues(true, "02_EXPOSURE_CLASS_FROM_XC2_TO_XC4_STRUCTURAL_ELEMENT_PRESTRESSING", "03_EXPOSURE_CLASS_FROM_XS1_TO_XS3_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING");
         serviceabilityConfiguration.SetDesignWithoutDirectCrackWidthCalculation(false, false);
         serviceabilityConfiguration.SetCrackAnalysisOther(0.99, true);
