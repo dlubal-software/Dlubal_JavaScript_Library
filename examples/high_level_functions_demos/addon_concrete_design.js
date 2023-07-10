@@ -314,16 +314,29 @@ memberSet.ContinuousMembers(undefined, [memberList[6].GetNo(), memberForSetOfMem
 var effectiveLength = new ConcreteDesignEffectiveLength(undefined, [memberList[5].GetNo()], [memberSet.GetNo()], "Concrete design effective length");
 effectiveLength.SetName("Test effective length");
 effectiveLength.SetDeterminationType(true, true);
-effectiveLength.SetStructureType("BRACED");
+if (!IsCurrentCodeOfStandard("SP")) {
+    effectiveLength.SetStructureType("BRACED");
+}
+else {
+    effectiveLength.SetStructureType("COMBINED", "COMBINED");
+}
 effectiveLength.SetNodalSupportsStartWithSupportType("FIXED_IN_Z");
 effectiveLength.SetNodalSupportsEndWithSupportType("FIXED_IN_Y");
 effectiveLength.InsertNodalSupportIntermediateNodeWithSupportType("FIXED_IN_Z");
 effectiveLength.InsertNodalSupportIntermediateNodeWithSupportType("FIXED_IN_Y");
 effectiveLength.InsertNodalSupportIntermediateNodeWithSupportType("FIXED_ALL");
-effectiveLength.SetOverwriteEffectiveLengths(1, 1.01, 1.02);
-effectiveLength.SetOverwriteEffectiveLengths(2, undefined, 1.02);
-effectiveLength.SetOverwriteEffectiveLengths(3, 1.03);
-effectiveLength.SetOverwriteEffectiveLengths(4, 1.04, 1.05);
+if (!IsCurrentCodeOfStandard("SP")) {
+    effectiveLength.SetOverwriteEffectiveLengths(1, 1.01, 1.02);
+    effectiveLength.SetOverwriteEffectiveLengths(2, undefined, 1.02);
+    effectiveLength.SetOverwriteEffectiveLengths(3, 1.03);
+    effectiveLength.SetOverwriteEffectiveLengths(4, 1.04, 1.05);
+}
+else {
+    effectiveLength.SetOverwriteEffectiveLengths(1, undefined, undefined, 1.12, 1.13, 1.14, 1.15);
+    effectiveLength.SetOverwriteEffectiveLengths(2, undefined, undefined, undefined, 1.16, undefined, 1.17);
+    effectiveLength.SetOverwriteEffectiveLengths(3, undefined, undefined, 1.18, undefined, 1.19);
+    effectiveLength.SetOverwriteEffectiveLengths(4, undefined, undefined, 1.20, 1.21, 1.22, 1.23);
+}
 
 if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC")) {
     /********************************************** Types for concrete design - Durabilities ********************************************************/

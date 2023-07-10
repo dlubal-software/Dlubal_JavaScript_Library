@@ -1,7 +1,3 @@
-/*
-Bug 92009: Un-complete enum for structure_type_about_axis_y and structure_type_about_axis_z
-*/
-
 include("../ConcreteDesign/ConcreteDesignSupport.js");
 
 /**
@@ -101,18 +97,28 @@ ConcreteDesignEffectiveLength.prototype.SetDeterminationType = function (flexura
 
 /**
  * Sets Structure type
- * @param {String} structure_type_about_axis_y  About y-axis (UNBRACED, BRACED), can be undefined (is not set, UNBRACED as default)
- * @param {String} structure_type_about_axis_z  About z-axis (UNBRACED, BRACED), can be undefined (is not set, UNBRACED as default)
+ * @param {String} structure_type_about_axis_y  About y-axis (UNBRACED, BRACED, COMBINED (only SP)), can be undefined (is not set, UNBRACED as default)
+ * @param {String} structure_type_about_axis_z  About z-axis (UNBRACED, BRACED, COMBINED (only SP)), can be undefined (is not set, UNBRACED as default)
  */
 ConcreteDesignEffectiveLength.prototype.SetStructureType = function (structure_type_about_axis_y,
     structure_type_about_axis_z) {
     if (typeof structure_type_about_axis_y !== "undefined") {
         ASSERT(this.effective_length.flexural_buckling_about_y, "Flexural buckling about y must be on");
-        this.effective_length.structure_type_about_axis_y = GetConcreteDesignStructureType(structure_type_about_axis_y);
+        if (!IsCurrentCodeOfStandard("SP")) {
+            this.effective_length.structure_type_about_axis_y = GetConcreteDesignStructureType(structure_type_about_axis_y);
+        }
+        else {
+            this.effective_length.structure_type_about_axis_y_sp63 = GetConcreteDesignStructureType(structure_type_about_axis_y);
+        }
     }
     if (typeof structure_type_about_axis_z !== "undefined") {
         ASSERT(this.effective_length.flexural_buckling_about_z, "Flexural buckling about z must be on");
-        this.effective_length.structure_type_about_axis_z = GetConcreteDesignStructureType(structure_type_about_axis_z);
+        if (!IsCurrentCodeOfStandard("SP")) {
+            this.effective_length.structure_type_about_axis_z = GetConcreteDesignStructureType(structure_type_about_axis_z);
+        }
+        else {
+            this.effective_length.structure_type_about_axis_z_sp63 = GetConcreteDesignStructureType(structure_type_about_axis_z);
+        }
     }
 };
 
@@ -157,12 +163,21 @@ ConcreteDesignEffectiveLength.prototype.InsertNodalSupportIntermediateNodeWithSu
  * @param {Number} row                                  Segment sequence row
  * @param {Number} flexural_buckling_y                  Flexural buckling y, can be undefined (1.00 as default if it's enabled)
  * @param {Number} flexural_buckling_z                  Flexural axes z, can be undefined (1.00 as default if it's enabled)
+ * @param {Number} braced_flexural_buckling_y           Braced flexural axes y, can be undefined (1.00 as default if it's enabled)
+ * @param {Number} braced_flexural_buckling_z           Braced flexural axes z, can be undefined (1.00 as default if it's enabled)
+ * @param {Number} unbraced_flexural_buckling_y         Unbraced flexural axes y, can be undefined (1.00 as default if it's enabled)
+ * @param {Number} unbraced_flexural_buckling_z         Unbraced flexural axes z, can be undefined (1.00 as default if it's enabled)
  */
 ConcreteDesignEffectiveLength.prototype.SetEffectiveLengthFactors = function (row,
     flexural_buckling_y,
-    flexural_buckling_z) {
+    flexural_buckling_z,
+    braced_flexural_buckling_y,
+    braced_flexural_buckling_z,
+    unbraced_flexural_buckling_y,
+    unbraced_flexural_buckling_z) {
     this.effective_length.factors_definition_absolute = false;
-    setConcreteDesignEffectiveLengthsBuckling(this.effective_length, false, this.effective_length.factors, row, flexural_buckling_y, flexural_buckling_z);
+    setConcreteDesignEffectiveLengthsBuckling(this.effective_length, false, this.effective_length.factors, row, flexural_buckling_y, flexural_buckling_z, 
+        braced_flexural_buckling_y, braced_flexural_buckling_z, unbraced_flexural_buckling_y, unbraced_flexural_buckling_z);
 };
 
 /**
@@ -170,12 +185,21 @@ ConcreteDesignEffectiveLength.prototype.SetEffectiveLengthFactors = function (ro
  * @param {Number} row                                  Segment sequence row
  * @param {Number} flexural_buckling_y                  Flexural buckling y, can be undefined (1.00 as default if it's enabled)
  * @param {Number} flexural_buckling_z                  Flexural axes z, can be undefined (1.00 as default if it's enabled)
+ * @param {Number} braced_flexural_buckling_y           Braced flexural axes y, can be undefined (1.00 as default if it's enabled)
+ * @param {Number} braced_flexural_buckling_z           Braced flexural axes z, can be undefined (1.00 as default if it's enabled)
+ * @param {Number} unbraced_flexural_buckling_y         Unbraced flexural axes y, can be undefined (1.00 as default if it's enabled)
+ * @param {Number} unbraced_flexural_buckling_z         Unbraced flexural axes z, can be undefined (1.00 as default if it's enabled)
  */
 ConcreteDesignEffectiveLength.prototype.SetOverwriteEffectiveLengths = function (row,
     flexural_buckling_y,
-    flexural_buckling_z) {
+    flexural_buckling_z,
+    braced_flexural_buckling_y,
+    braced_flexural_buckling_z,
+    unbraced_flexural_buckling_y,
+    unbraced_flexural_buckling_z) {
     this.effective_length.factors_definition_absolute = true;
-    setConcreteDesignEffectiveLengthsBuckling(this.effective_length, true, this.effective_length.lengths, row, flexural_buckling_y, flexural_buckling_z);
+    setConcreteDesignEffectiveLengthsBuckling(this.effective_length, true, this.effective_length.lengths, row, flexural_buckling_y, flexural_buckling_z, 
+        braced_flexural_buckling_y, braced_flexural_buckling_z, unbraced_flexural_buckling_y, unbraced_flexural_buckling_z);
 };
 
 function GetConcreteDesignStructureType(structure_type) {
@@ -190,13 +214,13 @@ function GetConcreteDesignStructureType(structure_type) {
             concrete_effective_lengths.STRUCTURE_TYPE_UNBRACED);
     }
     else {
-        // Bug 92009: un-complete enum (Combined type is missing)
         return EnumValueFromJSHLFTypeName(
             structure_type,
             "structure",
             {
                 "UNBRACED": concrete_effective_lengths.STRUCTURE_TYPE_UNBRACED,
-                "BRACED": concrete_effective_lengths.STRUCTURE_TYPE_BRACED
+                "BRACED": concrete_effective_lengths.STRUCTURE_TYPE_BRACED,
+                "COMBINED": concrete_effective_lengths.STRUCTURE_TYPE_COMBINED
             },
             concrete_effective_lengths.STRUCTURE_TYPE_UNBRACED);
     }
@@ -369,7 +393,11 @@ function setConcreteDesignEffectiveLengthsBuckling (effective_length,
     object_to_set,
     row,
     flexural_buckling_y,
-    flexural_buckling_z) {
+    flexural_buckling_z,
+    braced_flexural_buckling_y,
+    braced_flexural_buckling_z,
+    unbraced_flexural_buckling_y,
+    unbraced_flexural_buckling_z) {
     ASSERT(row >= 1 && row < effective_length.nodal_supports.row_count(), "Row must be in range 1-" + (effective_length.nodal_supports.row_count() - 1).toString());
     var support_true = GetConcreteDesignSupportStatusType("SUPPORT_STATUS_YES");
     function isFlexuralBucklingYEnable () {
@@ -386,6 +414,14 @@ function setConcreteDesignEffectiveLengthsBuckling (effective_length,
                 return !absolute_value ? "ky" : "Lcr,y";
             case "flexural_buckling_z":
                 return !absolute_value ? "kz" : "Lcr,z";
+            case "braced_flexural_buckling_y":
+                return !absolute_value ? "kb,y" : "Lcr,b,y";
+            case "braced_flexural_buckling_z":
+                return !absolute_value ? "kb,z" : "Lcr,b,z";
+            case "unbraced_flexural_buckling_y":
+                return !absolute_value ? "ku,y" : "Lcr,u,y";
+            case "unbraced_flexural_buckling_z":
+                return !absolute_value ? "ku,z" : "Lcr,u,z";
             default:
                 ASSERT(false, "Unknown value name (" + value_name + ")");
                 return "??";
@@ -402,5 +438,29 @@ function setConcreteDesignEffectiveLengthsBuckling (effective_length,
         ASSERT(isFlexuralBucklingZEnable(), "Row " + row.toString() + ": Flexural buckling " + getSymbolicName("flexural_buckling_z", absolute_values) + " is not enabled");
         ASSERT(effective_length.nodal_supports[row].support_in_y === support_true || row === 1 || row === effective_length.nodal_supports.row_count(), "Row " + row.toString() + ": Flexural buckling " + getSymbolicName("flexural_buckling_z", absolute_values) + " is not enabled");
         object_to_set[row].flexural_buckling_z = flexural_buckling_z;
+    }
+    if (typeof braced_flexural_buckling_y !== "undefined") {
+        ASSERT(isFlexuralBucklingYEnable(), "Row " + row.toString() + ": Braced flexural buckling " + getSymbolicName("braced_flexural_buckling_y", absolute_values) + " is not enabled");
+        ASSERT(effective_length.nodal_supports[row].support_in_z === support_true || row === 1 || row === effective_length.nodal_supports.row_count(), "Row " + row.toString() + ": Braced flexural buckling " + getSymbolicName("braced_flexural_buckling_y", absolute_values) + " is not enabled");
+        object_to_set[row].braced_flexural_buckling_y = braced_flexural_buckling_y;
+    }
+    if (typeof braced_flexural_buckling_z !== "undefined") {
+        ASSERT(isFlexuralBucklingZEnable(), "Row " + row.toString() + ": Braced flexural buckling " + getSymbolicName("braced_flexural_buckling_z", absolute_values) + " is not enabled");
+        ASSERT(effective_length.nodal_supports[row].support_in_y === support_true || row === 1 || row === effective_length.nodal_supports.row_count(), "Row " + row.toString() + ": Braced flexural buckling " + getSymbolicName("braced_flexural_buckling_z", absolute_values) + " is not enabled");
+        object_to_set[row].braced_flexural_buckling_z = braced_flexural_buckling_z;
+    }
+    if (typeof unbraced_flexural_buckling_y !== "undefined") {
+        ASSERT(isFlexuralBucklingYEnable(), "Row " + row.toString() + ": Unbraced flexural buckling " + getSymbolicName("unbraced_flexural_buckling_y", absolute_values) + " is not enabled");
+        ASSERT(IsCurrentCodeOfStandard("SP") && effective_length.structure_type_about_axis_y_sp63 === concrete_effective_lengths.STRUCTURE_TYPE_COMBINED &&
+            (effective_length.nodal_supports[row].support_in_z === support_true || row === 1 || row === effective_length.nodal_supports.row_count()),
+            "Row " + row.toString() + ": Unbraced flexural buckling " + getSymbolicName("unbraced_flexural_buckling_y", absolute_values) + " is not enabled");
+        object_to_set[row].unbraced_flexural_buckling_y = unbraced_flexural_buckling_y;
+    }
+    if (typeof unbraced_flexural_buckling_z !== "undefined") {
+        ASSERT(isFlexuralBucklingZEnable(), "Row " + row.toString() + ": Unbraced flexural buckling " + getSymbolicName("unbraced_flexural_buckling_z", absolute_values) + " is not enabled");
+        ASSERT(IsCurrentCodeOfStandard("SP") && effective_length.structure_type_about_axis_z_sp63 === concrete_effective_lengths.STRUCTURE_TYPE_COMBINED &&
+            (effective_length.nodal_supports[row].support_in_y === support_true || row === 1 || row === effective_length.nodal_supports.row_count()),
+            "Row " + row.toString() + ": Unbraced flexural buckling " + getSymbolicName("unbraced_flexural_buckling_z", absolute_values) + " is not enabled");
+        object_to_set[row].unbraced_flexural_buckling_z = unbraced_flexural_buckling_z;
     }
 };
