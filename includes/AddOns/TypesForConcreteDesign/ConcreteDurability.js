@@ -17,7 +17,7 @@ function ConcreteDesignConcreteDurability (no,
     params) {
     ASSERT(!RSECTION, "This script is only for RFEM or RSTAB");
     ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design add-on must be active");
-    ASSERT(IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC"), "Concrete durability is enabled only for EN and NTC")
+    ASSERT(IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("NTC"), "Concrete durability is enabled only for EN and NTC")
     if (typeof no === "undefined") {
         this.durability = concrete_durabilities.create();
     }

@@ -104,7 +104,7 @@ ConcreteDesignEffectiveLength.prototype.SetStructureType = function (structure_t
     structure_type_about_axis_z) {
     if (typeof structure_type_about_axis_y !== "undefined") {
         ASSERT(this.effective_length.flexural_buckling_about_y, "Flexural buckling about y must be on");
-        if (!IsCurrentCodeOfStandard("SP")) {
+        if (!IsConcreteDesignCurrentCodeOfStandard("SP")) {
             this.effective_length.structure_type_about_axis_y = GetConcreteDesignStructureType(structure_type_about_axis_y);
         }
         else {
@@ -113,7 +113,7 @@ ConcreteDesignEffectiveLength.prototype.SetStructureType = function (structure_t
     }
     if (typeof structure_type_about_axis_z !== "undefined") {
         ASSERT(this.effective_length.flexural_buckling_about_z, "Flexural buckling about z must be on");
-        if (!IsCurrentCodeOfStandard("SP")) {
+        if (!IsConcreteDesignCurrentCodeOfStandard("SP")) {
             this.effective_length.structure_type_about_axis_z = GetConcreteDesignStructureType(structure_type_about_axis_z);
         }
         else {
@@ -203,7 +203,7 @@ ConcreteDesignEffectiveLength.prototype.SetOverwriteEffectiveLengths = function 
 };
 
 function GetConcreteDesignStructureType(structure_type) {
-    if (!IsCurrentCodeOfStandard("SP")) {
+    if (!IsConcreteDesignCurrentCodeOfStandard("SP")) {
         return EnumValueFromJSHLFTypeName(
             structure_type,
             "structure",
@@ -451,14 +451,14 @@ function setConcreteDesignEffectiveLengthsBuckling (effective_length,
     }
     if (typeof unbraced_flexural_buckling_y !== "undefined") {
         ASSERT(isFlexuralBucklingYEnable(), "Row " + row.toString() + ": Unbraced flexural buckling " + getSymbolicName("unbraced_flexural_buckling_y", absolute_values) + " is not enabled");
-        ASSERT(IsCurrentCodeOfStandard("SP") && effective_length.structure_type_about_axis_y_sp63 === concrete_effective_lengths.STRUCTURE_TYPE_COMBINED &&
+        ASSERT(IsConcreteDesignCurrentCodeOfStandard("SP") && effective_length.structure_type_about_axis_y_sp63 === concrete_effective_lengths.STRUCTURE_TYPE_COMBINED &&
             (effective_length.nodal_supports[row].support_in_z === support_true || row === 1 || row === effective_length.nodal_supports.row_count()),
             "Row " + row.toString() + ": Unbraced flexural buckling " + getSymbolicName("unbraced_flexural_buckling_y", absolute_values) + " is not enabled");
         object_to_set[row].unbraced_flexural_buckling_y = unbraced_flexural_buckling_y;
     }
     if (typeof unbraced_flexural_buckling_z !== "undefined") {
         ASSERT(isFlexuralBucklingZEnable(), "Row " + row.toString() + ": Unbraced flexural buckling " + getSymbolicName("unbraced_flexural_buckling_z", absolute_values) + " is not enabled");
-        ASSERT(IsCurrentCodeOfStandard("SP") && effective_length.structure_type_about_axis_z_sp63 === concrete_effective_lengths.STRUCTURE_TYPE_COMBINED &&
+        ASSERT(IsConcreteDesignCurrentCodeOfStandard("SP") && effective_length.structure_type_about_axis_z_sp63 === concrete_effective_lengths.STRUCTURE_TYPE_COMBINED &&
             (effective_length.nodal_supports[row].support_in_y === support_true || row === 1 || row === effective_length.nodal_supports.row_count()),
             "Row " + row.toString() + ": Unbraced flexural buckling " + getSymbolicName("unbraced_flexural_buckling_z", absolute_values) + " is not enabled");
         object_to_set[row].unbraced_flexural_buckling_z = unbraced_flexural_buckling_z;

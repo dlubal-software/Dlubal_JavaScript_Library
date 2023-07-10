@@ -314,7 +314,7 @@ memberSet.ContinuousMembers(undefined, [memberList[6].GetNo(), memberForSetOfMem
 var effectiveLength = new ConcreteDesignEffectiveLength(undefined, [memberList[5].GetNo()], [memberSet.GetNo()], "Concrete design effective length");
 effectiveLength.SetName("Test effective length");
 effectiveLength.SetDeterminationType(true, true);
-if (!IsCurrentCodeOfStandard("SP")) {
+if (!IsConcreteDesignCurrentCodeOfStandard("SP")) {
     effectiveLength.SetStructureType("BRACED");
 }
 else {
@@ -325,7 +325,7 @@ effectiveLength.SetNodalSupportsEndWithSupportType("FIXED_IN_Y");
 effectiveLength.InsertNodalSupportIntermediateNodeWithSupportType("FIXED_IN_Z");
 effectiveLength.InsertNodalSupportIntermediateNodeWithSupportType("FIXED_IN_Y");
 effectiveLength.InsertNodalSupportIntermediateNodeWithSupportType("FIXED_ALL");
-if (!IsCurrentCodeOfStandard("SP")) {
+if (!IsConcreteDesignCurrentCodeOfStandard("SP")) {
     effectiveLength.SetOverwriteEffectiveLengths(1, 1.01, 1.02);
     effectiveLength.SetOverwriteEffectiveLengths(2, undefined, 1.02);
     effectiveLength.SetOverwriteEffectiveLengths(3, 1.03);
@@ -338,7 +338,7 @@ else {
     effectiveLength.SetOverwriteEffectiveLengths(4, undefined, undefined, 1.20, 1.21, 1.22, 1.23);
 }
 
-if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC")) {
+if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("NTC")) {
     /********************************************** Types for concrete design - Durabilities ********************************************************/
     var memberForSetOfMembers2 = new Member();
     memberForSetOfMembers2.Beam(undefined, [18, 19], section.GetNo());
@@ -392,7 +392,7 @@ if (RFEM) {
     surfaceReinforcement2.SetName("Surface reinforcement - rebar");
     surfaceReinforcement2.SetReinforcementType("REBAR");
     surfaceReinforcement2.SetLocationType("FREE_RECTANGULAR");
-    if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("SP")) {
+    if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("SP")) {
         surfaceReinforcement2.SetRebarDiameter(0.015);
         surfaceReinforcement2.SetAdditionalRebarDiameter(0.009);
     }
@@ -408,7 +408,7 @@ if (RFEM) {
     surfaceReinforcement3.SetName("Surface reinforcement - rebar (2)");
     surfaceReinforcement3.SetLocationType("FREE_RECTANGULAR");
     surfaceReinforcement3.SetReinforcementType("REBAR");
-    if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("SP")) {
+    if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("SP")) {
         //surfaceReinforcement3.SetRebarDiameterAuto(0.011, 0.021, "0.008, 0.010, 0.012, 0.014", 2);
         surfaceReinforcement3.SetRebarSpacing(0.151);
         surfaceReinforcement3.SetAdditionalRebarSpacing(0.008);
@@ -423,7 +423,7 @@ if (RFEM) {
     var surfaceReinforcement4 = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[9].no], reinforcementMaterial.GetNo(), "Concrete design Surface reinforcement - stirrups");
     surfaceReinforcement4.SetName("Surface reinforcement - stirrups")
     surfaceReinforcement4.SetReinforcementType("STIRRUPS");
-    if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("SP")) {
+    if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("SP")) {
         //surfaceReinforcement4.SetStirrupsDiameter(0.021);
     }
     else {
@@ -446,7 +446,7 @@ if (RFEM) {
 
     if (PRERELEASE_MODE) {
         /**************************************************** Types for concrete design - Punching reinforcement ****************************************************/
-        if (!IsCurrentCodeOfStandard("SP")) {
+        if (!IsConcreteDesignCurrentCodeOfStandard("SP")) {
             var materialForPunching = new Material(undefined, "Grade 40");
         }
         else {
@@ -473,14 +473,14 @@ if (RFEM) {
     }
 
     surfaceList2[0].SetUserDefinedConcreteCover(0.035, 0.036);
-    if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC")) {
+    if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("NTC")) {
         surfaceList2[0].SetConcreteDesignConcreteDurability(1, 2);
     }
     surfaceList2[0].SetConcreteDesignReinforcementDirections(1, 2);
     surfaceList2[0].SetConcreteDesignSurfaceReinforcement([1, 3, 5, 7]);
 
     surfaceList2[1].SetConcreteCoverAccToEn1992();
-    if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC")) {
+    if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("NTC")) {
         surfaceList2[1].SetConcreteDesignConcreteDurability(2, 1);
     }
     surfaceList2[1].SetConcreteDesignReinforcementDirections(2, 1);

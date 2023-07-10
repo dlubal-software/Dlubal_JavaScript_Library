@@ -160,7 +160,7 @@ function SetConcreteDesignMembersRequiredLongitudinalReinforcement (addon_settin
 };
 
 function GetConcreteDesignPropertyMemberReinforcementDiameterForPreliminaryDesign(diameter_type) {
-    if (IsCurrentCodeOfStandard("EN")) {
+    if (IsConcreteDesignCurrentCodeOfStandard("EN")) {
         return EnumValueFromJSHLFTypeName(
             diameter_type,
             "diameter",
@@ -170,7 +170,7 @@ function GetConcreteDesignPropertyMemberReinforcementDiameterForPreliminaryDesig
             },
             ulsconfig_member_ec2.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL);
     }
-    else if (IsCurrentCodeOfStandard("ACI")) {
+    else if (IsConcreteDesignCurrentCodeOfStandard("ACI")) {
         return EnumValueFromJSHLFTypeName(
             diameter_type,
             "diameter",
@@ -180,7 +180,7 @@ function GetConcreteDesignPropertyMemberReinforcementDiameterForPreliminaryDesig
             },
             ulsconfig_member_aci318.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL);
     }
-    else if (IsCurrentCodeOfStandard("CSA")) {
+    else if (IsConcreteDesignCurrentCodeOfStandard("CSA")) {
         return EnumValueFromJSHLFTypeName(
             diameter_type,
             "diameter",
@@ -190,7 +190,7 @@ function GetConcreteDesignPropertyMemberReinforcementDiameterForPreliminaryDesig
             },
             ulsconfig_member_csaa233.E_REINFORCEMENT_DIAMETER_MAX_OF_ALL);
     }
-    else if (IsCurrentCodeOfStandard("SP")) {
+    else if (IsConcreteDesignCurrentCodeOfStandard("SP")) {
         return EnumValueFromJSHLFTypeName(
             diameter_type,
             "diameter",
@@ -207,7 +207,7 @@ function GetConcreteDesignPropertyMemberReinforcementDiameterForPreliminaryDesig
 }
 
 function GetConcreteDesignPropertyMemberReinforcementLayout(layout_type) {
-    if (IsCurrentCodeOfStandard("EN")) {
+    if (IsConcreteDesignCurrentCodeOfStandard("EN")) {
         return EnumValueFromJSHLFTypeName(
             layout_type,
             "layout",
@@ -221,7 +221,7 @@ function GetConcreteDesignPropertyMemberReinforcementLayout(layout_type) {
             },
             ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT);
     }
-    else if (IsCurrentCodeOfStandard("ACI")) {
+    else if (IsConcreteDesignCurrentCodeOfStandard("ACI")) {
         return EnumValueFromJSHLFTypeName(
             layout_type,
             "layout",
@@ -235,7 +235,7 @@ function GetConcreteDesignPropertyMemberReinforcementLayout(layout_type) {
             },
             ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT);
     }
-    else if (IsCurrentCodeOfStandard("CSA")) {
+    else if (IsConcreteDesignCurrentCodeOfStandard("CSA")) {
         return EnumValueFromJSHLFTypeName(
             layout_type,
             "layout",
@@ -249,7 +249,7 @@ function GetConcreteDesignPropertyMemberReinforcementLayout(layout_type) {
             },
             ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_OPTIMIZED_PROVIDED_REINFORCEMENT);
     }
-    else if (IsCurrentCodeOfStandard("SP")) {
+    else if (IsConcreteDesignCurrentCodeOfStandard("SP")) {
         return EnumValueFromJSHLFTypeName(
             layout_type,
             "layout",
@@ -323,12 +323,12 @@ function SetConcreteDesignRequiredShearReinforcementType(addon_settings,
     }
 }
 
-function GetCurrentCodeOfStandard () {
+function GetConcreteDesignCurrentCodeOfStandard () {
     return general.current_standard_for_concrete_design.match(/\w+/);
 }
 
-function IsCurrentCodeOfStandard (current_standard) {
-    return GetCurrentCodeOfStandard() == current_standard;  // Don't use === (we don't want compare types of strings)
+function IsConcreteDesignCurrentCodeOfStandard (current_standard) {
+    return GetConcreteDesignCurrentCodeOfStandard() == current_standard;  // Don't use === (we don't want compare types of strings)
 }
 
 function SetConcreteDesignMembersCalculationSetting (addon_settings,
@@ -360,7 +360,7 @@ function SetConcreteDesignStabilityRequiredReinforcement (addon_settings,
 }
 
 function GetConcreteDesignStabilityReinforcementLayout(reinforcement_layout_type) {
-    if (IsCurrentCodeOfStandard("EN")) {
+    if (IsConcreteDesignCurrentCodeOfStandard("EN")) {
         return EnumValueFromJSHLFTypeName(
             reinforcement_layout_type,
             "reinforcement layout",
@@ -372,7 +372,7 @@ function GetConcreteDesignStabilityReinforcementLayout(reinforcement_layout_type
             },
             ulsconfig_member_ec2.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING);
     }
-    else if (IsCurrentCodeOfStandard("ACI")) {
+    else if (IsConcreteDesignCurrentCodeOfStandard("ACI")) {
         return EnumValueFromJSHLFTypeName(
             reinforcement_layout_type,
             "reinforcement layout",
@@ -384,7 +384,7 @@ function GetConcreteDesignStabilityReinforcementLayout(reinforcement_layout_type
             },
             ulsconfig_member_aci318.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING);
     }
-    else if (IsCurrentCodeOfStandard("CSA")) {
+    else if (IsConcreteDesignCurrentCodeOfStandard("CSA")) {
         return EnumValueFromJSHLFTypeName(
             reinforcement_layout_type,
             "reinforcement layout",
@@ -396,7 +396,7 @@ function GetConcreteDesignStabilityReinforcementLayout(reinforcement_layout_type
             },
             ulsconfig_member_csaa233.E_REINFORCEMENT_LAYOUT_UNIFORMLY_SURROUNDING);
     }
-    else if (IsCurrentCodeOfStandard("SP")) {
+    else if (IsConcreteDesignCurrentCodeOfStandard("SP")) {
         return EnumValueFromJSHLFTypeName(
             reinforcement_layout_type,
             "reinforcement layout",
@@ -599,7 +599,7 @@ function SetConcreteDesignSurfacesMainCompressionReinforcementDirectionType(addo
 }
 
 function GetConcreteDesignSurfacesReinforcementDefinedDirectionType(direction_type) {
-    if (IsCurrentCodeOfStandard("EN")) {
+    if (IsConcreteDesignCurrentCodeOfStandard("EN")) {
         return EnumValueFromJSHLFTypeName(
             direction_type,
             "direction",
@@ -609,7 +609,7 @@ function GetConcreteDesignSurfacesReinforcementDefinedDirectionType(direction_ty
             },
             concrete_design_surface_ulsconfig_concrete_design_ec2.E_DIRECTION_PHI_1);
     }
-    else if (IsCurrentCodeOfStandard("ACI")) {
+    else if (IsConcreteDesignCurrentCodeOfStandard("ACI")) {
         return EnumValueFromJSHLFTypeName(
             direction_type,
             "direction",
@@ -725,10 +725,10 @@ function SetConcreteDesignNeutralAxisDepthLimitation (addon_settings,
     property_consider_neutral_axis_depth_limitation,
     property_value_of_neutral_axis_depth_limitation_user_value) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
-    if (IsCurrentCodeOfStandard("EN")) {
+    if (IsConcreteDesignCurrentCodeOfStandard("EN")) {
         ;   // Only user-defined value set
     }
-    else if (IsCurrentCodeOfStandard("ACI")) {
+    else if (IsConcreteDesignCurrentCodeOfStandard("ACI")) {
         if (addon_settings_type === "member") {
             var automaticallyValue = ulsconfig_member_aci318.E_NEUTRAL_AXIS_DEPTH_LIMITATION_AUTOMATICALLY;
             var userDefinedValue = ulsconfig_member_aci318.E_NEUTRAL_AXIS_DEPTH_LIMITATION_USER_DEFINED;
@@ -739,7 +739,7 @@ function SetConcreteDesignNeutralAxisDepthLimitation (addon_settings,
             var userDefinedValue = concrete_design_surface_ulsconfig_concrete_design_aci318.E_NEUTRAL_AXIS_DEPTH_LIMITATION_USER_DEFINED;
         }
     }
-    else if (IsCurrentCodeOfStandard("CSA")) {
+    else if (IsConcreteDesignCurrentCodeOfStandard("CSA")) {
         if (addon_settings_type === "member") {
             var automaticallyValue = ulsconfig_member_csaa233.E_NEUTRAL_AXIS_DEPTH_LIMITATION_AUTOMATICALLY;
             var userDefinedValue = ulsconfig_member_csaa233.E_NEUTRAL_AXIS_DEPTH_LIMITATION_USER_DEFINED;
@@ -750,7 +750,7 @@ function SetConcreteDesignNeutralAxisDepthLimitation (addon_settings,
             var userDefinedValue = concrete_design_surface_ulsconfig_concrete_design_csaa233.E_NEUTRAL_AXIS_DEPTH_LIMITATION_USER_DEFINED;
         }
     }
-    else if (IsCurrentCodeOfStandard("SP")) {
+    else if (IsConcreteDesignCurrentCodeOfStandard("SP")) {
         if (addon_settings_type === "member") {
             var automaticallyValue = ulsconfig_member_sp63.E_NEUTRAL_AXIS_DEPTH_LIMITATION_AUTOMATICALLY;
             var userDefinedValue = ulsconfig_member_sp63.E_NEUTRAL_AXIS_DEPTH_LIMITATION_USER_DEFINED;
@@ -762,7 +762,7 @@ function SetConcreteDesignNeutralAxisDepthLimitation (addon_settings,
         }
     }
     else {
-        ASSERT(false, "SetConcreteDesignNeutralAxisDepthLimitation - unknown code of standard (" + GetCurrentCodeOfStandard() + ")");
+        ASSERT(false, "SetConcreteDesignNeutralAxisDepthLimitation - unknown code of standard (" + GetConcreteDesignCurrentCodeOfStandard() + ")");
     }
     if (typeof property_consider_neutral_axis_depth_limitation !== "undefined") {
         if (addon_settings_type === "member") {
@@ -774,7 +774,7 @@ function SetConcreteDesignNeutralAxisDepthLimitation (addon_settings,
     }
     if (typeof property_value_of_neutral_axis_depth_limitation_user_value !== "undefined") {
         ASSERT(addon_settings_type === "member" ? addon_settings.property_member_consider_neutral_axis_depth_limitation : addon_settings.property_surface_consider_neutral_axis_depth_limitation, "Consider depth limitation of neutral axis acc. to 9.3.3.1 must be on");
-        if (!IsCurrentCodeOfStandard("EN")) {
+        if (!IsConcreteDesignCurrentCodeOfStandard("EN")) {
             if (typeof property_value_of_neutral_axis_depth_limitation_user_value === "string") {
                 ASSERT(property_value_of_neutral_axis_depth_limitation_user_value === "AUTOMATICALLY", "Value of neutral axis depth limitation must equal ti AUTOMATICALLY");
                 if (addon_settings_type === "member") {
@@ -809,14 +809,14 @@ function SetConcreteDesignNeutralAxisDepthLimitation (addon_settings,
 
 function SetConcreteDesignMemberEpoxyFactorType(addon_settings,
     epoxy_factor_type) {
-    if (IsCurrentCodeOfStandard("ACI")) {
+    if (IsConcreteDesignCurrentCodeOfStandard("ACI")) {
         var epoxy_factor_types = [
             "EPOXY_COATED_OR_ZINC",
             "UNCOATED_OR_ZINC_COATED"
         ];
         var default_value = "UNCOATED_OR_ZINC_COATED";
     }
-	else if (IsCurrentCodeOfStandard("CSA")) {
+	else if (IsConcreteDesignCurrentCodeOfStandard("CSA")) {
         var epoxy_factor_types = [
             "EPOXY_COATED",
             "UNCOATED"
@@ -824,7 +824,7 @@ function SetConcreteDesignMemberEpoxyFactorType(addon_settings,
         var default_value = "UNCOATED";
     }
     else {
-        ASSERT(false, "SetConcreteDesignMemberEpoxyFactorType - unknown code of standard (" + GetCurrentCodeOfStandard() + ")");
+        ASSERT(false, "SetConcreteDesignMemberEpoxyFactorType - unknown code of standard (" + GetConcreteDesignCurrentCodeOfStandard() + ")");
     }
 	if (epoxy_factor_type !== undefined) {
 	  if (epoxy_factor_types.indexOf(epoxy_factor_type) === -1)
@@ -906,7 +906,7 @@ function SetConcreteDesignPunchingPunchingLoad (addon_settings,
 function GetConcreteDesignPunchingLoadType(punching_load_type,
     punching_load_for) {
     if (punching_load_for === "walls") {
-        if (IsCurrentCodeOfStandard("ACI")) {
+        if (IsConcreteDesignCurrentCodeOfStandard("ACI")) {
             return EnumValueFromJSHLFTypeName(
                 punching_load_type,
                 "punching load",
@@ -915,7 +915,7 @@ function GetConcreteDesignPunchingLoadType(punching_load_type,
                 },
                 concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE);
         }
-        else if (IsCurrentCodeOfStandard("CSA")) {
+        else if (IsConcreteDesignCurrentCodeOfStandard("CSA")) {
             return EnumValueFromJSHLFTypeName(
                 punching_load_type,
                 "punching load",
@@ -924,7 +924,7 @@ function GetConcreteDesignPunchingLoadType(punching_load_type,
                 },
                 concrete_design_node_concrete_ulsconfig_csaa233.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE);
         }
-        else if (IsCurrentCodeOfStandard("SP")) {
+        else if (IsConcreteDesignCurrentCodeOfStandard("SP")) {
             return EnumValueFromJSHLFTypeName(
                 punching_load_type,
                 "punching load",
@@ -934,11 +934,11 @@ function GetConcreteDesignPunchingLoadType(punching_load_type,
                 concrete_design_node_concrete_ulsconfig_sp63.E_USED_PUNCHING_LOAD_TYPE_SMOOTHED_SHEAR_FORCE);
         }
         else {
-            ASSERT(false, "GetConcreteDesignPunchingLoadType: unsupported code of standard (" + GetCurrentCodeOfStandard() + ")");
+            ASSERT(false, "GetConcreteDesignPunchingLoadType: unsupported code of standard (" + GetConcreteDesignCurrentCodeOfStandard() + ")");
         }
     }
     else if (punching_load_for === "columns") {
-        if (IsCurrentCodeOfStandard("ACI")) {
+        if (IsConcreteDesignCurrentCodeOfStandard("ACI")) {
             return EnumValueFromJSHLFTypeName(
                 punching_load_type,
                 "punching load",
@@ -948,7 +948,7 @@ function GetConcreteDesignPunchingLoadType(punching_load_type,
                 },
                 concrete_design_node_ulsconfig_concrete_design_aci318.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE);
         }
-        else if (IsCurrentCodeOfStandard("CSA")) {
+        else if (IsConcreteDesignCurrentCodeOfStandard("CSA")) {
             return EnumValueFromJSHLFTypeName(
                 punching_load_type,
                 "punching load",
@@ -958,7 +958,7 @@ function GetConcreteDesignPunchingLoadType(punching_load_type,
                 },
                 concrete_design_node_concrete_ulsconfig_csaa233.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE);
         }
-        else if (IsCurrentCodeOfStandard("SP")) {
+        else if (IsConcreteDesignCurrentCodeOfStandard("SP")) {
             return EnumValueFromJSHLFTypeName(
                 punching_load_type,
                 "punching load",
@@ -969,7 +969,7 @@ function GetConcreteDesignPunchingLoadType(punching_load_type,
                 concrete_design_node_concrete_ulsconfig_sp63.E_USED_PUNCHING_LOAD_TYPE_SINGLE_FORCE);
         }
         else {
-            ASSERT(false, "GetConcreteDesignPunchingLoadType: unsupported code of standard (" + GetCurrentCodeOfStandard() + ")");
+            ASSERT(false, "GetConcreteDesignPunchingLoadType: unsupported code of standard (" + GetConcreteDesignCurrentCodeOfStandard() + ")");
         }
     }
     else {
@@ -986,7 +986,7 @@ function SetConcreteDesignPunchingAdditionalParameters (addon_settings,
 };
 
 function GetConcreteDesignPunchingDirectionForceType(direction_type) {
-    if (IsCurrentCodeOfStandard("EN")) {
+    if (IsConcreteDesignCurrentCodeOfStandard("EN")) {
         return EnumValueFromJSHLFTypeName(
             direction_type,
             "punching direction force",
@@ -997,7 +997,7 @@ function GetConcreteDesignPunchingDirectionForceType(direction_type) {
             },
             concrete_design_node_ulsconfig_concrete_design_ec2.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE);
     }
-    else if (IsCurrentCodeOfStandard("SP")) {
+    else if (IsConcreteDesignCurrentCodeOfStandard("SP")) {
         return EnumValueFromJSHLFTypeName(
             direction_type,
             "punching direction force",
@@ -1009,7 +1009,7 @@ function GetConcreteDesignPunchingDirectionForceType(direction_type) {
             concrete_design_node_concrete_ulsconfig_sp63.E_DIRECTION_OF_PUNCHING_FORCE_DETERMINE);
     }
     else {
-        ASSERT(false, "GetConcreteDesignPunchingDirectionForceType: unsupported code standard (" + GetCurrentCodeOfStandard() + ")");
+        ASSERT(false, "GetConcreteDesignPunchingDirectionForceType: unsupported code standard (" + GetConcreteDesignCurrentCodeOfStandard() + ")");
     }
 }
 

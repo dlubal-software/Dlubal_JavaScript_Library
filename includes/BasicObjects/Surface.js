@@ -660,7 +660,7 @@ Surface.prototype.SetUserDefinedConcreteCover = function (concrete_cover_top,
 	is_user_defined_concrete_cover_enabled) {
 	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design must be active");
 	ASSERT(this.surface.design_properties_via_surface, "Design properties must be on");
-	if (IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC")) {
+	if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("NTC")) {
 		if (typeof is_user_defined_concrete_cover_enabled === "undefined") {
 			is_user_defined_concrete_cover_enabled = true;
 		}
@@ -763,7 +763,7 @@ Surface.prototype.SetConcreteDesignConcreteDurability = function (concrete_durab
 	concrete_durability_bottom) {
 	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design must be active");
 	ASSERT(this.surface.design_properties_via_surface, "Design properties must be on");
-	ASSERT(IsCurrentCodeOfStandard("EN") || IsCurrentCodeOfStandard("NTC"), "Concrete durabilities can be set only for EN and NTC");
+	ASSERT(IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("NTC"), "Concrete durabilities can be set only for EN and NTC");
 	ASSERT(typeof concrete_durability_top !== "undefined", "Concrete durability top must be specified");
 	ASSERT(typeof concrete_durability_bottom !== "undefined", "Concrete durability bottom must be specified");
 	function SetConcreteDurability (surface,
