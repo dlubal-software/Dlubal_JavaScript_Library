@@ -1,3 +1,7 @@
+/*
+Bug 105918 - missing APi support for NTC (Ultimate configurations, Serviceability configurations)
+*/
+
 include("../../includes/Tools/high_level_functions_support.js");
 include("../../includes/AddOns/ConcreteDesign/ConcreteDesignSupport.js");
 /*********************************************************************************************
@@ -41,6 +45,13 @@ var concrete_design_standards = {
     2: general.NATIONAL_ANNEX_AND_EDITION_CSA_A23_3_2019,
     3: general.NATIONAL_ANNEX_AND_EDITION_SP_63_13330_2018_12
 };
+
+if (PRERELEASE_MODE) {
+    concrete_design_standards[4] = general.NATIONAL_ANNEX_AND_EDITION_NTC_2018_01_CONCRETE_DESIGN;
+}
+else if (standard_index === 4) {
+    ASSERT(false, "Only for pre-release mode");
+}
 
 if (standard_index >= Object.keys(concrete_design_standards).length) {
     console.log("start_index must be from range 0-" + (Object.keys(concrete_design_standards).length - 1).toString());
@@ -300,6 +311,9 @@ switch (general.current_standard_for_concrete_design)
         serviceabilityConfiguration.SetCrackStateDetection("ELASTIC");
         serviceabilityConfiguration.SetCrackWidthAnalysis(0.000201, 0.000202, 0.000203, 0.000204);
         serviceabilityConfiguration.SetDeflectionAnalysis(true, 121, 122, false, undefined, undefined, 0.70);
+        break;
+    case general.NATIONAL_ANNEX_AND_EDITION_NTC_2018_01_CONCRETE_DESIGN:
+        // No API support, bug 105918
         break;
     default:
         ASSERT(false, "Unknown code of standard");
