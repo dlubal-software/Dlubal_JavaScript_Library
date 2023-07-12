@@ -7,7 +7,7 @@ include ("../ConcreteDesign/ConcreteDesignSupport.js");
 /**
  * Creates Concrete design surface reinforcement
  * @param {Number} no               Concrete design surface reinforcement index, can be undefined
- * @param {Array} surfaces_no_no    List of surfaces indexes, can be undefined
+ * @param {Array} surfaces_no       List of surfaces indexes, can be undefined
  * @param {Array} material_no       Material number, can be undefined
  * @param {String} comment          Comment, can be undefined
  * @param {Object} params           Additional parameters, can be undefined
