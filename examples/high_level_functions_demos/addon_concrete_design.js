@@ -70,12 +70,12 @@ switch (general.current_standard_for_concrete_design)
     case general.NATIONAL_ANNEX_AND_EDITION_EN_1992_CEN_2014_11:
     /****************************************************************** Ultimate configuration ***************************************************************************/
         if (RFEM) {
-            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationEN(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
+            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationEN(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no], "Ultimate configuration (EN)");
         }
         else {
-            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationEN(undefined, undefined, [memberList[0].GetNo()]);
+            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationEN(undefined, undefined, [memberList[0].GetNo()], undefined, "Ultimate configuration (EN)");
         }
-        ultimateConfiguration.SetName("Ultimate configuration (EN)");
+        ultimateConfiguration.SetName("Ultimate conf.");
         ultimateConfiguration.SetMembers_ConsiderInternalForces(false, undefined, true, false, false, false);
         ultimateConfiguration.SetMembers_ReductionsOfInternalForcesInZ(true, true, false, true, true);
         ultimateConfiguration.SetMembers_RequiredLongitudinalReinforcement("UNIFORMLY_SURROUNDING", 0.01, true, 0.99, false);
@@ -128,12 +128,12 @@ switch (general.current_standard_for_concrete_design)
         }
     /****************************************************************** Serviceability configuration ***********************************************************************/
         if (RFEM) {
-            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationEN(undefined, [surfaceList[1].no], [memberList[1].GetNo()]);
+            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationEN(undefined, [surfaceList[1].no], [memberList[1].GetNo()], "Serviceability configuration (EN)");
         }
         else {
-            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationEN(undefined, undefined, [memberList[1].GetNo()]);
+            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationEN(undefined, undefined, [memberList[1].GetNo()], "Serviceability configuration (EN)");
         }
-        serviceabilityConfiguration.SetName("Serviceability configuration (EN)");
+        serviceabilityConfiguration.SetName("Serviceability conf.");
         serviceabilityConfiguration.SetStressAnaLysis(true, false);
         serviceabilityConfiguration.SetCrackAnalysisLimitValues(true, "02_EXPOSURE_CLASS_FROM_XC2_TO_XC4_STRUCTURAL_ELEMENT_PRESTRESSING", "03_EXPOSURE_CLASS_FROM_XS1_TO_XS3_STRUCTURAL_ELEMENT_REINFORCEMENT_CONCRETE_UNBONDED_PRESTRESSING");
         serviceabilityConfiguration.SetDesignWithoutDirectCrackWidthCalculation(false, false);
@@ -153,12 +153,12 @@ switch (general.current_standard_for_concrete_design)
     case general.NATIONAL_ANNEX_AND_EDITION_ACI_318_2019_CONCRETE_DESIGN:
         /****************************************************************** Strength configuration ***************************************************************************/
         if (RFEM) {
-            var strengthConfiguration = new ConcreteDesignStrengthConfigurationACI(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
+            var strengthConfiguration = new ConcreteDesignStrengthConfigurationACI(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no], "Strength configuration (ACI)");
         }
         else {
-            var strengthConfiguration = new ConcreteDesignStrengthConfigurationACI(undefined, undefined, [memberList[0].GetNo()]);
+            var strengthConfiguration = new ConcreteDesignStrengthConfigurationACI(undefined, undefined, [memberList[0].GetNo()], undefined, "Strength configuration (ACI)");
         }
-        strengthConfiguration.SetName("Strength configuration (ACI)");
+        strengthConfiguration.SetName("Strength conf.");
         strengthConfiguration.SetMembers_ConsiderInternalForces(false, undefined, true, false, false, false);
         strengthConfiguration.SetMembers_InternalForceReductionZ(true, false);
         strengthConfiguration.SetMembers_RequiredLongitudinalReinforcement("IN_CORNERS_SYMMETRICAL_DISTRIBUTION", 0.05, false);
@@ -197,12 +197,12 @@ switch (general.current_standard_for_concrete_design)
         }
     /****************************************************************** Serviceability configuration ***********************************************************************/
         if (RFEM) {
-            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationACI(undefined, [surfaceList[1].no], [memberList[1].GetNo()]);
+            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationACI(undefined, [surfaceList[1].no], [memberList[1].GetNo()], "Serviceability configuration (ACI)");
         }
         else {
-            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationACI(undefined, undefined, [memberList[1].GetNo()]);
+            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationACI(undefined, undefined, [memberList[1].GetNo()], "Serviceability configuration (ACI)");
         }
-        serviceabilityConfiguration.SetName("Serviceability configuration (ACI)");
+        serviceabilityConfiguration.SetName("Serviceability conf.");
         serviceabilityConfiguration.SetCrackAnalysis(true, false, true, true, "01_USE_IN_WATER_RETAINING_STRUCTURES", "04_DRY_AIR_OR_PROTECTIVE_MEMBRANE", undefined, undefined, undefined, true, false, false, false, false);
         serviceabilityConfiguration.SetDeflectionAnalysis(true, 241, 242, false, true, 0.501, undefined, undefined, 137788000); // 52 months in seconds
         serviceabilityConfiguration.SetCrackStateDetection("INDEPENDENT_OF_LOAD");
@@ -210,12 +210,12 @@ switch (general.current_standard_for_concrete_design)
     case general.NATIONAL_ANNEX_AND_EDITION_CSA_A23_3_2019:
     /****************************************************************** Ultimate configuration ***************************************************************************/
         if (RFEM) {
-            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationCSA(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
+            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationCSA(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no], "Ultimate configuration (CSA)");
         }
         else {
-            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationCSA(undefined, undefined, [memberList[0].GetNo()]);
+            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationCSA(undefined, undefined, [memberList[0].GetNo()], undefined, "Ultimate configuration (CSA)");
         }
-        ultimateConfiguration.SetName("Ultimate configuration (CSA)");
+        ultimateConfiguration.SetName("Ultimate conf.");
         ultimateConfiguration.SetMembers_ConsiderInternalForces(undefined, undefined, undefined, undefined, false, false);
         ultimateConfiguration.SetMembers_InternalForceReductionZ(true, true, false);
         ultimateConfiguration.SetMembers_RequiredLongitudinalReinforcement("TOP_BOTTOM_OPTIMIZED_DISTRIBUTION", 0.06, false);
@@ -248,12 +248,12 @@ switch (general.current_standard_for_concrete_design)
         }
     /****************************************************************** Serviceability configuration ***********************************************************************/
         if (RFEM) {
-            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationCSA(undefined, [surfaceList[1].no], [memberList[1].GetNo()]);
+            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationCSA(undefined, [surfaceList[1].no], [memberList[1].GetNo()], "Serviceability configuration (CSA)");
         }
         else {
-            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationCSA(undefined, undefined, [memberList[1].GetNo()]);
+            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationCSA(undefined, undefined, [memberList[1].GetNo()], "Serviceability configuration (CSA)");
         }
-        serviceabilityConfiguration.SetName("Serviceability configuration (CSA)");
+        serviceabilityConfiguration.SetName("Serviceability conf.");
         serviceabilityConfiguration.SetExposure("EXTERIOR", "EXTERIOR", "EXTERIOR", "EXTERIOR", "EXTERIOR", "EXTERIOR");
         serviceabilityConfiguration.SetCrackAnalysis(false);
         serviceabilityConfiguration.SetSkinReinforcement();
@@ -263,12 +263,12 @@ switch (general.current_standard_for_concrete_design)
     case general.NATIONAL_ANNEX_AND_EDITION_SP_63_13330_2018_12:
     /****************************************************************** Ultimate configuration ***************************************************************************/
         if (RFEM) {
-            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationSP(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no]);
+            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationSP(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no], "Ultimate configuration (SP)");
         }
         else {
-            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationSP(undefined, undefined, [memberList[0].GetNo()]);
+            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationSP(undefined, undefined, [memberList[0].GetNo()], undefined, "Ultimate configuration (SP)");
         }
-        ultimateConfiguration.SetName("Ultimate configuration (SP)");
+        ultimateConfiguration.SetName("Ultimate conf.");
         ultimateConfiguration.SetMembers_ConsiderInternalForces(false, false, true, false, false, false);
         ultimateConfiguration.SetMembers_FactorsOfConcreteServiceConditions(true, true, true, true);
         ultimateConfiguration.SetMembers_InternalForceReductionZ(false, true);
@@ -302,12 +302,12 @@ switch (general.current_standard_for_concrete_design)
         }
     /****************************************************************** Serviceability configuration ***********************************************************************/
         if (RFEM) {
-            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationSP(undefined, [surfaceList[1].no], [memberList[1].GetNo()]);
+            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationSP(undefined, [surfaceList[1].no], [memberList[1].GetNo()], "Serviceability configuration (SP)");
         }
         else {
-            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationSP(undefined, undefined, [memberList[1].GetNo()]);
+            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationSP(undefined, undefined, [memberList[1].GetNo()], "Serviceability configuration (SP)");
         }
-        serviceabilityConfiguration.SetName("Serviceability configuration (SP)");
+        serviceabilityConfiguration.SetName("Serviceability conf.");
         serviceabilityConfiguration.SetCrackStateDetection("ELASTIC");
         serviceabilityConfiguration.SetCrackWidthAnalysis(0.000201, 0.000202, 0.000203, 0.000204);
         serviceabilityConfiguration.SetDeflectionAnalysis(true, 121, 122, false, undefined, undefined, 0.70);
@@ -326,7 +326,7 @@ var memberSet = new MemberSet();
 memberSet.ContinuousMembers(undefined, [memberList[6].GetNo(), memberForSetOfMembers.GetNo(), memberList[7].GetNo()]);
 
 var effectiveLength = new ConcreteDesignEffectiveLength(undefined, [memberList[5].GetNo()], [memberSet.GetNo()], "Concrete design effective length");
-effectiveLength.SetName("Test effective length");
+effectiveLength.SetName("Effective length");
 effectiveLength.SetDeterminationType(true, true);
 if (!IsConcreteDesignCurrentCodeOfStandard("SP")) {
     effectiveLength.SetStructureType("BRACED");
@@ -365,7 +365,7 @@ if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOf
     else {
         var concreteDurability = new ConcreteDesignConcreteDurability(undefined, undefined, undefined, undefined, "Concrete design concrete durabilities")
     }
-    concreteDurability.SetName("Testing concrete durability object");
+    concreteDurability.SetName("Concrete durability");
     concreteDurability.SetNoRiskOfCorrosionOrAttack(undefined, false);
     concreteDurability.SetCorrosionInducedByCarbonation("MODERATE_HUMIDITY");
     concreteDurability.SetCorrosionInducedByChlorides("CYCLIC_WET_AND_DRY");
@@ -378,33 +378,29 @@ if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOf
     concreteDurability.SetAdditionalProtection(0.005);
     concreteDurability.SetAllowanceForDeviation("STANDARD", true, "DIRECTLY_AGAINST_SOIL");
 }
-else {
-    console.log("Concrete durabilities is enabled only for EN and NTC");
-}
 
 if (RFEM) {
     /*************************************************** Types for concrete design - Reinforcement direction ****************************************************/
     var reinforcementDirection = new ConcreteDesignReinforcementDirection(undefined, [surfaceList[4].no, surfaceList[5].no], "Concrete design Reinforcement direction");
-    reinforcementDirection.SetName("Reinforcement direction for test");
+    reinforcementDirection.SetName("Reinforcement direction");
     reinforcementDirection.SetDirectionType("ROTATED");
     reinforcementDirection.SetDirectionRotations(Math.PI / 4, Math.PI / 2);
 
     /**************************************************** Types for concrete design - Surface reinforcement ****************************************************/
     var reinforcementMaterial = new Material(undefined, "B500B");
+    var reinforcingSteelMaterial = new Material(undefined, "A240 (transverse reinforcement)");
     var coordinateSystem = new CoordinateSystem();
     coordinateSystem.Offset(undefined, [1, 1, 0]);
 
-    var surfaceReinforcement = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[6].no], reinforcementMaterial.GetNo(), "Concrete design Surface reinforcement - mesh");
-    surfaceReinforcement.SetName("Surface reinforcement - mesh");
-    surfaceReinforcement.SetReinforcementType("MESH");
+    var surfaceReinforcement = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[6].no], reinforcementMaterial.GetNo(), "MESH", "Concrete design Surface reinforcement - mesh");
+    surfaceReinforcement.SetName("Surface reinforcement");
     surfaceReinforcement.SetMesh("CZECH_REPUBLIC", "R_MESH", "R 188A");
     surfaceReinforcement.SetAssignment(0.010, 0.011);
     surfaceReinforcement.SetLocationType("ON_SURFACE");
     surfaceReinforcement.SetReinforcementDirection("PARALLEL_TO_TWO_POINTS", 1.0, 1.0, 2.0, 2.0);
     surfaceReinforcement.SetProjection(coordinateSystem.GetNo(), "XZ_OR_UW");
-    var surfaceReinforcement2 = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[7].no], reinforcementMaterial.GetNo(), "Concrete design Surface reinforcement - rebar");
-    surfaceReinforcement2.SetName("Surface reinforcement - rebar");
-    surfaceReinforcement2.SetReinforcementType("REBAR");
+    var surfaceReinforcement2 = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[7].no], reinforcementMaterial.GetNo(), undefined, "Concrete design Surface reinforcement - rebar");
+    surfaceReinforcement2.SetName("Surface reinforcement");
     surfaceReinforcement2.SetLocationType("FREE_RECTANGULAR");
     if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("SP")) {
         surfaceReinforcement2.SetRebarDiameter(0.015);
@@ -418,10 +414,9 @@ if (RFEM) {
     surfaceReinforcement2.SetAssignment(0);
     surfaceReinforcement2.SetReinforcementDirection("IN_DESIGN_REINFORCEMENT_DIRECTION", "A_S_2");
     surfaceReinforcement2.SetReinforcementLocationFreeRectangular("CORNER_POINTS", -15.65, -13.63, -13.36, -12.5, Math.PI / 4);
-    var surfaceReinforcement3 = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[8].no], reinforcementMaterial.GetNo(), "Concrete design Surface reinforcement - rebar (2)");
-    surfaceReinforcement3.SetName("Surface reinforcement - rebar (2)");
+    var surfaceReinforcement3 = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[8].no], reinforcementMaterial.GetNo(), undefined, "Concrete design Surface reinforcement - rebar (2)");
+    surfaceReinforcement3.SetName("Surface reinforcement");
     surfaceReinforcement3.SetLocationType("FREE_RECTANGULAR");
-    surfaceReinforcement3.SetReinforcementType("REBAR");
     if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("SP")) {
         //surfaceReinforcement3.SetRebarDiameterAuto(0.011, 0.021, "0.008, 0.010, 0.012, 0.014", 2);
         surfaceReinforcement3.SetRebarSpacing(0.151);
@@ -434,9 +429,8 @@ if (RFEM) {
     surfaceReinforcement3.SetAssignment(undefined, 0.005);
     surfaceReinforcement3.SetReinforcementLocationFreeRectangular("CENTER_AND_SIDES", 1.0, 1.5, 2.0, 2.5);
     surfaceReinforcement3.SetReinforcementActionRegion(-5, -6);
-    var surfaceReinforcement4 = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[9].no], reinforcementMaterial.GetNo(), "Concrete design Surface reinforcement - stirrups");
-    surfaceReinforcement4.SetName("Surface reinforcement - stirrups")
-    surfaceReinforcement4.SetReinforcementType("STIRRUPS");
+    var surfaceReinforcement4 = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[9].no], reinforcingSteelMaterial.GetNo(), "STIRRUPS", "Concrete design Surface reinforcement - stirrups");
+    surfaceReinforcement4.SetName("Surface reinforcement")
     if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("SP")) {
         //surfaceReinforcement4.SetStirrupsDiameter(0.021);
     }
@@ -444,17 +438,16 @@ if (RFEM) {
 
     }
     //surfaceReinforcement4.SetStirrupsSpacingAuto(0.101, 0.301, 0.011, 3);
-    var surfaceReinforcement5 = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[10].no], reinforcementMaterial.GetNo(), "Concrete design Surface reinforcement - stirrups (2)");
-    surfaceReinforcement5.SetName("Surface reinforcement - stirrups (2)")
-    surfaceReinforcement5.SetReinforcementType("STIRRUPS");
+    var surfaceReinforcement5 = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[10].no], reinforcingSteelMaterial.GetNo(), "STIRRUPS", "Concrete design Surface reinforcement - stirrups (2)");
+    surfaceReinforcement5.SetName("Surface reinforcement")
     //surfaceReinforcement5.SetStirrupsDiameterAuto(0.011, 0.021, "0.008, 0.010", 2);
     surfaceReinforcement5.SetStirrupsSpacing(0.020);
-    var surfaceReinforcement6 = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[8].no], reinforcementMaterial.GetNo(), "Concrete design Surface reinforcement - rebar (3)");
-    surfaceReinforcement6.SetName("Surface reinforcement - rebar (3)");
+    var surfaceReinforcement6 = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[8].no], reinforcementMaterial.GetNo(), undefined, "Concrete design Surface reinforcement - rebar (3)");
+    surfaceReinforcement6.SetName("Surface reinforcement");
     surfaceReinforcement6.SetLocationType("FREE_CIRCULAR");
     surfaceReinforcement6.SetReinforcementLocationFreeCircular(-8.5, -13.0, 0.8);
-    var surfaceReinforcement7 = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[10].no], reinforcementMaterial.GetNo(), "Concrete design Surface reinforcement - rebar (4)");
-    surfaceReinforcement7.SetName("Surface reinforcement - rebar (4)");
+    var surfaceReinforcement7 = new ConcreteDesignSurfaceReinforcement(undefined, [surfaceList[10].no], reinforcementMaterial.GetNo(), undefined, "Concrete design Surface reinforcement - rebar (4)");
+    surfaceReinforcement7.SetName("Surface reinforcement");
     surfaceReinforcement7.SetLocationType("FREE_POLYGON");
     surfaceReinforcement7.SetReinforcementLocationFreePolygon([[-28.0, -10.0, "Comment 1"], [-25.0, -10.0], [-26.5, -8.0, "Comment 2"]]);
 
@@ -468,7 +461,7 @@ if (RFEM) {
         }
 
         var punchingReinforcement = new ConcreteDesignPunchingReinforcement(undefined, [75, 76, 85, 86], materialForPunching.GetNo(), "Punching reinforcement for test");
-        punchingReinforcement.SetName("Punching reinforcement 1");
+        punchingReinforcement.SetName("Punching reinforcement");
         punchingReinforcement.SetType("VERTICAL");
         punchingReinforcement.SetPlacement("AUTOMATICALLY");
         punchingReinforcement.SetOptions(true, false);

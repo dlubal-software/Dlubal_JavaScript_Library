@@ -6,15 +6,17 @@ include ("../ConcreteDesign/ConcreteDesignSupport.js");
 
 /**
  * Creates Concrete design surface reinforcement
- * @param {Number} no               Concrete design surface reinforcement index, can be undefined
- * @param {Array} surfaces_no       List of surfaces indexes, can be undefined
- * @param {Array} material_no       Material number, can be undefined
- * @param {String} comment          Comment, can be undefined
- * @param {Object} params           Additional parameters, can be undefined
+ * @param {Number} no                   Concrete design surface reinforcement index, can be undefined
+ * @param {Array} surfaces_no           List of surfaces indexes, can be undefined
+ * @param {Array} material_no           Material number, can be undefined
+ * @param {String} reinforcement_type   Reinforcement type (MESH, REBAR, STIRRUPS), can be undefined (is not set, REBAR as default)
+ * @param {String} comment              Comment, can be undefined
+ * @param {Object} params               Additional parameters, can be undefined
  */
 function ConcreteDesignSurfaceReinforcement (no,
     surfaces_no,
     material_no,
+    reinforcement_type,
     comment,
     params) {
     ASSERT(!RSECTION, "This script is only for RFEM or RSTAB");
@@ -39,6 +41,15 @@ function ConcreteDesignSurfaceReinforcement (no,
         }
         this.surface_reinforcement.surfaces = surfaces_no;
     }
+    this.surface_reinforcement.reinforcement_type = EnumValueFromJSHLFTypeName(
+        reinforcement_type,
+        "reinforcement",
+        {
+            "MESH": surface_reinforcements.REINFORCEMENT_TYPE_MESH,
+            "REBAR": surface_reinforcements.REINFORCEMENT_TYPE_REBAR,
+            "STIRRUPS": surface_reinforcements.REINFORCEMENT_TYPE_STIRRUPS
+        },
+        surface_reinforcements.REINFORCEMENT_TYPE_REBAR);
     this.surface_reinforcement.material = material_no;
     set_comment_and_parameters(this.surface_reinforcement, comment, params);
 }
@@ -87,23 +98,6 @@ ConcreteDesignSurfaceReinforcement.prototype.SetLocationType = function (locatio
             "FREE_POLYGON": surface_reinforcements.LOCATION_TYPE_FREE_POLYGON
         },
         surface_reinforcements.LOCATION_TYPE_ON_SURFACE);
-};
-
-/**
- * Sets Reinforcement type
- * @param {String} reinforcement_type   Reinforcement type (MESH, REBAR, STIRRUPS)
- */
-ConcreteDesignSurfaceReinforcement.prototype.SetReinforcementType = function (reinforcement_type) {
-    ASSERT(typeof reinforcement_type !== "undefined", "Reinforcement type must be defined");
-    this.surface_reinforcement.reinforcement_type = EnumValueFromJSHLFTypeName(
-        reinforcement_type,
-        "reinforcement",
-        {
-            "MESH": surface_reinforcements.REINFORCEMENT_TYPE_MESH,
-            "REBAR": surface_reinforcements.REINFORCEMENT_TYPE_REBAR,
-            "STIRRUPS": surface_reinforcements.REINFORCEMENT_TYPE_STIRRUPS
-        },
-        surface_reinforcements.REINFORCEMENT_TYPE_REBAR);
 };
 
 ConcreteDesignSurfaceReinforcement.prototype.SetMesh = function (mesh_product_range,
