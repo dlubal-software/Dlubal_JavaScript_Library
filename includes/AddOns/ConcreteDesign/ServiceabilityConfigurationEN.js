@@ -1,5 +1,9 @@
 include("../../Tools/high_level_functions_support.js");
 
+/*
+EN Serviceability configuration is for both standards, both EN and NTC one
+*/
+
 function ConcreteDesignServiceabilityConfigurationEN (no,
     surfaces_no,
     members_no,

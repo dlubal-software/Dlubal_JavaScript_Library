@@ -160,7 +160,7 @@ function SetConcreteDesignMembersRequiredLongitudinalReinforcement (addon_settin
 };
 
 function GetConcreteDesignPropertyMemberReinforcementDiameterForPreliminaryDesign(diameter_type) {
-    if (IsConcreteDesignCurrentCodeOfStandard("EN")) {
+    if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("NTC")) {
         return EnumValueFromJSHLFTypeName(
             diameter_type,
             "diameter",
@@ -207,7 +207,7 @@ function GetConcreteDesignPropertyMemberReinforcementDiameterForPreliminaryDesig
 }
 
 function GetConcreteDesignPropertyMemberReinforcementLayout(layout_type) {
-    if (IsConcreteDesignCurrentCodeOfStandard("EN")) {
+    if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("NTC")) {
         return EnumValueFromJSHLFTypeName(
             layout_type,
             "layout",
@@ -360,7 +360,7 @@ function SetConcreteDesignStabilityRequiredReinforcement (addon_settings,
 }
 
 function GetConcreteDesignStabilityReinforcementLayout(reinforcement_layout_type) {
-    if (IsConcreteDesignCurrentCodeOfStandard("EN")) {
+    if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("NTC")) {
         return EnumValueFromJSHLFTypeName(
             reinforcement_layout_type,
             "reinforcement layout",
@@ -599,7 +599,7 @@ function SetConcreteDesignSurfacesMainCompressionReinforcementDirectionType(addo
 }
 
 function GetConcreteDesignSurfacesReinforcementDefinedDirectionType(direction_type) {
-    if (IsConcreteDesignCurrentCodeOfStandard("EN")) {
+    if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("NTC")) {
         return EnumValueFromJSHLFTypeName(
             direction_type,
             "direction",
@@ -725,7 +725,7 @@ function SetConcreteDesignNeutralAxisDepthLimitation (addon_settings,
     property_consider_neutral_axis_depth_limitation,
     property_value_of_neutral_axis_depth_limitation_user_value) {
     ASSERT(members.count() > 0, "There must exist at least one member in project");
-    if (IsConcreteDesignCurrentCodeOfStandard("EN")) {
+    if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("NTC")) {
         ;   // Only user-defined value set
     }
     else if (IsConcreteDesignCurrentCodeOfStandard("ACI")) {
@@ -774,7 +774,7 @@ function SetConcreteDesignNeutralAxisDepthLimitation (addon_settings,
     }
     if (typeof property_value_of_neutral_axis_depth_limitation_user_value !== "undefined") {
         ASSERT(addon_settings_type === "member" ? addon_settings.property_member_consider_neutral_axis_depth_limitation : addon_settings.property_surface_consider_neutral_axis_depth_limitation, "Consider depth limitation of neutral axis acc. to 9.3.3.1 must be on");
-        if (!IsConcreteDesignCurrentCodeOfStandard("EN")) {
+        if (!IsConcreteDesignCurrentCodeOfStandard("EN") && !IsConcreteDesignCurrentCodeOfStandard("NTC")) {
             if (typeof property_value_of_neutral_axis_depth_limitation_user_value === "string") {
                 ASSERT(property_value_of_neutral_axis_depth_limitation_user_value === "AUTOMATICALLY", "Value of neutral axis depth limitation must equal ti AUTOMATICALLY");
                 if (addon_settings_type === "member") {
@@ -986,7 +986,7 @@ function SetConcreteDesignPunchingAdditionalParameters (addon_settings,
 };
 
 function GetConcreteDesignPunchingDirectionForceType(direction_type) {
-    if (IsConcreteDesignCurrentCodeOfStandard("EN")) {
+    if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("NTC")) {
         return EnumValueFromJSHLFTypeName(
             direction_type,
             "punching direction force",

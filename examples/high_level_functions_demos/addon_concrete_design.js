@@ -1,5 +1,5 @@
 /*
-Bug 105918 - missing APi support for NTC (Ultimate configurations, Serviceability configurations)
+EN Ultimate configuration is for both standards, both EN and NTC one
 */
 
 include("../../includes/Tools/high_level_functions_support.js");
@@ -68,12 +68,16 @@ if (RFEM) {
 switch (general.current_standard_for_concrete_design)
 {
     case general.NATIONAL_ANNEX_AND_EDITION_EN_1992_CEN_2014_11:
+    case general.NATIONAL_ANNEX_AND_EDITION_NTC_2018_01_CONCRETE_DESIGN:
     /****************************************************************** Ultimate configuration ***************************************************************************/
+        /*
+        EN Ultimate configuration is for both standards, both EN and NTC one
+        */
         if (RFEM) {
-            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationEN(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no], "Ultimate configuration (EN)");
+            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationEN(undefined, [surfaceList[0].no], [memberList[0].GetNo()], [nodes[31].no, nodes[32].no], "Ultimate configuration (" + GetConcreteDesignCurrentCodeOfStandard() + ")");
         }
         else {
-            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationEN(undefined, undefined, [memberList[0].GetNo()], undefined, "Ultimate configuration (EN)");
+            var ultimateConfiguration = new ConcreteDesignUltimateConfigurationEN(undefined, undefined, [memberList[0].GetNo()], undefined, "Ultimate configuration (" + GetConcreteDesignCurrentCodeOfStandard() + ")");
         }
         ultimateConfiguration.SetName("Ultimate conf.");
         ultimateConfiguration.SetMembers_ConsiderInternalForces(false, undefined, true, false, false, false);
@@ -128,10 +132,10 @@ switch (general.current_standard_for_concrete_design)
         }
     /****************************************************************** Serviceability configuration ***********************************************************************/
         if (RFEM) {
-            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationEN(undefined, [surfaceList[1].no], [memberList[1].GetNo()], "Serviceability configuration (EN)");
+            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationEN(undefined, [surfaceList[1].no], [memberList[1].GetNo()], "Serviceability configuration (" + GetConcreteDesignCurrentCodeOfStandard() + ")");
         }
         else {
-            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationEN(undefined, undefined, [memberList[1].GetNo()], "Serviceability configuration (EN)");
+            var serviceabilityConfiguration = new ConcreteDesignServiceabilityConfigurationEN(undefined, undefined, [memberList[1].GetNo()], "Serviceability configuration (" + GetConcreteDesignCurrentCodeOfStandard() + ")");
         }
         serviceabilityConfiguration.SetName("Serviceability conf.");
         serviceabilityConfiguration.SetStressAnaLysis(true, false);
@@ -311,9 +315,6 @@ switch (general.current_standard_for_concrete_design)
         serviceabilityConfiguration.SetCrackStateDetection("ELASTIC");
         serviceabilityConfiguration.SetCrackWidthAnalysis(0.000201, 0.000202, 0.000203, 0.000204);
         serviceabilityConfiguration.SetDeflectionAnalysis(true, 121, 122, false, undefined, undefined, 0.70);
-        break;
-    case general.NATIONAL_ANNEX_AND_EDITION_NTC_2018_01_CONCRETE_DESIGN:
-        // No API support, bug 105918
         break;
     default:
         ASSERT(false, "Unknown code of standard");

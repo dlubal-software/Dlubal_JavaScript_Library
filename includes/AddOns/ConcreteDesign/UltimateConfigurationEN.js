@@ -1,6 +1,10 @@
 include("../../Tools/high_level_functions_support.js");
 
 /*
+EN Ultimate configuration is for both standards, both EN and NTC one
+*/
+
+/*
 Bug?: this.addon.settings_member_ec2.property_fatigue_design_time_of_start_of_cyclic_loading_on_concrete cannot be set
 */
 
