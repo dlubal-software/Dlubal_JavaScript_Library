@@ -42,7 +42,19 @@
 	}
 }
 
+/**
+ * @returns Coordinate system object
+ */
+CoordinateSystem.prototype.GetCoordinateSystem = function () {
+	return this.coordinate_system;
+};
 
+/**
+ * @returns Coordinate system number
+ */
+CoordinateSystem.prototype.GetNo = function () {
+	return this.coordinate_system.no;
+};
 
 /**
  * Create  coordinate system with "offset" type

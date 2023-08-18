@@ -40,6 +40,20 @@ function Thickness(no,
 }
 
 /**
+ * @returns Thickness object
+ */
+Thickness.prototype.GetThickness = function () {
+    return this.thickness;
+};
+
+/**
+ * @returns Thickness number
+ */
+Thickness.prototype.GetNo = function () {
+    return this.thickness.no;
+};
+
+/**
  * Create Uniform thickness
  * @param {int} no - Number of Thickness
  * @param {string} name - Name of the Thickness

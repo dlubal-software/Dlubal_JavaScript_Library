@@ -2,6 +2,8 @@ if (!RFEM) {
 	throw new Error("This script is only for RFEM, it creates surfaces.");
 }
 
+include ("../AddOns/ConcreteDesign/ConcreteDesignSupport.js");
+
 /**
 * Creates surface
 * @class
@@ -140,10 +142,25 @@ Surface.prototype.LoadTransfer = function (no,
 	params) {
 	this.surface = createSurfaceWithType(no, boundary_lines, GetSurfaceStiffnessType("LOAD_TRANSFER"), undefined, comment, params);
 	if (typeof load_transfer_direction !== "undefined") {
-		this.surface.load_transfer_direction = GetSurfaceLoadTransferDirection(load_transfer_direction);
+		this.surface.load_transfer_direction = EnumValueFromJSHLFTypeName(
+			load_transfer_direction,
+			"load transfer direction",
+			{
+				"DIRECTION_IN_X": surfaces.LOAD_TRANSFER_DIRECTION_IN_X,
+				"DIRECTION_IN_Y": surfaces.LOAD_TRANSFER_DIRECTION_IN_Y,
+				"DIRECTION_IN_BOTH": surfaces.LOAD_TRANSFER_DIRECTION_IN_BOTH
+			},
+			surfaces.LOAD_TRANSFER_DIRECTION_IN_X);
 	}
 	if (typeof load_distribution !== "undefined") {
-		this.surface.load_distribution = GetSurfaceTransferLoadDistribution(load_distribution);
+		this.surface.load_distribution = EnumValueFromJSHLFTypeName(
+			load_distribution,
+			"load distribution",
+			{
+				"UNIFORM": surfaces.LOAD_DISTRIBUTION_UNIFORM,
+				"VARYING": surfaces.LOAD_DISTRIBUTION_VARYING
+			},
+			surfaces.LOAD_DISTRIBUTION_VARYING);
 	}
 };
 
@@ -530,14 +547,14 @@ Surface.prototype.SpecificAxes = function (input_axes,
 *													Grid type cartesian: [nx+, nx-, ny+, ny-]
 *													Grid type polar: [nr+]
 * @param	{Boolean}	grid_adapt_automatically	Adapt automatically, can be undefined (true by default)
-* @param	{Array}		grid_distancies				Grid distancies ([b, h]), can be undefined
+* @param	{Array}		grid_distances				Grid distances ([b, h]), can be undefined
 * @param	{Array}		grid_rotation				Grid rotation ([α, β]), can be undefined
 * @param	{Array}		grid_origin					Grid origin ([X, Y, Z]), can be undefined
 */
 Surface.prototype.GridForResults = function (grid_type,
 	number_of_grid_points,
 	grid_adapt_automatically,
-	grid_distancies,
+	grid_distances,
 	grid_rotation,
 	grid_origin) {
 	ASSERT(typeof grid_type !== "undefined", "Grid type must be specified");
@@ -562,10 +579,10 @@ Surface.prototype.GridForResults = function (grid_type,
 		grid_adapt_automatically = true;
 	}
 	this.surface.grid_adapt_automatically = grid_adapt_automatically;
-	if (typeof grid_distancies !== "undefined") {
-		ASSERT(grid_distancies.length === 2, "Grid distancies: two values are required [b, h]");
+	if (typeof grid_distances !== "undefined") {
+		ASSERT(grid_distances.length === 2, "Grid distances: two values are required [b, h]");
 		this.surface.grid_distance_x = grid_distance_x[0];
-		this.surface.grid_distance_y = grid_distancies[1];
+		this.surface.grid_distance_y = grid_distances[1];
 	}
 	if (typeof grid_rotation !== "undefined") {
 		ASSERT(grid_rotation.length === 2, "Grid rotation: two values are required [α, β]");
@@ -609,6 +626,244 @@ Surface.prototype.IntegratedObjects = function (auto_detection_of_integrated_obj
 };
 
 /**
+ * Enable / disable Design properties for surface (Concrete design add-on)
+ * @param {Boolean} enabled 	Enable / disable Design properties, can be undefined (true as default)
+ */
+Surface.prototype.ConcreteDesignProperties = function (enabled) {
+	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design add-on must be active");
+	if (typeof enabled === "undefined") {
+		enabled = true;
+	}
+	this.surface.design_properties_via_surface = enabled;
+};
+
+/**
+ * Sets Via parent surface set
+ * @param {Boolean} design_properties_via_parent_surface_set 	Via parent surface set, can be undefined (true as default)
+ */
+Surface.prototype.SetConcreteDesignPropertiesViaParentSurfaceSet = function (design_properties_via_parent_surface_set) {
+	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design add-on must be active");
+	if (typeof design_properties_via_parent_surface_set === "undefined") {
+		design_properties_via_parent_surface_set = true;
+	}
+	this.surface.design_properties_via_parent_surface_set = design_properties_via_parent_surface_set;
+};
+
+/**
+ * Sets User-defined concrete cover
+ * @param {Number} concrete_cover_top 							Concrete cover top, can be undefined (is not set, 30 mm as default). For EN must be is_user_defined_concrete_cover_enabled set true
+ * @param {Number} concrete_cover_bottom 						Concrete cover bottom, can be undefined (is not set, 30 mm as default). For EN must be is_user_defined_concrete_cover_enabled set true
+ * @param {Boolean} is_user_defined_concrete_cover_enabled 		Enable/disable user-defined values, can be undefined (true as default). Has meaning only for EN standard.
+ */
+Surface.prototype.SetUserDefinedConcreteCover = function (concrete_cover_top,
+	concrete_cover_bottom,
+	is_user_defined_concrete_cover_enabled) {
+	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design must be active");
+	ASSERT(this.surface.design_properties_via_surface, "Design properties must be on");
+	if (IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("NTC")) {
+		if (typeof is_user_defined_concrete_cover_enabled === "undefined") {
+			is_user_defined_concrete_cover_enabled = true;
+		}
+		this.surface.is_user_defined_concrete_cover_enabled = is_user_defined_concrete_cover_enabled;
+	}
+	if (typeof concrete_cover_top !== "undefined") {
+		ASSERT(this.surface.is_user_defined_concrete_cover_enabled, "User-defined must be true");
+		this.surface.user_defined_concrete_cover_top = concrete_cover_top;
+	}
+	if (typeof concrete_cover_bottom !== "undefined") {
+		ASSERT(this.surface.is_user_defined_concrete_cover_enabled, "User-defined must be true");
+		this.surface.user_defined_concrete_cover_bottom = concrete_cover_bottom;
+	}
+};
+
+/**
+ * Sets Concrete Cover Acc. to EN 1992 | CEN | 2014-11
+ */
+Surface.prototype.SetConcreteCoverAccToEn1992 = function () {
+	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design must be active");
+	ASSERT(this.surface.design_properties_via_surface, "Design properties must be on");
+	this.surface.is_user_defined_concrete_cover_enabled = false;
+};
+/**
+ * Sets Assignments
+ * @param {Number} surface_concrete_design_uls_configuration 	Ultimate configuration, can be undefined (empty by default)
+ * @param {Number} surface_concrete_design_sls_configuration 	Serviceability configuration, can be undefined (empty by default)
+ */
+Surface.prototype.SetAssignments = function (surface_concrete_design_uls_configuration,
+	surface_concrete_design_sls_configuration) {
+	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design must be active");
+	ASSERT(this.surface.design_properties_via_surface, "Design properties must be on");
+	function setAssignment (surface,
+		assignment_no,
+		assignment_type) {
+			if (assignment_type === "uls") {
+				if (CONCRETE_DESIGN.concrete_design_uls_configurations.exist(assignment_no)) {
+					surface.surface_concrete_design_uls_configuration = assignment_no;
+				}
+				else {
+					console.log("Ultimate configuration no. " + assignment_no + " doesn't exist");
+				}
+			}
+			else if (assignment_type === "sls") {
+				if (CONCRETE_DESIGN.concrete_design_sls_configurations.exist(assignment_no)) {
+					surface.surface_concrete_design_sls_configuration = assignment_no;
+				}
+				else {
+					console.log("Serviceability configuration no. " + assignment_no + " doesn't exist");
+				}
+			}
+			else {
+				ASSERT(false);
+			}
+		}
+	if (typeof surface_concrete_design_uls_configuration !== "undefined") {
+		setAssignment(this.surface, surface_concrete_design_uls_configuration, "uls");
+	}
+	if (typeof surface_concrete_design_sls_configuration !== "undefined") {
+		setAssignment(this.surface, surface_concrete_design_sls_configuration, "sls");
+	}
+};
+
+/**
+ * Sets Reinforcement directions
+ * @param {Number} reinforcement_direction_top 			Reinforcement direction number for top surface side
+ * @param {Number} reinforcement_direction_bottom 		Reinforcement direction number for bottom surface side
+ */
+Surface.prototype.SetConcreteDesignReinforcementDirections = function (reinforcement_direction_top,
+	reinforcement_direction_bottom) {
+	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design must be active");
+	ASSERT(this.surface.design_properties_via_surface, "Design properties must be on");
+	ASSERT(typeof reinforcement_direction_top !== "undefined", "Reinforcement direction top must be specified");
+	ASSERT(typeof reinforcement_direction_bottom !== "undefined", "Reinforcement direction bottom must be specified");
+	function SetReinforcementDirection (surface,
+		reinforcement_direction_no,
+		top) {
+		if (reinforcement_directions.exist(reinforcement_direction_no)) {
+			if (top) {
+				surface.reinforcement_direction_top = reinforcement_direction_no;
+			}
+			else {
+				surface.reinforcement_direction_bottom = reinforcement_direction_no;
+			}
+		}
+		else {
+			console.log("Reinforcement direction no. " + reinforcement_direction_no + " doesn't exist");
+		}
+	}
+	SetReinforcementDirection(this.surface, reinforcement_direction_top, true);
+	SetReinforcementDirection(this.surface, reinforcement_direction_bottom, false);
+};
+
+/**
+ * Sets Concrete durabilities
+ * @param {Number} concrete_durability_top 		Concrete durability number for top surface side
+ * @param {Number} concrete_durability_bottom 	Concrete durability number for bottom surface side
+ */
+Surface.prototype.SetConcreteDesignConcreteDurability = function (concrete_durability_top,
+	concrete_durability_bottom) {
+	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design must be active");
+	ASSERT(this.surface.design_properties_via_surface, "Design properties must be on");
+	ASSERT(IsConcreteDesignCurrentCodeOfStandard("EN") || IsConcreteDesignCurrentCodeOfStandard("NTC"), "Concrete durabilities can be set only for EN and NTC");
+	ASSERT(typeof concrete_durability_top !== "undefined", "Concrete durability top must be specified");
+	ASSERT(typeof concrete_durability_bottom !== "undefined", "Concrete durability bottom must be specified");
+	function SetConcreteDurability (surface,
+		concrete_durability_no,
+		top) {
+		if (concrete_durabilities.exist(concrete_durability_no)) {
+			if (top) {
+				surface.concrete_durability_top = concrete_durability_no;
+			}
+			else {
+				surface.concrete_durability_bottom = concrete_durability_no;
+			}
+		}
+		else {
+			console.log("Concrete durability no. " + concrete_durability_no + " doesn't exist");
+		}
+	}
+	SetConcreteDurability(this.surface, concrete_durability_top, true);
+	SetConcreteDurability(this.surface, concrete_durability_bottom, false);
+};
+
+/**
+ * Sets Surface reinforcements
+ * @param {Array} surface_reinforcement_nos 	Array of surface reinforcements numbers
+ */
+Surface.prototype.SetConcreteDesignSurfaceReinforcement = function (surface_reinforcement_nos) {
+	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design must be active");
+	ASSERT(this.surface.design_properties_via_surface, "Design properties must be on");
+	ASSERT(typeof surface_reinforcement_nos !== "undefined", "Surface reinforcement must be specified");
+	ASSERT(Array.isArray(surface_reinforcement_nos), "Surface reinforcements must be an array of numbers");
+	var reinforcements_list = surface_reinforcement_nos;
+	surface_reinforcement_nos = [];
+	for (var i = 0; i < reinforcements_list.length; ++i) {
+		if (surface_reinforcements.exist(reinforcements_list[i])) {
+			surface_reinforcement_nos.push(reinforcements_list[i]);
+		}
+		else {
+			console.log("Surface reinforcement no. " + reinforcements_list[i] + " doesn't exist");
+		}
+	}
+	this.surface.surface_reinforcements = surface_reinforcement_nos;
+};
+
+/**
+ * Sets Deflection analysis
+ * @param {String} deflection_check_surface_type 						Surface type (DOUBLE_SUPPORTED, CANTILEVER), can be undefined (is not set, DOUBLE_SUPPORTED as default)
+ * @param {String} deflection_check_displacement_reference 				Displacement reference (DEFORMED_USER_DEFINED_REFERENCE_PLANE, PARALLEL_SURFACE, UNDEFORMED_SYSTEM), can be undefined (is not set, UNDEFORMED_SYSTEM as default)
+ * @param {String} deflection_check_reference_length_z_definition_type 	Definition type (MANUALLY, BY_MAXIMUM_BOUNDARY_LINE, BY_MINIMUM_BOUNDARY_LINE), can be undefined (is not set, BY_MAXIMUM_BOUNDARY_LINE as default)
+ * @param {Number} deflection_check_reference_length_z					Reference length, can be undefined
+ */
+Surface.prototype.SetDeflectionAnalysis = function (deflection_check_surface_type,
+	deflection_check_displacement_reference,
+	deflection_check_reference_length_z_definition_type,
+	deflection_check_reference_length_z) {
+	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design must be active");
+	ASSERT(this.surface.design_properties_via_surface, "Design properties must be on");
+	this.surface.deflection_check_surface_type = EnumValueFromJSHLFTypeName(
+		deflection_check_surface_type,
+		"surface type",
+		{
+			"DOUBLE_SUPPORTED": surfaces.DEFLECTION_CHECK_SURFACE_TYPE_DOUBLE_SUPPORTED,
+			"CANTILEVER": surfaces.DEFLECTION_CHECK_SURFACE_TYPE_CANTILEVER
+		},
+		surfaces.DEFLECTION_CHECK_SURFACE_TYPE_DOUBLE_SUPPORTED);
+	this.surface.deflection_check_displacement_reference = EnumValueFromJSHLFTypeName(
+		deflection_check_displacement_reference,
+		"displacement reference",
+		{
+			"DEFORMED_USER_DEFINED_REFERENCE_PLANE": surfaces.DEFLECTION_CHECK_DISPLACEMENT_REFERENCE_DEFORMED_USER_DEFINED_REFERENCE_PLANE,
+			"PARALLEL_SURFACE": surfaces.DEFLECTION_CHECK_DISPLACEMENT_REFERENCE_PARALLEL_SURFACE,
+			"UNDEFORMED_SYSTEM": surfaces.DEFLECTION_CHECK_DISPLACEMENT_REFERENCE_UNDEFORMED_SYSTEM
+		},
+		surfaces.DEFLECTION_CHECK_DISPLACEMENT_REFERENCE_UNDEFORMED_SYSTEM);
+	this.surface.deflection_check_reference_length_z_definition_type = EnumValueFromJSHLFTypeName(
+		deflection_check_reference_length_z_definition_type,
+		"reference length z definition type",
+		{
+			"MANUALLY": surfaces.DEFLECTION_CHECK_REFERENCE_LENGTH_DEFINITION_TYPE_MANUALLY,
+			"BY_MAXIMUM_BOUNDARY_LINE": surfaces.DEFLECTION_CHECK_REFERENCE_LENGTH_DEFINITION_TYPE_BY_MAXIMUM_BOUNDARY_LINE,
+			"BY_MINIMUM_BOUNDARY_LINE": surfaces.DEFLECTION_CHECK_REFERENCE_LENGTH_DEFINITION_TYPE_BY_MINIMUM_BOUNDARY_LINE
+		},
+		surfaces.DEFLECTION_CHECK_REFERENCE_LENGTH_DEFINITION_TYPE_BY_MAXIMUM_BOUNDARY_LINE);
+	if (typeof deflection_check_reference_length_z !== "undefined") {
+		ASSERT(this.surface.deflection_check_reference_length_z_definition_type === surfaces.DEFLECTION_CHECK_REFERENCE_LENGTH_DEFINITION_TYPE_MANUALLY, "Definition must be of MANUALLY type");
+		this.surface.deflection_check_reference_length_z = deflection_check_reference_length_z;
+	}
+};
+
+Surface.prototype.SetUserDefinedReferencePlane = function (reference_plane) {
+	ASSERT(CONCRETE_DESIGN.isActive(), "Concrete design must be active");
+	ASSERT(this.surface.deflection_check_displacement_reference === surfaces.DEFLECTION_CHECK_DISPLACEMENT_REFERENCE_DEFORMED_USER_DEFINED_REFERENCE_PLANE, "Displacement reference must be of DEFORMED_USER_DEFINED_REFERENCE_PLANE type");
+	ASSERT(typeof reference_plane !== "undefined", "reference_plane must be specified");
+	ASSERT(Array.isArray(reference_plane), "reference_plane must be an array");
+	ASSERT(reference_plane.length === 9, "reference_plane must be an array: [AX, AY, AZ, BX, BY, BZ, CX, CY, CZ]");
+	this.surface.deflection_check_reference_plane_point_1 = $V(reference_plane.slice(0, 3));
+	this.surface.deflection_check_reference_plane_point_2 = $V(reference_plane.slice(3, 6));
+	this.surface.deflection_check_reference_plane_point_3 = $V(reference_plane.slice(6, 9));
+};
+
+/**
 * Creates surface (private)
 * @param	{Number}	no				Index of surface, can be undefined
 * @param	{Array}		boundary_lines	List of boundary lines indexes
@@ -642,91 +897,33 @@ var createSurfaceWithType = function (no,
 	return surface;
 };
 
-function GetSurfaceLoadTransferDirection(load_transfer_direction) {
-	const load_transfer_directions_dict = {
-		"DIRECTION_IN_X": surfaces.LOAD_TRANSFER_DIRECTION_IN_X,
-		"DIRECTION_IN_Y": surfaces.LOAD_TRANSFER_DIRECTION_IN_Y,
-		"DIRECTION_IN_BOTH": surfaces.LOAD_TRANSFER_DIRECTION_IN_BOTH
-	};
-
-	if (load_transfer_direction !== undefined) {
-		var loadTransferDirection = load_transfer_directions_dict[load_transfer_direction];
-		if (loadTransferDirection === undefined) {
-			console.log("Wrong load transfer direction. Value was: " + load_transfer_direction);
-			console.log("Correct values are: ( " + Object.keys(load_transfer_directions_dict) + ")");
-			loadTransferDirection = surfaces.LOAD_TRANSFER_DIRECTION_IN_X;
-		}
-		return loadTransferDirection;
-	}
-	else {
-		return surfaces.LOAD_TRANSFER_DIRECTION_IN_X;
-	}
-}
-
-function GetSurfaceTransferLoadDistribution(load_distribution) {
-	const load_distributions_dict = {
-		"Uniform": surfaces.LOAD_DISTRIBUTION_UNIFORM,
-		"Varying": surfaces.LOAD_DISTRIBUTION_VARYING
-	};
-
-	if (load_distribution !== undefined) {
-		var loadDistribution = load_distributions_dict[load_distribution];
-		if (loadDistribution === undefined) {
-			console.log("Wrong load distribution. Value was: " + load_distribution);
-			console.log("Correct values are: ( " + Object.keys(load_distributions_dict) + ")");
-			loadDistribution = surfaces.LOAD_DISTRIBUTION_VARYING;
-		}
-		return loadDistribution;
-	}
-	else {
-		return surfaces.LOAD_DISTRIBUTION_VARYING;
-	}
-}
-
   function GetSurfaceInputAxesAxis(axis_type) {
-	const axis_types_dict = {
-	  "AXIS_X": surfaces.AXIS_X,
-	  "AXIS_Y": surfaces.AXIS_Y
-	};
-
-	if (axis_type !== undefined) {
-	  var axisType = axis_types_dict[axis_type];
-	  if (axisType === undefined) {
-		console.log("Wrong input axes axis type. Value was: " + axis_type);
-		console.log("Correct values are: ( " + Object.keys(axis_types_dict) + ")");
-		loadDistribution = surfaces.AXIS_X;
-	  }
-	  return axisType;
-	}
-	else {
-	  return surfaces.AXIS_X;
-	}
+	return EnumValueFromJSHLFTypeName(
+		axis_type,
+		"axis type",
+		{
+			"AXIS_X": surfaces.AXIS_X,
+	  		"AXIS_Y": surfaces.AXIS_Y
+		},
+		surfaces.AXIS_X);
   }
 
   function GetSurfaceStiffnessType(stiffness_type) {
-	const stiffness_types_dict = {
-		"STANDARD": surfaces.TYPE_STANDARD,
-		"WITHOUT_THICKNESS": surfaces.TYPE_WITHOUT_THICKNESS,
-		"RIGID": surfaces.TYPE_RIGID,
-		"MEMBRANE": surfaces.TYPE_MEMBRANE,
-		"WITHOUT_MEMBRANE_TENSION": surfaces.TYPE_WITHOUT_MEMBRANE_TENSION,
-		"LOAD_TRANSFER": surfaces.TYPE_LOAD_TRANSFER,
-		"GROUNDWATER": surfaces.TYPE_GROUNDWATER,
-		"FLOOR": surfaces.TYPE_FLOOR,
-		"FLOOR_DIAPHRAGM": surfaces.TYPE_FLOOR_DIAPHRAGM,
-		"FLOOR_SEMIRIGID": surfaces.TYPE_FLOOR_SEMIRIGID
-	};
-
-	if (stiffness_type !== undefined) {
-	  var type = stiffness_types_dict[stiffness_type];
-	  if (type === undefined) {
-		console.log("Wrong stiffness type. Value was: " + stiffness_type);
-		console.log("Correct values are: ( " + Object.keys(stiffness_types_dict) + ")");
-		type = surfaces.TYPE_STANDARD;
-	  }
-	  return type;
-	}
-	else {
-	  return surfaces.TYPE_STANDARD;
-	}
+	return EnumValueFromJSHLFTypeName (
+		stiffness_type,
+		"stiffness type",
+		{
+			"STANDARD": surfaces.TYPE_STANDARD,
+			"WITHOUT_THICKNESS": surfaces.TYPE_WITHOUT_THICKNESS,
+			"RIGID": surfaces.TYPE_RIGID,
+			"MEMBRANE": surfaces.TYPE_MEMBRANE,
+			"WITHOUT_MEMBRANE_TENSION": surfaces.TYPE_WITHOUT_MEMBRANE_TENSION,
+			"LOAD_TRANSFER": surfaces.TYPE_LOAD_TRANSFER,
+			"GROUNDWATER": surfaces.TYPE_GROUNDWATER,
+			"FLOOR": surfaces.TYPE_FLOOR,
+			"FLOOR_DIAPHRAGM": surfaces.TYPE_FLOOR_DIAPHRAGM,
+			"FLOOR_SEMIRIGID": surfaces.TYPE_FLOOR_SEMIRIGID
+		},
+		surfaces.TYPE_STANDARD);
   }
+

@@ -152,10 +152,24 @@ include("AddOns/SteelDesign/UltimateConfigurationNBR.js");
 include("AddOns/SteelDesign/UltimateConfigurationSIA.js");
 include("AddOns/SteelDesign/ServiceabilityConfiguration.js");
 include("AddOns/SteelDesign/FireResistanceConfiguration.js");
+include("AddOns/ConcreteDesign/ConcreteDesignSupport.js");
+include("AddOns/ConcreteDesign/StrengthConfigurationACI.js");
+include("AddOns/ConcreteDesign/UltimateConfigurationCSA.js");
+include("AddOns/ConcreteDesign/UltimateConfigurationEN.js");
+include("AddOns/ConcreteDesign/UltimateConfigurationSP.js");
+include("AddOns/ConcreteDesign/ServiceabilityConfigurationACI.js");
+include("AddOns/ConcreteDesign/ServiceabilityConfigurationCSA.js");
+include("AddOns/ConcreteDesign/ServiceabilityConfigurationEN.js");
+include("AddOns/ConcreteDesign/ServiceabilityConfigurationSP.js");
 // Addons - Types for
 include("AddOns/TypesForSteelDesign/BoundaryCondition.js");
 include("AddOns/TypesForSteelDesign/EffectiveLength.js");
 include("AddOns/TypesForSteelDesign/MemberLocalSectionReduction.js");
+include("AddOns/TypesForConcreteDesign/EffectiveLength.js");
+include("AddOns/TypesForConcreteDesign/ConcreteDurability.js");
+include("AddOns/TypesForConcreteDesign/ReinforcementDirection.js");
+include("AddOns/TypesForConcreteDesign/SurfaceReinforcement.js");
+include("AddOns/TypesForConcreteDesign/PunchingReinforcement.js");
 // Guide objects
 include("GuideObjects/CoordinateSystem.js");
 // Dimensions
