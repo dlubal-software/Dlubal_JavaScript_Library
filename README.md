@@ -24,7 +24,6 @@ You can download [actual release]() of our JavaScript library and the use it for
 * Open Visual Studio Code and install following extensions
     * [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) - useful extension for spell checking
     * [GitHub Pull Requests and Issues](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github) - extension for easy access to the GitHub pull request
-    * [GitHub Issues](https://marketplace.visualstudio.com/items?itemName=ms-vscode.github-issues-prs) - extension for easy access to the GitHub issues
     * [Git Lens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens) - extension for better work with Source management
     * [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - Linter for JavaScript
 * Download [Git](https://git-scm.com/downloads) and install it (needed for better functionality of Git Lens)
